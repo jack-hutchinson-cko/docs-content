@@ -1,0 +1,396 @@
+---
+title: Hosted Payments Page
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Chrisi Webster](    /display/~chrisiwebster
+    ) [about 5 hours ago](/pages/diffpagesbyversion.action?pageId=8487862&selectedPageVersions=54&selectedPageVersions=55 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Accept card payments with a Hosted Payments Page—a fast and easy way to collect your customer’s payment information, process the payment request and handle authentication. We've created a table that lists [supported](/display/DOCS/Product+support) [paymen](/display/DOCS/Product+support)[t](/display/DOCS/Product+support) [me](/display/DOCS/Product+support)[thods](/display/DOCS/Product+support), languages and other features.
+
+Hosted Payments Page now accepts [three more languages](/display/DOCS/Product+support) – French, Italian and Dutch.
+
+### How it works
+
+When your customer is ready to check out:
+
+1.  Create a Hosted Payments Page session and pass through all the payment information, like the amount, currency, country and reference.
+2.  We'll use this information to render the Hosted Payments Page to which you will redirect your customer to make their payment.
+3.  Once your customer fills in the required payment details, we will process the payment and handle the authentication flow.
+4.  And after the payment has been successfully processed, you will be notified by a [webhook](/display/DOCS/Webhooks).
+
+![](/download/attachments/8487862/Hosted%20Payments%20page.png?version=8&modificationDate=1619776722615&api=v2)  
+
+Try it out
+----------
+
+Preview a Hosted Payments Page using one of our [test cards](/display/DOCS/Test+card+numbers) with any future expiry date, or use the details below for a basic payment flow:
+
+*   **Card number**: 4242 4242 4242 4242
+*   **Expiry date**: Any future date
+*   **CVV**: 100
+
+Get started
+-----------
+
+### Step 1: Register to use Hosted Payments Pages
+
+To get started with our Hosted Payments Page, contact your Solutions Engineer or [integration@checkout.com](mailto:integration@checkout.com).
+
+If you haven't already, [create a free test account now](https://checkout.com/get-test-account). This will give you access to the [Hub](https://hub.checkout.com/), where you'll find your `secret_key` and `public_key`, which you'll need to make requests to our API.
+
+### Step 2: Create a Hosted Payments Page session
+
+To create a Hosted Payments Page on which your customers can make their payment, use the endpoint below.
+
+### The request
+
+**Endpoints**
+
+*   [**Live**](#tabs-c756dfe4-9cc9-473f-8b44-335b0fa1cfe3-1)
+*   [**Sandbox**](#tabs-c756dfe4-9cc9-473f-8b44-335b0fa1cfe3-2)
+
+POST`https://api.checkout.com/hosted-payments`
+
+POST`https://api.sandbox.checkout.com/hosted-payments`
+
+**Header parameters**
+
+  
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### **Body parameters**
+
+The table below describes the minimum recommended fields. For the full specification, see our [API reference](https://api-reference.checkout.com/#tag/Hosted-Payments-Page).
+
+  
+
+Testing
+
+http://localhost/ can only be used for the URL fields during testing and will not work in production.
+
+  
+
+Field name
+
+Description
+
+`amount`
+
+INTEGER
+
+OPTIONAL
+
+The payment amount.
+
+Must be greater than `1`.
+
+`currency`
+
+STRING
+
+REQUIRED
+
+The payment currency.
+
+`reference`
+
+STRING
+
+OPTIONAL
+
+An optional reference you can use to later identify the payment.
+
+`billing`
+
+OBJECT
+
+REQUIRED
+
+The billing details.
+
+`billing.address`
+
+OBJECT
+
+REQUIRED
+
+The customer's billing address.
+
+`billing.address.address_line1`
+
+STRING
+
+OPTIONAL
+
+The first line of the address.
+
+`billing.address.address_line2`
+
+STRING
+
+OPTIONAL
+
+The second line of the address.
+
+`billing.address.city`
+
+STRING
+
+OPTIONAL
+
+The address city.
+
+`billing.address.state`
+
+STRING
+
+OPTIONAL
+
+The address state.
+
+`billing.address.zip`
+
+STRING
+
+OPTIONAL
+
+The address zip/postal code.
+
+`billing.address.country`
+
+STRING
+
+REQUIRED
+
+The address country (two-letter [ISO country code](/display/DOCS/Country+codes)).
+
+`success_url`
+
+STRING
+
+REQUIRED
+
+The URL to which the customer will be directed if the payment is successful.
+
+`failure_url`
+
+STRING
+
+REQUIRED
+
+The URL to which the customer will be directed if the payment fails.
+
+`cancel_url`
+
+STRING
+
+REQUIRED
+
+The URL the customer will be directed to if they choose to cancel the payment.
+
+ Parameters for supported payment methods
+
+Payment method
+
+`billing.address.country`
+
+`currency`
+
+`reference`
+
+KNET
+
+`KW` - Kuwait
+
+`KWD`
+
+OPTIONAL
+
+Mada
+
+`SA` - Saudi Arabia
+
+`SAR`
+
+OPTIONAL
+
+PayPal
+
+Any supported
+
+Any supported
+
+REQUIRED
+
+Sofort
+
+`AT` - Austria
+
+`BE` - Belgium
+
+`DE` - Germany
+
+`IT` - Italy
+
+`NL` - Netherlands
+
+`ES` - Spain
+
+`EUR`
+
+OPTIONAL
+
+**Request examples**
+
+*   [**Card**](#tabs-83b66cd3-5740-40cf-bc25-181372f2d234-1)
+*   [**KNET**](#tabs-83b66cd3-5740-40cf-bc25-181372f2d234-2)
+*   [**Mada**](#tabs-83b66cd3-5740-40cf-bc25-181372f2d234-3)
+*   [**Sofort**](#tabs-83b66cd3-5740-40cf-bc25-181372f2d234-4)
+
+    {
+      "amount": 1000,
+      "currency": "GBP",
+      "reference": "ORD-123A",
+      "billing": {
+        "address": {
+          "country": "GB"
+        }
+      },
+      "customer": {
+        "name": "Jack Napier",
+        "email": "jokershere@gmail.com"
+      },
+      "success_url": "https://example.com/payments/success",
+      "failure_url": "https://example.com/payments/failure",
+      "cancel_url": "https://example.com/payments/checkout"
+    }
+
+    {
+      "amount": 1000,
+      "currency": "KWD",
+      "reference": "ORD-123A",
+      "billing": {
+        "address": {
+          "country": "KW"
+        }
+      },
+      "customer": {
+        "name": "Jack Napier",
+        "email": "jokershere@gmail.com"
+      },
+      "success_url": "https://example.com/payments/success",
+      "failure_url": "https://example.com/payments/failure",
+      "cancel_url": "https://example.com/payments/checkout"
+    }
+
+    {
+      "amount": 1000,
+      "currency": "SAR",
+      "reference": "ORD-123A",
+      "billing": {
+        "address": {
+          "country": "SA"
+        }
+      },
+      "customer": {
+        "name": "Jack Napier",
+        "email": "jokershere@gmail.com"
+      },
+      "success_url": "https://example.com/payments/success",
+      "failure_url": "https://example.com/payments/failure",
+      "cancel_url": "https://example.com/payments/checkout"
+    }
+
+    {
+      "amount": 1000,
+      "currency": "EUR",
+      "reference": "ORD-123A",
+      "billing": {
+        "address": {
+          "country": "BE"
+        }
+      },
+      "customer": {
+        "name": "Jack Napier",
+        "email": "jokershere@gmail.com"
+      },
+      "success_url": "https://example.com/payments/success",
+      "failure_url": "https://example.com/payments/failure",
+      "cancel_url": "https://example.com/payments/checkout"
+    }
+
+### The response
+
+The response will include the `redirect` link to which you should redirect your customer to finalize the payment.
+
+**Response example**
+
+    {
+      "reference": "ORD-123A",
+      "_links": {
+        "redirect": {
+          "href": "https://pay.sandbox.checkout.com/page/xGQBg0AXl3cM"
+        }
+      } 
+    }
+
+Step 3: Redirect your customer
+------------------------------
+
+Redirect the customer to the `_links.redirect` URL you received in the response above, using either a server-side or client-side call.
+
+*   [**Server-side redirect**](#tabs-0b6ca780-f0b6-484d-8ef4-1916940ae413-1)
+*   [**Client-side redirect**](#tabs-0b6ca780-f0b6-484d-8ef4-1916940ae413-2)
+
+    res.redirect(hostedPaymentsResponse._links.redirect.href);
+
+    window.location.href(hostedPaymentsResponse._links.redirect.href);
+
+### Step 4: Confirm the payment status
+
+When your customer completes the payment, they will be redirected to the `success_url`. The `session ID` or `payment ID` is provided in the query parameter included in the redirect URL. It should look something either of the links below: 
+
+*   http://example.com/success?cko-session-id=sid\_ubfj2q76miwundwlk72vxt2i7
+*   http://example.com/success?cko-payment-id=pay\_mbabizu24mvu3mela5njyhpit4
+
+You can set up [webhooks](/display/DOCS/Webhooks) to be notified when the payment has been approved to continue the sales fulfilment flow.
+
+Next steps
+----------
+
+*   Learn how to [refund](/display/DOCS/Refund+a+payment) a payment, [and more](/display/DOCS/Manage+payments).
+*   [Set up webhooks](/display/DOCS/Webhooks) to be notified about the status of payments.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Hosted+Payments+Page?showComments=true&showCommentArea=true#addcomment)

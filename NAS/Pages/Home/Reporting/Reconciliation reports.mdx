@@ -1,0 +1,65 @@
+---
+title: Reconciliation reports
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 22, 2021](/pages/diffpagesbyversion.action?pageId=8488097&selectedPageVersions=3&selectedPageVersions=4 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+We provide the following reports so you can reconcile between payments/payouts and fees, payouts settled to you and your bank statement, and manage your balances. Click on each one to find out more.
+
+*   **[Financial actions reports](/display/x/Financial+actions+reports)**: provide an accurate representation of all actions during a payment's or payout's life-cycle that impact your currency account's available balance with us. Together with the payouts reports, you will be able to reconcile payments and any associated fees against payouts paid out to you.
+
+*   **[Balance reports](/display/x/Balance+reports)**: provide you with a view of monetary inflows and outflows across your currency accounts as well as the opening and closing available balances over a specified period of time. This allows you to determine any necessary actions required to be undertaken to your currency account. For example, the transfer of funds between your currency accounts or balance top-ups.
+
+*   **[Payouts reports](/display/x/Payouts+reports)**: provide an overview of payouts paid to you from us, with the associated breakdown of fees applied over a specific period of time. This allows you to reconcile payouts with amounts paid our to your bank account and shown on bank statements.
+
+Setting up access to your reconciliation reports
+------------------------------------------------
+
+**Financial actions**, **balance** and **payouts reports** are provided in .csv format via Secure File Transfer Protocol (SFTP).
+
+To set up access to your financial actions, balance, and payouts reports via SFTP, contact your customer success manager.
+
+We will set it up for you, providing you with an SFTP server, port, username and private key to access your reports.
+
+Downloading reports
+-------------------
+
+Reports will be uploaded in the following folder structure:
+
+![](/download/attachments/8488097/sftp_delivery_folder_structure_v3.png?version=1&modificationDate=1610107354078&api=v2)
+
+Large .csv reports with more than 1,000,000 rows are split into multiple reports of 1,000,000 so they're easier deal with. Split files include a suffix `_#`. For example, if a financial actions report by date range has 2,400,000 rows, the following files would be created:
+
+*   `financial-actions_{Entity ID}_{Start Date:YYYYMMDD}_{End Date:YYYYMMDD}_1.csv`
+
+*   `financial-actions_{Entity ID}_{Start Date:YYYYMMDD}_{End Date:YYYYMMDD}_2.csv`
+
+*   `financial-actions_{Entity ID}_{Start Date:YYYYMMDD}_{End Date:YYYYMMDD}_3.csv`
+
+Using your reports
+------------------
+
+Follow the links below to find out more information on the contents of your reports and how to use them for your reconciliations:
+
+*   [Financial actions reports](/display/x/Financial+actions+reports)
+
+*   [Balance reports](/display/x/Balance+reports)
+
+*   [Payouts reports](/display/x/Payouts+reports)
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Reconciliation+reports?showComments=true&showCommentArea=true#addcomment)

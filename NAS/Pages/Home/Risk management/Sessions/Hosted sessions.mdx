@@ -1,0 +1,592 @@
+---
+title: Hosted sessions
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 14, 2021](/pages/diffpagesbyversion.action?pageId=8488671&selectedPageVersions=14&selectedPageVersions=15 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Hosted sessions are the simplest solution for authenticating transactions with 3D Secure.
+
+Start a session and then redirect the customer using the link in the response. We'll gather the necessary payment, device and cardholder data and take care of the rest.
+
+Hosted sessions are suitable for authentications initiated from **browsers only**.
+
+  
+
+*   [Request a session](#Hostedsessions-requestsession)
+*   [Redirect the customer](#Hostedsessions-redirectcustomer)
+
+Step 1: Request a session 
+--------------------------
+
+### The request
+
+To begin, make a session request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-0bb07091-7602-4a6c-b43a-fbe5f5d3d930-1)
+*   [**Sandbox**](#tabs-0bb07091-7602-4a6c-b43a-fbe5f5d3d930-2)
+
+POST`https://api.checkout.com/sessions`
+
+POST`https://api.sandbox.checkout.com/sessions`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`Bearer access_token  
+`
+
+Use the access token from access key authentication.
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+The table below shows an example of a payment with a card, and only describes the minimum recommended fields.
+
+Additional parameters
+
+To increase the likelihood of frictionless authentication, [add additional data fields](#Hostedsessions-additionalauthenticationdata) when requesting a session.
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source (`card` or `network_token`).
+
+`source.card`
+
+REQUIRED
+
+STRING
+
+The card number (without separators).
+
+`source.expiry_month`
+
+REQUIRED
+
+INTEGER
+
+The expiry month of the card.
+
+`source.expiry_year`
+
+REQUIRED
+
+INTEGER
+
+The expiry year of the card
+
+`[source.name](http://source.name)`
+
+OPTIONAL
+
+STRING
+
+The name of the cardholder.
+
+`source.billing_address`
+
+OPTIONAL
+
+OBJECT
+
+The billing address of the cardholder.
+
+`source.phone`
+
+CONDITIONAL
+
+OBJECT
+
+The phone number of the cardholder.
+
+Required in some countries.
+
+`amount`
+
+OPTIONAL
+
+INTEGER
+
+The payment amount in your chosen currency. Omit the amount or provide a value of `0` to perform a card verification.
+
+The format depends on the currency. For more information, see [calculating the amount](/display/x/Calculating+the+amount).
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The three-letter ISO currency code.
+
+`authentication_type`
+
+OPTIONAL
+
+STRING
+
+Indicates the type of payment this session is for.
+
+Default: `regular`.
+
+`authentication_category`
+
+OPTIONAL
+
+STRING
+
+Indicates the category of the authentication request.
+
+Default: `payment`.
+
+`challenge_indicator`
+
+OPTIONAL
+
+STRING
+
+Indicates whether a challenge is requested for this session. Possible values: `no_preference`, `no_challenge_requested`, `challenge_requested`, `challenge_requested_mandate`.
+
+Default: `no_preference`.
+
+`reference`
+
+OPTIONAL
+
+STRING
+
+A reference you can later use to identify this payment, such as an order number.
+
+`transaction_type`
+
+OPTIONAL
+
+STRING
+
+Identifies the type of transaction being authenticated.
+
+Default: `goods_service`.
+
+`completion`
+
+REQUIRED
+
+OBJECT
+
+The redirect information needed for callbacks or redirects after the payment is completed.
+
+`completion.type`
+
+REQUIRED
+
+STRING
+
+Whether or not the session should be hosted by Checkout.com. Set this to `hosted`. When the value is `hosted`, the response will include a redirect link.
+
+`completion.success_url`
+
+REQUIRED
+
+STRING
+
+For `hosted` sessions, this overrides the default success redirect URL configured on your account.
+
+`completion.failure_url`
+
+REQUIRED
+
+STRING
+
+For `hosted` sessions, this overrides the default failure URL configured on your account.
+
+#### Request example
+
+    {
+      "source": {
+        "type": "card",
+        "number": "4485040371536584",
+        "expiry_month": 1,
+        "expiry_year": 2030
+      },
+      "amount": 100,
+      "currency": "USD",
+      "authentication_type": "regular",
+      "authentication_category": "payment",
+      "challenge_indicator": "no_preference",
+      "reference": "ORD-5023-4E89",
+      "transaction_type": "goods_service",
+      "shipping_address": {
+        "address_line1": "Checkout.com",
+        "address_line2": "90 Tottenham Court Road",
+        "city": "London",
+        "state": "London",
+        "zip": "W1T 4TJ",
+        "country": "GB"
+      },
+      "completion": {
+        "type": "hosted",
+        "success_url": "http://example.com/sessions/success",
+        "failure_url": "http://example.com/sessions/fail"
+      }
+    }
+
+### The response
+
+You should receive a `202 - Accepted` response with a `_links.redirect` link.
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`id`
+
+STRING
+
+The unique session identifier.
+
+`transaction_id`
+
+STRING
+
+The transaction identifier. This needs to be provided when communicating directly with the issuing bank's access control server (ACS).
+
+`amount`
+
+INTEGER
+
+The payment amount.
+
+`currency`
+
+STRING
+
+The three-letter ISO currency code.
+
+`authentication_type`
+
+STRING
+
+Indicates the type of payment this session is for.
+
+`authentication_category`
+
+STRING
+
+Indicates the category of the authentication request.
+
+`status`
+
+STRING
+
+The status of the session. Should be `pending`.
+
+[See below for all possible statuses and their meanings](#Hostedsessions-statuses).  
+
+`next_actions`
+
+ARRAY
+
+Specifies what action to take to complete the session. For example: `redirect_cardholder`.
+
+[See below for all possible actions and their meanings](#Hostedsessions-actions).
+
+`protocol_version`
+
+STRING
+
+The 3DS version used for authentication.
+
+`reference`
+
+STRING
+
+A reference you can later use to identify this payment, such as an order number.
+
+`_links`
+
+OBJECT
+
+The links related to the session.
+
+`_links.redirect`
+
+OBJECT
+
+The link where the cardholder should be redirected to after authentication.
+
+`_links.self`
+
+OBJECT
+
+The URL of the session.
+
+#### Response example
+
+    {
+      "id": "sid_y3oqhf46pyzuxjbcn2giaqnb441",
+      "transaction_id": "9aea641d-0549-4222-9ca9-d90b43a4f38c",
+      "amount": 120,
+      "currency": "USD",
+      "authentication_type": "regular",
+      "authentication_category": "payment",
+      "status": "pending",
+      "next_actions": [
+        "redirect_cardholder"
+      ],
+      "protocol_version": "2.2.0",
+      "reference": "ORD-5023-4E89",
+      "_links": {
+        "redirect": {
+          "href": "http://3ds2.checkout.com/interceptor/sid_y3oqhf46pyzuxjbcn2giaqnb44"
+        },
+        "self": {
+          "href": "https://api.checkout.com/sessions/sid_y3oqhf46pyzuxjbcn2giaqnb441"
+        }
+      }
+    }
+
+Step 2: Redirect the customer 
+------------------------------
+
+Redirect the customer using the `_links.redirect` URL you received in the response.
+
+In the background, our Sessions API will then gather the device data, perform a challenge (if required), and authenticate the payment. After authentication is completed, your customer will be redirected to your `success_url` or `failure_url`. You can now continue to authorize the payment via our Payments API.
+
+If the authentication is approved or attempted, the customer will be redirected to your success URL. All other authentication results will redirect the customer to your failure URL.
+
+### Session properties
+
+#### Session statuses 
+
+Below are the possible values of the `status` field, which tell you the current status of the session.
+
+Status
+
+Description
+
+Status
+
+Description
+
+`pending`
+
+Authentication has been requested and the session has been started. The session `id` is passed back to your server and can be shared with the mobile app (iOS or Android) SDK.
+
+`processing`
+
+The 3DS server has updated the authentication with channel data collected by the SDKs and has created and sent an authentication request to the directory server. The access control server is now evaluating the data to decide whether to authenticate the transaction (frictionless) or challenge it.
+
+`approved`
+
+The payment has been successfully authenticated (frictionless or challenged).
+
+`attempted`
+
+The payment has not been successfully authenticated, because the access control server could not be reached, but proof of the attempted authentication is provided (frictionless).
+
+`unavailable`
+
+Authentication failed because of technical problems with the directory server or the issuer's access control server.
+
+`declined`
+
+The transaction was not authenticated. The issuer denied the transaction.
+
+`rejected`
+
+The transaction was rejected. The issuer is rejecting the authentication and requests that authorisation not be attempted.
+
+`challenged`
+
+Authentication has been requested but the issuer requires that the cardholder be presented with a challenge.
+
+`challenge_abandoned`
+
+Authentication has been started and challenged, but the cardholder did not complete the challenge.
+
+`expired`
+
+Authentication has been started but the channel data could not be collected, meaning an authentication request was not created.
+
+### Next actions 
+
+Below are the possible values for the `next_actions` field. When present, they identify what action to take in order to complete the session.
+
+Session type
+
+Action
+
+Description
+
+Channel
+
+Session type
+
+Action
+
+Description
+
+Channel
+
+Hosted
+
+`redirect_cardholder`
+
+Redirect the customer so we can handle all the other necessary actions (collect channel data, issuer fingerprint, and challenge) for you.
+
+Browser only
+
+Hosted and non-hosted
+
+`complete`
+
+No further actions are required. You can complete the session.
+
+Browser and app
+
+Additional authentication data 
+-------------------------------
+
+When requesting a session, you can add additional data fields to increase the chances of a frictionless authentication. Below is a summary of the optional data you can add to your request.
+
+Type of data
+
+Description and examples
+
+Type of data
+
+Description and examples
+
+Client user data
+
+Data that supports the specific authentication and information about the authentication method used.
+
+For example, your own credentials, and the issuer's credentials.
+
+Prior transaction information
+
+For returning users and recurring transactions, gather and submit data with each following transaction.
+
+For example, when the recurring payment plan expires, payment references, and the authentication method used.
+
+Account type
+
+The account type used in your request. Issuer's attach different risk profiles to different accounts.
+
+For example, credit or debit.
+
+Address match
+
+Indicates whether the cardholder's shipping and billing address are the same.
+
+Cardholder account / user information
+
+Information about the cardholder and their account on your platform.
+
+For example, how long they've had an account with you, and the number of purchases they've made in the last six months.
+
+User purchase history
+
+Details of the cardholder's purchase history.
+
+For example, the number of purchases in the last six months, and the number of card attempts in the last 24 hours.
+
+Shipping address usage
+
+Information about the use of the shipping address.
+
+For example, when the shipping address was first used, and whether the address name matches the cardholder's name.
+
+Suspicious account activity
+
+Indicates whether you've experienced any suspicious activity on the cardholder's account.
+
+Cardholder information
+
+Additional information you want to provide about the cardholder and their account with you.
+
+Cardholder email address
+
+The email address associated with the cardholder's account.
+
+Cardholder shipping address
+
+The cardholder's full shipping address.
+
+Installment payment data
+
+For transactions that are being paid in installments, you can provide information about the maximum number of authorizations permitted within that payment plan.
+
+Pre-paid and gift card transactions
+
+Information about pre-paid or gift card transactions.
+
+For example, the gift card amount, and whether or not the cardholder is pre-ordering a product.
+
+Shipping method
+
+Indicate the shipping method being used for the order, or flag non-shippable items, like digital goods.
+
+For example, whether it's being shipped to a verified address on file, or being picked up by the cardholder from a local store.
+
+Delivery information
+
+Information about the delivery, like the delivery email address or delivery timeframe.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Hosted+sessions?showComments=true&showCommentArea=true#addcomment)

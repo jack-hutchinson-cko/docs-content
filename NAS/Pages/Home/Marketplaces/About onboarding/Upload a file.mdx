@@ -1,0 +1,212 @@
+---
+title: Upload a file
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Chrisi Webster](    /display/~chrisiwebster
+    ), last modified on [Jun 10, 2021](/pages/diffpagesbyversion.action?pageId=25526634&selectedPageVersions=12&selectedPageVersions=13 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Use our Files API to upload identity documentation required for full due diligence as part of our Marketplace solution.
+
+When you upload a file, the API returns an `id` that represents that file. You can use this `id` to attach identity documentation when [creating or updating your sub-entity](/pages/viewpage.action?pageId=20120369). 
+
+Types of identification and requirements
+----------------------------------------
+
+The API accepts the following types of documentation. Depending on the identification type, you may need to provide both the back and the front. Use the table below to find out more.
+
+Type
+
+Front required
+
+Back required
+
+Type
+
+Front required
+
+Back required
+
+Passport
+
+Y
+
+N
+
+Driving licence
+
+Y
+
+Y
+
+National identity card
+
+Y
+
+Y
+
+Citizen card
+
+Y
+
+Y
+
+Residence permit
+
+Y
+
+Y
+
+Electoral ID
+
+Y
+
+Y
+
+Upload a file
+-------------
+
+Your request must be multipart/form-data and the file must be in either JPEG/JPG or PNG format, and no larger than 4MB.
+
+Follow the steps to upload the document and receive an `id`. If the identification you are providing requires both the back and front, you will need to make **two requests** to the API.
+
+### Endpoints
+
+Sandbox is a testing area, so you can practise API calls. [Request a test account](https://www.checkout.com/get-test-account).
+
+Notice that the sub-domain – files.checkout.com – is slightly different to Checkout.com's other endpoints.
+
+  
+
+*   [**Live**](#tabs-f760bb4e-03e6-4722-ac44-490646828766-1)
+*   [**Sandbox**](#tabs-f760bb4e-03e6-4722-ac44-490646828766-2)
+
+POST`https://files.checkout.com`
+
+POST`https://files.sandbox.checkout.com`
+
+### Request example
+
+Your request should include the **type** of document, the **file** **path** and the **purpose** of the document. When uploading an identification document, set this to `identification`. For a full list of possible fields, see our [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Marketplace/).
+
+Header
+
+Description
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`multipart/form-data`
+
+  
+
+    curl https://files.checkout.com \
+      -F "type=passport" \
+      -F "cw_passport.jpg" \
+      -F "purpose=identification"
+    
+
+### Response examples
+
+*   [**201 - Document accepted**](#tabs-a444099d-8426-4331-86ad-2359d6b26dab-1)
+*   [**422 - Invalid data was sent**](#tabs-a444099d-8426-4331-86ad-2359d6b26dab-2)
+
+If you received a file `id` in your response, the document was accepted. We will automatically make the association between this document and its representative. You can see this association by [retrieving the sub-entity](https://docs.checkout.com/four/marketplaces/about-onboarding/onboard-a-sub-entity-full#Onboardasub-entity(full)-Retrieveasub-entity).
+
+    {
+      "id": "file_6lbss42ezvoufcb2beo76rvwly",
+      "_links": {
+        "self": {
+          "href": "https://files.sandbox.checkout.com/files/file_6lbss42ezvoufcb2beo76rvwly"
+        }
+      }
+    }
+
+In the `error_codes` object, we will let you know what data was invalid.
+
+In the example response, we received `back_required` because the uploaded document was a passport, which requires a front **and** back.
+
+    {
+        "request_id": "0HM72UMS6HIO5:00000001",
+        "error_type": "invalid_request",
+        "error_codes": [
+            "back_required"
+        ]
+    }
+
+ Possible error codes
+
+Name
+
+Descriptions
+
+`<field_name>_invalid`
+
+For example, `purpose_invalid`.
+
+The specified field does not match the validation policies for minimum or maximum length, or formatting.
+
+The only two exceptions to this are `sub_entity_invalid` and `existing_sub_entity_type_invalid`, which have different causes. See the two rows directly above.
+
+`<field_name>_required`
+
+For example, `legal_name_required` or `representatives_0_first_name_required`.
+
+The specified field is mandatory but was not provided in the request. For example, the field is `null`, contains empty strings, or contains white spaces.
+
+`<side>_file_size_invalid`
+
+For example, `back_file_size_invalid`.
+
+Files must be less than 4Mb in size.
+
+`<side>_file_content_type_invalid`
+
+For example, `front_file_contents_invalid`.
+
+Files must be of type PNG or JPG/JPEG.
+
+`<side>_file_contents_type_invalid`
+
+For example, `back_file_contents_invalid`.
+
+The contents of the file are not valid. For example, the extension is PNG, but the contents aren't.
+
+`back_not_required`
+
+A back file is not required for the type of document in your request. This currently only applies to the type `passport`.
+
+Where to next?
+--------------
+
+### Update a sub-entity
+
+Use the file `id` returned by the Files API to attach identity documentation required for full due diligence.
+
+[Full account type](https://docs.checkout.com/four/marketplaces/about-onboarding/onboard-a-sub-entity-full)
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Upload+a+file?showComments=true&showCommentArea=true#addcomment)

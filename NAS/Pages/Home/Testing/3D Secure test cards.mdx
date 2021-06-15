@@ -1,0 +1,299 @@
+---
+title: 3D Secure test cards
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 22, 2021](/pages/diffpagesbyversion.action?pageId=8489530&selectedPageVersions=4&selectedPageVersions=5 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Use the test cards on this page to simulate different 3D Secure (3DS) authentication flows and results. You can use any valid CVV and any future expiry date (mm/yy).
+
+When testing 3DS authentication, you will receive a redirect URL to our 3DS simulator page. The password for the simulator is `Checkout1!`.
+
+![](/download/attachments/2785745/3ds-simulation.png?version=1&modificationDate=1586960737522&api=v2)
+
+3DS2 frictionless flow
+----------------------
+
+Result
+
+Card number
+
+Card type
+
+Authentication successful
+
+`4485040371536584`
+
+Visa
+
+`5588686116426417`
+
+Mastercard
+
+Not authenticated
+
+`4539628347117863`
+
+Visa
+
+`5309961755464047`
+
+Mastercard
+
+Authentication could not be performed
+
+`4024007186645015`
+
+Visa
+
+`5234106378657904`
+
+Mastercard
+
+Attempted authentication
+
+`4556574722325580`
+
+Visa
+
+`5558468902774508`
+
+Mastercard
+
+Authentication rejected
+
+`4275765574319271`
+
+Visa
+
+`5596061690670931`
+
+Mastercard
+
+Card not enrolled
+
+`4484070000035519`
+
+Visa
+
+`5352151570003404`
+
+Mastercard
+
+Issuer not enrolled
+
+`4820285375797526`
+
+Visa
+
+`5424583292508738`
+
+Mastercard
+
+Error message during scheme communication
+
+`4452927588210665`
+
+Visa
+
+`5291144083573579`
+
+Mastercard
+
+3DS2 challenge flow
+-------------------
+
+Result
+
+Card number
+
+Card type
+
+Authentication successful
+
+`4242424242424242`
+
+Visa
+
+`5385308360135181`
+
+Mastercard
+
+Authentication attempted
+
+`4152868552773614`
+
+Visa
+
+`5518832400606463`
+
+Mastercard
+
+Authentication rejected
+
+`4870527017700692`
+
+Visa
+
+`5484482393204262`
+
+Mastercard
+
+Not authenticated
+
+`4243754271700719`
+
+Visa
+
+`5258901507741160`
+
+Mastercard
+
+Authentication could not be performed
+
+`4447336775378848`
+
+Visa
+
+`5569757734785691`
+
+Mastercard
+
+Error message during scheme communication
+
+`4539929207120660`
+
+Visa
+
+`5572408422189334`
+
+Mastercard
+
+3DS1 flow
+---------
+
+Result
+
+Card number
+
+Card type
+
+Authentication successful
+
+Any
+
+\-
+
+Not authenticated
+
+`4929640381570541`
+
+Visa
+
+`5507979147594255`
+
+Mastercard
+
+Authentication attempted
+
+`4024007177756441`
+
+Visa
+
+`5407929162375891`
+
+Mastercard
+
+Authentication unavailable
+
+`4916734820332269`
+
+Visa
+
+`5227027824683493`
+
+Mastercard
+
+Card not eligible
+
+`4539628347117863`
+
+Visa
+
+`5324440216201760`
+
+Mastercard
+
+3DS2 to 3DS1 fallback
+---------------------
+
+To simulate a fallback from 3DS2 to 3DS1, set the `amount` to `123321` in your create session request.
+
+Result
+
+Card number
+
+Card type
+
+Authentication successful
+
+Any
+
+\-
+
+Not authenticated
+
+`4929640381570541`
+
+Visa
+
+`5507979147594255`
+
+Mastercard
+
+Authentication attempted
+
+`4024007177756441`
+
+Visa
+
+`5407929162375891`
+
+Mastercard
+
+Authentication unavailable
+
+`4916734820332269`
+
+Visa
+
+`5227027824683493`
+
+Mastercard
+
+Card not eligible
+
+`4539628347117863`
+
+Visa
+
+`5324440216201760`
+
+Mastercard
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/3D+Secure+test+cards?showComments=true&showCommentArea=true#addcomment)

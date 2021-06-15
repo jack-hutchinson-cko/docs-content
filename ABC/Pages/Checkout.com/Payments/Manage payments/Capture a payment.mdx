@@ -1,0 +1,177 @@
+---
+title: Capture a payment
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 22, 2021](/pages/diffpagesbyversion.action?pageId=2785611&selectedPageVersions=6&selectedPageVersions=7 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Our two-step authorization and capture process enables you to capture payments either automatically or manually.
+
+When a payment is authorized, the funds are held for seven days. By default, payments are automatically captured. If you wish to manually capture, set the capture field to `false` when [requesting a payment](/display/DOCS/Request+a+card+payment). You can capture an authorized payment either in full or partially. If you don't capture it within seven days, the payment is voided.
+
+You can [void](/display/DOCS/Void+a+payment) an authorized payment at any time. However, captured payments can only be [refunded](/display/DOCS/Refund+a+payment).
+
+Overview
+--------
+
+If a payment is created with `"capture": "false"`, you can either use this endpoint to capture the payment or capture it from the [Hub](https://hub.checkout.com/v2). Manual capture is not allowed if `capture` is set to `true`.
+
+Partial captures
+
+Any capture amount less than the original payment will be treated as a partial capture. You can only make one partial capture per payment.
+
+### The request
+
+Use the endpoint below to capture a payment.
+
+#### Endpoints
+
+*   [**Live**](#tabs-c40a7d63-8614-403e-b94c-112d411036a7-1)
+*   [**Sandbox**](#tabs-c40a7d63-8614-403e-b94c-112d411036a7-2)
+
+POST`https://api.checkout.com/payments/{id}/captures`
+
+POST`https://api.sandbox.checkout.com/payments/{id}/captures`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`id`
+
+REQUIRED
+
+The ID of the payment (prefixed with `pay_`). Returned in the API response when requesting a payment.
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`amount`
+
+OPTIONAL
+
+INTEGER
+
+The amount to capture. If not specified, the full payment amount will be captured.
+
+`reference`
+
+OPTIONAL
+
+STRING
+
+A reference you can later use to identify this capture request.
+
+`metadata`
+
+OPTIONAL
+
+OBJECT
+
+A set of key/value pairs that you can attach to the capture request. It can be useful for storing additional information in a structured format.
+
+#### Request examples
+
+*   [**Full capture**](#tabs-a8d0d25d-db19-4717-86ff-6dc06d2d1299-1)
+*   [**Partial capture**](#tabs-a8d0d25d-db19-4717-86ff-6dc06d2d1299-2)
+
+    {
+      "reference": "ORD-5023-4E88",
+      "metadata": {
+        "coupon_code": "NY2018",
+        "partner_id": 123989
+      }
+    }
+
+    {
+      "amount": 3500,
+      "reference": "ORD-5023-4E89",
+      "metadata": {
+        "coupon_code": "NY2018",
+        "partner_id": 123989
+      }
+    }
+
+The response
+------------
+
+If you receive a `202 Capture accepted` response, your capture request has been accepted for processing. To get the full capture response, you will need to subscribe to the `payment_captured` webhook.
+
+If there was a problem with your request, you'll receive an error response such as `422 Invalid data was sent`. You can view examples of each type of response below.
+
+### Response examples
+
+*   [**202 Capture accepted**](#tabs-aaf76a0b-e111-4c1a-b1e2-c36748e6342d-1)
+*   [**422 Invalid data was sent**](#tabs-aaf76a0b-e111-4c1a-b1e2-c36748e6342d-2)
+
+    {
+      "action_id": "act_3kfr4betasbelhjdk346yutxvu",
+      "reference": "ORD-5023-4E89",
+      "_links": {
+        "payment": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_kladqdb6hm5ebggtq45rtzjati"
+        }
+      }
+    }
+
+    {
+      "request_id": "0HL80RJLS76I7",
+      "error_type": "request_invalid",
+      "error_codes": [
+        "payment_source_required"
+      ]
+    }
+
+If unsuccessful, you may also get a `403 Capture not allowed` or `404 Payment not found` error.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Capture+a+payment?showComments=true&showCommentArea=true#addcomment)

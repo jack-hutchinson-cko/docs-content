@@ -1,0 +1,409 @@
+---
+title: About onboarding
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Chrisi Webster](    /display/~chrisiwebster
+    ), last modified on [Jun 10, 2021](/pages/diffpagesbyversion.action?pageId=20120230&selectedPageVersions=75&selectedPageVersions=76 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Vendors, retailers and service providers on your Platform are represented by sub-entities in our solution. A sub-entity is used to collect the information we require to perform due diligence checks, as well as capture certain preferences.
+
+You will onboard your sub-entities through our Marketplace API.
+
+On this page, we'll discuss what information you need to start onboarding sub-entities to your Platform and the difference between account types.
+
+Account types
+-------------
+
+Your Platform's account type will determine:
+
+*   The due diligence checks performed on your sub-entities.
+*   The capabilities available to your sub-entities (and enabled once checks are passed).
+
+Unless otherwise agreed during your onboarding, the table below explains what is included.
+
+Account type
+
+Due diligence checks
+
+Capabilities enabled if passed
+
+Account type
+
+Due diligence checks
+
+Capabilities enabled if passed
+
+Lite
+
+*   Card scheme screening (CSS)
+    
+
+*   Payments
+    
+
+Full
+
+*   Card scheme screening (CSS)
+    
+*   Politically exposed persons (PEP) and sanctions
+    
+*   Know your customer (KYC)
+    
+*   Know your business (KYB)
+    
+
+*   Payments
+    
+*   Payouts
+    
+
+Sub-entity types
+----------------
+
+There are two sub-entity types to choose from: individual or company. When onboarding, you need to provide information about that sub-entity. 
+
+*   **Individual:** This sub-entity type represents a person running their own business as an individual – sometimes referred to as a sole proprietor or trader. 
+*   **Company:** This sub-entity type represents a legal entity formed by a group of individuals that engage in and operate a business. Some of these individuals can be representatives of the company – shareholders or ultimate beneficial owners (UBOs) who own ≥25% of the company or voting rights. If there are no UBOs who own ≥25% of the company, the representative(s) should be an individual with the right to sign on behalf of the company. We require information about these representatives during onboarding.
+
+Information required 
+---------------------
+
+To provide greater flexibility, we don’t need you to provide all the data required for due diligence checks upfront; you can onboard a sub-entity with the minimum required information and then enrich it later through updates. 
+
+We will trigger our checks only when we have all the information required to conduct them. This is why in the table below you will see 'To onboard' and 'To trigger checks'.
+
+Click the tabs below to find out what is required for your onboarding type.
+
+*   [**Lite**](#tabs-976272e1-e255-4509-b702-9b3aa2fed05e-1)
+*   [**Full**](#tabs-976272e1-e255-4509-b702-9b3aa2fed05e-2)
+
+*   Unless otherwise agreed during your onboarding, this sub-entity will have the **Payments** capability available.
+*   Although not mentioned in the table below, `reference`, `contact_details` and `profile` are always required. See the [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Marketplace) for more information.
+    
+
+Information
+
+To onboard
+
+Ready for checks to be triggered
+
+**Individual**
+
+**If 'Individual' is selected during onboarding with [Checkout.com](https://www.checkout.com/)**
+
+*   First name
+    
+*   Last name
+    
+*   Trading name
+    
+*   Registered address
+    
+
+*   First name
+    
+*   Last name
+    
+*   Trading name
+    
+*   Registered address
+    
+
+All the information required to trigger due diligence checks for a Lite individual is needed upfront to onboard.
+
+**Company**
+
+**If 'Company' is selected during onboarding with [Checkout.com](http://checkout.com/)**
+
+*   Legal name
+    
+*   Trading name
+    
+*   Principal (main) address
+    
+
+*   Legal name
+    
+*   Trading name
+    
+*   Principal address
+    
+*   Registered address
+    
+*   All representative(s) ready to onboard
+    
+
+**Company representative(s)**
+
+**If 'Company' is selected during onboarding with [Checkout.com](http://checkout.com/)**
+
+*   First name
+    
+*   Last name
+    
+
+*   First name
+    
+*   Last name
+    
+*   Address country
+    
+
+#### Manual reviews
+
+On occasion, our team will need to manually review a sub-entity before the result of our due diligence checks can be confirmed. Manual reviews can take a little longer to complete and may delay the check result and capability update notifications that you should expect to receive. If you have provided all the required sub-entity information and have left sufficient time to receive notifications regarding the outcome, then it’s likely that the sub-entity is being manually reviewed. However, if you have any concerns, please contact us.
+
+We are working hard on creating a notification to inform you on manual reviews to provide more visibility.
+
+  
+
+*   Unless otherwise agreed during your onboarding, this sub-entity will have the **Payments** and **Payouts** capabilities available.
+*   Although not mentioned in the table below, `reference`, `contact_details` and `profile` are always required. See the [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Marketplace) for more information.
+
+Information
+
+To onboard
+
+Ready for checks to be triggered
+
+Individual
+
+If 'Individual' is selected during onboarding with [Checkout.com](http://checkout.com/)
+
+*   First name
+    
+*   Last name
+    
+*   Trading name
+    
+*   Registered address
+    
+
+*   First name
+    
+*   Last name
+    
+*   Trading name
+    
+*   Registered address
+    
+*   Date of birth
+    
+*   Identification document
+    
+
+Company
+
+If 'Company' is selected during onboarding with [Checkout.com](http://checkout.com/)
+
+*   Legal name
+    
+*   Trading name
+    
+*   Principal (main) address
+    
+
+*   Legal name
+    
+*   Trading name
+    
+*   Principal address
+    
+*   Registered address
+    
+*   Business registration number
+    
+*   All representative(s) ready to onboard
+    
+
+Company representative(s)
+
+If 'Company' is selected during onboarding with [Checkout.com](http://checkout.com/)
+
+*   First name
+    
+*   Last name
+    
+
+*   First name
+    
+*   Last name
+    
+*   Date of birth
+    
+*   Address
+    
+*   Identification document
+    
+
+Read about [uploading a file](/display/x/Upload+a+file).
+
+#### Manual reviews
+
+On occasion, our team will need to manually review a sub-entity before the result of our due diligence checks can be confirmed. Manual reviews can take a little longer to complete and may delay the check result and capability update notifications that you should expect to receive. If you have provided all the required sub-entity information and have left sufficient time to receive notifications regarding the outcome, then it’s likely that the sub-entity is being manually reviewed. However, if you have any concerns, please contact us.
+
+We are working hard on creating a notification to inform you on manual reviews to provide more visibility.
+
+Sub-entity status
+-----------------
+
+To provide you with visibility to what's going on with your sub-entities, our API responses include a `status` field.
+
+You can also subscribe to the status [webhook notification](/display/x/Webhook+event+types) to keep up to date with any asynchronous changes.
+
+*   [**Requirements due**](#tabs-9abc1682-28ef-486b-a372-ec37be9a2bcf-1)
+*   [**Pending**](#tabs-9abc1682-28ef-486b-a372-ec37be9a2bcf-2)
+*   [**Active**](#tabs-9abc1682-28ef-486b-a372-ec37be9a2bcf-3)
+*   [**Rejected**](#tabs-9abc1682-28ef-486b-a372-ec37be9a2bcf-4)
+
+If we're expecting you to provide us with more information, your sub-entity will have a status of `requirements_due`. With this status, the `requirements_due` array will also be populated to inform you of the information that is missing.
+
+Use the [information required table](#Aboutonboarding-information) to find out what information is required to trigger due diligence checks.
+
+Example response
+
+In this example, we have created a company sub-entity without any representatives or a registered address.
+
+    {
+       "id": "ent_vjmdzvijizs7o26kiuiakywvyi",
+       "reference": "tmvhWvvZfFSkJy4",
+       "status": "requirements_due",
+       "capabilities": {
+           "payments": {
+               "enabled": false
+           },
+           "payouts": {
+               "enabled": false
+           }
+       },
+       "requirements_due": [
+           {
+               "field": "company.representatives",
+               "reason": "required"
+           },
+           {
+               "field": "company.registered_address",
+               "reason": "required"
+           }
+       ],
+       "_links": {
+           "self": {
+               "href": "https://api.checkout.com/marketplace/entities/ent_vjmdzvijizs7o26kiuiakywvyi"
+           }
+       }
+    }
+    
+
+We will only trigger due diligence checks when we have all the [information required](#Aboutonboarding-information). Once the checks are triggered, the sub-entity's status will be `pending`.
+
+We may make changes to this sub-entity's capabilities based on the outcome of these checks.
+
+#### Example response
+
+    {
+       "id": "ent_vjmdzvijizs7o26kiuiakywvyi",
+       "reference": "tmvhWvvZfFSkJy4",
+       "status": "pending",
+       "capabilities": {
+           "payments": {
+               "enabled": false
+           },
+           "payouts": {
+               "enabled": false
+           }
+       },
+       "requirements_due": [],
+       "_links": {
+           "self": {
+               "href": "https://api.checkout.com/marketplace/entities/ent_vjmdzvijizs7o26kiuiakywvyi"
+           }
+       }
+    }
+
+If the due diligence checks have passed, we will enable the sub-entity's payments and/or payouts capabilities, which will give that sub-entity a status of `active`. This means there are no outstanding requirements at this time.
+
+*   This status change is asynchronous (happening behind the scenes), so you can optionally subscribe to the `status_changed` [webhook notification](/display/x/Webhook+event+types) to keep up to date or see the status by retrieving the sub-entity.
+*   If you update information after this point, new checks will be triggered and the status of this sub-entity will go back to `pending`.
+
+#### Example webhook notification
+
+    {
+       "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+       "type": "status_changed",
+       "version": "1.0.0",
+       "created_on": "2020-08-20T15:24:13.8431084Z",
+       "data": {
+         "sub_entity_id": "ent_vjmdzvijizs7o26kiuiakywvyi",
+         "status": "active"
+         "reference": "tmvhWvvZfFSkJy4",
+         "legal_name": "Super Hero Masks Inc."
+       },
+       "_links": {
+           "self": {
+              "href": "https://api.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+            }
+        }
+    }
+
+If due diligence checks do not pass, we will disable the sub-entity's payment and payouts capabilities. This status will change from `pending` to `rejected`. A sub-entity is rejected if we have identified reasons during our due diligence checks – this decision is final and you will not be able to resume onboarding.
+
+To challenge the direction, please contact us directly.
+
+*   This status change is asynchronous (happening behind the scenes), so you can optionally subscribe to the `status_changed` [webhook notification](/display/x/Webhook+event+types) to keep up to date or see the status by retrieving the sub-entity.
+*   An attempt to update a rejected sub-entity will return a 442 response with the error code `status_invalid`.
+
+#### Example webhook notification
+
+    {
+       "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+       "type": "status_changed",
+       "version": "1.0.0",
+       "created_on": "2020-08-20T15:24:13.8431084Z",
+       "data": {
+         "sub_entity_id": "ent_vjmdzvijizs7o26kiuiakywvyi",
+         "status": "rejected"
+         "reference": "tmvhWvvZfFSkJy4",
+         "legal_name": "Super Hero Masks Inc."
+       },
+       "_links": {
+           "self": {
+              "href": "https://api.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+            }
+        }
+    }
+
+Where to next?
+--------------
+
+### Onboard a sub-entity
+
+We'll walk you through the entire process for onboarding a sub-entity onto your platform.
+
+[Lite account type](https://docs.checkout.com/four/marketplaces/about-onboarding/onboard-a-sub-entity-lite) [Full account type](https://docs.checkout.com/four/marketplaces/about-onboarding/onboard-a-sub-entity-full)
+
+Find out more
+-------------
+
+### Upload a file
+
+We'll explain how to upload a file to the Marketplace API.
+
+[Find out more](https://docs.checkout.com/four/marketplaces/about-onboarding/upload-a-file)
+
+  
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/About+onboarding?showComments=true&showCommentArea=true#addcomment)

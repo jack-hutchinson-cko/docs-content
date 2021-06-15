@@ -1,0 +1,107 @@
+---
+title: FX rates endpoint
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 19, 2021](/pages/diffpagesbyversion.action?pageId=2785676&selectedPageVersions=5&selectedPageVersions=6 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+The FX rates endpoint provides you with the daily foreign exchange rates we use to process Visa Direct Original Credit Transactions (OCTs).
+
+### The request
+
+Use the following endpoint to get the daily exchange rate.
+
+#### Endpoint
+
+*   [**Live**](#tabs-4711010a-f671-4dea-a8b7-d0271ee990bf-1)
+
+POST`https://api.checkout.com/forex/rates/{baseCurrency}/{quoteCurrency}`
+
+This endpoint is only available in the live environment.
+
+#### Header and path parameter
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`baseCurrency`
+
+REQUIRED
+
+The three-letter ISO currency code representing the base currency.
+
+You can find a list of all valid codes [here](/display/DOCS/Currency+codes).
+
+`quoteCurrency`
+
+REQUIRED
+
+The three-letter ISO currency code representing the quote currency.
+
+You can find a list of all valid codes [here](/display/DOCS/Currency+codes).
+
+### The response
+
+#### Response example
+
+    [
+      {
+        "name": "VISA",
+        "rate": {
+          "currency_pair": "GBPEUR",
+          "exchange_rate": 1.11264000
+        }
+      }
+    ]
+
+### Understanding the response
+
+The response is designed to present your information as clearly as possible.
+
+In this example, the base currency is GBP and the Checkout.com exchange rate to EUR is 1.11264000.
+
+The API will always give the most up to date response possible, depending on the availability of our data source (VisaDirect). The source data is updated daily (on weekdays; excludes bank holidays and weekends) around 12:00am UTC, responses before 02:00 UTC may not reflect today's rates.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/FX+rates+endpoint?showComments=true&showCommentArea=true#addcomment)

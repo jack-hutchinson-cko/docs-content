@@ -1,0 +1,158 @@
+---
+title: Card verification
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 22, 2021](/pages/diffpagesbyversion.action?pageId=8488776&selectedPageVersions=2&selectedPageVersions=3 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Card verification allows you to accept and verify a cardholder's payment information without actually billing the customer for a charge. This type of authorization request is particularly useful if you're offering a trial period for a product or service.
+
+For example, you may choose to collect credit card information during an initial registration process but offer a 30-day trial period before charging the customer's credit card. The cardholder's details are saved to their account, allowing you to charge the card when necessary.
+
+Verify a card
+-------------
+
+### The request
+
+To verify a card, simply [set up a payment request](/display/x/Request+a+payment) with the `amount` field omitted or set to `0`.
+
+#### Request example
+
+    {
+      "source": {
+        "type": "token",
+        "token": "tok_yo2zfqgdnn4u7gswjbjmqt5mza"
+      },
+      "currency": "USD"
+    }
+
+  
+
+Some issuing banks do not support card verification and reject the charge request even if all card details are accurate. If the issuing bank refuses the card verification request, a follow-up request will be sent automatically with a $1 total amount (or the equivalent in the submitted processing currency).
+
+### The response 
+
+If the `approved` field is `true` and the `status` field has a value of `Card Verified`, the verification was successful. If unsuccessful, the card may be invalid/expired or the account may have an insufficient available balance.
+
+If you received a `202` response, a redirect is required (e.g., because 3D Secure authentication is required).
+
+#### Response example
+
+    {
+      "id": "pay_aqwuar5sjb5upkupgywyzapfii",
+      "action_id": "act_aqwuar5sjb5upkupgywyzapfii",
+      "amount": 0,
+      "currency": "USD",
+      "approved": true,
+      "status": "Card Verified",
+      "auth_code": "085143",
+      "eci": "05",
+      "scheme_id": "638284745624527",
+      "response_code": "10000",
+      "response_summary": "Approved",
+      "risk": {
+        "flagged": false
+      },
+      "source": {
+        "id": "src_o67xgoxulgnuhgeaxsdk4cbvgq",
+        "type": "card",
+        "expiry_month": 9,
+        "expiry_year": 2022,
+        "scheme": "Visa",
+        "last4": "4242",
+        "fingerprint": "F31828E2BDABAE63EB694903825CDD36041CC6ED461440B81415895855502832",
+        "bin": "424242",
+        "card_type": "Credit",
+        "card_category": "Consumer",
+        "issuer": "JPMORGAN CHASE BANK NA",
+        "issuer_country": "US",
+        "product_id": "A",
+        "product_type": "Visa Traditional",
+        "avs_check": "S",
+        "cvv_check": ""
+      },
+      "customer": {
+        "id": "cus_vrdaroxvawlevmxxvhi66thpum"
+      },
+      "processed_on": "2019-01-17T17:41:52Z",
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_aqwuar5sjb5upkupgywyzapfii"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_aqwuar5sjb5upkupgywyzapfii/actions"
+        }
+      }
+    }
+
+One dollar authorization
+------------------------
+
+If a standard card verification request (zero dollar authorization) is not successful, our payment gateway will automatically submit a new request to verify the card details. This follow-up request will automatically set the value to $1 (or the equivalent amount in the processing currency).
+
+Once authorized, this payment will be automatically voided and the amount will be returned to the customer.
+
+Note that the value field is now returned as `100` in the response example, which, in this case, is equivalent to $1.
+
+    {
+      "id": "pay_j4baqhdakhqudmzne2eojnkbr4",
+      "action_id": "act_j4baqhdakhqudmzne2eojnkbr4",
+      "amount": 100,
+      "currency": "USD",
+      "approved": true,
+      "status": "Card Verified",
+      "auth_code": "338229",
+      "eci": "05",
+      "scheme_id": "638284745624527",
+      "response_code": "10000",
+      "response_summary": "Approved",
+      "risk": {
+        "flagged": false
+      },
+      "source": {
+        "id": "src_ouue63mbxbfejcmttvefgav6lq",
+        "type": "card",
+        "expiry_month": 8,
+        "expiry_year": 2025,
+        "scheme": "Visa",
+        "last4": "4242",
+        "fingerprint": "5CD3B9CB15338683110959D165562D23084E1FF564F420FE9A990DF0BCD093FC",
+        "bin": "424242",
+        "card_type": "Credit",
+        "card_category": "Consumer",
+        "issuer": "JPMORGAN CHASE BANK NA",
+        "issuer_country": "US",
+        "product_id": "A",
+        "product_type": "Visa Traditional",
+        "avs_check": "S",
+        "cvv_check": "Y"
+      },
+        "customer": {
+          "id": "cus_kkmo2cqvrv3uffixivm2u3vcmq"
+      },
+      "processed_on": "2019-02-15T16:28:34Z",
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_j4baqhdakhqudmzne2eojnkbr4"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_j4baqhdakhqudmzne2eojnkbr4/actions"
+        }
+      }
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Card+verification?showComments=true&showCommentArea=true#addcomment)

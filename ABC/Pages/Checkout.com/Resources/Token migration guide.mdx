@@ -1,0 +1,82 @@
+---
+title: Token migration guide
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 19, 2021](/pages/diffpagesbyversion.action?pageId=2785438&selectedPageVersions=1&selectedPageVersions=2 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Find out more about how to migrate from your current service provider to Checkout.com.
+
+How it works
+------------
+
+### Step 1: You request a migration
+
+To start the process off, you need to request a token migration from your current service provider. There'll be a lot of sensitive data to transfer, so put us in touch with them and we can securely arrange the data move for you.
+
+### Step 2: We retrieve your data
+
+We will provide your current service provider with the minimum required fields for a successful migration. A secure SFTP channel will then be created, between us and your service provider, and either:  
+_a._ we will grant access for the service provider to transfer the data,  
+or _b._ the service provider will grant us access to the file  
+In both scenarios, your service provider will use the Checkout.com public key to encrypt  
+the files.
+
+You can download our public key from the following URL:  
+[https://cdn.checkout.com/keys/cko-pub-key-4096.txt](https://cdn.checkout.com/keys/cko-pub-key-4096.txt)
+
+### Step 3: We import your data
+
+Once we have the file, our team will decrypt it and import it into your merchant account. Our integration team will then forward the necessary files to you, and provide instructions on how to understand and use them.
+
+Before the token migration
+--------------------------
+
+The following fields should be provided by the third-party payment service provider:
+
+*   Customer email, or other unique identifier
+*   Card number
+*   Card expiry month
+*   Card expiry year
+*   PSP card token
+*   Scheme Transaction ID (when can be provided by a third-party PSP)
+
+  
+Optionally, you can request the following additional fields:
+
+*   Customer billing details
+*   AddressLine1
+*   AddressLine2
+*   AddressPostal
+*   AddressCountry
+*   AddressCity
+*   AddressState
+*   Customer name
+*   PSP customer ID
+
+After the token migration
+-------------------------
+
+Once migration is completed, a .csv file is generated and sent to you. It contains the following fields:
+
+*   Customer email, or other unique identifier
+*   Checkout.com source ID (reusable card token)
+*   Checkout.com customer ID
+*   PSP card token (as a mapping reference)
+*   Card last 4 digits
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Token+migration+guide?showComments=true&showCommentArea=true#addcomment)

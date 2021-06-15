@@ -1,0 +1,80 @@
+---
+title: API rate limits
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 14, 2021](/pages/diffpagesbyversion.action?pageId=8488741&selectedPageVersions=3&selectedPageVersions=4 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+To ensure high levels of service for all users of the Checkout.com platform we apply usage limits to our APIs. Unless otherwise stated, limits are applied at an account level, irrespective of the authentication credentials used. We may occasionally adjust limits to prevent system abuse.
+
+Concurrent rate limits
+----------------------
+
+Concurrent rate limits restrict the maximum number of simultaneous requests-per-second (RPS) you can make to our APIs. Our standard limits are as follows:
+
+Operation
+
+Description
+
+Limit (RPS)
+
+Example operations
+
+Operation
+
+Description
+
+Limit (RPS)
+
+Example operations
+
+Read
+
+HTTP GET operations used to retrieve data/resources
+
+100
+
+*   Get payment details
+*   Get disputes
+
+Write
+
+HTTP POST/PUT/DELETE operations used to create or update data/resources
+
+100
+
+*   Authorize payment
+*   Refund payment
+*   Submit dispute evidence
+
+Rate limits are calculated across all APIs. For example, when sending 50 write operations per second to our payments API, a further 50 write operations per second can be used on any API.
+
+When you hit a rate limit you will receive a HTTP 429 response. The request can then be safely retried. To avoid frequently hitting the rate limit we recommend retrying using an incremental backoff with jitter.
+
+Increasing rate limits
+----------------------
+
+If our standard limits are not sufficient for your needs, please contact your Customer Success manager to discuss your requirements.
+
+Load testing
+------------
+
+We understand that our customers may want to load test their systems to cover increased throughput scenarios such as key sales events. Our Sandbox environments are provided to test the functional aspects of your integration and we generally discourage load testing as we apply lower rate limits.
+
+Instead we recommend simulating requests to Checkout.com with a reasonable level of latency applied. If this is not an option, for example, due to complex integrations we can arrange for specific load testing windows or dedicated Sandbox environments where applicable. Please contact your Customer Success manager for more information.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/API+rate+limits?showComments=true&showCommentArea=true#addcomment)

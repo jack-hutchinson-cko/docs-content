@@ -1,0 +1,192 @@
+---
+title: File uploader
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 22, 2021](/pages/diffpagesbyversion.action?pageId=8488242&selectedPageVersions=7&selectedPageVersions=8 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Our file uploader allows you to upload files to Checkout.com. You can then use these to [provide evidence in a dispute](/display/x/Disputes+API).
+
+Upload a file
+-------------
+
+Upload a file to use as evidence in a dispute. Your request must be multipart/form-data and the file must be in either JPEG/JPG, PNG or PDF format, and no larger than 4MB.
+
+### The POST request
+
+#### Endpoints
+
+*   [**Live**](#tabs-870862d3-7320-4b5e-9997-dd36c4e54fa9-1)
+*   [**Sandbox**](#tabs-870862d3-7320-4b5e-9997-dd36c4e54fa9-2)
+
+POST`https://api.checkout.com/files`
+
+POST`https://api.sandbox.checkout.com/files`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access_token`
+
+#### Additional parameters
+
+Parameter
+
+Description
+
+Parameter
+
+Description
+
+`file`
+
+REQUIRED
+
+STRING (BINARY)
+
+The path of the file to upload, and its type.
+
+This must be a local path.
+
+`purpose`
+
+REQUIRED
+
+STRING
+
+The purpose of the file upload. You must set this to `dispute_evidence`.
+
+#### Request example
+
+*   [**Node.js (Beta)**](#tabs-8d502799-d75f-4987-883d-0d6fb82b00b8-1)
+
+    import { Checkout } from "checkout-node-sdk";
+    
+    const cko = new Checkout("sk_XXXX");
+    
+    const file = await cko.files.upload({
+      path: fs.createReadStream("./test/files/evidence.jpg"),
+      purpose: "dispute_evidence",
+    });
+
+### The POST response
+
+If the response returns a file `id`, your request was successful. Take a look at the example response below.
+
+#### Response example
+
+    {
+      "id": "file_6lbss42ezvoufcb2beo76rvwly",
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/files/file_6lbss42ezvoufcb2beo76rvwly"
+        }
+      }
+    }
+
+Get file information
+--------------------
+
+Use the following endpoint to retrieve information about a file that you've uploaded.
+
+### The GET request
+
+#### Endpoints
+
+*   [**Live**](#tabs-8419e7a7-5589-4230-945d-63ddfc08229d-1)
+*   [**Sandbox**](#tabs-8419e7a7-5589-4230-945d-63ddfc08229d-2)
+
+GET`https://api.checkout.com/files/{file_id}`
+
+GET`https://api.sandbox.checkout.com/files/{file_id}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+OAuth Bearer access\_token
+
+Path
+
+Value
+
+Path
+
+Value
+
+`file_id`
+
+REQUIRED
+
+STRING (FILE)
+
+The file identifier. It is always prefixed by `file_`.
+
+#### Request example
+
+*   [**Node.js (Beta)**](#tabs-7d3949b6-560a-4c96-a928-64e61ecf178e-1)
+
+    import { Checkout } from "checkout-node-sdk";
+    
+    const cko = new Checkout("sk_XXXX");
+    
+    const getFile = await cko.files.getFile("file_zna32sccqbwevd3ldmejtplbhu");
+
+### The GET response
+
+If the response returns a file `id`, your request was successful.
+
+#### Response example
+
+    {
+      "id": "file_6lbss42ezvoufcb2beo76rvwly",
+      "filename": "receipt.png",
+      "purpose": "dispute_evidence",
+      "size": 1024,
+      "uploaded_on": "2016-05-17T16:48:52.000Z",
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/files/file_6lbss42ezvoufcb2beo76rvwly"
+        },
+        "download": {
+          "href": "https://checkout-file-upload.s3.eu-west-2.amazonaws.com/ucdac/ucdac/6lbss42ezvoufcb2beo76rvwly?X-Amz-Expires=3600&x-amz-security-token=FQoDYXdzENL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEa"
+        }
+      }
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/File+uploader?showComments=true&showCommentArea=true#addcomment)

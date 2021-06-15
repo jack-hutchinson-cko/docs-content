@@ -1,0 +1,200 @@
+---
+title: Frames for Android
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Docs shared](    /display/~docs-shared
+    ) on [May 11, 2021](/pages/diffpagesbyversion.action?pageId=2785313&selectedPageVersions=29&selectedPageVersions=30 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Start accepting online payments in just a few minutes with Frames for Android. It's quick and easy to integrate, accepts online payments from all major credit cards, and is customizable to your brand.
+
+Minimum requirements
+
+In order to use Frames for Android, you must be on at least version 5.0 (API 21) of the SDK.
+
+Frames for Android is released under the MIT license.
+
+How it works
+------------
+
+1.  You either embed our own customizable UI in your mobile app or, if you want full flexibility, you can build your own payment form and use Frames for Android in a headless mode.
+2.  Frames for Android is then used to take your customer's sensitive information and exchange them for a secure token. This process is called tokenization. Once you have the card token, you're ready to make the payment request.
+
+![](/download/attachments/2785313/Frames%20for%20Android.png?version=5&modificationDate=1620730538611&api=v2)
+
+Demo (our pre-built UI)
+-----------------------
+
+![](/download/attachments/2785313/frames-android-demo.gif?version=1&modificationDate=1587028367338&api=v2)
+
+Integrate Frames for Android
+----------------------------
+
+### Before you start
+
+Make sure you have your `public_key`. You can find it in the [Hub](https://hub.checkout.com), under _Settings > Channels._ If you don't have an account with us yet, you can [request a free test one](https://checkout.com/get-test-account).
+
+#### Step 1: Add the dependence repository
+
+    // project gradle file
+    allprojects {
+     repositories {
+      ...
+      maven { url 'https://jitpack.io' }
+     }
+    }
+
+#### Step 2: Add Frames and its dependencies in gradle
+
+    // module gradle file
+    dependencies {
+        implementation 'com.checkout:frames-android:3.0.1'
+    }
+
+If you're using the Frames SDK with the deprecated Android Support Library, follow [these steps](https://github.com/checkout/frames-android/blob/master/readme-docs/archive/readme-v2-releases.md#releases-up-to-220).
+
+Learn more about [gradle files](https://developer.android.com/studio/build).
+
+#### Step 3: Decide whether or not to use our pre-built UI
+
+The usage guidelines vary slightly depending on your choice:
+
+*   [with the module's UI](#FramesforAndroid-with-UI)
+*   [without the module's UI](#FramesforAndroid-without-UI)
+
+Usage (with the module's UI)
+----------------------------
+
+#### Step 1: Add the module to your XML layout
+
+    <com.checkout.android_sdk.PaymentForm
+       android:id="@+id/checkout_card_form"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+     />
+
+#### Step 2: Include the module in your class
+
+    private PaymentForm mPaymentForm; // include the payment form
+
+#### Step 3: Create a callback for the payment form
+
+    PaymentFormCallback mFormListener = new PaymentFormCallback() {
+      @Override
+      public void onFormSubmit() {
+        // form submit initiated; you can potentially display a loader 
+      }
+      @Override
+      public void onTokenGenerated(CardTokenisationResponse response) {
+        // your token is here
+        mPaymentForm.clearForm(); // this clears the Payment Form
+      }
+      @Override
+      public void onError(CardTokenisationFail response) {
+        // token request error
+      }
+      @Override
+      public void onNetworkError(NetworkError error) {
+        // network error
+      }
+      @Override
+      public void onBackPressed() {
+        // the user decided to leave the payment page
+        mPaymentForm.clearForm(); // this clears the Payment Form
+      }
+    };
+
+#### Step 4: Initialize the module
+
+    // initialise the payment from 
+      mPaymentForm = findViewById(R.id.checkout_card_form);
+      mPaymentForm
+        .setSubmitListener(mSubmitListener)    // set the callback
+        .setEnvironment(Environment.SANDBOX)   // set the environemnt
+        .setKey("pk_xxx");                     // set your public key 
+
+Usage (without the module's UI)
+-------------------------------
+
+#### Step 1: Include the module in your class
+
+    private CheckoutAPIClient mCheckoutAPIClient; // include the module
+
+#### Step 2: Create a callback
+
+    CheckoutAPIClient.OnTokenGenerated mTokenListener = new CheckoutAPIClient.OnTokenGenerated() {
+      @Override
+      public void onTokenGenerated(CardTokenisationResponse token) {
+        // your token
+      }
+      @Override
+      public void onError(CardTokenisationFail error) {
+        // your error
+      }
+      @Override
+      public void onNetworkError(NetworkError error) {
+        // your network error
+      }
+    };
+
+#### Step 3: Initialize the module and pass the card details
+
+    mCheckoutAPIClient = new CheckoutAPIClient(
+      this,                // context
+      "pk_XXXXX",          // your public key
+      Environment.SANDBOX  // the environment
+    );
+    mCheckoutAPIClient.setTokenListener(mTokenListener); // pass the callback
+       // Pass the payload and generate the token
+       mCheckoutAPIClient.generateToken(
+         new CardTokenisationRequest(
+           "4242424242424242",
+           "name",
+           "06",
+           "25",
+           "100",
+           new BillingModel(
+             "address line 1",
+             "address line 2",
+             "postcode",
+             "UK",
+             "city",
+             "state",
+             new PhoneModel(
+               "+44",
+               "07123456789"
+             )
+           )
+         )
+       );
+
+Makes Frames for Android your own
+---------------------------------
+
+#### Customization
+
+Although we kept our demo simple, you have a lot of control over the appearance of your form—from the colors and styling, to whether you want to display one input field or several. Check out our [Customization guide](/display/DOCS/Customization+guide) for more details and examples.
+
+#### Configuration options
+
+You'll find a list of all the possible configuration options in our [Frames for Android reference](/display/DOCS/Frames+for+Android+reference).
+
+Next steps
+----------
+
+Now that you've got your card token, you're ready to [request a card payment](/display/DOCS/Request+a+card+payment).
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Frames+for+Android?showComments=true&showCommentArea=true#addcomment)

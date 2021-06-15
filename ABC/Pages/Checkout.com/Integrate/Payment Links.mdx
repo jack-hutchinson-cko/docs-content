@@ -1,0 +1,100 @@
+---
+title: Payment Links
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Chrisi Webster](    /display/~chrisiwebster
+    ) [about 5 hours ago](/pages/diffpagesbyversion.action?pageId=8489332&selectedPageVersions=82&selectedPageVersions=83 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Payment Links provides you with a way to easily integrate with our Unified Payments API without all the heavy lifting.
+
+You can accept payments through any channel or device – email, social media, live chat, or text message! Be flexible to your customers' payment preferences. All you need to do is send the payment link to the customer, and it will take them to a Checkout.com-hosted payment page for them to complete the payment.
+
+To begin using Payment Links, contact your Solution Engineer or [integration@checkout.com](mailto:integration@checkout.com). During integration, you'll be able to specify your payment capture and 3D Secure settings.
+
+Payment Links now accepts [three more languages](/display/DOCS/Product+support) – French, Italian and Dutch.
+
+Who is Payment Links for?
+-------------------------
+
+Use Payment Links to start accepting payments:
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg) While you're still working on your website or app.
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg) As an alternative to hosting your own payment form.
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg) In parallel with your existing online integration as another way to reach your customers.
+
+We've also created a table that lists **[supported payment methods](/display/DOCS/Product+support)**, languages and other features.
+
+Currently, you can only create payment links using our API. We're working on a user interface, so you can more easily create and manage your links.
+
+How it works
+------------
+
+Payment Links is completely hosted by Checkout.com. All you need to do is give us context of the payment, and we’ll generate a payment link for you to send to your customers
+
+Links can only be used to accept one-time payments, and expire after 24 hours by default.
+
+1.  Request a payment link and send us all the payment information, e.g. the amount, currency and customer's billing address.
+2.  Checkout.com generate a unique link you can share with your customer.
+    
+3.  The customer clicks on the link. We'll check that it hasn't already been used or expired, and then load the payment page.
+4.  The customer fills in the required details, then we'll handle the authentication flow and process the payment.
+5.  After the payment's been processed, you'll be notified by a [webhook](/display/DOCS/Webhooks).
+
+![](/download/attachments/8489332/Payment%20links.png?version=5&modificationDate=1619775231755&api=v2)
+
+Try it out
+----------
+
+Preview the Payment Links flow with the demo below. You can try it with one of our test cards, or Sofort test details.
+
+*   [**Card**](#tabs-406e40e1-4ef9-4cbf-b01f-e1a3efe5507f-1)
+*   [**Sofort**](#tabs-406e40e1-4ef9-4cbf-b01f-e1a3efe5507f-2)
+
+Use one of our [test cards](/display/DOCS/Test+card+numbers) with any future expiry date, or use the details below:
+
+*   **Card number**: 4242 4242 4242 4242
+*   **Expiry date**: Any future date
+*   **CVV**: 100
+
+Use the following details to test a Sofort payment flow:
+
+1.  In the _Bank name, BLZ, IBAN_ _or BIC_ field, enter `88888888`, and then click **Next**.
+2.  Enter `88888888` in the _Account number_ field, and `123456` in the _PIN_ field. Click **Next**.
+3.  Select any account, and then click **Next**.
+4.  Enter `12345` in the TAN field and click **Next**.
+
+  
+
+Next steps
+----------
+
+### Product support
+
+Find out which payment methods Payment Links supports out of the box.
+
+[Learn more](https://docs.checkout.com/integrate/product-support)
+
+### Manage Payment Links
+
+We'll walk through how to set Payment Links up or check on the status of a Payment Link session.
+
+[Learn more](https://docs.checkout.com/integrate/payment-links/manage-payment-links)
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Payment+Links?showComments=true&showCommentArea=true#addcomment)

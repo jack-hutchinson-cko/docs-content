@@ -1,0 +1,178 @@
+---
+title: Pay with a pre-decrypted Google Pay token
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 13, 2021](/pages/diffpagesbyversion.action?pageId=23003622&selectedPageVersions=1&selectedPageVersions=2 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+We also support the ability to make payments using Google Pay tokens that you have decrypted. To make use of this feature, use the `network_token` source type and specify the `token_type` as `googlepay`. This source type allows you to provide the details about the token, as well as the cryptogram and ECI value obtained from the Google Pay token.
+
+### The POST request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-c683ebf2-5523-4a7e-a6b9-8164cc3f4872-1)
+*   [**Sandbox**](#tabs-c683ebf2-5523-4a7e-a6b9-8164cc3f4872-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2)
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+Field name
+
+Description
+
+`source`
+
+REQUIRED
+
+STRING
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `network_token`.
+
+`source.token`
+
+REQUIRED
+
+STRING
+
+The network token PAN.
+
+`source.token_type`
+
+REQUIRED
+
+STRING
+
+The type of token. Set this to `googlepay`.
+
+`source.expiry_month`
+
+REQUIRED
+
+STRING
+
+The two-digit expiry month of the token.
+
+`source.expiry_year`
+
+REQUIRED
+
+STRING
+
+The four-digit expiry year of the token.
+
+`source.eci`
+
+REQUIRED
+
+STRING
+
+  
+
+**For Visa only:**
+
+The Electronic Commerce Indicator security level associated with the token. Required unless the `previous_payment_id` is specified.
+
+For more information, see [stored card details](/display/DOCS/Requirements+for+stored+payment+details).  
+
+`source.cryptogram`
+
+REQUIRED
+
+STRING
+
+  
+
+**For Visa only:**
+
+Cryptographic identifier used by card schemes to validate the token verification result. Required unless the `previous_payment_id` is specified.
+
+For more information, see [stored card details](/display/DOCS/Requirements+for+stored+payment+details).
+
+`amount`
+
+REQUIRED
+
+INTEGER
+
+The payment amount.
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The currency in which the payment is being made (three-letter ISO 4217 code).
+
+#### Request example
+
+    {
+      "source": {
+        "type": "network_token",
+        "token": "4242424242424242",
+        "token_type": "googlepay",
+        "expiry_month": "10",
+        "expiry_year": "2025",
+        "eci": "06",
+        "cryptogram": "AgAAAAAAAIR8CQrXcIhbQAAAAAA",
+      },
+      "amount": 1000,
+      "currency": "USD",
+    }
+
+### The POST response
+
+If the `approved` field is `true`, your authorization was successful. If your authorization was not successful, it's possible the payment used an invalid/expired card, or a valid card with an insufficient available balance.
+
+A successful response will include a `payment_account_reference` value, which is a unique reference to the underlying card for network tokens. If the card scheme provided us with an `eci` value, it will be included in the response. The value indicates the security level that the card scheme decided to request the payment with.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Pay+with+a+pre-decrypted+Google+Pay+token?showComments=true&showCommentArea=true#addcomment)

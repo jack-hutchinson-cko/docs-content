@@ -1,0 +1,187 @@
+---
+title: Account structure
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Chrisi Webster](    /display/~chrisiwebster
+    ), last modified on [Jun 10, 2021](/pages/diffpagesbyversion.action?pageId=20120218&selectedPageVersions=109&selectedPageVersions=110 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Our Marketplaces solution is designed to be modular, so there are a number of different resources which can make up your account structure. Use this guide to find out more.
+
+How does it work?
+-----------------
+
+There are currently two different account types available on Marketplaces. Your account type will be determined during onboarding and depends on whether you require payment capabilities (Lite), or payment **and** payout capabilities (Full).
+
+*   **Lite:** Your sub-entities will undergo card scheme screening (CSS) checks **only**, and if successful their payment capabilities will be enabled. All funds are settled to your Platform as per the frequency agreed during onboarding.
+*   ****Full:**** Your sub-entities will undergo CSS, politically exposed persons (PEP) and sanctions, know your customer (KYC) and know your business (KYB) checks. If successful, their payment and payout capabilities will be enabled. Funds are paid out on-demand by your platform directly to the bank accounts of your sub-entities.
+
+Click on the tabs below to find out more.
+
+*   [**Lite**](#tabs-28e0df1e-ea97-4fd1-9e6e-7ec4662155b5-1)
+*   [**Full**](#tabs-28e0df1e-ea97-4fd1-9e6e-7ec4662155b5-2)
+
+![](/download/attachments/20120218/Lite.png?version=1&modificationDate=1619616817231&api=v2)
+
+#### Key features of the lite account
+
+*   We do not settle directly with your sub-entities. We settle to you Platform's currency account.
+    
+*   Funds from sub-entity payments will be routed and held as per your currency preferences captured during onboarding.
+
+#### FAQ
+
+ How are funds from payments routed and held?
+
+When your Platform is onboarded with us, we'll ask for your currency preferences. This will include a default currency (e.g. I want all of my payments to be routed to and held in GBP), and possibly some like-for-like preferences (e.g. I specifically want any payments processed in EUR to be routed to and held in EUR).
+
+When you later process a payment on behalf of a sub-entity, we'll route and hold the funds in one of your Platform's currency accounts as per your currency preferences. For example, if your default currency is GBP and you have a like-for-like preference of EUR, when you process a payment for a sub-entity in EUR, we'll route and hold funds from this payment to your Platform's EUR currency account. If you process a payment for a sub-entity in any other currency, we'll route and hold funds from this payment to your Platform's GBP currency account.
+
+ How are funds from payments settled to my sub-entities?
+
+All funds will be settled to your Platform’s designated bank account(s) as per the frequency agreed during onboarding.
+
+The distribution of funds to your sub-entities and collection of fees for your platform are both done by you.
+
+ How do I know when my sub-entity is ready to process payments?
+
+The Marketplaces solution sends notifications through webhooks. We have documentation that explains [how to set up webhooks](https://docs.checkout.com/four/workflows/set-up-your-webhook-receiver).
+
+The key webhooks events you need to subscribe to are:
+
+*   `sub_entity_created`
+*   `match_passed`
+*   `match_failed`
+*   `vmss_passed`
+*   `vmss_failed`
+*   `payments_enabled`
+*   `payments_disabled`
+
+### ![](/download/attachments/20120218/Full.png?version=1&modificationDate=1619616843421&api=v2)
+
+#### Key features of this a full account
+
+*   Sub-entities are able to perform on-demand payouts directly to their bank accounts.
+*   Funds from sub-entity payments will be routed and held using the sub-entities currency settings captured during their onboarding.
+
+#### FAQ
+
+ How are funds from payments routed and held?
+
+When you onboard a sub-entity, you can tell us their default holding currency. This is the currency that they would like to hold funds from payments in. If a preference isn't provided during the sub-entity's onboarding, we'll set this to the default for your Platform.
+
+When you later process a payment on behalf of a sub-entity, we'll route and hold the funds in one of your Platform's currency accounts. Specifically, the one that matches the sub-entity's default holding currency. For example, when you process a payment for a sub-entity with the default holding currency GBP, we'll route and hold funds from this payment to your Platform's GBP currency account.
+
+Please note that funds are aggregated based on currency, so if you onboard two sub-entities both with the default holding currency of GBP, funds for both of these sub-entities will be routed to your GBP currency account.
+
+ How are funds from payments settled to my sub-entities?
+
+Platforms can release funds on-demand from our solution directly to the bank accounts of your sub-entities
+
+You will need to provide sub-entity bank account details so that we can pay them directly when you make payout request. We call the bank account details a 'payment instrument'.
+
+Platform fees can also be collected by performing on-demand payouts to your own bank account.
+
+ Which event do I need to subscribe to via the Workflows API?
+
+The Marketplaces solution sends notifications through webhooks. We have documentation that explains [how to set up webhooks](https://docs.checkout.com/four/workflows/set-up-your-webhook-receiver).
+
+The key webhooks events you need to subscribe to are:
+
+*   `sub_entity_created`
+*   `full_dd_passed`
+*   `full_dd_failed`
+*   `payments_enabled`
+*   `payouts_enabled`
+*   `payments_disabled`
+*   `payouts_disabled`
+*   `payment_instrument_created`
+*   `payment_instrument_error`
+
+Our key terms 
+--------------
+
+There are different resources that make up an account structure – we describe each of them below.
+
+Resource
+
+Description
+
+Resource
+
+Description
+
+**Platform**
+
+Within your account, you will have one or more legal entities representing your Platform, each having a contractual relationship with Checkout.com.
+
+  
+
+For example, if you have separate legal entities for your European and North American operations, this would be represented by two separate Platforms in your account – each with their own configurations.
+
+**Sub-entity**
+
+All vendors, retailers and service providers (often also referred to as "sub-merchants") that sell on your Platform are called sub-entities at Checkout.com. A Platform can have one or more sub-entities.
+
+Sub-entities can be:
+
+*   an individual; or
+*   a company.
+
+Sub-entities are [onboarded by your Platform](/display/x/About+onboarding) via the Marketplace API!
+
+**Representative**
+
+Sub-entities that are companies will have – what we call – representatives. Representatives are shareholders or ultimate beneficial owners (UBOs) who own ≥25% of the company or voting rights. If there are no UBOs who own ≥25% of the company, the representative(s) should be an individual with the right to sign on behalf of the company. We require information about these representatives during onboarding.
+
+**Currency account**
+
+  
+
+A container of funds, enabling the receiving and holding of funds in a designated currency, similar to a digital wallet.
+
+Only Platform currency accounts are supported currently. All sub-entity funds will be routed to these currency accounts.
+
+**Payment instrument**
+
+A set of bank account details securely stored in our vault, which can later be used as a destination when making payouts.
+
+**Processing channel**
+
+A processing channel is a container of settings that enable you to process payments for a particular industry. Industries are classified by [merchant category codes](https://docs.checkout.com/resources/codes/merchant-category-codes) (MCCs).
+
+  
+
+A processing channel is required for each MCC you wish to process payments under for your sub-entities. It must be supplied when making payment requests.
+
+Where to next?
+--------------
+
+### About onboarding sub-entities
+
+Find out more about onboarding and verification for your sub-entities.
+
+[Learn more](https://docs.checkout.com/four/marketplaces/about-onboarding)
+
+  
+
+### Onboard sub-entities
+
+We'll **walk you through** the entire process of onboarding a sub-entity from your Platform onto our solution.
+
+[Lite account](https://docs.checkout.com/four/marketplaces/about-onboarding/onboard-a-sub-entity-lite) [Full account](https://docs.checkout.com/four/marketplaces/about-onboarding/onboard-a-sub-entity-full)
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Account+structure?showComments=true&showCommentArea=true#addcomment)

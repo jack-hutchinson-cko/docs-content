@@ -1,0 +1,803 @@
+---
+title: Disputes API
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 09, 2021](/pages/diffpagesbyversion.action?pageId=8488240&selectedPageVersions=13&selectedPageVersions=14 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Our disputes API helps you find out about and act on all of your open disputes within the required timeframe. Together with our webhooks, which help you keep track of each status change of a dispute, you'll be well equipped to handle any disputes that arise.
+
+With our disputes API, you can:
+
+*   [View a list of disputes](#DisputesAPI-getlistofdisputes)
+*   [View information about a specific dispute](#DisputesAPI-getdetailsaboutdispute)
+*   [Provide evidence](#DisputesAPI-provideevidence)
+*   [Accept a dispute](#DisputesAPI-acceptdispute)
+
+  
+Dispute reasons
+------------------
+
+Most of the time, customers dispute a payment because of fraudulent charges. However, there are many other possible reasons. You can tell why a dispute was raised by looking at the `category` field of the response.
+
+Learn more about the [reasons for disputes and the type of evidence we suggest submitting](/display/x/Disputes) when responding.
+
+Dispute statuses
+----------------
+
+Each dispute has an associated `status` that describes which stage of the dispute process it has reached.
+
+If you would like to be notified when the status of a dispute changes, you can use our [webhooks](/display/x/Manage+workflows).
+
+![](/download/attachments/8488240/Disputes-API-flow---200902.png?version=1&modificationDate=1599039532995&api=v2)
+
+Event type
+
+Display name
+
+Description
+
+Event type
+
+Display name
+
+Description
+
+`dispute_accepted`
+
+View a [dispute accepted webhook example](/display/x/dispute_accepted).
+
+Dispute accepted
+
+Occurs when you have accepted a dispute. No further action is required.
+
+`dispute_arbitration_lost`
+
+View a [dispute arbitration lost webhook example](/display/x/dispute_arbitration_lost).
+
+Dispute arbitration lost
+
+Occurs when an arbitration has been lost. Your account will be debited any additional arbitration-related fees.
+
+`dispute_arbitration_sent_to_scheme`
+
+View a [dispute arbitration sent to scheme webhook example](/display/x/dispute_arbitration_sent_to_scheme).
+
+Dispute arbitration sent to scheme
+
+Occurs when the documentation for an arbitration has been sent to the scheme.
+
+`dispute_arbitration_won`
+
+View a [dispute arbitration won webhook example](/display/x/dispute_arbitration_won).
+
+Dispute arbitration won
+
+Occurs when the arbitration has been won. Your account will be credited the disputed amount.
+
+`dispute_canceled`
+
+View a [dispute canceled webhook example](/display/x/dispute_canceled).
+
+Dispute canceled
+
+Occurs when a dispute is canceled by the issuing bank. If previously debited, the disputed amount has been credited back to you.
+
+`dispute_expired`
+
+View a [dispute expired webhook example](/display/x/dispute_expired).
+
+Dispute expired
+
+Occurs when the time limit to take action against a dispute has been exceeded. No further action is possible.
+
+`dispute_lost`
+
+View a [dispute lost webhook example](/display/x/dispute_lost).
+
+Dispute lost
+
+Occurs when the issuing bank has rejected your evidence and you have lost the dispute.
+
+`dispute_resolved`
+
+View a [dispute resolved webhook example](/display/x/dispute_resolved).
+
+Dispute resolved
+
+Occurs when a dispute is received but no further actions is required from you.
+
+`dispute_won`
+
+View a [dispute won webhook example](/display/x/dispute_won).
+
+Dispute won
+
+Occurs when the issuing bank has accepted your evidence and you have won the dispute. If previously debited, the amount of the dispute has been credited back to you.
+
+`dispute_evidence_acknowledged_by_scheme`
+
+View a [dispute evidence acknowledged by the scheme webhook example](/display/x/dispute_evidence_acknowledged_by_scheme).
+
+Dispute evidence acknowledged by the scheme
+
+Occurs when the supporting documents you sent us have been forwarded to the scheme.
+
+`dispute_evidence_required`
+
+View a [dispute evidence required webhook example](/display/x/dispute_evidence_required).
+
+Dispute evidence required
+
+Occurs when a dispute has been received for which evidence is required.
+
+`dispute_received`
+
+View a [dispute received webhook example](/display/x/dispute_received).
+
+Dispute received
+
+Sent when a dispute notification has been received from the scheme before knowing if further action is possible.
+
+`request_for_information_received`
+
+View a [request for information received webhook example](/display/x/request_for_information_received).
+
+Request for Information Received
+
+Occurs when additional information has been requested for a given payment.
+
+`dispute_evidence_submitted`
+
+View a [dispute evidence submitted webhook example](/display/x/dispute_evidence_submitted).
+
+Dispute evidence submitted
+
+Occurs once you have submitted evidence for a given dispute. No further action is required from you.
+
+View disputes and dispute details 
+----------------------------------
+
+You can use our API to view a list of disputes or to retrieve information about a specific dispute.
+
+### Get a list of disputes 
+
+Use the endpoint below to retrieve a list of disputes against your business. These will be returned in reverse chronological order, showing the last modified dispute (for example, where you've recently added a piece of evidence) first. You can use the additional body parameters to skip or limit results.
+
+#### Endpoints
+
+*   [**Live**](#tabs-1886b8f2-6a88-4bea-a7a1-60cdd23828c3-1)
+*   [**Sandbox**](#tabs-1886b8f2-6a88-4bea-a7a1-60cdd23828c3-2)
+
+GET`https://api.checkout.com/disputes`
+
+GET`https://api.sandbox.checkout.com/disputes`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access_token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+Parameter
+
+Description
+
+Parameter
+
+Description
+
+`limit`
+
+OPTIONAL
+
+INTEGER \[1..250\]
+
+The numbers of results to return. Defaults to 50.
+
+`skip`
+
+OPTIONAL
+
+INTEGER >= 0
+
+The number of results to skip. Defaults to 0.
+
+`from`
+
+OPTIONAL
+
+STRING (ISO-8601 FORMAT)
+
+The date and time from which to filter disputes, based on the dispute's `last_update` field.
+
+`to`
+
+OPTIONALSTRING (ISO-8601 FORMAT)
+
+The date and time until which to filter disputes, based on the dispute's `last_update` field.
+
+`id`
+
+OPTIONALSTRING
+
+The unique identifier of the dispute.
+
+`entity_ids`
+
+OPTIONALSTRING
+
+One or more comma-separated entities. This works like a logical _OR_ operator.
+
+`sub_entity_ids`
+
+OPTIONALSTRING
+
+One or more comma-separated sub-entities. This works like a logical _OR_ operator.
+
+`statuses`
+
+OPTIONAL
+
+STRING
+
+One or more comma-separated statuses. This works like a logical _OR_ operator.
+
+`payment_id`
+
+OPTIONAL
+
+STRING
+
+The unique identifier of the payment.
+
+`payment_reference`
+
+OPTIONALSTRING
+
+A unique reference (such as an order ID) that you can later use to identify the payment.
+
+`payment_arn`
+
+OPTIONALSTRING
+
+The acquirer reference number (ARN) that you can use to query the issuing bank.
+
+`payment_mcc`
+
+OPTIONAL
+
+STRING (ISO 18245)
+
+The merchant category code (MCC) of the payment.
+
+#### Request example
+
+*   [**Node.js (Beta)**](#tabs-5123a8ee-36c7-4b8c-b3f6-de22934637a9-1)
+
+    import { Checkout } from "checkout-node-sdk";
+    
+    const cko = new Checkout("sk_XXXX");
+    
+    const disputes = await cko.disputes.get({
+      limit: 5,
+      id: "dsp_bc94ebda8d275i461229",
+    });
+
+#### Response example
+
+    {
+      "limit": 10,
+      "skip": 10,
+      "from": "2018-08-12T01:15:56Z",
+      "to": "2018-08-13T11:09:01Z",
+      "id": "dsp_rbhwd2qrg13uhrp2newf",
+      "entity_ids": "ent_wxglze3wwywujg4nna5fb7ldli,ent_vkb5zcy64zoe3cwfmaqvqyqyku",
+      "sub_entity_ids": "ent_uzm3uxtssvmuxnyrfdffcyjxeu,ent_hy5wtzwzeuwefmsnjtdhw4scfi",
+      "statuses": "evidence_required,evidence_under_review",
+      "payment_id": "pay_88cb4e671m1da22e9bbbyx",
+      "payment_reference": "th7zxa1kcnqmes8",
+      "payment_arn": "74548998294293193445538",
+      "payment_mcc": "5021",
+      "total_count": 1,
+      "data": [
+        {
+          "id": "dsp_rbhwd2qrg13uhrp2newf",
+          "entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+          "sub_entity_id": "ent_uzm3uxtssvmuxnyrfdffcyjxeu",
+          "category": "fraudulent",
+          "status": "evidence_required",
+          "amount": 999,
+          "currency": "GBP",
+          "payment_id": "pay_88cb4e671m1da22e9bbbyx",
+          "payment_action_id": "act_mbabizu24mvu3mela5njyhpit4",
+          "payment_reference": "th7zxa1kcnqmes8",
+          "payment_arn": "74548998294293193445538",
+          "payment_mcc": "5021",
+          "payment_method": "VISA",
+          "evidence_required_by": "2018-08-22T00:00:00Z",
+          "received_on": "2018-08-01T01:15:56Z",
+          "last_update": "2018-08-12T04:15:56Z",
+          "_links": {
+            "self": {
+              "href": "https://api.checkout.com/disputes/dsp_rbhwd2qrg13uhrp2newf"
+            }
+          }
+        }
+      ]
+    }
+
+### Get details about a dispute 
+
+Use the following endpoint to retrieve all the information relating to a specific dispute.
+
+#### Endpoints
+
+*   [**Live**](#tabs-46126d8f-0e45-4219-ba5f-75e8760c5eff-1)
+*   [**Sandbox**](#tabs-46126d8f-0e45-4219-ba5f-75e8760c5eff-2)
+
+GET`https://api.checkout.com/disputes/{dispute_id}`
+
+GET`https://api.sandbox.checkout.com/disputes/{dispute_id}`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access_token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+  
+
+#### Request example
+
+*   [**Node.js (Beta)**](#tabs-c711b355-48eb-4fef-86a0-2a85e0767d98-1)
+
+    import { Checkout } from "checkout-node-sdk";
+    
+    const cko = new Checkout("sk_XXXX");
+    
+    const disputeDetails = await cko.disputes.getDetails(
+      "dsp_bc94ebda8d275i461229"
+    );
+
+#### Response example
+
+    {
+      "id": "dsp_rbhwd2qrg13uhrp2newf",
+      "entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+      "sub_entity_id": "ent_uzm3uxtssvmuxnyrfdffcyjxeu",
+      "category": "fraudulent",
+      "amount": 999,
+      "currency": "GBP",
+      "reason_code": "C42",
+      "status": "evidence_required",
+      "relevant_evidence": [
+        "proof_of_delivery_or_service"
+      ],
+      "evidence_required_by": "2018-08-21T00:00:00Z",
+      "received_on": "2018-08-01T04:00:10Z",
+      "last_update": "2018-08-04T10:53:13Z",
+      "payment": {
+        "id": "pay_mbabizu24mvu3mela5njyhpit4",
+        "action_id": "act_mbabizu24mvu3mela5njyhpit4",
+        "processing_channel_id": "mer_q4dbxom5jbgudnjzjpz7j2z6uq",
+        "amount": 999,
+        "currency": "GBP",
+        "method": "Visa",
+        "arn": "AA246873253573571073808",
+        "mcc": "5021",
+        "3ds": {
+          "enrolled": "Y",
+          "version": "2.1.0"
+        },
+        "eci": "06",
+        "has_refund": true,
+        "processed_on": "2018-08-01T08:18:10Z"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/disputes/dsp_rbhwd2qrg13uhrp2newf"
+        },
+        "evidence": {
+          "href": "https://api.checkout.com/disputes/dsp_rbhwd2qrg13uhrp2newf/evidence"
+        }
+      }
+    }
+
+Respond to a dispute
+--------------------
+
+In order to win a dispute, you will need to provide relevant evidence to your case. This could be the invoice, the proof of delivery, or even customer communication regarding the payment that was charged back. You can use our API to upload evidence, review this evidence, and submit it when you're ready.
+
+### Provide evidence 
+
+Use the endpoint below to add supporting evidence to a dispute. Note that this only attaches the evidence to the dispute, it does not send it to us. Once ready, you will need to [submit it](#DisputesAPI-submitevidence) to us.
+
+The type of evidence we recommend submitting [depends on the reason for the dispute](/display/x/Disputes).
+
+If you wish to submit files as evidence, you will first need to upload them using the [file uploader API](/display/x/File+uploader). This will give you a file `id` (prefixed by `file_`) which you can then use in your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-43812691-190d-447b-ad99-6b9489bdbd64-1)
+*   [**Sandbox**](#tabs-43812691-190d-447b-ad99-6b9489bdbd64-2)
+
+PUT`https://api.checkout.com/disputes/{dispute_id}/evidence`
+
+PUT`https://api.sandbox.checkout.com/disputes/{dispute_id}/evidence`
+
+  
+
+If you run this request more than once, you will overwrite the previous request.
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access_token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Additional parameters
+
+You must provide at least one of the evidence types listed below in the body of your request. Each of the following can be provided as either a text string and/or a file ID previously uploaded. Simply specify it in your request as `{evidence_type}_file` or `{evidence_type}_text` (e.g., `proof_of_delivery_or_service_file`).
+
+Text strings are limited to 500 characters because they should typically be used only as an addition to a file.
+
+Evidence type
+
+Description
+
+Evidence type
+
+Description
+
+`proof_of_delivery_or_service`
+
+OPTIONAL
+
+STRING
+
+Your proof of delivery or service. Please make sure to add the date of delivery here too.
+
+`invoice_or_receipt`
+
+OPTIONAL
+
+STRING
+
+The invoice or receipt of the payment.
+
+`invoice_showing_distinct_transactions`
+
+OPTIONAL
+
+STRING
+
+Your invoice showing two distinct transactions. This is relevant in case the cardholder claims a payment was charged twice (duplicate).
+
+`customer_communication`
+
+OPTIONAL
+
+STRING
+
+Customer communication relevant to the case which proves that the payment was valid.
+
+`refund_or_cancellation_policy`
+
+OPTIONAL
+
+STRING
+
+Your refund or cancellation policy. Please always just upload the part of the document that is relevant to this case.
+
+`recurring_transaction_agreement`
+
+OPTIONAL
+
+STRING
+
+Your recurring transaction agreement. Please always just upload the part of the document that is relevant to this case.
+
+`additional_evidence`
+
+OPTIONAL
+
+STRING
+
+Additional evidence supporting your case that does not fall under the above categories.
+
+#### Request example
+
+*   [**Payload**](#tabs-c2242949-97d0-4bc9-ac1a-3a395133b12b-1)
+*   [**Node.js (Beta)**](#tabs-c2242949-97d0-4bc9-ac1a-3a395133b12b-2)
+
+    {
+      "proof_of_delivery_or_service_file": "file_jmbfgkjromvcrn9t4qu4",
+      "proof_of_delivery_or_service_text": "http://checkout.com/document.pdf",
+      "invoice_or_receipt_file": "file_jmbfgkjromvcrn9t4qu4",
+      "invoice_or_receipt_text": "Copy of the invoice",
+      "invoice_showing_distinct_transactions_file": "file_jmbfgkjromvcrn9t4qu4",
+      "invoice_showing_distinct_transactions_text": "Copy of invoice #1244 showing two transactions",
+      "customer_communication_file": "file_jmbfgkjromvcrn9t4qu4",
+      "customer_communication_text": "Copy of an email exchange with the cardholder",
+      "refund_or_cancellation_policy_file": "file_jmbfgkjromvcrn9t4qu4",
+      "refund_or_cancellation_policy_text": "Copy of the refund policy",
+      "recurring_transaction_agreement_file": "file_jmbfgkjromvcrn9t4qu4",
+      "recurring_transaction_agreement_text": "Copy of the recurring transaction agreement",
+      "additional_evidence_file": "file_jmbfgkjromvcrn9t4qu4",
+      "additional_evidence_text": "Scanned document",
+      "proof_of_delivery_or_service_date_file": "file_jmbfgkjromvcrn9t4qu4",
+      "proof_of_delivery_or_service_date_text": "Copy of the customer receipt showing the merchandise was delivered on 2018-12-20"
+    }
+
+    import { Checkout } from "checkout-node-sdk";
+    
+    const cko = new Checkout("sk_XXXX");
+    
+    const evidence = await cko.disputes.provideEvidence(
+      "dsp_bc94ebda8d275i461229",
+      {
+        proof_of_delivery_or_service_text: "http://checkout.com/document.pdf",
+      }
+    );
+
+#### The response
+
+If you receive a `2XX` response, then your dispute evidence was successfully provided. You can submit it when ready.
+
+If you receive a `4XX` response, then something went wrong. Check the error codes below to find out why.
+
+ Possible error codes
+
+*   `no_evidence_provided`
+*   `dispute_already_under_review`
+*   `dispute_already_resolved`
+*   `dispute_already_expired`
+*   `dispute_already_won`
+*   `dispute_already_lost`
+*   `dispute_already_canceled`
+*   `dispute_already_accepted`
+
+### Retrieve evidence
+
+Use the following endpoint to view a list of the evidence you provided for a specific dispute.
+
+### Endpoints
+
+*   [**Live**](#tabs-443fd054-9e8c-4143-ad21-837ed0caa5bb-1)
+*   [**Sandbox**](#tabs-443fd054-9e8c-4143-ad21-837ed0caa5bb-2)
+
+GET`https://api.checkout.com/disputes/{dispute_id}/evidence`
+
+GET`https://sandbox.checkout.com/disputes/{dispute_id}/evidence`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access_token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Request example
+
+*   [**Node.js (Beta)**](#tabs-c1746eb3-f14b-4797-899a-909eb76c3f04-1)
+
+    import { Checkout } from "checkout-node-sdk";
+    
+    const cko = new Checkout("sk_XXXX");
+    
+    const getEvidence = await cko.disputes.getEvidence("dsp_bc94ebda8d275i461229");
+
+#### Response example
+
+    {
+      "proof_of_delivery_or_service_file": "file_jmbfgkjromvcrn9t4qu4",
+      "proof_of_delivery_or_service_text": "Delivery slip signed by the customer",
+      "proof_of_delivery_or_service_date_text": "Merchandise was delivered on 2018-12-30"
+    }
+
+### Submit evidence 
+
+Use the following endpoint to submit the evidence that you've provided.
+
+You will not be able to amend your evidence once you have submitted it. Make sure you have provided all the relevant information before using this request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-e5e8f7ec-15f3-4a6d-a52c-1fd636f6df0b-1)
+*   [**Sandbox**](#tabs-e5e8f7ec-15f3-4a6d-a52c-1fd636f6df0b-2)
+
+POST`https://api.checkout.com/disputes/{dispute_id}/evidence`
+
+POST`https://api.sandbox.checkout.com/disputes/{dispute_id}/evidence`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access_token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Request example
+
+*   [**Node.js (Beta)**](#tabs-fafdb84a-7820-4a1f-827c-00cb4982d93f-1)
+
+    import { Checkout } from "checkout-node-sdk";
+    
+    const cko = new Checkout("sk_XXXX");
+    
+    const submitEvidence = await cko.disputes.submit("dsp_bc94ebda8d275i461229");
+
+#### The response
+
+If you receive a `2XX` response, then your dispute evidence was successfully submitted. We will pass it on to the card scheme.
+
+If you receive a `4XX` response, then something went wrong. Check the error codes below to find out why.
+
+ Possible error codes
+
+*   `no_evidence_provided`
+*   `dispute_already_under_review`
+*   `dispute_already_resolved`
+*   `dispute_already_expired`
+*   `dispute_already_won`
+*   `dispute_already_lost`
+*   `dispute_already_canceled`
+*   `dispute_already_accepted`
+
+### Accept a dispute 
+
+If a dispute is legitimate, you can use the following endpoint to accept it. This will close it for you and remove it from your list of open disputes. There are no further financial implications.
+
+#### Endpoints
+
+*   [**Live**](#tabs-c071f0dd-905b-4b72-84b5-fa994a3c1cfe-1)
+*   [**Sandbox**](#tabs-c071f0dd-905b-4b72-84b5-fa994a3c1cfe-2)
+
+POST`https://api.checkout.com/disputes/{dispute_id}/accept`
+
+POST`https://api.sandbox.checkout.com/disputes/{dispute_id}/accept`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access_token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Request example
+
+*   [**Node.js (Beta)**](#tabs-6b093a9d-156e-43bf-b0d7-790cc9e888dd-1)
+
+    import { Checkout } from "checkout-node-sdk";
+    
+    const cko = new Checkout("sk_XXXX");
+    
+    const accept = await cko.disputes.accept("dsp_bc94ebda8d275i461229");
+
+#### The response
+
+If you receive a `2XX` response, then you successfully accepted the dispute.
+
+If you receive a `4XX` response, then something went wrong. Check the error codes below to find out why.
+
+ Possible error codes
+
+*   `dispute_already_under_review`
+*   `dispute_already_resolved`
+*   `dispute_already_expired`
+*   `dispute_already_won`
+*   `dispute_already_lost`
+*   `dispute_already_canceled`
+*   `dispute_already_accepted`
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Disputes+API?showComments=true&showCommentArea=true#addcomment)

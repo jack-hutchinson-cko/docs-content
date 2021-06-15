@@ -1,0 +1,201 @@
+---
+title: Dispute reasons and recommended evidence
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified on [Apr 07, 2021](/pages/diffpagesbyversion.action?pageId=20120515&selectedPageVersions=7&selectedPageVersions=8 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+This page outlines the various possible reasons for a dispute, as well as the type of evidence we recommend submitting to make your case.
+
+You should only upload and submit evidence that addresses the specific reason for the dispute. Providing concise, relevant evidence makes it easier for the issuer and/or card scheme to assess your case among the thousands of others, and increases your chances of winning the dispute.
+
+You cannot submit audio or video files, links to third-party websites (a screenshot may be submitted if relevant) or file downloads, or ask that the card issuer contacts you for more information. The issuer will not accept these as evidence.
+
+Fraudulent
+----------
+
+The customer claims they didn't authorize the payment, or the issuer has picked up on the transaction in their fraud reporting.
+
+This may be true fraud, where a third-party has stolen the customer’s card or details, or so-called “friendly fraud”, where the customer knows the transaction is legitimate but is claiming the transaction was fraudulent to get a refund. Customers can also simply forget about purchases they've made. For this reason, it’s a good idea to contact the customer early on in the dispute process.
+
+The following evidence is only helpful if it helps you demonstrate a link between the person who received the product/service and the genuine cardholder, or if it proves that the cardholder legitimately made the payment and has received the product/service.
+
+If the transaction was authenticated with 3D Secure, the liability for the fraudulent chargeback lies with the issuer.
+
+In the API, this will be displayed as `"category": "fraudulent"`.
+
+ Relevant evidence
+
+*   Proof of delivery or service
+*   Invoice or receipt
+*   Customer communication
+
+Unrecognized
+------------
+
+The customer does not recognize the transaction on their bank statement. This usually happens because they can’t remember making the purchase, or they don't recognize your billing descriptor (the name of your business as it appears on their statement).
+
+It’s best to contact the customer and ask them to tell their issuer that they no longer dispute the transaction. But, even if your customer agrees to withdraw the dispute, you must still submit appropriate evidence.
+
+Similar to fraudulent cases, the evidence below is useful only if it helps show that the genuine cardholder legitimately purchased and received the product or service.
+
+In the API, this will be displayed as `"category": "unrecognized"`.
+
+ Relevant evidence
+
+*   Proof of delivery or service
+*   Invoice or receipt
+*   Customer communication
+
+Canceled recurring payment
+--------------------------
+
+The customer claims that you’ve continued to charge them for a canceled subscription or other recurring payment.
+
+You need to submit evidence that shows that their subscription was still active and that they would have been aware of, and did not follow, your cancellation procedure.
+
+Your cancellation policy is probably the most useful piece of evidence to provide here. But it’s also helpful to submit evidence that shows the policy was displayed in an obvious way to the customer. For example, a screenshot to show the policy was linked to or referred to during the checkout process.
+
+In the API, this will be displayed as `"category": "canceled_recurring"`.
+
+ Relevant evidence
+
+*   Recurring transaction agreement
+*   Cancellation policy, and evidence to show it was visible to the customer
+*   Customer communication
+
+Product/service not received
+----------------------------
+
+The customer claims they never received the products or services they paid for.
+
+You need to provide evidence that proves the customer received the physical product/service, or accessed the digital product/service.
+
+In the API, this will be displayed as `"category": "product_service_not_received"`.
+
+ Relevant evidence
+
+*   Proof of delivery or service
+*   Invoice or receipt
+*   Customer communication
+
+Not as described
+----------------
+
+The customer claims that the product or service they ordered is defective, damaged, or not as described.
+
+You need to provide evidence that proves that the product or service you provided was as described, or was not damaged or defective.
+
+If relevant, it may be useful to submit the terms and conditions of any marketing material relating to the product/service, and evidence (like a screenshot) that these terms and conditions were clearly displayed to the customer.
+
+In the API, this will be displayed as `"category": "not_as_described"`.
+
+ Relevant evidence
+
+*   Terms and conditions
+*   Invoice or receipt
+*   Customer communication
+*   Refund or cancellation policy
+
+Credit not issued
+-----------------
+
+The customer claims that the product or service has been returned or canceled but you have failed to issue a refund/credit.
+
+If you have, in fact, refunded the customer, provide evidence that proves this. If your customer wasn't eligible for a refund/credit, you should submit your refund policy and any evidence (like a screenshot) that shows it was legible and obvious to the customer.
+
+In the API, this will be displayed as `"category": "credit_not_issued"`.
+
+ Relevant evidence
+
+*   Refund or cancellation policy
+*   Invoice or receipt
+*   Customer communication
+
+Duplicate
+---------
+
+The customer claims they have been charged more than once for the same purchase.
+
+You need to submit evidence that demonstrates that each payment was for a separate product or service.
+
+In the API, this will be displayed as `"category": "duplicate"`.
+
+ Relevant evidence
+
+*   Proof of delivery or service for two separate products/services
+*   Invoice showing two distinct transactions
+
+Incorrect amount
+----------------
+
+The customer claims that they have been charged the wrong amount.
+
+A receipt or invoice that shows you charged the correct amount is the most useful evidence, but any relevant communication with customer might also be helpful.
+
+In the API, this will be displayed as `"category": "incorrect_amount"`.
+
+ Relevant evidence
+
+*   Invoice or receipt
+*   Customer communication
+*   Refund or cancellation policy
+
+General
+-------
+
+If we can’t map the dispute to any of the reasons listed above, we consider it to be a general dispute.
+
+You should contact the customer to find out why they are disputing the transaction, and then submit evidence that addresses their reasons.
+
+In the API, this will be displayed as `"category": "general"`.
+
+ Relevant evidence
+
+*   Proof of delivery or service
+*   Invoice or receipt
+*   Invoice showing two distinct transactions
+*   Customer communication
+*   Refund or cancellation policy
+*   Recurring transaction agreement
+
+Next steps
+----------
+
+[
+
+### Manage disputes from the Hub
+
+Learn how to handle disputes from your Hub account.
+
+
+
+
+
+](https://docs.checkout.com/the-hub/manage-disputes)[
+
+### Manage disputes with our API
+
+Learn how to handle disputes using our API.
+
+
+
+
+
+](https://docs.checkout.com/risk-management/disputes/disputes-api)
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Dispute+reasons+and+recommended+evidence?showComments=true&showCommentArea=true#addcomment)

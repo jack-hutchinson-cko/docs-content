@@ -1,0 +1,188 @@
+---
+title: Get payout actions
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [May 21, 2021](/pages/diffpagesbyversion.action?pageId=8490072&selectedPageVersions=4&selectedPageVersions=5 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Find out all you need to know about history of a payout. This API provides details about each step of the payout lifecycle.
+
+The request
+-----------
+
+Use the details below to set up your request.
+
+### Endpoints
+
+*   [**Live**](#tabs-036cc4b2-b975-4544-aa0d-a48db490df4e-1)
+*   [**Sandbox**](#tabs-036cc4b2-b975-4544-aa0d-a48db490df4e-2)
+
+GET`https://api.checkout.com/payments/{id}/actions`
+
+GET`https://api.sandbox.checkout.com/payments/{id}/actions`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`Bearer {OAuth access token}  
+`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Path parameters
+
+Path
+
+Value
+
+Path
+
+Value
+
+`id`
+
+REQUIRED
+
+The payment identifier (prefixed with `pay_`) or the session identifier (prefixed with `sid_`).
+
+### The response
+
+If successful, you should get a `200 Success` response returning a list of data relating to the payout.
+
+    [
+      {
+        "id": "act_cvrbczl5llgehjzjqdupeezwt4",
+        "type": "Return",
+        "processed_on": "2020-06-12T13:49:19.145592Z",
+        "amount": 1000,
+        "approved": true,
+        "response_code": "30046",
+        "response_summary": "Bank Account Closed"
+      },
+      {
+        "id": "act_rhpascoezcwuxbez3qhsbtgpd4",
+        "type": "Payout",
+        "processed_on": "2020-06-12T13:49:19.1050138Z",
+        "amount": 1000,
+        "approved": true,
+        "response_code": "10000",
+        "response_summary": "Approved"
+      }
+    ]
+
+If unsuccessful, you may get a `404 – Payment not found` error.
+
+### Response parameters
+
+Find out what the different fields in your successful response mean.
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`id`
+
+STRING
+
+The unique identifier of the payment action.
+
+`type`
+
+STRING
+
+The type of payment action (e.g., `Authorization`).
+
+`processed_on`
+
+STRING
+
+The date and time the action took place.
+
+`amount`
+
+INTEGER
+
+The action amount.
+
+`auth_code`
+
+STRING
+
+The acquirer's authorization code for cards.
+
+`response_code`
+
+STRING
+
+The gateway response code.
+
+`response_summary`
+
+STRING
+
+The gateway response summary.
+
+`reference`
+
+STRING
+
+Your defined reference for the action.
+
+`processing`
+
+OBJECT
+
+Returns information related to the processing of the payment.
+
+`metadata`
+
+OBJECT
+
+A set of key/value pairs that you can attach to an action.
+
+### Payout actions
+
+The table below outlines the different payout actions and their meanings.
+
+`Payout`
+
+The payout request was processed successfully. To check whether the payout itself was successful, check the `approved` field in the response.
+
+`Return`
+
+The payout was returned. For example, because the destination account has been closed.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Get+payout+actions?showComments=true&showCommentArea=true#addcomment)

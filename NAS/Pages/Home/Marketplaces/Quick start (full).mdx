@@ -1,0 +1,1931 @@
+---
+title: Quick start (full)
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Chrisi Webster](    /display/~chrisiwebster
+    ), last modified on [Jun 10, 2021](/pages/diffpagesbyversion.action?pageId=20120621&selectedPageVersions=52&selectedPageVersions=53 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+This guide demonstrates how to onboard a sub-entity, process payments on its behalf and later payout directly to their bank account.
+
+Before you begin
+----------------
+
+Check you've completed the following steps before starting your integration. 
+
+*   Your account is able to onboard sub-entities.
+*   You have your `client id` and `client secret`, so you can generate access tokens with the required scopes. See our [authentication workflow](https://docs.checkout.com/four/resources/access-key-authentication) for more information.
+*   You have your processing channel ID, currency account and payment instrument IDs which will be required throughout the process.
+*   You have configured your webhooks and subscribed to the relevant events through our [Workflow API](https://docs.checkout.com/four/workflows). 
+*   You are familiar with our [account structure](/display/x/Account+structure).
+
+Unless otherwise agreed during your onboarding, your sub-entities will undergo **full** onboarding (CSS, PEP, KYC and KYB checks). The **payments** and **payouts** capabilities will be enabled if the checks are passed.
+
+Step 1: Onboard your sub-entities 
+----------------------------------
+
+*   [**Individual**](#tabs-43670bc4-a26f-43ed-9c57-ed4c9752e6d1-1)
+*   [**Company**](#tabs-43670bc4-a26f-43ed-9c57-ed4c9752e6d1-2)
+
+Vendors, retailers and service providers on your Platform are represented by sub-entities in our solution. A sub-entity is used to collect the information we require to perform due diligence checks, as well as capture certain preferences.
+
+In this step we’re going to walk through the complete onboarding of a sub-entity:
+
+*   **Onboard with the minimum required information**
+*   **Retrieve details (optional)**
+*   **Make updates to provide outstanding information (optional)**
+*   **Upload identity documents**
+*   **Keep up to date with webhook notifications**
+
+* * *
+
+#### Step 1a: Onboard a sub-entity
+
+To provide greater flexibility, we don’t need you to provide all of the data required for due diligence checks upfront. You can onboard a sub-entity with the minimum required information and then enrich it later through updates. We will trigger our checks only when we have all of the information required to conduct them. If our due diligence checks pass, **payment** and **payout** capabilities for this sub-entity will be enabled.
+
+Although not mentioned in the table below, `reference`, `contact_details` and `profile` are always required. See the [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Marketplace) for more information.
+
+**Information**
+
+**Description**
+
+**To onboard**
+
+**Ready to trigger checks**
+
+**Information**
+
+**Description**
+
+**To onboard**
+
+**Ready to trigger checks**
+
+Individual
+
+Information about the individual represented by the sub-entity.
+
+*   First name
+    
+*   Last name
+    
+*   Trading name
+    
+*   Registered address
+    
+
+*   First name
+    
+*   Last name
+    
+*   Trading name
+    
+*   Registered address
+    
+*   Date of birth
+    
+*   Identification document
+    
+
+We will use the example of **Daniel’s Donuts**, a donut seller (who is a sole proprietor) on our fictional platform, Desserts Delivered. We will provide the minimum required fields for Daniel’s Donuts to start its onboarding!
+
+Use POST`/marketplace/entities`
+
+##### Request
+
+Header
+
+Description
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`application/json`
+
+    {
+      "reference":"0123456",
+      "contact_details":{
+        "phone":{
+          "number":"2345678910"
+        }
+      },
+      "profile":{
+        "urls":[
+          "https://www.daniels-donuts.com"
+        ],
+        "mccs":[
+          5814
+        ]
+      },
+      "individual":{
+        "first_name":"Daniel",
+        "last_name":"Yubi",
+        "trading_name":"Daniel's Donuts",
+        "national_tax_id":"1234567",
+        "registered_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        }
+      }
+    }
+
+*   You will only be able to specify the `individual.registered_address.country`, `profile.mccs` and `profile.default_holding_currency` to those that were configured for your scope during onboarding.
+*   Note that `profile.default_holding_currency` of `GBP` means that payments processing on behalf of Daniel’s Donuts would be routed and held in the Platform's GBP currency account.  
+    
+
+##### Response
+
+A successful response will include a unique sub-entity `id`, which you should store for future requests. Additionally, the response has the `capabilities` object, which shows you whether the sub-entity’s capabilities are enabled or not. Capabilities only get enabled once specific due diligence checks have been run and passed.
+
+    {
+      "id":"ent_vv2jjkuf2gzj5tcw2x7ptua7zy",
+      "reference":"0123456",
+      "status": "requirements_due",
+      "capabilities":{
+        "payments":{
+          "enabled":false
+        },
+        "payouts":{
+          "enabled":false
+        }
+      },
+     "requirements_due": [
+    	{
+           "field": "individual.date_of_birth",
+           "reason": "required"
+        },
+    	{
+           "field": "individual.identification.document",
+           "reason": "required"
+        },
+      ],
+      "_links":{
+        "self":{
+          "href":"https://api.sandbox.checkout.com/marketplace/entities/ent_vv2jjkuf2gzj5tcw2x7ptua7zy"
+        }
+      }
+    }
+
+Note that the `sub_entity_created` webhook notification will also be sent.
+
+That’s all it takes to create a sub-entity! 
+
+* * *
+
+#### Step 1b: Upload identity documentation
+
+We can see from the response in the previous step that there are **two** outstanding requirements due – one of which is an **identification document**. We can use POST`https://files.checkout.com` to upload an identity document for Daniel.
+
+##### **Request**
+
+Your request should include the **type** of document, the **file** **path** and the **purpose** of the document. When uploading an identification document, set this to `identification`. For a full list of possible fields, see our [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Marketplace/paths/~1marketplace~1entities~1{id}/put). Please note that an identity document can be comprised of a front and back file [depending on its type](/display/x/Upload+a+file).
+
+Header
+
+Description
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`multipart/form-data`
+
+Type can be:
+
+*   "passport" 
+*   "national\_identity\_card" 
+*   "driving\_license" 
+*   "citizen\_card" 
+*   "residence\_permit" 
+*   "electoral\_id".
+
+A back is required for all types other than "passport".
+
+    curl https://files.checkout.com \
+      -F "type=passport" \
+      -F "front=dy_passport.jpg" \
+      -F "purpose=identification"
+    
+
+##### Response
+
+If you received a file `id` in your response, the document was accepted.
+
+    {
+      "id": "file_6lbss42ezvoufcb2beo76rvwly",
+      "_links": {
+        "self": {
+          "href": "https://files.sandbox.checkout.com/files/file_6lbss42ezvoufcb2beo76rvwly"
+        }
+      }
+    }
+
+In the next step, we'll use this file `id` to attach Daniel's identification document.
+
+* * *
+
+#### Step 1c: Update sub-entity with additional details
+
+To trigger checks, we must provide the outstanding requirements detailed, so let’s do that next.
+
+Within the `individual` object, you now need to include the `identification.documentation` object with the following pieces of information.
+
+*   **Type:** Read more about [what types are accepted](/display/x/Upload+a+file).
+*   **Front:** Required for **all** identification types. This should be the `id` returned when you uploaded the file.
+
+We will update **Daniel’s Donuts** with Daniel’s date of birth and identification document.
+
+With the `id` returned in the response to step 1a, use PUT`/marketplace/entities/{id}` to update the sub-entity representing Daniel’s Donuts with additional information - `individual.date_of_birth` and `individual.identification.document`.
+
+##### Request
+
+Header
+
+Description
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`application/json`
+
+    {
+      "reference":"0123456",
+      "contact_details":{
+        "phone":{
+          "number":"2345678910"
+        }
+      },
+      "profile":{
+        "urls":[
+          "https://www.daniels-donuts.com"
+        ],
+        "mccs":[
+          5814
+        ]
+      },
+      "individual":{
+        "first_name":"Daniel",
+        "last_name":"Yubi",
+        "trading_name":"Daniel's Donuts",
+        "national_tax_id":"1234567",
+        "registered_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        },
+        "date_of_birth":{
+          "day":5,
+          "month":6,
+          "year":1995
+        },
+    	identification": {
+          "document": {
+            "type": "passport",
+            "front": "file_jxaps37jnfaupfu6bsei7rj5iu"
+          }
+        }
+      }
+    }
+
+##### Response
+
+    {
+      "id":"ent_fusptdy4pdj2x5gpvooyvsupby",
+      "reference":"0123456",
+      "status": "pending",
+      "capabilities":{
+        "payments":{
+          "enabled":false
+        },
+        "payouts":{
+          "enabled":false
+        }
+      },
+     "requirements_due": [],
+      "_links":{
+        "self":{
+          "href":"https://api.sandbox.checkout.com/marketplace/entities/ent_fusptdy4pdj2x5gpvooyvsupby"
+        }
+      }
+    }
+
+* * *
+
+#### Step 1c: Retrieve a sub-entity (optional)
+
+This step is completely optional, we are just demonstrating how details can be retrieved; however, it’s not necessary to do so at this stage and you may skip to step 1d.
+
+Use GET`/marketplace/entities/{id}` to retrieve the sub-entity representing Daniel’s Donuts. We can see that Daniel’s Donuts has all the details we provided earlier.
+
+##### Response
+
+    {
+    "id":"ent_vv2jjkuf2gzj5tcw2x7ptua7zy",
+      "reference":"0123456",
+      "status": "pending",
+      "capabilities":{
+        "payments":{
+          "enabled":false
+        },
+        "payouts":{
+          "enabled":false
+        }
+      },
+      "contact_details":{
+        "phone":{
+          "number":"2345678910"
+        }
+      },
+      "profile":{
+        "default_holding_currency":"GBP",
+        "urls":[
+          "https://www.daniels-donuts.com"
+        ],
+        "mccs":[
+          "5814"
+        ]
+      },
+      "individual":{
+        "first_name":"Daniel",
+        "last_name":"Yubi",
+        "trading_name":"Daniel's Donuts",
+        "national_tax_id":"1234567",
+        "registered_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        },
+        "date_of_birth":{
+          "day":5,
+          "month":6,
+          "year":1995
+        },
+    	identification": {
+          "document": {
+            "type": "passport",
+            "front": "file_jxaps37jnfaupfu6bsei7rj5iu"
+          }
+        }
+      },
+     "instruments":[],
+     "requirements_due": [],
+      "_links":{
+        "self":{
+          "href":"https://api.sandbox.checkout.com/marketplace/entities/ent_vv2jjkuf2gzj5tcw2x7ptua7zy"
+        }
+      }
+    }
+
+Please note that `individual.legal_name` is calculated by concatenating `individual.first_name`, `individual.middle_name`, and `individual.last_name` and may not be updated directly.
+
+* * *
+
+#### Step 1d: Handle due diligence result and capability changes
+
+Once we have conducted our due diligence checks, we will inform you of the outcome via [webhook notification](https://docs.checkout.com/four/workflows/webhook-event-types "https://docs.checkout.com/four/workflows/webhook-event-types"). You should expect to receive the `full_dd_passed` and `full_dd_failed` event types. Unless one of our `legal_name` fail triggers is used for simulation, due diligence will always pass in Sandbox.
+
+For **Daniel’s Donuts**, we receive the full\_dd`_passed` with the following payload:
+
+    {
+      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+      "type": "full_dd_passed",
+      "version": "1.0.0",
+      "created_on": "2020-08-20T15:24:13.8431084Z",
+      "data": {
+        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+        "reference": "123456789101112",
+        "legal_name": "Daniel Yubi"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+        }
+      }
+    }
+    
+
+If due diligence is passed, we will enable the sub-entity’s **payment** and **payout** capabilities. You should expect to receive the `payments_enabled` and `payouts_enabled` event types.
+
+For Daniel’s Donuts, we receive the `payments_enabled` and `payouts_enabled` with the following payloads:
+
+    {
+      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+      "type": "payments_enabled",
+      "version": "1.0.0",
+      "created_on": "2020-08-20T15:24:13.8431084Z",
+      "data": {
+        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+        "reference": "123456789101112",
+        "legal_name": "Daniel Yubi"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+        }
+      }
+    }
+
+    {
+      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+      "type": "payouts_enabled",
+      "version": "1.0.0",
+      "created_on": "2020-08-20T15:24:13.8431084Z",
+      "data": {
+        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+        "reference": "123456789101112",
+        "legal_name": "Daniel Yubi"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+        }
+      }
+    }
+    
+
+We will re-trigger due diligence checks if any of the required information is later updated. If any subsequent checks fail and you receive the `full_dd_failed` notification, which will be followed by `payments_disabled` and `payouts_disabled`.
+
+Vendors, retailers and service providers on your platform are represented by sub-entities in our solution. A sub-entity is used to collect the information we require to perform due diligence checks, as well as capture certain preferences.
+
+In this step we’re going to walk through the complete onboarding of a sub-entity:
+
+*   **Onboard with the minimum required information**
+*   **Retrieve details (optional)**
+*   **Make updates to provide outstanding information (optional)**
+*   **Upload identity documents**
+*   **Keep up to date with webhook notifications**
+
+* * *
+
+#### Step 1a: Onboard a sub-entity
+
+To provide greater flexibility, we don’t need you to provide all of the data required for due diligence checks upfront. You can onboard a sub-entity with the minimum required information and then enrich it later through updates. We will trigger our checks only when we have all of the information required to conduct them. If our due diligence checks pass, **payment** and **payout** capabilities for this sub-entity will be enabled.
+
+Although not mentioned in the table below, `reference`, `contact_details` and `profile` are always required. See the [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Marketplace) for more information.
+
+**Information**
+
+**Description**
+
+**To onboard**
+
+**Ready to trigger checks**
+
+Company
+
+Information about the company represented by the sub-entity.
+
+*   Legal name
+    
+*   Trading name
+    
+*   Principal address
+    
+
+  
+  
+
+*   Legal name
+    
+*   Trading name
+    
+*   Principal address
+    
+*   Registered address
+    
+*   Business registration number
+    
+*   All representative(s) ready to trigger checks
+    
+
+Company representative(s)
+
+Information about representatives of this company.
+
+*   First name
+    
+*   Last name
+    
+
+*   First name
+    
+*   Last name
+    
+*   Date of birth
+    
+*   Address
+    
+*   Identification document
+    
+
+Read about [uploading a file](https://docs.checkout.com/four/d-marketplaces/upload-a-file).
+
+We will use the example of **The Cake Shop**, a cake seller on our fictional platform, Desserts Delivered. We will provide the minimum required fields for The Cake Shop to start its onboarding!
+
+Use POST`/marketplace/entities` to create a sub-entity representing The Cake Shop.
+
+##### Request
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`application/json`
+
+    {
+      "reference":"678910",
+      "contact_details":{
+        "phone":{
+          "number": "111222333"
+        }
+      },
+      "profile":{
+        "urls":[
+          "https://www.thecakeshop.com"
+        ],
+        "mccs":[
+          5814
+        ]
+      },
+      "company":{
+        "legal_name":"The Cake Shop Inc.",
+        "trading_name":"The Cake Shop",
+        "principal_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        }
+      }
+    }
+
+*   You will only be able to specify the `company.principal_address.country`, `profile.mccs` and `profile.default_holding_currency` to those that were configured for your scope during onboarding.
+*   Note that `profile.default_holding_currency` of `GBP` means that payments processing on behalf of The Cake Shop would be routed and held in the Platform's GBP currency account.
+
+##### Response
+
+A successful response will include a unique sub-entity `id`, which you should store for future requests. Additionally, the response has the `capabilities` object, which shows you whether the sub-entity’s capabilities are enabled or not. Capabilities only get enabled once specific due diligence checks have been run and passed.
+
+    {
+      "id":"ent_nofjig36ypra6236f4tfm5bvui",
+      "reference":"678910",
+      "status": "requirements_due",
+      "capabilities":{
+        "payments":{
+          "enabled":false
+        },
+        "payouts":{
+          "enabled":false
+        }
+      },
+     "requirements_due": [
+    	{
+           "field": "company.registered_address",
+           "reason": "required"
+        },
+    	{
+           "field": "company.business_registration_number",
+           "reason": "required"
+        },
+        {
+           "field": "company.representatives",
+           "reason": "required"
+        },
+      ],
+      "_links":{
+        "self":{
+          "href":"https://api.sandbox.checkout.com/marketplace/entities/ent_nofjig36ypra6236f4tfm5bvui"
+        }
+      }
+    }
+
+Note that the `sub_entity_created` webhook notification will also be sent.
+
+That’s all it takes to create a sub-entity! 
+
+* * *
+
+#### Step 1b: Update sub-entity with additionl details
+
+As we onboarded our sub-entity with the minimum required information, due diligence checks have not yet been conducted. To trigger checks we must provide the outstanding requirements detailed in the previous step, so let’s do that next.
+
+We will update **The Cake Shop** with its:
+
+*   registered address
+*   business registration number
+*   representatives.
+
+The Cake Shop has a single representative, Chrisi Webster, for who we will provide a **first name**, **last name**, full **address** and **date of birth**, which is all the required information to trigger checks except for an identification document (which we’ll do this in the next steps).
+
+With the `id` returned in the response to step 1a, use PUT`/marketplace/entities/{id}` to update the sub-entity representing The Cake Shop with additional information - `company.registered_address`, `company.business_registration_number` and `company.representatives`.
+
+#### Request
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`application/json`
+
+    {
+      "reference":"678910",
+      "contact_details":{
+        "phone":{
+          "number":"111222333"
+        }
+      },
+      "profile":{
+        "urls":[
+          "https://www.thecakeshop.com"
+        ],
+        "mccs":[
+          5814
+        ]
+      },
+      "company":{
+        "business_registration_number":"452349600005",
+        "legal_name":"The Cake Shop Inc.",
+        "trading_name":"The Cake Shop",
+        "principal_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        },
+        "registered_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        },
+        "representatives":[
+          {
+            "first_name":"Chrisi",
+            "last_name":"Webster",
+            "address":{
+              "address_line1":"123 ABC Close",
+              "city":"London",
+              "zip":"E1 5DP",
+              "country":"GB"
+            },
+            "date_of_birth":{
+              "day":5,
+              "month":6,
+              "year":1995
+            }
+          }
+        ]
+      }
+    }
+
+##### Response
+
+    {
+      "id":"ent_nofjig36ypra6236f4tfm5bvui",
+      "reference":"678910",
+      "status": "requirements_due",
+      "capabilities":{
+        "payments":{
+          "enabled":false
+        },
+        "payouts":{
+          "enabled":false
+        }
+      },
+      "requirements_due": [
+    	{
+           "field": "company.representatives[0].identification.document",
+           "reason": "required"
+        }
+      ],
+      "_links":{
+        "self":{
+          "href":"https://api.sandbox.checkout.com/marketplace/entities/ent_nofjig36ypra6236f4tfm5bvui"
+        }
+      }
+    }
+    
+
+* * *
+
+#### Step 1c: Retrieve sub-entity
+
+There is now only one outstanding requirement to trigger due diligence checks for our sub-entity, an **identification document** for our representative Chrisi Webster. Each representative is assigned a unique `id`, and we’ll need to get Chrisi’s `id` to be able to upload an identity document for her in the next step.
+
+Use GET`/marketplace/entities/{id}` to retrieve the sub-entity representing The Cake Shop. We can see that The Cake Shop has all the details we provided earlier and that our representative, Chrisi Webster, has been assigned an `id` - store this for the next step.
+
+##### Response
+
+    {
+        "id": "ent_v7r7h2sw6tavthyzkkoliuiq4a",
+        "reference": "company123",
+    	"status": "requirements_due",
+        "capabilities": {
+            "payments": {
+                "enabled": false
+            },
+            "payouts": {
+                "enabled": false
+            }
+        },
+        "profile": {
+            "default_holding_currency": "GBP",
+            "urls": [
+                "https://www.thecakeshop.com"
+            ],
+            "mccs": [
+                "5814"
+            ]
+        },
+        "company": {
+            "business_registration_number": "452349600005",
+            "legal_name": "The Cake Shop Inc.",
+            "trading_name": "The Cake Shop",
+            "principal_address": {
+                "address_line1": "90 Tottenham Court Road",
+                "city": "London",
+                "zip": "W1T4TJ",
+                "country": "GB"
+            },
+            "registered_address": {
+                "address_line1": "90 Tottenham Court Road",
+                "city": "London",
+                "zip": "W1T4TJ",
+                "country": "GB"
+            },
+            "representatives": [
+                {
+                    "id": "rep_j6xp53izlmae5atwi2tlv5szry",
+                    "address": {
+                        "address_line1": "123 ABC Close",
+                        "city": "London",
+                        "zip": "E1 5DP",
+                        "country": "GB"
+                    },
+                    "phone": {},
+                    "first_name": "Chrisi",
+                    "last_name": "Webster",
+                    "date_of_birth": {
+                        "day": 5,
+                        "month": 6,
+                        "year": 1995
+                    },
+            ]
+        },
+        "contact_details": {
+            "phone": {
+                "number": "111222333"
+            }
+        },
+        "instruments": [
+        ],
+    	"requirements_due": [
+    	{
+           "field": "company.representatives[0].identification.document",
+           "reason": "required"
+        }
+      ],
+        "_links": {
+            "self": {
+                "href": "https://api.sandbox.checkout.com/marketplace/entities/ent_v7r7h2sw6tavthyzkkoliuiq4a"
+            }
+        }
+    }
+
+* * *
+
+#### Step 1d: Upload an identity document for representative of sub-entity 
+
+There is now only one outstanding requirement to trigger due diligence checks for our sub-entity, an **identification document**. We can use POST`https://files.checkout.com` to upload an identity document for Chrisi.
+
+**Request**
+
+Your request should include the **type** of document, the **file** **path** and the **purpose** of the document. When uploading an identification document, set this to `identification`. For a full list of possible fields, see our API reference. Please note that an identity document can be comprised of a front and back file [depending on its type](/display/x/Upload+a+file).
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`multipart/form-data`
+
+Type can be:
+
+*   "passport" 
+*   "national\_identity\_card" 
+*   "driving\_license" 
+*   "citizen\_card" 
+*   "residence\_permit" 
+*   "electoral\_id".
+
+A back is required for all types other than "passport".
+
+    curl https://files.checkout.com \
+      -F "type=passport" \
+      -F "front=cw_passport.jpg" \
+      -F "purpose=identification"
+    
+
+##### Response
+
+If you received a file `id` in your response, the document was accepted.
+
+    {
+      "id": "file_6lbss42ezvoufcb2beo76rvwly",
+      "_links": {
+        "self": {
+          "href": "https://files.sandbox.checkout.com/files/file_6lbss42ezvoufcb2beo76rvwly"
+        }
+      }
+    }
+
+* * *
+
+#### Step 1d: Update the sub-entity with the identification document
+
+Just as we did with step 1b, we need to update the sub-entity**.** Within the `company.representatives` array, we will be able to see our representative displayed as an object – this is where we need to include the `identification.documentation` object. It should include the following information.
+
+*   **Type:** Read more about [what types are accepted](/display/x/Upload+a+file).
+*   **Front:** Required for **all** identification types. This should be the `id` returned when you uploaded the file.
+
+    {
+      "reference":"678910",
+      "contact_details":{
+        "phone":{
+          "number":"111222333"
+        }
+      },
+      "profile":{
+        "urls":[
+          "https://www.thecakeshop.com"
+        ],
+        "mccs":[
+          5814
+        ]
+      },
+      "company":{
+        "business_registration_number":"452349600005",
+        "legal_name":"The Cake Shop Inc.",
+        "trading_name":"The Cake Shop",
+        "principal_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        },
+        "registered_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        },
+        "representatives":[
+          {
+            "first_name":"Chrisi",
+            "last_name":"Webster",
+            "address":{
+              "address_line1":"123 ABC Close",
+              "city":"London",
+              "zip":"E1 5DP",
+              "country":"GB"
+            },
+            "date_of_birth":{
+              "day":5,
+              "month":6,
+              "year":1995
+            },
+    	"identification": {
+          "document": {
+            "type": "passport",
+            "front": "file_jxaps37jnfaupfu6bsei7rj5iu"
+          }
+       	 }
+        }
+       ]
+      }
+    }
+
+You can check to see if the document was successfully added to that sub-entity by retrieving it again.
+
+And with that, we have met the requirements to trigger due diligence checks!
+
+* * *
+
+#### Step 1f: Handle due diligence result and capabilities changes
+
+Once we have conducted our due diligence checks, we will inform you of the outcome via [webhook notification](https://docs.checkout.com/four/workflows/webhook-event-types). You should expect to receive the `full_dd_passed` and `full_dd_failed` event types. Unless one of our `legal_name` fail triggers is used for simulation, due diligence will always pass in Sandbox. 
+
+For **The Cake Shop**, we receive the `full_dd_passed` with the following payload:
+
+    {
+      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+      "type": "full_dd_passed",
+      "version": "1.0.0",
+      "created_on": "2020-08-20T15:24:13.8431084Z",
+      "data": {
+        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+        "reference": "123456789101112",
+        "legal_name": "The Cake Shop Inc."
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+        }
+      }
+    }
+
+If due diligence is passed, we will enable the sub-entity’s **payment** and **payout** capabilities. You should expect to receive the `payments_enabled` and `payouts_enabled` event types.
+
+For **The Cake Shop**, we receive the `payments_enabled` and `payouts_enabled` with the following payloads:
+
+    {
+      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+      "type": "payments_enabled",
+      "version": "1.0.0",
+      "created_on": "2020-08-20T15:24:13.8431084Z",
+      "data": {
+        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+        "reference": "123456789101112",
+        "legal_name": "The Cake Shop Inc."
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+        }
+      }
+    }
+    
+
+    
+    {
+      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+      "type": "payouts_enabled",
+      "version": "1.0.0",
+      "created_on": "2020-08-20T15:24:13.8431084Z",
+      "data": {
+        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+        "reference": "123456789101112",
+        "legal_name": "The Cake Shop Inc."
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+        }
+      }
+    }
+
+We will re-trigger due diligence checks if any of the required information is later updated. If any subsequent checks fail and you receive the `full_dd_failed` notification, this will be followed by `payments_disabled` and `payouts_disabled`.
+
+Step 2: Accept payments
+-----------------------
+
+*   [**Individual**](#tabs-977e7cc3-8c39-4b4e-8637-8d9eed4b47c9-1)
+*   [**Company**](#tabs-977e7cc3-8c39-4b4e-8637-8d9eed4b47c9-2)
+
+  
+
+Now that your capabilities have been enabled, you’re ready to start using them. Our Unified Payments API enables you to process payments on behalf of a sub-entity by specifying its ID in the `marketplace.sub_entity_id` field when using POST`/payments`.
+
+We’ll use **Daniel’s Donut's** `id` from step 1 to process a payment for £10 on its behalf.
+
+Funds will be routed and held in your platform’s currency accounts as per the preferences agreed for your platform during onboarding. In this example all payments are being routed to GBP.
+
+#### Request
+
+Header
+
+Description
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`application/json`
+
+    {
+      "amount":1000,
+      "currency":"GBP",
+      "reference":"ORD-5023",
+      "description":"Three chocolate donuts",
+      "capture":true,
+      "source":{
+        "type":"card",
+        "number":"4242424242424242",
+        "expiry_month":11,
+        "expiry_year":2024,
+        "cvv":"100"
+      },
+      "processing_channel_id":"pc_yghfzjebuiwelerjsk3atodrey",
+      "marketplace":{
+        "sub_entity_id":"ent_vv2jjkuf2gzj5tcw2x7ptua7zy"
+      }
+    }
+
+`processing_channel_id` corresponds to a specific merchant category code (MCC) that you are setup to process payments for. Your processing channel IDs will be provided to you after we have completed your setup.
+
+#### Response
+
+Use the `approved` field to check whether or not the authorization was successful (`"approved": true`). The `balances` object provides an overview of the payment’s balances, which helps you determine the amount that can be used for each subsequent action on the payment.
+
+    {
+      "id":"pay_upzwlsfvsgwetnqzsr7ex7ehjm",
+      "action_id":"act_e3s33ooalqzuhjukxhvs46qnbi",
+      "amount":1000,
+      "currency":"GBP",
+      "approved":true,
+      "status":"Authorized",
+      "auth_code":"523540",
+      "response_code":"10000",
+      "response_summary":"Approved",
+      "balances":{
+        "total_authorized":1000,
+        "total_voided":0,
+        "available_to_void":1000,
+        "total_captured":0,
+        "available_to_capture":1000,
+        "total_refunded":0,
+        "available_to_refund":0
+      },
+      "risk":{
+        "flagged":false
+      },
+      "source":{
+        "id":"src_mbe6cmlirw6u7ou7i47sumvree",
+        "type":"card",
+        "expiry_month":11,
+        "expiry_year":2024,
+        "scheme":"Visa",
+        "last4":"4242",
+        "fingerprint":"0418BC9FAEA9AC9630A54573D5ADEDB324F0255CE620CBA8CA62598726F3E77C",
+        "bin":"424242",
+        "card_type":"CREDIT",
+        "card_category":"CONSUMER",
+        "issuer":"JPMORGAN CHASE BANK NA",
+        "issuer_country":"US",
+        "product_id":"A",
+        "product_type":"Visa Traditional",
+        "cvv_check":"Y",
+        "payment_account_reference":"V001442883304956196"
+      },
+      "processed_on":"2021-03-29T15:42:18.5005983Z",
+      "reference":"ORD-5023",
+      "scheme_id":"662371971743145",
+      "processing":{
+        "acquirer_transaction_id":"282527877143942840484",
+        "retrieval_reference_number":"535323190665"
+      },
+      "expires_on":"2021-04-28T15:42:18.5005983Z",
+      "_links":{
+        "self":{
+          "href":"https://api.sandbox.checkout.com/payments/pay_upzwlsfvsgwetnqzsr7ex7ehjm"
+        },
+        "actions":{
+          "href":"https://api.sandbox.checkout.com/payments/pay_upzwlsfvsgwetnqzsr7ex7ehjm/actions"
+        },
+        "capture":{
+          "href":"https://api.sandbox.checkout.com/payments/pay_upzwlsfvsgwetnqzsr7ex7ehjm/captures"
+        },
+        "void":{
+          "href":"https://api.sandbox.checkout.com/payments/pay_upzwlsfvsgwetnqzsr7ex7ehjm/voids"
+        }
+      }
+    }
+
+That’s it! £10 has been processed on behalf of Daniel's Donuts and the funds (minus Checkout fees) will be routed to and held in Desserts Delivered’s GBP currency account
+
+Now that your capabilities have been enabled, you’re ready to start using them. Our Unified Payments API enables you to process payments on behalf of a sub-entity by specifying its `id` in the `marketplace.sub_entity_id` field when using POST`/payments`.
+
+We’ll use **The Cake Shop’s** `id` from step 1 to process a payment for £10 on its behalf.
+
+As per The Cake Shop’s profile.default\_holding\_currency, the funds from any payments processed on their behalf will routed and held in the Platform’s GBP currency account.
+
+#### Request
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`application/json`
+
+    {
+      "source":{
+        "type":"card",
+        "number":"4658584090000001",
+        "expiry_month":12,
+        "expiry_year":2025,
+        "cvv":257
+      },
+      "amount":1000,
+      "currency":"GBP",
+      "processing_channel_id":"pc_yghfzjebuiwelerjsk3atodrey",
+      "marketplace":{
+        "sub_entity_id":"ent_hl6thd25xe3f4kmaswl3ytd7aq"
+      }
+    }
+
+#### Response
+
+Use the `approved` field to check whether or not the authorization was successful (`"approved": true`). The `balances` object provides an overview of the payment’s balances, which helps you determine the amount that can be used for each subsequent action on the payment.
+
+    {
+      "id":"pay_ww2od3cfd5vutfj65d5niq5gcu",
+      "action_id":"act_s7xraoxbmkwutl3ypvrnc5dai4",
+      "amount":1000,
+      "currency":"GBP",
+      "approved":true,
+      "status":"Authorized",
+      "auth_code":"308971",
+      "response_code":"10000",
+      "response_summary":"Approved",
+      "balances":{
+        "total_authorized":1000,
+        "total_voided":0,
+        "available_to_void":1000,
+        "total_captured":0,
+        "available_to_capture":1000,
+        "total_refunded":0,
+        "available_to_refund":0
+      },
+      "risk":{
+        "flagged":false
+      },
+      "source":{
+        "id":"src_g6b4zylrqndejbmqd3hywhqzom",
+        "type":"card",
+        "expiry_month":12,
+        "expiry_year":2025,
+        "scheme":"Visa",
+        "last4":"0001",
+        "fingerprint":"B882A831142B243FE4CEE17393898B9F9E2FED3FB87D57F1BD146051EE0BCCBA",
+        "bin":"465858",
+        "card_type":"DEBIT",
+        "card_category":"CONSUMER",
+        "issuer":"BARCLAYS BANK PLC",
+        "issuer_country":"GB",
+        "product_id":"F",
+        "product_type":"Visa Classic",
+        "cvv_check":"Y",
+        "payment_account_reference":"V001130704574635387"
+      },
+      "processed_on":"2021-03-29T16:03:47.2077403Z",
+      "scheme_id":"870240486410864",
+      "processing":{
+        "acquirer_transaction_id":"611804251206082389795",
+        "retrieval_reference_number":"266582379849"
+      },
+      "expires_on":"2021-04-28T16:03:47.2077403Z",
+      "_links":{
+        "self":{
+          "href":"https://api.sandbox.checkout.com/payments/pay_ww2od3cfd5vutfj65d5niq5gcu"
+        },
+        "actions":{
+          "href":"https://api.sandbox.checkout.com/payments/pay_ww2od3cfd5vutfj65d5niq5gcu/actions"
+        },
+        "capture":{
+          "href":"https://api.sandbox.checkout.com/payments/pay_ww2od3cfd5vutfj65d5niq5gcu/captures"
+        },
+        "void":{
+          "href":"https://api.sandbox.checkout.com/payments/pay_ww2od3cfd5vutfj65d5niq5gcu/voids"
+        }
+      }
+    }
+
+That’s it! £10 has been processed on behalf of **The Cake Shop** and the funds (minus Checkout fees) will be routed to and held in Desserts Delivered’s GBP currency account.
+
+Step 3: Make payouts
+--------------------
+
+*   [**Individual**](#tabs-a6179c88-5750-4a3c-b409-bcc86861030b-1)
+*   [**Company**](#tabs-a6179c88-5750-4a3c-b409-bcc86861030b-2)
+
+Now that we’ve successfully processed a payment on behalf of our sub-entity, we now have funds available to be paid out to **Daniel’s Donuts**, as well as fees to collect for our platform, Desserts Delivered.
+
+In this step we’re going to walk through the steps that will enable us to do this:
+
+*   **Retrieve currency account balance**
+*   **Store sub-entity bank account details**
+*   **Make a payout**
+*   **Collect platform fees**
+
+* * *
+
+#### Step 3a: Retrieve currency account balance
+
+We are currently working on exposing real-time currency account balances via API, and hope to offer this functionality soon. In the meantime, you can process [balance reports](https://docs.checkout.com/four/reporting/reconciliation-reports/balance-reports) to retrieve the closing available balance of your currency account(s) on a daily basis. If you’d like to reconcile transactions for each sub-entity, you can process daily [financial actions](https://docs.checkout.com/four/reporting/reconciliation-reports/financial-actions-reports) reports to retrieve this breakdown.
+
+* * *
+
+#### Step 3b: Create sub-entity payment instrument
+
+A payment instrument is a set of bank account details securely stored in our vault. You will need to create a payment instrument for your sub-entity so that it can later be used as a destination when making on-demand payouts directly to them.
+
+Your Platform's bank account is also represented as a payment instrument, and will be used as the destination when making payouts to yourself to collect your Platform’s fees. Your platform payment instrument ID(s) will be provided to you after we have completed your setup.
+
+We will create a payment instrument representing Daniel’s Donuts Barclays bank account details in this step. Use POST`/marketplace/entities/{id}/instruments` to create a sub-entity payment instrument.
+
+#### Request
+
+Header
+
+Description
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`application/json`
+
+    {
+      "label":"Daniel's Donuts Barclays",
+      "type":"bank_account",
+      "account_number":"12345678",
+      "bank_code":"050389",
+      "currency":"GBP",
+      "country":"GB",
+      "account_holder":{
+        "company_name":"Daniel's Donuts",
+        "billing_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "state":"London",
+          "zip":"W1T 4TJ",
+          "country":"GB"
+        }
+      }
+    }
+
+We will attempt to create the payment instrument asynchronously (behind the scenes), and inform you of the result via the `payment_instrument_created` and `payment_instrument_error` webhook notifications. 
+
+For **Daniel’s Donuts**, we receive the `payment_instrument_created` notification – this contains `data.payment_instrument_id`, which we’ll need to make our payout to Daniel’s Donuts later:
+
+    {
+      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+      "type": "payment_instrument_created",
+      "version": "1.0.0",
+      "created_on": "2020-08-20T15:24:13.8431084Z",
+      "data": {
+        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+        "payment_instrument_id": "src_33z5qxrwp2bulj4volyqvarhyq",
+        "label": "Daniel's Donuts Barclays"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+        }
+      }
+    }
+
+If successful, we will automatically make the association between this payment instrument and its sub-entity. You can see this association and alternatively retrieve the payment instrument `id` by using GET`/marketplace/entities/{id}` again:
+
+    {
+      "id": "ent_wxglze3wwywujg4nna5fb7ldli",
+      ...,
+      "instruments": [
+        {
+          "id": "src_33z5qxrwp2bulj4volyqvarhyq",
+          "label": "Daniel's Donuts Barclays"
+        }
+      ],
+      ...,
+    }
+
+#### Step 3c: Make sub-entity payout
+
+Similar to processing payments, our Unified Payments API enables you to make payouts on behalf of a sub-entity by specifying its `id` in the `marketplace.sub_entity_id` field when using POST`/payments`.
+
+We’ll make a payout to **Daniel’s Donuts** for £8. The funds will come from Desserts Delivered’s GBP currency account (`source.id`) and be sent to Daniel’s Donuts bank account (`destination.id`).
+
+##### Request
+
+Header
+
+Description
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`application/json`
+
+    {
+      "amount":100,
+      "currency":"GBP",
+      "source":{
+        "type":"currency_account",
+        "id":"ca_a4kf6by2guqelofnaa4uqozosu"
+      },
+      "destination":{
+        "type":"id",
+        "id":"src_sivtx4g4mt2u7h5eltcqm7d4fa"
+      },
+      "billing_descriptor":{
+        "reference":"Desserts Delivered Payout"
+      },
+      "instruction":{
+        "purpose":"Payout"
+      },
+      "processing_channel_id":"pc_v6oaskquunqufj2t7e7wf3e6am"
+    }
+
+##### Response
+
+    {
+      "id":"pay_xvyvcgxx7hmu3iw2kdfunegh3m",
+      "status":"Pending",
+      "instruction":{
+        "value_date":"2021-03-31T01:39:57.0909438Z"
+      },
+      "_links":{
+        "self":{
+          "href":"https://api.sandbox.checkout.com/payments/pay_xvyvcgxx7hmu3iw2kdfunegh3m"
+        },
+        "actions":{
+          "href":"https://api.sandbox.checkout.com/payments/pay_xvyvcgxx7hmu3iw2kdfunegh3m/actions"
+        }
+      }
+    }
+
+The payout will be attempted asynchronously (behind the scenes) and you will be informed of updates to its status through webhook notifications. You should expect to receive the `payment_paid` event type.
+
+For **Daniel’s Donuts**, we receive the `payment_paid` with the following payload:
+
+    {
+      "id": "evt_pktvel6mu4pe7ccp2fj2eptd5e",
+      "type": "payment_paid",
+      "created_on": "2020-04-22T08:59:10Z",
+      "data": {
+        "id": "pay_xlnpaqlov6ueva2usevmdvlupa",
+        "action_id": "act_webm7t2gjfduhlr3mel5ly7koq",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "amount": 800,
+        "currency": "GBP",
+        "source": {
+          "type": "currency_account",
+          "id": "ca_e6myfp3ubs3ulk5tve6xx6x2oy"
+        },
+        "destination": {
+          "type": "id",
+          "id": "src_33z5qxrwp2bulj4volyqvarhyq"
+        },
+        "processed_on": "2020-04-22T09:00:10Z",
+        "reference": "Desserts Delivered Payout",
+      },
+     "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/events/evt_hbnxegj3dqyu5fsd4p2b4bxvpa"
+        },
+        "subject": {
+          "href": "https://api.checkout.com/workflows/events/subject/pay_jlfj2ful7z3u5lbykhy5lzezvm"
+        }
+      }
+    }
+
+* * *
+
+#### Step 3d: Collect Platform fees
+
+Collection of your Platform fees is achieved through the same method as making payouts to sub-entities. The only difference being that the `destination.id` will be your Platform’s payment instrument `id`.
+
+In this example we (Desserts Delivered) will simply collect a £1 fee from **Daniel’s Donuts**; however, please note that because funds for multiple sub-entities are aggregated based on currency, you can actually collect fees from multiple sub-entities in a single request, which reduces the effort required. 
+
+Use POST`/payments` again, but this time you can omit the `marketplace` object, as this payout is being made on behalf of your Platform to collect your fees. Instead use the payment instrument representing your bank account as the `destination.id`.
+
+##### Request
+
+Header
+
+Description
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`application/json`
+
+    {
+      "amount": 100,
+      "currency": "GBP",
+      "source": {
+        "type": "currency_account",
+        "id": "ca_e6myfp3ubs3ulk5tve6xx6x2oy"
+      },
+      "destination": {
+        "type": "id",
+        "id": "src_otruwzxbhvhutpoheg4q5jmkgq"
+      },
+      "billing_descriptor": {
+        "reference": "Desserts Delivered"
+      },
+      "processing_channel_id": "pc_q4dbxom5jbgudnjzjpz7j2z6uq",
+    }
+
+##### Response
+
+    {
+      "id": "pay_xlnpaqlov6ueva2usevmdvlupa",
+      "status": "Pending",
+      "reference": "Desserts Delivered",
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/payments/pay_xlnpaqlov6ueva2usevmdvlupa"
+        }
+      }
+    }
+
+The payout will be attempted asynchronously (behind the scenes) and you will be informed of updates to its status through webhook notifications. You should expect to receive the `payment_paid` event type.
+
+For the payout to collect fees for Desserts Delivered, we receive the `payment_paid` with the following payload:
+
+    {
+      "id": "evt_pktvel6mu4pe7ccp2fj2eptd5e",
+      "type": "payment_paid",
+      "created_on": "2020-04-22T08:59:10Z",
+      "data": {
+        "id": "pay_xlnpaqlov6ueva2usevmdvlupa",
+        "action_id": "act_webm7t2gjfduhlr3mel5ly7koq",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "amount": 100,
+        "currency": "GBP",
+        "source": {
+          "type": "currency_account",
+          "id": "ca_e6myfp3ubs3ulk5tve6xx6x2oy"
+        },
+        "destination": {
+          "type": "id",
+          "id": "src_otruwzxbhvhutpoheg4q5jmkgq"
+        },
+        "processed_on": "2020-04-22T09:00:10Z",
+        "reference": "Desserts Delivered",
+      },
+     "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/events/evt_hbnxegj3dqyu5fsd4p2b4bxvpa"
+        },
+        "subject": {
+          "href": "https://api.checkout.com/workflows/events/subject/pay_jlfj2ful7z3u5lbykhy5lzezvm"
+        }
+      }
+    }
+
+Now that we’ve successfully processed a payment on behalf of our sub-entity, we now have funds available to be paid out to **The Cake Shop**, as well as fees to collect for our platform, Desserts Delivered.
+
+In this step we’re going to walk through the steps that will enable us to do this:
+
+*   **Retrieve currency account balance**
+*   **Store sub-entity bank account details**
+*   **Make a payout**
+*   **Collect platform fees**
+
+* * *
+
+#### Step 3a: Retrieve currency account balance
+
+We are currently working on exposing real-time currency account balances via API, and hope to offer this functionality soon. In the meantime, you can process [balance reports](https://docs.checkout.com/four/reporting/reconciliation-reports/balance-reports) to retrieve the closing available balance of your currency account(s) on a daily basis. If you’d like to reconcile transactions for each sub-entity, you can process daily [financial actions](https://docs.checkout.com/four/reporting/reconciliation-reports/financial-actions-reports) reports to retrieve this breakdown.
+
+* * *
+
+#### Step 3b: Create sub-entity payment instrument
+
+A payment instrument is a set of bank account details securely stored in our vault. You will need to create a payment instrument for your sub-entity so that it can later be used as a destination when making on-demand payouts directly to them.
+
+Your Platform's bank account is also represented as a payment instrument, and will be used as the destination when making payouts to yourself to collect your Platform’s fees. Your platform payment instrument ID(s) will be provided to you after we have completed your setup.
+
+We will create a payment instrument representing The Cake Shop’s Barclays bank account details in this step. Use POST`/marketplace/entities/{id}/instruments` to create a sub-entity payment instrument.
+
+#### Request
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`application/json`
+
+    {
+      "label":"The Cake Shop HSBC",
+      "type":"bank_account",
+      "account_number":"012123",
+      "bank_code":"050389",
+      "currency":"GBP",
+      "country":"GB",
+      "account_holder":{
+        "company_name":"The Cake Shop",
+        "billing_address":{
+          "address_line1":"1 Cake Lane",
+          "city":"London",
+          "state":"London",
+          "zip":"W1T 4TJ",
+          "country":"GB"
+        }
+      }
+    }
+
+We will attempt to create the payment instrument asynchronously, and inform you of the result via the `payment_instrument_created` and `payment_instrument_error` webhook notifications.
+
+For **The Cake Shop**, we receive the `payment_instrument_created` notification – this contains `data.payment_instrument_id`, which we’ll need to make our payout to The Cake Shop later:
+
+    {
+      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+      "type": "payment_instrument_created",
+      "version": "1.0.0",
+      "created_on": "2020-08-20T15:24:13.8431084Z",
+      "data": {
+        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+        "payment_instrument_id": "src_33z5qxrwp2bulj4volyqvarhyq",
+        "label": "The Cake Shop HSBC"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+        }
+      }
+    }
+
+If successful, we will automatically make the association between this payment instrument and its sub-entity. You can see this association and alternatively retrieve the payment instrument id by using GET`/marketplace/entities/{id}` again:
+
+    {
+      "id": "ent_wxglze3wwywujg4nna5fb7ldli",
+      ...,
+      "instruments": [
+        {
+          "id": "src_33z5qxrwp2bulj4volyqvarhyq",
+          "label": "The Cake Shop HSBC"
+        }
+      ],
+      ...,
+    }
+
+* * *
+
+#### Step 3c: Make sub-entity payout
+
+Similar to processing payments, our Unified Payments API enables you to make payouts on behalf of a sub-entity by specifying its `id` in the `marketplace.sub_entity_id` field when using POST`/payments`.
+
+We’ll make a payout to **The Cake Shop** for £8. The funds will come from Desserts Delivered’s GBP currency account (`source.id`) and be sent to The Cake Shop’s bank account (`destination.id`).
+
+##### Request
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`application/json`
+
+    {
+      "amount": 800,
+      "currency": "GBP",
+      "source": {
+        "type": "currency_account",
+        "id": "ca_e6myfp3ubs3ulk5tve6xx6x2oy"
+      },
+      "destination": {
+        "type": "id",
+        "id": "src_33z5qxrwp2bulj4volyqvarhyq"
+      },
+      "billing_descriptor": {
+        "reference": "Desserts Delivered Payout"
+      },
+      "processing_channel_id": "pc_q4dbxom5jbgudnjzjpz7j2z6uq",
+      "marketplace": {
+        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+      },
+    }
+
+##### Response
+
+    {
+      "id": "pay_xlnpaqlov6ueva2usevmdvlupa",
+      "status": "Pending",
+      "reference": "Desserts Delivered Payout",
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/payments/pay_xlnpaqlov6ueva2usevmdvlupa"
+        }
+      }
+    }
+
+The payout will be attempted asynchronously (behind the scenes) and you will be informed of updates to its status through webhook notifications. You should expect to receive the `payment_paid` event type.
+
+For **The Cake Shop**, we receive the `payment_paid` with the following payload:
+
+    {
+      "id": "evt_pktvel6mu4pe7ccp2fj2eptd5e",
+      "type": "payment_paid",
+      "created_on": "2020-04-22T08:59:10Z",
+      "data": {
+        "id": "pay_xlnpaqlov6ueva2usevmdvlupa",
+        "action_id": "act_webm7t2gjfduhlr3mel5ly7koq",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "amount": 800,
+        "currency": "GBP",
+        "source": {
+          "type": "currency_account",
+          "id": "ca_e6myfp3ubs3ulk5tve6xx6x2oy"
+        },
+        "destination": {
+          "type": "id",
+          "id": "src_33z5qxrwp2bulj4volyqvarhyq"
+        },
+        "processed_on": "2020-04-22T09:00:10Z",
+        "reference": "Desserts Delivered Payout",
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/events/evt_hbnxegj3dqyu5fsd4p2b4bxvpa"
+        },
+        "subject": {
+          "href": "https://api.checkout.com/workflows/events/subject/pay_jlfj2ful7z3u5lbykhy5lzezvm"
+        }
+      }
+    }
+
+If you receive the sub-entity again, you will see the instrument you've created returned in the response.
+
+We have cut out most of the response so you can focus on the instrument array. Your actual response will be much bigger.
+
+#### Step 3d: Collect Platform fees
+
+Collection of your Platform fees is achieved through the same method as making payouts to sub-entities. The only difference being that the destination.id will be your Platform’s payment instrument `id`.
+
+In this example we (Desserts Delivered) will simply collect a £1 fee from **The Cake Shop**; however, please note that because funds for multiple sub-entities are aggregated based on currency, you can actually collect fees from multiple sub-entities in a single request, which reduces the effort required. 
+
+Use POST`/payments` again, but this time you can omit the `marketplace` object, as this payout is being made on behalf of your Platform to collect your fees, and use the payment instrument representing your bank account as the `destination.id`.
+
+##### Request
+
+Header
+
+Description
+
+Authorization
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+Content-Type
+
+REQUIRED
+
+`application/json`
+
+    {
+      "amount": 100,
+      "currency": "GBP",
+      "source": {
+        "type": "currency_account",
+        "id": "ca_e6myfp3ubs3ulk5tve6xx6x2oy"
+      },
+      "destination": {
+        "type": "id",
+        "id": "src_otruwzxbhvhutpoheg4q5jmkgq"
+      },
+      "billing_descriptor": {
+        "reference": "Desserts Checkout Fees"
+      },
+      "processing_channel_id": "pc_q4dbxom5jbgudnjzjpz7j2z6uq",
+    }
+
+##### Response
+
+    {
+      "id": "pay_xlnpaqlov6ueva2usevmdvlupa",
+      "status": "Pending",
+      "reference": "Desserts Checkout Fees",
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/payments/pay_xlnpaqlov6ueva2usevmdvlupa"
+        }
+      }
+    }
+
+The payout will be attempted asynchronously (behind the scenes) and you will be informed of updates to its status through webhook notifications. You should expect to receive the `payment_paid` event type.
+
+For the payout to collect fees for Desserts Delivered, we receive the `payment_paid` with the following payload:
+
+    {
+      "id": "evt_pktvel6mu4pe7ccp2fj2eptd5e",
+      "type": "payment_paid",
+      "created_on": "2020-04-22T08:59:10Z",
+      "data": {
+        "id": "pay_xlnpaqlov6ueva2usevmdvlupa",
+        "action_id": "act_webm7t2gjfduhlr3mel5ly7koq",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "amount": 100,
+        "currency": "GBP",
+        "source": {
+          "type": "currency_account",
+          "id": "ca_e6myfp3ubs3ulk5tve6xx6x2oy"
+        },
+        "destination": {
+          "type": "id",
+          "id": "src_otruwzxbhvhutpoheg4q5jmkgq"
+        },
+        "processed_on": "2020-04-22T09:00:10Z",
+        "reference": "Desserts Checkout Fees",
+      },
+     "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/events/evt_hbnxegj3dqyu5fsd4p2b4bxvpa"
+        },
+        "subject": {
+          "href": "https://api.checkout.com/workflows/events/subject/pay_jlfj2ful7z3u5lbykhy5lzezvm"
+        }
+      }
+    }
+
+* * *
+
+That's it! You've successfully completed your first payment flow in Marketplaces.
+
+FAQs
+----
+
+ Why haven't my capabilities been enabled?
+
+Capabilities are enabled once due diligence checks have been completed. If you haven't received a webhoook notification – either full\_dd\_passed or `full_dd_failed` – it is likely there are outstanding requirements due. Please check our onboarding information page to confirm you have sent all the required information.
+
+If you have provided all the information, and more than two hours have passed, please allow up to 48 hours to review the sub-entity. In rare cases, we may have to perform checks manually, which can delay our response.
+
+  
+
+ Why is there an invalid scope error?
+
+You will only be able to specify the `company.principal_address.country`, `profile.mccs` and `profile.default_holding_currency` to those that were configured for your scope during onboarding. For example, if your processing scope is only MCC `5311`, you cannot change this to `5411`. If you’re getting an invalid for scope error, you’ll need change the value(s) to something in your scope, or get in touch with us to update your scope.
+
+  
+
+ I didn't specify a default currency, but one was set anyway. Why?
+
+If omitted, `profile.default_holding_currency` will be set to the default preference specified during your onboarding.
+
+  
+
+ Why can't I update my sub-entity's default holding currency?
+
+`profile.default_holding_currency` is not currently updatable. If you need to change this, please get in touch.
+
+  
+
+ Why is there a 'pay to bank not configured' error when attempting a payout?
+
+This means the processing channel you are using is not configured for pay to bank. Please use another one or get in touch to have it enabled on the one you’re using.
+
+* * *
+
+  
+
+  
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/pages/viewpage.action?pageId=20120621&showComments=true&showCommentArea=true#addcomment)

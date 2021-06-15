@@ -1,0 +1,48 @@
+---
+title: Declined - Do not honour
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 22, 2021](/pages/diffpagesbyversion.action?pageId=8488200&selectedPageVersions=3&selectedPageVersions=4 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+A `Declined - Do not honour` notification is a request status associated with the `20005` response code, and it means that the customer's bank has declined the payment. This is the most common message provided by banks when a payment fails their authorization process.
+
+This decline response means that the issuing bank has provided no further details about the payment failure, and we cannot override the response.
+
+Sometimes the payment may have been declined owing to failed CVV or AVS checks, so it's worth checking these fields are correct before trying anything else.
+
+Trigger scenarios
+-----------------
+
+There are several possible scenarios that can trigger the `20005 (Declined - Do not honour)` response code:
+
+1.  The bank's fraud rules (which consider various factors that are not made public) have been triggered.
+2.  The bank may have placed a temporary hold on the customer's card.
+3.  The purchase session may have been locked due to multiple declined payments.
+4.  The seller is located in a country different from that of the card issuing bank.  
+    
+
+How to resolve
+--------------
+
+To resolve a `20005 (Declined - Do not honour)` response, try the following:
+
+1.  Ask the customer to contact their bank, explaining that they are trying to process a payment. The customer can ask the bank to allow the payment.
+2.  Ask the customer to try again at a later time. The issuing bank may have only placed a temporary hold on the card.
+3.  Ask the customer to use an alternative credit card.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Declined+-+Do+not+honour?showComments=true&showCommentArea=true#addcomment)

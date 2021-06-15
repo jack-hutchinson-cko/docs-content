@@ -1,0 +1,84 @@
+---
+title: Dynamic billing descriptor
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 22, 2021](/pages/diffpagesbyversion.action?pageId=8488006&selectedPageVersions=7&selectedPageVersions=8 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+The billing descriptor is the text that is displayed on the customer's credit card statement identifying a purchase from a merchant’s website. This descriptor can be set dynamically in a payment request.
+
+If you would like to enable this functionality, please contact our [Support team](mailto:support@checkout.com).
+
+### Parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`billing_descriptor`
+
+OPTIONAL
+
+OBJECT
+
+  
+
+Details about the billing descriptor.
+
+`billing_descriptor.name`
+
+REQUIRED
+
+STRING
+
+  
+
+Dynamic description of the charge.
+
+Up to 25 characters
+
+`billing_descriptor.city`
+
+REQUIRED
+
+STRING
+
+  
+
+City from which the charge originated.
+
+Up to 13 characters
+
+You can use the following characters in your descriptor:
+
+*   Uppercase: `A-Z`
+*   Lowercase: `a-z`
+*   Numbers: `0-9`
+*   Special characters: `. ! * - = _`
+
+### Example
+
+    "billing_descriptor": {
+      "name": "Checkout.com",
+      "city": "London"
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Dynamic+billing+descriptor?showComments=true&showCommentArea=true#addcomment)

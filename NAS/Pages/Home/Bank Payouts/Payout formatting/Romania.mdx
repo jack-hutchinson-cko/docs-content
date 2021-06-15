@@ -1,0 +1,291 @@
+---
+title: Romania
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 09, 2021](/pages/diffpagesbyversion.action?pageId=8489723&selectedPageVersions=10&selectedPageVersions=11 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+#### Basic information
+
+*   [**Local**](#tabs-156621f3-228e-49b9-bb13-4d43bb2e1206-1)
+*   [**International**](#tabs-156621f3-228e-49b9-bb13-4d43bb2e1206-2)
+
+  
+
+Country code
+
+RO
+
+Supported currency
+
+EUR
+
+Scheme
+
+SEPA:
+
+*   **Minimum amount (local currency):** 0.01
+*   **Maximum amount (local currency):** no maximum
+*   **Cut-off time:** 11:30 GMT
+*   **Settlement:** T+1 next day
+
+#### Payment information
+
+ Individual
+
+#### Beneficiary information
+
+  
+
+Beneficiary type
+
+The type of account holder. Set this to `individual`.
+
+`account_holder.type`
+
+REQUIRED
+
+ENUM
+
+Beneficiary name
+
+The account holder's first and last name.
+
+`account_holder.first_name`
+
+REQUIRED
+
+STRING
+
+`account_holder.last_name`
+
+REQUIRED
+
+STRING
+
+Beneficiary address
+
+The account holder's address.
+
+  
+
+  
+
+  
+
+  
+
+`account_holder.billing_address.address_line1`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.address_line2`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.city`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.zip`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.country`
+
+REQUIRED
+
+ENUM, 2 CHARACTERS
+
+This must be a [two-letter ISO code](/display/DOCS/Country+codes).
+
+#### Bank details
+
+  
+
+IBAN
+
+The account holder's IBAN.
+
+`iban`
+
+REQUIRED
+
+STRING, 24 CHARACTERS
+
+SWIFT BIC
+
+The account holder's SWIFT BIC.
+
+`swift_bic`
+
+REQUIRED
+
+STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+
+ Corporate
+
+#### Beneficiary information
+
+  
+
+Beneficiary type
+
+The type of account holder. Set this to `corporate`.
+
+`account_holder.type`
+
+REQUIRED
+
+ENUM
+
+Beneficiary name
+
+The account holder's company name.
+
+`account_holder.company_name`
+
+REQUIRED
+
+STRING
+
+Beneficiary address
+
+The account holder's address.
+
+`account_holder.billing_address.address_line1`
+
+REQUIRED
+
+STRING
+
+`account_holder.billing_address.address_line2`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.city`
+
+REQUIRED
+
+STRING
+
+`account_holder.billing_address.zip`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.country`
+
+REQUIRED
+
+ENUM, 2 CHARACTERS
+
+This must be a [two-letter ISO code](/display/DOCS/Country+codes).
+
+#### Bank details
+
+  
+
+IBAN
+
+The account holder's IBAN.
+
+`iban`
+
+REQUIRED
+
+STRING, 24 CHARACTERS
+
+SWIFT BIC
+
+The account holder's SWIFT BIC.
+
+`swift_bic`
+
+REQUIRED
+
+STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+
+#### Example
+
+*   [**Payment instrument request (EUR)**](#tabs-25d26e29-70c5-4b03-b0a4-a06bb1c586ea-1)
+*   [**Payout request (EUR)**](#tabs-25d26e29-70c5-4b03-b0a4-a06bb1c586ea-2)
+
+    {
+      "type": "bank_account",
+      "iban": "RO49AAAA1B31007593840000",
+      "swift_bic": "BTRLRO22XXX",
+      "currency": "EUR",
+      "country": "RO",
+      "account_holder": {
+        "first_name": "John",
+        "last_name": "Smith",
+        "address_line1": "99 Windsor Road",
+        "address_city": "Bucharest",
+        "country_code": "RO",
+        "billing_address": {
+          "address_line1": "99 Windsor Road",
+          "country_code": "RO",
+          "address_city": "Bucharest"
+        }
+      }
+    }
+
+    {
+      "currency": "EUR",
+      "source": {
+        "amount": 100,
+        "type": "currency_account",
+        "id": "ca_vrsqwv6tgtyufgi5xahfqmqq7a"
+      },
+      "reference": "CKO Test",
+      "destination": {
+        "type": "id",
+        "id": "src_6gtxe3cxns7uld5ytsemv6pdma"
+      },
+      "billing_descriptor": {
+        "reference": "CKO Test"
+      },
+      "sender": {
+        "type": "instrument",
+        "reference": "CKO Test",
+        "first_name": "John",
+        "last_name": "Smith",
+        "address_line1": "99 Windsor Road",
+        "address_city": "Bucharest",
+        "country_code": "RO"
+      },
+      "instruction": {
+        "purpose": "CKO Test EUR"
+      },
+      "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
+    }
+
+Coming soon.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Romania?showComments=true&showCommentArea=true#addcomment)

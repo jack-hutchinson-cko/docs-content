@@ -1,0 +1,425 @@
+---
+title: Rapipago
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [Jun 09, 2021](/pages/diffpagesbyversion.action?pageId=5931472&selectedPageVersions=17&selectedPageVersions=18 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Start accepting payment using Rapipago, a favorite payment method in Argentina.
+
+If you want to use a gateway model for accepting Rapipago payments, you will need to arrange an agreement with our provider, dLocal, and create merchant details (specifically, `x_login` and `x_trans_key`) and a secret key with them. Share these details with our Customer Support team and we'll get you up and running. If you have already been onboarded for one of our other dLocal payment methods, you can use the same credentials.
+
+Overview
+--------
+
+Rapipago payments follow a two-step process:
+
+1.  [Request payment](#Rapipago-requestpayment)
+2.  [Redirect the customer](#Rapipago-redirect)
+
+Step 1: Request payment 
+------------------------
+
+### The POST request
+
+#### Endpoints
+
+*   [**Live**](#tabs-35e21b1f-868d-4e2d-9b2a-c2782075cbdd-1)
+*   [**Sandbox**](#tabs-35e21b1f-868d-4e2d-9b2a-c2782075cbdd-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+  
+
+Field name
+
+Description
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `rapipago`.
+
+`source.integration_type`
+
+REQUIRED
+
+STRING
+
+The type of integration. Set this to `redirect`. This will return a redirect URL. Redirect the customer to this URL to proceed with the payment.
+
+`source.country`
+
+REQUIRED
+
+STRING
+
+The two-letter code (ISO 3166) of the customer's country. Should be `AR`.
+
+`source.payer`
+
+REQUIRED
+
+OBJECT
+
+Details about the customer.
+
+`source.payer.name`
+
+REQUIRED
+
+STRING
+
+The full name of the customer.
+
+`source.payer.email`
+
+REQUIRED
+
+STRING
+
+The email address of the customer.
+
+`source.payer.document`
+
+REQUIRED
+
+STRING
+
+The customer's tax identification number. Either the Documento Nacional de Identidad (DNI) or Clave Única de Identificación Tributaria (CUIT).
+
+`source.description`
+
+OPTIONAL
+
+STRING
+
+A description of the payment.
+
+`amount`
+
+REQUIRED
+
+INTEGER
+
+The payment amount.
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The three-letter currency code (ISO 4217). Set this to `ARS`.
+
+#### Request example
+
+    {
+      "source": {
+        "type": "rapipago",
+        "integration_type": "redirect",
+        "country": "AR",
+        "payer": {
+          "name": "Bruce Wayne",
+          "email": "bruce@wayne-enterprises.com"
+        },
+        "description": "simulate Rapipago Demo Payment"
+      },
+      "amount": 100,
+      "currency": "ARS"
+    }
+
+### The POST response
+
+You should get a `202` response with the `status` field set to `Pending`. This means your request has been accepted.
+
+#### Response example
+
+    {
+      "id": "pay_274nqq3v2vqura6oirwlupvpuu",
+      "status": "Pending",
+      "customer": {
+        "id": "cus_2l5rigg64jqu5d76rmsa4jbuu4"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_274nqq3v2vqura6oirwlupvpuu"
+        },
+        "redirect": {
+          "href": "https://sandbox.dlocal.com/collect/pay/pay/M-edadd4c6-18d4-4e59-873d-84c361a2d98c?xtid=CATH-ST-1588001175-803994443"
+        },
+        "simulator:payment-succeed": {
+          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/rapipago/payments/pay_274nqq3v2vqura6oirwlupvpuu/succeed"
+        },
+        "simulator:payment-expire": {
+          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/rapipago/payments/pay_274nqq3v2vqura6oirwlupvpuu/expire"
+        }
+      }
+    }
+
+### Step 2: Redirect the customer 
+
+To capture and complete the payment, you need to provide the customer with the Rapipago ticket.
+
+Using the redirection URL returned in the response above via `_links.redirect`, redirect your customer to the static, hosted Rapipago ticket page. Once redirected, your customer should save or print the ticket.
+
+Make sure your customer is aware that they will be redirected to the ticket page when they click your "Pay now" button, and that they should print or save the ticket.
+
+A button on the page will allow them to return to your shop:
+
+*   If the ticket is still valid, they will be redirected to your success URL.
+*   If the ticket has expired, they will be redirected to your failure URL.
+
+Your payment confirmation page should make it clear to the customer that their purchase has not yet been completed. Explain that it has been reserved and is pending payment before the order can be completed and the goods/services can be delivered.
+
+### Get details about a payment 
+
+Using the following endpoint, pass the payment `id` (for example, `pay_hcklpcd45ymepcr7thciirbdaa`) from the payment response to get details about the payment.
+
+### The GET request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-ce74c628-a824-4083-8fdb-90556dfbc4a2-1)
+*   [**Sandbox**](#tabs-ce74c628-a824-4083-8fdb-90556dfbc4a2-2)
+
+GET`https://api.checkout.com/payments/{payment_id}`
+
+GET`https://api.sandbox.checkout.com/payments/{payment_id}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+`payment_id`
+
+REQUIRED
+
+The payment ID found in the response of the initial response.
+
+### The GET response
+
+#### Response examples
+
+*   [**Payment pending**](#tabs-91bc3ece-7946-440f-9c31-ee5e198e6071-1)
+*   [**Payment captured**](#tabs-91bc3ece-7946-440f-9c31-ee5e198e6071-2)
+
+    {
+      "id": "pay_274nqq3v2vqura6oirwlupvpuu",
+      "requested_on": "2020-04-27T15:26:15Z",
+      "source": {
+        "type": "rapipago",
+        "dlocal_order_id": "da95e7f4d26e4a14987b49a6a4710a13",
+        "dlocal_payment_id": "D-30150-cbbdc947-5291-4fe9-a114-5c17b3829f9b",
+        "integration_type": "redirect",
+        "description": "simulate Rapipago Demo Payment"
+      },
+      "amount": 100,
+      "currency": "ARS",
+      "payment_type": "Regular",
+      "status": "Pending",
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_2l5rigg64jqu5d76rmsa4jbuu4"
+      },
+      "_links": {
+        "redirect": {
+          "href": "https://sandbox.dlocal.com/collect/pay/pay/M-edadd4c6-18d4-4e59-873d-84c361a2d98c?xtid=CATH-ST-1588001175-803994443"
+        },
+        "simulator:payment-succeed": {
+          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/rapipago/payments/pay_274nqq3v2vqura6oirwlupvpuu/succeed"
+        },
+        "simulator:payment-expire": {
+          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/rapipago/payments/pay_274nqq3v2vqura6oirwlupvpuu/expire"
+        },
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_274nqq3v2vqura6oirwlupvpuu"
+        }
+      }
+    }
+
+    {
+      "id": "pay_274nqq3v2vqura6oirwlupvpuu",
+      "requested_on": "2020-04-27T15:26:15Z",
+      "source": {
+        "type": "rapipago",
+        "dlocal_order_id": "da95e7f4d26e4a14987b49a6a4710a13",
+        "dlocal_payment_id": "D-30150-cbbdc947-5291-4fe9-a114-5c17b3829f9b",
+        "integration_type": "redirect",
+        "description": "simulate Rapipago Demo Payment"
+      },
+      "amount": 100,
+      "currency": "ARS",
+      "payment_type": "Regular",
+      "status": "Captured",
+      "approved": true,
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_2l5rigg64jqu5d76rmsa4jbuu4"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_274nqq3v2vqura6oirwlupvpuu"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_274nqq3v2vqura6oirwlupvpuu/actions"
+        },
+        "refund": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_274nqq3v2vqura6oirwlupvpuu/refunds"
+        }
+      }
+    }
+
+Refunds and chargebacks
+-----------------------
+
+### Refund a payment
+
+You can refund a Rapipago payment using our [refund API](/display/DOCS/Refund+a+payment). Partial and multiple – as well as full – refunds are allowed.
+
+The customer will get an email (the email address is taken from the `source.payer.email` property in the initial payment request) from dLocal asking for their banking details. Once the customer has provided their details, dLocal will transfer the money to the customer's bank account.
+
+The payment status will update to `refunded` and you will receive a `payment_refunded` (or `payment_refund_declined`, if unsuccessful) webhook notification.
+
+A refund processing fee may apply.
+
+### Chargebacks
+
+There is no chargeback mechanism for Rapipago.
+
+Webhooks
+--------
+
+Webhooks
+
+Description
+
+`payment_pending`
+
+Sent when a payment request is successfully initiated.
+
+`payment_capture_pending`
+
+Sent when the acquirer is in the process of accepting the payment.
+
+`payment_captured`
+
+Sent when the customer has completed the payment with the ticket.
+
+`payment_expired`
+
+Sent when the ticket has expired.
+
+`payment_declined`
+
+Sent when there was a failure in creating the payment.
+
+`payment_refund_pending`
+
+Sent when a refund is successfully initiated.
+
+`payment_refunded`
+
+Sent when a refund is successfully processed.
+
+`payment_refund_declined`
+
+Sent when a refund is declined.
+
+Learn more about [webhooks and how to subscribe to them](/display/DOCS/Webhooks).
+
+Testing
+-------
+
+To start testing, you'll need to:
+
+*   [create a test account](https://www.checkout.com/get-test-account), and
+*   contact your Customer Success Manager or Integrations engineer to activate Rapipago payments in the sandbox environment.
+
+In your sandbox environment, you can test payment capture and expiration, as well as refund success and failure.
+
+In order to test these actions, pass the string `"simulate"` as part of the `source.description` field in the initial payment request.
+
+When you do, you will receive additional hypermedia links in the `_links` object in the payment response and in the 'get payment details' response.
+
+Use the URLs contained in the `simulator:payment-succeed`, `simulator:payment-expire`, `simulator:refund-succeed` and `simulator:refund-fail` hypermedia objects to simulate the respective action/state change on the test payment.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Rapipago?showComments=true&showCommentArea=true#addcomment)

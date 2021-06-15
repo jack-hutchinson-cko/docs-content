@@ -1,0 +1,161 @@
+---
+title: Create an FX quote
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [May 21, 2021](/pages/diffpagesbyversion.action?pageId=8489258&selectedPageVersions=8&selectedPageVersions=9 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Our Foreign Exchange (FX) API allows you to request FX quotes, so you can make international transfers in the way that suits your business needs.
+
+The quotes endpoint returns an exchange rate in your preferred operating currency, allowing you to assess the rate, before making the transfer.
+
+Create a quote 
+---------------
+
+Generate an FX quote with the following endpoint. You can then use the unique quote `id` you get in the response to make a payout at the quoted rate.
+
+### The request
+
+#### Endpoints
+
+*   [**Live**](#tabs-82f41010-a939-488a-9467-43911e9a5352-1)
+*   [**Sandbox**](#tabs-82f41010-a939-488a-9467-43911e9a5352-2)
+
+POST`https://api.checkout.com/forex/quotes`
+
+POST`https://api.sandbox.checkout.com/forex/quotes`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`Bearer {OAuth access token}  
+`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`source.currency`
+
+REQUIRED
+
+STRING
+
+The three-letter ISO code of the debiting currency of your chosen currency account.
+
+`source.amount`
+
+OPTIONAL
+
+INTEGER
+
+The amount to be converted from the source currency.
+
+The exact format [depends on the currency](/display/x/Calculating+the+amount).  
+
+  
+
+`destination.currency`
+
+REQUIRED
+
+STRING
+
+The destination three-letter [ISO currency code](/display/x/Currency+codes).
+
+`destination.amount`
+
+OPTIONAL
+
+INTEGER
+
+The amount to be converted to the destination currency.
+
+The exact format [depends on the currency](/display/x/Calculating+the+amount).  
+
+#### Request examples
+
+*   [**Destination amount specified**](#tabs-2e6b37d8-9981-45f5-ab98-778d9bfaf3d4-1)
+*   [**Source amount specified**](#tabs-2e6b37d8-9981-45f5-ab98-778d9bfaf3d4-2)
+
+    {
+      "source_currency": "EUR",
+      "destination_currency": "USD",
+      "destination_amount": 100
+    }
+
+    {
+      "source_currency": "EUR",
+      "source_amount": 100,
+      "destination_currency": "USD"
+    }
+
+### The response
+
+You will receive a response containing the quote `id`, the exchange rate, and the date and time the quoted rate is valid until.
+
+#### Response examples
+
+*   [**Destination amount specified**](#tabs-c0eac183-37bc-40d8-ab50-10e345d31534-1)
+*   [**Source amount specified**](#tabs-c0eac183-37bc-40d8-ab50-10e345d31534-2)
+
+    {
+      "id": "qte_4cupy6wqbvbereowvw4mjcb2qi",
+      "expires_on": "2020-12-04T11:14:09.1599802Z",
+      "source_amount": 84,
+      "source_currency": "EUR",
+      "destination_amount": 100,
+      "destination_currency": "USD",
+      "rate": 1.19287971,
+      "is_single_use": false
+    }
+
+    {
+      "id": "qte_z2bbe3wte6huzpazztmzjzhjhq",
+      "expires_on": "2020-12-04T11:14:41.7886337Z",
+      "source_amount": 100,
+      "source_currency": "EUR",
+      "destination_amount": 119,
+      "destination_currency": "USD",
+      "rate": 1.19307573,
+      "is_single_use": false
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Create+an+FX+quote?showComments=true&showCommentArea=true#addcomment)

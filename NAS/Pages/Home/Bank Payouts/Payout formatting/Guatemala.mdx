@@ -1,0 +1,254 @@
+---
+title: Guatemala
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified on [Feb 17, 2021](/pages/diffpagesbyversion.action?pageId=20120101&selectedPageVersions=9&selectedPageVersions=10 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+*   [**Local**](#tabs-bd5d235a-e760-4015-99b2-7d6398ed09ce-1)
+*   [**International**](#tabs-bd5d235a-e760-4015-99b2-7d6398ed09ce-2)
+
+Basic information
+-----------------
+
+  
+
+Country code
+
+GT
+
+Supported currency
+
+GTQ
+
+Scheme
+
+Local:
+
+*   **Minimum amount (USD):** 10
+*   **Maximum amount (USD):**
+    *   **Banco Industrial**: 10,000 (per transaction, and for a single user per day or month)
+    *   **Banrural**: 5,000 (per transaction, and for a single user per month)
+*   **Cut-off time:** n/a
+*   **Settlement:** T+0 same day
+
+Payment information
+-------------------
+
+ Individual
+
+### Beneficiary information
+
+Beneficiary type
+
+The type of account holder. Set this to `individual`.
+
+`account_holder.type`
+
+OPTIONAL
+
+ENUM
+
+Beneficiary name
+
+The account holder's first and last name.
+
+`account_holder.first_name`
+
+REQUIRED
+
+STRING
+
+`account_holder.last_name`
+
+REQUIRED
+
+STRING
+
+Beneficiary address
+
+The account holder's address.
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+`account_holder.billing_address.address_line1`
+
+REQUIRED
+
+STRING
+
+`account_holder.billing_address.address_line2`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.city`
+
+REQUIRED
+
+STRING
+
+`account_holder.billing_address.zip`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.country`
+
+REQUIRED
+
+ENUM, 2 CHARACTERS
+
+This must be a [two-letter ISO code](/display/DOCS/Country+codes).
+
+Identification  
+  
+
+The account holder's ID.  
+  
+
+`account_holder.identification.type`
+
+REQUIRED
+
+ENUM
+
+Can be one of `passport`, `driving_licence`, or `national_id`.
+
+`account_holder.identification.number`
+
+REQUIRED
+
+STRING
+
+If the identification type is `national_id` and the issuing country is `GT`, the number must be 13 digits long.
+
+`account_holder.identification.issuing_country`
+
+REQUIRED
+
+ENUM, 2 CHARACTERS
+
+This must be a [two-letter ISO code](/display/DOCS/Country+codes).
+
+### Bank details
+
+  
+
+Account number
+
+The account holder's account number.
+
+`account_number`
+
+REQUIRED
+
+STRING, ^\[0-9\]{16,16}$
+
+SWIFT BIC
+
+The account holder's SWIFT BIC.
+
+`swift_bic`
+
+REQUIRED
+
+STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+
+### Example
+
+*   [**Payment instrument request (GTQ)**](#tabs-4b658280-10b4-4960-b9d1-0b3a4759c9ea-1)
+*   [**Payout request (GTQ)**](#tabs-4b658280-10b4-4960-b9d1-0b3a4759c9ea-2)
+
+    {
+      "type": "bank_account",
+      "account_number": "GT12345678912345",
+      "swift_bic": "INDLGTGCXXX",
+      "currency": "GTQ",
+      "country": "GT",
+      "account_holder": {
+        "first_name": "John",
+        "last_name": "Smith",
+    	"identification": {
+          "type": "national_id",
+          "number": "1234567891234",
+          "issuing_country": "GT"
+        }
+        "billing_address": {
+          "address_line1": "2 Calle",
+          "city": "Cabulco",
+          "country": "GT"
+        }
+      }
+    }
+
+    {
+      "currency": "GTQ",
+      "source": {
+        "amount": 100,
+        "type": "currency_account",
+        "id": "ca_vrsqwv6tgtyufgi5xahfqxxx1y"
+      },
+      "reference": "CKO Test",
+      "destination": {
+        "type": "id",
+        "id": "src_6gtxe3cxns7uld5ytsemv1xxxy"
+      },
+      "billing_descriptor": {
+        "reference": "CKO Test"
+      },
+      "sender": {
+        "type": "individual",
+        "first_name": "John",
+        "last_name": "Smith",
+        "address": {
+          "address_line1": "2 Calle",
+          "city": "Cabulco",
+          "country": "GT"
+        },
+        "reference": "CKO Test",
+        "identification": {
+          "type": "national_id",
+          "number": "987654321987",
+          "issuing_country": "GT"
+        }
+      },
+      "instruction": {
+        "purpose": "CKO Test GTQ"
+      },
+      "processing_channel_id": "pc_hpswyyx23geezflc2ocz3xxx1y"
+    }
+
+Coming soon.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Guatemala?showComments=true&showCommentArea=true#addcomment)

@@ -1,0 +1,301 @@
+---
+title: Bancontact
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [Jun 09, 2021](/pages/diffpagesbyversion.action?pageId=1835028&selectedPageVersions=25&selectedPageVersions=26 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Start accepting payments using Bancontact, a favorite payment method in Belgium.
+
+To start accepting Bancontact payments, please contact your Customer Success Manager.
+
+Overview
+--------
+
+Bancontact payments follow a two-step process:
+
+1.  [Request a Bancontact payment](#Bancontact-requestapayment)
+2.  [Redirect the customer](#Bancontact-redirectthecustomer)
+
+Request a payment
+-----------------
+
+### The POST request
+
+#### Endpoints
+
+*   [**Live**](#tabs-4a8821d0-66b4-4b5c-8696-be1d70ad6900-1)
+*   [**Sandbox**](#tabs-4a8821d0-66b4-4b5c-8696-be1d70ad6900-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`amount`
+
+REQUIRED
+
+INTEGER
+
+The payment amount.
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The currency in which the payment is being made (three-letter ISO 4217 code). Set this to EUR.
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `bancontact`.
+
+`source.payment_country`
+
+REQUIRED
+
+STRING
+
+The country in which the payment instrument is issued/operated (two-letter ISO 3166 code).
+
+`source.account_holder_name`
+
+REQUIRED
+
+STRING
+
+The name of the account holder.
+
+`source.billing_descriptor`
+
+OPTIONAL
+
+STRING
+
+Typically, the trading name of your company or the name of your service.
+
+#### Request example
+
+    {
+      "amount": 100,
+      "currency": "EUR",
+      "source": {
+        "type": "bancontact",
+        "account_holder_name": "Bruce Wayne",
+        "payment_country": "BE",
+        "billing_descriptor": "CKO Demo - bancontact"
+      }
+    }
+    
+
+### The POST response
+
+If you receive a `202 Success` response, with a `status` field set to `Pending`, your request was successful. You now need to redirect your customer as described below.
+
+#### Response example
+
+    {
+      "id": "pay_scoqartlkpzerp45c5ujmj6uue",
+      "status": "Pending",
+      "customer": {
+        "id": "cus_wqzgcjuiwucudpmfu7kn5mukh4"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_scoqartlkpzerp45c5ujmj6uue"
+        },
+        "redirect": {
+          "href": "https://trusted.girogate.de/ti/dumbdummy?tx=455332564&rs=O34Tn460YM76zZzI7yfXXPIsVnnWAhaV&cs=bb716499d072a5adfb314437c5965e1150b15550aac7a298b5d9d317653427a1"
+        },
+        "bancontact:mobile": {
+          "href": "BEPGenApp://DoTx?TransId=1BC.GIROGATE.DE/BCMC/123456789$ICAE3BUIH5P9U53Y5HKA9CRT"
+        }
+      }
+    }
+    
+
+Redirect the customer
+---------------------
+
+Redirect your customer to the `redirect` link’s href in the response. This will allow the customer to authorize the payment, before they are transferred to your predefined success or failure URL.
+
+Alternatively, use the bancontact:mobile redirection link in the response to take them to the Bancontact mobile app. This mobile redirection link, however, is only provided in the live environment and only when the `amount` is less than or equal to `50000` (500 EUR).
+
+Get details about a payment
+---------------------------
+
+You can retrieve details about an existing Bancontact payment with the following endpoint.
+
+### The GET request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-0881a2e6-ff4e-4308-8d06-ed9b97ee475e-1)
+*   [**Sandbox**](#tabs-0881a2e6-ff4e-4308-8d06-ed9b97ee475e-2)
+
+GET`https://api.checkout.com/payments/{payment_id}`
+
+GET`https://api.sandbox.checkout.com/payments/{payment_id}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`payment_id`
+
+REQUIRED
+
+The payment ID found in the response of the initial payment.
+
+### The GET response
+
+#### Response example
+
+    {
+      "id": "pay_zvamjy6rl3pehdeufoqaygbjzm",
+      "requested_on": "2019-05-17T15:17:06Z",
+      "source": {
+        "type": "bancontact"
+      },
+      "amount": 100,
+      "currency": "EUR",
+      "payment_type": "Regular",
+      "status": "Captured",
+      "approved": true,
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_t4rcgkbd2keuzeoo3p36u2xqcu"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_zvamjy6rl3pehdeufoqaygbjzm"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_zvamjy6rl3pehdeufoqaygbjzm/actions"
+        },
+        "refund": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_zvamjy6rl3pehdeufoqaygbjzm/refunds"
+        }
+      }
+    }
+
+Refund a payment
+----------------
+
+Bancontact supports both partial and full refunds. You can refund a payment through the [Hub](https://hub.checkout.com/v2) or by using the [refund API](/display/DOCS/Refund+a+payment).
+
+Cancel a payment
+----------------
+
+If the customer fails to complete their payment, we will automatically void the payment and send a `payment_expired` webhook.
+
+If the customer cancels their payment, we will send a `payment_canceled` webhook.
+
+Testing Bancontact
+------------------
+
+To start testing, you'll need to:
+
+*   [create a test account](https://www.checkout.com/get-test-account), and
+*   contact your Customer Success Manager or Integrations engineer to activate Bancontact payments in the sandbox environment.
+
+1.  Create a Bancontact transaction as above, following the redirect link in the response to Bancontact's website.
+2.  Set the payment response and payment delay as necessary.
+3.  Click **Submit**. You should then be redirected to your predefined success URL.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Bancontact?showComments=true&showCommentArea=true#addcomment)

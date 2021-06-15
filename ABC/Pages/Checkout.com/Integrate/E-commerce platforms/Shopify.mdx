@@ -1,0 +1,122 @@
+---
+title: Shopify
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 19, 2021](/pages/diffpagesbyversion.action?pageId=5931126&selectedPageVersions=8&selectedPageVersions=9 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+The Checkout.com payment gateway is fully integrated with Shopify. If you're already using Shopify, you can start accepting payments through our gateway by configuring a few simple settings.
+
+Onsite or offsite options
+-------------------------
+
+You can accept payments through our gateway either **onsite**, where your customer enters their payment details on your website, or **offsite**, where they will be redirected to a Checkout.com page to do so.
+
+The onsite option is available by default – you simply have to select it from your Shopify configuration menu.
+
+If you want to use the offsite option, follow the instructions below.
+
+Onsite: alternative payment methods
+
+The onsite option does not currently support alternative payment methods.
+
+Onsite: card payments
+
+If you want to process card payments with the onsite option, please contact our Support team at [support@checkout.com](mailto:support@checkout.com) so we can enable them on your account.
+
+Installation instructions (offsite option)
+------------------------------------------
+
+### Shopify admin
+
+1.  Log in to your [Shopify admin](https://www.shopify.com/login?redirect=authorize_gateway%2F1031113).
+2.  After logging in, you should see an `Add payment gateway` message. Click **Add payment gateway**.
+3.  Enter your public and secret API keys – you'll find these in the [Hub](https://hub.checkout.com/) – and select the payment methods permitted for your account (Visa, MasterCard, Amex, etc.).
+4.  After completing the form, click **Activate**.  
+    ![](/download/attachments/5931126/shopify_offsite.png?version=1&modificationDate=1587549197562&api=v2)
+
+### The Hub
+
+1.  Log in to your [Hub](https://hub.checkout.com/) account.
+2.  Go to _Settings_ > _Channels_.
+3.  Enter the relevant redirection URLs for your environment:
+    
+    *   [**Sandbox**](#tabs-08ab58d9-b0f5-4ef1-a023-5b0745993dad-1)
+    *   [**Live**](#tabs-08ab58d9-b0f5-4ef1-a023-5b0745993dad-2)
+    
+    Redirection success
+    
+    https://sandbox.checkout.com/integration.app/shopify/paymentcomplete
+    
+    Redirection fail
+    
+    https://sandbox.checkout.com/integration.app/shopify/paymentcomplete
+    
+    Redirection success
+    
+    https://api2.checkout.com/integration.app/shopify/paymentcomplete
+    
+    Redirection fail
+    
+    https://api2.checkout.com/integration.app/shopify/paymentcomplete
+    
+4.  Scroll down to _Webhooks_ and click **New webhook**.
+    
+5.  Enter the relevant URL for your environment:
+    
+    *   [**Sandbox**](#tabs-f2e2ea7e-2def-4f26-90a7-eb807687233c-1)
+    *   [**Live**](#tabs-f2e2ea7e-2def-4f26-90a7-eb807687233c-2)
+    
+    Webhook endpoint URL
+    
+    https://sandbox.checkout.com/integration.app/shopify/webhook
+    
+    Webhook endpoint URL
+    
+    https://api2.checkout.com/integration.app/shopify/webhook
+    
+6.  Select **API - v1.0**.
+7.  Tick **Select all**, then click **Create webhook**.
+
+  
+
+You've successfully set up the offsite option on your Shopify account! If you're having any problems or just have a question, please contact our [Support team](mailto:support@checkout.com) for help.
+
+### The customer experience
+
+### Onsite option
+
+Your customers can enter their payment details on your checkout page, like so:
+
+![](/download/attachments/5931126/shopify_onsite.png?version=1&modificationDate=1587549377219&api=v2)
+
+### Offsite option
+
+Once you've [activated it](#Shopify-activate), your customers should see Checkout.com as a payment method on the checkout page. It looks like this:
+
+![](/download/attachments/5931126/shopify_offsite_checkout.png?version=1&modificationDate=1587553246669&api=v2)
+
+  
+
+After the customer clicks **Complete Order**, they will be redirected to our hosted JS page:
+
+![](/download/attachments/5931126/shopify_offsite_complete_order.png?version=1&modificationDate=1587553321732&api=v2)
+
+From here, the customer can enter their payment details securely and complete their order.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Shopify?showComments=true&showCommentArea=true#addcomment)

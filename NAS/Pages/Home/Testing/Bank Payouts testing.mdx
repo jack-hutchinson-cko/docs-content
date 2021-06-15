@@ -1,0 +1,1299 @@
+---
+title: Bank Payouts testing
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 14, 2021](/pages/diffpagesbyversion.action?pageId=8489483&selectedPageVersions=17&selectedPageVersions=18 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Use the sample requests on this page to test a number of Bank Payouts scenarios.
+
+Payment instruments
+-------------------
+
+### Successful creation
+
+A successful attempt means that the bank account payment instrument was created and stored in the Vault.
+
+You can trigger this by including one of the following bank codes, IBANs, or SWIFT BICs in your request to create a payment instrument:
+
+  
+
+Type
+
+Code
+
+Country
+
+`bank_code`
+
+`050389`
+
+\-
+
+`160008`
+
+\-
+
+`200407`
+
+\-
+
+`250631`
+
+\-
+
+`504044`
+
+\-
+
+`211170318`
+
+\-
+
+`271972572`
+
+\-
+
+`107006444`
+
+\-
+
+`061000104`
+
+\-
+
+`iban`
+
+`CH7709000000403458523`
+
+Switzerland
+
+`CH5604835012345678009`
+
+Switzerland
+
+`CH5104835048708081000`
+
+Switzerland
+
+`IE64IRCE92050112345678`
+
+Ireland
+
+`IE70AIBK93006732013730`
+
+Ireland
+
+`IL620108000000099999999`
+
+Israel
+
+`IL812471574936472586435`
+
+Israel
+
+`IL242525955989749798812`
+
+Israel
+
+`IL897464662155661697787`
+
+Israel
+
+`IL742117699875433391788`
+
+Israel
+
+`swift_bic`
+
+`AUBKPHMM`
+
+Philippines
+
+`BNORPHMM`
+
+Philippines
+
+`BOPIPHMMXXX`
+
+Philippines
+
+`CHBKPHMMXXX`
+
+Philippines
+
+`LUMIILITXXX`
+
+Israel
+
+### The request
+
+#### Endpoint
+
+*   [**Sandbox**](#tabs-f403a90d-fbc4-42b6-b87f-075ff531e65b-1)
+
+POST`https://api.sandbox.checkout.com/instruments`
+
+#### Header parameters
+
+  
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access_token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Request examples
+
+*   [**United Kingdom**](#tabs-fa4bfd32-2163-4810-aa3b-d13b5da9f88b-1)
+*   [**United States**](#tabs-fa4bfd32-2163-4810-aa3b-d13b5da9f88b-2)
+*   [**Philippines**](#tabs-fa4bfd32-2163-4810-aa3b-d13b5da9f88b-3)
+*   [**Israel**](#tabs-fa4bfd32-2163-4810-aa3b-d13b5da9f88b-4)
+
+    {
+      "type": "bank_account",
+      "account_number": "13654567",
+      "bank_code": "160008",
+      "currency": "GBP",
+      "country": "GB",
+      "account_holder": {
+        "first_name": "Jack",
+        "last_name": "Napier",
+        "billing_address": {
+          "address_line1": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        }
+      }
+    }
+
+    "recipient": {
+      "account_holder": {
+        "first_name": "Grace",
+        "last_name": "Smith",
+        "billing_address": {
+          "address_line1": "742 Evergreen Terrace",
+          "city": "Seattle",
+          "state": "WA",
+          "zip": "90210",
+          "country": "US"
+        }
+      },
+      "account_type": "savings",
+      "account_number": "12345678",
+      "bank_code": "211170318",
+      "fingerprint": "fingerprint",
+      "reference": "FXP Test"
+    }
+
+    "recipient": {
+      "account_holder": {
+        "first_name": "John",
+    	"last_name": "Smith",
+    	"billing_address": {
+    	  "address_line1": "221B Baker St",
+    	  "city": "Manila",
+    	  "country": "PH",
+          "zip": "123"
+        }
+      },
+      "account_number": "1234567890",
+      "swift_bic": "BOPIPHMMXXX"
+    }
+
+    "recipient": {
+      "iban": "IL620108000000099999999",
+      "swift_bic": "LUMIILITXXX",
+      "fingerprint": "fingerprint",
+      "reference": "FXP Test",
+      "account_holder": {
+        "first_name": "Richard",
+        "last_name": "Strauss",
+        "billing_address": {
+          "address_line1": "1 Long St",
+          "city": "Tel Aviv",
+          "country": "IL"
+        }
+      }
+    }
+
+### The response
+
+#### Response example
+
+*   [**201 – Created**](#tabs-dd20cbad-f890-49b5-a42f-45f2d01fb0a8-1)
+
+    {
+      "type": "bank_account",
+      "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q",
+      "id": "src_wmlfc3zyhqzehihu7giusaaawu"
+    }
+
+Successful creation with enriched data
+--------------------------------------
+
+Sometimes we're able to get more information about the bank account you're trying to store in the Vault, meaning you can store additional fields in the payment instrument, such as the bank name and branch.
+
+You can trigger this by including `"iban": "GB29NWBK60161331926819"` in your request to create a payment instrument.
+
+### The request
+
+#### **Endpoint**
+
+POST`https://api.sandbox.checkout.com/instruments`
+
+#### **Header parameters**
+
+  
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access_token  
+`
+
+  
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### **Request example**
+
+    {
+      "type": "bank_account",
+      "iban": "GB29NWBK60161331926819",
+      "currency": "EUR",
+      "country": "GB",
+      "account_holder": {
+        "first_name": "Jack",
+        "last_name": "Napier",
+        "billing_address": {
+          "address_line1": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        }
+      }
+    }
+
+### The response
+
+#### **Response example**
+
+*   [**201 - Created**](#tabs-d27ba600-15e5-463e-b563-909b78f32298-1)
+
+    {
+      "type": "bank_account",
+      "fingerprint": "mucw7ytsz6gulnl7jllv4xbgzq",
+      "id": "src_qaen3zb3f5fejbqseafxigaopm"
+      "iban": "GB29NWBK60161331926819",
+      "swift_bic": "NWBKGB2LXXX",
+      "bank": {
+        "name": "National Westminster Bank PLC",
+        "branch": "Premier Place",
+        "address": {
+          "address_line1": "Premier Place",
+          "address_line2": "Devonshire Square",
+          "city": "London",
+          "state": "London",
+          "zip": "EC2M 4XB",
+          "country": "England"
+        }
+      }
+    }
+
+Successful creation with corrected data
+---------------------------------------
+
+Sometimes we're able to correct some of the bank account fields in your payment instrument when you create it.
+
+You can trigger this by including `"iban": "GB29NWBK60161331926819"` and `"swift_bic": "NWBKGB2TXXX"` in your request to create a payment instrument.
+
+### The request
+
+#### **Endpoint**
+
+POST`https://api.sandbox.checkout.com/instruments`
+
+#### **Header parameters**
+
+  
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access_token  
+`
+
+  
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### **Request example**
+
+    {
+      "type": "bank_account",
+      "iban": "GB29NWBK60161331926819",
+      "swift_bic": "NWBKGB2TXXX",
+      "currency": "GBP",
+      "country": "GB",
+      "account_holder": {
+        "first_name": "Jack",
+        "last_name": "Napier",
+        "billing_address": {
+          "address_line1": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        }
+      }
+    }
+
+### The response
+
+In the response, you'll notice that the `swift_bic` value has been corrected from `NWBKGB2TXXX` to `NWBKGB2LXXX`.
+
+#### **Response example**
+
+*   [**201 - Created**](#tabs-c96134bf-12df-48b8-9751-988a6cba2914-1)
+
+    {
+      "type": "bank_account",
+      "fingerprint": "mucw7ytsz6gulnl7jllv4xbgzq",
+      "id": "src_p3ogzppc6upernp3sbjxkyo3my",
+      "iban": "GB29NWBK60161331926819",
+      "swift_bic": "NWBKGB2LXXX",
+      "bank": {
+        "name": "National Westminster Bank PLC",
+        "branch": "Premier Place",
+        "address": {
+          "address_line1": "Premier Place",
+          "address_line2": "Devonshire Square",
+          "city": "London",
+          "state": "London",
+          "zip": "EC2M 4XB",
+          "country": "England"
+        }
+      }
+    }
+
+Failed attempt
+--------------
+
+A failed attempt means that the bank account payment instrument was not created, owing to some error.
+
+You can trigger this error by including one of the following bank codes, IBANs, or SWIFT BICs in your request when creating a payment instrument:
+
+*   `bank_code: 507013, 000000000, 123456789, or 928934723`
+    
+*   `iban: GB33BUZB50701355555552`
+    
+*   `swift_bic: NWBKGB2L, NWBKGB2LXXX, or ABCDPHEF`
+
+### The request
+
+#### Endpoint
+
+POST`https://api.sandbox.checkout.com/instruments`
+
+#### Header parameters
+
+  
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access_token`
+
+  
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Request examples
+
+*   [**United Kingdom**](#tabs-fa924a96-26b0-46f4-a747-3e4d1b6d348a-1)
+*   [**United States**](#tabs-fa924a96-26b0-46f4-a747-3e4d1b6d348a-2)
+*   [**Philippines**](#tabs-fa924a96-26b0-46f4-a747-3e4d1b6d348a-3)
+
+    {
+      "type": "bank_account",
+      "account_number": "13654567",
+      "bank_code": "507013",
+      "currency": "GBP",
+      "country": "GB",
+      "account_holder": {
+        "first_name": "Jack",
+        "last_name": "Napier",
+        "billing_address": {
+          "address_line1": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        }
+      }
+    }
+
+    "recipient": {
+      "account_holder": {
+        "first_name": "Grace",
+        "last_name": "Smith",
+        "billing_address": {
+          "address_line1": "742 Evergreen Terrace",
+          "city": "Seattle",
+          "state": "WA",
+          "zip": "90210",
+          "country": "US"
+        }
+      },
+      "account_type": "savings",
+      "account_number": "12345678",
+      "bank_code": "123456789",
+      "fingerprint": "fingerprint",
+      "reference": "FXP Test"
+    }
+
+    "recipient": {
+      "account_holder": {
+        "first_name": "John",
+    	"last_name": "Smith",
+    	"billing_address": {
+    	  "address_line1": "221B Baker St",
+    	  "city": "Manila",
+    	  "country": "PH",
+          "zip": "123"
+        }
+      },
+      "account_number": "1234567890",
+      "swift_bic": "NWBKGB2LXXX"
+    }
+
+### The response
+
+#### Response example
+
+*   [**422 – Unprocessable Entity**](#tabs-22ad4b17-13bd-4eba-9600-85112cf8b5a7-1)
+
+    {
+      "request_id": "71ccac67-5018-4917-9446-f2f6f2b8270e",
+      "error_type": "request_invalid",
+      "error_codes": [
+        "bank_code_invalid"
+      ]
+    }
+
+Payout requests
+---------------
+
+### Quote expiry when requesting a payout
+
+A quote expiry error indicates that your FX quote has expired and cannot be used to make a payout. You can trigger this by including one of the following bank codes or IBANs in your request to create a payment instrument:
+
+*   `bank_code`: `160008`, `200407`, `250631`, or `504044`.
+*   `iban`: `IE64IRCE92050112345678`, `CH5604835012345678009`, `IE70AIBK93006732013730`, or `CH5104835048708081000`.
+
+### Step 1: Create a payment instrument in the Vault
+
+#### Endpoint
+
+*   [**Sandbox**](#tabs-18e1c676-cabd-4f43-b7eb-3c79de8f6cf8-1)
+
+POST`https://api.sandbox.checkout.com/instruments`
+
+#### Header parameters
+
+  
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Request example
+
+    {
+      "type": "bank_account",
+      "account_number": "13654567",
+      "bank_code": "160008",
+      "currency": "GBP",
+      "country": "GB",
+      "account_holder": {
+        "first_name": "Jack",
+        "last_name": "Napier",
+        "billing_address": {
+          "address_line1": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        }
+      }
+    }
+
+#### Response example
+
+    {
+      "type": "bank_account",
+      "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q",
+      "id": "src_gsd2agaqd2sernz5tpcfv555nq"
+    }
+
+### Step 2: Create a payout
+
+Include the following `quote_id` in your request to trigger the error: `qte_mbabizu24mvu3mela5njyhpit4`.
+
+#### Endpoint
+
+*   [**Sandbox**](#tabs-9eb3c4cb-2205-4fe5-9fce-36e485cbb360-1)
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+  
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Request example
+
+    {
+      "source": {
+        "type": "currency_account",
+        "id": "ca_y3oqhf46pyzuxjbcn2giaqnb44"
+      },
+      "destination": {
+        "type": "id",
+        "id": "src_gsd2agaqd2sernz5tpcfv555nq"
+      },
+      "amount": 1000,
+      "currency": "GBP",
+      "reference": "PO-215-5721",
+      "billing_descriptor": {
+        "reference": "Withdrawal"
+      },
+      "sender": {
+        "type": "instrument",
+        "reference": "8285282045818"
+      },
+      "instruction": {
+        "purpose": "Wallet Withdrawal",
+        "quote_id": "qte_mbabizu24mvu3mela5njyhpit4"
+      }
+    }
+
+#### Response example
+
+    {
+      "request_id": "71ccac67-5018-4917-9446-f2f6f2b8270e",
+      "error_type": "processing_error",
+      "error_codes": [
+        "quote_expired"
+      ]
+    }
+
+Payout with 'Declined' status
+-----------------------------
+
+The declined status indicates that the payout has failed. You can trigger this by including one of the following in your request to create a payment instrument:
+
+*   `bank_code`: `250631`
+*   `iban`: `IE70AIBK93006732013730`
+
+### Step 1: Create a payment instrument in the Vault
+
+#### Endpoint
+
+*   [**Sandbox**](#tabs-8c20c0b6-3852-4649-a420-cce9464888fa-1)
+
+POST`https://api.sandbox.checkout.com/instruments`
+
+#### Header parameters
+
+  
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Request example
+
+    {
+      "type": "bank_account",
+      "account_number": "13654567",
+      "bank_code": "250631",
+      "currency": "GBP",
+      "country": "GB",
+      "account_holder": {
+        "first_name": "Jack",
+        "last_name": "Napier",
+        "billing_address": {
+          "address_line1": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        }
+      }
+    }
+
+#### Response example
+
+    {
+      "type": "bank_account",
+      "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q",
+      "id": "src_ez3bolgy7ggu5bnjsilialkegi"
+    }
+
+### Step 2: Create a payout
+
+#### Endpoint
+
+*   [**Sandbox**](#tabs-19f0c345-1ef7-48ee-82c0-caed7c3cd1ef-1)
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+  
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Request example
+
+    {
+      "source": {
+        "type": "currency_account",
+        "id": "ca_y3oqhf46pyzuxjbcn2giaqnb44"
+      },
+      "destination": {
+        "type": "id",
+        "id": "src_ez3bolgy7ggu5bnjsilialkegi"
+      },
+      "amount": 1000,
+      "currency": "GBP",
+      "reference": "PO-215-5721",
+      "billing_descriptor": {
+        "reference": "Withdrawal"
+      },
+      "sender": {
+        "type": "instrument",
+        "reference": "8285282045818"
+      },
+      "instruction": {
+        "purpose": "Wallet Withdrawal",
+        "quote_id": "qte_xrhaw53z5m6ehbbxz2n6n5lk74"
+      }
+    }
+
+#### Response example
+
+    {
+      "id": "pay_axh4wk2nhjqenlr2vqvm6kxqta",
+      "status": "Pending",
+      "reference": "PO-215-5721",
+      "instruction": {
+          "value_date": "2020-06-12T22:24:55.8771497Z"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_axh4wk2nhjqenlr2vqvm6kxqta"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_axh4wk2nhjqenlr2vqvm6kxqta/actions"
+        }
+      }
+    }
+
+### Step 3: Payment declined webhook notification
+
+In response, you will receive the following `payment_declined` webhook.
+
+    {
+      "id": "evt_6ebhaydlc3kepmacp22s5smodq",
+      "type": "payment_declined",
+      "version": "1.0.3",
+      "created_on": "2020-06-12T15:20:55.7983215Z",
+      "data": {
+        "id": "pay_axh4wk2nhjqenlr2vqvm6kxqta",
+        "reference": "PO-215-5721",
+        "action_id": "act_2sgst4337zjurdj7b2fsonxwre",
+        "response_code": "50001",
+        "response_summary": "Compliance error",
+        "amount": 1000,
+        "currency": "GBP",
+        "source": {
+          "type": "currency_account",
+          "id": "ca_y3oqhf46pyzuxjbcn2giaqnb44"
+        },
+        "destination": {
+          "type": "bank_account",
+          "id": "src_ez3bolgy7ggu5bnjsilialkegi",
+          "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q"
+        },
+        "processed_on": "2020-06-12T15:20:51.5677679Z"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_6ebhaydlc3kepmacp22s5smodq"
+        },
+        "subject": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/subject/pay_axh4wk2nhjqenlr2vqvm6kxqta"
+        }
+      }
+    }
+
+Payout with 'Paid' status
+-------------------------
+
+The paid status indicates that the payout was successful. You can trigger this by including one of the following in your request to create a payment instrument:
+
+*   `bank_code`: `200407`
+    
+*   `iban`: `CH5604835012345678009`
+
+### Step 1: Create a payment instrument in the Vault
+
+#### Endpoint
+
+*   [**Sandbox**](#tabs-706819e1-a3d7-4a3a-af24-c3e11d013322-1)
+
+POST`https://api.sandbox.checkout.com/instruments`
+
+#### Header parameters
+
+  
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Request example
+
+    {
+      "type": "bank_account",
+      "account_number": "13654567",
+      "bank_code": "200407",
+      "currency": "GBP",
+      "country": "GB",
+      "account_holder": {
+        "first_name": "Jack",
+        "last_name": "Napier",
+        "billing_address": {
+          "address_line1": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        }
+      }
+    }
+
+#### Response example
+
+    {
+      "type": "bank_account",
+      "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q",
+      "id": "src_vovjchw6exauvjrdzpmfu3sm3y"
+    }
+
+### Step 2: Create a payout
+
+#### Endpoint
+
+*   [**Sandbox**](#tabs-ae09491f-8404-4e58-a750-2a373d315515-1)
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+  
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Request example
+
+    {
+      "source": {
+        "type": "currency_account",
+        "id": "ca_y3oqhf46pyzuxjbcn2giaqnb44",
+      },
+      "destination": {
+        "type": "id",
+        "id": "src_vovjchw6exauvjrdzpmfu3sm3y"
+      },
+      "amount": 1000
+      "currency": "GBP",
+      "reference": "PO-215-5721",
+      "billing_descriptor": {
+        "reference": "Withdrawal"
+      },
+      "sender": {
+        "type": "instrument",
+        "reference": "8285282045818"
+      },
+      "instruction": {
+        "purpose": "Wallet Withdrawal",
+        "desired_value_date": "2019-09-10T10:11:12Z",
+        "quote_id": "qte_xrhaw53z5m6ehbbxz2n6n5lk74"
+      }
+    }
+
+#### Response example
+
+    {
+      "id": "pay_dvxl6j6stpqufkzfgbaahmfrzm",
+      "status": "Pending",
+      "reference": "PO-215-5721",
+      "instruction": {
+          "value_date": "2020-06-12T22:27:42.512594Z"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_dvxl6j6stpqufkzfgbaahmfrzm"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_dvxl6j6stpqufkzfgbaahmfrzm/actions"
+        }
+      }
+    }
+
+### Step 3: Payment paid webhook notification
+
+In response, you will receive the following `payment_paid` webhook.
+
+    {
+      "id": "evt_ooratpvrc4yezkrjjrfohi26te",
+      "type": "payment_paid",
+      "version": "1.0.3",
+      "created_on": "2020-06-12T17:46:24.4862402Z",
+      "data": {
+        "id": "pay_dvxl6j6stpqufkzfgbaahmfrzm",
+        "reference": "PO-215-5721",
+        "action_id": "act_y37vtskjeweuhfy4mhiggxhpgu",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "amount": 1000,
+        "currency": "GBP",
+        "source": {
+          "type": "currency_account",
+          "id": "ca_y3oqhf46pyzuxjbcn2giaqnb44"
+        },
+        "destination": {
+          "type": "bank_account",
+          "id": "src_vovjchw6exauvjrdzpmfu3sm3y",
+          "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q"
+        },
+        "processed_on": "2020-06-12T17:46:15.2106459Z",
+        "instruction": {
+          "value_date": "2020-06-13T05:46:15.2845092Z"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_ooratpvrc4yezkrjjrfohi26te"
+        },
+        "subject": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/subject/pay_dvxl6j6stpqufkzfgbaahmfrzm"
+        }
+      }
+    }
+
+Payout with 'Returned' status
+-----------------------------
+
+The returned status indicates that the payout failed and has been returned. You can trigger this by including one of the following in your request to create a payment instrument:
+
+*   `bank_code`: `504044`
+*   `iban`: `CH5104835048708081000`
+
+### Step 1: Create a payment instrument in the Vault
+
+#### Endpoint
+
+*   [**Sandbox**](#tabs-ee87129e-335d-4095-ba23-305891bc55e2-1)
+
+POST`https://api.sandbox.checkout.com/instruments`
+
+#### Header parameters
+
+  
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Request example
+
+    {
+      "type": "bank_account",
+      "account_number": "13654567",
+      "bank_code": "504044",
+      "currency": "GBP",
+      "country": "GB",
+      "account_holder": {
+        "first_name": "Jack",
+        "last_name": "Napier",
+        "billing_address": {
+        	"address_line1": "90 Tottenham Court Road",
+        	"city": "London",
+        	"state": "London",
+        	"zip": "W1T 4TJ",
+        	"country": "GB"
+        }
+      }
+    }
+
+#### Response example
+
+    {
+      "type": "bank_account",
+      "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q",
+      "id": "src_ddy3e5xuuilutddqxh5pso75i4"
+    }
+
+### Step 2: Create a payout
+
+#### Endpoint
+
+*   [**Sandbox**](#tabs-a13f4bf4-7632-4f33-a540-8f9d6b212fb7-1)
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+  
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Request example
+
+    {
+      "source": {
+        "type": "currency_account",
+        "id": "ca_y3oqhf46pyzuxjbcn2giaqnb44"
+      },
+      "destination": {
+        "type": "id",
+        "id": "src_ddy3e5xuuilutddqxh5pso75i4"
+      },
+      "amount": 1000,
+      "currency": "GBP",
+      "reference": "PO-215-5721",
+      "billing_descriptor": {
+        "reference": "Withdrawal"
+      },
+      "sender": {
+        "type": "instrument",
+        "reference": "8285282045818"
+      },
+      "instruction": {
+        "purpose": "Wallet Withdrawal",
+        "quote_id": "qte_xrhaw53z5m6ehbbxz2n6n5lk74"
+      }
+    }
+
+#### Response example
+
+    {
+      "id": "pay_tli5tj6y5upe7m4chnunbzjr5q",
+      "status": "Pending",
+      "reference": "PO-215-5721",
+      "instruction": {
+          "value_date": "2020-06-12T22:29:33.5117845Z"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_zwju7gzdbvwe5ewlzpjdd7zbla"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_zwju7gzdbvwe5ewlzpjdd7zbla/actions"
+        }
+      }
+    }
+
+### Step 3: Payment paid webhook notification
+
+In response, you will receive the following `payment_paid` webhook.
+
+    {
+      "id": "evt_ooratpvrc4yezkrjjrfohi26te",
+      "type": "payment_paid",
+      "version": "1.0.3",
+      "created_on": "2020-06-12T17:46:24.4862402Z",
+      "data": {
+        "id": "pay_tli5tj6y5upe7m4chnunbzjr5q",
+        "reference": "PO-215-5721",
+        "action_id": "act_y37vtskjeweuhfy4mhiggxhpgu",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "amount": 1000,
+        "currency": "GBP",
+        "source": {
+          "type": "currency_account",
+          "id": "ca_y3oqhf46pyzuxjbcn2giaqnb44"
+        },
+        "destination": {
+          "type": "bank_account",
+          "id": "src_ddy3e5xuuilutddqxh5pso75i4",
+          "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q"
+        },
+        "processed_on": "2020-06-12T17:46:15.2106459Z",
+        "instruction": {
+          "value_date": "2020-06-13T05:46:15.2845092Z"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_ooratpvrc4yezkrjjrfohi26te"
+        },
+        "subject": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/subject/pay_tli5tj6y5upe7m4chnunbzjr5q"
+        }
+      }
+    }
+
+### Step 4: Payment returned webhook notification
+
+You will then receive the following `payment_returned` webhook.
+
+    {
+      "id": "evt_djb3apm54d2ehg2pt4kmtlrfqu",
+      "type": "payment_returned",
+      "version": "1.0.3",
+      "created_on": "2020-06-12T17:44:34.2986234Z",
+      "data": {
+        "id": "pay_tli5tj6y5upe7m4chnunbzjr5q",
+        "reference": "PO-215-5721",
+        "action_id": "act_aw2a5iw4qgau7hekeiwjd3yjiy",
+        "response_code": "50401",
+        "response_summary": "Bank details invalid",
+        "amount": 1000,
+        "currency": "GBP",
+        "source": {
+          "type": "currency_account",
+          "id": "ca_y3oqhf46pyzuxjbcn2giaqnb44"
+        },
+        "destination": {
+          "type": "bank_account",
+          "id": "src_ddy3e5xuuilutddqxh5pso75i4",
+          "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q"
+        },
+        "processed_on": "2020-06-12T17:44.34Z"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_djb3apm54d2ehg2pt4kmtlrfqu"
+        },
+        "subject": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/subject/pay_tli5tj6y5upe7m4chnunbzjr5q"
+        }
+      }
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Bank+Payouts+testing?showComments=true&showCommentArea=true#addcomment)

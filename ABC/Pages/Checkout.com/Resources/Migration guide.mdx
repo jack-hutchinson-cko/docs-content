@@ -1,0 +1,1090 @@
+---
+title: Migration guide
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 19, 2021](/pages/diffpagesbyversion.action?pageId=5931137&selectedPageVersions=10&selectedPageVersions=11 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+The Unified Payments solution provides you with a streamlined integration experience, with consolidated payment flows, simplified API responses, and a single `/payments` endpoint for all supported payment methods.
+
+Unified Payments is SCA-ready
+
+Our Unified Payments solution fully supports the new authentication standard – 3D Secure 2 (3DS2) – and automatically handles the Strong Customer Authentication (SCA) requirements introduced by the revised Payment Services Directive, providing your customers with a smoother, more secure checkout flow.
+
+This migration guide will outline key concepts introduced in the Unified Payments solution and then provide you with a step-by-step guide on how to update your integration to use it.
+
+We've answered some of the most frequently asked questions in our [Migration FAQ](/display/DOCS/Migration+FAQ).
+
+If you need any additional support during the migration process, do not hesitate to [reach out to our Support team](mailto:support@checkout.com?subject=Migration query).
+
+Single payments endpoint
+------------------------
+
+The Unified Payments solution provides a single payments endpoint supporting both new and existing payment methods. Whether you accept cards, alternative payment methods or digital wallets, all your payment requests will be sent to the same endpoint.
+
+Payment sources
+---------------
+
+We now support securely storing multiple sources of payments, including cards and bank accounts. Each payment source will have a unique ID that can be used to make a payment request. Your existing card IDs can still be used when requesting a payment and you will be provided with the updated source ID in the payment response.
+
+Payments and actions
+--------------------
+
+Payments replace what we previously referred to as a charge. A payment can have one or more actions that represent an interaction with a payment provider, for example Visa. This provides you with granular visibility into the lifecycle of a payment and a single ID that can be used to obtain the current status.
+
+![](/download/attachments/5931137/payment-actions.png?version=1&modificationDate=1587553755700&api=v2)
+
+Because any subsequent actions performed on a payment only requires you to reference the payment ID in your API call, it is the only identifier that you need to store for future use.
+
+Updated SDKs
+------------
+
+As a part of the Unified Payments solution, we have introduced new SDKs for [.NET](https://github.com/checkout/checkout-sdk-net), [Python](https://github.com/checkout/checkout-sdk-python/tree/unified-payments), and [PHP](https://github.com/checkout/checkout-sdk-php) that may make your migration process even easier. 
+
+Handling response codes
+-----------------------
+
+Captures, refunds and voids are performed asynchronously in the Unified Payments solution, meaning that you will get an HTTP status code of `202 - Accepted` in your API response rather than a `201 - Created`. To get final confirmation that these actions were performed successfully, we recommend that you use webhook notifications. API validation response codes (i.e., `7xxx` response codes) have also been replaced with more descriptive and user-friendly error codes. More details on this can be found [response codes](/display/DOCS/Response+codes).
+
+We have also introduced an `approved` field to the request payment and retrieve payment responses to indicate whether the requested action was performed successfully. This provides you with a single field that you can rely on in your integration to confirm the outcome of the requested action.
+
+3D Secure payments
+------------------
+
+When requesting a 3D Secure payment, the cardholder may need to be redirected to a separate page to authenticate themselves. If this is the case, you will receive an HTTP status code of `202 - Accepted` and a redirect link in the response’s hypermedia.
+
+*   [**Payment request example**](#tabs-8f8199cf-8f5a-48fb-9e9b-e47a4fa030a2-1)
+*   [**Payment response example**](#tabs-8f8199cf-8f5a-48fb-9e9b-e47a4fa030a2-2)
+
+    {
+      "source" : {
+        "type" : "card",
+        "number" : "4242424242424242",
+        "expiry_year" : 2019,
+        "expiry_month" : 03,
+        "cvv" : "100"
+      },
+      "amount" : "2000",
+      "currency" : "USD",
+      "reference": "TRK12345",
+      "3ds" : {
+        "enabled": true,
+      }
+    }
+
+    {
+      "id": "pay_g3avvtweex5e7prna4vkupdkle",
+      "status": "Pending",
+      "reference": "TRK12345",
+      "customer": {
+        "id": "cus_mp6evgbj4bzevmnpxgsq7bdcgy"
+      },
+      "3ds": {
+        "downgraded": false,
+        "enrolled": "Y"
+      },
+      "_links": {
+        "self": {
+          "href":
+    "https://api.sandbox.checkout.com/payments/pay_g3avvtweex5e7prna4vkupdkle"
+        },
+        "redirect": {
+          "href":
+    "https://sandbox.checkout.com/api2/v2/3ds/acs/sid_vwipcigm6k2ubcvl2rzbovpysy"
+        }
+      } 
+    }
+
+Once the cardholder has been authenticated and is redirected back to your success or failure URL, we will provide a session ID in the URL that can be used to retrieve details of the payment.
+
+If you instead receive an HTTP status of `201 - Created`, it means that it was processed successfully and does not require any further action to complete the processing.
+
+Card token flow
+---------------
+
+### What doesn't change
+
+*   Your existing front-end solution (e.g., Frames, [Checkout.js](/display/AR/Checkout.js), SDKs) can still be used to collect your customer's card information.
+*   Checkout.com still returns a card token once your customer has confirmed the purchase.
+
+### What changes
+
+Classic API
+
+Unified Payments API
+
+Classic API
+
+Unified Payments API
+
+*   The token charges endpoint is used to [request a payment](https://archive.docs.checkout.com/docs/authorize-a-payment) using the card token from step 2.
+*   A card ID is provided in the charge response, which can be used for subsequent payments with the same card information.
+
+*   The unified payments endpoint is used to [request a payment](/display/DOCS/Request+a+card+payment) with the card token from step 2. A source type of `token` should be used.
+*   A source ID is provided in the payment response, which can be used for subsequent payments with the same card information.
+
+### The request
+
+#### Endpoints
+
+Classic API
+
+Unified Payments API
+
+Classic API
+
+Unified Payments API
+
+*   [**Live**](#tabs-d32d457c-42e0-4825-89fe-64e6e7749db7-1)
+*   [**Sandbox**](#tabs-d32d457c-42e0-4825-89fe-64e6e7749db7-2)
+
+    https://api2.checkout.com/v2/charges/token
+
+    https://sandbox.checkout.com/api2/v2/charges/token
+
+*   [**Live**](#tabs-191b99d4-369a-4d35-bcb6-86715adc3db2-1)
+*   [**Sandbox**](#tabs-191b99d4-369a-4d35-bcb6-86715adc3db2-2)
+
+    https://api.checkout.com/payments
+
+    https://api.sandbox.checkout.com/payments
+
+#### Request examples
+
+*   [**Classic API**](#tabs-8734d40c-bdd0-4743-88fb-4ce8897917e3-1)
+*   [**Unified Payments API**](#tabs-8734d40c-bdd0-4743-88fb-4ce8897917e3-2)
+
+    {
+      "email": "s.mitchell@checkout.com",
+      "value": "2000",
+      "currency": "USD",
+      "trackId": "TRK12345",
+      "cardToken": "card_tok_9EDE49...A52CC25"
+    }
+
+    {
+      "source": {
+        "type":"token",
+        "token":"card_tok_9EDE49...A52CC25",
+      },
+      "amount":2000,
+      "currency":"USD",
+      "reference": "TRK12345",
+    }
+
+Card ID flow
+------------
+
+### What doesn’t change
+
+*   When a payment using a card token or full card details is made, the Unified Payments API provides an identifier for the tokenized card information in its response. This identifier, previous called a card ID, is now called a source ID.
+*   This source ID can be used to make payments using its underlying card information.
+
+### What changes
+
+Classic API
+
+Unified Payments API
+
+Classic API
+
+Unified Payments API
+
+The card charges endpoint is used to [request a payment](https://archive.docs.checkout.com/docs/card-id).
+
+The unified payments endpoint is used to [request a payment using a card ID or source ID](/display/DOCS/Use+an+existing+card). A source type of `id` should be used.
+
+### The request
+
+#### Endpoints
+
+Classic API
+
+Unified Payments API
+
+Classic API
+
+Unified Payments API
+
+*   [**Live**](#tabs-c0f1e8d1-4e1c-4b8d-890f-04c79c70deee-1)
+*   [**Sandbox**](#tabs-c0f1e8d1-4e1c-4b8d-890f-04c79c70deee-2)
+
+    https://api2.checkout.com/v2/charges/token
+
+    https://sandbox.checkout.com/api2/v2/charges/token
+
+*   [**Live**](#tabs-eb076cd6-b3c9-4ce7-85fa-5532dd096b45-1)
+*   [**Sandbox**](#tabs-eb076cd6-b3c9-4ce7-85fa-5532dd096b45-2)
+
+    https://api.checkout.com/payments
+
+    https://api.sandbox.checkout.com/payments
+
+#### Request examples
+
+*   [**Classic API**](#tabs-af854e76-bfcf-49ca-ac5d-949b652c8af3-1)
+*   [**Unified Payments API**](#tabs-af854e76-bfcf-49ca-ac5d-949b652c8af3-2)
+
+    {
+      "autoCapture": "Y",
+      "email": "sarah.mitchell@checkout.com",
+      "value": "2000",
+      "currency": "USD",
+      "trackId": "TRK12345",
+      "cardId": "card_930C63F9.....0B5D2CFB5AF",
+      "cvv": "100",
+    }
+
+    { 
+      "source": {
+        "type": "id",
+        "id": "src_i3ywxkcgu5cevigmdxoy6km5je",
+        "cvv": "100",
+      },
+      "amount": 2000,
+      "currency": "USD",
+      "reference": "TRK12345",
+    }
+
+Default card/customer flow
+--------------------------
+
+### What doesn’t change
+
+When a payment is made, the Unified Payments API continues to provide an identifier for the customer in its response. This identifier can be used to make further payments using the default card associated with that customer.
+
+### What changes
+
+Classic API
+
+Unified Payments API
+
+Classic API
+
+Unified Payments API
+
+The card charges endpoint is used to [request a payment](https://archive.docs.checkout.com/docs/payments-with-default-card) using a customer ID.
+
+The unified payments endpoint is used to [request a payment using a customer ID](/pages/createpage.action?spaceKey=DRAFT&title=Use+an+existing+customer). A source type of `customer` should be used.
+
+### The request
+
+#### Endpoints
+
+Classic API
+
+Unified Payments API
+
+Classic API
+
+Unified Payments API
+
+*   [**Live**](#tabs-53fa5d6e-2cd5-470a-92cb-4ed11b71aaa4-1)
+*   [**Sandbox**](#tabs-53fa5d6e-2cd5-470a-92cb-4ed11b71aaa4-2)
+
+    https://api2.checkout.com/v2/charges/customer
+
+    https://sandbox.checkout.com/api2/v2/charges/customer
+
+*   [**Live**](#tabs-9bc23bc9-7744-471d-a1e6-dd721403d9a6-1)
+*   [**Sandbox**](#tabs-9bc23bc9-7744-471d-a1e6-dd721403d9a6-2)
+
+    https://api.checkout.com/payments
+
+    https://api.sandbox.checkout.com/payments
+
+#### Request examples
+
+*   [**Classic API**](#tabs-873cf020-4fc5-49d6-9641-180c7e263e51-1)
+*   [**Unified Payments API**](#tabs-873cf020-4fc5-49d6-9641-180c7e263e51-2)
+
+    {
+      "autoCapture": "Y",
+      "value": "2000",
+      "currency": "USD",
+      "trackId": "TRK12345",
+      "customerId": "cust_9F8E74...CEE5270BF38A"
+    }
+
+    { 
+    	"source": {
+        "type": "customer",
+        "id": "cus_dxbrk2ruktbutlnbtilhv2qyzm",
+      },
+      "amount": 2000,
+      "currency": "USD",
+      "reference": "TRK12345"
+    }
+
+Full card details
+-----------------
+
+### What changes
+
+Classic API
+
+Unified Payments API
+
+Classic API
+
+Unified Payments API
+
+*   The card charges endpoint is used to [request a payment](https://archive.docs.checkout.com/docs/payment-with-full-card-details). Full card details should be specified in the card object of the payment request.
+*   A card ID is provided in the charge response, which can be used for subsequent payments with the same card information.
+
+*   The unified payments endpoint is used to [request a payment](/display/DOCS/Full+card+details+API). A source type of `card` should be used.
+*   A source ID is provided in the payment response, which can be used for subsequent payments with the same card information.
+
+### The request
+
+#### Endpoints
+
+Classic API
+
+Unified Payments API
+
+Classic API
+
+Unified Payments API
+
+*   [**Live**](#tabs-9e234fd9-e65a-4487-b104-f6464972e0b9-1)
+*   [**Sandbox**](#tabs-9e234fd9-e65a-4487-b104-f6464972e0b9-2)
+
+    https://api2.checkout.com/v2/charges/card
+
+    https://sandbox.checkout.com/api2/v2/charges/card
+
+*   [**Live**](#tabs-d4c0c722-60fb-40ae-85c4-4da50fe9c2d9-1)
+*   [**Sandbox**](#tabs-d4c0c722-60fb-40ae-85c4-4da50fe9c2d9-2)
+
+    https://api.checkout.com/payments
+
+    https://api.sandbox.checkout.com/payments
+
+#### Request examples
+
+*   [**Classic API**](#tabs-25274697-2d1d-48af-a931-ae854d3c0ac2-1)
+*   [**Unified Payments API**](#tabs-25274697-2d1d-48af-a931-ae854d3c0ac2-2)
+
+    {
+      "email": "sarah.mitchell@checkout.com",
+      "value": "2000",
+      "currency": "USD",
+      "trackId": "TRK12345",
+      "card": {
+        "name": "Sarah Mitchell",
+        "number": "4242424242424242",
+        "expiryMonth": "9",
+        "expiryYear": "2019",
+        "cvv": "100",
+      },
+    }
+
+    { 
+      "source": {
+        "type": "card",
+        "number": "4242424242424242",
+        "expiry_month": 9,
+        "expiry_year": 2019,
+        "cvv": "100",
+      },
+      "amount": 2000,
+      "currency": "USD",
+      "reference": "TRK12345",
+    }
+
+Alternative payment methods
+---------------------------
+
+### What changes
+
+Classic API
+
+Unified Payments API
+
+Classic API
+
+Unified Payments API
+
+*   The [payment token endpoint](https://archive.docs.checkout.com/docs/process-alternative-payment-methods#section--span-class-step_hl-step-1-span-create-a-payment-token-) is used to create a payment token.
+*   The local payment endpoint is used to [request a payment](https://archive.docs.checkout.com/docs/process-alternative-payment-methods#section--span-class-step_hl-step-2-span-process-an-alternative-payment-) using the payment token.
+
+The unified payments endpoint is used to [request a payment using an alternative payment method](/display/DOCS/Payment+methods). The source type dictates which alternative payment method is used.
+
+### What doesn't change
+
+*   The payment response contains a redirect URL that your customer should be redirected to.
+*   After your customer completes the payment, they are redirected back to your predefined success or failure URL.
+*   You will be provided with a session ID in the URL, which can be used to retrieve the payment details.
+
+### The request
+
+#### Endpoints
+
+Classic API
+
+Unified Payments API
+
+Classic API
+
+Unified Payments API
+
+*   [**Live**](#tabs-22262b7e-e474-438d-90f0-abc5b0f08dd7-1)
+*   [**Sandbox**](#tabs-22262b7e-e474-438d-90f0-abc5b0f08dd7-2)
+
+    http://api2.checkout.com/v2/charges/localpayment
+
+    https://sandbox.checkout.com/api2/v2/charges/localpayment
+
+*   [**Live**](#tabs-ba782ee5-b87d-49e5-9e7c-023b3bb1f588-1)
+*   [**Sandbox**](#tabs-ba782ee5-b87d-49e5-9e7c-023b3bb1f588-2)
+
+    https://api.checkout.com/payments
+
+    https://api.sandbox.checkout.com/payments
+
+#### Request examples
+
+*   [**Classic API**](#tabs-38503437-e259-4357-b276-a7bdd0a07265-1)
+*   [**Unified Payments API**](#tabs-38503437-e259-4357-b276-a7bdd0a07265-2)
+
+    // Payment token request
+    
+    {
+      "value": "2000",
+      "currency": "EUR",
+      "chargemode": "3",
+    }
+      
+    // Payment request
+      
+    {
+      "email": "s.mitchell@checkout.com",
+      "paymentToken": "pay_tok_6E5D1D...339A4B4B83E5",
+      "trackId": "TRK12345",
+      "localPayment": {
+        "lppId": "lpp_14",
+      }
+    }
+
+    {
+      "source" : {
+        "type": "sofort",
+      },
+      "amount": "2000",
+      "currency": "EUR",
+      "reference": "TRK12345",
+    }
+
+Alternative payment methods - Checkout.JS
+-----------------------------------------
+
+### What changes
+
+The [Checkout.js](/display/AR/Checkout.js) solution no longer supports alternative payment methods. Instead, a direct integration with the Unified Payments API should be used to request payments using alternative payment methods.
+
+Classic API
+
+Unified Payments API
+
+Classic API
+
+Unified Payments API
+
+*   The [payment token endpoint](https://archive.docs.checkout.com/docs/process-alternative-payment-methods#section--span-class-step_hl-step-1-span-create-a-payment-token-) is used to create a payment token.
+*   The payment token is used in the initialization of Checkout.js.
+*   Your customer selects the desired payment method in the lightbox, which then redirects the customer to the payment provider to complete the payment.
+
+*   The unified payments endpoint is used to [request a payment](/display/DOCS/Payment+methods). The source type should be the desired payment method.
+*   The payment response contains a redirect URL that your customer should be redirected to.
+*   The iDEAL payment flow involves an additional step. Please refer to [this page](/display/DOCS/iDEAL) for more details.
+
+### What doesn't change
+
+*   After your customer completes the payment, they are redirected back to your predefined success or failure URL.
+*   You will be provided with a session ID in the URL, which can be used to retrieve the payment details.
+
+### The request
+
+#### Endpoints
+
+Classic API
+
+Unified Payments API
+
+Classic API
+
+Unified Payments API
+
+*   [**Live**](#tabs-73042aa3-e4ac-4232-b56b-196a13b0d052-1)
+*   [**Sandbox**](#tabs-73042aa3-e4ac-4232-b56b-196a13b0d052-2)
+
+    http://api2.checkout.com/v2/tokens/payment
+
+    https://sandbox.checkout.com/api2/v2/tokens/payment
+
+*   [**Live**](#tabs-551b7c90-5458-42a0-9e40-73be0ced7a43-1)
+*   [**Sandbox**](#tabs-551b7c90-5458-42a0-9e40-73be0ced7a43-2)
+
+    https://api.checkout.com/payments
+
+    https://api.sandbox.checkout.com/payments
+
+#### Request examples
+
+*   [**Classic API**](#tabs-5dff693b-b029-43f4-8b3e-c33201f18875-1)
+*   [**Unified Payments API**](#tabs-5dff693b-b029-43f4-8b3e-c33201f18875-2)
+
+    {
+      "value": "2000",
+      "currency": "EUR",
+    }
+
+    {
+      "source" : {
+        "type": "sofort",
+      },
+      "amount": "2000",
+      "currency": "EUR",
+      "reference": "TRK12345",
+    }
+
+Digital wallets
+---------------
+
+### What doesn’t change
+
+Your existing integration with the digital wallet provider, allowing you to receive their tokens, does not change.
+
+Classic API
+
+Unified Payments API
+
+Classic API
+
+Unified Payments API
+
+*   The digital wallet provider’s token is exchanged for a Checkout.com token using the tokens endpoint.
+*   The card charges endpoint is used to request a payment using a token.
+*   A card ID is provided in the charge response, which can be used for subsequent payments with the same card information.
+
+*   The digital wallet provider’s token is exchanged for a Checkout.com token [using the token endpoint](/display/DOCS/Apple+Pay).
+*   The unified payments endpoint is used to [request a payment](/display/DOCS/Request+a+card+payment). A source type of `token` should be used.
+*   A source ID is provided in the payment response, which can be used for subsequent payments with the same card information.
+
+### The request
+
+#### Endpoints
+
+Classic API
+
+Unified Payments API
+
+Classic API
+
+Unified Payments API
+
+*   [**Live**](#tabs-777f2960-c7b8-4d85-b17f-f463046ab7ca-1)
+*   [**Sandbox**](#tabs-777f2960-c7b8-4d85-b17f-f463046ab7ca-2)
+
+    https://api2.checkout.com/v2/charges/token
+
+    https://sandbox.checkout.com/api2/v2/charges/token
+
+*   [**Live**](#tabs-612dd6e9-90b7-4d66-82eb-3ff62063df72-1)
+*   [**Sandbox**](#tabs-612dd6e9-90b7-4d66-82eb-3ff62063df72-2)
+
+    https://api.checkout.com/payments
+
+    https://api.sandbox.checkout.com/payments
+
+#### Request examples
+
+*   [**Classic API**](#tabs-82daf6c3-ed31-48f6-9bd7-969a5e2c0f0f-1)
+*   [**Unified Payments API**](#tabs-82daf6c3-ed31-48f6-9bd7-969a5e2c0f0f-2)
+
+    {
+      "autoCapture": "Y",
+      "email": "s.mitchell@checkout.com",
+      "value": "2000",
+      "currency": "USD",
+      "trackId": "TRK12345",
+      "cardToken": "tok_5xgrat2fiuzeraaym3qn2ozdoq"
+    }
+
+    { 
+      "source": {
+        "type": "token",
+        "token": "tok_5xgrat2fiuzeraaym3qn2ozdoq",
+      },
+      "amount": 2000,
+      "currency": "USD",
+      "reference": "TRK12345",
+    }
+
+Attribute comparisons
+---------------------
+
+Below is a list of the key attributes that have changed in the Unified Payments API when requesting a payment.
+
+#### Payment request
+
+Attribute type
+
+Classic API
+
+Unified Payment API
+
+  
+
+**Field**
+
+**Required?**
+
+**Field**
+
+**Required?**
+
+3D Secure
+
+Default = non-3D
+
+`chargeMode`
+
+*   1 = non-3D
+*   2 = 3D
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+`3ds.enabled`
+
+*   True
+*   False
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Attempt non-3D
+
+Default = False
+
+`attemptN3D`  
+
+*   True
+*   False
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+`3ds.attempt_n3d`  
+
+*   True
+*   False
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Risk checks
+
+Default = enabled
+
+`riskCheck`  
+
+*   True
+*   False
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+`risk.enabled`  
+
+*   True
+*   False
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Auto capture
+
+Default = enabled
+
+`autoCapture`  
+
+*   Y = true
+*   N = false
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+`capture`  
+
+*   True
+*   False
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Auto capture delay
+
+Default = False
+
+`autoCapTime`  
+
+*   Delay in hours
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+`capture_on`  
+
+*   Timestamp of capture
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Recurring payments
+
+Default = Regular
+
+`transactionIndicator`  
+
+*   1 = Regular
+*   2 = Recurring
+*   3 = MOTO
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+`payment_type`  
+
+*   "Regular"
+*   Recurring
+*   MOTO
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Payment amount
+
+`value`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+`amount`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Billing descriptor
+
+`descriptor`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+`billing_descriptor`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Track ID
+
+`trackId`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+`reference`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Customer ID
+
+`customerId`
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+`customer.id`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Customer name
+
+`customerName`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+`customer.name`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Customer email
+
+`email`
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+`customer.email`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Customer IP address
+
+`customerIp`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+`payment_ip`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Shipping address
+
+`shippingDetails`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+`shipping.address`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Shipping address phone
+
+`shippingDetails.phone`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+`shipping.phone`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+User defined fields
+
+`udf1...5`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+`metadata.udf1...5`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+### Payment response
+
+Attribute type
+
+Classic API
+
+Unified Payments API
+
+Attribute type
+
+Classic API
+
+Unified Payments API
+
+Flagged transaction
+
+Response code: `10100`
+
+`risk.flagged: true`
+
+3D Secure parameters
+
+*   `eci`
+*   `enrolled`
+*   `cavv`
+*   `xid`
+*   `signatureValid`
+*   `authenticationResponse`
+
+*   `eci`
+*   `3ds.enrolled`
+*   `3ds.cryptogram`
+*   `3ds.xid`
+*   `3ds.signature_valid`
+*   `3ds.authentication_response`
+
+Acquirer auth code
+
+`authCode`
+
+`auth_code`
+
+Response code
+
+`responseCode`
+
+`response_code`
+
+Response summary
+
+`responseSummary`
+
+`response_summary`
+
+Customer ID
+
+`card.customerId`
+
+`customer.id`
+
+Customer name
+
+`customerName`
+
+`customer.name`
+
+Customer email
+
+`email`
+
+`customer.email`
+
+AVS check result
+
+`card.avsCheck`
+
+`source.avs_check`
+
+CVV check result
+
+`card.cvvCheck`
+
+`source.cvv_check`
+
+Customer IP address
+
+`customerIp`
+
+`payment_ip`
+
+Requested time
+
+`created`
+
+`requested_on`
+
+Approved payment
+
+Response code: `10000`
+
+`approved`
+
+### Webhook events
+
+The Unified Payments solution supports all of our existing webhook event types and introduces a number of new ones, aiming to provide you with a more granular level of notification. If you request a payment using the Unified Payments API, you will receive only its associated webhook event types.
+
+Classic API
+
+Unified Payments API
+
+Description
+
+Classic API
+
+Unified Payments API
+
+Description
+
+`charge.succeeded`
+
+`payment_approved`
+
+Occurs when a payment is approved by an acquirer/ provider.
+
+`charge.pending`
+
+`payment_pending`
+
+Occurs on asynchronous payments or when further action is required.
+
+`charge.failed`
+
+`payment_declined`
+
+Occurs when a payment is declined by an acquirer/provider or due to a timeout.
+
+`invoice.cancelled`
+
+`payment_expired`
+
+Occurs when an alternative payment link is generated by the merchant but not accessed by the customer.
+
+`charge.voided`
+
+`payment_voided`
+
+Occurs when an authorized payment is voided by an acquirer.
+
+\-
+
+`payment_canceled`
+
+Occurs an end user cancels the payment through a provider’s interface.
+
+`charge.voided.failed`
+
+`payment_void_declined`
+
+Occurs when a void attempt is declined by an acquirer/provider or due to a timeout.
+
+`charge.captured`
+
+`payment_captured`
+
+Occurs when an authorized card payment is captured by an acquirer or when an alternative payment capture is completed by the provider.
+
+`charge.captured.failed`
+
+`payment_capture_declined`
+
+Occurs when a capture is declined by the acquirer or due to a timeout.
+
+`charge.captured.deferred`
+
+`payment_capture_pending`
+
+Occurs when a payment is being captured by an acquirer.
+
+`charge.refunded`
+
+`payment_refunded`
+
+Occurs when a captured payment is refunded by an acquirer.
+
+`charge.refunded.failed`
+
+`payment_refund_failed`
+
+Occurs when a payment refund is declined by an acquirer or due to a timeout.
+
+\-
+
+`payment_refund_pending`
+
+Occurs when a payment is being refunded by an acquirer.
+
+`charge.chargeback`
+
+As a part of the Disputes API, we have launched a number of additional webhooks.
+
+More details can be found in [our Disputes API documentation](/display/DOCS/Disputes+API).
+
+`charge.retrieval`
+
+As a part of the Disputes API, we have launched a number of additional webhooks.
+
+More details can be found in [our Disputes API documentation](/display/DOCS/Disputes+API).
+
+\-
+
+`card_verified`
+
+Occurs when a card verification is approved by an acquirer/provider.
+
+\-
+
+`card_verification_declined`
+
+Occurs when a card verification is declined by an acquirer/provider or due to a timeout.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Migration+guide?showComments=true&showCommentArea=true#addcomment)

@@ -1,0 +1,892 @@
+---
+title: Onboard a sub-entity (full)
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Chrisi Webster](    /display/~chrisiwebster
+    ), last modified on [Jun 10, 2021](/pages/diffpagesbyversion.action?pageId=20120369&selectedPageVersions=93&selectedPageVersions=94 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+This process should be followed for those on the full account type for our marketplaces solution. We have another page for [lite sub-entity onboarding](/pages/viewpage.action?pageId=20120260).
+
+On this page, we will walk through the complete onboarding of a sub-entity:
+
+*   Onboard a sub-entity
+*   Update a sub-entity
+*   Retrieve a sub-entity
+*   Upload an identity document 
+*   Handle due diligence notifications
+
+Before you begin
+----------------
+
+[Configure your webhooks](https://docs.checkout.com/four/workflows) and subscribe to:
+
+*   `sub_entity_created`
+*   `full_dd_passed` and `full_dd_failed`
+*   `payouts_enabled` and `payouts_disabled`
+*   `payments_enabled` and `payments_disabled`
+*   `status_changed`
+
+To get a detailed view of all required and optional fields, see our [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Marketplace/paths/~1marketplace~1entities~1{id}/put).
+
+Onboard a sub-entity
+--------------------
+
+#### Endpoints
+
+Sandbox is a testing area, so you can practise API calls. [Request a test account](https://www.checkout.com/get-test-account).
+
+*   [**Live**](#tabs-933498eb-e995-4c16-be8a-983516c95ef4-1)
+*   [**Sandbox**](#tabs-933498eb-e995-4c16-be8a-983516c95ef4-2)
+
+POST`https://api.checkout.com/marketplace/entities`
+
+POST`https://api.sandbox.checkout.com/marketplace/entities`
+
+#### Request examples
+
+*   [**Company**](#tabs-13176007-1f2d-4e5c-aa6e-c45c4eb97f00-1)
+*   [**Individual**](#tabs-13176007-1f2d-4e5c-aa6e-c45c4eb97f00-2)
+
+    {
+      "reference":"678910",
+      "contact_details":{
+        "phone":{
+          "number":"111222333"
+        }
+      },
+      "profile":{
+        "urls":[
+          "https://www.thecakeshop.com"
+        ],
+        "mccs":[
+          5814
+        ]
+      },
+      "company":{
+        "legal_name":"The Cake Shop Inc.",
+        "trading_name":"The Cake Shop",
+        "principal_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        }
+      }
+    }
+
+    {
+      "reference":"0123456",
+      "contact_details":{
+        "phone":{
+          "number":"2345678910"
+        }
+      },
+      "profile":{
+        "urls":[
+          "https://www.daniels-donuts.com"
+        ],
+        "mccs":[
+          5814
+        ]
+      },
+      "individual":{
+        "first_name":"Daniel",
+        "last_name":"Yubi",
+        "trading_name":"Daniel's Donuts",
+        "national_tax_id":"1234567",
+        "registered_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        }
+      }
+    }
+
+#### Response examples
+
+*   [**201 - Sub-entity onboard successfully**](#tabs-1a9018c4-1e33-4cb3-bdb5-5e968cb264a1-1)
+*   [**409 - Conflict**](#tabs-1a9018c4-1e33-4cb3-bdb5-5e968cb264a1-2)
+*   [**422 - Invalid data was sent**](#tabs-1a9018c4-1e33-4cb3-bdb5-5e968cb264a1-3)
+
+A successful response will include a unique sub-entity `id`, which you should store for future requests.
+
+Additionally, the response has the `capabilities` object, which shows you whether the sub-entity’s capabilities are enabled or not. Capabilities only get enabled once specific [due diligence checks](/display/x/About+onboarding) have been run and passed.
+
+    {
+      "id": "ent_wxglze3wwywujg4nna5fb7ldli",
+      "reference": "123456789101112",
+      "status": "requirements_due",
+      "capabilities": {
+        "payments": {
+          "enabled": false
+         },
+         "payouts": {
+          "enabled": false
+         },
+    	"requirements_due": [
+    		{
+          	 	"field": "individual.date_of_birth",
+           	 	"reason": "required"
+        	},
+    		{
+           		"field": "individual.identification.document",
+           		"reason": "required"
+        	},
+      	],
+      "_links": {
+        "self": {
+            "href": "https://api.sandbox.checkout.com/entities/ent_wxglze3wwywujg4nna5fb7ldli"
+        }
+      }
+    }
+
+ Why haven't my capabilities been enabled?
+
+Capabilities are enabled once due diligence checks have been completed. If you haven't received a webhoook notification – either `{check}_passed` or `{check}_failed` – it is likely there are outstanding requirements due. Please check our [onboarding information page](/display/x/About+onboarding) to confirm you have sent all the required information.
+
+If you have provided all the information, we may be completing a manual review.
+
+The `reference` you provide needs to be unique across all of your sub-entities. If you receive a `409`, you are trying to onboard a sub-entity with a `reference` that has already been used. Try again with another `reference`.
+
+    {
+        "_links": {
+            "self": {
+                "href": "https://marketplace.cko-qa.ckotech.co/entities/ent_lcvk7ay5zcglzvda6n7o5ws2hq"
+            }
+        }
+    }
+
+When you receive a `422`, please check the API request to make sure you've included all of the required values. You can see our [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Marketplace/paths/~1marketplace~1entities/post) for a full overview.
+
+    {
+        "request_id": "0HM72UMS6H3CT:00000001",
+        "error_type": "invalid_request",
+        "error_codes": [
+            "reference_required"
+        ]
+    }
+
+ Possible error codes
+
+Name
+
+Descriptions
+
+`profile_mccs_invalid_for_processing_scope`
+
+The MCCs provided for the sub-entity are outside the proecessing scop of its Platform.
+
+`profile_default_holding_currency_invalid_for_currency_scope`
+
+The default holding currency provided for the sub-entity is outside the currency scope of its Platform.
+
+`principal_address_country_invalid_for_processing_scope`
+
+The principal address country provided for the sub-entity is outside the processing scope of its Platform.
+
+`client_entity_cannot_onboard_subentities`
+
+The Platform is not permitted to onboard new sub-entities.
+
+`sub_entity_invalid`
+
+Internal validation error. Please contact us if you receive this.
+
+`company_or_individual_required`
+
+The company or individual object must be supplied in your request.
+
+`<field_name>_invalid`
+
+For example, `legal_name_invalid`, or `profile_urls_0_invalid`.
+
+The specified field does not match the validation policies for minimum or maximum length, or formatting.
+
+The only two exceptions to this are `sub_entity_invalid` and `existing_sub_entity_type_invalid`, which have different causes. See the two rows directly above.
+
+`<field_name>_required`
+
+For example, `legal_name_required` or `representatives_0_first_name_required`.
+
+The specified field is mandatory but was not provided in the request. For example, the field is `null`, contains empty strings, or contains white spaces.
+
+#### Webhook notification example
+
+Once your sub-entity has been successfully created, we will send you a `sub_entity_created` webhook notification, which will look similar to:
+
+    {
+      "id": "evt_jqv4f6zedawetlilolhqun6m4m",
+      "source": "marketplace",
+      "type": "sub_entity_created",
+      "timestamp": "2020-08-20T16:48:17.142+00:00",
+      "version": "1.0.0",
+      "data": {
+        "sub_entity_id": "ent_gavuonbau65upa75f77rar4yuu",
+        "reference": "5uperher01234",
+        "legal_name": "Super Hero Masks Inc."
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_jqv4f6zedawetlilolhqun6m4m"
+        }
+      }
+    }
+
+Update a sub-entity
+-------------------
+
+Use this endpoint to update all fields under the `contact_details`, `profile`, and `company` objects. To fulfil due diligence requirements, your sub-entity needs to provide identity documents; this endpoint also allows you to add identification documents.
+
+### Add an identification document
+
+Use our [files API](/display/x/Upload+a+file) to upload identity documentation. When you upload a file, the API returns an `id` that represents that file, which you can use to attach identity documentation when creating or updating your sub-entity. 
+
+All you need to include is the `identification.documentation` object in your request, with the following pieces of information:
+
+*   **Type:** Read more about [what types are accepted](/display/x/Upload+a+file).
+*   **Front:** Required for **all** identification types. This should be the `id` returned when you uploaded the file.
+*   **Back:** Only required if the type is **not** a passport. This should be the `id` returned when you uploaded the file.
+
+*   [**Individual**](#tabs-2c95b0b2-0e0e-4718-808b-c4087cce6b54-1)
+*   [**Company**](#tabs-2c95b0b2-0e0e-4718-808b-c4087cce6b54-2)
+
+    {
+      "reference":"0123456",
+      "contact_details":{
+        "phone":{
+          "number":"2345678910"
+        }
+      },
+      "profile":{
+        "urls":[
+          "https://www.daniels-donuts.com"
+        ],
+        "mccs":[
+          5814
+        ]
+      },
+      "individual":{
+        "first_name":"Daniel",
+        "last_name":"Yubi",
+        "trading_name":"Daniel's Donuts",
+        "national_tax_id":"1234567",
+        "registered_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        },
+        "date_of_birth":{
+          "day":5,
+          "month":6,
+          "year":1995
+        },
+    	identification": {
+          "document": {
+            "type": "passport",
+            "front": "file_jxaps37jnfaupfu6bsei7rj5iu"
+          }
+        }
+      }
+    }
+
+    {
+      "reference":"678910",
+      "contact_details":{
+        "phone":{
+          "number":"111222333"
+        }
+      },
+      "profile":{
+        "urls":[
+          "https://www.thecakeshop.com"
+        ],
+        "mccs":[
+          5814
+        ]
+      },
+      "company":{
+        "business_registration_number":"452349600005",
+        "legal_name":"The Cake Shop Inc.",
+        "trading_name":"The Cake Shop",
+        "principal_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        },
+        "registered_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        },
+        "representatives":[
+          {
+            "first_name":"Chrisi",
+            "last_name":"Webster",
+            "address":{
+              "address_line1":"123 ABC Close",
+              "city":"London",
+              "zip":"E1 5DP",
+              "country":"GB"
+            },
+            "date_of_birth":{
+              "day":5,
+              "month":6,
+              "year":1995
+            },
+    	"identification": {
+          "document": {
+            "type": "passport",
+            "front": "file_jxaps37jnfaupfu6bsei7rj5iu"
+          }
+       	 }
+        }
+       ]
+      }
+    }
+
+Adding a document
+
+Providing an identity document is the last step before triggering due diligence checks. To prevent multiple due diligence checks, please add all representatives before uploading their identification documents.
+
+#### Endpoints
+
+Sandbox is a testing area, so you can practise API calls. [Request a test account](https://www.checkout.com/get-test-account).
+
+*   [**Live**](#tabs-59011dce-81aa-4bb6-8402-be7cfb6173ff-1)
+*   [**Sandbox**](#tabs-59011dce-81aa-4bb6-8402-be7cfb6173ff-2)
+
+PUT`https://api.checkout.com/marketplace/entities/{id}`
+
+PUT`https://api.sandbox.checkout.com/marketplace/entities/{id}`
+
+#### Request examples
+
+To get a detailed view of all required and optional fields, see our [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Marketplace/).
+
+*   [**Company**](#tabs-40c7bcd0-5c0e-4f22-9689-be1370f0d2ae-1)
+*   [**Individual**](#tabs-40c7bcd0-5c0e-4f22-9689-be1370f0d2ae-2)
+
+    {
+      "reference":"678910",
+      "contact_details":{
+        "phone":{
+          "number":"111222333"
+        }
+      },
+      "profile":{
+        "urls":[
+          "https://www.thecakeshop.com"
+        ],
+        "mccs":[
+          5814
+        ]
+      },
+      "company":{
+        "business_registration_number":"452349600005",
+        "legal_name":"The Cake Shop Inc.",
+        "trading_name":"The Cake Shop",
+        "principal_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        },
+        "registered_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        },
+        "representatives":[
+          {
+            "first_name":"Chrisi",
+            "last_name":"Webster",
+            "address":{
+              "address_line1":"123 ABC Close",
+              "city":"London",
+              "zip":"E1 5DP",
+              "country":"GB"
+            },
+            "date_of_birth":{
+              "day":5,
+              "month":6,
+              "year":1995
+            },
+    	 "identification": {
+             "document": {
+                  "type": "Passport",
+                    "front": "file_jxaps37jnfaupfu6bsei7rj5iu",
+                    "back": "file_zn6v47bgphjuljjvhlpk7dnpby"
+                }
+            }
+          }
+        ],
+    }
+
+    {
+      "reference":"0123456",
+      "contact_details":{
+        "phone":{
+          "number":"2345678910"
+        }
+      },
+      "profile":{
+        "urls":[
+          "https://www.daniels-donuts.com"
+        ],
+        "mccs":[
+          5814
+        ]
+      },
+      "individual":{
+        "first_name":"Daniel",
+        "last_name":"Yubi",
+        "trading_name":"Daniel's Donuts",
+        "national_tax_id":"1234567",
+        "registered_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        },
+        "date_of_birth":{
+          "day":5,
+          "month":6,
+          "year":1995
+        },
+    	"identification": {
+             "document": {
+                "type": "Passport",
+                "front": "file_jxaps37jnfaupfu6bsei7rj5iu",
+              }
+            }
+      }
+    }
+
+#### Response examples
+
+*   [**200 - Sub-entity updated successfully**](#tabs-83770da9-f72b-4191-b9c5-9beaefe828a7-1)
+*   [**422 - Invalid data was sent**](#tabs-83770da9-f72b-4191-b9c5-9beaefe828a7-2)
+
+If the request was successful, you will receive `200 - Sub-entity updated successfully`.
+
+    {
+      "id": "ent_wxglze3wwywujg4nna5fb7ldli",
+      "reference": "superhero1234",
+      "status": "pending",
+      "capabilities": {
+        "payments": {
+          "enabled": false
+         },
+    	"payouts": {
+    	  "enabled": false
+    	 },
+      "requirements_due": [],
+      "_links": {
+        "self": {
+          "href": "https://marketplace.cko-prod.ckotech.co/entities/ent_wxglze3wwywujg4nna5fb7ldli"
+        }
+      }
+    }
+    
+
+ Why haven't my capabilities been enabled?
+
+Capabilities are enabled once due diligence checks have been completed. If you haven't received a webhoook notification – either `{check}_passed` or `{check}_failed` – it is likely there are outstanding requirements due. Please check our [onboarding information page](/display/x/About+onboarding) to confirm you have sent all the required information.
+
+If you have provided all the information, we may be completing a manual review.
+
+In the `error_codes` object, we will let you know what data was invalid.
+
+    {
+      "request_id": "0HM1I9VJUDPHV:00000002",
+      "error_type": "invalid_request",
+      "error_codes": [
+        "profile_mccs_invalid_for_processing_scope",
+    	"principal_address_country_invalid_for_processing_scope"
+      ]
+    }
+
+ Possible error codes
+
+Name
+
+Descriptions
+
+`profile_mccs_invalid_for_processing_scope`
+
+The MCCs provided for the sub-entity are outside the proecessing scop of its Platform.
+
+`principal_address_country_invalid_for_processing_scope`
+
+The principal address country provided for the sub-entity is outside the processing scope of its Platform.
+
+`sub_entity_invalid`
+
+Internal validation error. Please contact us if you receive this.
+
+`existing_sub_entity_type_invalid`
+
+The specified sub-entity type is invalid. This occurs when the company type is used in an individual request, and vice versa.
+
+`company_or_individual_required`
+
+The company or individual object must be supplied in your request.
+
+`<field_name>_invalid`
+
+For example, `legal_name_invalid`, `purpose_invalid`, or `profile_urls_0_invalid`.
+
+The specified field does not match the validation policies for minimum or maximum length, or formatting.
+
+The only two exceptions to this are `sub_entity_invalid` and `existing_sub_entity_type_invalid`, which have different causes. See the two rows directly above.
+
+`<field_name>_required`
+
+For example, `legal_name_required` or `representatives_0_first_name_required`.
+
+The specified field is mandatory but was not provided in the request. For example, the field is `null`, contains empty strings, or contains white spaces.
+
+Retrieve a sub-entity
+---------------------
+
+If you need to retrieve a sub-entity's details, you can use our Get sub-entity details endpoint. Just include the `id` of the sub-entity returned during the initial onboarding in your request. For example, ``https://api.checkout.com/marketplace/entities/**`ent_wxglze3wwywujg4nna5fb7ldli`**``.
+
+#### Endpoints
+
+Sandbox is a testing area, so you can practise API calls. [Request a test account](https://www.checkout.com/get-test-account).
+
+*   [**Live**](#tabs-8c1711af-ba44-45b1-b0b3-27162e9e4524-1)
+*   [**Sandbox**](#tabs-8c1711af-ba44-45b1-b0b3-27162e9e4524-2)
+
+GET`https://api.checkout.com/marketplace/entities/{id}`
+
+GET`https://api.sandbox.checkout.com/marketplace/entities/{id}`
+
+#### Response examples
+
+*   [**Individual**](#tabs-3738da5f-a677-49fa-a4ad-b6571198483f-1)
+*   [**Company**](#tabs-3738da5f-a677-49fa-a4ad-b6571198483f-2)
+
+    {
+        "id": "ent_vv2jjkuf2gzj5tcw2x7ptua7zy",
+        "reference": "0123456",
+    	"status": "active",
+        "capabilities": {
+            "payments": {
+                "enabled": true
+            },
+            "payouts": {
+                "enabled": true
+            }
+        },
+        "profile": {
+            "default_holding_currency": "GBP",
+            "urls": ["https://www.daniels-donuts.com"],
+            "mccs": ["5814"]
+        },
+        "individual": {
+    		"first_name": "Daniel",
+            "last_name": "Yubi",
+            "trading_name": "Daniel's Donuts",
+            "legal_name": "Daniel Yubi",
+            "national_tax_id": "1234567",
+            "registered_address": {
+                "address_line1": "90 Tottenham Court Road",
+                "city": "London",
+                "zip": "W1T4TJ",
+                "country": "GB"
+            	},
+    		"date_of_birth":{
+          	"day":5,
+          	"month":6,
+          	"year":1995
+        		},
+    		"identification": {
+             "document": {
+                "type": "Passport",
+                "front": "file_jxaps37jnfaupfu6bsei7rj5iu",
+              }
+            }
+        },
+        "contact_details": {
+            "phone": {
+                "number": "2345678910"
+            }
+        },
+        "instruments": [],
+    	"requirements_due": [],
+        "_links": {
+            "self": {
+                "href": "https://api.sandbox.checkout.com/marketplace/entities/ent_vv2jjkuf2gzj5tcw2x7ptua7zy"
+            }
+        }
+    }
+
+ Why does the individual have a legal name? I didn't assign one.
+
+The `legal_name` field is auto-generated based on the `first_name`, `middle_name` and `last_name` provided during onboarding.
+
+ I didn't specify a default currency, but one was set anyway. Why?
+
+If omitted, `profile.default_holding_currency` will be set to the default preference specified during your onboarding.
+
+ Why can't I update my sub-entity's default holding currency?
+
+`profile.default_holding_currency` is not currently updatable. If you need to change this, please get in touch.
+
+ Why haven't my capabilities been enabled?
+
+Capabilities are enabled once due diligence checks have been completed. If you haven't received a webhoook notification – either `{check}_passed` or `{check}_failed` – it is likely there are outstanding requirements due. Please check our [onboarding information page](/display/x/About+onboarding) to confirm you have sent all the required information.
+
+If you have provided all the information, we may be completing a manual review.
+
+The response allows you to retrieve all data that has been provided about the sub-entity, including its capabilities, which informs you whether this sub-entity can process payments or not.
+
+Store this information, as we use it in the next step to upload identity documents.
+
+    {
+        "id": "ent_v7r7h2sw6tavthyzkkoliuiq4a",
+        "reference": "company123",
+    	"status": "active",
+        "capabilities": {
+            "payments": {
+                "enabled": true
+            },
+            "payouts": {
+                "enabled": true
+            }
+        },
+    	"contact_details": {
+            "phone": {
+                "number": "111222333"
+            }
+        },
+    	"profile": {
+            "default_holding_currency": "GBP",
+            "mccs": [
+                "5814"
+            ],
+            "urls": [
+                "https://www.thecakeshop.com"
+            ]
+        },
+        "company": {
+            "business_registration_number": "452349600005",
+            "legal_name": "The Cake Shop Inc.",
+            "trading_name": "The Cake Shop",
+            "principal_address": {
+                "address_line1": "90 Tottenham Court Road",
+                "city": "London",
+                "country": "GB",
+                "zip": "W1T4TJ"
+            },
+            "registered_address": {
+                "address_line1": "90 Tottenham Court Road",
+                "city": "London",
+                "country": "GB",
+                "zip": "W1T4TJ"
+            },
+            "representatives": [
+                {
+                    "first_name": "Chrisi",
+                    "id": "rep_j6xp53izlmae5atwi2tlv5szry",
+                    "last_name": "Webster",
+                    "address": {
+                        "address_line1": "123 ABC Close",
+                        "city": "London",
+                        "country": "GB",
+                        "zip": "E1 5DP"
+                    },
+                    "date_of_birth": {
+                        "day": 5,
+                        "month": 6,
+                        "year": 1995
+                    },
+                    "identification": {
+                        "document": {
+                            "back": "file_x55kstcag4jejhak6ufltlt4n4",
+                            "front": "file_akqabkteup4e7ezmyptfisjwsi",
+                            "type": "driving_license"
+                        }
+                    },
+                    "phone": {}
+                }
+            ]
+        },
+        "instruments": [
+            {
+                "id": "src_226s7wy3sfvejepdkxiihi32be",
+                "label": "The Cake Shop HSBC"
+            }
+        ],
+    	"requirements_due": [],
+        "_links": {
+            "self": {
+                "href": "https://api.sandbox.checkout.com/marketplace/entities/ent_v7r7h2sw6tavthyzkkoliuiq4a"
+            }
+        }
+    }
+
+ Why haven't my capabilities been enabled?
+
+Capabilities are enabled once due diligence checks have been completed. If you haven't received a webhoook notification – either `{check}_passed` or `{check}_failed` – it is likely there are outstanding requirements due. Please check our [onboarding information page](/display/x/About+onboarding) to confirm you have sent all the required information.
+
+If you have provided all the information, we may be completing a manual review.
+
+ Why can't I update my sub-entity's default holding currency?
+
+`profile.default_holding_currency` is not currently updatable. If you need to change this, please get in touch.
+
+ I didn't specify a default currency, but one was set anyway. Why?
+
+If omitted, `profile.default_holding_currency` will be set to the default preference specified during your onboarding.
+
+Handle due diligence notifications
+----------------------------------
+
+Once we have conducted our due diligence checks, we will inform you of the outcome via [webhook notification](https://docs.checkout.com/four/workflows/webhook-event-types "https://docs.checkout.com/four/workflows/webhook-event-types"). You should expect to receive the following event types: 
+
+*   `full_dd_passed` / `full_dd_failed`
+
+Due diligence will always pass in the Sandbox environment, unless one of our `legal_name` fail triggers is used for simulation.  
+
+On occasion, our team will need to manually review a sub-entity. Please see [about onboarding](https://docs.checkout.com/four/marketplaces/about-onboarding) for more information.
+
+#### Due diligence webhook examples
+
+We've described the different webhook notifications on our [webhook event type page](https://docs.checkout.com/four/workflows/webhook-event-types#Webhookeventtypes-Marketplace).
+
+  
+
+*   [**full\_dd\_passed**](#tabs-235aca92-d34b-4392-8402-e2abfdfbdbb7-1)
+*   [**full\_dd\_failed**](#tabs-235aca92-d34b-4392-8402-e2abfdfbdbb7-2)
+
+    {
+      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+      "type": "full_dd_passed",
+      "version": "1.0.0",
+      "created_on": "2020-08-20T15:24:13.8431084Z",
+      "data": {
+        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+        "reference": "123456789101112",
+        "legal_name": "The Cake Shop Inc."
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+        }
+      }
+    }
+    
+
+    {
+      id: "evt_u2bs7wtytscexfrbz47qmgp62i",
+      type: "full_dd_failed",
+      version: "1.0.0",
+      created_on: "2021-03-22T12:04:44.5996515Z",
+      data: {
+        reason_codes: [
+          "declined"
+        ],
+        sub_entity_id: "ent_3dgnkienrssoudk62llqqvj6qu",
+        reference: "l7WtKSkVK8VxM3o",
+        legal_name: "Smoke simulator_match_fail Company"
+      },
+      _links: {
+        self: {
+          href: "https://api.sandbox.checkout.com/workflows/events/evt_u2bs7wtytscexfrbz47qmgp62i"
+        }
+      }
+    }
+
+  
+If due diligence is passed, we will enable the sub-entity’s **payments** and **payouts** capabilities. You should expect to receive the `payments_enabled` and `payout_enabled` event types.
+
+We will re-trigger due diligence checks if any of the required information is later updated. If any subsequent checks fail and you receive the `full_dd_failed` notification, this will be followed by `payments_disabled` and `payouts_disabled` webhook notifications.
+
+#### Payment and payout webhook examples
+
+We've described the different webhook notifications on our [webhook event type page](https://docs.checkout.com/four/workflows/webhook-event-types#Webhookeventtypes-Marketplace).
+
+  
+
+*   [**Payments enabled**](#tabs-55cc4793-b39f-450a-aee8-24287bb07b48-1)
+*   [**Payouts enabled**](#tabs-55cc4793-b39f-450a-aee8-24287bb07b48-2)
+
+    {
+      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+      "type": "payments_enabled",
+      "version": "1.0.0",
+      "created_on": "2020-08-20T15:24:13.8431084Z",
+      "data": {
+        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+        "reference": "123456789101112",
+        "legal_name": "The Cake Shop Inc."
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+        }
+      }
+    }
+    
+
+    {
+      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+      "type": "payouts_enabled",
+      "version": "1.0.0",
+      "created_on": "2020-08-20T15:24:13.8431084Z",
+      "data": {
+        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+        "reference": "123456789101112",
+        "legal_name": "The Cake Shop Inc."
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+        }
+      }
+    }
+
+  
+
+We will re-trigger due diligence checks if any of the required information is later updated. If any subsequent checks fail and you receive the `vmss_failed` and / or `match_failed` notification, this will be followed by `payments_disabled`.
+
+Where to next?
+--------------
+
+### Accept a payment
+
+Process payments on behalf of your sub-entities.
+
+[Learn more](https://docs.checkout.com/four/marketplaces/accept-a-payment)
+
+Find out more
+-------------
+
+### Status types
+
+Find out more about status types during the onboarding process.
+
+[Find out more](https://docs.checkout.com/four/marketplaces/about-onboarding#status-types)
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/pages/viewpage.action?pageId=20120369&showComments=true&showCommentArea=true#addcomment)

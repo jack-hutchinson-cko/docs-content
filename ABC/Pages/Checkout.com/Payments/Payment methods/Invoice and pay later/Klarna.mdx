@@ -1,0 +1,1212 @@
+---
+title: Klarna
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [Jun 09, 2021](/pages/diffpagesbyversion.action?pageId=2785472&selectedPageVersions=11&selectedPageVersions=12 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Start accepting payments using Klarna, a favorite payment method in Europe.
+
+We offer Klarna's _Pay later_ and _Slice it_ payment methods, allowing your customers to either pay up to 30 days later via an invoice, or split the payment into three equal installments.
+
+To start accepting Klarna payments, please contact your Customer Success Manager.
+
+Overview
+--------
+
+To integrate Klarna into your checkout process and start accepting payments, follow these five steps:
+
+1.  **[Create a session](#Klarna-createsession)**. When the customer reaches your checkout page, create a session with Klarna.
+2.  **[Display widget](#Klarna-displaywidget)**. Initialize and load the Klarna widget to present your customer with the payment methods.
+3.  **[Authorize](#Klarna-authorize)**. When the customer presses the buy/review order button on your page, make an authorization request.
+4.  **[Place the order](#Klarna-placeorder)**. After the order has been authorized, place the order by using the authorization token generated in step three.
+5.  **[Capture the payment](#Klarna-capturepayment)**. Finally, once you've shipped the order or made it available to the customer, you can capture the payment.
+
+Create a session 
+-----------------
+
+First, you need to create a Klarna session for your customer.
+
+You should provide all known order details at this stage to enable pre-assessment and to personalize the experience for your customer.
+
+If, however, your checkout process is designed in a way that you don't have all the customer's details at this point, you can add them later on when you load the Klarna widget or when you come to authorize the payment.
+
+When you create a session, you will receive the available `payment_method_categories`, a `session_id` and a `client_token`. You can use the `session_id` to update the session using our API, and the `client_token` should be passed to the browser. A session is valid for 48 hours.
+
+#### Endpoints
+
+*   [**Live**](#tabs-652df023-67dc-4b7f-bfea-5618df754c4f-1)
+*   [**Sandbox**](#tabs-652df023-67dc-4b7f-bfea-5618df754c4f-2)
+
+POST`https://api.checkout.com/klarna/credit-sessions`
+
+POST`https://api.sandbox.checkout.com/klarna-external/credit-sessions`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`public key`
+
+Use the valid public key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`purchase_country`
+
+REQUIRED
+
+STRING
+
+The country in which the purchase is being made (two-letter ISO 3166 code).
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The currency in which the payment is being made (three-letter ISO 4217 code).
+
+`locale`
+
+REQUIRED
+
+STRING
+
+The customer's locale (RFC 1766 code).
+
+`amount`
+
+REQUIRED
+
+INTEGER
+
+The total amount of the order, including tax and any discounts.
+
+`tax_amount`
+
+REQUIRED
+
+INTEGER
+
+The total tax amount of the order.
+
+`products`
+
+REQUIRED
+
+ARRAY
+
+The order details.
+
+This object is passed directly to Klarna as order\_lines. See [Klarna's documentation](https://developers.klarna.com/api/) for more information.
+
+`purchase_country` and `locale` will affect the Klarna widget's validation rules. For example, when your customer is prompted for their address, the widget's postal code field will validate against available post codes in the country specified in `purchase_country`.
+
+#### Request example
+
+    {
+      "purchase_country": "GB",
+      "currency": "GBP",
+      "locale": "en-GB",
+      "amount": 1000,
+      "tax_amount": 1,
+      "products": [
+        {
+          "name": "Brown leather belt",
+          "quantity": 1,
+          "unit_price": 1000,
+          "tax_rate": 0,
+          "total_amount": 1000,
+          "total_tax_amount": 0
+        }
+      ]
+    }
+
+#### Response examples
+
+*   [**201 Successfully created Klarna session**](#tabs-fe0a05d3-43c8-488c-ac46-8aa75c0a6c2f-1)
+*   [**422 Request could not be accepted**](#tabs-fe0a05d3-43c8-488c-ac46-8aa75c0a6c2f-2)
+
+    {
+      "session_id": "kcs_55xomnyd3ftujckeoyuvtkx2ue",
+      "client_token": "eyJhbGciOiJub25lIn0.ewogICJzZXNzaW9uX2lkIiA6ICI1MGEzYTNiOS02NGE5LTYwNjMtODNmNC1hMzRlM2Q4MjRiNGIiLAogICJiYXNlX3VybCIgOiAiaHR0cHM6Ly9rbGFybmEtcGF5bWVudHMtZXUucGxheWdyb3VuZC5rbGFybmEuY29tIiwKICAiZGVzaWduIiA6ICJrbGFybmEiLAogICJsYW5ndWFnZSIgOiAiZW4iLAogICJwdXJjaGFzZV9jb3VudHJ5IiA6ICJHQiIsCiAgImFuYWx5dGljc19wcm9wZXJ0eV9pZCIgOiAiVUEtMzYwNTMxMzctMTEiLAogICJ0cmFjZV9mbG93IiA6IGZhbHNlLAogICJlbnZpcm9ubWVudCIgOiAicGxheWdyb3VuZCIsCiAgIm1lcmNoYW50X25hbWUiIDogIlBsYXlncm91bmQgRGVtbyBNZXJjaGFudCIsCiAgInNlc3Npb25fdHlwZSIgOiAiUEFZTUVOVFMiLAogICJjbGllbnRfZXZlbnRfYmFzZV91cmwiIDogImh0dHBzOi8vZXZ0LnBsYXlncm91bmQua2xhcm5hLmNvbSIKfQ.",
+      "payment_method_categories": [
+        {
+          "asset_urls": {
+            "descriptive": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/slice_it/descriptive/pink.svg",
+            "standard": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/slice_it/standard/pink.svg"
+          },
+          "identifier": "pay_over_time",
+          "name": "Slice it."
+        },
+        {
+          "asset_urls": {
+            "descriptive": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/pay_later/descriptive/pink.svg",
+            "standard": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/pay_later/standard/pink.svg"
+          },
+          "identifier": "pay_later",
+          "name": "Pay later."
+        }
+      ],
+      "_links": {
+        "self": {
+          "href": "http://localhost:5100/credit-sessions/kcs_55xomnyd3ftujckeoyuvtkx2ue"
+        }
+      }
+    }
+
+    {
+      "request_id": "0HLK56US9BH1E:0000005B",
+      "error_type": "request_invalid",
+      "error_codes": [
+        "purchase_country_required"
+      ]
+    }
+
+If something goes wrong, you may get a `400 Bad request` or `401 Unauthorized to access this resource` error.
+
+Display widget 
+---------------
+
+Next, load the widget on your page so your customer can choose one of the Klarna payment methods.
+
+### Add the JavaScript SDK to your page
+
+To do so, you first need to insert the below code into your page to load the Klarna Payments Library in your client.
+
+    
+      window.klarnaAsyncCallback = function () {
+     
+        // This is where you start calling Klarna's JS SDK functions
+        //
+        // Klarna.Payments.init({ ... })
+     
+      };
+    
+    
+
+#### Initialize the SDK
+
+Then initialize the Klarna Payments Library. To do this, call `init` and pass the `client_token` that you got in the response when you created the session in the first step.
+
+    try {
+        Klarna.Payments.init(
+            {
+                client_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmb28iOiJiYXIifQ.dtxWM6MIcgoeMgH87tGvsNDY6cH"
+            }
+        );
+    } catch (e) {
+        // Handle error
+    }
+
+#### Add a container to your page
+
+Next, specify where you want the widget by adding a container to your checkout page with the following snippet.
+
+    <div id="klarna_container"></div>
+
+The Klarna Payments iframe requires a minimum width of 280px.
+
+### Display available payment methods
+
+To show your customer the Klarna payment options open to them (i.e. _Pay later_ and _Slice it_), use the following `payment_method_categories` array, which you'll find in the response you received when you created the session in step one.
+
+    {
+      // ...
+      "payment_method_categories": [
+        {
+          "asset_urls": {
+            "descriptive": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/slice_it/descriptive/pink.svg",
+            "standard": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/slice_it/standard/pink.svg"
+          },
+          "identifier": "pay_over_time",
+          "name": "Slice it."
+        },
+        {
+          "asset_urls": {
+            "descriptive": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/pay_later/descriptive/pink.svg",
+            "standard": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/pay_later/standard/pink.svg"
+          },
+          "identifier": "pay_later",
+          "name": "Pay later."
+        }
+      ]
+      // ...
+    }
+
+### Load the Klarna widget
+
+When that's done, present the Klarna widget to your customer by calling `load`, passing the ID of the container you added earlier and specifying the `payment_method_categories`.
+
+If your customer has changed, say, their order or billing details since the session was created, you can also use `load` to pass these updates to the session by adding the relevant information to the `data` object.
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`options`
+
+REQUIRED
+
+OBJECT
+
+Use this to contain the container ID, `payment_method_categories`, and `instance_id`.
+
+`options.container`
+
+REQUIRED
+
+STRING
+
+The ID you specified for the Klarna container above.
+
+`options.payment_method_categories`
+
+REQUIRED
+
+ARRAY
+
+The `identifier`s of the `payment_method_categories` you want to present to the customer. (i.e. `pay_later` and/or `slice_it`)
+
+`options.instance_id`
+
+REQUIRED
+
+STRING
+
+The ID you'll use to identify this instance of the Klarna Payments client.
+
+You should include this same `instance_id` for subsequent actions, like `authorize`, to indicate which instance the action applies to.
+
+`data`
+
+OPTIONAL
+
+OBJECT
+
+If the customer has changed any of their order or billing information, this can be used to update the session.
+
+`data.purchase_country`
+
+OPTIONAL
+
+STRING
+
+The country in which the purchase is being made (two-letter ISO 3166 code).
+
+`data.purchase_currency`
+
+OPTIONAL
+
+STRING
+
+The currency in which the payment is being made (three-letter ISO 4217 code).
+
+`data.locale`
+
+OPTIONAL
+
+STRING
+
+The customer's locale (RFC 1766 code).
+
+`data.billing_address`
+
+OPTIONAL
+
+OBJECT
+
+Details about the customer's billing address.
+
+`data.shipping_address`
+
+OBJECT
+
+OPTIONAL
+
+Details about the customer's shipping address.
+
+`data.order_amount`
+
+OPTIONAL
+
+INTEGER
+
+The total amount of the order, including tax and any discounts.
+
+`data.order_tax_amount`
+
+OPTIONAL
+
+INTEGER
+
+Total tax amount of the order.
+
+`data.order_lines`
+
+OPTIONAL
+
+ARRAY
+
+Details about the order.
+
+This object is passed directly to Klarna as `order_lines`. See [Klarna's documentation](https://developers.klarna.com/api/) for more information.
+
+`data.customer`
+
+OPTIONAL
+
+OBJECT
+
+Details about the customer.
+
+`callback`
+
+REQUIRED
+
+FUNCTION
+
+Catches the response from `Klarna.Payments.load()` for further processing.
+
+We recommend passing the `data` object with every call to `load`, to ensure that the session reflects any changes the customer might have made to their order or billing information.
+
+#### Example
+
+    try {
+      Klarna.Payments.load(
+        // options
+        {
+          container: "#klarna_container",
+          payment_method_categories: ["pay_later", "slice_it"],
+          instance_id: "klarna-payments-instance"
+        },
+        // data
+        {
+          purchase_country: "GB",
+          purchase_currency: "GBP",
+          locale: "en-GB",
+          billing_address: {
+            given_name: "John",
+            family_name: "Doe",
+            email: "johndoe@email.com",
+            title: "Mr",
+            street_address: "13 New Burlington St",
+            street_address2: "Apt 214",
+            postal_code: "W13 3BG",
+            city: "London",
+            region: "",
+            phone: "01895808221",
+            country: "GB"
+          },
+          shipping_address: {
+            given_name: "John",
+            family_name: "Doe",
+            email: "johndoe@email.com",
+            title: "Mr",
+            street_address: "13 New Burlington St",
+            street_address2: "Apt 214",
+            postal_code: "W13 3BG",
+            city: "London",
+            region: "",
+            phone: "01895808221",
+            country: "GB"
+          },
+          order_amount: 10,
+          order_tax_amount: 0,
+          order_lines: [
+            {
+              type: "physical",
+              reference: "19-402",
+              name: "Battery Power Pack",
+              quantity: 1,
+              unit_price: 1000,
+              tax_rate: 0,
+              total_amount: 1000,
+              total_discount_amount: 0,
+              total_tax_amount: 0,
+              product_url: "https://www.estore.com/products/f2a8d7e34",
+              image_url: "https://www.exampleobjects.com/logo.png"
+            }
+          ],
+          customer: {
+            date_of_birth: "1970-01-01",
+            gender: "male"
+          }
+        },
+        // callback
+        function (response) {
+          // ...
+        }
+      );
+    } catch (e) {
+      // Handle error. The load~callback will have been called
+      // with "{ show_form: false }" at this point.
+    }
+
+#### Response examples
+
+*   [**Positive response: Klarna offered**](#tabs-f1743ae1-a790-4be9-ae63-b6db5edc4bea-1)
+*   [**Adjust and try again**](#tabs-f1743ae1-a790-4be9-ae63-b6db5edc4bea-2)
+*   [**Klarna not offered**](#tabs-f1743ae1-a790-4be9-ae63-b6db5edc4bea-3)
+
+    {
+      show_form: true
+    }
+
+    {
+      show_form: true,
+      error: {
+        invalid_fields: ["billing_address.email"]
+      }
+    }
+
+    {
+      show_form: false
+    }
+
+Authorize the order 
+--------------------
+
+When your customer presses the **buy now** button, you can authorize the order. In return, you'll receive an authorization token, which you'll then use to complete the payment.
+
+The `authorize` call may require the customer to provide more details, meaning that the response could be instant, could take a very long time (i.e. the time it takes the customer to complete the form), or might not happen (if the customer drops out). The integration, therefore, should not rely on an immediate response and should not implement timeouts on the merchant side, but, rather, wait for the callback function to be called.
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`options`
+
+REQUIRED
+
+OBJECT
+
+Use this to pass the `instance_id`.
+
+`options.instance_id`
+
+REQUIRED
+
+STRING
+
+The ID of the Klarna Payments instance you want to authorize.
+
+You should use the `instance_id` from the load call above.
+
+`data`
+
+OPTIONAL
+
+OBJECT
+
+Use this to provide any order or billing details that the customer has changed.
+
+`callback`
+
+REQUIRED
+
+FUNCTION
+
+Catches the response from `Klarna.Payments.authorize()` for further processing.
+
+#### Example
+
+    try {
+      Klarna.Payments.authorize(
+        // options
+        {
+          instance_id: "klarna-payments-instance" // Same as instance_id set in Klarna.Payments.load().
+        },
+        // data
+        {
+          billing_address: {
+            // ...
+          }
+        },
+        // callback
+        function (response) {
+          // ...
+        }
+      );
+    } catch (e) {
+      // Handle error. The authorize~callback will have been called
+      // with "{ show_form: false, approved: false }" at this point.
+    }
+
+#### Response examples
+
+*   [**Successful**](#tabs-8432ba75-7aba-4e2f-ad9e-7f6b598086c2-1)
+*   [**Rejected with solvable errors**](#tabs-8432ba75-7aba-4e2f-ad9e-7f6b598086c2-2)
+*   [**Rejected**](#tabs-8432ba75-7aba-4e2f-ad9e-7f6b598086c2-3)
+
+    {
+      authorization_token: "b4bd3423-24e3",
+      approved: true,
+      show_form: true
+    }
+
+    {
+      approved: false,
+      show_form: true,
+      error: {
+        invalid_fields: ["billing_address.email"]
+      }
+    }
+
+    {
+        approved: false,
+        show_form: false
+    }
+
+Place the order 
+----------------
+
+If the authorization was successful, you will have received an `authorization_token`, which you can now use to place the customer's order.
+
+Do not auto-capture the payment!
+
+When you're processing a transaction via Klarna, you must **only capture the payment once the goods have been shipped to the customer**, unless you are selling an online service that the customer may use immediately.
+
+#### Endpoints
+
+*   [**Live**](#tabs-fc7ff0ab-ec3d-42c1-95cf-e78462d9ae73-1)
+*   [**Sandbox**](#tabs-fc7ff0ab-ec3d-42c1-95cf-e78462d9ae73-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`amount`
+
+REQUIRED
+
+INTEGER
+
+The payment amount.
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The currency in which the payment is being made (three-letter ISO 4217 code).
+
+`capture`
+
+REQUIRED
+
+BOOLEAN
+
+Choose whether or not to capture the payment.
+
+Defaults to `true`, but must be `false` in this case.
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `klarna`.
+
+`source.authorization_token`
+
+REQUIRED
+
+STRING
+
+The Klarna authorization token, which you received when you authorized the order.
+
+`source.locale`
+
+REQUIRED
+
+STRING
+
+The customer's locale (RFC 1766 code).
+
+Default value taken from your business settings.
+
+`source.purchase_country`
+
+REQUIRED
+
+STRING
+
+The country in which the purchase is being made (two-letter ISO 3166 code).
+
+Default value taken from your business settings.
+
+`source.auto_capture`
+
+OPTIONAL
+
+BOOLEAN
+
+Allows you to trigger auto-capture of the payment.
+
+`source.tax_amount`
+
+REQUIRED
+
+INTEGER
+
+The total tax amount for the order.
+
+`source.billing_address`
+
+REQUIRED
+
+OBJECT
+
+Details about the customer's billing address.
+
+This object is passed directly to Klarna as `billing_address`. See [Klarna's documentation](https://developers.klarna.com/api/) for more information.
+
+`source.shipping_address`
+
+OPTIONAL
+
+OBJECT
+
+Details about the customer's shipping address.
+
+This object is passed directly to Klarna as `shipping_address`. See [Klarna's documentation](https://developers.klarna.com/api/) for more information.
+
+`source.customer`
+
+OPTIONAL
+
+OBJECT
+
+Details about the customer.
+
+This object is passed directly to Klarna as `customer`. See [Klarna's documentation](https://developers.klarna.com/api/) for more information.
+
+`source.products`
+
+REQUIRED
+
+ARRAY
+
+Details about the order.
+
+This object is passed directly to Klarna as `order_lines`. See [Klarna's documentation](https://developers.klarna.com/api/) for more information.
+
+`source.merchant_reference1`
+
+OPTIONAL
+
+STRING
+
+Use this to store an internal order number or other reference. If set, this will be shown on the confirmation page as `order number`.
+
+Up to 255 characters.
+
+`source.merchant_reference2`
+
+OPTIONAL
+
+STRING
+
+Use this to store an internal order number or other reference.
+
+Up to 255 characters.
+
+`source.merchant_data`
+
+OPTIONAL
+
+STRING
+
+Pass-through field.
+
+Up to 1024 characters.
+
+`source.attachment`
+
+OPTIONAL
+
+OBJECT
+
+Additional purchase information required for some industries.
+
+This object is passed directly to Klarna as `attachment`. See [Klarna's documentation](https://developers.klarna.com/api/) for more information.
+
+#### Request example
+
+    {
+      "amount": 1000,
+      "currency": "GBP",
+      "capture": false,
+      "source": {
+        "type": "klarna",
+        "authorization_token": "b4bd3423-24e3",
+        "locale": "en-GB",
+        "purchase_country": "GB",
+        "tax_amount": 0,
+        "billing_address": {
+          "given_name": "John",
+          "family_name": "Doe",
+          "email": "johndoe@email.com",
+          "title": "Mr",
+          "street_address": "13 New Burlington St",
+          "street_address2": "Apt 214",
+          "postal_code": "W13 3BG",
+          "city": "London",
+          "phone": "01895808221",
+          "country": "GB"
+        },
+        "customer": {
+          "date_of_birth": "1970-01-01",
+          "gender": "male"
+        },
+        "products": [
+          {
+            "name": "Battery Power Pack",
+            "quantity": 1,
+            "unit_price": 1000,
+            "tax_rate": 0,
+            "total_amount": 1000,
+            "total_tax_amount": 0
+          }
+        ]
+      }
+    }
+
+#### Response example
+
+Unlike the other payment method supports, Klarna is always synchronous. The redirect links contained in the response set Klarna-specific cookies, so that the customer is recognized in future payment requests.
+
+    {
+      "id": "pay_y3oqhf46pyzuxjbcn2giaqnb44",
+      "action_id": "act_y3oqhf46pyzuxjbcn2giaqnb44",
+      "amount": 1000,
+      "currency": "GBP",
+      "approved": true,
+      "status": "Authorized",
+      "response_code": "10000",
+      "response_summary": "Approved",
+      "source": {
+        "type": "klarna",
+        "order_id": "5ca8d9ed-d327-61a8-a8f7-c947073142ee",
+        "fraud_status": "ACCEPTED"
+      },
+      "customer": {
+        "date_of_birth": "1970-01-01",
+        "gender": "male"
+      },
+      "processed_on": "2019-01-15T10:59:51Z",
+      "reference": "ORD-5023-4E89",
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/payments/pay_y3oqhf46pyzuxjbcn2giaqnb44"
+        },
+        "actions": {
+          "href": "https://api.checkout.com/payments/pay_y3oqhf46pyzuxjbcn2giaqnb44/actions"
+        },
+        "klarna:payment-capture": {
+          "href": "https://api.checkout.com/klarna/orders/pay_jfcxs5vllp5ufden4lhe2wy4b4/captures/"
+        },
+        "klarna:payment-void": {
+          "href": "https://api.checkout.com/klarna/orders/pay_jfcxs5vllp5ufden4lhe2wy4b4/voids/"
+        }
+      }
+    }
+
+The 202 response with an `approved: true` flag confirms that Klarna will process your payout as soon as you capture the payment in the next step.
+
+Capture the payment 
+--------------------
+
+Once you've shipped your goods to the customer, you can capture the payment. If, however, you provide the customer with immediate access to your product (e.g., you provide them with an online service), you can capture the payment as soon as the order is placed.
+
+If you're shipping goods, it's a good idea to include the `shipping_info` for transparency as Klarna will include it in the correspondence with your customer.
+
+#### Endpoints
+
+*   [**Live**](#tabs-12a893fb-4218-49a3-8ad2-8c9fad953ecd-1)
+*   [**Sandbox**](#tabs-12a893fb-4218-49a3-8ad2-8c9fad953ecd-2)
+
+POST`https://api.checkout.com/klarna/orders/{payment_id}/captures`
+
+POST`https://api.sandbox.checkout.com/klarna-external/orders/{payment_id}/captures`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`public key`
+
+Use the valid public key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`payment_id`
+
+REQUIRED
+
+The payment ID you received in the response when you placed the order.
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`amount`
+
+OPTIONAL
+
+INTEGER
+
+The amount you wish to capture. If you don't specify, you will capture the full payment amount.
+
+`reference`
+
+OPTIONAL
+
+STRING
+
+A reference, such as an order number, you can later use to identify this payment.
+
+`metadata`
+
+OPTIONAL
+
+OBJECT
+
+A set of key-value pairs that you can attach to a payment. You can use this to store additional information in a structured format.
+
+`type`
+
+OPTIONAL
+
+STRING
+
+Type which can be used as a discriminator for a more generic capture endpoint with property bags.
+
+klarna
+
+REQUIRED
+
+OBJECT
+
+Contains the order and shipping information.
+
+`klarna.description`
+
+OPTIONAL
+
+STRING
+
+A description of the order shown to the customer.
+
+Up to 255 characters.
+
+`klarna.products`
+
+OPTIONAL
+
+ARRAY
+
+The order details.
+
+This object is passed directly to Klarna as order\_lines. See [Klarna's documentation](https://developers.klarna.com/api/) for more information.
+
+`klarna.shipping_info`
+
+OPTIONAL
+
+ARRAY
+
+The shipping information for the order.
+
+`klarna.shipping_delay`
+
+OPTIONAL
+
+INTEGER
+
+The delay before the order is shipped. This field is currently not returned when reading the order.
+
+If you want to submit a value greater than 0, this needs to be enabled in your account. Please contact Klarna for further information.
+
+#### Request example
+
+    {
+      "amount": 1000,
+      "reference": "ORD-5023-4E89",
+      "metadata": {},
+      "type": "klarna",
+      "klarna": {
+        "description": "Your order with Checkout.com",
+        "products":[
+          {
+            "name": "Battery Power Pack",
+            "quantity": 1,
+            "unit_price": 1000,
+            "tax_rate": 0,
+            "total_amount": 1000,
+            "total_tax_amount": 0         
+          }
+        ],
+        "shipping_info": [
+          {
+            "shipping_company": "DHL US",
+            "shipping_method": "PickUpStore",
+            "tracking_number": "63456415674545679874",
+            "tracking_uri": "http://shipping.example/findmypackage?63456415674545679874",
+            "return_shipping_company": "DHL US",
+            "return_tracking_number": "93456415674545679888",
+            "return_tracking_uri": "http://shipping.example/findmypackage?93456415674545679888"
+          }
+        ],
+        "shipping_delay": 0
+      }
+    }
+
+#### Response examples
+
+*   [**202 Capture accepted**](#tabs-be80c946-595a-4154-91dd-70345f8bcb96-1)
+*   [**422 Invalid data was sent**](#tabs-be80c946-595a-4154-91dd-70345f8bcb96-2)
+
+    {
+      "action_id": "act_4sz4seltcrzuvcgaetumnlamq4"
+    }
+
+    {
+      "request_id": "beug8y83h978yh",
+      "error_type": "request_invalid",
+      "error_codes": [
+        "customer_id_required",
+        "given_name_exceed_length"
+      ]
+    }
+
+If unsuccessful, you may receive a `403 Capture not allowed` or `404 Payment not found` error.
+
+### Refund a payment
+
+Klarna supports both partial and full refunds. You can refund a payment through the [Hub](https://hub.checkout.com/v2) or using the [refund API](/display/DOCS/Refund+a+payment).
+
+### Void a payment
+
+#### Endpoints
+
+*   [**Live**](#tabs-db1e74e4-c901-4e3b-b46f-57eba37e190e-1)
+*   [**Sandbox**](#tabs-db1e74e4-c901-4e3b-b46f-57eba37e190e-2)
+
+POST`https://api.checkout.com/klarna/orders/{payment_id}/voids`
+
+POST`https://api.sandbox.checkout.com/klarna-external/orders/{payment_id}/voids`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`public key`
+
+Use the valid public key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`payment_id`
+
+REQUIRED
+
+The payment ID (prefixed with `pay_`) you received in the response when you placed the order.
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`reference`
+
+OPTIONAL
+
+STRING
+
+A reference, such as an order number, you can later use to identify this payment.
+
+`metadata`
+
+OPTIONAL
+
+OBJECT
+
+A set of key-value pairs that you can attach to a payment. You can use this to store additional information in a structured format.
+
+#### Request example
+
+    {
+      "reference": "ORD-5023-4E89",
+      "metadata": {}
+    }
+
+#### Response examples
+
+*   [**202 Void accepted**](#tabs-c77069eb-0d02-407d-abbf-31c1c493e277-1)
+*   [**422 Invalid data was sent**](#tabs-c77069eb-0d02-407d-abbf-31c1c493e277-2)
+
+    {
+      "action_id": "act_v6572a7elpuupbaljmoi4tk3ma"
+    }
+
+    {
+      "request_id": "0HL80RJLS76I7",
+      "error_type": "request_invalid",
+      "error_codes": [
+        "payment_source_required"
+      ]
+    }
+
+If unsuccessful, you may get a `403 Void not allowed` or `404 Payment not found` error.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Klarna?showComments=true&showCommentArea=true#addcomment)

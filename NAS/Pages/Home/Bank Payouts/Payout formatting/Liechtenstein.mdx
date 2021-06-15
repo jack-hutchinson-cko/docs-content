@@ -1,0 +1,291 @@
+---
+title: Liechtenstein
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 09, 2021](/pages/diffpagesbyversion.action?pageId=8489717&selectedPageVersions=11&selectedPageVersions=12 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+#### Basic information
+
+*   [**Local**](#tabs-db5f37cb-dc8e-4f9f-a791-ba3d687e67c5-1)
+*   [**International**](#tabs-db5f37cb-dc8e-4f9f-a791-ba3d687e67c5-2)
+
+  
+
+Country code
+
+LI
+
+Supported currency
+
+EUR
+
+Scheme
+
+SEPA:
+
+*   **Minimum amount (local currency):** 0.01
+*   **Maximum amount (local currency):** no maximum
+*   **Cut-off time:** 11:30 GMT
+*   **Settlement:** T+1 next day
+
+#### Payment information
+
+ Individual
+
+#### Beneficiary information
+
+  
+
+Beneficiary type
+
+The type of account holder. Set this to `individual`.
+
+`account_holder.type`
+
+REQUIRED
+
+ENUM
+
+Beneficiary name
+
+The account holder's first and last name.
+
+`account_holder.first_name`
+
+REQUIRED
+
+STRING
+
+`account_holder.last_name`
+
+REQUIRED
+
+STRING
+
+Beneficiary address
+
+The account holder's address.
+
+  
+
+  
+
+  
+
+  
+
+`account_holder.billing_address.address_line1`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.address_line2`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.city`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.zip`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.country`
+
+REQUIRED
+
+ENUM, 2 CHARACTERS
+
+This must be a [two-letter ISO code](/display/DOCS/Country+codes).
+
+#### Bank details
+
+  
+
+IBAN
+
+The account holder's IBAN.
+
+`iban`
+
+REQUIRED
+
+STRING, 21 CHARACTERS
+
+SWIFT BIC
+
+The account holder's SWIFT BIC.
+
+`swift_bic`
+
+REQUIRED
+
+STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+
+ Corporate
+
+#### Beneficiary information
+
+  
+
+Beneficiary type
+
+The type of account holder. Set this to `corporate`.
+
+`account_holder.type`
+
+REQUIRED
+
+ENUM
+
+Beneficiary name
+
+The account holder's company name.
+
+`account_holder.company_name`
+
+REQUIRED
+
+STRING
+
+Beneficiary address
+
+The account holder's address.
+
+`account_holder.billing_address.address_line1`
+
+REQUIRED
+
+STRING
+
+`account_holder.billing_address.address_line2`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.city`
+
+REQUIRED
+
+STRING
+
+`account_holder.billing_address.zip`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.country`
+
+REQUIRED
+
+ENUM, 2 CHARACTERS
+
+This must be a [two-letter ISO code](/display/DOCS/Country+codes).
+
+#### Bank details
+
+  
+
+IBAN
+
+The account holder's IBAN.
+
+`iban`
+
+REQUIRED
+
+STRING, 21 CHARACTERS
+
+SWIFT BIC
+
+The account holder's SWIFT BIC.
+
+`swift_bic`
+
+REQUIRED
+
+STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+
+#### Example
+
+*   [**Payment instrument request (EUR)**](#tabs-81f50b29-8df1-4a67-874f-91625290448a-1)
+*   [**Payout request (EUR)**](#tabs-81f50b29-8df1-4a67-874f-91625290448a-2)
+
+    {
+      "type": "bank_account",
+      "iban": "LI21088100002324013AA",
+      "swift_bic": "BFRILI22XXX",
+      "currency": "EUR",
+      "country": "LI",
+      "account_holder": {
+        "first_name": "John",
+        "last_name": "Smith",
+        "address_line1": "99 Windsor Road",
+        "address_city": "Vaduz",
+        "country_code": "LI",
+        "billing_address": {
+          "address_line1": "99 Windsor Road",
+          "country_code": "LI",
+          "address_city": "Vaduz"
+        }
+      }
+    }
+
+    {
+      "currency": "EUR",
+      "source": {
+        "amount": 100,
+        "type": "currency_account",
+        "id": "ca_vrsqwv6tgtyufgi5xahfqmqq7a"
+      },
+      "reference": "CKO Test",
+      "destination": {
+        "type": "id",
+        "id": "src_6gtxe3cxns7uld5ytsemv6pdma"
+      },
+      "billing_descriptor": {
+        "reference": "CKO Test"
+      },
+      "sender": {
+        "type": "instrument",
+        "reference": "CKO Test",
+        "first_name": "John",
+        "last_name": "Smith",
+        "address_line1": "99 Windsor Road",
+        "address_city": "Vaduz",
+        "country_code": "LI"
+      },
+      "instruction": {
+        "purpose": "CKO Test EUR"
+      },
+      "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
+    }
+
+Coming soon.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Liechtenstein?showComments=true&showCommentArea=true#addcomment)

@@ -1,0 +1,193 @@
+---
+title: Refund a payment
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 22, 2021](/pages/diffpagesbyversion.action?pageId=2785608&selectedPageVersions=10&selectedPageVersions=11 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Use a refund to return a payment to a customer. Refunds can be made in the [Hub](https://hub.checkout.com/v2) or by using this API endpoint.
+
+There are two types of refunds you might need to process:
+
+*   **Full refund**. A full refund returns the total amount of the payment to the customer — it can only be performed once.
+*   **Partial refund**. A partial refund returns a sum less than the captured amount. A payment can be refunded multiple times, but cannot exceed the original payment amount.
+
+Refunds are always processed in the same currency as the captured payment.
+
+You cannot cancel a refund after it has been processed.
+
+Overview
+--------
+
+To process a refund successfully, you must provide the payment ID of the captured payment. You can find the ID:
+
+*   In the response of the payment request
+*   In the webhook notification
+
+The requests are the same for partial and full refunds. Any refunds for less than the original captured amount will be considered partial refunds.
+
+### The POST request
+
+Use the endpoint below to request a refund.
+
+If required by the card scheme, we will trigger a [refund authorization](#Refundapayment-refundauthorization) before processing your refund.
+
+#### Endpoints
+
+*   [**Live**](#tabs-be71d38e-7284-4a1c-8145-09c698be266a-1)
+*   [**Sandbox**](#tabs-be71d38e-7284-4a1c-8145-09c698be266a-2)
+
+POST`https://api.checkout.com/payments/{id}/refunds`
+
+POST`https://api.sandbox.checkout.com/payments/{id}/refunds`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+`id`
+
+REQUIRED
+
+The ID of the captured payment, embedded within the payment response (prefixed by `pay_`).
+
+Body parameters
+---------------
+
+Field name
+
+Description
+
+`amount`
+
+OPTIONAL
+
+INTEGER
+
+The amount to refund. If not specified, the full payment amount will be refunded.
+
+`reference`
+
+OPTIONAL
+
+STRING
+
+A reference you can later use to identify this refund request.
+
+`metadata`
+
+OPTIONAL
+
+OBJECT
+
+A set of key/value pairs that you can attach to the refund request. It can be useful for storing additional information in a structured format.
+
+#### Request example
+
+    {
+      "reference": "ORD-5023-4E89",
+      "metadata": {
+        "coupon_code": "NY2018",
+        "partner_id": 123989
+      }
+    }
+
+### The POST response
+
+A successful refund request returns a `202 Refund accepted` response. However, if there was a problem with your request, you'll receive an error response.
+
+#### Response examples
+
+*   [**202 Refund accepted**](#tabs-46a72ad6-f331-4bb0-8bd7-0c68cc6e1a1b-1)
+*   [**422 Invalid data was sent**](#tabs-46a72ad6-f331-4bb0-8bd7-0c68cc6e1a1b-2)
+
+    {
+      "action_id": "act_y3oqhf46pyzuxjbcn2giaqnb44",
+      "reference": "ORD-5023-4E89",
+      "_links": {
+        "payment": {
+          "href": "https://api.checkout.com/payments/pay_y3oqhf46pyzuxjbcn2giaqnb44"
+        }
+      }
+    }
+
+    {
+      "request_id": "0HL80RJLS76I7",
+      "error_type": "request_invalid",
+      "error_codes": [
+        "payment_source_required"
+      ]
+    }
+
+If unsuccessful, you may also receive a `403 Refund not allowed` or `404 Payment not found` error.
+
+Refund authorization 
+---------------------
+
+If the card scheme requires it, we will automatically trigger a refund authorization on your behalf before processing your refund.
+
+Refund authorizations only apply to card payments.
+
+If a refund authorization is requested, you can find the Retrieval Reference Number (RRN) in [refund webhook notifications](/display/DOCS/Webhooks) and in the [get payment actions](/display/DOCS/Manage+payments) call.
+
+If the refund authorization is declined, you will receive a 422 response, like the one below.
+
+    {
+       "request_id": "f5feff3f-d2ef-4c82-b4d0-ff443731581f",
+       "error_type": "processing_error",
+       "error_codes": [
+           "refund_authorization_declined"
+       ]
+    }
+
+If you want to know the reason for the decline, you can either [subscribe to refund webhook notifications](/display/DOCS/Webhooks), use our [get payment actions endpoint](/display/DOCS/Get+payment+actions), or view it in your [Hub](/display/DOCS/Manage+Hub+payments) account.
+
+Testing
+
+To test a declined refund authorization, request a refund with the `amount` set to `3738`.
+
+Troubleshooting
+---------------
+
+If your refund request was unsuccessful, the checklist below may help you identify the problem:
+
+*   Is the refund amount higher than the original payment?
+*   Has the payment already been refunded?
+*   Did you send the authorization ID instead of the payment ID?
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Refund+a+payment?showComments=true&showCommentArea=true#addcomment)

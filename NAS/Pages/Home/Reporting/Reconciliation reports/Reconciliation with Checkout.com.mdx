@@ -1,0 +1,117 @@
+---
+title: Reconciliation with Checkout.com
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Toby Knott](    /display/~toby.knott
+    ) on [Apr 26, 2021](/pages/diffpagesbyversion.action?pageId=8488908&selectedPageVersions=5&selectedPageVersions=6 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Reconciling between your bank account and settlements
+-----------------------------------------------------
+
+Understanding the exact payout amounts settled to you is a crucial part of your business's bookkeeping process. Checkout.com’s payout reports provide you with the confidence that you have been settled the correct amounts.
+
+To reconcile between your bank statements and Checkout.com’s payouts report, first identify a payout from Checkout.com shown on your bank statement. Payouts from us can be identified on your bank statement by the unique 12-character ID, which is also shown in the reports (for example, `000G7HDD96SH`).
+
+Look up the **Payout Amount** field within the corresponding payouts report for the date range during which that payout to your bank account occurred. Then simply reconcile between each amount displayed on your bank statement or transaction history and the payout amounts shown on your payouts report.
+
+If Checkout.com has paid out the correct amounts to you, then the two values will reconcile.
+
+Reconciling financial actions making up settlements
+---------------------------------------------------
+
+Using the payouts report and the financial actions by payout ID report together will allow you to reconcile between a specific payout and the financial actions that make up the payout amount.
+
+First, match the unique **Payout ID** for a given payout on the payouts report with the corresponding financial actions by payout ID report.
+
+For example, for a payout ID of `000G7HDD96SH` on 14/01/2021, the corresponding financial actions report will have the filename `financial-actions_{your entity ID}_14012021_000G7HDD96SH_1.csv`.
+
+### Reconciling payout amounts with financial actions
+
+The **Payout Amount** for the given payout on the payouts report will match the sum of all values in the **Holding Currency Amount** column with the corresponding financial actions by payout ID report.
+
+For example, this sample from a payouts report shows payout `000G7HDD96SH` with the amount of £18.66:
+
+![](/download/attachments/8488908/Payouts%20Report.PNG?version=1&modificationDate=1619432521088&api=v2)
+
+The **Payout Amount** shown will reconcile with the **Holding Currency Amount** column on the corresponding financial actions report for the payout `000G7HDD96SH`, once rounded down to two decimal places.
+
+![](/download/attachments/8488908/Financial%20Actions.PNG?version=1&modificationDate=1619433109093&api=v2)
+
+In the above example, the total of the holding currency amount column reconciles to the payout amount of £18.66.
+
+Because payout amounts are rounded down, any remainder is carried forward onto the next payout period.
+
+### Reconciling a specific fee category
+
+The payouts report features several breakdown columns for fees and adjustments applied whilst processing payments with Checkout.com.
+
+For a given row on your financial actions report, the combination of the **Action Type** and **Breakdown Type** will map to a fee category field on your payouts report.
+
+Information on the mapping between Action Type, Breakdown Type, and the fee category fields on the payouts report is available here.
+
+To reconcile between a fee category on your payouts report and the financial actions comprising it, filter the financial actions report by the **Action Types** and **Breakdown Types** related to the fee category. The sum of the **Holding Currency Amount** will then reconcile with the amount shown for the fee category.
+
+For example, to reconcile between **Card Payment Scheme Fees** for a given payout on your payouts report and the associated financial actions on the financial actions by payout id report:
+
+*   First, using your financial actions report, filter by **Action Type** to include only **authentication**, **authorization**, **capture,** and **void** actions.
+    
+*   Then filter on **Breakdown Type** filtered to include only **Scheme Fixed Fees** and **Scheme Variable Fees.**
+    
+*   The sum of the **Holding Currency** column will reconcile with the **Card Payment Scheme Fees** displayed on your payouts report.
+    
+
+Reconciling financial actions against changes to your currency account available balances
+-----------------------------------------------------------------------------------------
+
+Using the balance report and the financial actions by date range report together will allow you to reconcile all monetary inflows and outflows for a given currency account.
+
+For the reports to reconcile, ensure that your balance report and financial actions report cover the same reporting period. This is denoted by the date range suffix on the filenames.
+
+### Reconciling balance changes to your currency account
+
+Using the financial actions by date range report filter by **Currency Account ID** for the currency account you are trying to reconcile for. The aggregate sum of the **Holding Currency Amount** will then reconcile with the difference between the **Opening Available Balance** and **Closing Available Balance** of the currency account shown on the balance report.
+
+For example, for the given currency accounts `ca_2x0cfv99yjihgghdsj3eusewlu` and `ca_811l7xso5oi39u3flqhq8w26ez`, the truncated sample balance report shows a difference between the **Opening Available Balance** and the **Closing Available Balance** of £18.66 and €97.481 respectively.
+
+![](/download/attachments/8488908/Balance%20report%20highlights.PNG?version=1&modificationDate=1619433932920&api=v2)
+
+This value will reconcile with the **Holding Currency Amount** shown on the financial actions by date range report for the same period. To reconcile against a specific currency account, simply filter the financial actions report by the **Currency Account ID**.
+
+![](/download/attachments/8488908/Balance%20Report%20Recon.PNG?version=1&modificationDate=1619434194902&api=v2)
+
+### Reconciling a specific fee category
+
+The balance report features several breakdown columns for the total feels applied to a currency account over a given period. Each payment-related fee category is broken down further by the **Payment Method**.
+
+For a given row on your financial actions report, the combination of the **Action Type** and **Breakdown Type** will map to a fee category field on your payouts report.
+
+Information on the mapping between Action Type, Breakdown Type, and the fee category fields on the balance report is available [here](/display/x/Breakdown+types).
+
+To reconcile between a fee category on your balance report and the financial actions comprising it. First, filter the financial actions report by the **Currency Account ID**, **Action Type**, **Breakdown Type** and **Payment Method** (if applicable) related to the amount you are trying to reconcile on your balance report. The sum of the **Holding Currency Amount** column will then reconcile with the amount shown on the balance report.
+
+For example, to reconcile between **Card Payment Scheme Fees** for **Payment Method: Visa** for a given currency account on your balance report and the associated financial actions on the financial actions report over the same period.
+
+1.  First, using the financial actions report, filter by the **Currency Account ID**.
+    
+2.  Then filter by the **Payment Method** if applicable.
+    
+3.  Then filter by **Action Type** to include only **authentication**, **authorization**, **capture,** and **void** actions.
+    
+4.  Then filter on **Breakdown Type** filtered to include only **Scheme Fixed Fees** and **Scheme Variable Fees**. The sum of the **Holding Currency** column will reconcile with the **Card Payment Scheme Fees** displayed on your payouts report.
+    
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Reconciliation+with+Checkout.com?showComments=true&showCommentArea=true#addcomment)

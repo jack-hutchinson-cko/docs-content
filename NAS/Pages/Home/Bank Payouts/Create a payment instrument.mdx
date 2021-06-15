@@ -1,0 +1,360 @@
+---
+title: Create a payment instrument
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [May 21, 2021](/pages/diffpagesbyversion.action?pageId=8490506&selectedPageVersions=17&selectedPageVersions=18 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Learn how to create a payment instrument that you can later use as the destination for one or more payments.
+
+Step 1: Get bank account field formatting
+-----------------------------------------
+
+Before creating a payment instrument, use the [get bank account field formatting endpoint](/display/x/Get+bank+account+field+formatting) to retrieve the relevant bank account fields and formatting for the country and currency to which you'll be paying out.
+
+You can explore the [required fields for each country we support here](/display/x/Payout+formatting).
+
+Step 2: Create a payment instrument
+-----------------------------------
+
+Once you've retrieved the relevant fields and formatting, you can pass that information through the following endpoint to create a payment instrument.
+
+### The request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-11f0fb06-0772-4684-8d22-73893c9c79db-1)
+*   [**Sandbox**](#tabs-11f0fb06-0772-4684-8d22-73893c9c79db-2)
+
+POST`https://api.checkout.com/instruments`
+
+POST`https://api.sandbox.checkout.com/instruments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`Bearer {OAuth access token}  
+`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+For the full specification, see the [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Instruments/paths/~1instruments/post).
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`type`
+
+REQUIRED
+
+STRING
+
+  
+
+The type of instrument. Set this to `bank_account`.
+
+To find out which fields are required, use the [get bank account field formatting](/display/x/Get+bank+account+field+formatting) endpoint.
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The three-letter ISO currency code of the account's currency.
+
+See [currency codes](/display/x/Currency+codes).
+
+`country`
+
+REQUIRED
+
+STRING
+
+The two-letter ISO country code of where the account is based.
+
+See [country codes](/display/x/Country+codes).
+
+`account_holder`
+
+OPTIONAL
+
+OBJECT
+
+The account holder details.
+
+`bank`
+
+OPTIONAL
+
+OBJECT
+
+The bank details.
+
+To find out which fields are required, use the [get bank account field formatting](/display/x/Get+bank+account+field+formatting) endpoint.
+
+`customer`
+
+OPTIONAL
+
+OBJECT
+
+An object that allows you to store your customer's details, including name, email address, and unique identifier.
+
+#### Request example
+
+    {
+      "type": "bank_account",
+      "account_type": "savings",
+      "account_number": "13654567455",
+      "bank_code": "123-456",
+      "branch_code": "6443",
+      "iban": "HU93116000060000000012345676",
+      "bban": "3704 0044 0532 0130 00",
+      "swift_bic": "37040044",
+      "currency": "GBP",
+      "country": "GB",
+      "account_holder": {
+        "type": "individual",
+        "first_name": "John",
+        "last_name": "Smith",
+        "company_name": "Test company",
+        "tax_id": "123456",
+        "date_of_birth": "1986-01-01",
+        "country_of_birth": "GB",
+        "residential_status": "resident",
+        "billing_address": {
+          "address_line1": "Checkout.com",
+          "address_line2": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        },
+        "phone": {
+          "country_code": "+1",
+          "number": "415 555 2671"
+        },
+        "identification": {
+          "type": "passport",
+          "number": "09876",
+          "issuing_country": "US"
+        },
+        "email": "test.user@checkout.com"
+      },
+      "bank": {
+        "name": "Lloyds TSB",
+        "branch": "Bournemouth",
+        "address": {
+          "address_line1": "Checkout.com",
+          "address_line2": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        }
+      },
+      "customer": {
+        "id": "cus_y3oqhf46pyzuxjbcn2giaqnb44",
+        "email": "jokershere@gmail.com",
+        "name": "Jack Napier"
+      }
+    }
+
+### The response
+
+If successful, the response will include the `id` (prefixed with `src_`) of the newly created payment instrument, which you can now use in [payout requests](/display/x/Request+a+payout), and a `fingerprint`, which is a unique token that can identify this instrument across all customers.
+
+#### Response example
+
+    {
+      "type": "bank_account",
+      "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q",
+      "customer": {
+        "id": "cus_y3oqhf46pyzuxjbcn2giaqnb44",
+        "email": "jokershere@gmail.com",
+        "name": "Jack Napier"
+      },
+      "id": "src_wmlfc3zyhqzehihu7giusaaawu"
+    }
+
+Test different payment instrument scenarios using our [testing guide](/display/x/Bank+Payouts+testing).
+
+Managing your payment instruments
+---------------------------------
+
+### Update a payment instrument
+
+If you want to update the details of a bank account payment instrument, pass the payment instrument's ID (prefixed with `src_`), along with any fields you want to add or update, with the following endpoint.
+
+For the full specification, see the [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Instruments/paths/~1instruments~1{id}/patch). 
+
+### The request
+
+#### Endpoints
+
+*   [**Live**](#tabs-e86dca28-0cd4-4762-a23e-f891af135a99-1)
+*   [**Sandbox**](#tabs-e86dca28-0cd4-4762-a23e-f891af135a99-2)
+
+PATCH`https://api.checkout.com/instruments`
+
+PATCH`https://api.sandbox.checkout.com/instruments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`Bearer {OAuth access token}  
+`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Path parameters
+
+Path
+
+Value
+
+Path
+
+Value
+
+`id`
+
+REQUIRED
+
+The identifier of the payment instrument you want to update (prefixed with `src_`).
+
+#### Request example
+
+    {
+      "account_type": "savings",
+      "bank_code": "123-456",
+      "account_holder": {
+        "type": "individual"
+      }
+    }
+
+### The response
+
+If successful, you'll receive a `200 - Instrument updated successfully` response, which will include the payment instrument's `fingerprint`, a unique token that can identify this instrument across all customers.
+
+Delete a payment instrument
+---------------------------
+
+If you want to delete one of your payment instruments, pass the payment instrument's ID (prefixed with `src_`) through the following endpoint.
+
+For the full specification, see the [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Instruments/paths/~1instruments~1{id}/delete). 
+
+### The request
+
+#### Endpoints
+
+*   [**Live**](#tabs-c519aaa1-2f20-4859-8e52-c2ca67d3283a-1)
+*   [**Sandbox**](#tabs-c519aaa1-2f20-4859-8e52-c2ca67d3283a-2)
+
+DELETE`https://api.checkout.com/instruments`
+
+DELETE`https://api.sandbox.checkout.com/instruments`
+
+#### Header parameters
+
+  
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`Bearer {OAuth access token}  
+`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Path parameters
+
+Path
+
+Value
+
+Path
+
+Value
+
+`id`
+
+REQUIRED
+
+The identifier of the payment instrument you want to delete (prefixed with `src_`).
+
+  
+
+### The response
+
+If successful, you'll get a `204 - Instrument deleted successfully` response.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Create+a+payment+instrument?showComments=true&showCommentArea=true#addcomment)

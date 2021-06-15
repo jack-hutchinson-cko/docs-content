@@ -1,0 +1,70 @@
+---
+title: Generate reports
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 22, 2021](/pages/diffpagesbyversion.action?pageId=8488053&selectedPageVersions=4&selectedPageVersions=5 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Reports are an easy way to get data about payments, chargebacks, and retrieval requests. From your Dashboard, you can generate them for any given time period, and export them in CSV format.
+
+There can be a time delay between the transaction occurring and being able to see it in a report.
+
+Types of reports
+----------------
+
+The Dashboard includes the following reports.
+
+### Payments
+
+This report provides a comprehensive list of all payment actions that occurred during the selected period.
+
+ Columns included in the report
+
+Action ID, Action Date UTC, Account Name, Business Name, Channel Name, Client Name, Client Entity Name, Sub-Entity Name, Processing Channel Name, MCC, Action Type, Payment Method, Card Holder Name, CC Number, Expiry Year, Expiry Month, Reference, Amount, Currency Symbol, Response Code, Response Description, Customer Email, Payment Type, CVV Check, AVS Check, XID, CAVV, 3D Secure Payment, ECI Code, Customer IP, Server IP, Auth Code, Acquirer Reference ID, Payment ID, Shipping Address 1, Shipping Address 2. Shipping ZIP, Shipping City, Shipping Country, Billing Address 1, Billing Address 2, Billing ZIP, Billing City, Billing Country, CC BIN, Issuing Bank, Issuing Country, CC Type, CC Category, Card ID, Billing Descriptor Part 1, Billing Descriptor Part 2, UDF1, UDF2, UDF3, UDF4, UDF5, Card Wallet Type, Action Date Local, Processing Acquirer Name
+
+### Disputes
+
+This report provides a list of all the disputes that occurred during the selected period.
+
+ Columns included in the report
+
+Dispute ID, Dispute Date UTC, Dispute Issue Date UTC, Dispute Created Date UTC, Account Name, Business Name, Channel Name, Client Name, Client Entity Name, Sub-Entity Name, Processing Channel Name, MCC, Dispute Indicator, Dispute Status, Payment Method, Card Holder Name, CC Number, Reference, Currency Symbol, Dispute Amount, Dispute Code, Customer Email, Payment Type, Payment ID, Payment Date UTC, Acquirer Reference Number, CVV Check, AVS Check, ECI Code, Card Wallet Type, Dispute Issue Date Local , Payment Date Local
+
+### Retrieval requests
+
+This report provides a list of all the retrieval requests that occurred during the selected period.
+
+ Columns included in the report
+
+Retrieval ID, Retrieval Issue Date UTC, Account Name, Business Name, Channel Name, Client Name, Client Entity Name, Sub-Entity Name, Processing Channel Name, MCC, Payment Method, Card Holder Name, CC Number, Reference, Amount, Currency Symbol, Customer Email, Payment Type, Retrieval Reason Code, Payment ID, Payment Date UTC, Acquirer Reference Number, CVV Check, AVS Check, ECI Code, Card Wallet Type, Retrieval Issue Date Local, Payment Date Local
+
+Generate and download a new report
+----------------------------------
+
+![](/download/attachments/8488053/report_date_filter.png?version=1&modificationDate=1598006734665&api=v2)
+
+1.  In the _Reports_ screen, click **New report**.
+    
+2.  Select the report type you want to create from the dropdown menu.
+3.  Set a date range.
+4.  If you want to, give a name to your report. This is optional, but can help you find it later.
+5.  Choose the fields you want to include in your report (the available fields depend on the report type). You can select **Default**, **All**, or **Custom**, which lets you pick only the fields you want.
+    
+6.  Click **Generate report**. Reports containing a lot of data may take a while to generate, so feel free to do other things while you wait. Once complete, the report is added to the _Reports_ screen where you can download it at any time by clicking **CSV**.
+    
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Generate+reports?showComments=true&showCommentArea=true#addcomment)

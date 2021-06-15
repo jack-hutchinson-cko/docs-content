@@ -1,0 +1,194 @@
+---
+title: AVS check testing
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by user-faddb on [May 12, 2020](/pages/diffpagesbyversion.action?pageId=5931504&selectedPageVersions=2&selectedPageVersions=3 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+You can simulate various Address Verification Service (AVS) checks by including any of the following values in `address_line1` of `billing_address` in a payment request.
+
+Address line 1
+
+AVS check
+
+Description
+
+Address line 1
+
+AVS check
+
+Description
+
+`Test_A`
+
+`A`
+
+Street Match
+
+`Test_B`
+
+`B`
+
+Street Match Postal Not Verified
+
+`Test_C`
+
+`C`
+
+Street and Postal Not Verified
+
+`Test_D`
+
+`D`
+
+Street and Postal Match (D-Int\\'l only)
+
+`Test_E`
+
+`E`
+
+Address Match Error
+
+`Test_F`
+
+`F`
+
+Street and Postal Match (UK only)
+
+`Test_G`
+
+`G`
+
+Not Verified or Not Supported (Int\\'l only)
+
+`Test_I`
+
+`I`
+
+Street and Postal Not Verified (Int\\'l only)
+
+`Test_M`
+
+`M`
+
+Street and Postal Match (M-Int\\'l only)
+
+`Test_N`
+
+`N`
+
+No Address Match
+
+`Test_O`
+
+`O`
+
+AVS Not Requested
+
+`Test_P`
+
+`P`
+
+Street Not Verified Postal Match
+
+`Test_R`
+
+`R`
+
+AVS Not Available
+
+`Test_S`
+
+`S`
+
+AVS Not Supported
+
+`Test_U`
+
+`U`
+
+Match Not Capable
+
+`Test_W`
+
+`W`
+
+9 Digit Postal Match
+
+`Text_X`
+
+`X`
+
+Street and 9 Digit Postal Match
+
+`Test_Y`
+
+`Y`
+
+Street and 5 Digit Postal Match
+
+`Test_Z`
+
+`Z`
+
+5 Digit Postal Match
+
+`Test_AE1`
+
+`AE1`
+
+Cardholder Name Incorrect but Postal/ZIP Match (Amex Only)
+
+`Test_AE2`
+
+`AE2`
+
+Cardholder Name Incorrect, but Street and Postal/ZIP Match (Amex Only)
+
+`Test_AE3`
+
+`AE3`
+
+Cardholder Name Incorrect, but Street Match (Amex Only)
+
+`Test_AE4`
+
+`AE4`
+
+Cardholder Name Match (Amex Only)
+
+`Test_AE5`
+
+`AE5`
+
+Cardholder Name and Postal/ZIP Match (Amex Only)
+
+`Test_AE6`
+
+`AE6`
+
+Cardholder Name, Street and Postal/ZIP Match (Amex Only)
+
+`Test_AE7`
+
+`AE7`
+
+Cardholder Name and Street Match (Amex Only)
+
+Any other value in the `address_line1` field will return AVS check `S`.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/AVS+check+testing?showComments=true&showCommentArea=true#addcomment)

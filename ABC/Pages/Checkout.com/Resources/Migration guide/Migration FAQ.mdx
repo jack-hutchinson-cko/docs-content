@@ -1,0 +1,68 @@
+---
+title: Migration FAQ
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Toby Knott](    /display/~toby.knott
+    ) on [Oct 01, 2020](/pages/diffpagesbyversion.action?pageId=5931138&selectedPageVersions=5&selectedPageVersions=6 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Below you'll find the answers to some of the most frequently asked questions about migration from the Classic API to the Unified Payments API.
+
+### Can I perform refunds through the Unified Payments solution on payments created using the Classic API?
+
+Yes you can. To do so, you can call the `/refunds` endpoint in the Unified Payments API with the charge ID of the capture. For example:
+
+POST`https://api.checkout.com/payments/charge_895B79BD740K67F83D12/refunds`
+
+  
+
+    {
+      "reference": "ORD-5023-4E89"
+    }
+
+If you rely on webhooks, you will need to maintain your Classic API webhook handler for the above scenario only. This is because in the above scenario, we will send you Classic API event types.
+
+* * *
+
+### Can I use my existing public and secret keys in the Unified Payments API?
+
+Yes you can.
+
+* * *
+
+### Can I use both the Classic API and the Unified Payments API at the same time?
+
+Yes you can. The webhook event types that you will receive are governed by the Gateway API used to request the payment. This means that if you request a payment using the Unified Payments API, you will receive only its associated webhook event types.
+
+* * *
+
+### Can I process alternative payments through the Checkout.js solution?
+
+No, alternative payments have been deprecated within the [Checkout.js](/display/AR/Checkout.js) solution.
+
+* * *
+
+### Can the Classic API and Unified Payments API webhook event types be used simultaneously?
+
+Yes, this setup can be configured in particular situations. Please [contact our support team](mailto:support@checkout.com?subject=Migration query) for more details.
+
+* * *
+
+### Can I use a charge ID in the `previous_payment_id` field for recurring payments in the Unified Payments API?
+
+Yes you can. The `previous_payment_id` field supports payment IDs, charge IDs, as well as scheme IDs.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Migration+FAQ?showComments=true&showCommentArea=true#addcomment)

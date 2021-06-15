@@ -1,0 +1,115 @@
+---
+title: Disputes testing
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified on [May 12, 2021](/pages/diffpagesbyversion.action?pageId=5931512&selectedPageVersions=10&selectedPageVersions=11 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+You can simulate a dispute (also called chargeback) by using the following payment methods and corresponding amounts in a payment request. This will work with any of our [test card numbers](/pages/createpage.action?spaceKey=DRAFT&title=Test+card+numbers).
+
+For a dispute to be generated, the payment must have been authorized and captured. Payments are auto-captured by default, but if you decide to initiate both the authorization and capture from your server, make sure the actions occur within five minutes of each other.
+
+The value you supply in the `amount` field of your request depends on the chosen currency and whether it is divided by 1000 or by 100. Note that this means that you cannot test disputes with currencies where the value is provided in full, such as Japanese Yen.
+
+For more information about this, see our page about [calculating the value](/display/DOCS/Calculating+the+value).
+
+  
+
+Payment method
+
+Amount in local currency
+
+Value to supply for USD (will be divided by 100)
+
+Value to supply for BHD (will be divided by 1000)
+
+Dispute reason code triggered
+
+Payment method
+
+Amount in local currency
+
+Value to supply for USD (will be divided by 100)
+
+Value to supply for BHD (will be divided by 1000)
+
+Dispute reason code triggered
+
+Visa
+
+`10.4`
+
+`1040`
+
+`10400`
+
+`10.4`
+
+Mastercard
+
+`48.55`
+
+`4855`
+
+`48550`
+
+`4855`
+
+Amex
+
+`45.16`
+
+`4516`
+
+`45160`
+
+`4516`
+
+### Example requests
+
+*   [**GBP**](#tabs-0f7d9e22-1285-4aea-812a-81cd74b31bf2-1)
+*   [**BHD**](#tabs-0f7d9e22-1285-4aea-812a-81cd74b31bf2-2)
+
+    {
+      "source": {
+       "type": "card",
+       "number": "4242424242424242",
+       "expiry_month": 8,
+       "expiry_year": 2025,
+       "name": "Sarah Mitchell",
+       "cvv": "100"
+      },
+      "amount": 1040,
+      "currency": "GBP",
+      "reference": "Testing disputes for Visa"
+    }
+
+    {
+      "source": {
+       "type": "card",
+       "number": "4242424242424242",
+       "expiry_month": 8,
+       "expiry_year": 2025,
+       "name": "Sarah Mitchell",
+       "cvv": "100"
+      },
+      "amount": 10400,
+      "currency": "BHD",
+      "reference": "Testing disputes for Visa"
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Disputes+testing?showComments=true&showCommentArea=true#addcomment)

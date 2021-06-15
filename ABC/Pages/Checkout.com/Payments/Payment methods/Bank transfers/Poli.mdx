@@ -1,0 +1,260 @@
+---
+title: Poli
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [Jun 09, 2021](/pages/diffpagesbyversion.action?pageId=2785425&selectedPageVersions=6&selectedPageVersions=7 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Start accepting payments using Poli, a favorite payment method in Australia and New Zealand.
+
+To start accepting Poli payments, please contact your Customer Success Manager.
+
+Overview
+--------
+
+Poli payments follow a two-step process:
+
+1.  [Request a payment](#Poli-requestapayment)
+2.  [Redirect the customer](#Poli-redirectthecustomer)
+
+Request a payment 
+------------------
+
+### The POST request
+
+#### Endpoints
+
+*   [**Live**](#tabs-35887174-e0ab-4e42-a7c0-08b4f2335d44-1)
+*   [**Sandbox**](#tabs-35887174-e0ab-4e42-a7c0-08b4f2335d44-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `poli`.
+
+`amount`
+
+OPTIONAL
+
+INTEGER
+
+The payment amount.
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The currency in which the payment is being made (three-letter ISO 4217 code).
+
+#### Request example
+
+    {
+      "source": {
+        "type": "poli"
+      },
+      "amount": 111,
+      "currency": "AUD"
+    }
+
+If a customer ID or email is not provided in the request, then we automatically create a customer profile and return the customer `id` in the response.
+
+### The POST response
+
+If a payment `id` is returned, then your request was successful.
+
+#### Response example
+
+    {
+      "id": "pay_nlj7cdwepelutidihyaeexyzae",
+      "status": "Pending",
+      "customer": {
+        "id": "cus_qsbi7c2lnkbu5dhkkaci76xdh4"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_nlj7cdwepelutidihyaeexyzae"
+        },
+        "redirect": {
+          "href": "https://sandbox.checkout.com/LP.Core/api/payment/109457"
+        }
+      }
+    }
+
+Redirect the customer 
+----------------------
+
+Redirect your customer to the `redirect` link’s href in the above response. The redirect transfers the customer to their bank's website where they are required to enter their authorization details; if successful, the payment can be approved.
+
+Once completed, the customer is transferred to your predefined success or failure URL. Confirmation of a Poli payment is **communicated only through webhooks**. When you receive a `payment_captured` webhook notification, the transaction has been completed successfully. Until the `payment_captured` webhook is received (response code `10000`), all payments are labeled as _Pending_.
+
+Get details about a payment
+---------------------------
+
+You can retrieve details about an existing Poli payment with the following endpoint.
+
+### The GET request 
+
+#### Endpoints
+
+*   [**Live**](#tabs-6f54ba41-993e-43cc-b1c8-0fd9310afb24-1)
+*   [**Sandbox**](#tabs-6f54ba41-993e-43cc-b1c8-0fd9310afb24-2)
+
+GET`https://api.checkout.com/payments/{payment_id}`
+
+GET`https://api.sandbox.checkout.com/payments/{payment_id}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`payment_id`
+
+REQUIRED
+
+The payment ID found in the response of the initial payment.
+
+### The GET response
+
+#### Response example
+
+    {
+      "id": "pay_nlj7cdwepelutidihyaeexyzae",
+      "requested_on": "2018-12-14T11:43:41Z",
+      "source": {
+        "type": "poli"
+      },
+      "amount": 111,
+      "currency": "AUD",
+      "payment_type": "Regular",
+      "status": "Pending",
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_qsbi7c2lnkbu5dhkkaci76xdh4"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_nlj7cdwepelutidihyaeexyzae"
+        }
+      }
+    }
+
+Cancel a payment
+----------------
+
+If the customer cancels or fails to complete the transaction at any point after the payment is created, it will automatically be voided, and we'll send you a `payment_voided` webhook.
+
+Testing Poli
+------------
+
+To start testing, you'll need to:
+
+*   [create a test account](https://www.checkout.com/get-test-account), and
+*   contact your Customer Success Manager or Integrations engineer to activate Poli payments in the sandbox environment.
+
+1.  Create a Poli transaction as above, following the redirect link in the response to Poli's website.
+2.  Select **iBank AU 01** from the dropdown menu and click **Continue**.
+3.  Log in with the following details:
+    *   **Username**: `DemoShopper`
+    *   **Password**: `DemoShopper`
+4.  Select **Savings (123456) 98742364** from the dropdown menu and click **Continue**.
+5.  Click **Confirm** to complete the payment. You should then be redirected to your predefined success page.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Poli?showComments=true&showCommentArea=true#addcomment)

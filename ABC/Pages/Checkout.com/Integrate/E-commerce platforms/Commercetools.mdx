@@ -1,0 +1,1390 @@
+---
+title: Commercetools
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Chrisi Webster](    /display/~chrisiwebster
+    ) on [May 13, 2021](/pages/diffpagesbyversion.action?pageId=8487181&selectedPageVersions=74&selectedPageVersions=75 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Learn how to get started with our integration for commercetools.
+
+This guide assumes that you have already created a commercetools project.
+
+Our integration has two parts:
+
+*   First, you need to [configure our API Client](#Commercetools-apiclient) in the commercetools Merchant Center. 
+*   Second, you need to [set up the frontend](#Commercetools-frontend), which involves integrating [Frames](/display/DOCS/Frames) for card payments and our [Klarna SDK](/display/DOCS/Klarna) for Klarna payments.
+
+Before you start
+----------------
+
+### Create a test account
+
+If you haven't already, [create a test Checkout.com account](https://www.checkout.com/get-test-account).
+
+### Get your API keys
+
+To set up our commercetools API Client, you'll need your public and secret API keys, which are generated automatically upon account creation.
+
+1.  Log in to your test account on the [Hub sandbox](https://sandbox.checkout.com/).
+2.  In the left menu, go to _Settings > Channels_, and make a note of your secret and public API keys.![](/download/attachments/8487181/channel_settings.png?version=1&modificationDate=1592390923646&api=v2)
+
+### Configure webhooks
+
+Webhooks are notifications that we send when an event occurs on your account. For example, when a payment is captured. These are used by commercetools to update the status of an order. [Read more about webhooks](/display/DOCS/Webhooks).
+
+1.  Scroll down to the _Webhooks_ section of the page and click **New webhook**.
+    
+2.  Enter the following URLs:
+    
+    *   [**Live**](#tabs-0337f663-fe53-424a-a451-e8aba21ccf05-1)
+    *   [**Sandbox**](#tabs-0337f663-fe53-424a-a451-e8aba21ccf05-2)
+    
+    Webhook URL
+    
+    Events
+    
+    Webhook URL
+    
+    Events
+    
+    `[https://commercetools.integration.checkout.com/api/webhooks/payments](https://commercetools.integration.checkout.com/api/webhooks/payments)`
+    
+    *   `payment_approved`
+    *   `payment_declined`
+    *   `payment_pending`
+    *   `payment_canceled  
+        `
+    
+    `[https://commercetools.integration.checkout.com/api/webhooks/transactions](https://commercetools.integration.checkout.com/api/webhooks/transactions)`
+    
+    *   `payment_captured`
+    *   `payment_capture_pending`
+    *   `payment_capture_declined`
+    *   `payment_refunded`
+    *   `payment_refund_pending`
+    *   `payment_refund_declined`
+    *   `payment_voided`
+    *   `payment_void_declined`
+    *   `payment_expired`
+    
+    Webhook URL
+    
+    Events
+    
+    `[https://commercetools.integration.sandbox.checkout.com/api/webhooks/payments](https://commercetools.integration.sandbox.checkout.com/api/webhooks/payments)`
+    
+    *   `payment_approved`
+    *   `payment_declined`
+    *   `payment_pending`
+    *   `payment_canceled`
+    
+    `[https://commercetools.integration.sandbox.checkout.com/api/webhooks/transactions](https://commercetools.integration.sandbox.checkout.com/api/webhooks/transactions)`
+    
+    *   `payment_captured`
+    *   `payment_capture_pending`
+    *   `payment_capture_declined`
+    *   `payment_refunded`
+    *   `payment_refund_pending`
+    *   `payment_refund_declined`
+    *   `payment_voided`
+    *   `payment_void_declined`
+    *   `payment_expired`
+    
+3.  Select **API - v2.0** .
+4.  Click  **Create webhook** .
+
+Correctly configuring your webhooks is important; if they're incorrectly formatted, our API Client will not work.
+
+#### How webhooks interact with commercetools
+
+When a webhook is triggered on our side, our integration is creating or updating a transaction in commercetools to reflect the change.
+
+These transactions are attached to a payment, and there may be multiple transactions attached to a single payment. This is all done automatically, and you don't have to do anything other than setting up the webhooks and configuring the API client.
+
+You can see these interactions in your commercetools Merchant Center by going to _Order list_ > _Order_ and clicking the _Payment_ tab.
+
+ What we create/update when a webhook is triggered
+
+Webhook
+
+Transaction created or updated?
+
+Transaction name
+
+New status of the transaction (if needed)
+
+`payment_approved`
+
+Created
+
+Authorization
+
+Success
+
+`payment_declined`
+
+Created
+
+Authorization
+
+Failure
+
+`payment_pending`
+
+Created
+
+Authorization
+
+Pending
+
+`payment_captured`
+
+Created or updated
+
+Charge
+
+Success
+
+`payment_capture_pending`
+
+Created
+
+Charge
+
+Pending
+
+`payment_capture_declined`
+
+Created
+
+Charge
+
+Failure
+
+`payment_refunded`
+
+Created or updated
+
+Refund
+
+Success
+
+`payment_refund_pending`
+
+Created
+
+Refund
+
+Pending
+
+`payment_refund_declined`
+
+Created or updated
+
+Refund
+
+Failure
+
+`payment_voided`
+
+Created
+
+Authorization canceled
+
+Success
+
+`payment_void_declined`
+
+Created
+
+Authorization canceled
+
+Failure
+
+`payment_expired`
+
+Created or Updated
+
+Authorization
+
+Failure
+
+`payment_canceled`
+
+Created or Updated
+
+Authorization
+
+Failure
+
+We do not automatically update the order or payment status. This allows you to build your own order flow.
+
+Configure API Client 
+---------------------
+
+Follow the steps below to create and configure the [Checkout.com](http://checkout.com/) API Client on your commercetools site.
+
+1.  Log in to the commercetools Merchant Center, go to _Settings_ > _Developer Settings_ and click **Create API Client**.
+2.  Enter a name for this new API Client (e.g., cko-payment-integration).
+3.  Select the following scopes:
+    *   Manage: Orders
+    *   Manage: Payments
+4.  Click **Create API Client**.
+5.  Copy the following details from the screen that appears, and send them to our Integration team at [integration@checkout.com](mailto:integration@checkout.com) (you must save this information, as it is only displayed once):
+    *   project\_key
+    *   client\_id
+    *   secret
+    *   API URL
+    *   Auth URL
+6.  Using [commercetools' IMPEX](https://impex.europe-west1.gcp.commercetools.com/playground), set `Types` as `endpoint`, and `create` as `command`, and then copy and paste in the following JSON files to install them (make sure you're in the right project when doing this):
+    
+     payment-interface-interaction.json
+    
+        {
+          "key": "ctp-cko-integration-interaction",
+          "name": {
+            "en": "Checkout.com Interaction"
+          },
+          "resourceTypeIds": ["payment-interface-interaction"],
+          "fieldDefinitions": [
+            {
+              "name": "responseCode",
+              "label": {
+                "en": "Response Code"
+              },
+              "required": true,
+              "type": {
+                "name": "String"
+              },
+              "inputHint": "SingleLine"
+            },
+            {
+              "name": "responseSummary",
+              "label": {
+                "en": "Response Summary"
+              },
+              "required": true,
+              "type": {
+                "name": "String"
+              },
+              "inputHint": "SingleLine"
+            },
+            {
+              "name": "id",
+              "label": {
+                "en": "Action Id"
+              },
+              "required": true,
+              "type": {
+                "name": "String"
+              },
+              "inputHint": "SingleLine"
+            }
+          ]
+        }
+    
+     payment-saved-payment-instrument.json
+    
+        {
+          "key": "ctp-cko-integration-payment",
+          "name": { "en": "Saved Payment Instrument" },
+          "description": { "en": "Stores customer saved payments" },
+          "resourceTypeIds": ["payment"],
+          "fieldDefinitions": [
+            {
+              "name": "paymentInstrumentId",
+              "type": { "name": "String" },
+              "required": false,
+              "label": { "en": "Payment Instrument" },
+              "inputHint": "SingleLine"
+            }
+          ]
+        }
+    
+
+Set up the frontend 
+--------------------
+
+Next, set up the frontend part of our commercetools integration.
+
+*   Integrate [Frames](/display/DOCS/Frames) to accept card payments.
+*   Add our [Klarna SDK](/display/DOCS/Klarna) (follow steps 2 and 3 on that page; we'll take care of the rest) to support Klarna payments.
+
+If you are planning to accept SEPA payments, before any payment can occur, your customer must authorize the payment by accepting the terms of the mandate. By accepting, they are authorizing you to collect the specified amount from their bank account using SEPA Direct Debit. See [Issue the mandate](https://docs.checkout.com/payment-methods/direct-debit/sepa-direct-debit#SEPADirectDebit-Issuethemandateissuethemandate) for more information
+
+ See an example implementation
+
+    // create context
+    const createContext = async ({ public_key, reference }) => {
+      const data = await fetch(`https://commercetools.integration.checkout.com/api/contexts`, {
+        method: 'post',
+        headers: {
+          'content-type': 'application/json',
+          authorization: public_key
+        },
+        body: JSON.stringify({ reference })
+      }).then(res => res.json())
+      return data
+    }
+    
+    // create payment
+    const createPayment = async args => {
+      const { token, public_key, context_id, success_url, failure_url, save_payment_instrument } = args
+      const data = await fetch(`https://commercetools.integration.checkout.com/api/payments`, {
+        method: 'post',
+        headers: {
+          'content-type': 'application/json',
+          authorization: public_key
+        },
+        body: JSON.stringify({
+          type: 'token',
+          token,
+          context_id,
+          '3ds': args['3ds'],
+          success_url,
+          failure_url,
+          save_payment_instrument
+        })
+      })
+      const body = await data.json()
+      return {
+        success: data.status >= 200,
+        redirectUrl: body.redirect_url
+      }
+    }
+    
+    // Credit card frames initialisation
+    Frames.init({
+      publicKey: config.cko.publicKey,
+      cardValidationChanged: function () {
+        console.log('CARD_VALIDATION_CHANGED: %o', event)
+        payButton.disabled = !Frames.isCardValid()
+      },
+      cardTokenized: async data => {
+        console.log('CARD_TOKENIZATION: %o', data)
+        const paymentSuccess = await createContext({
+          public_key: config.cko.publicKey,
+          reference: order ? order.id : cart.id
+        }).then(context =>
+          createPayment({
+            public_key: config.cko.publicKey,
+            token: data.token,
+            context_id: context.id,
+            save_payment_instrument: true, // only works for if users is registered
+            '3ds': {enabled: true | false}, // ability to send 3ds flag for a request (ideally configured through Hub, use only for testing)
+            success_url: `https://example.com/3ds-success.html`, // ability to configure 3ds redirect
+            failure_url: `https://example.com/3ds-error.html` // ability to configure 3ds redirect
+          })
+        )
+    
+        if (!paymentSuccess) {
+          return console.error('Create payment error', payment)
+        }
+    
+        const order = await createOrder()
+    
+        if (!order) {
+          console.error('Create order error', order)
+          return
+        }
+    
+        window.location.href = `/confirmation.html?orderId=${order.id}`
+      },
+      cardTokenizationFailed: function (data) {
+        console.log('CARD_TOKENIZATION_FAILED: %o', data)
+      }
+    })
+    
+    Frames.addEventHandler(Frames.Events.FRAME_ACTIVATED, () => window.dispatchEvent(paymentFormRendered))
+    
+    form.addEventListener('submit', async event => {
+      event.preventDefault()
+      Frames.submitCard()
+    })
+    
+    // klarna
+    const paymentSuccess = await createContext({
+      public_key: config.cko.publicKey,
+      reference: order ? order.id : cart.id
+    }).then(context => {
+      const reference = order.id : cart.id
+    
+      const apm = context.apms.find(a => a.name === 'klarna')
+      const container = document.getElementById('payment-klarna')
+      const buyWithKlarna = document.getElementById('payment-method-klarna')
+      // button is disabled by default
+      const payWithKlarna = document.getElementById('pay-klarna')
+    
+      buyWithKlarna.addEventListener(
+        'click',
+        () => {
+          Klarna.Payments.authorize(
+            // options
+            {
+              instance_id: context.id // Same as instance_id set in Klarna.Payments.load().
+            },
+            // data
+            {},
+            // callback
+            response => {
+              console.log('klarna payments authorize', response)
+              buyWithKlarna.classList.add('hidden')
+              payWithKlarna.classList.remove('hidden')
+              // show button to pay with klarna now
+              payWithKlarna.addEventListener('click', async () =>
+                // pay
+                createPayment({ type: apm.name, token: response.authorization_token, contextId: context.id })
+              )
+            }
+          )
+        },
+        false
+      )
+    
+      Klarna.Payments.init({
+        client_token: apm.metadata.details.client_token
+      })
+    
+      Klarna.Payments.load(
+        // show the klarna component
+        {
+          container: '#klarna_container',
+          payment_method_categories: apm.metadata.details.payment_method_category.map(cat => cat.identifier),
+          instance_id: context.id
+        },
+        // use data from session
+        apm.metadata.session,
+        // callback
+        function (response) {
+          console.log('klarna payments load', response)
+          // ...
+        }
+      )
+    })
+
+Make a payment
+--------------
+
+Now that you've set up the integration, you're ready to make a payment. You can make a payment in two steps:
+
+1.  Create context
+2.  Request payment
+
+### Create context
+
+First, create a payment context. This returns the available payment options to the customer, and gives you a `context_id`, with which you can then request a payment.
+
+Expand the table below to see how our properties map to commercetools' properties.
+
+ Property mapping between commercetools and Checkout.com
+
+Note, the `reference` property in commercetools refers to the cart or order ID.
+
+[Checkout.com](http://checkout.com/)
+
+commercetools
+
+Notes
+
+`amount`
+
+REQUIRED
+
+`reference.taxedPrice.totalGross.centAmount`
+
+You will get an error if `taxedPrice` is missing from `reference`.
+
+`amount.discount_amount`
+
+REQUIRED
+
+n/a
+
+Set to zero because commercetools applies discounts across line items.
+
+`currency`
+
+REQUIRED
+
+`reference.taxedPrice.totalGross.currencyCode`
+
+You will get an error if `taxedPrice` is missing from `reference`.
+
+`reference`
+
+REQUIRED
+
+`[payload.id](http://payload.id/)`
+
+  
+
+`billing`
+
+REQUIRED
+
+`reference.billingAddress`
+
+You will get an error if `billingAddress` is missing from `reference`.
+
+`billing.address.address_line1`
+
+OPTIONAL
+
+`reference.billingAddress.(streetNumber ' ' streetName)`
+
+  
+
+`billing.address.address_line2`
+
+OPTIONAL
+
+`reference.billingAddress.additionalStreetInfo`
+
+  
+
+`billing.address.zip`
+
+OPTIONAL
+
+`reference.billingAddress.postalCode`
+
+  
+
+`billing.address.city`
+
+OPTIONAL
+
+`reference.billingAddress.city`
+
+  
+
+`billing.address.state`
+
+OPTIONAL
+
+`reference.billingAddress.(state|region)`
+
+  
+
+`billing.address.country`
+
+REQUIRED
+
+`reference.billingAddress.country`
+
+  
+
+`shipping`
+
+OPTIONAL
+
+`reference.shippingAddress`
+
+  
+
+`shipping.address.address_line1`
+
+OPTIONAL
+
+`reference.shippingAddress.streetNumber`
+
+  
+
+`shipping.address.address_line2`
+
+OPTIONAL
+
+`reference.shippingAddress.streetName`
+
+  
+
+`shipping.address.city`
+
+OPTIONAL
+
+`reference.shippingAddress.city`
+
+  
+
+`shipping.address.state`
+
+OPTIONAL
+
+`reference.shippingAddress.(state|region)`
+
+  
+
+`shipping.address.zip`
+
+OPTIONAL
+
+`reference.shippingAddress.postalCode`
+
+  
+
+`shipping.address.country`
+
+REQUIRED
+
+`reference.shippingAddress.country`
+
+  
+
+`customer`
+
+OPTIONAL
+
+n/a
+
+Not set if `firstName` and `lastName` are missing from `billingAddress`.
+
+`[customer.name](http://customer.name/)`
+
+REQUIRED
+
+`reference.billingAddress.(firstName ' ' lastName)`
+
+  
+
+`customer.email`
+
+OPTIONAL
+
+*   `payload.customerEmail`
+*   `reference.billingAddress.email`
+*   `reference.customerEmail`
+
+  
+
+`[products.items.name](http://products.items.name/)`
+
+REQUIRED
+
+`[reference.lineItems.variant.name](http://reference.lineitems.variant.name/)`
+
+Uses the language of the order country if present. Defaults to English if no country is included.
+
+`products.items.quantity`
+
+REQUIRED
+
+`reference.lineItems.quantity`
+
+  
+
+`products.items.price`
+
+REQUIRED
+
+*   `reference.lineItems.price.value.centAmount`
+*   `shippingInfo.price.centAmount`
+
+  
+
+`products.items.amount`
+
+REQUIRED
+
+*   `reference.lineItems.taxedPrice.totalGross.centAmount`
+*   `shippingInfo.taxedPrice.totalGross.centAmount`
+
+You will get an error if `taxedPrice` is missing from `lineItems` or `shippingInfo`.
+
+`products.items.discount_amount`
+
+REQUIRED
+
+(`reference.lineItems.price.value.centAmount` \* `reference.lineItem.quantity`) - `reference.lineItem.taxedPrice.totalGross.centAmount`
+
+The value is calculated from the difference between the total gross (includes discount) and the item total price (excludes discount).
+
+We recommend that you create a context when your payment options page loads, and reload it if the customer makes a change to their basket or details.
+
+#### Endpoint
+
+*   [**Live**](#tabs-b6571d3c-a5b6-48b5-86b9-da2f37dbc632-1)
+*   [**Sandbox**](#tabs-b6571d3c-a5b6-48b5-86b9-da2f37dbc632-2)
+
+POST`https://commercetools.integration.checkout.com/api/contexts`
+
+POST`https://commercetools.integration.sandbox.checkout.com/api/contexts`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`public key`
+
+Use the valid public key of your [Checkout.com](http://checkout.com/) account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`reference`
+
+STRING
+
+REQUIRED
+
+The commercetools cart or order ID.
+
+`customer_email`
+
+STRING
+
+OPTIONAL
+
+The customer's email.
+
+If not present, the billing email or the email from the order will be used.
+
+### Request payment
+
+Creating the context above will give you a `context_id`. Use this to request a payment with the following endpoint.
+
+The commercetools integration currently supports the following payment methods:
+
+*   Card
+*   iDEAL
+*   Sofort
+*   Klarna
+*   PayPal
+
+#### Endpoint
+
+*   [**Live**](#tabs-787ad241-97ae-4754-8db3-1ce4fb3a0348-1)
+*   [**Sandbox**](#tabs-787ad241-97ae-4754-8db3-1ce4fb3a0348-2)
+
+POST`https://commercetools.integration.checkout.com/api/payments`
+
+POST`https://commercetools.integration.sandbox.checkout.com/api/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`public key`
+
+Use the valid public key of your [Checkout.com](http://checkout.com/) account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+*   [**Card token**](#tabs-66d447f7-37b1-4026-a4fa-46e0ec0f7ba1-1)
+*   [**Saved card**](#tabs-66d447f7-37b1-4026-a4fa-46e0ec0f7ba1-2)
+*   [**iDEAL**](#tabs-66d447f7-37b1-4026-a4fa-46e0ec0f7ba1-3)
+*   [**Klarna**](#tabs-66d447f7-37b1-4026-a4fa-46e0ec0f7ba1-4)
+*   [**PayPal**](#tabs-66d447f7-37b1-4026-a4fa-46e0ec0f7ba1-5)
+*   [**Sofort**](#tabs-66d447f7-37b1-4026-a4fa-46e0ec0f7ba1-6)
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`type`
+
+STRING
+
+REQUIRED
+
+The type of payment method. Set this to `token`.
+
+`context_id`
+
+STRING
+
+REQUIRED
+
+The ID of the payment context created above.
+
+`token`
+
+STRING
+
+REQUIRED
+
+The [Checkout.com](http://checkout.com/) token.
+
+`cvv`
+
+STRING
+
+OPTIONAL
+
+The three-digit (or four digits for Amex) card verification value/code.
+
+`save_payment_instrument`
+
+STRING
+
+OPTIONAL
+
+Allows you to save the payment method for future use.
+
+`3ds`
+
+OBJECT
+
+OPTIONAL
+
+Allows you to select whether the transaction should be 3D Secure authenticated.
+
+`3ds.enabled`
+
+BOOLEAN
+
+REQUIRED
+
+Required the `3ds` object is included in the request.
+
+`reference`
+
+STRING
+
+OPTIONAL
+
+A reference you can use to later identify the payment. This populates the reference field in the [Hub](https://hub.checkout.com/v2).
+
+Leaving this blank will result in `context.reference` being used as the reference in the Hub.
+
+`success_url`
+
+STRING
+
+OPTIONAL
+
+The URL to which the customer will be redirected if the payment is successful.
+
+`failure_url`
+
+STRING
+
+OPTIONAL
+
+The URL to which the customer will be redirected if the payment fails.
+
+Field name
+
+Description
+
+`type`
+
+STRING
+
+REQUIRED
+
+The type of payment method. Set this to `id`.
+
+`context_id`
+
+STRING
+
+REQUIRED
+
+The ID of the payment context created above.
+
+`token`
+
+STRING
+
+REQUIRED
+
+The identifier of the saved payment source.
+
+`cvv`
+
+STRING
+
+OPTIONAL
+
+The three-digit (or four digits for Amex) card verification value/code.
+
+`save_payment_instrument`
+
+STRING
+
+OPTIONAL
+
+Allows you to save the payment method for future use.
+
+`3ds`
+
+OBJECT
+
+OPTIONAL
+
+Allows you to select whether the transaction should be 3D Secure authenticated.
+
+`3ds.enabled`
+
+BOOLEAN
+
+REQUIRED
+
+Required the `3ds` object is included in the request.
+
+`reference`
+
+STRING
+
+OPTIONAL
+
+A reference you can use to later identify the payment. This populates the reference field in the [Hub](https://hub.checkout.com/v2).
+
+Leaving this blank will result in `context.reference` being used as the reference in the Hub.
+
+`success_url`
+
+STRING
+
+OPTIONAL
+
+The URL to which the customer will be redirected if the payment is successful.
+
+`failure_url`
+
+STRING
+
+OPTIONAL
+
+The URL to which the customer will be redirected if the payment fails.
+
+Field name
+
+Description
+
+`type`
+
+STRING
+
+REQUIRED
+
+The type of payment method. Set this to `ideal`.
+
+`context_id`
+
+STRING
+
+REQUIRED
+
+The ID of the payment context created above.
+
+`banking`
+
+OBJECT
+
+REQUIRED
+
+An object containing the bank details.
+
+`banking.bic`
+
+STRING
+
+REQUIRED
+
+The Bank Identifier Code (BIC).
+
+`reference`
+
+STRING
+
+OPTIONAL
+
+A reference you can use to later identify the payment. This populates the reference field in the [Hub](https://hub.checkout.com/v2).
+
+Leaving this blank will result in `context.reference` being used as the reference in the Hub.
+
+`success_url`
+
+STRING
+
+OPTIONAL
+
+The URL to which the customer will be redirected if the payment is successful.
+
+`failure_url`
+
+STRING
+
+OPTIONAL
+
+The URL to which the customer will be redirected if the payment fails.
+
+Field name
+
+Description
+
+`type`
+
+STRING
+
+REQUIRED
+
+The type of payment method. Set this to `klarna`.
+
+`context_id`
+
+STRING
+
+REQUIRED
+
+The ID of the payment context created above.
+
+`token`
+
+STRING
+
+REQUIRED
+
+The Klarna authorization token.
+
+`save_payment_instrument`
+
+STRING
+
+OPTIONAL
+
+Allows you to save the payment method for future use.
+
+`3ds`
+
+OBJECT
+
+OPTIONAL
+
+Allows you to select whether the transaction should be 3D Secure authenticated.
+
+`3ds.enabled`
+
+BOOLEAN
+
+REQUIRED
+
+Required the `3ds` object is included in the request.
+
+`reference`
+
+STRING
+
+OPTIONAL
+
+A reference you can use to later identify the payment. This populates the reference field in the [Hub](https://hub.checkout.com/v2).
+
+Leaving this blank will result in `context.reference` being used as the reference in the Hub.
+
+`success_url`
+
+STRING
+
+OPTIONAL
+
+The URL to which the customer will be redirected if the payment is successful.
+
+`failure_url`
+
+STRING
+
+OPTIONAL
+
+The URL to which the customer will be redirected if the payment fails.
+
+Field name
+
+Description
+
+`type`
+
+STRING
+
+REQUIRED
+
+The type of payment method. Set this to `paypal`.
+
+`context_id`
+
+STRING
+
+REQUIRED
+
+The ID of the payment context created above.
+
+`save_payment_instrument`
+
+STRING
+
+OPTIONAL
+
+Allows you to save the payment method for future use.
+
+`3ds`
+
+OBJECT
+
+OPTIONAL
+
+Allows you to select whether the transaction should be 3D Secure authenticated.
+
+`3ds.enabled`
+
+BOOLEAN
+
+REQUIRED
+
+Required the `3ds` object is included in the request.
+
+`reference`
+
+STRING
+
+OPTIONAL
+
+A reference you can use to later identify the payment. This populates the reference field in the [Hub](https://hub.checkout.com/v2).
+
+Leaving this blank will result in `context.reference` being used as the reference in the Hub.
+
+`success_url`
+
+STRING
+
+OPTIONAL
+
+The URL to which the customer will be redirected if the payment is successful.
+
+`failure_url`
+
+STRING
+
+OPTIONAL
+
+The URL to which the customer will be redirected if the payment fails.
+
+Field name
+
+Description
+
+`type`
+
+STRING
+
+REQUIRED
+
+The type of payment method. Set this to `sofort`.
+
+`context_id`
+
+STRING
+
+REQUIRED
+
+The ID of the payment context created above.
+
+`reference`
+
+STRING
+
+OPTIONAL
+
+A reference you can use to later identify the payment. This populates the reference field in the [Hub](https://hub.checkout.com/v2).
+
+Leaving this blank will result in `context.reference` being used as the reference in the Hub.
+
+`success_url`
+
+STRING
+
+OPTIONAL
+
+The URL to which the customer will be redirected if the payment is successful.
+
+`failure_url`
+
+STRING
+
+OPTIONAL
+
+The URL to which the customer will be redirected if the payment fails.
+
+Manage saved payment instruments
+--------------------------------
+
+The following endpoints allow you to retrieve a customer's saved payment instruments or delete them.
+
+### Retrieve saved payment instruments
+
+Use this endpoint to return a list of a customer's saved payment instruments.
+
+#### Endpoint
+
+*   [**Live**](#tabs-2550b6e5-68c8-4e22-ac8f-d31af67772d9-1)
+*   [**Sandbox**](#tabs-2550b6e5-68c8-4e22-ac8f-d31af67772d9-2)
+
+GET`https://commercetools.integration.checkout.com/api/merchants/{public_key}/customers/{customer_id}`
+
+GET`https://commercetools.integration.sandbox.checkout.com/api/merchants/{public_key}/customers/{customer_id}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your [Checkout.com](http://checkout.com/) account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Description
+
+Path
+
+Description
+
+`public_key`
+
+REQUIRED
+
+Your [Checkout.com](http://checkout.com/) public key. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`customer_id`
+
+REQUIRED
+
+The customer's commercetools ID.
+
+### Delete a saved payment instrument
+
+Use the endpoint below to delete a customer's saved payment instrument.
+
+#### Endpoint
+
+*   [**Live**](#tabs-87c97184-aad4-44d3-ac2c-636446c84671-1)
+*   [**Sandbox**](#tabs-87c97184-aad4-44d3-ac2c-636446c84671-2)
+
+DELETE`https://commercetools.integration.checkout.com/api/merchants/{public_key}/customers/{customer_id}/payment-instruments/{payment_instrument_id}`
+
+DELETE`https://commercetools.integration.sandbox.checkout.com/api/merchants/{public_key}/customers/{customer_id}/payment-instruments/{payment_instrument_id}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your [Checkout.com](http://checkout.com/) account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Description
+
+Path
+
+Description
+
+`public_key`
+
+REQUIRED
+
+Your [Checkout.com](http://checkout.com/) public key. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`customer_id`
+
+REQUIRED
+
+The customer's commercetools ID.
+
+`payment_instrument_id`
+
+REQUIRED
+
+The unique identifier of the saved payment instrument.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Commercetools?showComments=true&showCommentArea=true#addcomment)

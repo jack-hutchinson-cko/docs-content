@@ -1,0 +1,305 @@
+---
+title: EPS
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [Jun 09, 2021](/pages/diffpagesbyversion.action?pageId=2785398&selectedPageVersions=11&selectedPageVersions=12 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Start accepting payments using Electronic Payment Standard (EPS), a favorite payment method in Austria.
+
+EPS allows your customers to make purchases online through quick and easy bank transfers that are both secure and guaranteed.
+
+To start accepting EPS payments, please contact your Customer Success Manager.
+
+Overview
+--------
+
+EPS payments follow a two-step process:
+
+1.  [Request a payment](#EPS-requestapayment)
+2.  [Redirect the customer](#EPS-redirectthecustomer)
+
+Request a payment 
+------------------
+
+### The POST request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-c1a541c5-e978-4c1a-a552-7fa96a6de32d-1)
+*   [**Sandbox**](#tabs-c1a541c5-e978-4c1a-a552-7fa96a6de32d-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `eps`.
+
+`source.purpose`
+
+REQUIRED
+
+STRING
+
+A description of the payment.
+
+Maximum characters: 27
+
+`amount`
+
+OPTIONAL
+
+INTEGER
+
+The payment amount.
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The three-letter ISO 4217 currency code. Set this to `EUR`.
+
+`success_url`
+
+OPTIONAL
+
+STRING
+
+For redirect payment methods, overrides the default success redirect URL configured on your account.
+
+`failure_url`
+
+OPTIONAL
+
+STRING
+
+For redirect payment methods, overrides the default failure redirect URL configured on your account.
+
+#### Request example
+
+    {
+      "source": {
+        "type": "eps",
+        "purpose":"Mens black t-shirt L"
+      },  
+     "amount": 1914,
+     "currency": "EUR",
+     "success_url": "http://example.com/payments/success",
+     "failure_url": "http://example.com/payments/fail",
+    }
+
+If a customer ID or email is not provided in the request, then we automatically create a customer profile and return the customer `id` in the response.
+
+### The POST response
+
+If you receive a `202 Success` response containing a `status` field set to `Pending`, then your request was successful.
+
+#### Response example
+
+    {
+      "id": "pay_wqvd2nukz5dujnmokm7ljhymwa",
+      "status": "Pending",
+      "customer": {
+        "id": "cus_uvs2lu4b7ncurjx5zdtrixnc4e"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_wqvd2nukz5dujnmokm7ljhymwa"
+        },
+        "redirect": {
+          "href": "https://ftg-customer-integration.giropay.de/ftgbank/b/bankselection/2329733103475232793;jsessionid=6CA094B861DC4D16D1C48D1988DE4A32.sf-testapp02tom24?op=001"
+        }
+      }
+    }
+
+Redirect the customer 
+----------------------
+
+Redirect your customer to the `redirect` link’s href in the response. This will send them to an EPS bank selection page where they will select their bank before being transferred to that bank's page to enter their authorization details. If successful, the payment can be approved.
+
+Once they've completed this step, the customer is transferred to your predefined success or failure URL. Confirmation of an EPS payment is communicated **only through webhooks**. When you receive a `payment_captured` webhook notification, the transaction has been completed successfully. Until the `payment_captured` webhook is received (response code `10000`), all payments are labeled as _Pending_.
+
+Get details about a payment
+---------------------------
+
+You can retrieve details about an existing EPS payment with the following endpoint.
+
+### The GET request
+
+#### Endpoints
+
+*   [**Live**](#tabs-568152bc-83c4-4a67-b3b1-3f51b1f279bc-1)
+*   [**Sandbox**](#tabs-568152bc-83c4-4a67-b3b1-3f51b1f279bc-2)
+
+GET`https://api.checkout.com/payments/{payment_id}`
+
+GET`https://api.sandbox.checkout.com/payments/{payment_id}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`payment_id`
+
+REQUIRED
+
+The payment ID found in the response of the initial response.
+
+### The GET response
+
+#### Response example
+
+    {
+      "id": "pay_iilqeu2rsdqedkvkjhl2rxgbvy",
+      "created_on": "2018-03-28T14:50:26Z",
+      "source": {
+        "type": "eps",
+        "purpose": "Mens black t-shirt L",
+        "bic": "HYPTAT22XXX",
+        "iban": "AT611904300234573201",
+        "account_holder_name": "Test Account"
+      },
+      "amount": 1914,
+      "currency": "EUR",
+      "payment_type": "Regular",
+      "status": "Captured",
+      "flagged": false,
+      "_links": {
+        "self": {
+          "href": "http://api.checkout.com/gateway/payments/pay_iilqeu2rsdqedkvkjhl2rxgbvy"
+        }
+      }
+    }
+
+Refund a payment
+----------------
+
+EPS supports both partial and full refunds. You can refund a payment through the [Hub](https://hub.checkout.com/v2) or using the [refund API](/display/DOCS/Refund+a+payment).
+
+Cancel a payment
+----------------
+
+If the customer fails to complete their payment, we will automatically void the payment and send a `payment_expired` webhook.
+
+If the customer cancels their payment, we will send a `payment_canceled` webhook.
+
+Testing EPS
+-----------
+
+To start testing, you'll need to:
+
+*   [create a test account](https://www.checkout.com/get-test-account), and
+*   contact your Customer Success Manager or Integrations engineer to activate EPS payments in the sandbox environment.
+
+1.  Create an EPS transaction as above, following the redirect link in the response to EPS's bank selection page.
+2.  Select the bank:
+    *   **BIC**: HYPTAT22XXX
+    *   **Name**: HYPO TIROL BANK AG
+3.  Confirm your selection and await redirection to the bank's page.
+4.  Log in with the following details:
+    *   **Verfügernummer** (user number): `123456`
+    *   **Verfügername** (username): \[leave empty\]
+    *   **PIN**: \[leave empty\]
+5.  Click **Auftrag absenden** to continue.
+6.  Leave the radio selection on **mobileTAN** and click **sammeln und zeichnen** to continue.
+7.  In the _mobileTAN-Eingabe_ field, enter `123456` and confirm by clicking **OK**.
+8.  Click **zurück**. You should then be redirected to your predefined success URL.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/EPS?showComments=true&showCommentArea=true#addcomment)

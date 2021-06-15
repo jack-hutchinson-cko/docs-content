@@ -1,0 +1,189 @@
+---
+title: Accept a payment
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Chrisi Webster](    /display/~chrisiwebster
+    ), last modified on [Jun 10, 2021](/pages/diffpagesbyversion.action?pageId=20120290&selectedPageVersions=41&selectedPageVersions=42 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Once your payment capabilities have been enabled, you’re ready to start processing payments on behalf of your sub-entities. On this page, we will guide you through processing payments for your sub-entities.
+
+Our Unified Payments API enables you to process payments on behalf of a sub-entity. Follow the instructions for our [payments endpoint](https://docs.checkout.com/four/payments/accept-payments/request-a-payment). The only thing that is different is that you need to include  `marketplace.sub_entity_id`. Here you should use the sub-entity ID returned during the [onboarding process](/display/x/About+onboarding).
+
+The request
+-----------
+
+You can see an example request with this additional object below.
+
+For more information about what these fields mean, see our [payments page](https://docs.checkout.com/four/payments/accept-payments/request-a-payment).
+
+    {
+      "amount":1000,
+      "currency":"GBP",
+      "reference":"ORD-5023",
+      "description":"Three chocolate donuts",
+      "capture":true,
+      "source":{
+        "type":"card",
+        "number":"4242424242424242",
+        "expiry_month":11,
+        "expiry_year":2024,
+        "cvv":"100"
+      },
+      "processing_channel_id":"pc_yghfzjebuiwelerjsk3atodrey",
+      "marketplace":{
+        "sub_entity_id":"ent_vv2jjkuf2gzj5tcw2x7ptua7zy"
+      }
+    }
+    
+
+  
+
+`processing_channel_id` corresponds to a specific MCC that you are set up to process payments for. Your processing channel IDs will be provided to you after we have completed your setup.
+
+The response
+------------
+
+Use the `approved` field to check whether the authorization was successful (`"approved": true`). If your authorization was not successful, it's possible the payment used an invalid/expired card, or a valid card with an insufficient available balance.
+
+The following pages can help you understand the response message:
+
+*   [CVV codes and descriptions](https://docs.checkout.com/four/resources/codes/cvv-response-codes)
+*   [AVS codes](https://docs.checkout.com/four/resources/codes/avs-codes)
+*   [Response codes](https://docs.checkout.com/four/resources/codes/response-codes) (if the authorization was unsuccessful)
+
+### Response examples
+
+*   [**201 - Success**](#tabs-cead2ffa-64b5-48e1-9401-8e4a54289c29-1)
+*   [**202 - Payment asynchronous / further action required**](#tabs-cead2ffa-64b5-48e1-9401-8e4a54289c29-2)
+*   [**422 - Invalid data was sent**](#tabs-cead2ffa-64b5-48e1-9401-8e4a54289c29-3)
+
+    {
+        "id": "pay_kwrzpz644g6uxmdkpe5u6ruecm",
+        "action_id": "act_ehwckitpyywunkxzou4e64iwhm",
+        "amount": 1000,
+        "currency": "GBP",
+        "approved": true,
+        "status": "Authorized",
+        "auth_code": "935891",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "balances": {
+            "total_authorized": 1000,
+            "total_voided": 0,
+            "available_to_void": 1000,
+            "total_captured": 0,
+            "available_to_capture": 1000,
+            "total_refunded": 0,
+            "available_to_refund": 0
+        },
+        "risk": {
+            "flagged": false
+        },
+        "source": {
+            "id": "src_nr35hmfxonjuvkykmuqirkgaoy",
+            "type": "card",
+            "expiry_month": 10,
+            "expiry_year": 2030,
+            "scheme": "Visa",
+            "last4": "6584",
+            "fingerprint": "50022A4E8D781BE774F239942C3BE78BA4E27DAF723AF559995749BE910A6E5D",
+            "bin": "448504",
+            "cvv_check": "Y",
+            "payment_account_reference": "V001959323431657433"
+        },
+        "processed_on": "2021-03-26T14:16:31.4428222Z",
+        "scheme_id": "314395993984285",
+        "processing": {
+            "acquirer_transaction_id": "925794281492281823871",
+            "retrieval_reference_number": "645049548991"
+        },
+        "expires_on": "2021-04-25T14:16:31.4428222Z",
+        "_links": {
+            "self": {
+                "href": "https://api.sandbox.checkout.com/payments/pay_kwrzpz644g6uxmdkpe5u6ruecm"
+            },
+            "actions": {
+                "href": "https://api.sandbox.checkout.com/payments/pay_kwrzpz644g6uxmdkpe5u6ruecm/actions"
+            },
+            "capture": {
+                "href": "https://api.sandbox.checkout.com/payments/pay_kwrzpz644g6uxmdkpe5u6ruecm/captures"
+            },
+            "void": {
+                "href": "https://api.sandbox.checkout.com/payments/pay_kwrzpz644g6uxmdkpe5u6ruecm/voids"
+            }
+        }
+    }
+
+    {
+      "id": "pay_mbabizu24mvu3mela5njyhpit4",
+      "status": "Pending",
+      "reference": "Three chocolate donuts",
+      "3ds": {
+        "downgraded": false,
+        "enrolled": "Y"
+      },
+      "instruction": {
+        "value_date": "2020-08-25"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4"
+        },
+        "redirect": {
+          "href": "https://api.checkout.com/3ds/pay_mbabizu24mvu3mela5njyhpit4"
+        }
+      }
+    }
+    
+
+    {
+      "request_id": "0HL80RJLS76I7",
+      "error_type": "request_invalid",
+      "error_codes": [
+        "payment_source_required"
+      ]
+    }
+    
+
+When you make a payment, we will let you know what stage the payment is at through [webhook notifications](https://docs.checkout.com/four/workflows).
+
+*   [**Lite**](#tabs-ed91b6df-a868-4ae0-9896-6f467c58283c-1)
+*   [**Full**](#tabs-ed91b6df-a868-4ae0-9896-6f467c58283c-2)
+
+Funds will be routed and held in your Platform’s currency accounts as per the preferences agreed for your platform during onboarding. This will include a default currency (e.g. I want all of my payments, regardless of processing currency, to be routed to and held in GBP), and possibly some like-for-like preferences (e.g. I specifically want any payments in EUR to be routed to and held in EUR).
+
+Funds will be routed and held in your Platform’s currency accounts as per the default holding currency of your sub-entity (specified when onboarding via the Marketplace API). Please note that funds are aggregated based on currency, so if you onboard two sub-entities both with the default holding currency of GBP, funds for both of these sub-entities will be routed to your GBP currency account.
+
+Where to next?
+--------------
+
+### About making payouts
+
+Full sub-entities have payout capability. Use this page to find out what you can do.
+
+[Learn more](https://docs.checkout.com/four/marketplaces/about-payouts)
+
+Find out more
+-------------
+
+### Marketplace API
+
+To get a detailed view of all required and optional fields, see our API reference.
+
+[Learn more](https://api-reference.checkout.com/preview/crusoe/#tag/Marketplace)
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Accept+a+payment?showComments=true&showCommentArea=true#addcomment)

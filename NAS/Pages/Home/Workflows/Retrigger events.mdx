@@ -1,0 +1,388 @@
+---
+title: Retrigger events
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified on [May 18, 2021](/pages/diffpagesbyversion.action?pageId=25526454&selectedPageVersions=5&selectedPageVersions=6 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Learn how to rerun past events so you can retrigger the actions of your workflows – useful if you want to test a workflow that previously failed.
+
+Reflow by multiple IDs
+----------------------
+
+Use the following endpoint to retrigger past events associated with multiple event IDs and workflow IDs, or multiple subject IDs (for example, payment IDs and dispute IDs) and workflow IDs.
+
+You can find the [full specification in our API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Workflows/paths/~1workflows~1events~1reflow/post).
+
+### The request
+
+#### Endpoints
+
+*   [**Live**](#tabs-97db0182-4c59-4841-8239-b10921b4ca7d-1)
+*   [**Sandbox**](#tabs-97db0182-4c59-4841-8239-b10921b4ca7d-2)
+
+POST`https://api.checkout.com/workflows/events/reflow`
+
+POST`https://api.sandbox.checkout.com/workflows/events/reflow`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+*   [**Event and workflow IDs**](#tabs-b7b75e47-06dd-43a9-a987-9a3e8249bd2e-1)
+*   [**Subject and workflow IDs**](#tabs-b7b75e47-06dd-43a9-a987-9a3e8249bd2e-2)
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`events`
+
+REQUIRED
+
+ARRAY
+
+A list of IDs for the events you want reflowed.
+
+`workflows`
+
+OPTIONAL
+
+ARRAY
+
+A list of IDs for the workflows whose actions you want to trigger.
+
+Field name
+
+Description
+
+`events`
+
+REQUIRED
+
+ARRAY
+
+A list of subject IDs (for example, payment IDs and dispute IDs). The events associated with these subjects will be reflowed.
+
+`workflows`
+
+OPTIONAL
+
+ARRAY
+
+A list of IDs for the workflows whose actions you want to trigger.
+
+#### Request examples
+
+*   [**Event and workflow IDs**](#tabs-b5d8f3fc-4b16-43e0-a0d9-d00f5431b72e-1)
+*   [**Subject and workflow IDs**](#tabs-b5d8f3fc-4b16-43e0-a0d9-d00f5431b72e-2)
+
+    {
+      "events": [
+        "evt_lzmo6p0i3612judj754w1ngtil",
+        "evt_05z6xuagtti48ajyfbuekg6a0a"
+      ],
+      "workflows": [
+        "wf_sq8jnqi9i749hhb470bu308uk2",
+        "wf_bz91q7i4ks4sr0kasmas2xhp56"
+      ]
+    }
+
+    {
+      "subjects": [
+        "pay_lzmo6p0i3612judj754w1ngtil",
+        "pay_ol88zt9jviq4mkark1bo5b4i9sk"
+      ],
+      "workflows": [
+        "wf_sq8jnqi9i749hhb470bu308uk2",
+        "wf_bz91q7i4ks4sr0kasmas2xhp56"
+      ]
+    }
+
+### The response
+
+If successful, you'll receive a 202 success response.
+
+Reflow by event ID
+------------------
+
+Pass an event's ID in the path of the following endpoint to rerun a single past event. This will trigger the actions of any existing workflows that are conditional on that event.
+
+You can find the [full specification in our API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Workflows/paths/~1workflows~1events~1{eventId}~1reflow/post).
+
+### The request
+
+#### Endpoints
+
+*   [**Live**](#tabs-c524925d-e684-4d13-beb0-a8623c3c3201-1)
+*   [**Sandbox**](#tabs-c524925d-e684-4d13-beb0-a8623c3c3201-2)
+
+POST`https://api.checkout.com/workflows/events/{eventId}/reflow`
+
+POST`https://api.sandbox.checkout.com/workflows/events/{eventId}/reflow`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`eventID`
+
+REQUIRED
+
+The unique identifier for the event to be reflowed.
+
+### The response
+
+If successful, you'll receive a 202 success response.
+
+Reflow by event and workflow ID
+-------------------------------
+
+Pass an event ID and a workflow ID in the path of the following endpoint to retrigger all the actions associated with that specific event and workflow combination.
+
+You can find the [full specification in our API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Workflows/paths/~1workflows~1events~1{eventId}~1workflow~1{workflowId}~1reflow/post).
+
+### The request
+
+#### Endpoints
+
+*   [**Live**](#tabs-783fbf25-1c5d-476e-bbcf-0d47d36ba80e-1)
+*   [**Sandbox**](#tabs-783fbf25-1c5d-476e-bbcf-0d47d36ba80e-2)
+
+POST`https://api.checkout.com/workflows/events/{eventId}/workflow/{workflowId}/reflow`
+
+POST`https://api.sandbox.checkout.com/workflows/events/{eventId}/workflow/{workflowId}/reflow`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`eventID`
+
+REQUIRED
+
+The unique identifier for the event to be reflowed.
+
+`workflowID`
+
+REQUIRED
+
+The identifier of the workflow whose actions you want to trigger.
+
+### The response
+
+If successful, you'll receive a 202 success response.
+
+Reflow by subject ID
+--------------------
+
+Pass a subject ID (for example, a payment ID or a dispute ID) in the path of the following endpoint to rerun any events associated with it and retrigger the actions of any associated workflows.
+
+You can find the [full specification in our API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Workflows/paths/~1workflows~1events~1subject~1{subjectId}~1reflow/post).
+
+### The request
+
+#### Endpoints
+
+*   [**Live**](#tabs-8701247d-2400-4d0b-98fe-90a44b1e6354-1)
+*   [**Sandbox**](#tabs-8701247d-2400-4d0b-98fe-90a44b1e6354-2)
+
+POST`https://api.checkout.com/workflows/events/subject/{subjectId}/reflow`
+
+POST`https://api.sandbox.checkout.com/workflows/events/subject/{subjectId}/reflow`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`subjectID`
+
+REQUIRED
+
+The subject identifier (for example, a payment ID or a dispute ID). The events associated with these subjects will be reflowed.
+
+### The response
+
+If successful, you'll receive a 202 success response.
+
+Reflow by subject and workflow ID
+---------------------------------
+
+Pass a subject ID (for example, a payment ID or a dispute ID) and a workflow ID in the path of the following endpoint to retrigger all the actions associated with that specific subject and workflow combination.
+
+You can find the [full specification in our API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Workflows/paths/~1workflows~1events~1subject~1{subjectId}~1workflow~1{workflowId}~1reflow/post).
+
+### The request
+
+#### Endpoints
+
+*   [**Live**](#tabs-cf8973fc-467b-42e2-9486-0a7d6c226cad-1)
+*   [**Sandbox**](#tabs-cf8973fc-467b-42e2-9486-0a7d6c226cad-2)
+
+POST`https://api.checkout.com/workflows/events/subject/{subjectId}/workflow/{workflowId}/reflow`
+
+POST`https://api.sandbox.checkout.com/workflows/events/subject/{subjectId}/workflow/{workflowId}/reflow`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`subjectID`
+
+REQUIRED
+
+The subject identifier (for example, a payment ID or a dispute ID). The events associated with these subjects will be reflowed.
+
+`workflowID`
+
+REQUIRED
+
+The identifier of the workflow whose actions you want to trigger.
+
+### The response
+
+If successful, you'll receive a 202 success response.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Retrigger+events?showComments=true&showCommentArea=true#addcomment)

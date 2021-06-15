@@ -1,0 +1,155 @@
+---
+title: Magento 2
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 30, 2021](/pages/diffpagesbyversion.action?pageId=5931062&selectedPageVersions=21&selectedPageVersions=22 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+From downloading the plugin to requesting your first test payment, learn how to get started with the Checkout.com for Magento 2 plugin.
+
+  
+
+This guide assumes that you have Magento (the plugin is compatible with version 2.2.8 and above) installed. In addition, you will need to be on a dedicated server, or have the enterprise version of Magento, to use this plugin.
+
+Magento 2 storefront integration
+
+If you're building a storefront on top of a headless Magento 2 backend, install our Magento 2 plugin as set out below, and then [follow this guide](/display/DOCS/Storefront+integration).
+
+  
+Before you start
+-------------------
+
+### Create a test account
+
+If you haven't already, [create a test Checkout.com account](https://www.checkout.com/get-test-account).
+
+### Get your API keys
+
+To set up our Magento 2 plugin, you'll need three API keys: a secret one, a public one, and a private shared one. The first two are generated automatically upon account creation. The last one is generated when you create a webhook for your business.
+
+Webhooks are notifications that we send when an event occurs on your account. For example, when a payment is captured. These are used by the Magento plugin to update the status of an order. [Read more about webhooks](/display/DOCS/Webhooks).
+
+1.  Log in to your test account on the [Hub sandbox](https://sandbox.checkout.com/).
+2.  In the left menu, go to _Settings > Channels_, and make a note of your secret and public API keys.
+
+![](/download/attachments/8487181/channel_settings.png?version=1&modificationDate=1592390923646&api=v2)
+
+ Manual webhook creation
+
+1.  Scroll down to the _Webhooks_ section of the page and click **New webhook**.
+2.  Enter the following URL, replacing `example.com` with the URL of your shop: `example.com/checkout_com/webhook/callback`. (A webhook URL specific to your installation is available in the _Account Settings_ section of the plugin configuration panel.)
+    
+    Correctly configuring your webhooks is important; if they're incorrectly formatted, the plugin will not work.
+    
+3.  Select **API - v2.0**.
+4.  Tick **Select all**, then click **Create webhook**.  
+    ![](/download/attachments/5931062/create_webhook-magento-2.png?version=1&modificationDate=1587399320621&api=v2)
+5.  Click on the webhook you just created, and make a note of the private shared API key.  
+    ![](/download/attachments/5931062/webhook%E2%80%93magento-2.png?version=1&modificationDate=1587399397238&api=v2)
+
+See step 7 in [Configure the plugin](https://docs.checkout.com/quickstart/integrate/e-commerce-platforms/magento-2#Magento2-Configuretheplugin) for automatic webhook registration
+
+Install plugin
+--------------
+
+There are two ways to install the plugin:
+
+*   [Using Composer](#Magento2-composer)
+*   [Using Magento Marketplace](https://docs.checkout.com/integrate/e-commerce-platforms/magento-2#Magento2-UsingMagentoMarketplace)
+
+### Using Composer 
+
+We recommend this method, as it should install the latest version of the plugin.
+
+1.  Go to the root directory of your Magento 2 server.
+2.  Type the following command:   
+    `composer require checkoutcom/magento2:*`
+3.  You should get a success message confirming the installation of Checkout.com php sdk and Checkout.com plugin.
+4.  The plugin is now installed, but you need to recompile your Magento 2 installation and clear the cache before configuring it. Type the following commands in turn:
+    *   `php bin/magento setup:upgrade`
+    *   `rm -rf var/cache var/generation/ var/di`
+    *   `php bin/magento setup:di:compile`
+    *   `php bin magento cache:clean`
+
+### Using Magento Marketplace
+
+1.  [Purchase the extension from Magento Marketplace](https://marketplace.magento.com/checkoutcom-magento2.html) (it's free).
+2.  Follow the installation instructions on the checkout page.
+3.  Once you've installed the extension, log in to your Magento Admin Panel and go to _Stores > Configuration > Sales > Payment Methods_. If successful, you should now see Checkout.com on the list.
+
+You're now ready to configure the Magento 2 plugin.
+
+Configure the plugin
+--------------------
+
+1.  Log in to you Magento Admin Panel and go to _Stores > Configuration > Sales > Payment Methods_.
+2.  Find the Checkout.com plugin and click **Configure**.
+3.  In this configuration panel, go to _Configuration > Global Settings_.
+4.  Make sure _Environment_ is set to **Test** so you can start testing card payments.  
+    ![](/download/attachments/5931062/Magento_2_plugin_global_settings.png?version=1&modificationDate=1587400855363&api=v2)
+5.  Select the _Payment Action_. **Authorize and Capture** means that the charge is authorized and captured (i.e., the money due from the customer's account is moved into your account) at the same time. **Authorize** will only authorize the charge; you have to manually capture the payment yourself. If you're unsure, **Authorize and Capture** is likely the right choice.
+6.  Then go to _Account Settings_.
+7.  Enter your **Secret Key** and **Public Key**. If you're testing, make sure you use the API keys from your sandbox Hub account, then click _Set Webhooks_ to automatically register your webhooks in [Checkout.com](http://Checkout.com) Hub.  
+    ![](/download/attachments/5931062/afc0446e-9988-4b54-b050-2672e57a831b.gif?version=1&modificationDate=1612350591264&api=v2)  
+    
+8.  Click **Save Config**.
+
+That's it! You're ready to start testing card payments.
+
+Test your integration
+---------------------
+
+1.  Go to your storefront and add a product to your cart.
+2.  Go to your cart and proceed to the checkout.
+3.  Enter the required billing details. You can put anything here, though we recommend using a real email address so you can receive the order confirmation.
+4.  Select the **Pay by Card with Checkout.com** method.
+5.  Enter the following card details:  
+    *   Number: `4242 4242 4242 4242`
+    *   Expiry date: `12/25`
+    *   CVV: `100`
+6.  Click **Place order**, and you will be redirected to the order confirmation page. If you entered a real email address in the billing details, you'll also receive an order confirmation email.
+7.  Log in to your Magento Admin Panel.
+8.  Go to _Sales > Orders_. Your test order will be displayed there with a `Processing` status (or `Pending Paymen`t if you choose the **Authorize only** payment action). This indicates that the payment has been successfully captured. The transaction will also appear in the _Payments_ section of your sandbox Hub account.
+
+You can now either [go live](#Magento2-golive) as-is or [extend your configuration](/display/DOCS/Go+further+with+Magento+2).
+
+Troubleshooting
+
+If this test does not work, first check you have configured your webhooks correctly. For the plugin to work, they must be formatted correctly. If you have configured them properly, check your server; if it's password-protected or it restricts unfamiliar IP addresses, it may be blocking webhook notifications. Contact our Integration team at [integration@checkout.com](mailto:integration@checkout.com) if you need help.
+
+Further testing
+
+You'll find more test cards and a range of scenarios to trigger in our [testing guide](/display/DOCS/Testing).
+
+Go live 
+--------
+
+If you're happy with the outcome of your testing and want to start taking payments right away, please [contact our Sales team](https://checkout.com/contact-sales) in order to move to a live account.
+
+Before you go live, remember to:
+
+*   Switch the environment to Production in the plugin's settings.
+*   Update your public, secret and private shared API keys in the plugin's settings with the keys from your live Hub account.
+*   Configure the webhook URLs in your live Hub account.
+
+Extend your configuration
+-------------------------
+
+You can extend your configuration to [add more payment methods](/display/DOCS/Go+further+with+Magento+2#GofurtherwithMagento2-paymentmethods), use [3D Secure payments](/display/DOCS/Go+further+with+Magento+2#GofurtherwithMagento2-3dsecure), and more.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Magento+2?showComments=true&showCommentArea=true#addcomment)

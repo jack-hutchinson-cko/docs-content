@@ -1,0 +1,711 @@
+---
+title: Onboard a sub-entity (lite)
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Chrisi Webster](    /display/~chrisiwebster
+    ), last modified on [Jun 10, 2021](/pages/diffpagesbyversion.action?pageId=20120260&selectedPageVersions=101&selectedPageVersions=102 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+This process should be followed for those on the lite account type for our Marketplaces solution. We have another page for [full sub-entity onboarding](/pages/viewpage.action?pageId=20120369).
+
+On this page, we will walk through the complete onboarding of a sub-entity:
+
+*   Onboard a sub-entity
+*   Update a sub-entity
+*   Retrieve a sub-entity
+*   Handle due diligence notifications
+*   Testing
+
+Before you begin
+----------------
+
+[Configure your webhooks](https://docs.checkout.com/four/workflows) and subscribe to:
+
+*   `sub_entity_created`
+*   `vmss_passed` and `vmss_failed`
+*   `match_passed` and `match_failed`
+*   `payments_enabled` and `payments_disabled`
+*   `status_changed`
+
+To get a detailed view of all required and optional fields, see our [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Marketplace/paths/~1marketplace~1entities~1{id}/put).Onboard a sub-entity
+
+#### Endpoints
+
+Sandbox is a testing area, so you can practise API calls. [Request a test account](https://www.checkout.com/get-test-account).
+
+*   [**Live**](#tabs-b8b0d174-3544-47a9-b7ee-87dd1c28cf60-1)
+*   [**Sandbox**](#tabs-b8b0d174-3544-47a9-b7ee-87dd1c28cf60-2)
+
+POST`https://api.checkout.com/marketplace/entities`
+
+POST`https://api.sandbox.checkout.com/marketplace/entities`
+
+#### Request examples
+
+*   [**Company**](#tabs-6f038f03-43f8-41e5-91bb-ad32d6eb03ba-1)
+*   [**Individual**](#tabs-6f038f03-43f8-41e5-91bb-ad32d6eb03ba-2)
+
+    {
+      "reference":"678910",
+      "contact_details":{
+        "phone":{
+          "number":"111222333"
+        }
+      },
+      "profile":{
+        "urls":[
+          "https://www.thecakeshop.com"
+        ],
+        "mccs":[
+          5814
+        ]
+      },
+      "company":{
+        "legal_name":"The Cake Shop Inc.",
+        "trading_name":"The Cake Shop",
+        "principal_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        }
+      }
+    }
+    
+    
+
+    {
+        "reference": "0123456",
+        "contact_details": {
+            "phone": {
+                "number": "2345678910"
+            }
+        },
+        "profile": {
+            "urls": ["https://www.daniels-donuts.com"],
+            "mccs": [5814]
+        },
+        "individual": {
+            "first_name": "Daniel",
+            "last_name": "Yubi",
+            "trading_name": "Daniel's Donuts",
+            "national_tax_id": "1234567",
+            "registered_address": {
+                "address_line1": "90 Tottenham Court Road",
+                "city": "London",
+                "zip": "W1T4TJ",
+                "country": "GB"
+            }
+        }
+    }
+
+#### Response examples
+
+*   [**201 - Sub-entity onboarded successfully**](#tabs-52e0f036-769c-4339-b880-5d9d4708239a-1)
+*   [**409 - Conflict**](#tabs-52e0f036-769c-4339-b880-5d9d4708239a-2)
+*   [**422 - Invalid data was sent**](#tabs-52e0f036-769c-4339-b880-5d9d4708239a-3)
+
+A successful response will include a unique sub-entity `id`, which you should store for future requests.
+
+Additionally, the response has the `capabilities` object, which shows you whether the sub-entity’s capabilities are enabled or not. Capabilities only get enabled once specific [due diligence checks](/display/x/About+onboarding) have been run and passed – that's why the payments capability is false here.
+
+    {
+        "id": "ent_aotj3m5ggi2ecpfmxu4su5ctx4",
+        "reference": "MnuaOoPZanDbJwT",
+    	"status": "requirements_due",
+        "capabilities": {
+            "payments": {
+                "enabled": false
+            },
+    		"payouts": {
+                "enabled": false
+            },
+        },
+        "requirements_due": [
+    		{
+           		"field": "individual.date_of_birth",
+           		"reason": "required"
+        	},
+      ],
+        "_links": {
+            "self": {
+                "href": "https://marketplace.cko-qa.ckotech.co/entities/ent_aotj3m5ggi2ecpfmxu4su5ctx4"
+            }
+        }
+    }
+    
+
+ Why haven't my capabilities been enabled?
+
+Capabilities are enabled once due diligence checks have been completed. If you haven't received a webhoook notification – either `{check}_passed` or `{check}_failed` – it is likely there are outstanding requirements due. Please check our [onboarding information page](/display/x/About+onboarding) to confirm you have sent all the required information.
+
+If you have provided all the information, we may be completing a manual review.
+
+The `reference` you provide needs to be unique across all of your sub-entities. If you receive a `409`, you are trying to onboard a sub-entity with a `reference` that has already been used. Try again with another `reference`.
+
+    {
+        "_links": {
+            "self": {
+                "href": "https://marketplace.cko-qa.ckotech.co/entities/ent_lcvk7ay5zcglzvda6n7o5ws2hq"
+            }
+        }
+    }
+
+When you receive a `422`, please check the API request to make sure you've included all of the required values. You can see our [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Marketplace/paths/~1marketplace~1entities/post) for a full overview.
+
+    {
+        "request_id": "0HM72UMS6H39C:00000003",
+        "error_type": "invalid_request",
+        "error_codes": [
+            "reference_required"
+        ]
+    }
+
+ Possible error codes
+
+Name
+
+Descriptions
+
+`profile_mccs_invalid_for_processing_scope`
+
+The MCCs provided for the sub-entity are outside the proecessing scop of its Platform.
+
+`profile_default_holding_currency_invalid_for_currency_scope`
+
+The default holding currency provided for the sub-entity is outside the currency scope of its Platform.
+
+`principal_address_country_invalid_for_processing_scope`
+
+The principal address country provided for the sub-entity is outside the processing scope of its Platform.
+
+`client_entity_cannot_onboard_subentities`
+
+The Platform is not permitted to onboard new sub-entities.
+
+`sub_entity_invalid`
+
+Internal validation error. Please contact us if you receive this.
+
+`company_or_individual_required`
+
+The company or individual object must be supplied in your request.
+
+`<field_name>_invalid`
+
+For example, `legal_name_invalid`, or `profile_urls_0_invalid`.
+
+The specified field does not match the validation policies for minimum or maximum length, or formatting.
+
+The only two exceptions to this are `sub_entity_invalid` and `existing_sub_entity_type_invalid`, which have different causes. See the two rows directly above.
+
+`<field_name>_required`
+
+For example, `legal_name_required` or `representatives_0_first_name_required`.
+
+The specified field is mandatory but was not provided in the request. For example, the field is `null`, contains empty strings, or contains white spaces.
+
+#### Webhook notification
+
+Once your sub-entity has been successfully created, we will send you a `sub_entity_created` webhook notification, which will look similar to:
+
+    {
+      "id": "evt_jqv4f6zedawetlilolhqun6m4m",
+      "source": "marketplace",
+      "type": "sub_entity_created",
+      "timestamp": "2020-08-20T16:48:17.142+00:00",
+      "version": "1.0.0",
+      "data": {
+        "sub_entity_id": "ent_gavuonbau65upa75f77rar4yuu",
+        "reference": "5uperher01234",
+        "legal_name": "Super Hero Masks Inc."
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_jqv4f6zedawetlilolhqun6m4m"
+        }
+      }
+    }
+
+  
+
+Update a sub-entity
+-------------------
+
+You can update all fields under the `contact_details`, `profile`, and `company` objects.
+
+When you update a sub-entity, we may conduct further due diligence checks when necessary. During these checks, your payment capabilities will remain unchanged.
+
+#### Endpoints
+
+Sandbox is a testing area, so you can practise API calls. [Request a test account](https://www.checkout.com/get-test-account).
+
+*   [**Live**](#tabs-327cecff-d69e-46c1-acd5-c408d5348e5f-1)
+*   [**Sandbox**](#tabs-327cecff-d69e-46c1-acd5-c408d5348e5f-2)
+
+PUT`https://api.checkout.com/marketplace/entities/{id}`
+
+PUT`https://api.sandbox.checkout.com/marketplace/entities/{id}`
+
+#### Request examples
+
+To get a detailed view of all required and optional fields, see our [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Marketplace/paths/~1marketplace~1entities~1{id}/put).
+
+*   [**Company**](#tabs-d7446c32-41b8-470e-8847-0a0ef4251453-1)
+*   [**Individual**](#tabs-d7446c32-41b8-470e-8847-0a0ef4251453-2)
+
+    {
+      "reference":"78910",
+      "contact_details":{
+        "phone":{
+    
+          "number":"111222333"
+        }
+      },
+      "profile":{
+        "urls":[
+          "https://www.thecakeshop.com"
+        ],
+        "mccs":[
+          5814
+        ]
+      },
+      "company":{
+        "business_registration_number":"452349600005",
+        "legal_name":"The Cake Shop Inc.",
+        "trading_name":"The Cake Shop",
+        "principal_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        }
+      },
+      "registered_address":{
+        "address_line1":"90 Tottenham Court Road",
+        "city":"London",
+        "zip":"W1T4TJ",
+        "country":"GB"
+      },
+      "representatives":[
+        {
+          "first_name":"Chrisi",
+          "last_name":"Webster",
+          "address":{
+            "country":"GB"
+          }
+        }
+      ]
+    }
+
+    {
+      "reference":"0123456",
+      "contact_details":{
+        "phone":{
+          "number":"2345678910"
+        }
+      },
+      "profile":{
+        "urls":[
+          "https://www.daniels-donuts.com"
+        ],
+        "mccs":[
+          5814
+        ]
+      },
+      "individual":{
+        "first_name":"Daniel",
+        "last_name":"Yubi",
+        "trading_name":"Daniel's Donuts",
+        "national_tax_id":"1234567",
+        "registered_address":{
+          "address_line1":"90 Tottenham Court Road",
+          "city":"London",
+          "zip":"W1T4TJ",
+          "country":"GB"
+        },
+        "date_of_birth":{
+          "day":5,
+          "month":6,
+          "year":1995
+        }
+      }
+    }
+
+#### Response examples
+
+*   [**200 - Sub-entity updated successfully**](#tabs-1a223b9a-122e-48d5-8a9a-5d10cbb6e736-1)
+*   [**422 - Invalid data was sent**](#tabs-1a223b9a-122e-48d5-8a9a-5d10cbb6e736-2)
+
+If the request was successful, you will receive `200 - Sub-entity updated successfully`.
+
+    {
+      "id": "ent_wxglze3wwywujg4nna5fb7ldli",
+      "reference": "superhero1234",
+      "status": "pending",
+      "capabilities": {
+        "payments": {
+          "enabled": false
+         },
+    	"payouts": {
+    	  "enabled": false
+    	},
+      "requirements_due": [],
+      "_links": {
+        "self": {
+          "href": "https://marketplace.cko-prod.ckotech.co/entities/ent_wxglze3wwywujg4nna5fb7ldli"
+        }
+      }
+    }
+    
+
+ Why haven't my capabilities been enabled?
+
+Capabilities are enabled once due diligence checks have been completed. If you haven't received a webhoook notification – either `{check}_passed` or `{check}_failed` – it is likely there are outstanding requirements due. Please check our [onboarding information page](/display/x/About+onboarding) to confirm you have sent all the required information.
+
+If you have provided all the information, we may be completing a manual review.
+
+In the `error_codes` object, we will let you know what data was invalid.
+
+    {
+      "request_id": "0HM1I9VJUDPHV:00000002",
+      "error_type": "invalid_request",
+      "error_codes": [
+        "profile_mccs_invalid_for_processing_scope",
+    	"principal_address_country_invalid_for_processing_scope"
+      ]
+    }
+
+  
+
+ Possible error codes
+
+Name
+
+Descriptions
+
+`profile_mccs_invalid_for_processing_scope`
+
+The MCCs provided for the sub-entity are outside the proecessing scop of its Platform.
+
+`principal_address_country_invalid_for_processing_scope`
+
+The principal address country provided for the sub-entity is outside the processing scope of its Platform.
+
+`sub_entity_invalid`
+
+Internal validation error. Please contact us if you receive this.
+
+`existing_sub_entity_type_invalid`
+
+The specified sub-entity type is invalid. This occurs when the company type is used in an individual request, and vice versa.
+
+`company_or_individual_required`
+
+The company or individual object must be supplied in your request.
+
+`<field_name>_invalid`
+
+For example, `legal_name_invalid`, `purpose_invalid`, or `profile_urls_0_invalid`.
+
+The specified field does not match the validation policies for minimum or maximum length, or formatting.
+
+The only two exceptions to this are `sub_entity_invalid` and `existing_sub_entity_type_invalid`, which have different causes. See the two rows directly above.
+
+`<field_name>_required`
+
+For example, `legal_name_required` or `representatives_0_first_name_required`.
+
+The specified field is mandatory but was not provided in the request. For example, the field is `null`, contains empty strings, or contains white spaces.
+
+Retrieve a sub-entity
+---------------------
+
+If you need to retrieve a sub-entity's details, you can use our Get sub-entity details endpoint. Just include the `id` of the sub-entity returned during the initial onboarding in your request. For example, ``https://api.checkout.com/marketplace/entities/**`ent_wxglze3wwywujg4nna5fb7ldli`**``.
+
+#### Endpoints
+
+Sandbox is a testing area, so you can practise API calls. [Request a test account](https://www.checkout.com/get-test-account).
+
+*   [**Live**](#tabs-07de0bc6-3f20-497c-b141-490c21736032-1)
+*   [**Sandbox**](#tabs-07de0bc6-3f20-497c-b141-490c21736032-2)
+
+GET`https://api.checkout.com/marketplace/entities/{id}`
+
+GET`https://api.sandbox.checkout.com/marketplace/entities/{id}`
+
+#### Response examples
+
+The response allows you to retrieve all data that has been provided about the sub-entity, including its capabilities, which informs you whether this sub-entity can process payments or not.
+
+*   [**Individual**](#tabs-e1cfb824-d459-4f5a-8e7d-e65916f5f669-1)
+*   [**Company**](#tabs-e1cfb824-d459-4f5a-8e7d-e65916f5f669-2)
+
+    {
+        "id": "ent_vv2jjkuf2gzj5tcw2x7ptua7zy",
+        "reference": "0123456",
+    	"status": "active",
+        "capabilities": {
+            "payments": {
+                "enabled": true
+            },
+            "payouts": {
+                "enabled": false
+            }
+        },
+        "profile": {
+            "default_holding_currency": "GBP",
+            "urls": ["https://www.daniels-donuts.com"],
+            "mccs": ["5814"]
+        },
+        "individual": {
+    		"first_name": "Daniel",
+            "last_name": "Yubi",
+            "trading_name": "Daniel's Donuts",
+            "legal_name": "Daniel Yubi",
+            "national_tax_id": "1234567",
+            "registered_address": {
+                "address_line1": "90 Tottenham Court Road",
+                "city": "London",
+                "zip": "W1T4TJ",
+                "country": "GB"
+            },
+        },
+        "contact_details": {
+            "phone": {
+                "number": "2345678910"
+            }
+        },
+        "instruments": [],
+    	"requirements_due": [],
+        "_links": {
+            "self": {
+                "href": "https://api.sandbox.checkout.com/marketplace/entities/ent_vv2jjkuf2gzj5tcw2x7ptua7zy"
+            }
+        }
+    }
+
+ Why does the individual have a legal name? I didn't assign one.
+
+The `legal_name` field is auto-generated based on the `first_name`, `middle_name` and `last_name` provided during onboarding.
+
+ I didn't specify a default currency, but one was set anyway. Why?
+
+We require `profile.default_holding_currency` for full account types, so we set a default in case you would like to change to the full account type. This doesn't have any impact on the way that funds will be routed and held for this sub-entity.
+
+ Why can't I update my sub-entity's default holding currency?
+
+`profile.default_holding_currency` is not currently updatable. If you need to change this, please get in touch.
+
+ Why haven't my capabilities been enabled?
+
+Capabilities are enabled once due diligence checks have been completed. If you haven't received a webhoook notification – either `{check}_passed` or `{check}_failed` – it is likely there are outstanding requirements due. Please check our [onboarding information page](/display/x/About+onboarding) to confirm you have sent all the required information.
+
+If you have provided all the information, we may be completing a manual review.
+
+    {
+        "id": "ent_nofjig36ypra6236f4tfm5bvui",
+        "reference": "678910",
+    	"status": "pending",
+        "capabilities": {
+            "payments": {
+                "enabled": false
+            },
+            "payouts": {
+                "enabled": false
+            }
+        },
+        "profile": {
+            "default_holding_currency": "GBP",
+            "urls": ["https://www.thecakeshop.com"],
+            "mccs": ["5814"]
+        },
+        "company": {
+            "legal_name": "The Cake Shop Inc.",
+            "trading_name": "The Cake Shop",
+            "principal_address": {
+                "address_line1": "90 Tottenham Court Road",
+                "city": "London",
+                "zip": "W1T4TJ",
+                "country": "GB"
+            },
+            "representatives": []
+        },
+        "contact_details": {
+            "phone": {
+                "number": "111222333"
+            }
+        },
+        "instruments": [],
+    	"requirements_due": [],
+        "_links": {
+            "self": {
+                "href": "https://api.sandbox.checkout.com/marketplace/entities/ent_nofjig36ypra6236f4tfm5bvui"
+            }
+        }
+    }
+
+ Why can't I update my sub-entity's default holding currency?
+
+`profile.default_holding_currency` is not currently updatable. If you need to change this, please get in touch.
+
+ I didn't specify a default currency, but one was set anyway. Why?
+
+We require `profile.default_holding_currency` for full account types, so we set a default in case you would like to change to the full account type. This doesn't have any impact on the way that funds will be routed and held for this sub-entity.
+
+ Why haven't my capabilities been enabled?
+
+Capabilities are enabled once due diligence checks have been completed. If you haven't received a webhoook notification – either `{check}_passed` or `{check}_failed` – it is likely there are outstanding requirements due. Please check our [onboarding information page](/display/x/About+onboarding) to confirm you have sent all the required information.
+
+If you have provided all the information, we may be completing a manual review.
+
+Handle due diligence notifications
+----------------------------------
+
+Once we have conducted our due diligence checks, we will inform you of the outcome via [webhook notification](https://docs.checkout.com/four/workflows/webhook-event-types "https://docs.checkout.com/four/workflows/webhook-event-types"). You should expect to receive the following event types: 
+
+*   `vmss_passed` / `vmss_failed`
+*   `match_passed` / `match_failed`
+
+Due diligence will always pass in the Sandbox environment, unless one of our `legal_name` fail triggers is used for simulation.
+
+On occasion, our team will need to manually review a sub-entity. Please see [about onboarding](https://docs.checkout.com/four/marketplaces/about-onboarding) for more information.
+
+##### Due diligence webhook example
+
+  
+
+We've described the different webhook notifications on our [webhook event type page](https://docs.checkout.com/four/workflows/webhook-event-types#Webhookeventtypes-Marketplace).
+
+  
+
+*   [**VMSS passed**](#tabs-eb48904a-146c-4712-b995-80d823c4abf9-1)
+*   [**VMSS failed**](#tabs-eb48904a-146c-4712-b995-80d823c4abf9-2)
+
+    {
+      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+      "type": "vmss_passed",
+      "version": "1.0.0",
+      "created_on": "2020-08-20T15:24:13.8431084Z",
+      "data": {
+        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+        "reference": "123456789101112",
+        "legal_name": "The Cake Shop Inc."
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+        }
+      }
+    }
+    
+
+    {
+      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+      "type": "vmss_failed",
+      "version": "1.0.0",
+      "created_on": "2020-08-20T15:24:13.8431084Z",
+      "data": {
+        "sub_entity_id": "ent_h5qk7lfsp3ludfjxba256lduju",
+        "reference": "dyson12345a",
+        "legal_name": "Dyson Ltd"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+        }
+      }
+    }
+
+  
+
+If due diligence is passed (VMSS and Match), we will enable the sub-entity’s **payments** capability. You should expect to receive the `payments_enabled` event type. 
+
+We will re-trigger due diligence checks if `legal_name`, `trading_name` and `profile.urls` is later updated. If any subsequent checks fail and you receive the `vmss_failed` or `match_failed` notification, this will be followed by a `payments_disabled` webhook notification.
+
+**Payments enabled webhook example**
+
+    {
+      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+      "type": "payments_enabled",
+      "version": "1.0.0",
+      "created_on": "2020-08-20T15:24:13.8431084Z",
+      "data": {
+        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+        "reference": "123456789101112",
+        "legal_name": "The Cake Shop Inc."
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+        }
+      }
+    }
+    
+
+Testing
+-------
+
+You can simulate different scenarios when onboarding sub-entities. Similar to simulating payment scenarios using specific card numbers, you can use certain values in the `legal_name` field of your onboarding request. This will trigger specific outcomes regarding card scheme screening, as well as the payment capabilities of a sub-entity.
+
+Including a company name in the `legal_name` field will trigger positive VMSS and MATCH checks, and will enable payment capabilities. The simulator only accepts fail triggers:
+
+Trigger to be added in `legal_name`
+
+Card scheme screening
+
+Payment capabilities
+
+`simulator_match_fail`
+
+The VMSS check passes, but the MATCH check fails.
+
+Remain disabled.
+
+`simulator_vmss_fail`
+
+The VMSS check fails, but the MATCH check passes.
+
+Remain disabled.
+
+`simulator_match_fail simulator_vmss_fail`
+
+Both the VMSS and the MATCH checks fail.
+
+Remain disabled.
+
+Where to next?
+--------------
+
+### Accept a payment
+
+Process payments on behalf of your sub-entities.
+
+[Learn more](https://docs.checkout.com/four/marketplaces/accept-a-payment)
+
+Find out more
+-------------
+
+### Status types
+
+Find out more about status types during the onboarding process.
+
+[Find out more](https://docs.checkout.com/four/marketplaces/about-onboarding#status-types)
+
+  
+  
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/pages/viewpage.action?pageId=20120260&showComments=true&showCommentArea=true#addcomment)

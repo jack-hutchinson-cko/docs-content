@@ -1,0 +1,227 @@
+---
+title: Get payment actions
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [May 21, 2021](/pages/diffpagesbyversion.action?pageId=8488218&selectedPageVersions=6&selectedPageVersions=7 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Find out all you need to know about history of a payment. This API provides details about each step of the payment lifecycle.
+
+Get payment actions
+-------------------
+
+### The request
+
+Use the details below to set up your request. In the URI, replace `{id}` with the `payment_id`.
+
+#### Endpoints
+
+*   [**Live**](#tabs-08435528-5f39-41b2-81ff-393876e0d0a0-1)
+*   [**Sandbox**](#tabs-08435528-5f39-41b2-81ff-393876e0d0a0-2)
+
+GET`https://api.checkout.com/payments/{id}/actions`
+
+GET`https://api.sandbox.checkout.com/payments/{id}/actions`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+Bearer {OAuth access token}  
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Path parameters
+
+Path
+
+Value
+
+Path
+
+Value
+
+`id`
+
+REQUIRED
+
+The payment ID, embedded within the URI.
+
+### The response
+
+If successful, you should get a `200 Success` response returning a list of data relating to the payment.
+
+    [
+      {
+        "id": "act_fd3h6evhpn3uxdoqbuu3lqnqbm",
+        "type": "Refund",
+        "processed_on": "2018-01-20T10:30:48Z",
+        "amount": 1000,
+        "approved": true,
+        "response_code": "10000",
+        "response_summary": "Approved"
+      },
+      {
+        "id": "act_gefycn3jcvuupboxfmqrhk2aym",
+        "type": "Capture",
+        "processed_on": "2018-01-17T10:30:48Z",
+        "amount": 6540,
+        "approved": true,
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "processing": {
+          "acquirer_reference_number": "24021219099007452440793",
+          "acquirer_transaction_id": "00745244079"
+        },
+        "metadata": {
+          "shipping_ref": "MQIBN2"
+        }
+      },
+      {
+        "id": "act_y3oqhf46pyzuxjbcn2giaqnb44",
+        "type": "Authorization",
+        "processed_on": "2018-01-17T09:30:48Z",
+        "amount": 6540,
+        "approved": true,
+        "auth_code": "643381",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "reference": "ORD-5023-4E89",
+        "processing": {
+          "retrieval_reference_number": "909913440644",
+          "acquirer_transaction_id": "440644309099499894406"
+        }
+      }
+    ]
+
+If your request is unsuccessful, you may receive a `404 – Payment not found` error.
+
+#### Response parameters
+
+Find out what the different fields in your successful response mean.
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`id`
+
+STRING
+
+The unique identifier of the payment action.
+
+`type`
+
+STRING
+
+The type of payment action (e.g., `Authorization`).
+
+`processed_on`
+
+STRING
+
+The date and time the action took place.
+
+`amount`
+
+INTEGER
+
+The action amount.
+
+`auth_code`
+
+STRING
+
+The acquirer's authorization code for cards.
+
+`response_code`
+
+STRING
+
+The gateway response code.
+
+`response_summary`
+
+STRING
+
+The gateway response summary.
+
+`reference`
+
+STRING
+
+Your defined reference for the action.
+
+`processing`
+
+OBJECT
+
+Returns information related to the processing of the payment.
+
+`metadata`
+
+OBJECT
+
+A set of key/value pairs that you can attach to an action.
+
+### Payment actions
+
+The table below outlines the different payment actions and their meanings.
+
+`Authorization`
+
+The payment request was sent successfully.
+
+`Capture`
+
+The authorized payment was captured in full.
+
+`Refund`
+
+Part or all of the captured amount was refunded.
+
+`Void`
+
+The payment was voided and never captured; the funds were returned to the customer.
+
+`Card Verification`
+
+The card verification request has been approved and the cardholder’s details have been saved to their account.
+
+`Payout`
+
+Thecard payout was processed successfully.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Get+payment+actions?showComments=true&showCommentArea=true#addcomment)

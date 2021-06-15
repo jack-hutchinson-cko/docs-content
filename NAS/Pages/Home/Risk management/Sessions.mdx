@@ -1,0 +1,156 @@
+---
+title: Sessions
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Toby Knott](    /display/~toby.knott
+    ) on [Jun 02, 2021](/pages/diffpagesbyversion.action?pageId=8487990&selectedPageVersions=12&selectedPageVersions=13 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+The Sessions API is a standalone solution to authenticate online transactions with the EMV 3D Secure (3DS) protocol, allowing you to implement smarter 3DS authentication flows.
+
+It gives you greater visibility of the issuers' authentication decisions and provides a smoother experience for your customers, while helping you to fulfil the Strong Customer Authentication (SCA) requirements of the second Payment Services Directive (PSD2). And if the issuer does not support the latest version of 3DS, Sessions allows you to fallback to 3DS version 1.0 instead.
+
+Once you have completed the authentication via Sessions, you can then authorize the payment through our payment gateway or another payment services provider (PSP).
+
+You can choose from two solutions: **non-hosted** or **hosted**.
+
+Supported card schemes
+
+Sessions currently supports Visa (Verified by Visa / Visa Secure) and Mastercard (Identity Check). We will soon add support for additional schemes, including American Express (SafeKey).
+
+Non-hosted and hosted sessions
+------------------------------
+
+### Non-hosted
+
+Non-hosted sessions are designed for those who want full control over their authentication flow.
+
+Initiate an authentication through the Sessions API using a card or a network token, set `completion.type` to `non-hosted` and provide `completion.callback_url` to receive the authentication result.
+
+You will then need to collect channel (either browser or mobile app) and additional authentication data, perform a challenge (if required), and handle the authentication result. You can then proceed to authorize the payment, either through our payment gateway or another PSP.
+
+[Get started with non-hosted sessions](/display/x/Non-hosted+sessions).
+
+### Hosted
+
+This is the simplest solution, where we manage the authentication flow for you.
+
+Initiate an authentication through the Sessions API, set `completion.type` to `hosted`, provide `completion.success_url` and `completion.failure_url`, and redirect the customer using the link in the response. We'll then gather the necessary payment, device and cardholder data and take care of the rest.
+
+[Get started with hosted sessions](/display/x/Hosted+sessions).
+
+Authorization
+-------------
+
+When creating a session, you will need to authorize your request with access key authorization.
+
+Use the following endpoint to generate an `access_token`, and use it to authorize your create session request.
+
+### The request
+
+*   [**Live**](#tabs-8ee1ac3d-ae4c-424d-aa4b-532321b5de1e-1)
+*   [**Sandbox**](#tabs-8ee1ac3d-ae4c-424d-aa4b-532321b5de1e-2)
+
+POST`https://access.checkout.com/connect/token`
+
+POST`https://access.sandbox.checkout.com/connect/token`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+OPTIONAL
+
+`basic`
+
+`Content-Type`
+
+REQUIRED
+
+`application/x-www-form-urlencoded`
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`grant_type`
+
+REQUIRED
+
+STRING
+
+Set this to `client_credentials`.
+
+`client_id`
+
+REQUIRED
+
+STRING
+
+Your Checkout.com access key ID.
+
+`client_secret`
+
+REQUIRED
+
+STRING
+
+Your Checkout.com access key secret.
+
+#### Request example
+
+*   [**Payload**](#tabs-e9d68917-5dd0-4808-9436-2ae3e4d8338d-1)
+*   [**cURL**](#tabs-e9d68917-5dd0-4808-9436-2ae3e4d8338d-2)
+
+    grant_type=client_credentials&client_id= ack_3kgxgdj773yubf4sfmiht3r4h4
+    &client_secret=PddTMk1FBjk1MDQHtBt1U8cHjZvS+Guc80NmcUHp3pHevOpt7EgYkT/DWae7gnOTlF6kPCPo+RZEu9xut/5VVA==
+
+    curl --location --request POST 'https://access.sandbox.checkout.com/connect/token' \
+    --header 'Content-Type: application/x-www-form-urlencoded' \
+    --data-urlencode 'grant_type=client_credentials' \
+    --data-urlencode 'client_id=ack_3kgxgdj773yubf4sfmiht3r4h4' \
+    --data-urlencode 'client_secret=PddTMk1FBjk1MDQHtBt1U8cHjZvS+Guc80NmcUHp3pHevOpt7EgYkT/DWae7gnOTlF6kPCPo+RZEu9xut/5VWA=='
+
+### The response
+
+#### Response example
+
+The token server will return a Bearer `access_token` in JSON Web Token (JWT) format.
+
+Your access token is valid for the length of time (in seconds) indicated by the `expires_in` field. When it expires, you'll need to request a new one.
+
+    {
+      "access_token": "eyJhb6sqaQ",
+      "expires_in": 3600,
+      "token_type": "Bearer",
+      "scope":"flow fx gateway"
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Sessions?showComments=true&showCommentArea=true#addcomment)

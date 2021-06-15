@@ -1,0 +1,179 @@
+---
+title: Get bank account field formatting
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [May 21, 2021](/pages/diffpagesbyversion.action?pageId=8489251&selectedPageVersions=9&selectedPageVersions=10 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Returns the bank account field formatting required to create bank account instruments or perform payouts for the specified country and currency.
+
+Get bank account fields
+-----------------------
+
+### The request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-c4f90e10-6e02-4d8c-82a1-4a94fe446ed2-1)
+*   [**Sandbox**](#tabs-c4f90e10-6e02-4d8c-82a1-4a94fe446ed2-2)
+
+GET`https://api.checkout.com/validation/bank-accounts/{country}/{currency}`
+
+GET`https://api.sandbox.checkout.com/validation/bank-accounts/{country}/{currency}`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`Bearer {OAuth access token}  
+`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Path parameters
+
+Path
+
+Description
+
+Path
+
+Description
+
+`country`
+
+REQUIRED
+
+STRING
+
+The two-letter ISO country code.
+
+See [Country codes](/display/x/Country+codes).
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The three-letter ISO currency code.
+
+See [Currency codes](/display/x/Currency+codes).
+
+#### Query parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`account-holder-type`
+
+OPTIONAL
+
+STRING (ENUM)
+
+  
+
+The type of account holder that will be used to filter the fields returned.
+
+Can be one of:
+
+*   `individual`
+*   `corporate`
+*   `government`
+
+`payment-network`
+
+OPTIONAL
+
+STRING (ENUM)
+
+  
+
+The banking network that will be used to filter the fields returned.
+
+Can be one of:
+
+*   `local`
+*   `sepa`
+*   `fps`
+*   `ach`
+*   `fedwire`
+*   `swift`
+
+### The response
+
+#### Response example
+
+    {
+      "sections": [
+        {
+          "name": "Account Details",
+          "fields": [
+            {
+              "id": "iban",
+              "type": "string",
+              "display": "IBAN",
+              "description": "Number (which can contain letters) that identifies the account",
+              "section": "account",
+              "required": true,
+              "validation_regex": "^[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,18}$",
+              "min_length": 22,
+              "max_length": 22
+            },
+            {
+              "id": "account_holder.first_name",
+              "type": "string",
+              "display": "First name",
+              "description": "The account holder's first name",
+              "section": "account",
+              "required": true
+            },
+            {
+              "id": "account_holder.last_name",
+              "type": "string",
+              "display": "First name",
+              "description": "The account holder's last name",
+              "section": "account",
+              "required": true
+            }
+          ]
+        }
+      ]
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Get+bank+account+field+formatting?showComments=true&showCommentArea=true#addcomment)

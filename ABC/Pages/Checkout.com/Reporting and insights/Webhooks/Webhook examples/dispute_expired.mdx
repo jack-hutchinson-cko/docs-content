@@ -1,0 +1,48 @@
+---
+title: dispute_expired
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 19, 2021](/pages/diffpagesbyversion.action?pageId=2785562&selectedPageVersions=1&selectedPageVersions=2 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Example: Dispute expired
+------------------------
+
+    {
+      "id": "evt_h4htejbikgjurfdpczhbfvgh7a",
+      "type": "dispute_expired",
+      "created_on": "2018-06-21T12:00:31Z",
+      "data": {
+        "id": "dsp_5zui1xj3k39xfgwr8vzy",
+        "date": "2018-06-21T12:00:31Z",
+        "category": "canceled_recurring",
+        "payment_id": "pay_h8v29u6lrcm3turzuxq1"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/events/evt_h4htejbikgjurfdpczhbfvgh7a"
+        },
+        "payment": {
+          "href": "https://api.checkout.com/payments/pay_h8v29u6lrcm3turzuxq1"
+        }, 
+        "dispute": {
+          "href": "https://api.checkout.com/disputes/dsp_5zui1xj3k39xfgwr8vzy"
+        }
+      }
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/dispute_expired?showComments=true&showCommentArea=true#addcomment)

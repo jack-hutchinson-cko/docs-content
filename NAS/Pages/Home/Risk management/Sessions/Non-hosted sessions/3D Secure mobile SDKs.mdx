@@ -1,0 +1,912 @@
+---
+title: 3D Secure mobile SDKs
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ), last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Jun 08, 2021](/pages/diffpagesbyversion.action?pageId=25526275&selectedPageVersions=3&selectedPageVersions=4 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Our 3D Secure (3DS) mobile SDKs allow you to provide a native 3DS2 experience in your Android and iOS apps, with visual styling that you can control.
+
+They work with our [non-hosted authentication solution](/display/x/Non-hosted+sessions), so you can authenticate within the payment authorization flow, or perform only authentication and complete the payment later.
+
+Once you've initiated the authentication, the SDK handles the tasks of collecting device data, exchanging information with the customer's bank, and, if necessary, presenting a challenge to the customer. You can then use the authentication result to authorize the payment.
+
+Your customers' data
+
+Our SDKs collect only data which your app has permission to collect, and it is encrypted throughout authentication. The customer will never be prompted to grant new permissions. We don't store any of the device data collected during authentication, and our SDKs do not retain any personal information about the user.
+
+Our 3D Secure SDK supports 3DS2 (version 2.1.0 and, if your configuration supports it, 2.2.0). It also supports 3DS1 in cases where 3DS2 is not available. However, this feature must be enabled for your account. The SDK handles the version complexity for you, and passes a simple authentication result back to your app, regardless of the 3D Secure version used.
+
+The 3DS2 customer experience
+============================
+
+3DS2 allows you and your payment provider to share more data (like the customer's device ID and payment history) with the customer's bank so they can better assess the risk of the transaction and select the appropriate response: either the "frictionless flow" or "challenge flow". 
+
+Frictionless flow
+-----------------
+
+If the customer's bank is satisfied with the data and trusts that it is the cardholder making the payment, the transaction will be authenticated without interrupting the customer. All the customer will see of the 3DS process is a short "processing" overlay, with branding from their card scheme.
+
+![](/download/attachments/25526275/iOS_frictionless.gif?version=1&modificationDate=1620228297955&api=v2)
+
+Challenge flow
+--------------
+
+If, however, the bank decides it needs further proof, they will prompt the customer to verify their identity. This can take one of the following forms:
+
+*   **One-time password**. The customer's bank sends a single use password or code to the customer, usually as a text message or email, and asks them to enter it.
+*   **Single-select or multi-select**. The bank asks the customer a multiple choice question, with either a single or multiple selections allowed.
+*   **Out-of-band**. The customer is asked to confirm the transaction through another channel, typically their banking app. (See example below.)
+*   **HTML**. The customer's bank defines the exact view to be presented to the customer, using HTML formatting. The challenge may take one of the above forms, or the bank may devise their own approach.
+
+![](/download/attachments/25526275/iOS_OOB.gif?version=1&modificationDate=1620228299359&api=v2)
+
+Customize the challenge UI
+
+To provide a consistent experience across different devices and schemes, there are standard templates and rules that the 3DS challenge screens adhere to. However, there is some leeway around styling. Our SDKs give you [control over the display of the native challenges in your app](#id-3DSecuremobileSDKs-customization), while ensuring that the rules are followed.
+
+How it works
+============
+
+To use one of our 3DS mobile SDKs, configure your iOS or Android app to:
+
+1.  [Integrate](#id-3DSecuremobileSDKs-integrate) the 3DS SDK.
+2.  [Initialize](#id-3DSecuremobileSDKs-initialize) the SDK with your preferred user interface options.
+3.  Request the SDK to [authenticate the cardholder](#id-3DSecuremobileSDKs-authentication).
+4.  [Consume the result](#id-3DSecuremobileSDKs-result) you get from the SDK to continue your payment flow.
+
+Implementation examples
+-----------------------
+
+Below are some code examples for each platform.
+
+*   [**iOS**](#tabs-e6999312-a918-4c8c-bdaf-bafcec73dbad-1)
+*   [**Android**](#tabs-e6999312-a918-4c8c-bdaf-bafcec73dbad-2)
+
+ See example Swift code
+
+    // 1. Init with defaults
+    let checkout3DS = Checkout3DS2Service()
+    
+    // 2. Init with explicit arguments
+    let checkout3DS = Checkout3DS2Service(
+        environment: .production,
+        locale: Locale(identifier: "en_GB"),
+        uiCustomization: uiCustomization,
+        appURL: URL(string: "myapp://my-app-url")!
+    )
+    
+    let authenticationParameters = AuthenticationParameters(
+        sessionID: sessionID, 
+        sessionSecret: sessionSecret, 
+        scheme: scheme)
+      
+    checkout3DS.authenticate(authenticationParameters: authenticationParameters) { error in
+        if let error = error {
+            // Handle error.
+        } else {
+            // Continue with payment.
+        }
+    }
+
+ See example Objective-C code
+
+    // 1. Init with defaults
+    CKOCheckout3DS2Service *checkout3DS2 = [[CKOCheckout3DS2Service alloc] init];
+    
+    // 2. Init with explicit arguments
+    CKOCheckout3DS2Service *checkout3DS2 = [[CKOCheckout3DS2Service alloc] initWithEnvironment:CKOEnvironmentProduction
+                                                                                        locale:[NSLocale localeWithLocaleIdentifier:@"en_GB"]
+                                                                               uiCustomization:uiCustomization
+                                                                                        appURL:[NSURL URLWithString:@"myapp://my-app-url"]];
+    
+    CKOAuthenticationParameters *authenticationParameters = [[CKOAuthenticationParameters alloc] initWithSessionID:sessionID
+                                                                                                     sessionSecret:sessionSecret
+                                                                                                            scheme:scheme];
+    
+    [checkout3DS2 authenticateWithAuthenticationParameters:authenticationParameters
+                                         completionHandler:^(NSError * _Nullable error) {
+        if (error) {
+            // Handle error.
+        } else {
+           // Continue with payment.
+        }
+    }];
+
+ See example Kotlin code
+
+    // 1. Init with defaults
+    val checkout3DS = Checkout3DS2Service(context)
+    
+    // 2. Init with explicit arguments
+    val checkout3DS = Checkout3DSService(
+            context,
+            Environment.PRODUCTION,
+            Locale.UK,
+            uiCustomisation,
+            Uri.parse("sampleAppScheme://sampleAppName/3ds_authentication")
+    )
+    
+    val authenticationParameters = AuthenticationParameters(
+        sessionId, 
+        sessionSecret, 
+        scheme)
+      
+    checkout3DS.authenticate(authenticationParameters, context) { result: AuthenticationResult ->
+        when (result.eventType) {
+            Successful -> {
+                // continue with payment, show √
+            }
+            Failed -> {
+                // terminate payment, show X
+            }
+            Error -> {
+                // handle error (result as AuthenticationError)
+      
+                // handle error based on error type category
+                val errorType: AuthenticationErrorType = (result as AuthenticationError).errorType
+      
+                // Handle error based on fine grained error code or simply log the error
+                val errorCode: String = (result as AuthenticationError).errorCode
+            }
+        }
+    }
+
+ See example Java code
+
+    // 1. Init with defaults
+    Checkout3DS2Service checkout3DS = new Checkout3DS2Service(context);
+    
+    // 2. Init with explicit arguments
+    Checkout3DSService checkout3DS = new Checkout3DSService(
+            context,
+            Environment.PRODUCTION.INSTANCE,
+            Locale.UK,
+            uiCustomisation,
+            Uri.parse("sampleAppScheme://sampleAppName/3ds_authentication")
+    );
+    
+    AuthenticationParameters authenticationParameters = AuthenticationParameters(
+        sessionId, 
+        sessionSecret, 
+        scheme)
+      
+    checkout3DS.authenticate(authenticationParameters, result -> {
+        switch (result.getEventType()) {
+            case Successful:
+                // continue with payment, show √
+                break;
+            case Failed:
+                // terminate payment, show X
+                break;
+            case Error:
+                // handle error
+                AuthenticationError authenticationError = (AuthenticationError) result;
+    
+                // handle error based on error type category
+                AuthenticationErrorType errorType = authenticationError.getErrorType();
+    
+                // Handle error based on fine grained error code.
+                String errorCode = authenticationError.getErrorCode();
+                break;
+        }
+    });
+
+Step 1: Integrate the SDK 
+--------------------------
+
+First, integrate the SDK into your mobile app.
+
+*   **iOS**. Install the library using Cocoapods or Swift Package Manager.
+*   **Android**. Add the library to your app as a gradle dependency.
+
+Step 2: Initialize the SDK 
+---------------------------
+
+Initialize the SDK, setting the environment (production or sandbox), the locale, and your preferred [challenge user interface options](#id-3DSecuremobileSDKs-customization).
+
+*   [**Swift**](#tabs-07d79f20-17d8-47ab-9158-e67f1ba05d07-1)
+*   [**Obective-C**](#tabs-07d79f20-17d8-47ab-9158-e67f1ba05d07-2)
+*   [**Kotlin**](#tabs-07d79f20-17d8-47ab-9158-e67f1ba05d07-3)
+*   [**Java**](#tabs-07d79f20-17d8-47ab-9158-e67f1ba05d07-4)
+
+    // 1. Init with defaults
+    let checkout3DS = Checkout3DS2Service()
+    
+    // 2. Init with explicit arguments
+    let checkout3DS = Checkout3DS2Service(
+       environment: .production,
+       locale: Locale(identifier: "en_GB"),
+       uiCustomization: uiCustomization,
+       appURL: URL(string: "myapp://my-app-url")!
+    )
+            
+
+    // 1. Init with defaults
+    CKOCheckout3DS2Service *checkout3DS2 = [[CKOCheckout3DS2Service alloc] init];
+    
+    // 2. Init with explicit arguments
+    CKOCheckout3DS2Service *checkout3DS2 = [[CKOCheckout3DS2Service alloc] initWithEnvironment:CKOEnvironmentProduction
+                                                                                        locale:[NSLocale localeWithLocaleIdentifier:@"en_GB"]
+                                                                               uiCustomization:uiCustomization
+                                                                                        appURL:[NSURL URLWithString:@"myapp://my-app-url"]];
+            
+
+    // 1. Init with defaults
+    val checkout3DS = Checkout3DS2Service(context)
+    
+    // 2. Init with explicit arguments
+    val checkout3DS = Checkout3DSService(
+            context,
+            Environment.PRODUCTION,
+            Locale.UK,
+            uiCustomisation,
+            Uri.parse("sampleAppScheme://sampleAppName/3ds_authentication")
+    )
+            
+
+    // 1. Init with defaults
+    Checkout3DS2Service checkout3DS = new Checkout3DS2Service(context);
+    
+    // 2. Init with explicit arguments
+    Checkout3DSService checkout3DS = new Checkout3DSService(
+            context,
+            Environment.PRODUCTION.INSTANCE,
+            Locale.UK,
+            uiCustomisation,
+            Uri.parse("sampleAppScheme://sampleAppName/3ds_authentication")
+    );
+            
+
+ See more details
+
+#### Checkout3DS2Service
+
+This is the main class of the SDK that performs payment authentication with the `authenticate` method. It only needs to be initialized once for the lifetime of the application, and is initialized with the following parameters.
+
+*   [**iOS**](#tabs-65e8f8e1-b366-46b4-9dda-fecead62e9a2-1)
+*   [**Android**](#tabs-65e8f8e1-b366-46b4-9dda-fecead62e9a2-2)
+
+Field name
+
+Field type
+
+Description
+
+`environment`
+
+OPTIONAL
+
+`Environment`
+
+The environment the SDK will connect to (`PRODUCTION` or `SANDBOX`).
+
+Default: `PRODUCTION`
+
+`locale`
+
+OPTIONAL
+
+`Locale`
+
+The customer's locale and preferred language.
+
+Default: the device locale
+
+`uiCustomization`
+
+OPTIONAL
+
+`UICustomization`
+
+The [customizations for the challenge user interface](#id-3DSecuremobileSDKs-customization).
+
+`appUrl`
+
+OPTIONAL  
+
+`URL`
+
+The application URL used to open and move your application to the foreground. 
+
+This field is optional, but we recommend including it to ensure a smoother out-of-band challenge experience for your user. This way, the user is automatically redirected back to your app after their banking app has authorized the transaction. This feature is available if the user’s card issuer also supports it.
+
+If your app uses a deep link scheme, make sure that the `appURL` field value links to the current 3D Secure transaction or app page.
+
+The `appUrl` field value can have up to 211 characters. If it exceeds 211 characters, it is ignored and the SDK returns an initialization warning.
+
+Field name
+
+Field type
+
+Description
+
+`environment`
+
+OPTIONAL
+
+`Environment`
+
+The environment the SDK will connect to (`PRODUCTION` or `SANDBOX`).
+
+Default: `PRODUCTION`
+
+`locale`
+
+OPTIONAL
+
+`Locale`
+
+The customer's locale and preferred language.
+
+Default: the device locale
+
+`uiCustomization`
+
+OPTIONAL
+
+`UICustomization`
+
+The [customizations for the challenge user interface](#id-3DSecuremobileSDKs-customization).
+
+`context`
+
+REQUIRED
+
+`Context`
+
+The app context. Required for Android to access app resources.
+
+`appUrl`
+
+OPTIONAL
+
+`Uri`
+
+The application URL used to open and move your application to the foreground. 
+
+This field is optional, but we recommend including it to ensure a smoother out-of-band challenge experience for your user. This way, the user is automatically redirected back to your app after their banking app has authorized the transaction. This feature is available if the user’s card issuer also supports it.
+
+If your app uses a deep link scheme, make sure that the `appURL` field value links to the current 3D Secure transaction or app page.
+
+The `appUrl` field value can have up to 211 characters. If it exceeds 211 characters, it is ignored and the SDK returns an initialization warning.
+
+#### **Check for security warnings**
+
+Optionally, you can use the `getWarnings` method to check for any security warnings when initializing the SDK, or any time afterwards. It will return the following information:
+
+Field name
+
+Description
+
+`id`
+
+STRING
+
+REQUIRED
+
+The warning ID defined by the EMVCo spec in the format `SWxx`
+
+`message`
+
+STRING
+
+REQUIRED
+
+The warning description
+
+`severity`
+
+SEVERITY
+
+REQUIRED
+
+The severity of the warning. Either `LOW`, `MEDIUM`, or `HIGH`.
+
+Step 3: Request authentication 
+-------------------------------
+
+After your backend has requested an authentication session with our [Sessions API](/display/x/Non-hosted+sessions), you will receive a response.
+
+Use the `authenticate` method to start the authentication, passing the values you received in the Sessions API response into `authenticationParameters`.
+
+The SDK will then gather the device data, share the information with the customer's bank, and, if necessary, present a challenge to the customer.
+
+*   [**Swift**](#tabs-edc9aa9c-d318-4a5d-b36a-289c292ff167-1)
+*   [**Objective-C**](#tabs-edc9aa9c-d318-4a5d-b36a-289c292ff167-2)
+*   [**Kotlin**](#tabs-edc9aa9c-d318-4a5d-b36a-289c292ff167-3)
+*   [**Java**](#tabs-edc9aa9c-d318-4a5d-b36a-289c292ff167-4)
+
+    let authenticationParameters = AuthenticationParameters(
+        sessionID: sessionID, 
+        sessionSecret: sessionSecret, 
+        scheme: scheme)
+    
+
+    
+    CKOAuthenticationParameters *authenticationParameters = [[CKOAuthenticationParameters alloc] initWithSessionID:sessionID
+                                                                                                     sessionSecret:sessionSecret
+                                                                                                            scheme:scheme];
+    
+
+    val authenticationParameters = AuthenticationParameters(
+        sessionId, 
+        sessionSecret, 
+        scheme)
+    
+
+    AuthenticationParameters authenticationParameters = AuthenticationParameters(
+        sessionId,
+        sessionSecret,
+        scheme)
+    
+
+ See more details
+
+*   [**iOS**](#tabs-b017024f-15c0-437f-9f54-4e4fb0a27c53-1)
+*   [**Android**](#tabs-b017024f-15c0-437f-9f54-4e4fb0a27c53-2)
+
+#### Authenticate method parameters
+
+Parameter name
+
+Parameter type
+
+Description
+
+`authenticationParameters`
+
+REQUIRED
+
+`AuthenticationParameters`
+
+The authentication parameters, including `sessionId`, `sessionSecret`, and `scheme`.
+
+`completionHandler`
+
+REQUIRED
+
+`(AuthenticationError?) → Void`
+
+Closure that is called with the error that occurred during authentication, or `nil` if the authentication is successful.
+
+#### AuthenticationParameters properties
+
+Field name
+
+Description
+
+`sessionID`
+
+STRING
+
+REQUIRED
+
+The unique ID of the authentication session. You will have received this in the response to the create session call to our Sessions API.
+
+`sessionSecret`
+
+STRING
+
+REQUIRED
+
+The session secret. You will have received this in the response to the create session call to our Sessions API.
+
+`scheme`
+
+STRING
+
+REQUIRED
+
+The name of the customer's card scheme: `Visa`, `Mastercard`, `Jcb`, `Amex`, or `Diners`. Used to display the scheme's logo on the progress user interface.
+
+#### Authenticate method parameters
+
+Parameter name
+
+Parameter type
+
+Description
+
+`authenticationParameters`
+
+REQUIRED
+
+`AuthenticationParameters`
+
+The authentication parameters, including `sessionId`, `sessionSecret`, and `scheme`.
+
+`callback`
+
+REQUIRED
+
+`(AuthenticationResult → Void)`
+
+Lambda that is initialized with the result of authentication.
+
+#### AuthenticationParameters properties
+
+Field name
+
+Description
+
+`sessionId`
+
+STRING
+
+REQUIRED
+
+The unique ID of the authentication session. You will have received this in the response to the create session call to our Sessions API.
+
+`sessionSecret`
+
+STRING
+
+REQUIRED
+
+The session secret. You will have received this in the response to the create session call to our Sessions API.
+
+`scheme`
+
+STRING
+
+REQUIRED
+
+The name of the customer's card scheme: `Visa`, `Mastercard`, `Jcb`, `Amex`, or `Diners`. Used to display the scheme's logo on the progress user interface.
+
+Step 4: Handle the result 
+--------------------------
+
+Once the authentication is completed, the SDK will return a result – either `Successful`, `Failed`, or `Error`. 
+
+If `Successful`, you can use our Payments API to complete the payment, or use another payment services provider to do so.
+
+*   [**Swift**](#tabs-e62263a8-59b9-4aff-8ed8-136119e49d05-1)
+*   [**Objective-C**](#tabs-e62263a8-59b9-4aff-8ed8-136119e49d05-2)
+*   [**Kotlin**](#tabs-e62263a8-59b9-4aff-8ed8-136119e49d05-3)
+*   [**Java**](#tabs-e62263a8-59b9-4aff-8ed8-136119e49d05-4)
+
+    checkout3DS.authenticate(authenticationParameters: authenticationParameters) { error in
+        if let error = error {
+            // Handle error.
+        } else {
+            // Continue with payment.
+        }
+    }
+
+    [checkout3DS2 authenticateWithAuthenticationParameters:authenticationParameters
+                                         completionHandler:^(NSError * _Nullable error) {
+        if (error) {
+            // Handle error.
+        } else {
+           // Continue with payment.
+        }
+    }];
+
+    checkout3DS.authenticate(authenticationParameters, context) { result: AuthenticationResult ->
+        when (result.eventType) {
+            Successful -> {
+                // continue with payment, show √
+            }
+            Failed -> {
+                // terminate payment, show X
+            }
+            Error -> {
+                // handle error (result as AuthenticationError)
+      
+                // handle error based on error type category
+                val errorType: AuthenticationErrorType = (result as AuthenticationError).errorType
+      
+                // Handle error based on fine grained error code or simply log the error
+                val errorCode: String = (result as AuthenticationError).errorCode
+            }
+        }
+    }
+
+    checkout3DS.authenticate(authenticationParameters, result -> {
+        switch (result.getEventType()) {
+            case Successful:
+                // continue with payment, show √
+                break;
+            case Failed:
+                // terminate payment, show X
+                break;
+            case Error:
+                // handle error
+                AuthenticationError authenticationError = (AuthenticationError) result;
+    
+                // handle error based on error type category
+                AuthenticationErrorType errorType = authenticationError.getErrorType();
+    
+                // Handle error based on fine grained error code.
+                String errorCode = authenticationError.getErrorCode();
+                break;
+        }
+    });
+
+ Show more details
+
+*   [**iOS**](#tabs-f4f7c26f-557e-45cb-9495-e2755f800b45-1)
+*   [**Android**](#tabs-f4f7c26f-557e-45cb-9495-e2755f800b45-2)
+
+#### AuthenticationError
+
+This enumeration contains all the possible errors that might occur during authentication. Each error has a readable name and an associated error code.
+
+Swift uses `AuthenticationError`, but Objective-C uses `NSError`.
+
+#### AuthenticationResult
+
+Represents the outcome of the authentication.
+
+Field name
+
+Field type
+
+Description
+
+`eventType`
+
+`EventType`
+
+Gives the outcome of the authentication
+
+The `eventType` will be one of the following:
+
+*   `Successful` – Authentication was successful. You can proceed with the payment.
+*   `Failed` – Authentication was unsuccessful. You cannot proceed with the payment.
+*   `Error` – An error occurred during authentication. You will need to handle the error.
+
+#### AuthenticationError
+
+Represents the details of the error that occurred during authentication. The error object contains two bits of information: the `errorType` and the `errorCode`.
+
+Field name
+
+Field type
+
+Description
+
+`event`
+
+`EventType`
+
+The authentication result. Will always be `Error`.
+
+`errorType`
+
+`AuthenticationErrorType`
+
+The type of error that occurred.
+
+`errorCode`
+
+`String`
+
+The error code.
+
+The `errorType` will be one of the following:
+
+Error type
+
+Can I retry authentication?
+
+Description
+
+`AuthenticationProcessError`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+The authentication did not complete due to the business rules of the SDK.
+
+`ConnectivityError`
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+The communication between the SDK and the remote server could not be established. We recommend retrying authentication if this occurs.
+
+`ThreeDS2ProtocolError`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+The SDK encountered an error specified in the 3DS2 protocol.
+
+`InternalError`
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+The SDK encountered an error related to the implementation of the SDK.
+
+Customize the challenge user interface 
+---------------------------------------
+
+We’ve built a simple, clean default style for the native challenge user interfaces, so you can quickly get going without defining your own style. But if you want to tailor the challenge screens in your app, our SDKs let you control:
+
+*   Fonts and font colors.
+*   The background color of the navigation bar and footer.
+*   The background color, opacity, shadows, and corner radiuses of the action buttons.
+
+Our SDKs also handle different screen sizes and orientations, and allow you to address different user needs with dynamic text sizing, TalkBack and VoiceOver assistance, and support for 37 languages (though the body of the challenge screens is always presented in the language provided by the customer's bank).
+
+To apply your own style, simply include a UI Customization object when you [initialise the SDK](#id-3DSecuremobileSDKs-initialize). We've included some code examples below to show you how you might build the object.
+
+*   [**iOS**](#tabs-a46a9632-4b89-4b43-a69c-641ee555a4c8-1)
+*   [**Android**](#tabs-a46a9632-4b89-4b43-a69c-641ee555a4c8-2)
+
+ Customization example
+
+    final class Customization1: UICustomization {
+    
+        let toolbarCustomization = DefaultToolbarCustomization(backgroundColor: .blue,
+                                                               headerTitle: "3DS Check",
+                                                               buttonTitle: "Cancel",
+                                                               font: UIFont(name: "Optima-Bold", size: 20)!,
+                                                               textColor: .black)
+    
+        let labelCustomization = DefaultLabelCustomization(headingTextColor: .purple,
+                                                           headingFont: UIFont(name: "Optima-Bold", size: 16)!,
+                                                           font: UIFont(name: "Optima-Regular", size: 16)!,
+                                                           textColor: .orange)
+    
+        let buttonCustomizations = DefaultButtonCustomizations(
+            verifyButtonCustomization: DefaultButtonCustomization(backgroundColor: .red,
+                                                                  cornerRadius: 24,
+                                                                  cornerCurve: .circular,
+                                                                  font: UIFont(name: "Optima-Regular", size: 14)!,
+                                                                  textColor: .white,
+                                                                  borderWidth: 0,
+                                                                  borderColor: UIColor.clear.cgColor),
+            continueFlowButtonCustomization: DefaultButtonCustomization(backgroundColor: UIColor.blue,
+                                                                        cornerRadius: 24,
+                                                                        cornerCurve: .circular,
+                                                                        font: UIFont(name: "Optima", size: 14)!,
+                                                                        textColor: .white,
+                                                                        borderWidth: 0,
+                                                                        borderColor: UIColor.clear.cgColor))
+    
+        let whitelistCustomization = DefaultWhitelistCustomization(font: UIFont(name: "Optima-Regular", size: 16)!,
+                                                                   textColor: .black,
+                                                                   switchTintColor: .green)
+    
+        let footerCustomization = DefaultFooterCustomization(backgroundColor: .clear,
+                                                             font: UIFont(name: "Optima-Bold", size: 16)!,
+                                                             textColor: .black,
+                                                             labelFont: UIFont(name: "Optima-Regular", size: 16)!,
+                                                             labelTextColor: .blue,
+                                                             expandIndicatorColor: .green)
+    }
+
+ Simplified customization
+
+    uiCustomization {
+        all {
+            textColor = R.color.styleGreenColor
+            textFont = R.font.raleway
+            tint = R.color.styleGreenColor
+        }
+    }
+
+ Full customization
+
+    uiCustomization {
+        navigationBar {
+            backgroundColor = R.color.customStyle1Color1
+            panelElevation = R.dimen.navigationBarElevation1
+    
+            heading {
+                textColor = R.color.customStyle1Color6
+                text = R.string.navigationBarHeadingText1
+                textFont = R.font.raleway
+            }
+    
+            button {
+                textColor = R.color.customStyle1Color2
+                text = R.string.navigationBarButtonText1
+                textFont = R.font.raleway
+    
+            }
+        }
+    
+        informationHeader {
+            textColor = R.color.customStyle1Color1
+            textFont = R.font.raleway
+        }
+        informationText {
+            textColor = R.color.customStyle1Color1
+            textFont = R.font.raleway
+        }
+    
+        entryLabel {
+            textColor = R.color.customStyle1Color1
+            textFont = R.font.raleway
+        }
+    
+        whitelistLabel {
+            thumbColor = R.color.customStyle1Color2
+            textColor = R.color.customStyle1Color5
+            textFont = R.font.raleway
+        }
+    
+        actionButton {
+            label {
+                textColor = R.color.customStyle1Color6
+                textFont = R.font.raleway
+            }
+    
+            background {
+                backgroundColor = R.color.customStyle1Color1
+                cornerRadius = R.dimen.buttonCornerRadius1
+                bgElevation = R.dimen.buttonElevation1
+            }
+        }
+    
+        alternativeButton {
+            label {
+                textColor = R.color.customStyle1Color3
+                textFont = R.font.raleway
+            }
+    
+            background {
+                backgroundColor = R.color.customStyle1Color4
+                borderColor = R.color.customStyle1Color3
+                borderWidth = R.dimen.buttonBorderWidth1
+                cornerRadius = R.dimen.buttonCornerRadius1
+                bgElevation = R.dimen.buttonElevation1
+            }
+        }
+    
+        entryBox {
+            input {
+                textColor = R.color.customStyle1Color1
+                textFont = R.font.raleway
+            }
+            background {
+                backgroundColor = R.color.customStyle1Color6
+                borderColor = R.color.customStyle1Color2
+                borderWidth = R.dimen.buttonBorderWidth1
+                cornerRadius = R.dimen.buttonCornerRadius1
+                bgElevation = R.dimen.buttonElevation1
+            }
+    
+        }
+    
+        entrySelector {
+            selectorColor = R.color.customStyle1Color2
+    
+            label {
+                textColor = R.color.customStyle1Color1
+                textFont = R.font.raleway
+            }
+        }
+    
+        footer {
+            expandIndicatorColor = R.color.customStyle1Color2
+    
+            label {
+                textColor = R.color.customStyle1Color5
+                textFont = R.font.raleway
+            }
+    
+            text {
+                textColor = R.color.customStyle1Color5
+                textFont = R.font.raleway
+            }
+        }
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/3D+Secure+mobile+SDKs?showComments=true&showCommentArea=true#addcomment)

@@ -1,0 +1,381 @@
+---
+title: Get payment details
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [May 06, 2021](/pages/diffpagesbyversion.action?pageId=2785680&selectedPageVersions=7&selectedPageVersions=8 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+This endpoint enables you to fetch and view relevant information and parameters related to a specific payment. Before you start, make sure you have the payment ID or session ID of the payment in question.
+
+The session ID is provided in the  `cko-session-id`  query parameter included in the redirect URL back to your site. Redirect URLs have the following format:  
+`http://example.com/success?cko-session-id=sid_ubfj2q76miwundwlk72vxt2i7`
+
+The `cko-session-id` expires 15 minutes after being created.
+
+### The request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-e7a2d409-8fb3-4791-8bb3-54ff3731be27-1)
+*   [**Sandbox**](#tabs-e7a2d409-8fb3-4791-8bb3-54ff3731be27-2)
+
+GET`https://api.checkout.com/payments/{id}`
+
+GET`https://api.sandbox.checkout.com/payments/{id}`
+
+#### Header and path parameters
+
+  
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2)
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+  
+
+Path
+
+Value
+
+`id`
+
+REQUIRED
+
+The payment ID (prefixed with `pay_`) or the session ID (prefixed with `sid_`).
+
+### The response
+
+If your request is successful, the response will return information about the payment.
+
+    {
+      "id": "pay_mbabizu24mvu3mela5njyhpit4",
+      "requested_on": "2021-01-21T09:20:51Z",
+      "source": {
+        "type": "card",
+        "id": "src_nwd3m4in3hkuddfpjsaevunhdy",
+        "billing_address": {
+          "address_line1": "Checkout.com",
+          "address_line2": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        },
+        "phone": {
+          "country_code": "+1",
+          "number": "4155552671"
+        }
+      },
+      "destination": {
+        "type": "card",
+        "id": "src_wmlfc3zyhqzehihu7giusaaawu",
+        "billing_address": {
+          "address_line1": "Checkout.com",
+          "address_line2": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        },
+        "phone": {
+          "country_code": "+1",
+          "number": "4155552671"
+        }
+      },
+      "amount": 6540,
+      "currency": "USD",
+      "payment_type": "Recurring",
+      "reference": "ORD-5023-4E89",
+      "description": "Set of 3 masks",
+      "approved": true,
+      "status": "Authorized",
+      "3ds": {
+        "downgraded": false,
+        "enrolled": "Y",
+        "signature_valid": "Y",
+        "authentication_response": "Y",
+        "cryptogram": "hv8mUFzPzRZoCAAAAAEQBDMAAAA=",
+        "xid": "MDAwMDAwMDAwMDAwMDAwMzIyNzY=",
+        "version": "2.1.0"
+      },
+      "risk": {
+        "flagged": true
+      },
+      "customer": {
+        "id": "cus_y3oqhf46pyzuxjbcn2giaqnb44"
+      },
+      "billing_descriptor": {
+        "name": "SUPERHEROES.COM",
+        "city": "GOTHAM"
+      },
+      "shipping": {
+        "address": {
+          "address_line1": "Checkout.com",
+          "address_line2": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        },
+        "phone": {
+          "country_code": "+1",
+          "number": "4155552671"
+        }
+      },
+      "payment_ip": "90.197.169.245",
+      "recipient": {
+        "dob": "1985-05-15",
+        "account_number": "5555554444",
+        "zip": "W1T",
+        "first_name": "John",
+        "last_name": "Jones"
+      },
+      "metadata": {
+        "coupon_code": "NY2018",
+        "partner_id": 123989
+      },
+      "eci": "06",
+      "scheme_id": "488341541494658",
+      "actions": [
+        {
+          "id": "act_y3oqhf46pyzuxjbcn2giaqnb44",
+          "type": "Authorization",
+          "response_code": "10000",
+          "response_summary": "Approved"
+        }
+      ],
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/payments/pay_y3oqhf46pyzuxjbcn2giaqnb44"
+        },
+        "actions": {
+          "href": "https://api.checkout.com/payments/pay_y3oqhf46pyzuxjbcn2giaqnb44/actions"
+        },
+        "refund": {
+          "href": "https://api.checkout.com/payments/pay_y3oqhf46pyzuxjbcn2giaqnb44/refund"
+        }
+      }
+    }
+
+If unsuccessful, you may get a `404 – Payment not found` error.
+
+####   
+Response parameters
+
+Find out what the different fields in your successful response mean. For a full list of responses, see the [API reference](https://api-reference.checkout.com/#operation/getPaymentDetails).
+
+  
+
+Field name
+
+Description
+
+`id`
+
+STRING
+
+The unique identifier of the payment action.
+
+`requested_on`
+
+STRING
+
+The date and time the payment was requested.
+
+`source`
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+STRING
+
+The payment source type.
+
+For any payment request sources that result in a card token (for example, token) this is set to card, otherwise it displays the name of the alternative payment method.
+
+`destination`
+
+OBJECT
+
+The destination of the payment.
+
+`amount`
+
+INTEGER
+
+The original payment amount.
+
+`currency`
+
+STRING
+
+The three-letter ISO currency code of the payment.
+
+`payment_type`
+
+STRING
+
+Specified for card payments where the cardholder is not present (recurring or Merchant Offline Telephone Order).
+
+Default:  `"Regular"` . Other values:  `"Recurring"` ,  `"MOTO"`
+
+`reference`
+
+STRING
+
+The payment reference, like an order number.
+
+`description`
+
+STRING
+
+A description of the payment.
+
+`approved`
+
+BOOLEAN
+
+Whether the authorization or capture was successful.
+
+`status`
+
+STRING
+
+The status of the payment, which can be:
+
+*   Pending
+*   Authorized
+*   Card Verified
+*   Voided
+*   Partially Captured
+*   Captured
+*   Partially Refunded
+*   Refunded
+*   Declined
+*   Canceled
+*   Paid
+*   Expired
+
+`3ds`
+
+OBJECT
+
+Holds information relating to the processing of 3D Secure payments.
+
+`risk`
+
+OBJECT
+
+Returns the payment's risk assessment results.
+
+`risk.flagged`
+
+STRING
+
+Whether the payment was flagged by a risk check.
+
+`customer`
+
+OBJECT
+
+Details about the customer.
+
+`customer.id`
+
+STRING
+
+The unique identifier of the customer.
+
+`billing_descriptor`
+
+OBJECT
+
+Details about the dynamic billing descriptor displayed on the cardholder's statement.
+
+`shipping`
+
+OBJECT
+
+The payment shipping details.
+
+`payment_ip`
+
+STRING
+
+The IP address used to make the payment.
+
+`recipient`
+
+OBJECT
+
+Information about the person receiving the funds.
+
+Relevant for both Account Funding Transactions and VISA or MasterCard domestic UK transactions processed by Financial Institutions.  
+
+`metadata`
+
+OBJECT
+
+This can be useful for storing additional information in a structured format.
+
+`eci`
+
+STRING
+
+The final Electronic Commerce Indicator (ECI) security level used to authorize the payment. Applicable for 3D Secure, digital wallet, and network token payments.
+
+`scheme_id`
+
+STRING
+
+The scheme transaction identifier.
+
+`actions`
+
+ARRAY
+
+A summary of actions related to the payment.
+
+Only returned if you used the session ID in the request.
+
+`_links`
+
+OBJECT
+
+The links related to the payment.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Get+payment+details?showComments=true&showCommentArea=true#addcomment)

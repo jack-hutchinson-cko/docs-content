@@ -1,0 +1,900 @@
+---
+title: Manage workflows
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Toby Knott](    /display/~toby.knott
+    ) on [May 18, 2021](/pages/diffpagesbyversion.action?pageId=8488131&selectedPageVersions=21&selectedPageVersions=22 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Learn how to manage your workflows using our API.
+
+Find out how to:
+
+*   [Return all workflows](#Manageworkflows-returnallworkflows)
+*   [Return a single workflow](#Manageworkflows-returnsingleworkflow)
+*   [Add a new workflow](#Manageworkflows-addnewworkflow)
+*   [Update the name of a workflow](#Manageworkflows-updatename)
+*   [Update the actions of a workflow](#Manageworkflows-updateaction)
+*   [Update the conditions of a workflow](#Manageworkflows-updatecondition)
+*   [Delete a workflow](#Manageworkflows-deleteworkflow)
+
+Return all workflows 
+---------------------
+
+Use this API request to view all your previously configured workflows.
+
+### The GET request
+
+#### Endpoints
+
+*   [**Live**](#tabs-098c6732-2c6d-43c7-a92e-9fc24293bdd1-1)
+*   [**Sandbox**](#tabs-098c6732-2c6d-43c7-a92e-9fc24293bdd1-2)
+
+GET`https://api.checkout.com/workflows`
+
+GET`https://api.sandbox.checkout.com/workflows`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+### The GET response
+
+#### Response example
+
+    {
+      "data": [
+        {
+          "id": "wf_wlu3wxc26jounofs5iez75qaqa",
+          "name": "Webhooks workflow",
+          "_links": {
+            "self": {
+              "href": "https://api.checkout.com/workflows/wf_wlu3wxc26jounofs5iez75qaqa"
+            }
+          }
+        }
+      ]
+    }
+
+Other possible responses:
+
+*   401 - Unauthorized
+*   500 - Internal error
+
+Return a single workflow 
+-------------------------
+
+Use this API request to view the details of a single workflow using its workflow ID.
+
+### The GET request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-45e2aa7f-1b25-429a-b2a9-297d34834be0-1)
+*   [**Sandbox**](#tabs-45e2aa7f-1b25-429a-b2a9-297d34834be0-2)
+
+GET`https://api.checkout.com/workflows/{workflowId}`
+
+GET`https://api.sandbox.checkout.com/workflows/{workflowId}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`workflowId`
+
+REQUIRED
+
+The workflow identifier.
+
+### The GET response
+
+Below is an example successful response where the details of the configured workflow are visible.
+
+    {
+      "name": "Webhooks workflow",
+      "conditions": [
+        {
+          "type": "event",
+          "events": {
+            "gateway": [
+              "card_verified",
+              "card_verification_declined",
+              "payment_approved",
+              "payment_pending",
+              "payment_declined",
+              "payment_voided",
+              "payment_captured",
+              "payment_refunded"
+            ],
+            "dispute": [
+              "dispute_canceled",
+              "dispute_evidence_required",
+              "dispute_expired",
+              "dispute_lost",
+              "dispute_resolved",
+              "dispute_won"
+            ]
+          }
+        },
+        {
+          "type": "entity",
+          "entities": [
+            "ent_xyfdshfudosfdshfdiosfds",
+            "ent_fidjosfjdisofdjsifdosfu"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "type": "webhook",
+          "url": "https://example.com/webhook-receiver",
+          "headers": {
+            "Authorization": "secret-key"
+          },
+          "signature": {
+            "key": "signature-key"
+          }
+        }
+      ],
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/workflows/wf_wlu3wxc26jounofs5iez75qaqa"
+        }
+      }
+    }
+
+Other possible responses:
+
+*   401 - Unauthorized
+*   404 - Workflow not Found
+*   500 - Internal error
+
+Add a new workflow 
+-------------------
+
+Use this API request to add a new workflow. 
+
+### The POST request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-9fff94de-a2a0-4c37-a474-d4802da18f1d-1)
+*   [**Sandbox**](#tabs-9fff94de-a2a0-4c37-a474-d4802da18f1d-2)
+
+POST`https://api.checkout.com/workflows`
+
+POST`https://api.sandbox.checkout.com/workflows`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+See our [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Workflows/paths/~1workflows/post) for the full specification.
+
+  
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`name`
+
+OPTIONAL
+
+STRING
+
+A name you can use to describe your workflow.
+
+`conditions`
+
+OPTIONAL
+
+ARRAY
+
+The workflow conditions.
+
+`conditions.type`
+
+REQUIRED
+
+STRING
+
+The type of workflow condition. You must include an `event` condition. The `entity` condition is an optional filter, which only supports `gateway` and `dispute` webhooks.
+
+`conditions.events`
+
+REQUIRED
+
+OBJECT
+
+The events object.
+
+`conditions.events.property_name`
+
+REQUIRED
+
+ARRAY
+
+The event source. One or more of `gateway`, `marketplace`, or `dispute`.
+
+`conditions.entities`
+
+REQUIRED if you include an `entity` condition
+
+ARRAY
+
+The entities array.
+
+`actions`
+
+OPTIONAL
+
+OBJECT
+
+The workflow actions.
+
+`actions.type`
+
+REQUIRED
+
+STRING
+
+The type of workflow action.
+
+  
+
+`actions.url`
+
+REQUIRED
+
+STRING
+
+Your webhook endpoint URL.
+
+`actions.headers`
+
+OPTIONAL
+
+OBJECT
+
+Optional [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) added to the request.
+
+`actions.headers.property_name`
+
+OPTIONAL
+
+STRING
+
+The HTTP header value.
+
+`actions.signature`
+
+OPTIONAL
+
+OBJECT
+
+Used to produce a signature of the webhook contents that will be included in the `Cko-Signature` header. This value can be computed by you on receipt of a webhook to validate its authenticity.
+
+`actions.signature.method`
+
+OPTIONAL
+
+ENUM
+
+The signing method. Defaults to HMAC SHA256.
+
+`actions.signature.key`
+
+REQUIRED
+
+STRING
+
+The key used to sign the webhook.
+
+#### Request example
+
+    {
+      "name": "My Webhook Workflow",
+      "conditions": [
+        {
+          "type": "event",
+          "events": {
+            "gateway": [
+              "payment_approved",
+              "payment_declined",
+              "card_verification_declined",
+              "card_verified",
+              "payment_authorization_incremented",
+              "payment_authorization_increment_declined",
+              "payment_capture_declined",
+              "payment_captured",
+              "payment_refund_declined",
+              "payment_refunded",
+              "payment_void_declined",
+              "payment_voided"
+            ],
+            "dispute": [
+              "dispute_canceled",
+              "dispute_evidence_required",
+              "dispute_expired",
+              "dispute_lost",
+              "dispute_resolved",
+              "dispute_won"
+            ]
+          }
+        },
+        {
+          "type": "entity",
+          "entities": [
+            "ent_xyfdshfudosfdshfdiosfds",
+            "ent_fidjosfjdisofdjsifdosfu"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "type": "webhook",
+          "url": "https://example.com/webhook-receiver",
+          "headers": {
+            "Authorization": "secret-key"
+          },
+          "signature": {
+            "key": "signature-key"
+          }
+        }
+      ]
+
+### The POST response
+
+Below is an example successful response with the details of the additional workflow.
+
+#### Response example
+
+    {
+      "id": "wf_wlu3wxc26jounofs5iez75qaqa",
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/workflows/wf_wlu3wxc26jounofs5iez75qaqa"
+        }
+      }
+    }
+
+Other possible responses:
+
+*   401 - Unauthorized
+*   404 - Invalid data was sent
+*   500 - Internal error
+
+Update the name of a workflow 
+------------------------------
+
+Use the following endpoint to update the name of a previously created workflow, passing the existing workflow's ID in the path and the new name for the workflow in the request body.
+
+You can find the [full specification in our API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Workflows/paths/~1workflows~1{workflowId}/patch).
+
+### The PATCH request
+
+#### Endpoints
+
+*   [**Live**](#tabs-5de9e189-f298-48fc-af3e-86caf0085e3b-1)
+*   [**Sandbox**](#tabs-5de9e189-f298-48fc-af3e-86caf0085e3b-2)
+
+PATCH`https://api.checkout.com/workflows/{workflowId}`
+
+PATCH`https://api.sandbox.checkout.com/workflows/{workflowId}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+  
+
+Path
+
+Value
+
+Path
+
+Value
+
+`workflowId`
+
+REQUIRED
+
+The workflow identifier.
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`name`
+
+REQUIRED
+
+A name to describe the workflow.
+
+#### Request example
+
+    {
+      "name": "Webhooks workflow"
+    }
+
+### The PATCH response
+
+Below is an example successful response with the details of the additional workflow.
+
+#### Response example
+
+    {
+      "name": "Webhooks workflow"
+    }
+
+Other possible responses:
+
+*   401 - Unauthorized
+*   404 - Workflow not found
+*   500 - Internal error
+
+Update the actions of a workflow 
+---------------------------------
+
+To update the actions of a workflow, use the following endpoint, passing the workflow's ID and action ID in the path, and the details you want to update in the request body. 
+
+You can find the [full specification in our API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Workflows/paths/~1workflows~1{workflowId}~1actions~1{workflowActionId}/put).
+
+### The PUT request
+
+#### Endpoints
+
+*   [**Live**](#tabs-fa881634-85cb-4709-8fb7-3edba45c22d4-1)
+*   [**Sandbox**](#tabs-fa881634-85cb-4709-8fb7-3edba45c22d4-2)
+
+PUT`https://api.checkout.com/workflows/{workflowId}/actions/{workflowActionId}`
+
+PUT`https://api.sandbox.checkout.com/workflows/{workflowId}/actions/{workflowActionId}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+  
+
+Path
+
+Value
+
+Path
+
+Value
+
+`workflowId`
+
+REQUIRED
+
+The workflow identifier.
+
+`workflowActionID`
+
+REQUIRED
+
+The workflow action identifier.
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`type`
+
+REQUIRED
+
+STRING
+
+The type of workflow action.
+
+  
+
+`url`
+
+REQUIRED
+
+STRING
+
+Your webhook endpoint URL.
+
+`headers`
+
+OPTIONAL
+
+OBJECT
+
+Optional [HTTP headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers) added to the request.
+
+`signature`
+
+OPTIONAL
+
+OBJECT
+
+Used to produce a signature of the webhook contents that will be included in the `Cko-Signature` header. This value can be computed by you on receipt of a webhook to validate its authenticity.
+
+`signature.method`
+
+OPTIONAL
+
+ENUM
+
+The signing method. Defaults to HMAC SHA256.
+
+`signature.key`
+
+REQUIRED
+
+STRING
+
+The key used to sign the webhook.
+
+#### Request example
+
+    {
+      "type": "webhook",
+      "url": "https://example.com/webhooks/checkout",
+      "headers": {
+        "Authorization": "70ed20ff-ba31-4ea3-b3ef-772f2be1cbdf"
+      },
+      "signature": {
+        "method": "HMACSHA256",
+        "key": "public-signing-key"
+      }
+    }
+
+### The PUT response
+
+If you receive a 200 success response, the workflow action was successfully updated.
+
+Other possible responses:
+
+*   401 - Unauthorized
+*   404 - Workflow or workflow action not found
+*   422 - Invalid data was sent
+*   500 - Internal error
+
+Update the conditions of a workflow 
+------------------------------------
+
+To update the conditions of a workflow, use the following endpoint, passing the workflow's ID and condition ID in the path, and the details you want to update in the request body. 
+
+You can find the [full specification in our API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Workflows/paths/~1workflows~1{workflowId}~1conditions~1{workflowConditionId}/put).
+
+### The PUT request
+
+#### Endpoints
+
+*   [**Live**](#tabs-48e8d287-31fb-4a14-ae32-092502887dd4-1)
+*   [**Sandbox**](#tabs-48e8d287-31fb-4a14-ae32-092502887dd4-2)
+
+PUT`https://api.checkout.com/workflows/{workflowId}/conditions/{workflowConditionId}`
+
+PUT`https://api.sandbox.checkout.com/workflows/{workflowId}/conditions/{workflowConditionId}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+  
+
+Path
+
+Value
+
+Path
+
+Value
+
+`workflowId`
+
+REQUIRED
+
+The workflow identifier.
+
+`workflowConditionID`
+
+REQUIRED
+
+The workflow condition identifier.
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`type`
+
+REQUIRED
+
+STRING
+
+The type of workflow condition. You must include an `event` condition. The `entity` condition is an optional filter, which only supports `gateway` and `dispute` webhooks.
+
+`events`
+
+REQUIRED
+
+OBJECT
+
+The events object.
+
+`events.property_name`
+
+REQUIRED
+
+ARRAY
+
+The event source. One or more of `gateway`, `marketplace`, or `dispute`.
+
+`entities`
+
+REQUIRED if you include an `entity` condition
+
+ARRAY
+
+The entities array.
+
+#### Request example
+
+    {
+      "type": "event",
+      "events": {
+        "gateway": [
+          "card_verified",
+          "card_verification_declined",
+          "payment_approved",
+          "payment_pending",
+          "payment_declined",
+          "payment_voided",
+          "payment_captured",
+          "payment_refunded"
+        ],
+        "disputes": [
+          "dispute_canceled",
+          "dispute_evidence_required",
+          "dispute_expired",
+          "dispute_lost",
+          "dispute_resolved",
+          "dispute_won"
+        ]
+      }
+    }
+
+### The PUT response
+
+If you receive a 200 success response, the workflow condition was successfully updated.
+
+Other possible responses:
+
+*   401 - Unauthorized
+*   404 - Workflow or workflow condition not found
+*   422 - Invalid data was sent
+*   500 - Internal error
+
+Delete a workflow 
+------------------
+
+Use this API request to delete an existing workflow. The actions of already executed workflows will be still processed.
+
+### The DELETE request
+
+Use the details below to set up your request.
+
+### Endpoints
+
+*   [**Live**](#tabs-85f5f0dd-4e85-4d7b-9d99-73226b868749-1)
+*   [**Sandbox**](#tabs-85f5f0dd-4e85-4d7b-9d99-73226b868749-2)
+
+DELETE`https://api.checkout.com/workflows/{workflowId}`
+
+DELETE`https://api.sandbox.checkout.com/workflows/{workflowId}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`workflowId`
+
+REQUIRED
+
+The workflow identifier.
+
+### The DELETE response
+
+A 204 response signals that the workflow was successfully deleted.
+
+Other possible responses:
+
+*   401 - Unauthorized
+*   404 - Workflow not found
+*   500 - Internal error
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Manage+workflows?showComments=true&showCommentArea=true#addcomment)

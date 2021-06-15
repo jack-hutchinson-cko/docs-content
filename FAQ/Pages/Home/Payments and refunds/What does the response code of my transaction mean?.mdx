@@ -1,0 +1,47 @@
+---
+title: What does the response code of my transaction mean?
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Toby Knott](    /display/~toby.knott
+    ) on [May 22, 2020](/pages/diffpagesbyversion.action?pageId=721098&selectedPageVersions=4&selectedPageVersions=5 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+The `response_code` is a five-digit numeric code that indicates the status of the payment request. Additional information may be found in the `response_summary` and `status` fields of the response.
+
+The statuses fall within one of four categories:
+
+*   APPROVED (10000 codes). The request was successful.
+*   SOFT DECLINE (20000 codes). The request was declined, though subsequent attempts may be successful.
+*   HARD DECLINE (30000 codes). The request was declined. Most hard declines require the issuer or cardholder to fix the outstanding issue(s) before trying again.
+*   RISK RESPONSE (40000 codes). The request triggered a risk response. The status of the response (response\_code and status) will depend on the action specified in your risk settings.
+
+Please refer to our [response code guide](/display/DOCS/Response+codes) to learn about specific codes.
+
+* * *
+
+### Related questions
+
+*   #### [What does the Do Not Honour (20005) response code mean?](/pages/viewpage.action?pageId=721100)
+    
+    #### Typically, this means that the customer's card issuing bank (or the acquirer) ha...
+    
+*   #### [What does the error code of my request mean?](/pages/viewpage.action?pageId=721102)
+    
+    #### If you receive an error code, it means something has gone wrong with your reques...
+    
+
+LikeBe the first to like this
+
+*   [response](/label/FAQ/response)
+*   [code](/label/FAQ/code)
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/pages/viewpage.action?pageId=721098&showComments=true&showCommentArea=true#addcomment)

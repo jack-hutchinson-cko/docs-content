@@ -1,0 +1,1034 @@
+---
+title: Response codes
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [May 18, 2021](/pages/diffpagesbyversion.action?pageId=8488198&selectedPageVersions=13&selectedPageVersions=14 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Response codes tell you a lot about what happened during an API request. After sending an API request, you will receive a response containing:
+
+*   an [HTTP status code](https://docs.checkout.com/four/resources/codes/http-response-codes)
+*   a response object containing a `response_code` that indicates the status of the request, or an error object containing one or several `error_codes`
+
+This page describes the possible response codes you might receive. View [a list of the possible error codes](/display/x/Error+codes).
+
+Overview 
+---------
+
+A `response_code` is a five-digit numeric code that indicates the status of the request. Additional information on the request status may be found in the `response_summary` and `status` fields.
+
+Code type
+
+Code range
+
+Location in response
+
+Description
+
+Code type
+
+Code range
+
+Location in response
+
+Description
+
+APPROVED
+
+10000
+
+`response_code`
+
+`response_summary`
+
+The request was successful
+
+SOFT DECLINE
+
+20000
+
+`response_code`
+
+`response_summary`
+
+The request was declined, though subsequent attempts may be successful
+
+HARD DECLINE
+
+30000
+
+`response_code`
+
+`response_summary`
+
+The request was declined. Most hard declines require the issuer or cardholder to rectify the outstanding issue(s) before a subsequent attempt can be made
+
+  
+
+Detailed breakdown
+------------------
+
+Some of the codes can return different messages.
+
+  
+
+**Approval response (10\*)**
+
+Code
+
+Text
+
+Additional information
+
+10000
+
+**Approved**
+
+  
+
+10008
+
+Approved - Honor with ID (Debit Cards)
+
+  
+
+10011
+
+Approved - VIP (not used)
+
+  
+
+10076
+
+Approved (Country Club)
+
+  
+
+10077
+
+Approved (Local Banks)
+
+  
+
+10081
+
+Approved (Approved Commercial)
+
+  
+
+10100
+
+Flagged as a potentially risky transaction
+
+  
+
+10200
+
+Deferred capture
+
+  
+
+**Soft decline (20\*)**
+
+Code
+
+Text
+
+Additional information
+
+20001
+
+Refer to card issuer
+
+  
+
+Contact card issuer
+
+  
+
+20002
+
+Refer to card issuer - Special conditions
+
+  
+
+20003
+
+Invalid merchant or service provider
+
+  
+
+20005
+
+**Declined - Do not honour**
+
+[Learn more about this response code](/display/x/Declined+-+Do+not+honour).
+
+20006
+
+Error / Invalid request parameters
+
+  
+
+20009
+
+Request in progress
+
+  
+
+20010
+
+Partial value approved
+
+  
+
+20012
+
+Invalid transaction
+
+This means the issuer has declined the transaction because it is invalid. Possible messages are:
+
+*   Blocked, first use
+*   Cannot verify pin
+*   Surcharge amount not permitted on Visa cards
+*   Cash service not available
+*   Cashback request exceeds issuer limit
+*   Invalid biller information
+*   PIN change/unblock request declined
+*   Unsafe PIN
+*   Stop payment order
+*   Unable to go online, declined
+
+20013
+
+Invalid value/amount
+
+Invalid amount (currency conversion field overflow) or amount exceeds maximum for card program.
+
+20014
+
+Invalid account number (no such number)
+
+  
+
+20017
+
+Customer cancellation
+
+  
+
+20018
+
+Customer dispute
+
+  
+
+20019
+
+Re-enter transaction
+
+  
+
+Transaction has expired
+
+  
+
+20020
+
+Invalid response
+
+  
+
+20021
+
+No action taken (unable to back out prior transaction)
+
+  
+
+20022
+
+Suspected malfunction
+
+  
+
+20023
+
+Unacceptable transaction fee
+
+  
+
+20024
+
+File update not supported by the receiver
+
+  
+
+20025
+
+Unable to locate record on file
+
+  
+
+Account number is missing from the inquiry
+
+  
+
+20026
+
+Duplicate file update record
+
+  
+
+20027
+
+File update field edit error
+
+  
+
+20028
+
+File is temporarily unavailable
+
+  
+
+20029
+
+File update not successful
+
+  
+
+20030
+
+Format error
+
+  
+
+20031
+
+Bank not supported by Switch
+
+  
+
+20032
+
+Completed partially
+
+  
+
+20038
+
+Allowable PIN tries exceeded
+
+  
+
+20039
+
+No credit account
+
+  
+
+20040
+
+Requested function not supported
+
+  
+
+20042
+
+No universal value/amount
+
+  
+
+20044
+
+No investment account
+
+  
+
+20046
+
+Bank decline
+
+  
+
+20051
+
+Insufficient funds
+
+  
+
+20052
+
+No current (checking) account
+
+  
+
+20053
+
+No savings account
+
+  
+
+20054
+
+Expired card
+
+  
+
+20055
+
+Incorrect PIN
+
+  
+
+PIN validation not possible
+
+  
+
+20056
+
+No card record
+
+  
+
+20057
+
+Transaction not permitted to cardholder
+
+Issuer has declined the transaction because the card cannot be used for this sort of transaction.  
+  
+
+Domestic debit transaction not allowed (Regional use only)
+
+20058
+
+Transaction not permitted to terminal
+
+  
+
+20059
+
+Suspected fraud
+
+  
+
+20060
+
+Card acceptor contact acquirer
+
+  
+
+20061
+
+Activity amount limit exceeded
+
+Occurs if the defined amount is exceeded for the account or card.
+
+20062
+
+Restricted card
+
+A restriction is placed on the card at the cardholder (account) level and not at the BIN (product) level. For example, due to the card's country.
+
+20063
+
+Security violation
+
+  
+
+20064
+
+Transaction does not fulfil AML requirement
+
+Occurs if any (and similar) of the following are missing:
+
+*   Sender Reference Number
+*   Sender Account Number
+*   Sender Name
+*   Sender Address
+
+20065
+
+Exceeds Withdrawal Frequency Limit
+
+Occurs if the defined withdrawal frequency limit has been exceeded.
+
+20066
+
+Card acceptor call acquirer security
+
+  
+
+20067
+
+Hard capture - Pick up card at ATM
+
+  
+
+20068  
+  
+
+Response received too late / Timeout
+
+  
+
+Transaction rejected
+
+  
+
+Internal error
+
+  
+
+20075
+
+Allowable PIN-entry tries exceeded
+
+  
+
+20078
+
+Blocked card. First-time card usage.
+
+Occurs if the transaction was from a new cardholder and the card is blocked. The cardholder needs to unblock their card before retrying the payment.
+
+20082  
+  
+
+No security model
+
+  
+
+PIN cryptographic error found (error found by VIC security module during PIN decryption)
+
+  
+
+Negative CAM, dCVV, iCVV, or CVV results
+
+  
+
+20083
+
+No accounts
+
+  
+
+20084
+
+No PBF
+
+  
+
+20085
+
+PBF update error
+
+  
+
+20086
+
+ATM malfunction
+
+  
+
+Invalid authorization type
+
+  
+
+20087
+
+Bad track data (invalid CVV and/or expiry date)
+
+  
+
+20088
+
+Unable to dispense/process
+
+  
+
+20089
+
+Administration error
+
+  
+
+20090
+
+Cut-off in progress
+
+  
+
+20091
+
+Issuer unavailable or switch is inoperative
+
+  
+
+20092
+
+Destination cannot be found for routing
+
+  
+
+20093
+
+Transaction cannot be completed; violation of law
+
+Due to government, central bank to financial institution agreement, laws or regulations, these types of transactions cannot be authorized.
+
+20094
+
+Duplicate transmission / invoice
+
+  
+
+20095
+
+Reconcile error
+
+  
+
+20096
+
+System malfunction
+
+Transaction does not pass issuer system checks on certain fields.
+
+20097
+
+Reconciliation totals reset
+
+  
+
+20098
+
+MAC error
+
+  
+
+20099
+
+Other / Unidentified responses
+
+  
+
+2006P
+
+Cardholder ID verification failed
+
+Cardholder could not be identified from their ID documentation as part of Know Your Customer (KYC) checks. The cardholder should contact their issuing bank to resolve.
+
+200N0
+
+Force STIP
+
+  
+
+200N7
+
+Decline for CVV2 failure
+
+  
+
+200O5
+
+PIN required
+
+  
+
+200P1
+
+Over daily limit
+
+  
+
+200P9
+
+Limit exceeded. Enter a lesser value.
+
+  
+
+200R1
+
+Issuer initiated a stop payment (revocation order) for this authorization
+
+  
+
+200R3
+
+Issuer initiated a stop payment (revocation order) for all authorizations
+
+  
+
+200S4
+
+PTLF full
+
+  
+
+200T2
+
+Invalid transaction date
+
+  
+
+200T3
+
+Card not supported
+
+  
+
+200T5
+
+CAF status = 0 or 9
+
+  
+
+20100
+
+Invalid expiry date format
+
+  
+
+20101
+
+No account / No customer (token incorrect or invalid)
+
+  
+
+20102
+
+Invalid merchant / wallet ID
+
+  
+
+20103
+
+Card type / payment method not supported
+
+  
+
+20104
+
+Gateway reject - Invalid transaction
+
+  
+
+20105
+
+Gateway reject - Violation
+
+  
+
+20106
+
+Unsupported currency
+
+  
+
+20107
+
+Billing address is missing
+
+  
+
+20108
+
+Declined - Updated cardholder available
+
+  
+
+20109  
+  
+
+Transaction already reversed (voided)
+
+  
+
+Previous message located for a repeat or reversal, but repeat or reversal data is inconsistent with the original message
+
+  
+
+Capture is larger than initial authorized value
+
+  
+
+20110
+
+Authorization completed
+
+  
+
+20111
+
+Transaction already reversed
+
+  
+
+20112
+
+Merchant not Mastercard SecureCode enabled
+
+  
+
+20113
+
+Invalid property
+
+  
+
+20114
+
+Invalid channel
+
+  
+
+Token is incorrect
+
+  
+
+20115
+
+Missing / Invalid lifetime
+
+  
+
+20116
+
+Invalid encoding
+
+  
+
+20117
+
+Invalid API version
+
+  
+
+20118
+
+Transaction pending
+
+  
+
+20119
+
+Invalid batch data and/or batch data is missing
+
+  
+
+20120
+
+Invalid customer/user
+
+  
+
+20121
+
+Transaction limit for merchant/terminal exceeded
+
+  
+
+20123
+
+Missing basic data: zip, addr, member
+
+  
+
+20150
+
+Card not 3D Secure (3DS) enabled
+
+  
+
+20151
+
+Cardholder failed 3DS authentication
+
+  
+
+20152
+
+Initial 3DS transaction not completed within 15 minutes
+
+  
+
+20153
+
+3DS system malfunction
+
+  
+
+20154
+
+3DS authentication required
+
+Issuer requests a non-3DS payment be resubmitted with 3DS authentication.
+
+**Hard decline (30\*)**
+
+Code
+
+Text
+
+Additional information
+
+30004
+
+Pick up card (No fraud)
+
+The cardholder’s bank has declined the payment. The customer should call their issuing bank and ask why the transaction was declined. Once the issuing bank confirms that they will approve future attempts, try the transaction again.
+
+30007
+
+Pick up card - Special conditions
+
+The cardholder’s bank has declined the payment because they have detected fraudulent activity on the account.
+
+*   For a one-off transaction, do not attempt the transaction again, and, if possible, do not provide goods or services to the person attempting the transaction.
+*   For a recurring or scheduled transaction, it is possible that the card was flagged after the last successfully processed payment (or after the authorization for the scheduled payment). In that case, contact your customer for a new credit card number, or ask for a different form of payment. Replace the old account number on the schedule with the new account number.
+
+30015
+
+No such issuer
+
+The card number entered is invalid because it does not start with a `3` (Amex), `4` (Visa), `5` (Mastercard) or `6` (Discover). Double-check the credit card number and try the transaction again with the correct number.
+
+We will usually flag this type of error before an authorization is attempted, but, in some rare cases (typically when there is an error with a payment import), this type of failure may occur.
+
+30016
+
+Issuer does not allow online gambling payout
+
+Issuer does not allow online gambling payout.
+
+30017
+
+Issuer does not allow original credit transaction
+
+Issuer does not allow original credit transactions (OCTs) over Visa SMS.
+
+Only applies to OCTs.
+
+30018
+
+Issuer does not allow money transfer payout
+
+Issuer does not allow money transfer original credit transactions (OCTs).
+
+Only applies to OCTs.
+
+30019
+
+Issuer does not allow non-money transfer payout
+
+Issuer does not allow non-money transfer original credit transactions (OCTs).
+
+Only applies to OCTs.
+
+30020
+
+Invalid amount
+
+Invalid amount.
+
+30021
+
+Total amount limit reached
+
+Volume limit reached on the account.
+
+30022
+
+Total transaction count limit reached
+
+Transaction count limit reached on the account.
+
+30033
+
+Expired card - Pick up
+
+The cardholder's bank has declined the payment because the card has expired.
+
+30034
+
+Suspected fraud - Pick up
+
+The cardholder's bank has declined the payment because it suspects fraudulent activity on the account.
+
+30035
+
+Contact acquirer - Pick up
+
+The cardholder’s bank has declined the payment.
+
+30036
+
+Restricted card - Pick up
+
+The cardholder's bank has declined the payment because the card is restricted.
+
+30037
+
+Call acquirer security - Pick up
+
+The cardholder’s bank has declined the payment.
+
+30038
+
+Allowable PIN tries exceeded - Pick up
+
+The cardholder has exceeded the number of PIN entry attempts allowed by their bank.
+
+30041
+
+Lost card - Pick up
+
+The cardholder’s bank has declined the payment because the card has been reported lost.
+
+*   For a one-off transaction, do not attempt the transaction again, and if possible do not provide goods or services to the person attempting the transaction.
+*   For a recurring or scheduled transaction, it is possible that the card was lost after the last successfully processed payment (or after the authorization for the scheduled payment). In that case, contact your customer for a new credit card number, or ask for a different form of payment. Replace the lost account number on the schedule with the new account number
+
+30043
+
+Stolen card - Pick up
+
+The cardholder’s bank has declined the payment because the card has been reported stolen.
+
+*   For a one-off transaction, do not attempt the transaction again, and if possible do not provide goods or services to the person attempting the transaction.
+*   For a recurring or scheduled transaction, it is possible that the card was lost after the last successfully processed payment (or after the authorization for the scheduled payment). In that case, contact your customer for a new credit card number, or ask for a different form of payment. Replace the lost account number on the schedule with the new account number.
+
+30044
+
+Transaction rejected - AMLD5
+
+Transaction was initiated from an anonymous, non-reloadable prepaid card and for an amount greater than 50 EUR. Due to the AMLD5 directive, it cannot be fulfilled.
+
+30045
+
+Invalid payout fund transfer type
+
+If the fund transfer type is not among the list that was configured for allowed funds transfer types, the transaction would fail.
+
+30046
+
+Closed account
+
+The destination account is closed, and the transaction will never be approved, so do not reattempt the transaction. The cardholder must contact their issuing bank to resolve.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Response+codes?showComments=true&showCommentArea=true#addcomment)

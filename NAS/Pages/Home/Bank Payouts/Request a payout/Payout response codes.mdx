@@ -1,0 +1,261 @@
+---
+title: Payout response codes
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Toby Knott](    /display/~toby.knott
+    ) on [Apr 09, 2021](/pages/diffpagesbyversion.action?pageId=8489478&selectedPageVersions=6&selectedPageVersions=7 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+After you've sent your payout request and got a successful response, you will receive a webhook notification that will tell you the status of your payout and include a response code and summary:
+
+*   If your payout is [successful](#Payoutresponsecodes-paid), you will receive a `payment_paid` webhook, with a `10000` response code and the `Approved` summary.
+*   If your payout is [declined](#Payoutresponsecodes-declined), you will receive a `payment_declined` webhook with a `50001-50399` response code and a summary explaining the reason for the decline.
+*   If your payout is [returned](#Payoutresponsecodes-returned), you will receive a `payment_returned` webhook with `50401-50599` response code and a summary explaining the reason for the return.
+
+Below, you'll find all the response codes you could receive and their summaries.
+
+Payment paid 
+-------------
+
+Code
+
+Summary
+
+**Approval response**
+
+10000
+
+Approved
+
+Payment declined 
+-----------------
+
+Code
+
+Summary
+
+**Decline responses**
+
+50001
+
+**Compliance error**
+
+50002
+
+Sanctions screening rejected error
+
+50020
+
+**Recipient error**
+
+50021
+
+Invalid recipient error
+
+50022
+
+Unsupported recipient error
+
+50023
+
+Recipient limit error
+
+50070
+
+**Sender error**
+
+50100
+
+**Instruction error**
+
+50101
+
+Instruction amount limit error
+
+50102
+
+Instruction amount limit sender error
+
+50103
+
+Instruction amount limit recipient error
+
+50104
+
+Velocity limit
+
+50105
+
+Velocity limit sender error
+
+50106
+
+Velocity limit recipient limit error
+
+50150
+
+**Processing error**
+
+50180
+
+**Validation error**
+
+50200
+
+**Configuration error**
+
+50240
+
+Cancellation error
+
+50260
+
+**Returned error**
+
+50399
+
+**Unmapped response**
+
+Payment returned 
+-----------------
+
+Code
+
+Summary
+
+**Return responses**
+
+50401
+
+**Bank details invalid**
+
+50402
+
+Account not found
+
+50403
+
+Account inactive
+
+50404
+
+Account dormant
+
+50405
+
+Account number invalid
+
+50406
+
+Branch not found
+
+50407
+
+Branch code invalid
+
+50408
+
+Branch code required
+
+50409
+
+Bank code invalid
+
+50410
+
+Bank code required
+
+50441
+
+**Account type required**
+
+50451
+
+**Account holder details invalid**
+
+50452
+
+Account holder identification number required
+
+50453
+
+Account holder type not supported
+
+50454
+
+Account holder type not allowed
+
+50466
+
+**Account closed**
+
+50471
+
+**Account blocked**
+
+50481
+
+**Invalid debtor account type**
+
+50491
+
+**Account holder billing address details incorrect**
+
+50492
+
+Account holder billing address details required
+
+50494
+
+Account holder billing address can not be PO box
+
+50501
+
+**Unsupported characters**
+
+50511
+
+**Invalid amount**
+
+50512
+
+Minimum amount not met
+
+50513
+
+Exceeded transaction value
+
+50514
+
+Exceeded daily limit
+
+50515
+
+Exceeded weekly limit
+
+50517
+
+Exceeded monthly limit
+
+50531
+
+**Recalled**
+
+50599
+
+**Unknown reason**
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Payout+response+codes?showComments=true&showCommentArea=true#addcomment)

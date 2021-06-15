@@ -1,0 +1,377 @@
+---
+title: United Kingdom
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 09, 2021](/pages/diffpagesbyversion.action?pageId=8487041&selectedPageVersions=71&selectedPageVersions=72 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+#### Basic information
+
+*   [**Local**](#tabs-783722f6-d39b-4422-a7fb-ca87ee025e02-1)
+*   [**International**](#tabs-783722f6-d39b-4422-a7fb-ca87ee025e02-2)
+
+  
+
+Country code
+
+GB
+
+Supported currency
+
+GBP, EUR
+
+Scheme
+
+Faster payments (GBP) CHAPS (GBP) SEPA (EUR)
+
+*   **Minimum amount (local currency):** 0.01
+*   **Maximum amount (local currency):** 250,000
+*   **Cut-off time:** 15:40 GMT
+*   **Settlement:** T+0 same day
+
+*   **Minimum amount (local currency):** 0.01
+*   **Maximum amount (local currency):** no maximum
+*   **Cut-off time:** N/A
+*   **Settlement:** T+0 same day
+
+*   **Minimum amount (local currency):** 0.01
+*   **Maximum amount (local currency):** no maximum
+*   **Cut-off time:** 11:30 GMT
+*   **Settlement:** T+1 next day
+
+#### Payment information
+
+ Individual
+
+#### Beneficiary information
+
+  
+
+Beneficiary type
+
+The type of account holder. Set this to `individual`.
+
+`account_holder.type`
+
+REQUIRED
+
+ENUM
+
+Beneficiary name
+
+The account holder's first and last name.
+
+`account_holder.first_name`
+
+REQUIRED
+
+STRING
+
+`account_holder.last_name`
+
+REQUIRED
+
+STRING
+
+Beneficiary address
+
+The account holder's address.
+
+  
+
+  
+
+  
+
+  
+
+`account_holder.billing_address.address_line1`
+
+REQUIRED
+
+STRING
+
+`account_holder.billing_address.address_line2`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.city`
+
+REQUIRED
+
+STRING
+
+`account_holder.billing_address.zip`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.country`
+
+REQUIRED
+
+ENUM, 2 CHARACTERS
+
+This must be a [two-letter ISO code](/display/DOCS/Country+codes).
+
+#### Bank details
+
+*   [**Faster Payments and CHAPS (GBP)**](#tabs-0730759c-0f38-430a-8a15-f2df028569fa-1)
+*   [**SEPA (EUR)**](#tabs-0730759c-0f38-430a-8a15-f2df028569fa-2)
+
+  
+
+Account Number
+
+The account holder's Account Number.
+
+`account_number`
+
+REQUIRED
+
+STRING, ^\[0-9\]{8,8}$
+
+Sort Code
+
+The account holder's Sort Code.
+
+`bank_code`
+
+REQUIRED
+
+STRING, ^\[0-9\]{6,6}$
+
+  
+
+IBAN
+
+The account holder's IBAN.
+
+`iban`
+
+REQUIRED
+
+STRING, 22 CHARACTERS
+
+SWIFT BIC
+
+The account holder's SWIFT BIC.
+
+`swift_bic`
+
+REQUIRED
+
+STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+
+ Corporate
+
+#### Beneficiary information
+
+  
+
+Beneficiary type
+
+The type of account holder. Set this to `corporate`.
+
+`account_holder.type`
+
+REQUIRED
+
+ENUM
+
+Beneficiary name
+
+The account holder's company name.
+
+`account_holder.company_name`
+
+REQUIRED
+
+STRING
+
+Beneficiary address
+
+The account holder's address.
+
+`account_holder.billing_address.address_line1`
+
+REQUIRED
+
+STRING
+
+`account_holder.billing_address.address_line2`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.city`
+
+REQUIRED
+
+STRING
+
+`account_holder.billing_address.zip`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.country`
+
+REQUIRED
+
+ENUM, 2 CHARACTERS
+
+This must be a [two-letter ISO code](/display/DOCS/Country+codes).
+
+#### Bank details
+
+*   [**Faster Payments and CHAPS (GBP)**](#tabs-7f7dc654-070d-482f-9352-d198fddc11e8-1)
+*   [**SEPA (EUR)**](#tabs-7f7dc654-070d-482f-9352-d198fddc11e8-2)
+
+  
+
+Account Number
+
+The account holder's Account Number.
+
+`account_number`
+
+REQUIRED
+
+STRING, ^\[0-9\]{8,8}$
+
+Sort Code
+
+The account holder's Sort Code.
+
+`bank_code`
+
+REQUIRED
+
+STRING, ^\[0-9\]{6,6}$
+
+  
+
+IBAN
+
+The account holder's IBAN.
+
+`iban`
+
+REQUIRED
+
+STRING, 22 CHARACTERS
+
+SWIFT BIC
+
+The account holder's SWIFT BIC.
+
+`swift_bic`
+
+REQUIRED
+
+STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+
+#### Example
+
+*   [**Payment instrument request (GBP)**](#tabs-0b2f5517-f48a-4f8c-9f5f-536834e0e326-1)
+*   [**Payment instrument request (EUR)**](#tabs-0b2f5517-f48a-4f8c-9f5f-536834e0e326-2)
+*   [**Payout request (GBP)**](#tabs-0b2f5517-f48a-4f8c-9f5f-536834e0e326-3)
+
+    {
+      "type": "bank_account",
+      "account_number": "01008704",
+      "bank_code": "110350",
+      "currency": "GBP",
+      "country": "GB",
+      "account_holder": {
+        "first_name": "John",
+        "last_name": "Smith",
+        "address_line1": "99 Windsor Road",
+        "address_city": "London",
+        "country_code": "GB",
+        "billing_address": {
+          "address_line1": "99 Windsor Road",
+          "country": "GB",
+          "city": "London",
+          "zip": "N83 5QL"
+        }
+      }
+    }
+    
+
+    {
+      "type": "bank_account",
+      "iban": "GB29NWBK60161331926819",
+      "swift_bic": "ABCDGB12XXX",
+      "currency": "EUR",
+      "country": "GB",
+      "account_holder": {
+        "first_name": "John",
+        "last_name": "Smith",
+        "address_line1": "99 Windsor Road",
+        "address_city": "London",
+        "country_code": "GB",
+        "billing_address": {
+          "address_line1": "99 Windsor Road",
+          "country": "GB",
+          "city": "London",
+          "zip": "N83 5QL"
+        }
+      }
+    }
+    
+
+    {
+      "currency": "GBP",
+      "source": {
+        "amount": 1,
+        "type": "currency_account",
+        "id": "ca_rdkzbdbiwgju7j47ajz3sascr4"
+      },
+      "reference": "Reference PTB",
+      "destination": {
+        "type": "id",
+        "id": "src_zyvi7a3wqiourbdfyagg6kqz64"
+      },
+      "billing_descriptor": {
+        "reference": "Billing descriptor ref"
+      },
+      "sender": {
+        "type": "instrument",
+        "reference": "Sender ref",
+        "first_name": "John",
+        "last_name": "Smith"
+      },
+      "instruction": {
+        "purpose": "Purpose Ref",
+        "scheme": "Local"
+      },
+      "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
+    }
+    
+
+  
+
+Coming soon.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/United+Kingdom?showComments=true&showCommentArea=true#addcomment)

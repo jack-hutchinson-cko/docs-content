@@ -1,0 +1,48 @@
+---
+title: dispute_received
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 14, 2021](/pages/diffpagesbyversion.action?pageId=8488090&selectedPageVersions=4&selectedPageVersions=5 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+### Example: Dispute received
+
+    {
+      "id": "evt_b6anegml5j6u7kwzuzdg6r4sem",
+      "type": "dispute_received",
+      "created_on": "2018-06-21T12:00:31Z",
+      "data": {
+        "id": "dsp_9rjdlsd4epepfjyyf9vl",
+        "date": "2018-07-06T11:19:20Z",
+        "category": "canceled_recurring",
+        "amount": 20020,
+        "currency": "USD",
+        "reason_code": "10.4",
+        "payment_id": "pay_cnhuomagalglgozxy5zm",
+        "payment_action_id": "act_7B15779D173D0W45700D",
+        "payment_reference": "some-company-ref",
+        "payment_method": "Visa"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/workflows/events/evt_b6anegml5j6u7kwzuzdg6r4sem"
+        },
+        "subject": {
+          "href": "https://api.checkout.com/workflows/events/subject/dsp_9rjdlsd4epepfjyyf9vl"
+        }
+      }
+    }
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/dispute_received?showComments=true&showCommentArea=true#addcomment)

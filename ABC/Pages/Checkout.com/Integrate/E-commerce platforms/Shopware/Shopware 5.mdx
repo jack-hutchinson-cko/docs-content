@@ -1,0 +1,70 @@
+---
+title: Shopware 5
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Chrisi Webster](    /display/~chrisiwebster
+    ), last modified on [Apr 23, 2021](/pages/diffpagesbyversion.action?pageId=23004684&selectedPageVersions=3&selectedPageVersions=4 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Follow the steps below so you can start using your Shopware 5 plugin.
+
+Install the plugin
+------------------
+
+There are two ways to install the plugin you need:
+
+*   [Install using Composer](#Shopware5-composer)
+*   [Download from the Shopware Store](https://docs.shopware.com/en/shopware-5-en/plugins)
+
+Install using Composer 
+-----------------------
+
+### For basic settings
+
+1.  Install and activate the plugin with the plugin manager.
+2.  Reload the backend.
+3.  Go to Configuration > Payment methods. Additional payment methods have been added with the prefix “cko” and you can now find the [Checkout.com](http://checkout.com/) Setup menu point.
+
+If you want to see the activated payment methods in the frontend, you need to add your public and private key from [Checkout.com](http://checkout.com/) to the configuration.
+
+In order to show Apple Pay, Google Pay, SEPA, credit card and PayPal in the front-end you need to configure the according payment method in the Checkout Setup.
+
+### For Apple Pay
+
+See our [Apple Pay documentation](https://docs.checkout.com/payment-methods/wallets/apple-pay) for more information.
+
+#### Checkout setup:
+
+1.  Navigate to the Apple Pay tab.
+2.  Fill out the required fields and click _Save._
+
+#### Domain verification:
+
+1.  Navigate to the Domain Verify tab.
+2.  Edit the path to match the path give by Apple Pay.
+3.  Upload the verification file from your Apple Pay Developer account.
+4.  Verify the upload by clicking _OK_ in your Apple Pay Developer account.
+
+#### Certification Upload
+
+1.  Create and download the Apple Pay Payment Processing Certification from your Apple Pay Developer account.
+2.  Upload the certificate to the Shopware Backend and click on _CSR Certificate._
+3.  The PEM certification will be needed to validate your merchant identification session.
+
+  
+  
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Shopware+5?showComments=true&showCommentArea=true#addcomment)

@@ -1,0 +1,120 @@
+---
+title: Capture a payment
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [May 21, 2021](/pages/diffpagesbyversion.action?pageId=8488072&selectedPageVersions=7&selectedPageVersions=8 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+This document contains a draft guide outlining how you can process various authorization types through the Unified Payments API. The information provided below is subject to change.
+
+The Unified Payments API supports multiple partial captures—enabling you to process your capture requests at the same time as your split shipments.
+
+Manually capture a payment
+--------------------------
+
+If a payment is requested with `capture` as `false`, you can use this endpoint to capture the payment. These captures can either be the full or partial authorization amount, but cannot be submitted for a combined amount that exceeds the total authorized balance.
+
+### The request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-1768e711-97e0-47fd-8d35-22cd0bb4b37a-1)
+*   [**Sandbox**](#tabs-1768e711-97e0-47fd-8d35-22cd0bb4b37a-2)
+
+POST`https://api.checkout.com/payments/{id}/captures`
+
+POST`https://api.sandbox.checkout.com/payments/{id}/captures`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`Bearer {OAuth access token}`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`amount`
+
+OPTIONAL
+
+STRING
+
+The amount to capture. If not specified, the available to capture balance will be captured.
+
+`reference`
+
+OPTIONAL
+
+STRING
+
+A reference you can later use to identify the capture request.
+
+`capture_type`
+
+OPTIONAL
+
+STRING
+
+Indicates whether this is the final capture. If set to `final`, it will automatically void any remaining available-to-capture balance.
+
+`metadata`
+
+OPTIONAL
+
+STRING
+
+A set of key/value pairs that you can attach to the capture request. It can be useful for storing additional information in a structured format.
+
+#### Request example
+
+    {
+      "amount": 100,
+      "reference": "ORD-752-814",
+      "capture_type": "final"
+    }
+
+### The response
+
+If you receive a `202` HTTP status code, your capture request has been submitted successfully for clearing.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Capture+a+payment?showComments=true&showCommentArea=true#addcomment)

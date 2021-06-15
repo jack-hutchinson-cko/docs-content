@@ -1,0 +1,247 @@
+---
+title: Israel
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 09, 2021](/pages/diffpagesbyversion.action?pageId=8489915&selectedPageVersions=19&selectedPageVersions=20 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+#### Basic information
+
+*   [**International**](#tabs-7c7387ab-3ea1-4308-8b5d-a0b5303da900-1)
+*   [**Local**](#tabs-7c7387ab-3ea1-4308-8b5d-a0b5303da900-2)
+
+  
+
+Country code
+
+IL
+
+Supported currency
+
+ILS
+
+Scheme
+
+International:
+
+*   **Minimum amount (local currency):** 0.01
+*   **Maximum amount (local currency):** 999,999
+*   **Cut-off time:** 06:30 GMT
+*   **Settlement:** T+0 same day
+
+#### Payment information
+
+ Individual
+
+#### Beneficiary information
+
+  
+
+Beneficiary type
+
+The type of account holder. Set this to `individual`.
+
+`account_holder.type`
+
+OPTIONAL
+
+ENUM
+
+Beneficiary name
+
+The account holder's first and last name.
+
+`account_holder.first_name`
+
+REQUIRED
+
+STRING
+
+`account_holder.last_name`
+
+REQUIRED
+
+STRING
+
+Beneficiary address
+
+The account holder's address.
+
+  
+
+  
+
+  
+
+  
+
+`account_holder.billing_address.address_line1`
+
+REQUIRED
+
+STRING
+
+`account_holder.billing_address.address_line2`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.city`
+
+REQUIRED
+
+STRING
+
+`account_holder.billing_address.zip`
+
+OPTIONAL
+
+STRING
+
+`account_holder.billing_address.country`
+
+REQUIRED
+
+ENUM, 2 CHARACTERS
+
+This must be a [two-letter ISO code](/display/DOCS/Country+codes).
+
+#### Bank details
+
+You can use either `account_number`, `bank_code` and `branch_code`, OR `iban` and `swift_bic`.
+
+  
+
+  
+
+Account number
+
+The account holder's account number.
+
+`account_number`
+
+REQUIRED
+
+STRING, 13 DIGITS
+
+Bank code
+
+The code of the account holder's bank.
+
+`bank_code`
+
+REQUIRED
+
+STRING, 3 CHARACTERS
+
+Branch code
+
+The branch code of the account holder's bank.
+
+`branch_code`
+
+REQUIRED
+
+STRING, 3 DIGITS
+
+  
+
+IBAN
+
+The account holder's IBAN.
+
+`iban`
+
+REQUIRED
+
+STRING, ^\[A-Z0-9\]{23,23}$
+
+SWIFT BIC
+
+The account holder's SWIFT BIC.
+
+`swift_bic`
+
+OPTIONAL
+
+STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+
+#### Example
+
+*   [**Payment instrument request (ILS)**](#tabs-0003fa45-7089-4c39-84b8-53e2dd1647af-1)
+*   [**Payout request (ILS)**](#tabs-0003fa45-7089-4c39-84b8-53e2dd1647af-2)
+
+    {
+      "type": "bank_account",
+      "account_number": "0000000123456",
+      "bank_code": "031",
+      "branch_code": "131",
+      "currency": "ILS",
+      "country": "IL",
+      "account_holder": {
+        "first_name": "John",
+        "last_name": "Smith",
+        "address_line1": "91  Horseshoe Lane",
+        "address_city": "JERUSALEM",
+        "state": "Arkansas",
+        "country_code": "IL",
+        "billing_address": {
+          "address_line1": "91  Horseshoe Lane",
+          "country": "IL",
+          "city": "JERUSALEM",
+          "zip": "72080"
+        }
+      },
+      "customer": {
+        "email": "example@checkout.com",
+        "name": "CKO Test IL/ILS"
+      }
+    }
+    
+
+    {
+      "currency": "ILS",
+      "source": {
+        "amount": 50,
+        "type": "currency_account",
+        "id": "ca_rdkzbdbiwgju7j47ajz3saxxx1"
+      },
+      "reference": "CKO Test Reference",
+      "destination": {
+        "type": "id",
+        "id": "src_ujxj6ei2ytmuncj3shigrngxxx"
+      },
+      "billing_descriptor": {
+        "reference": "CKO Test Billing Descriptor"
+      },
+      "sender": {
+        "type": "instrument",
+        "reference": "CKO Test Sender Reference",
+        "first_name": "John",
+        "last_name": "Smith"
+      },
+      "instruction": {
+        "purpose": "CKO Test Purpose"
+      },
+      "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exx1y"
+    }
+    
+
+Coming soon.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Israel?showComments=true&showCommentArea=true#addcomment)

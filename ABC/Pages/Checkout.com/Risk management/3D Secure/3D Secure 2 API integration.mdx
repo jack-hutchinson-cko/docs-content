@@ -1,0 +1,245 @@
+---
+title: 3D Secure 2 API integration
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified on [May 24, 2021](/pages/diffpagesbyversion.action?pageId=2785691&selectedPageVersions=18&selectedPageVersions=19 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+This guide will show you how to integrate 3D Secure 2 (3DS2) into your payment flows.
+
+We currently support version 2.1.0 of the 3DS protocol.
+
+Request a 3DS2 payment with a card token 
+-----------------------------------------
+
+Simply submit a payment request with `"3ds.enabled": true`, and then we'll redirect your customer to a Checkout.com page to gather all the 3DS2-relevant data and add the required fields to your request—meaning no extra work for you.
+
+#### Step 1: Collect a card token
+
+First, the customer needs to exchange their card details for a card token – tokenization. You can create a card token with one of our [integration options](/display/DOCS/Integrate).
+
+#### Step 2: Create a card token payment request
+
+Once you've got a card token, you can request a payment using [the request a card payment endpoint](/display/DOCS/Request+a+card+payment).
+
+The only difference between a standard card token payment and a 3DS one is the `3ds` object. Set the `enabled` field to `true` to request a 3DS2 payment.
+
+You can see an example of a request below:
+
+Downgrade a 3DS transaction
+
+If you want to automatically attempt a transaction as non-3DS, use the [`attempt_n3d`](#id-3DSecure2APIintegration-downgrade) field.
+
+    {
+      "source": {
+        "type": "token",
+        "token":"tok_f6z4mnoububudpqnvhwa5ff27u"
+      },
+      "amount": 2000,
+      "currency": "USD",
+      "3ds": {
+        "enabled": true
+      }
+    }
+
+  
+
+3DS test cards
+
+If you want to test 3DS authentication flows and transaction statuses in the sandbox environment, [use our test cards](/display/DOCS/3D+Secure+testing).
+
+#### Step 3: Redirect your customer
+
+If the card is enrolled for 3DS2 you'll receive a `202 - Accepted` response containing a `redirect` link to which you should redirect your customer.
+
+3DS1 fallback
+
+If the customer's card is not enrolled for 3DS2, we will automatically attempt to authenticate the payment with 3DS1.
+
+  
+
+    {
+      "id": "pay_hehfmlkpykeupofyxf7nbr6yyy",
+      "status": "Pending",
+      "customer": {
+        "id": "cus_u4a4zosnrw7ehhzr7jipbkdzo4"
+      },
+      "3ds": {
+        "downgraded": false,
+        "enrolled": "Y"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_hehfmlkpykeupofyxf7nbr6yyy"
+        },
+        "redirect": {
+          "href": "https://sandbox.checkout.com/api2/v2/3ds/acs/sid_feixbit6us3utfedjulm6egnsu"
+        }
+      }
+    }
+
+The customer may then be prompted to verify their identity — generally with a password.
+
+![](/download/attachments/2785691/3ds2_challenge.png?version=1&modificationDate=1586863846280&api=v2)
+
+Redirection URLs
+
+You can configure redirection success and redirection failure URLs in your Hub dashboard or in the payment request itself by setting the `success_url` and `failure_url` fields.
+
+#### Step 4: Verify the payment with the session ID 
+
+When the customer is redirected back to your site, a `cko-session-id` querystring parameter is provided at the end of the success URL. It will look something like this:
+
+`http://example.com/success?cko-session-id=sid_ubfj2q76miwundwlk72vxt2i7q`
+
+Once you've got the `cko-session-id`, you can use our [get payment details endpoint](/display/DOCS/Get+payment+details) to determine whether the payment was authenticated and authorized.
+
+The `cko-session-id` expires 15 minutes after being created.
+
+#### Endpoints
+
+*   [**Live**](#tabs-188d4be0-f2ff-43ba-a26a-96bbd53ae2ae-1)
+*   [**Sandbox**](#tabs-188d4be0-f2ff-43ba-a26a-96bbd53ae2ae-2)
+
+GET`https://api.checkout.com/payments/{id}`
+
+GET`https://api.sandbox.checkout.com/payments/{id}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`id`
+
+REQUIRED
+
+The `cko-session-id`.
+
+#### Response example
+
+Check the `3ds.authentication_response` field to see the result of the 3DS authentication. It will be one of the following values:
+
+*   `Y` – Cardholder was successfully authenticated.
+*   `A` – Authentication was attempted but could not be completed.
+*   `N` – Authentication failed.
+*   `U` – Authentication could not be completed owing to technical or other problems.
+
+Check the `approved` field to see whether or not the authorization was successful (`"approved": true`). If the authorization was unsuccessful, the card might be invalid/expired, or have an insufficient balance.
+
+The response includes an `actions` object, which only applies to 3D Secure payments. It gives you a summary of all the actions performed for that payment. This allows you to obtain the response code of the authorization if it was declined.
+
+    {
+      "id": "pay_y3oqhf46pyzuxjbcn2giaqnb44",
+      "requested_on": "2019-01-16T22:08:06Z",
+      "source": {
+        "type": "card",
+        "id": "src_wmlfc3zyhqzehihu7giusaaawu",
+      },
+      "amount": 6540,
+      "currency": "USD",
+      "approved": false,
+      "status": "Declined",
+      "3ds": {
+        "downgraded": false,
+        "authentication_response": "Y",
+        "cryptogram": "hv8mUFzPzRZoCAAAAAEQBDMAAAA=",
+        "xid": "89936bf2-e971-49e5-b82c-6656bab50870",
+        "version": "2.1.0"
+      },
+      "eci": "06",
+      "actions": [
+        {
+          "id": "act_y3oqhf46pyzuxjbcn2giaqnb44",
+          "type": "Authorization",
+          "response_code": "20005",
+          "response_summary": "Declined - Do Not Honour"
+        }
+      ],
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/payments/pay_y3oqhf46pyzuxjbcn2giaqnb44"
+        },
+        "actions": {
+          "href": "https://api.checkout.com/payments/pay_y3oqhf46pyzuxjbcn2giaqnb44/actions"
+        }
+      }
+    }
+
+Non-3DS authorization request flows
+-----------------------------------
+
+### Successful non-3DS authorization request flow
+
+![](/download/attachments/2785691/Non-3DS%20authorization.png?version=1&modificationDate=1619705981902&api=v2)
+
+If you make a payment request without the `3ds` object, or with `"3ds.enabled": false`, and the issuer does not require 3DS authorization for the transaction, the payment will complete successfully.
+
+### Non-3DS authorization request flow with soft decline
+
+![](/download/attachments/2785691/Non-3DS%20authorization%20with%20soft%20decline.png?version=1&modificationDate=1619705996050&api=v2)
+
+If, however, you make a payment request without the `3ds` object, or with `"3ds.enabled": false`, and the issuer **does** require 3DS2 authorization for the transaction, you will receive a soft decline response (response code 20154). You will then need to resubmit the payment as a 3DS2 payment.
+
+Handling non-enrolled cards 
+----------------------------
+
+To handle cases where the customer's card is not enrolled for any version of 3DS, you can set the `attempt_n3d` field to `true` (see the example request below) to downgrade the transaction to non-3DS. This means that if the customer's bank does not support 3DS, we will automatically attempt to process the payment without 3DS authentication instead.
+
+If you downgrade the payment to non-3DS, the liability shift advantage of 3DS2 will not apply, meaning you will not be protected against potentially fraudulent payments or chargebacks.
+
+    {
+      "source": {
+        "type": "token",
+        "token":"tok_vtvlbgpyoaaubmldynpm32bali"
+      },
+      "amount": 2000,
+      "currency": "USD",
+      "3ds": {
+        "enabled": true,
+        "attempt_n3d": true
+      }
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/3D+Secure+2+API+integration?showComments=true&showCommentArea=true#addcomment)

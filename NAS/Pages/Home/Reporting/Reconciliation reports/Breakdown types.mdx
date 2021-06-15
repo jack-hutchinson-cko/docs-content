@@ -1,0 +1,530 @@
+---
+title: Breakdown types
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Toby Knott](    /display/~toby.knott
+    ) on [May 19, 2021](/pages/diffpagesbyversion.action?pageId=8488106&selectedPageVersions=17&selectedPageVersions=18 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Learn all about the different breakdown types found in our reconciliation reports.
+
+General
+-------
+
+  
+
+Reporting fee category
+
+Action type
+
+Breakdown type
+
+Breakdown type description
+
+Payments
+
+Capture
+
+Capture
+
+A payment that has been captured, becoming revenue available to you.
+
+Partial capture
+
+Partial capture
+
+A payment that has been partially captured as part of a series of multiple captures or a single partial capture.
+
+Refunds
+
+Refund
+
+Refund
+
+A payment that has been refunded to the cardholder.
+
+Chargebacks
+-----------
+
+  
+
+Reporting fee category
+
+Action type
+
+Breakdown type
+
+Breakdown type description
+
+Chargebacks
+
+Chargeback
+
+Chargeback (ADJM)
+
+The chargeback has been issued. You account has been debited the disputed amount.
+
+Chargeback (CBRV)
+
+The chargeback was reversed/canceled by the issuing bank. Your account has been credited the disputed amount.
+
+Chargeback (RPDW)
+
+You have won the dispute. Your account has been credited the disputed amount.
+
+Chargeback (ABRW)
+
+You have won the arbitration case. Your account has been credited with the amount you did not accept liability for.
+
+Chargeback (ABRL)
+
+You have lost the arbitration case. Your account has been debited an arbitration fee.
+
+Chargeback (ARWS)
+
+You avoided a formal chargeback by accepting the dispute upfront. Your account has been debited the disputed amount.
+
+Payouts and adjustments
+-----------------------
+
+  
+
+Reporting fee category
+
+Action type
+
+Breakdown type
+
+Breakdown type description
+
+Pay to Bank payouts
+
+Pay to Bank
+
+Payout
+
+A Bank Payout transaction that is paid to you.
+
+Payout returned
+
+A payout which has been returned by our banking partners. For example, because of incorrect beneficiary bank details.
+
+Merchant payouts
+
+Merchant payout
+
+Payout
+
+Funds processed by Checkout that are settled to you.
+
+Payout rejected
+
+A payout which has been rejected by Checkout. For example, due to a failed sanctions screening.
+
+Payout returned
+
+A payout which has been returned by our banking partners. For example, due to incorrect beneficiary bank details.
+
+Adjustment
+
+Adjustment
+
+Fee
+
+An adjustment made to your currency accounts for any fee corrections that may need to take place.
+
+Top-up
+
+A top-up to a currency account that has been made by bank transfer.
+
+Invoice settlement
+
+An amount that has been paid by bank transfer for amounts owed on an invoice.
+
+Balance
+
+An adjustment made directly to a currency account to reflect an amount that needs to be credited or deducted. 
+
+Tax
+
+An adjustment made to your currency account for any tax corrections that may need to take place.
+
+Fees
+----
+
+### Card fees
+
+  
+
+Reporting fee category
+
+Action type
+
+Breakdown type
+
+Breakdown type description
+
+Card payment interchange fees
+
+Capture
+
+Partial capture
+
+Interchange fixed fee
+
+A fee set by the card scheme (for example, Visa) and paid out to the cardholder’s issuing bank.
+
+Card payment scheme fees
+
+Authentication
+
+Authorization
+
+Capture
+
+Partial capture
+
+Void
+
+Scheme fixed fees
+
+Fees applied by the card scheme (for example Visa) for the processing of card payments.
+
+Scheme variable fees
+
+Card payment gateway fees
+
+Authentication
+
+Authentication fixed fee
+
+Fees charged for determining whether a payment is being carried out by the legitimate cardholder. This includes authentications via the Checkout Sessions service.
+
+Authentication variable fee
+
+Authorization
+
+Estimated authorization
+
+Incremental authorization
+
+Authorization fixed fee
+
+A specific fixed fee applied for authorized card payments.
+
+Void
+
+Partial void
+
+Void fixed fee
+
+A specific fixed fee applied for voided card payments.
+
+Authentication
+
+Authorization
+
+Void
+
+Gateway fixed fee
+
+A fixed fee incurred on actions (i.e., authentication, authorization, void, refund) across the payment lifecycle.
+
+Authorization
+
+Card verification fixed fee
+
+A specific fixed fee applied for card verifications to determine whether a card is valid.
+
+Card payment blended fees
+
+Capture
+
+Partial capture
+
+Blended fixed fee
+
+A fixed, variable, or fixed and variable flat fee applied to successful captures.
+
+Blended variable fee
+
+Acquiring premiums
+
+Capture
+
+Partial capture
+
+Premium fixed fee
+
+A fixed, variable, or fixed and variable flat fee applied to successful captures when processing payments with Checkout.
+
+Premium variable fee
+
+### Alternative payment method fees
+
+Reporting fee category
+
+Action type
+
+Breakdown type
+
+Breakdown type description
+
+Alternative payment method fees
+
+Capture
+
+Gateway fixed fee
+
+A fixed fee incurred when a request to the Gateway is made for an alternative payment method transaction.
+
+Capture fixed fee
+
+A fee applied for the capture of an alternative payment method transaction.
+
+Capture variable fee
+
+Refund
+
+Refund fixed fee
+
+A fixed fee applied for refunds made for an alternative payment method.
+
+  
+
+### Refund fees
+
+  
+
+Reporting fee category
+
+Action type
+
+Breakdown type
+
+Breakdown type description
+
+Refunded interchange fees
+
+Refund
+
+Interchange fixed fee
+
+Fees set by card schemes (for example Visa) and paid out to the cardholder’s issuing bank, refunded to you for processed refunds.
+
+Refund scheme fees
+
+Scheme fixed fee
+
+Fees applied by card schemes for the processing of refunded card payments.
+
+Scheme variable fee
+
+Refund Gateway fees
+
+Refund fixed fees
+
+A specific fixed fee applied for refunded card payments.
+
+Gateway fixed fees
+
+A fixed fee incurred on actions (i.e., authentication, authorization, void, refund) across the payment lifecycle.
+
+### Chargeback fees
+
+  
+
+Reporting fee category
+
+Action type
+
+Breakdown type
+
+Breakdown type description
+
+Chargeback fees
+
+Chargeback
+
+Chargeback fee
+
+A fee incurred for payments that are triggered on certain chargeback events.
+
+Scheme fixed fee
+
+Fees applied by card schemes (for example Visa or Mastercard) for processing a chargeback.
+
+Scheme variable fee
+
+Representment fees
+
+Representment fee
+
+A fee incurred during the disputes process. Representment occurs when an issuer will review the evidence provided by you.
+
+Retrieval fees
+
+Retrieval fee
+
+A fee incurred before the disputes process. Retrieval occurs when the cardholder’s issuer requests information from you before raising a dispute.
+
+### Payout fees
+
+  
+
+Reporting fee category
+
+Action type
+
+Breakdown type
+
+Breakdown type description
+
+Pay to Bank fees
+
+Pay to Bank
+
+Payout confirmed fixed fee
+
+A fee charged for every Bank Payout transaction, which will be linked to an underlying Bank Payout transaction via the action ID and payment ID. 
+
+Payout returned fixed fee
+
+A fee charged for every returned payout, which will be linked to an underlying returned payout via an action ID.
+
+### Tax
+
+  
+
+Reporting fee category
+
+Action type
+
+Breakdown type
+
+Breakdown type description
+
+Tax
+
+Capture
+
+Partial capture
+
+Refund
+
+Tax interchange fixed Fee
+
+Tax applied to interchange fees.
+
+Authentication
+
+Authorization
+
+Capture
+
+Partial capture
+
+Void
+
+Refund
+
+Chargeback
+
+Tax scheme fixed fees
+
+Tax applied to scheme fees.
+
+Tax scheme variable fees
+
+Authentication
+
+Tax authentication fixed fee
+
+Tax applied to gateway association fees.
+
+Tax authentication variable fee
+
+Authorization
+
+Estimated authorization
+
+Incremental authorization
+
+Tax authorization fixed fee
+
+Void
+
+Partial void
+
+Tax void fixed fee
+
+Authentication
+
+Authorization
+
+Void
+
+Refund
+
+Tax gateway fixed fee
+
+Authorization
+
+Tax card verification fixed fee
+
+Refund
+
+Tax refund fixed fees
+
+Capture
+
+Partial capture
+
+Tax blended fixed fee
+
+Tax applied to blended rate fees.
+
+Tax fixed fee
+
+Capture
+
+Partial capture
+
+Tax premium fixed fee
+
+Tax applied to Checkout.com premium fees.
+
+Tax premium variable fee
+
+Chargeback
+
+Tax chargeback fee
+
+Tax applied to chargeback related fees.
+
+Tax representment fee
+
+Tax retrieval fee
+
+Pay to Bank
+
+Tax payout confirmed fixed fee
+
+Tax applied to payout related fees.
+
+Tax payout returned fixed fee
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Breakdown+types?showComments=true&showCommentArea=true#addcomment)

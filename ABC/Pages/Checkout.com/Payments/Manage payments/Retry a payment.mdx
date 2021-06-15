@@ -1,0 +1,50 @@
+---
+title: Retry a payment
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 19, 2021](/pages/diffpagesbyversion.action?pageId=2785642&selectedPageVersions=3&selectedPageVersions=4 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Occasionally, you may need to retry a payment or payment action (e.g., void) due to a disrupted API call owing to a network error or timeout. Our payments endpoint supports idempotency, so you can safely retry requests without a duplicate payment taking place or a payment action being performed twice.
+
+How it works
+------------
+
+To perform an idempotent payment or payment action request, provide the `Cko-Idempotency-Key` HTTP header. Keys should be unique and will expire after 24 hours for production environments and 120 seconds for sandbox environments, after which the request will be processed as normal. We strongly recommend using V4 UUIDs.
+
+Subsequent requests with the same key will return the same HTTP status code and response body as the first request, providing that it was processed successfully. If the first request could not be processed, for example due to a validation error, no idempotent result will be saved and the payment will be reattempted.
+
+If we detect concurrent requests with the same idempotency key, only one request will be processed and the other requests will return a `429 Too many requests` response. One scenario where this could occur is if you automatically retry a payment following a network issue, but the original request is still being processed. We recommend waiting for at least 30 seconds before attempting again.
+
+Request example
+---------------
+
+    curl -X POST https://api.sandbox.checkout.com/payments 
+      -H 'Authorization: sk_be458ac1-f20e-4194-bf58-b28e5ffd88e7'
+      -H 'Cko-Idempotency-Key: 74f18c1ee79747949cc5f0bd4d771e93'
+      -H 'Content-Type: application/json'
+      -d '{
+      "source": {
+        "type": "token",
+        "token": "tok_6qi7zfk7652udgy2thneaoxp7u"
+      },
+      "amount": 1000,
+      "currency": "USD"
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Retry+a+payment?showComments=true&showCommentArea=true#addcomment)

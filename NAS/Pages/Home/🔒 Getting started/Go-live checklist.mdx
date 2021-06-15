@@ -1,0 +1,88 @@
+---
+title: Go-live checklist
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified on [Oct 20, 2020](/pages/diffpagesbyversion.action?pageId=8489210&selectedPageVersions=17&selectedPageVersions=18 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Test your integration
+=====================
+
+Our sandbox environment provides the necessary environment to make sure everything from your implementation is working perfectly. We recommend working your way through the steps listed below.
+
+When you've completed a step, you can click the checkbox to mark it as done. Note that this will get cleared if you refresh the page.
+
+  
+
+function toggleImage() { var img1 = "https://assets.checkout.com/docs/images/checkmark-blank.svg"; var img2 = "https://assets.checkout.com/docs/images/checkmark-green.svg"; var imgElement = document.getElementById('toggleImage'); imgElement.src = (imgElement.src === img1)? img2 : img1; }
+
+![](https://assets.checkout.com/docs/images/checkmark-blank.svg)
+
+Test your card payments. Remember to use our test cards because genuine card numbers will produce an error in your sandbox environment.
+
+function toggleImage2() { var img3 = "https://assets.checkout.com/docs/images/checkmark-red.svg"; var img4 = "https://assets.checkout.com/docs/images/checkmark-green.svg"; var imgElement = document.getElementById('toggleImage2'); imgElement.src = (imgElement.src === img3)? img4 : img3; }
+
+![](https://assets.checkout.com/docs/images/checkmark-red.svg)
+
+Test the payment response codes using the trigger amounts.
+
+![](https://assets.checkout.com/docs/images/checkmark-blank.svg)
+
+Test a 3DS payment. You'll receive a redirect URL to a 3DS authentication simulator page.
+
+![](https://assets.checkout.com/docs/images/checkmark-blank.svg)
+
+Whitelist the Checkout IP addresses listed here. You'll need to do this to successfully receive webhook notifications.
+
+![](https://assets.checkout.com/docs/images/checkmark-blank.svg)
+
+Test your webhooks and make sure you're getting all the event notifications you'd expect. For example, `Payment approve`, `Payment Refunded`, `Dispute Evidence Required`.
+
+Prepare for production
+======================
+
+Contact our Implementation team
+-------------------------------
+
+Now you've tested all your code in Sandbox, confirm your tests with this form \[form to be built by Sales Ops\] so our Implementation Team can validate your code before you deploy live.
+
+Update your API keys
+--------------------
+
+Once your account has been approved, and your sandbox testing has been validated by our Implementation team, replace your test keys with your live keys. Configure your live secret and public keys to test in production.
+
+Validate your risk management settings
+--------------------------------------
+
+Validate Risk Settings with Checkout CSM and Risk Management
+
+Configure your webhooks for production
+--------------------------------------
+
+Configure Webhooks for Production Environment
+
+Complete your production tests
+------------------------------
+
+*   Perform a payment
+*   Perform a 3D Secure payment
+*   Refund a payment
+*   Test your webhooks. Check that you are receiving the notifications you have set up
+*   Monitor settlement of funds from Checkout with your bank
+
+  
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Go-live+checklist?showComments=true&showCommentArea=true#addcomment)

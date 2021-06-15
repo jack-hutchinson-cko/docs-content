@@ -1,0 +1,252 @@
+---
+title: Test cards
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Chrisi Webster](    /display/~chrisiwebster
+    ) on [May 11, 2021](/pages/diffpagesbyversion.action?pageId=8488203&selectedPageVersions=7&selectedPageVersions=8 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Genuine card numbers will produce an error in your test environment. To simulate payments, use any of the test card details provided in the tables below. You can use any valid CVV and any expiry date (`mm/yy`) as long as it's in the future.
+
+Estimated/final authorization response
+--------------------------------------
+
+Card number
+
+Scheme
+
+Response code
+
+Card number
+
+Scheme
+
+Response code
+
+4242424242424242
+
+Visa
+
+10000
+
+5436031030606378
+
+Mastercard
+
+10000
+
+345678901234564
+
+Amex
+
+10000
+
+4539467987109256
+
+Visa
+
+20005
+
+5585076576791786
+
+Mastercard
+
+20005
+
+341829238058580
+
+Amex
+
+20005
+
+4273149019799094
+
+With this card, Capture and Void actions are declined.
+
+Visa
+
+10000
+
+4916301720257093
+
+Visa
+
+20020
+
+4095254802642505
+
+Visa
+
+20068
+
+4199350000000002
+
+Visa
+
+200R1
+
+Incremental authorization
+-------------------------
+
+Card number
+
+Scheme
+
+Response code
+
+Error code
+
+Card number
+
+Scheme
+
+Response code
+
+Error code
+
+4659959652550685
+
+Visa
+
+N/A
+
+incremental\_authorization\_unsupported
+
+4446900535698356
+
+Visa
+
+N/A
+
+incremental\_authorization\_restricted\_for\_mcc 
+
+4140253846048187
+
+Visa
+
+20005
+
+N/A
+
+4556447238607884
+
+Visa
+
+20068
+
+N/A
+
+Commercial cards
+----------------
+
+You can use these cards to trigger a fallback to 3DS1. A fallback occurs when the cardholder or issuer is not using 3DS2. 
+
+Using these cards in a [Sessions](/display/x/Sessions) direct integration and in combination with the ‘magic amount’ (123321) will trigger a very specific scenario.
+
+A fallback to 3DS1 will be triggered after the merchant initiated a 3DS2 that failed during the first authentication call (e.g. for the reasons of technical issue or a timeout on the side of the ACS).
+
+  
+
+Number
+
+Scheme
+
+3D Secure version supported
+
+Number
+
+Scheme
+
+3D Secure version supported
+
+4484070000035519
+
+Visa
+
+3DS1
+
+5352151570003404
+
+Mastercard
+
+3DS1
+
+Non-3DS enabled cards
+---------------------
+
+To simulate a non-3DS enabled card payment, select the drop-down that applies to you.  
+
+If you want to test a card payment **without** 3D Secure authentication, use one of the following cards with a transaction value of `5000` or `5029`.
+
+  
+
+ 3DS1 and 3DS2 enabled
+
+Card type
+
+Number
+
+CVV
+
+Visa
+
+`4532432452900131  
+`
+
+`257`
+
+Mastercard
+
+`5133078872660100  
+`
+
+`100`
+
+  
+
+ 3DS2 only
+
+Card type
+
+Number
+
+CVV
+
+Visa
+
+`4484070000035519`
+
+`257`
+
+Mastercard
+
+`5352151570003404`
+
+`100`
+
+AVS match
+---------
+
+Providing any valid value in the `source.billing_address.address_line1` will result in an AVS match A (Street Match).
+
+CVV check code
+--------------
+
+Providing any valid CVV will result in a `Y` CVV check code.
+
+  
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Test+cards?showComments=true&showCommentArea=true#addcomment)

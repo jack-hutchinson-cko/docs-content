@@ -1,0 +1,241 @@
+---
+title: Filter payments
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 22, 2021](/pages/diffpagesbyversion.action?pageId=8488064&selectedPageVersions=4&selectedPageVersions=5 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+How to search and filter your payments
+--------------------------------------
+
+1.  Click the search bar to get started.  
+    ![](/download/attachments/8488064/dashboard_search_bar.png?version=1&modificationDate=1598006716156&api=v2)  
+      
+    
+2.  Select a filter, and then add the value you want to filter by. Some filters have pre-defined values. For instance, selecting `status:` will suggest a list of statuses with which you can filter the results.   
+    ![](/download/attachments/8488064/dashboard_search_status_filter.png?version=1&modificationDate=1598006716179&api=v2)  
+      
+    If your search term includes a space, you must wrap it in quotation marks. For example, `"John Doe"`.  
+    ![](/download/attachments/8488064/dashboard_search_string.png?version=1&modificationDate=1598006716198&api=v2)  
+      
+    
+3.  You can add extra search terms to further narrow your results. These should be separated by spaces, `AND`, or `OR`—placing the `OR` operator between two search terms will return results for one or the other. For example: 
+    *   Entering `status:declined AND response_code:20005` will return all payments that were unauthorized because of the Declined - Do Not Honour - 20005 soft decline. (`status:declined response_code:20005` will return the exact same list of payments.) 
+    *   Searching `payment_method:VISA OR payment_method:Mastercard` will return all payments processed via Visa or Mastercard.
+4.  Press Enter or click **See all results** to apply your filter. The _Payments_ screen will be updated to show your results.
+5.  If you want to undo your search, click the cross in the search bar.
+
+You do not need to use a filter to search by identifier (payment ID, action ID, customer ID, dispute ID), or email address. These will be recognized immediately as you type them in the search bar.
+
+Available filters
+-----------------
+
+The following table describes the available filter criteria, as well as the different search terms you can enter to use them.
+
+You can use the following operators in your searches:
+
+*   Equal to: `:`
+*   Between: `..`
+*   Greater than: `>`
+*   Less than: `<`
+
+You cannot combine the status and action filters in the same search.
+
+Filter
+
+Search term(s)
+
+Description
+
+Example(s)
+
+Filter
+
+Search term(s)
+
+Description
+
+Example(s)
+
+Amount
+
+`amount`
+
+The original payment amount or range of your payment request. If combined with an action, it will be the action amount or range.
+
+`amount:50`
+
+`amount<10`
+
+`amount>50`
+
+`amount:20..35`
+
+Customer
+
+`customer`
+
+`email`
+
+Customer email address, customer name, or customer ID.
+
+`customer:"John Doe"`
+
+`johndoe@gmail.com`
+
+`email:johndoe@gmail.com`
+
+`cus_udst2tfldj6upmye2reztkmm4i`
+
+Card number
+
+`card`
+
+`bin`
+
+`fingerprint`
+
+The last four, or first six, digits of the card, or the card fingerprint.
+
+`card:4242`
+
+`bin:674567`
+
+`fingerprint:F31828E2BDABAE63EB694903825CDD36041CC6ED461440B81415895855502832`
+
+Currency
+
+`currency`
+
+The three-letter ISO code of the payment currency.
+
+`currency:EUR`
+
+Payment method
+
+`payment_method`
+
+The payment method used to make the payment.
+
+`payment_method:visa`
+
+Reference
+
+`reference`
+
+The reference for the payment.
+
+`reference:TRK-001`
+
+Status
+
+`status`
+
+The status of the payment, and whether it has been flagged.
+
+`status:refunded`
+
+Action
+
+`action`
+
+Actions that have been taken on a payment. Results will include all payments on which the action has been taken, even if it was not the latest action. Results are ordered by the date of the action.
+
+When one of the search terms is an action, the results displayed in the list will take a slightly different form, listing actions (or events) instead of payments.
+
+`action:refund`
+
+  
+
+Date
+
+`date`
+
+The date, or date range, the payment request was made. If combined with an action, it will be the date, or date range, the action was taken.
+
+Date:
+
+*   `date:2019-10-31`
+*   `date:20191031`
+
+Date range:
+
+*   `date:2019-12-01..2019-12-31`
+*   `date:20191201..20191231`
+
+Before or after date:
+
+*   `date<20190303`
+*   `date>20190303`
+
+IDs (payment, action or customer)
+
+`pay_...`
+
+`act_...`
+
+`cus_...`
+
+Returns the payment or action associated with the ID, or the payments/actions associated with the customer's ID.
+
+`pay_mbabizu24mvu3mela5njyhpit4`
+
+`act_fd3h6evhpn3uxdoqbuu3lqnqbm`
+
+`cus_udst2tfldj6upmye2reztkmm4i`
+
+Billing descriptor
+
+`billing_descriptor`
+
+Payments with the specified billing descriptor (the text displayed on the customer's bank statement identifying the payment).
+
+`billing_descriptor:ORD_12345`
+
+Response codes
+
+`response_code`
+
+Payments with the specified response code.
+
+`response_code:20014` (returns all payments declined owing to an invalid card number)
+
+Issuer
+
+`issuer`
+
+Payments processed through the specified issuing bank.
+
+`issuer:"BNP PARIBAS"`
+
+Payment type
+
+`payment_type`
+
+Payments of the specified type. By default, `Regular` payments are returned, but you can also search for `Recurring` and `MOTO` payments.
+
+`payment_type:MOTO`
+
+Sub-entity ID
+
+`sub_entity_ID`
+
+The unique identifier of the sub-entity.
+
+`sub_entity_ID:"ent_w4jelhppmfiufdnatam37wrfc4"`
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Filter+payments?showComments=true&showCommentArea=true#addcomment)

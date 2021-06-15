@@ -1,0 +1,56 @@
+---
+title: payment_refunded
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 14, 2021](/pages/diffpagesbyversion.action?pageId=8488376&selectedPageVersions=5&selectedPageVersions=6 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+### Example: Payment refunded
+
+    {
+      "id": "evt_rmbwhvwacc7u5iczmz2tdcogum",
+      "type": "payment_refunded",
+      "created_on": "2020-02-03T11:35:03Z",
+      "data": {
+        "action_id": "act_7fmebms4rtmuja2poigylogjk4",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "reference": "ORD-5023-4E89",
+        "amount": 200,
+        "processing": {
+          "acquirer_transaction_id": "7026208384",
+          "acquirer_reference_number": "773993129364"
+        },
+        "id": "pay_pswr5qaqzzferh2puzfyrefzuy",
+        "currency": "GBP",
+        "processed_on": "2020-02-03T11:35:03Z",
+        "metadata": {
+          "coupon_code": "NY2018",
+          "partner_id": 123989
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/events/evt_rmbwhvwacc7u5iczmz2tdcogum"
+        },
+        "subject": {
+          "href": "https://api.checkout.com/workflows/events/subject/pay_jlfj2ful7z3u5lbykhy5lzezvm"
+        }
+      }
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/payment_refunded?showComments=true&showCommentArea=true#addcomment)

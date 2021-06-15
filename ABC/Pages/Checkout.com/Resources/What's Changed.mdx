@@ -1,0 +1,231 @@
+---
+title: What's Changed
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 15, 2021](/pages/diffpagesbyversion.action?pageId=5931182&selectedPageVersions=5&selectedPageVersions=6 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+This is where we document the changes to our API. Here, you'll find a record of product features and payment methods we've introduced, as well as new fields and values we've added.
+
+ Backward-compatible changes
+
+We take the utmost care in ensuring that changes to our APIs do not break your integrations. We consider the following changes to be backward-compatible:
+
+*   Adding new, optional request fields/parameters to existing APIs.
+*   Adding new fields to existing API responses.
+*   Adding new, optional HTTP request headers.
+*   Adding new HTTP response headers.
+*   Increasing the length of existing string field values.
+*   Changing the format of identifiers including changing or removing prefixes.
+*   Adding new webhook event types (you will need to explicitly opt into these).
+*   Adding new fields to existing webhook event schemas.
+
+In the event that a breaking change is unavoidable (e.g., for compliance reasons), we will contact you in advance to ensure that you have sufficient time to update your integration.
+
+July 2019
+=========
+
+Friday, 12th
+------------
+
+*   We launched a brand new version of [Frames](/display/DOCS/Frames). If you'd like to upgrade, read our [migration guide](/display/DOCS/Frames+migration+guide).
+
+Wednesday, 10th
+---------------
+
+*   Added support for [QPay](/display/DOCS/QPay), a popular payment method in Qatar.
+
+June 2019
+=========
+
+Friday, 28th
+------------
+
+*   Added support for [Fawry](/display/DOCS/Fawry), a popular payment method in Egypt.
+
+Thursday, 6th
+-------------
+
+*   Added two new optional fields to the response to requesting a payment: 
+    *   `processing.retrieval_reference_number`
+    *   `processing.acquirer_transaction_id`
+*   Added two optional fields to the response to retrieving payment actions:
+    *   `processing.acquirer_reference_number`
+    *   `processing.acquirer_transaction_id`
+*   Added two optional fields to the `payment_approved`, `payment_declined`, `card_verification` and `card_verification_declined`webhooks: 
+    *   `processing.retrieval_reference_number`
+    *   `processing.acquirer_transaction_id`
+*   Added two new optional fields to the `payment_captured` webhook notification: 
+    *   `processing.acquirer_reference_number`
+    *   `processing.acquirer_transaction_id`
+*   Introduced support for [Bancontact](/display/DOCS/Bancontact) and [KNET](/display/DOCS/KNET).
+
+Monday, 3rd
+-----------
+
+*   Added further support for payment requests using the second version of 3D Secure authentication:
+    *   Added an [integration guide](/display/DOCS/3D+Secure+2+API+integration) for our hosted and custom options.
+    *   Added a [list of required and optional data elements](/display/DRAFT/3D+Secure+2.0+data+elements) that can be included alongside the standard parameters in a payment request when requesting a 3DS2 payment.
+
+May 2019
+========
+
+Thursday, 16th
+--------------
+
+*   The version of 3D Secure used for authentication is now provided in the `3ds.version` field of the payment retrieval response.
+
+April 2019
+==========
+
+Monday, 29th
+------------
+
+*   Added support for [EPS](/display/DOCS/EPS), a popular payment method in Austria.
+
+Wednesday, 24th
+---------------
+
+*   The `source.bic` field in a [Giropay payment request](/display/DOCS/Giropay) is now optional. If you include the Bank Identifier Code (BIC), your payment will follow a slightly different flow.
+
+Friday, 12th
+------------
+
+*   Added an endpoint to [iDEAL](/display/DOCS/iDEAL) that allows you to get an up-to-date list of issuers that support iDEAL payments.
+
+Monday, 8th
+-----------
+
+*   Added support for payments requests using the second version of 3D Secure authentication (3DS2) to help merchants comply with Strong Customer Authentication (SCA) requirements. [Find out more](/display/DOCS/3D+Secure).
+
+March 2019
+==========
+
+Friday, 22nd
+------------
+
+*   Payment actions are now idempotent and therefore allow you to safely retry capture, refund and void requests. [Find out more](/display/DOCS/Retry+a+payment).
+
+February 2019
+=============
+
+Friday, 8th
+-----------
+
+*   Added support for [Klarna](/display/DOCS/Klarna), a favorite payment method in Europe.
+
+January 2019
+============
+
+Monday, 21st
+------------
+
+*   The response to retrieving a payment using a session ID will now include an action object, which provides a summary of the actions performed for that payment. 
+
+Thursday, 10th
+--------------
+
+*   The `payment_approved`, `payment_declined`, `card_verifed`, and `card_verification_declined` webhook notifications now include an `approved` flag. This allows you to easily know if the authorization or capture was a success without having to use the status or response code.
+
+Wednesday, 9th
+--------------
+
+*   An `approved` flag has been added to the payment retrieval response, bringing it in line with the payment creation response. Primarily used in the redirection flows (3D Secure and APMs), this allows you to easily know if the authorization or capture was a success without having to use the status or response code.
+
+November 2018
+=============
+
+Wednesday, 14th
+---------------
+
+*   Our payments endpoint is now idempotent, allowing you to safely retry payments without a duplicate payment taking place. [Find out more](/display/DOCS/Retry+a+payment).
+*   We now provide you with the scheme transaction ID (`scheme_id`) in the response when creating a payment. 
+
+October 2018
+============
+
+Wednesday, 24th
+---------------
+
+*   Support for payments using pre-decrypted Apple Pay tokens has been added to the payments endpoint.
+
+Thursday, 18th
+--------------
+
+*   Support for network token payments has been added to the payments endpoint.
+*   Support for 3D Secure payments where the cardholder is authenticated using a third-party MPI has been added to the payments endpoint.
+*   The ECI value that the payment was authorized with is now provided in the response to 3D Secure and Visa token payments.
+
+Thursday, 11th
+--------------
+
+*   We now provide the `payment_account_reference` for digital wallet and Visa token payments. This is a reference to the underlying card and allows you to know if two tokens reference the same underlying card.
+
+August 2018
+===========
+
+Tuesday, 14th
+-------------
+
+*   We’ve updated the [Events API](/display/DOCS/Events+API) so you can search using `payment_id` and `reference`. This will allow you to easily find events related to a particular payment.
+
+July 2018
+=========
+
+Tuesday, 24th
+-------------
+
+*   For [recurring payments that use stored card details](/display/DOCS/Requirements+for+stored+payment+details), you can now use the scheme transaction ID from a payment processed by your current acquirer as your `previous_payment_id` to start processing those payments with us, with no need to take the customer's details again.
+
+June 2018
+=========
+
+Tuesday, 26th
+-------------
+
+*   `previousChargeId` now supports Visa’s scheme transaction ID. [Find out more](/display/DOCS/Requirements+for+stored+payment+details).
+
+April 2018
+==========
+
+Wednesday, 4th
+--------------
+
+*   Added support for [Mada](/display/DOCS/Mada), Saudi Arabia's domestic payment network.
+
+Monday, 2nd
+-----------
+
+*   To support the new requirements from Visa and Mastercard for payments using stored card details, a new `cardOnFile` and a new `previousChargeId` field must be included in charge requests where applicable. [Find out more](/display/DOCS/Requirements+for+stored+payment+details).
+
+March 2018
+==========
+
+Wednesday, 21st
+---------------
+
+*   Financial institutions now need to provide the `recipientDetails` in their charge requests when processing any domestic UK transactions. [Find out more](/display/DOCS/Requirements+for+financial+institutions).
+
+February 2018
+=============
+
+Friday, 2nd
+-----------
+
+*   We have introduced new chargeback and retrieval webhooks to help keep you up to date on your payments. You can subscribe to them by updating your configuration through our [API](/display/DOCS/Webhook+management) or via the [Hub](/display/DOCS/Manage+webhooks).
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/What%27s+Changed?showComments=true&showCommentArea=true#addcomment)

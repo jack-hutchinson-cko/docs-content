@@ -1,0 +1,442 @@
+---
+title: SCA compliance guide
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified on [May 26, 2021](/pages/diffpagesbyversion.action?pageId=8490095&selectedPageVersions=5&selectedPageVersions=6 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+On 14 September 2019, new requirements for authenticating online payments were introduced in Europe as part of the European Union’s second Payment Services Directive (PSD2), aiming to make payments more secure for cardholders.
+
+These requirements, known as Strong Customer Authentication (SCA), apply to customer-initiated online payments and online banking transactions made within Europe.
+
+On this page we’ll take a look at SCA and how we can help you meet it. We’ll explore the sorts of payments it affects and what possible exemptions you can use to offer a frictionless checkout experience for your customers.
+
+Get ready for SCA
+
+Follow these three steps to make sure you're ready for strong authentication:
+
+*   [Check if SCA applies to you](#SCAcomplianceguide-scascope).
+*   See if your [business model and transactions require strong authentication](#SCAcomplianceguide-businessmodels).
+*   Make sure your integration supports [3D Secure (3DS) authentication](#SCAcomplianceguide-3ds).
+
+We will update this page regularly, so check back to keep up to date with the latest changes.
+
+The `3ds.challenge_indicator` field is not yet live.
+
+What is Strong Customer Authentication?
+---------------------------------------
+
+SCA is a sort of multi-factor authentication, verifying the identity of the cardholder and increasing the security of online payments. The customer has to provide at least two of the following three elements to satisfy it:
+
+*   Something the customers **knows** (like a password or PIN)
+*   Something the customer **has** (like a mobile phone or wearable device)
+*   Something the customer **is** (like their fingerprint or facial recognition)
+
+### Does SCA apply to me? 
+
+Strong authentication is required for customer-initiated online payments within Europe. For online card payments, SCA applies only to transactions where both your business's bank and the cardholder's bank are located in the European Economic Area (EEA) or the United Kingdom (UK).
+
+*   **SCA applies** if your business's bank **and** your customer's bank are in the EEA or the UK.
+*   **SCA does not apply** if your business's bank **and/or** your customer's bank is outside the EEA or the UK.
+
+Even if SCA applies to your business, some transactions fall [outside the scope of SCA](#SCAcomplianceguide-outofscope), or can benefit from possible [exemptions](#SCAcomplianceguide-exemptions) if the customer's bank approves.
+
+### When will SCA be enforced? 
+
+The SCA requirements were originally meant to come into effect on 14 September 2019, but enforcement has been delayed.
+
+*   If your business's bank and your customer's bank are in the **EEA**, you must be ready to support SCA by **31 December 2020**.
+*   If your business's bank and your customer's bank are in the **UK**, you must be ready to support SCA by **14 September 2021**.
+
+Some issuing banks have started soft declining payments that are not SCA-ready (in other words, not authorizing some payments without 3DS authentication) in preparation for the above deadlines, so we recommend you support [3DS authentication](#SCAcomplianceguide-3ds) as soon as possible to avoid any potential issues.
+
+Out-of-scope transactions 
+--------------------------
+
+Some transactions fall outside the scope of SCA, meaning they do not require strong authentication.
+
+### Merchant-initiated transactions 
+
+Scheduled and unscheduled merchant-initiated transactions (MITs) of a fixed or variable amount originating from the merchant, where you make the payment with a customer's previously saved card (like subscriptions and automatic account top-ups) are out of scope.
+
+However, you will need to perform SCA when the card is saved or when the first payment in a series is made by the cardholder. You also need to get an agreement from the customer to charge their card at a later date.
+
+In addition, you must include additional parameters in your payment request to clearly identify such transactions as merchant-initiated. Learn more in our [stored card details guide](/display/x/About+stored+card+details).
+
+### MOTO payments 
+
+Payments made by mail order or over the phone (MOTO) fall outside the scope of SCA.
+
+### One leg out payments
+
+One leg out (OLO) payments – transactions where you and/or the customer's bank are based outside the European Economic Area (EEA) or the UK – are out of scope.
+
+### Anonymous prepaid card
+
+If a customer uses an anonymous prepaid card, like a gift card, they do not need to go through SCA.
+
+Possible SCA exemptions 
+------------------------
+
+For transactions that are in scope of SCA, you can request exemptions from strong authentication if the transactions meet certain criteria.
+
+However, the customer's bank has the final say on whether or not the requested exemption applies. They will assess the risk of the payment and decide whether to accept the exemption, or reject it and request strong authentication for the transaction.
+
+*   **Bank accepts exemption**. If the customer’s bank accepts the requested exemption, the transaction can be completed without strong authentication.
+*   **Bank rejects exemption**. If the customer’s bank does not allow the exemption, you will receive a `20154` response code, meaning that you will need to apply 3DS authentication to the transaction to meet SCA requirements.
+
+Liability shift
+
+If you request an exemption, and the customer’s bank approves it, you do not benefit from the liability shift. This means you would be liable if the transaction turned out to be fraudulent.
+
+### Summary of exemptions
+
+  
+
+Scheme
+
+Low-value payment
+
+Low-risk payment
+
+Secure corporate payment
+
+Trusted merchant list
+
+Scheme
+
+Low-value payment
+
+Low-risk payment
+
+Secure corporate payment
+
+Trusted merchant list
+
+Visa
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+Mastercard
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+American Express
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+![(info)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/information.svg)
+
+Diners Club (DCI)
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+Cartes Bancaires
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+![(tick)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/check.svg)
+
+![(error)](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/emoticons/error.svg)
+
+American Express handles the trusted merchant list exemption itself, so you do not need to request this exemption for Amex cards.
+
+### Low-value payments
+
+Payments below €30 are considered low-value and may be exempt. However, the customer’s bank may still trigger strong authentication if, within a 24-hour period, this exemption has been used five times since the customer's last successful authentication or the total value spent on the card without SCA exceeds €100.
+
+### Low-risk payments
+
+The payment may be exempted if the acquirer's and/or issuer’s average fraud levels for card payments and the amount do not exceed the following thresholds:
+
+*   Below 0.13% and the payment is less than €100
+*   Below 0.06% and the payment is less than €250
+*   Below 0.01% and the payment is less than €500
+
+### Payments to trusted businesses
+
+The customer may add a merchant to a whitelist after the initial strong authentication, meaning all subsequent payments to that business will be exempt.
+
+### Secure corporate payments
+
+Corporate payments made with virtual and lodge cards (typically used for business travel expenses) or from central travel accounts are exempt.
+
+How to comply with SCA
+----------------------
+
+### 3D Secure authentication 
+
+The best way to comply with SCA for your online card payments is to use 3D Secure (3DS) authentication—an authentication protocol supported by the major card schemes.
+
+3DS adds an extra layer of security for online card payments, the cardholder being prompted by their bank to verify their identity (typically a password, SMS code, or fingerprint check) before the payment can be completed.
+
+The latest version of 3DS—3D Secure 2 (3DS2)—is the best way to authenticate online card payments and comply with the SCA requirements. It offers more flexible authentication flows and the ability to request exemptions from SCA, meaning a smoother checkout flow for your customers.
+
+Until all issuing banks support the latest version of the 3DS protocol, we recommend you support both 3DS1 and 3DS2 for now, to avoid unnecessary declines.
+
+Implement 3DS authentication
+
+Use our [3D Secure API integration](#SCAcomplianceguide-3dssolution) to implement 3DS authentication on your card payments and request SCA exemptions. It supports both 3DS1 and 3DS2.
+
+### Alternative payment methods
+
+Digital wallets and some local European payment methods should also support SCA: 
+
+*   Card-based digital wallets like [Apple Pay](/display/DOCS/Apple+Pay) and [Google Pay](/display/DOCS/Google+Pay) have multi-factor authentication built in to their payment flows, offering a frictionless checkout experience that supports SCA.
+*   Many common European payment methods, like [Bancontact](/display/DOCS/Bancontact), [iDEAL](/display/DOCS/iDEAL), and [Multibanco](/display/DOCS/Multibanco), should also follow the SCA requirements.
+
+Business scenarios 
+-------------------
+
+To show the impact of strong authentication, we’ve outlined below how it affects different business models and transactions.
+
+  
+
+Business scenario
+
+Transaction type
+
+SCA required?
+
+Payment request parameters
+
+E-commerce
+
+Customer enters card details at checkout for one-off online payment.
+
+Yes, unless [exemptions](#SCAcomplianceguide-exemptions) apply.
+
+`"3ds.enabled": true` or `"3ds.exemption"`
+
+Customer uses previously stored card details to make a one-off online payment.
+
+Yes, unless [exemptions](#SCAcomplianceguide-exemptions) apply.
+
+`"3ds.enabled": true` or `"3ds.exemption"`
+
+  
+
+`"source.stored": true`
+
+Subscriptions
+
+The first transaction that starts the subscription. This could be a [zero-dollar authorization/card verification](/display/x/Card+verification).
+
+Yes
+
+`"3ds.enabled": true`
+
+  
+
+`"merchant_initiated": false`
+
+  
+
+And, if it's a Visa card: `"payment_type": "Recurring"`
+
+Subsequent payments of the subscription.
+
+No. These qualify as [merchant-initiated transactions (MITs)](#SCAcomplianceguide-mits) which fall outside the scope of SCA.
+
+`"payment_type": "Recurring"`
+
+  
+
+`"merchant_initiated": true`
+
+  
+
+`"previous_payment_id"`
+
+Unscheduled MITs, like automatic account top-ups
+
+The first transaction where the customer agrees to the terms and conditions of subsequent payments. This could be a [zero-dollar authorization/card verification](/display/DOCS/Card+verification).
+
+Yes
+
+`"3ds.enabled": true`
+
+  
+
+`"merchant_initiated": false`
+
+Subsequent payments as agreed in the initial terms and conditions.
+
+No. These qualify as [MITs](#SCAcomplianceguide-mits), which are out of scope.
+
+`"source.stored": true`
+
+  
+
+`"merchant_initiated": true`
+
+  
+
+`"previous_payment_id"`
+
+MOTO payments
+
+Payments made by mail order or over the phone.
+
+No. [MOTO payments](#SCAcomplianceguide-moto) are out of scope.
+
+`"payment_type": "moto"`
+
+Incremental authorizations
+
+The first transaction, where the customer agrees to later merchant-initiated authorizations.
+
+Yes, unless [exemptions](#SCAcomplianceguide-exemptions) apply.
+
+`"3ds.enabled": true` or `"3ds.exemption"`
+
+Subsequent merchant-initiated incremental authorizations.
+
+No. These qualify as [MITs](#SCAcomplianceguide-mits), which are out of scope.
+
+`"merchant_initiated": true`
+
+  
+
+`"previous_payment_id"`  
+
+Travel and hospitality indirect sales
+
+Transactions processed by the supplier of the travel/hospitality service.
+
+Yes. However, you can flag such transactions as [MOTO payments](#SCAcomplianceguide-moto) to identify them as out of scope.
+
+`"payment_type": "moto"`
+
+For more details about the additional parameters required for payments using saved cards, see our [stored card details guide](/display/x/About+stored+card+details).
+
+Implement 3DS with our Payments API 
+------------------------------------
+
+To implement 3D Secure authentication and comply with SCA, you need to add the following fields to your payment requests. See our [3D Secure API integration guide](/display/DOCS/3D+Secure+2+API+integration) for more details.
+
+The `3ds.challenge_indicator` field is not yet live.
+
+  
+
+Field name
+
+Description
+
+Possible values
+
+Field name
+
+Description
+
+Possible values
+
+`3ds.enabled`
+
+BOOLEAN
+
+Choose whether or not you want 3DS authentication to be performed for the payment.
+
+`true` – perform 3DS authentication
+
+`false` – do not perform 3DS authentication
+
+`3ds.challenge_indicator`
+
+STRING
+
+Indicate your preference for whether or not a 3DS challenge should be performed. The customer’s bank has the final say on whether the customer is challenged.
+
+`no_preference` (default) – You have no preference whether or not a challenge should be performed.
+
+`no_challenge_requested` – You don't want a challenge to be performed.
+
+`challenge_request_by_merchant` – You want a challenge to be performed.
+
+`challenge_request_as_mandate` – Local requirements demand a challenge be performed.
+
+`3ds.exemption`
+
+STRING
+
+Request an SCA exemption for the transaction. The customer’s bank has the final say on whether or not it applies.
+
+`low_value` – Request the low value exemption.
+
+`secure_corporate_payment` – Request the secure corporate payment exemption.
+
+`trusted_listing` – Request the trusted merchant list exemption.
+
+If the customer's bank denies your exemption request, you'll receive a soft decline code (`20154`) in the response, meaning SCA authentication is required for the transaction. You’ll need to resubmit the payment with the `3ds.enabled` field set to `true`, and, optionally, the `3ds.challenge_indicator` set to `challenge_request_as_mandate`.
+
+3DS request examples
+--------------------
+
+*   [**3DS challenge request**](#tabs-0e6138ad-2551-4c12-8cc1-34cbc587270c-1)
+*   [**Exemption request**](#tabs-0e6138ad-2551-4c12-8cc1-34cbc587270c-2)
+
+    {
+      "source": {
+        "type": "token",
+        "token":"tok_f6z4mnoububudpqnvhwa5ff27u"
+      },
+      "amount": 2000,
+      "currency": "USD",
+      "3ds": {
+        "enabled": true,
+    	"challenge_indicator": "challenge_request_by_merchant"
+      }
+    }
+
+    {
+      "source": {
+        "type": "token",
+        "token":"tok_f6z4mnoububudpqnvhwa5ff27u"
+      },
+      "amount": 2000,
+      "currency": "USD",
+      "3ds": {
+        "enabled": false,
+    	"exemption": "low_value"
+      }
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/SCA+compliance+guide?showComments=true&showCommentArea=true#addcomment)

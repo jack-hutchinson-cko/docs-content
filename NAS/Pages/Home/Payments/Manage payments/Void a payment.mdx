@@ -1,0 +1,149 @@
+---
+title: Void a payment
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [May 21, 2021](/pages/diffpagesbyversion.action?pageId=8488224&selectedPageVersions=5&selectedPageVersions=6 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+After a card payment has been authorized, the payment is not complete until it has been [captured](/display/x/Capture+a+payment). If you do not wish to capture the payment, you can void it using the void API described below.
+
+For Visa and Mastercard payments, you can submit a void request on a partially captured payment to release the remaining funds back to the cardholder. If you don't request it, we'll automatically void the remainder and return it to the customer when the authorization expires.
+
+### The POST request
+
+Use the endpoint below to void an authorized—but not yet captured—payment.
+
+#### Endpoints
+
+*   [**Live**](#tabs-98274fe4-e9f3-4291-b90f-871314a39ade-1)
+*   [**Sandbox**](#tabs-98274fe4-e9f3-4291-b90f-871314a39ade-2)
+
+POST`https://api.checkout.com/payments/{id}/voids`
+
+POST`https://api.sandbox.checkout.com/payments/{id}/voids`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`Bearer {OAuth access token}  
+`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`id`
+
+REQUIRED
+
+The payment identifier.
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`reference`
+
+OPTIONAL
+
+STRING
+
+  
+
+A reference you can later use to identify this void request.
+
+`metadata`
+
+OPTIONAL
+
+OBJECT
+
+  
+
+A set of key/value pairs that you can attach to the void request. It can be useful for storing additional information in a structured format.
+
+#### Request example
+
+    {
+      "reference": "ORD-5023-4E89",
+      "metadata": {
+        "coupon_code": "NY2018",
+        "partner_id": 123989
+      }
+    }
+
+### The POST response
+
+If you receive a `202 Void accepted` response, your void request has been accepted for processing. To get the full void response, you will need to subscribe to the `payment_voided` webhook.
+
+If there was a problem with your request, you'll receive an error response such as `422 Invalid data was sent`.
+
+#### Response examples
+
+*   [**202 Void accepted**](#tabs-584185ca-42e9-491e-b5b8-de90a088da84-1)
+*   [**422 Invalid data was sent**](#tabs-584185ca-42e9-491e-b5b8-de90a088da84-2)
+
+    {
+      "action_id": "act_y3oqhf46pyzuxjbcn2giaqnb44",
+      "reference": "ORD-5023-4E89",
+      "_links": {
+        "payment": {
+          "href": "https://api.checkout.com/payments/pay_y3oqhf46pyzuxjbcn2giaqnb44"
+        }
+      }
+    }
+
+    {
+      "request_id": "0HL80RJLS76I7",
+      "error_type": "request_invalid",
+      "error_codes": [
+        "payment_source_required"
+      ]
+    }
+
+  
+
+If unsuccessful, you may also receive a `403 Void not allowed` or `404 Payment not found` error.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Void+a+payment?showComments=true&showCommentArea=true#addcomment)

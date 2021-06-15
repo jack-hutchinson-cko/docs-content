@@ -1,0 +1,253 @@
+---
+title: Full card details API
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 19, 2021](/pages/diffpagesbyversion.action?pageId=2785321&selectedPageVersions=8&selectedPageVersions=9 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Larger organizations, with strong PCI compliance, may want to create payments using our full card API. 
+
+If you're unsure about whether full card API is for you, then chances are you are better suited to one of our other solutions. Please ask our Support team at [support@checkout.com](mailto:support@checkout.com) if you need some advice.
+
+Payment with full card details is not made available by default. To use this endpoint, please contact your Customer Success manager.
+
+Request a payment using full card details
+-----------------------------------------
+
+### The POST request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-d1ead1ba-8c3c-4622-ae02-9863ea60ca7c-1)
+*   [**Sandbox**](#tabs-d1ead1ba-8c3c-4622-ae02-9863ea60ca7c-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`source`
+
+OBJECT
+
+REQUIRED
+
+Details about the payment source.
+
+`source.type`
+
+STRING
+
+REQUIRED
+
+The type of payment source. Set this to `card`.
+
+`source.number`
+
+STRING
+
+REQUIRED
+
+The card number.
+
+`source.expiry_month`
+
+INTEGER
+
+REQUIRED
+
+The two-digit expiry month of the card.
+
+`source.expiry_year`
+
+INTEGER
+
+REQUIRED
+
+The four-digit expiry year of the card.
+
+`source.name`
+
+STRING
+
+OPTIONAL
+
+The cardholder's name.
+
+`source.cvv`
+
+STRING
+
+REQUIRED
+
+The card verification value/code. Three digits, except for Amex (four digits).
+
+`amount`
+
+INTEGER
+
+OPTIONAL
+
+The payment amount.
+
+Exclude the amount or provide a value of `0` to perform a card verification.
+
+`currency`
+
+STRING
+
+REQUIRED
+
+Three-letter ISO currency code representing the currency of the payment.
+
+`reference`
+
+STRING
+
+OPTIONAL
+
+Add a reference so you can identify the payment later.
+
+For example, an order number.
+
+#### Request example
+
+The code snippet below shows an example request for creating a payment with full card details.
+
+    {
+      "source": {
+        "type": "card",
+        "number": "5199992312641465",
+        "expiry_month": 8,
+        "expiry_year": 2025,
+        "name": "Sarah Mitchell",
+        "cvv": "010"
+      },
+      "amount": 2000,
+      "currency": "USD",
+      "reference": "ORD-5023-4E89"
+    }
+
+### The POST response
+
+If everything went well, the request returns a payment response object. 
+
+Successful authorization requests will return with the `approved` flag set to `true`.
+
+#### Response example
+
+The possible values for the status field include `Authorized`, `Captured`, and `Declined`.
+
+    {
+      "id": "pay_h46f2h5wzqeehcky4zoipwua2i",
+      "action_id": "act_h46f2h5wzqeehcky4zoipwua2i",
+      "amount": 2000,
+      "currency": "USD",
+      "approved": true,
+      "status": "Authorized",
+      "auth_code": "987078",
+      "eci": "05",
+      "scheme_id": "638284745624527",
+      "response_code": "10000",
+      "response_summary": "Approved",
+      "risk": {
+        "flagged": false
+      },
+      "source": {
+        "id": "src_4vrn6gcjndcevpdbx2bmnwgi3q",
+        "type": "card",
+        "expiry_month": 8,
+        "expiry_year": 2025,
+        "name": "Sarah Mitchell",
+        "scheme": "Mastercard",
+        "last4": "1465",
+        "fingerprint": "EF6107604AE20CB5EE03BE1FB3066234343D40DA23F0FCF1178C74383E55AB09",
+        "bin": "519999",
+        "card_type": "Credit",
+        "card_category": "Consumer",
+        "issuer": "BANCO COOPERATIVO DE PUERTO RICO",
+        "issuer_country": "PR",
+        "product_id": "MCS",
+        "product_type": "Standard MasterCard® Card",
+        "avs_check": "S",
+        "cvv_check": "Y"
+      },
+      "customer": {
+        "id": "cus_f72f3zwdkh4e7diyygph7ivsfy",
+        "name": "Sarah Mitchell"
+      },
+      "processed_on": "2019-01-28T15:35:09Z",
+      "reference": "ORD-5023-4E89",
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_h46f2h5wzqeehcky4zoipwua2i"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_h46f2h5wzqeehcky4zoipwua2i/actions"
+        },
+        "capture": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_h46f2h5wzqeehcky4zoipwua2i/captures"
+        },
+        "void": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_h46f2h5wzqeehcky4zoipwua2i/voids"
+        }
+      }
+    }
+
+Start testing
+-------------
+
+Ready to try out your integration? Create a test account to get everything working perfectly before going live.
+
+[Get test account](https://www.checkout.com/get-test-account)
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Full+card+details+API?showComments=true&showCommentArea=true#addcomment)

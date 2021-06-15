@@ -1,0 +1,82 @@
+---
+title: Generate reports
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 19, 2021](/pages/diffpagesbyversion.action?pageId=2785639&selectedPageVersions=1&selectedPageVersions=2 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Reports are an easy way to get data about payments, chargebacks, and retrieval requests. Unlike statements, you can choose to generate them whenever you want and they are provided in CSV format.
+
+The _Reports_ screen will only display the last 5 reports you generated for each report type.
+
+Types of reports
+----------------
+
+The Hub includes the following reports for you to choose from.
+
+### Payments
+
+#### Full edition
+
+This report provides a comprehensive list of all payment actions that occurred during the selected period.
+
+ Columns included in the report
+
+Action ID, Action Date, Business Name, Channel Name, Action Type, Payment Method, Card Holder, CC Number, Expiry Year, Expiry Month, Reference, Amount, Currency, Response Code, Response Description, Customer Email, Payment Type, CVV Check, AVS Check, XID, CAVV, 3D Secure Payment, ECI Code, Customer IP, Server IP, Auth Code, Acquirer Reference ID, Payment ID, Shipping Address 1, Shipping Address 2, Shipping ZIP, Shipping City, Shipping Country, Billing Address 1, Billing Address 2, Billing ZIP, Billing City, Billing Country, CC BIN, Issuing Bank, Issuing Country, CC Type, CC Category, Card ID, Billing Descriptor Part 1, Billing Descriptor Part 2, UDF1, UDF2, UDF3, UDF4, UDF5, Card Wallet Type, Action Date {your-timezone}, Processor
+
+#### Slim edition
+
+This report provides an easy-to-digest view of the payment actions that occurred during the selected period.
+
+ Columns included in the report
+
+Action ID, Action Date, Account Name, Business Name, Channel Name, Action Type, Payment Method, Card Holder, CC Number, Reference, Amount, Currency, Response Code, Response Description, Customer Email, Card Wallet Type
+
+### Payouts
+
+This report provides a list of all the payouts that were made during the selected period.
+
+ Columns included in the report
+
+Payout Date, Payout ID, Account Name, Business Name, Channel Name, Card Holder, Customer Email, Value, Currency, Payment Method, CC Number, Response Code, Response Description, ARN, Status, Payout Date Europe/London
+
+### Disputes
+
+This report provides a list of all the disputes that occurred during the selected period.
+
+ Columns included in the report
+
+Chargeback ID, Chargeback Date, Account Name, Business Name, Channel Name, Chargeback Indicator, Payment Method, Card Holder, CC Number, Reference, Currency, Chargeback Amount, Chargeback Code, Customer Email, Payment Type, Payment ID, Payment Date, Acquiring Reference Number, CVV Check, AVS Check, ECI Code, Card Wallet Type, ApiVersion, ActionId, ActionCodeId, LiveMode
+
+### Retrieval requests
+
+This report provides a list of all the retrieval requests that occurred during the selected period.
+
+ Columns included in the report
+
+Retrieval ID, Retrieval Issue Date, Account Name, Business Name, Channel Name, Payment Method, Card Holder, CC Number, Reference, Amount, Currency, Customer Email, Payment Type, Retrieval Reason Code, Payment ID, Payment Date, Acquiring Reference Number, CVV Check, AVS Check, ECI Code, Card Wallet Type
+
+Generate and download a new report
+----------------------------------
+
+![](/download/attachments/2785639/hub-generate-report.png?version=1&modificationDate=1586441017900&api=v2)
+
+1.  In the _Reports_ screen, click **New report** in the appropriate section.
+2.  Select a date or date range. If you chose the payments report, you will also need to pick between the full edition and the slim edition.
+3.  Click **Generate report**. Reports containing a lot of data may take a while to generate, so feel free to do other things while you wait. Once generated, the report is added to the _Reports_ screen where you can download it at any time by clicking **CSV**. Note that we only store up to 5 reports per type.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Generate+reports?showComments=true&showCommentArea=true#addcomment)

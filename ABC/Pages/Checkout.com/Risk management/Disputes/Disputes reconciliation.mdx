@@ -1,0 +1,288 @@
+---
+title: Disputes reconciliation
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified on [May 12, 2021](/pages/diffpagesbyversion.action?pageId=25526279&selectedPageVersions=6&selectedPageVersions=7 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+You have two options for reporting on the financial implications of disputes and reconciling chargebacks with your payments:
+
+*   **[Disputes report via the Hub](#Disputesreconciliation-disputesreport)**. This gives you a record of all dispute-related events.
+    
+*   **[Payments report via our Reconciliation API](#Disputesreconciliation-paymentsreport)**. This gives you a record of events that have financial implications for your balance, including dispute events.
+    
+
+In both reports, you'll find our [dispute indicator codes](#Disputesreconciliation-indicatorcodes), which help you match up the financial activity on your account with the progress of dispute cases.
+
+The best way to track the progress of a dispute case is to use the payment ID (prefixed with `pay_`) of the payment to which the dispute applies. The payment ID stays the same across [the Hub](/display/DOCS/The+Hub), [Reconciliation API](/display/DOCS/Reconciliation+API), and [webhooks](/display/DOCS/Webhooks).
+
+Sometimes, you may receive two disputes against the same payment. These will show as two separate `ADJM` records for the same payment ID, with a different time for each.
+
+Differences between disputes and payments reports
+
+You will see different data for the same dispute case depending on which report you use. The disputes report records all dispute-related status changes. The payments report only records actions that have a financial impact on your account.
+
+For example, if you lose a dispute, this will be reported in the disputes report with an `RPDL` indicator. But, because the disputed amount was already taken from your account when the dispute was first raised (`ADJM`), this will not be reported in the Reconciliation API payments report.
+
+Creating a disputes report 
+---------------------------
+
+To generate a disputes report, and view any you've previously created, log in to the Hub, go to _Reports_, and the find the _Disputes_ section. Click _New report_ to create a new disputes report.
+
+These reports list all of the disputes that occurred during the selected period, with various columns providing more information about each event.
+
+### Disputes report example
+
+Here’s a simplified example of what two separate dispute cases might look like in your Hub disputes report if you sort the data by payment ID.
+
+[Learn what the dispute indicator codes mean below](#Disputesreconciliation-indicatorcodes).
+
+Dispute ID
+
+Dispute indicator code
+
+Payment ID
+
+`id_1`
+
+`ADJM`
+
+`pay_code_a`
+
+`id_2`
+
+`RPDR`
+
+`pay_code_a`
+
+`id_3`
+
+`RPDW`
+
+`pay_code_a`
+
+...
+
+...
+
+...
+
+`id_4`
+
+`ADJM`
+
+`pay_code_b`
+
+`id_5`
+
+`RPDR`
+
+`pay_code_b`
+
+So for the first payment (`pay_code_a`), you can see the dispute case associated with it has been won (`RPDW`).
+
+For the second (`pay_code_b`), the dispute associated with it is currently in progress (`RPDR`) – the scheme is now reviewing the evidence you submitted.
+
+Creating a payments report 
+---------------------------
+
+Use our [Reconciliation API’s payments endpoint](https://docs.checkout.com/reporting-and-insights/reconciliation-api/payments-endpoint) to generate a payments report. These reports record any charge or credit to your account, including those related to disputes.
+
+As with the Hub's disputes reports, look up the payment ID of the disputed payment you’re interested in to find out more about it.
+
+### Payments report example
+
+Here's a simplified example of two separate payments in a report, one of which has a dispute raised against it.
+
+The action type column tells you what action was taken (where there are duplicates, it means there were multiple financial implications caused by that same action), and the breakdown type tells you more about the financial implication.
+
+[Learn what the dispute indicator codes mean below](#Disputesreconciliation-indicatorcodes).
+
+Action ID
+
+Action type
+
+Payment ID
+
+Breakdown type
+
+`act_code_1`
+
+Authorization
+
+`pay_code_x`
+
+Scheme fee
+
+`act_code_2`
+
+Capture
+
+`pay_code_x`
+
+Captured
+
+...
+
+...
+
+...
+
+...
+
+`act_code_3`
+
+Authorization
+
+`pay_code_y`
+
+Scheme fee
+
+`act_code_4`
+
+Capture
+
+`pay_code_y`
+
+Captured
+
+`act_code_4`
+
+Capture
+
+`pay_code_y`
+
+Scheme fee
+
+`act_code_5`
+
+Chargeback
+
+`pay_code_y`
+
+Chargeback (`ADJM`)
+
+`act_code_5`
+
+Chargeback
+
+`pay_code_y`
+
+Scheme fee
+
+Looking at the action type and breakdown type columns for the second payment (`pay_code_y`), you can see a dispute has been raised against it.
+
+The ‘Chargeback’ action type appears twice because the payments report covers any action that has a financial impact on your account. So, in this case, first the disputed amount was debited from your account, and then you were charged a scheme fee for that same dispute.
+
+Dispute indicator codes 
+------------------------
+
+The table below lists all the dispute indicator codes you’ll see in both the disputes reports from the Hub and the payments reports from the Reconciliation API.
+
+Each code is associated with a different dispute status, allowing you to track the progress of live disputes as the cases progress.
+
+If you want to be notified every time a dispute’s status updates, you can subscribe to the associated webhook.
+
+Indicator code
+
+API status
+
+Description
+
+Webhook
+
+`RTVL`
+
+Our API does not currently return retrieval requests.
+
+You’ve received a request for more information (also known as a retrieval request). A dispute may be raised if you do not respond.
+
+[payment\_retrieval](/display/DOCS/payment_retrieval)
+
+`ADJM`
+
+`evidence_required`
+
+You’ve received a dispute and you need to submit evidence if you want to defend against it.
+
+[dispute\_evidence\_required](/display/DOCS/dispute_evidence_required)
+
+`AUTO`
+
+`resolved`
+
+You've already refunded the customer, so we automatically submitted the relevant evidence and resolved the dispute for you.
+
+[dispute\_resolved](/display/DOCS/dispute_resolved)
+
+`CBRV`
+
+`canceled`
+
+The issuer has canceled the dispute. You have been refunded the disputed amount.
+
+[dispute\_canceled](/display/DOCS/dispute_canceled)
+
+`RPDR`
+
+`evidence_under_review`
+
+You’ve submitted your evidence and the issuer is now reviewing it. You have been charged a dispute fee.
+
+n/a
+
+`RPDW`
+
+`won`
+
+You have won the dispute. You have been refunded the disputed amount.
+
+[dispute\_won](/display/DOCS/dispute_won)
+
+`RPDL`
+
+`lost`
+
+You have lost the dispute. You have been charged a dispute fee, if applicable.
+
+[dispute\_lost](/display/DOCS/dispute_lost)
+
+`ARBR`
+
+`arbitration_under_review`
+
+You have escalated your case to arbitration with the issuer and/or scheme.
+
+n/a
+
+`ARBW`
+
+`arbitration_won`
+
+The scheme has decided the case in your favour. You have been refunded the disputed amount.
+
+n/a
+
+`ARBL`
+
+`arbitration_lost`
+
+The scheme has decided the case in the issuer’s favour. You have been charged an arbitration fee.
+
+n/a
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Disputes+reconciliation?showComments=true&showCommentArea=true#addcomment)

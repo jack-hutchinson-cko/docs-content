@@ -1,0 +1,774 @@
+---
+title: Request a payout
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 14, 2021](/pages/diffpagesbyversion.action?pageId=8489248&selectedPageVersions=53&selectedPageVersions=54 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Make seamless payouts to your customer’s bank accounts with Bank Payouts. Access local clearing methods globally, circumventing the challenges of international payments and simplifying complex payment infrastructures.
+
+You can send a payout in two ways: (1) use a **payment instrument** that you have previously created and stored, or (2) use the **bank account fields** required for the country and currency to which you want to pay out funds.
+
+Step 1: Get bank account field formatting
+-----------------------------------------
+
+Before you can request a payout, you need to use the [get bank account field formatting endpoint](/display/x/Get+bank+account+field+formatting) to retrieve the relevant bank account fields and formatting for the country and currency to which you'll be paying out.
+
+Once you've done that, you can either use those bank account details directly in your [payout request](#Requestapayout-requestpayout), or use them to [create a reusable payment instrument](/display/x/Create+a+payment+instrument), which you can then use in your payout requests.
+
+Step 2: Request a payout 
+-------------------------
+
+Request a Bank Payout by using the relevant bank account fields or a payment instrument (prefixed by `src_`).
+
+### The request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-7fb87728-6957-4c77-910e-6498c2ae093c-1)
+*   [**Sandbox**](#tabs-7fb87728-6957-4c77-910e-6498c2ae093c-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+  
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+`Cko-Idempotency-Key`
+
+OPTIONAL
+
+An optional idempotency key for safely retrying payout requests.
+
+#### Body parameters
+
+See our [API reference](https://api-reference.checkout.com/preview/crusoe/#operation/requestAPaymentOrPayout) for the full specification.
+
+  
+
+*   [**Payment instrument**](#tabs-d1a09a24-a54d-4ff5-ae9c-50f830ad6e08-1)
+*   [**Bank account fields**](#tabs-d1a09a24-a54d-4ff5-ae9c-50f830ad6e08-2)
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payout source.
+
+`source.amount`
+
+CONDITIONAL
+
+INTEGER
+
+  
+
+The amount you want to pay out from your currency account. The exact format [depends on the currency](/display/x/Calculating+the+amount).
+
+You must specify **either** the `source.amount` **or** the destination `amount`.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of source. Set this to `currency_account`.
+
+`source.id`
+
+REQUIRED
+
+STRING
+
+The source identifier. This is prefixed by `ca_`.
+
+`destination`
+
+REQUIRED
+
+OBJECT
+
+Details about the payout destination.
+
+`destination.type`
+
+REQUIRED
+
+STRING
+
+  
+
+The type of payout destination. Set this to `id`.
+
+To create a payment instrument, use our [Instruments API](/display/x/Create+a+payment+instrument).
+
+`destination.id`
+
+REQUIRED
+
+STRING
+
+  
+
+The payment instrument identifier. This is prefixed by `src_`.
+
+`amount`
+
+CONDITIONAL
+
+INTEGER (>= 0)
+
+  
+
+The amount you want to pay out to the destination account. The exact format [depends on the currency](/display/x/Calculating+the+amount).
+
+You must specify **either** the destination `amount` **or** the `source.amount`.
+
+`currency`
+
+REQUIRED
+
+STRING (3 CHARS)
+
+The three-letter [ISO code](/display/x/Currency+codes) of the destination currency.
+
+The currency should match that of the destination account.
+
+`reference`
+
+OPTIONAL
+
+STRING
+
+An optional reference you can later use to identify this payout.
+
+`billing_descriptor`
+
+REQUIRED
+
+OBJECT
+
+Details about the billing descriptor.
+
+`billing_descriptor.reference`
+
+REQUIRED
+
+STRING
+
+The reference that is (where possible) displayed on the account holder's statement.
+
+`sender`
+
+REQUIRED
+
+OBJECT
+
+Details about the sender of the payout's funds.
+
+`sender.type`
+
+REQUIRED
+
+STRING
+
+The type of sender. This can be `instrument`, `individual`, or `corporate`.
+
+`sender.address`
+
+REQUIRED
+
+STRING
+
+The sender's address.
+
+`sender.reference`
+
+REQUIRED
+
+STRING
+
+The sender's unique ID.
+
+`instruction`
+
+OPTIONAL
+
+`OBJECT`
+
+Details about the instruction for payouts to bank accounts.
+
+`instruction.purpose`
+
+OPTIONAL
+
+STRING
+
+An optional description of the payout purpose, for example `Insurance claim` or `Remittance`.
+
+`instruction.charge_bearer`
+
+OPTIONAL
+
+STRING
+
+  
+
+Who should be charged the payout fee.
+
+This can be one of:
+
+*   `OUR`
+*   `SHA`
+
+Only applies to only to international payments.
+
+`instruction.repair`
+
+OPTIONAL
+
+BOOLEAN
+
+Determines whether the payout details can be modified to attempt to prevent the payout from being returned.
+
+`instruction.scheme`
+
+OPTIONAL
+
+STRING (ENUM)
+
+  
+
+The preferred payment scheme or network the bank transfer will be sent through.
+
+This can be one of:
+
+*   `swift`
+*   `local`
+*   `instant`
+
+Bank details must be in line with the chosen scheme.
+
+`instruction.quote_id`
+
+OPTIONAL
+
+STRING (30 CHARS)
+
+  
+
+The FX quote identifier. If omitted, and the source and destination currencies differ, the current market exchange rate will be used.
+
+To create a quote, use our [Foreign Exchange API](/display/x/Create+an+FX+quote).
+
+`processing_channel_id`
+
+REQUIRED
+
+STRING
+
+The processing channel identifier.
+
+Field name
+
+Description
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payout source.
+
+`source.amount`
+
+CONDITIONAL
+
+INTEGER
+
+The amount you want to pay out from your currency account. The exact format [depends on the currency](/display/x/Calculating+the+amount).
+
+You must specify **either** the `source.amount` **or** the destination `amount`.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of source. Set this to `currency_account`.
+
+`source.id`
+
+REQUIRED
+
+STRING
+
+The source identifier. This is prefixed by `ca_`.
+
+`destination`
+
+REQUIRED
+
+OBJECT
+
+Details about the payout destination.
+
+`destination.type`
+
+REQUIRED
+
+STRING
+
+  
+
+The type of payout destination. Set this to `bank_account`.
+
+To find out which bank account fields are required, use the [get bank account field formatting](/display/x/Get+bank+account+field+formatting) endpoint.
+
+`amount`
+
+CONDITIONAL
+
+INTEGER (>= 0)
+
+  
+
+The amount you want to pay out to the destination account. The exact format [depends on the currency](/display/x/Calculating+the+amount).
+
+You must specify **either** the destination `amount` **or** the `source.amount`.
+
+`currency`
+
+REQUIRED
+
+STRING (3 CHARS)
+
+The three-letter [ISO code](/display/x/Currency+codes) of the destination currency.
+
+The currency should match that of the destination account.
+
+`reference`
+
+OPTIONAL
+
+STRING
+
+An optional reference you can later use to identify this payout.
+
+`billing_descriptor`
+
+REQUIRED
+
+OBJECT
+
+Details about the billing descriptor.
+
+`billing_descriptor.reference`
+
+REQUIRED
+
+STRING
+
+The reference that is (where possible) displayed on the account holder's statement.
+
+`sender`
+
+REQUIRED
+
+OBJECT
+
+Details about the sender of the payout's funds.
+
+`sender.type`
+
+REQUIRED
+
+STRING
+
+The type of sender. This can be `instrument`, `individual`, or `corporate`.
+
+`sender.address`
+
+REQUIRED
+
+STRING
+
+The sender's address.
+
+`sender.reference`
+
+REQUIRED
+
+STRING
+
+The sender's unique ID.
+
+`instruction`
+
+OPTIONAL
+
+`OBJECT`
+
+Details about the instruction for payouts to bank accounts.
+
+`instruction.purpose`
+
+OPTIONAL
+
+STRING
+
+An optional description of the payout purpose, for example `Insurance claim` or `Remittance`.
+
+`instruction.charge_bearer`
+
+OPTIONAL
+
+STRING
+
+  
+
+Who should be charged the payout fee.
+
+This can be one of:
+
+*   `OUR`
+*   `SHA`
+
+Only applies to only to international payments.
+
+`instruction.repair`
+
+OPTIONAL
+
+BOOLEAN
+
+Determines whether the payout details can be modified to attempt to prevent the payout from being returned.
+
+`instruction.scheme`
+
+OPTIONAL
+
+STRING (ENUM)
+
+  
+
+The preferred payment scheme or network the bank transfer will be sent through.
+
+This can be one of:
+
+*   `swift`
+*   `local`
+*   `instant`
+
+Bank details must be in line with the chosen scheme.
+
+`instruction.quote_id`
+
+OPTIONAL
+
+STRING (30 CHARS)
+
+  
+
+The FX quote identifier. If omitted, and the source and destination currencies differ, the current market exchange rate will be used.
+
+To create a quote, use our [Foreign Exchange API](/display/x/Create+an+FX+quote).
+
+`processing_channel_id`
+
+REQUIRED
+
+STRING
+
+The processing channel identifier.
+
+#### Request example
+
+*   [**Payment instrument**](#tabs-b06eb6c2-7432-4666-9367-b9495e51c737-1)
+*   [**Bank account fields**](#tabs-b06eb6c2-7432-4666-9367-b9495e51c737-2)
+
+    {
+      "source": {
+        "type": "currency_account",
+        "id": "ca_y3oqhf46pyzuxjbcn2giaqnb44"
+      },
+      "destination": {
+        "type": "id",
+        "id": "src_gsd2agaqd2sernz5tpcfv555nq"
+      },
+      "amount": 1000,
+      "currency": "GBP",
+      "reference": "PO-215-5721",
+      "billing_descriptor": {
+        "reference": "Withdrawal"
+      },
+      "sender": {
+        "type": "instrument",
+        "reference": "8285282045818"
+      },
+      "instruction": {
+        "purpose": "Withdrawal",
+        "scheme": "local",
+        "quote_id": "qte_mbabizu24mvu3mela5njyhpit4"
+      },
+      "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
+    }
+
+    {
+      "source": {
+        "type": "currency_account",
+        "id": "ca_y3oqhf46pyzuxjbcn2giaqnb44"
+      },
+      "destination": {
+        "type": "bank_account",
+        "account_type": "current"
+        "account_number": "01008704"
+        "bank_code": "110350"
+        "country": "GB"
+        "account_holder": {
+          "type": "individual",
+          "first_name": "John",
+          "last_name": "Smith",
+          "billing_address": {
+            "address_line1": "99 Windsor Road",
+            "city": "London",
+            "zip": "N83 5QL",
+            "country_code": "GB"
+          }
+        }
+      },
+      "amount": 1000,
+      "currency": "GBP",
+      "reference": "PO-215-5721",
+      "billing_descriptor": {
+        "reference": "Withdrawal"
+      },
+      "sender": {
+        "type": "individual",
+        "first_name": "Jane"
+        "last_name": "Smith"
+        "address": {
+          "address_line1": "1 Broad Street",
+          "city": "London",
+          "zip": "W1T 3KL",
+          "country_code": "GB"
+        },
+        "reference": "8285282045818"
+      },
+      "instruction": {
+        "purpose": "Withdrawal",
+        "quote_id": "qte_mbabizu24mvu3mela5njyhpit4"
+      },
+      "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
+    }
+
+### The response
+
+#### Response examples
+
+If your payout request was successfully sent, you will receive a 202 response, with the status `Pending`. If your request was unsuccessful, you will receive a 422 response containing the [error code](/display/x/Payout+error+codes).
+
+You will then receive a [webhook notification](#Requestapayout-webhooks) indicating the status of your payout
+
+*   [**Successful – 202**](#tabs-d6779eea-cc54-4e91-b8a6-40da8d9244b7-1)
+*   [**Unsuccessful – 422**](#tabs-d6779eea-cc54-4e91-b8a6-40da8d9244b7-2)
+
+    {
+      "id": "pay_dvxl6j6stpqufkzfgbaahmfrzm",
+      "status": "Pending",
+      "reference": "PO-215-5721",
+      "instruction": {
+          "value_date": "2020-06-12T22:27:42.512594Z"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_dvxl6j6stpqufkzfgbaahmfrzm"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_dvxl6j6stpqufkzfgbaahmfrzm/actions"
+        }
+      }
+    }
+
+    {
+      "request_id": "0HM5M8APSODP0:00000018",
+      "error_type": "request_invalid",
+      "error_codes": [
+      "source_currency_account_not_found"
+      ]
+    }
+
+Webhooks 
+---------
+
+After receiving the response to your payout request, you will get a webhook notification indicating the status of your payout:
+
+*   If your payout is **successful**, you will receive a `payment_paid` webhook, with a `10000` response code and the `Approved` summary.
+*   If your payout is **declined**, you will receive a `payment_declined` webhook with a `50001-50399` response code and a summary explaining the reason for the decline. You can view the list of response codes [here](/display/x/Payout+response+codes).
+*   If your payout is **returned**, you will receive a `payment_returned` webhook with `50401-50599` response code and a summary explaining the reason for the return. You can view the list of response codes [here](/display/x/Payout+response+codes).
+
+Use our [testing guide](https://docs.checkout.com/pay-to-bank/testing#Testing-Payoutrequests) to test different payout scenarios.
+
+### Webhook examples
+
+*   [**payment\_paid**](#tabs-a654674d-e18f-4a37-baa1-3c39ee0fc202-1)
+*   [**payment\_declined**](#tabs-a654674d-e18f-4a37-baa1-3c39ee0fc202-2)
+*   [**payment\_returned**](#tabs-a654674d-e18f-4a37-baa1-3c39ee0fc202-3)
+
+    {
+      "id": "evt_ooratpvrc4yezkrjjrfohi26te",
+      "type": "payment_paid",
+      "version": "1.0.3",
+      "created_on": "2020-06-12T17:46:24.4862402Z",
+      "data": {
+        "id": "pay_dvxl6j6stpqufkzfgbaahmfrzm",
+        "reference": "PO-215-5721",
+        "action_id": "act_y37vtskjeweuhfy4mhiggxhpgu",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "amount": 1000,
+        "currency": "GBP",
+        "source": {
+          "type": "currency_account",
+          "id": "ca_y3oqhf46pyzuxjbcn2giaqnb44"
+        },
+        "destination": {
+          "type": "bank_account",
+          "id": "src_vovjchw6exauvjrdzpmfu3sm3y",
+          "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q"
+        },
+        "processed_on": "2020-06-12T17:46:15.2106459Z",
+        "instruction": {
+          "value_date": "2020-06-13T05:46:15.2845092Z"
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_ooratpvrc4yezkrjjrfohi26te"
+        },
+        "subject": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/subject/pay_dvxl6j6stpqufkzfgbaahmfrzm"
+        }
+      }
+    }
+
+    {
+      "id": "evt_6ebhaydlc3kepmacp22s5smodq",
+      "type": "payment_declined",
+      "version": "1.0.3",
+      "created_on": "2020-06-12T15:20:55.7983215Z",
+      "data": {
+        "id": "pay_axh4wk2nhjqenlr2vqvm6kxqta",
+        "reference": "PO-215-5721",
+        "action_id": "act_2sgst4337zjurdj7b2fsonxwre",
+        "response_code": "50001",
+        "response_summary": "Compliance error",
+        "amount": 1000,
+        "currency": "GBP",
+        "source": {
+          "type": "currency_account",
+          "id": "ca_y3oqhf46pyzuxjbcn2giaqnb44"
+        },
+        "destination": {
+          "type": "bank_account",
+          "id": "src_ez3bolgy7ggu5bnjsilialkegi",
+          "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q"
+        },
+        "processed_on": "2020-06-12T15:20:51.5677679Z"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_6ebhaydlc3kepmacp22s5smodq"
+        },
+        "subject": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/subject/pay_axh4wk2nhjqenlr2vqvm6kxqta"
+        }
+      }
+    }
+
+    {
+      "id": "evt_djb3apm54d2ehg2pt4kmtlrfqu",
+      "type": "payment_returned",
+      "version": "1.0.3",
+      "created_on": "2020-06-12T17:44:34.2986234Z",
+      "data": {
+        "id": "pay_tli5tj6y5upe7m4chnunbzjr5q",
+        "reference": "PO-215-5721",
+        "action_id": "act_aw2a5iw4qgau7hekeiwjd3yjiy",
+        "response_code": "50401",
+        "response_summary": "Bank details invalid",
+        "amount": 1000,
+        "currency": "GBP",
+        "source": {
+          "type": "currency_account",
+          "id": "ca_y3oqhf46pyzuxjbcn2giaqnb44"
+        },
+        "destination": {
+          "type": "bank_account",
+          "id": "src_ddy3e5xuuilutddqxh5pso75i4",
+          "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q"
+        },
+        "processed_on": "2020-06-12T17:44.34Z"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/evt_djb3apm54d2ehg2pt4kmtlrfqu"
+        },
+        "subject": {
+          "href": "https://api.sandbox.checkout.com/workflows/events/subject/pay_tli5tj6y5upe7m4chnunbzjr5q"
+        }
+      }
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Request+a+payout?showComments=true&showCommentArea=true#addcomment)

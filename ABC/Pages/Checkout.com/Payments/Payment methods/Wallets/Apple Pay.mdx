@@ -1,0 +1,362 @@
+---
+title: Apple Pay
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [Jun 09, 2021](/pages/diffpagesbyversion.action?pageId=2785371&selectedPageVersions=19&selectedPageVersions=20 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Start seamlessly accepting credit card payments from your customers via Touch ID and Face ID, eliminating the need for them to manually type in their card and shipping details.
+
+Apple Pay is automatically enabled on your account, unless you process payments in UAE or Saudi Arabia. If you operate in these regions, contact your Customer Success Manager to activate Apple Pay.
+
+Before you start
+----------------
+
+Before you can accept Apple Pay payments, you need to [set up and configure Apple Pay](/display/DOCS/Set+up+Apple+Pay).
+
+If you plan to process Apple Pay payment through an entity outside the European Economic Area (EEA), please contact your Customer Success manager or Integration engineer.
+
+Make a payment
+--------------
+
+Once you've set up and configured Apple Pay, you're ready to accept Apple Pay payments through our payment gateway.
+
+Supporting Mada cards
+
+Within Saudi Arabia, [Mada cards](/display/DOCS/Mada) can be processed in much the same way as other cards with Apple Pay, but you need to make sure that the device's payments permission is enabled for your merchant ID, and include Mada in the `supportedNetworks` array.
+
+### **Step 1:** Generate a Checkout.com token from the Apple Pay token
+
+After your customer validates their transaction with biometrics, Apple will generate a [payment token](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymenttoken).
+
+The first step in processing an Apple Pay transaction is to convert this Apple Pay token into a Checkout.com card token.
+
+Alternatively, if you want to decrypt the Apple Pay token yourself and process a payment, follow our [pay with a pre-decrypted token guide](/display/DOCS/Pay+with+a+pre-decrypted+Apple+Pay+token).
+
+### The POST request
+
+#### Endpoints
+
+*   [**Live**](#tabs-d6948dce-4b20-4670-a8ac-798a0a4ede8f-1)
+*   [**Sandbox**](#tabs-d6948dce-4b20-4670-a8ac-798a0a4ede8f-2)
+
+POST`https://api.checkout.com/tokens`
+
+POST`https://api.sandbox.checkout.com/tokens`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`public key`
+
+Use the valid public key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`type`
+
+REQUIRED
+
+STRING
+
+The type of card details to be tokenized. Set this to `applepay`.
+
+`token_data`
+
+REQUIRED
+
+OBJECT
+
+The Apple Pay payment token.
+
+`token_data.version`
+
+REQUIRED
+
+STRING
+
+Version information about the payment token. The token uses `EC_v1` for ECC-encrypted data, and `RSA_v1` for RSA-encrypted data.
+
+`token_data.data`
+
+REQUIRED
+
+STRING
+
+Encrypted payment data. Base64 encoded as a string.
+
+`token_data.signature`
+
+REQUIRED
+
+STRING
+
+Signature of the payment and header data. The signature includes the signing certificate, its intermediate CA certificate, and information about the signing algorithm.
+
+`token_data.header`
+
+REQUIRED
+
+OBJECT
+
+Additional version-dependent information used to decrypt and verify the payment.
+
+#### Request example
+
+    {
+      "type": "applepay",
+      "token_data": {
+        "version": "EC_v1",
+        "data": "t7GeajLB9skXB6QSWfEpPA4WPhDqB7ekdd+F7588arLzvebKp3P0TekUslSQ8nkuacUgLdks2IKyCm7U3OL/PEYLXE7w60VkQ8WE6FXs/cqHkwtSW9vkzZNDxSLDg9slgLYxAH2/iztdipPpyIYKl0Kb6Rn9rboF+lwgRxM1B3n84miApwF5Pxl8ZOOXGY6F+3DsDo7sMCUTaJK74DUJJcjIXrigtINWKW6RFa/4qmPEC/Y+syg04x7B99mbLQQzWFm7z6HfRmynPM9/GA0kbsqd/Kn5Mkqssfhn/m6LuNKsqEmbKi85FF6kip+F17LRawG48bF/lT8wj/QEuDY0G7t/ryOnGLtKteXmAf0oJnwkelIyfyj2KI8GChBuTJonGlXKr5klPE89/ycmkgDl+T6Ms7PhiNZpuGEE2QE=",
+        "signature": "MIAGCSqGSIb3DQEHAqCAMIACAQExDzANBglghkgBZQMEAgEFADCABgkqhkiG9w0BBwEAAKCAMIID5jCCA4ugAwIBAgIIaGD2mdnMpw8wCgYIKoZIzj0EAwIwejEuMCwGA1UEAwwlQXBwbGUgQXBwbGljYXRpb24gSW50ZWdyYXRpb24gQ0EgLSBHMzEmMCQGA1UECwwdQXBwbGUgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxEzARBgNVBAoMCkFwcGxlIEluYy4xCzAJBgNVBAYTAlVTMB4XDTE2MDYwMzE4MTY0MFoXDTIxMDYwMjE4MTY0MFowYjEoMCYGA1UEAwwfZWNjLXNtcC1icm9rZXItc2lnbl9VQzQtU0FOREJPWDEUMBIGA1UECwwLaU9TIFN5c3RlbXMxEzARBgNVBAoMCkFwcGxlIEluYy4xCzAJBgNVBAYTAlVTMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEgjD9q8Oc914gLFDZm0US5jfiqQHdbLPgsc1LUmeY+M9OvegaJajCHkwz3c6OKpbC9q+hkwNFxOh6RCbOlRsSlaOCAhEwggINMEUGCCsGAQUFBwEBBDkwNzA1BggrBgEFBQcwAYYpaHR0cDovL29jc3AuYXBwbGUuY29tL29jc3AwNC1hcHBsZWFpY2EzMDIwHQYDVR0OBBYEFAIkMAua7u1GMZekplopnkJxghxFMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUI/JJxE+T5O8n5sT2KGw/orv9LkswggEdBgNVHSAEggEUMIIBEDCCAQwGCSqGSIb3Y2QFATCB/jCBwwYIKwYBBQUHAgIwgbYMgbNSZWxpYW5jZSBvbiB0aGlzIGNlcnRpZmljYXRlIGJ5IGFueSBwYXJ0eSBhc3N1bWVzIGFjY2VwdGFuY2Ugb2YgdGhlIHRoZW4gYXBwbGljYWJsZSBzdGFuZGFyZCB0ZXJtcyBhbmQgY29uZGl0aW9ucyBvZiB1c2UsIGNlcnRpZmljYXRlIHBvbGljeSBhbmQgY2VydGlmaWNhdGlvbiBwcmFjdGljZSBzdGF0ZW1lbnRzLjA2BggrBgEFBQcCARYqaHR0cDovL3d3dy5hcHBsZS5jb20vY2VydGlmaWNhdGVhdXRob3JpdHkvMDQGA1UdHwQtMCswKaAnoCWGI2h0dHA6Ly9jcmwuYXBwbGUuY29tL2FwcGxlYWljYTMuY3JsMA4GA1UdDwEB/wQEAwIHgDAPBgkqhkiG92NkBh0EAgUAMAoGCCqGSM49BAMCA0kAMEYCIQDaHGOui+X2T44R6GVpN7m2nEcr6T6sMjOhZ5NuSo1egwIhAL1a+/hp88DKJ0sv3eT3FxWcs71xmbLKD/QJ3mWagrJNMIIC7jCCAnWgAwIBAgIISW0vvzqY2pcwCgYIKoZIzj0EAwIwZzEbMBkGA1UEAwwSQXBwbGUgUm9vdCBDQSAtIEczMSYwJAYDVQQLDB1BcHBsZSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTETMBEGA1UECgwKQXBwbGUgSW5jLjELMAkGA1UEBhMCVVMwHhcNMTQwNTA2MjM0NjMwWhcNMjkwNTA2MjM0NjMwWjB6MS4wLAYDVQQDDCVBcHBsZSBBcHBsaWNhdGlvbiBJbnRlZ3JhdGlvbiBDQSAtIEczMSYwJAYDVQQLDB1BcHBsZSBDZXJ0aWZpY2F0aW9uIEF1dGhvcml0eTETMBEGA1UECgwKQXBwbGUgSW5jLjELMAkGA1UEBhMCVVMwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAATwFxGEGddkhdUaXiWBB3bogKLv3nuuTeCN/EuT4TNW1WZbNa4i0Jd2DSJOe7oI/XYXzojLdrtmcL7I6CmE/1RFo4H3MIH0MEYGCCsGAQUFBwEBBDowODA2BggrBgEFBQcwAYYqaHR0cDovL29jc3AuYXBwbGUuY29tL29jc3AwNC1hcHBsZXJvb3RjYWczMB0GA1UdDgQWBBQj8knET5Pk7yfmxPYobD+iu/0uSzAPBgNVHRMBAf8EBTADAQH/MB8GA1UdIwQYMBaAFLuw3qFYM4iapIqZ3r6966/ayySrMDcGA1UdHwQwMC4wLKAqoCiGJmh0dHA6Ly9jcmwuYXBwbGUuY29tL2FwcGxlcm9vdGNhZzMuY3JsMA4GA1UdDwEB/wQEAwIBBjAQBgoqhkiG92NkBgIOBAIFADAKBggqhkjOPQQDAgNnADBkAjA6z3KDURaZsYb7NcNWymK/9Bft2Q91TaKOvvGcgV5Ct4n4mPebWZ+Y1UENj53pwv4CMDIt1UQhsKMFd2xd8zg7kGf9F3wsIW2WT8ZyaYISb1T4en0bmcubCYkhYQaZDwmSHQAAMYIBjTCCAYkCAQEwgYYwejEuMCwGA1UEAwwlQXBwbGUgQXBwbGljYXRpb24gSW50ZWdyYXRpb24gQ0EgLSBHMzEmMCQGA1UECwwdQXBwbGUgQ2VydGlmaWNhdGlvbiBBdXRob3JpdHkxEzARBgNVBAoMCkFwcGxlIEluYy4xCzAJBgNVBAYTAlVTAghoYPaZ2cynDzANBglghkgBZQMEAgEFAKCBlTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0xNzA4MDIxNjA5NDZaMCoGCSqGSIb3DQEJNDEdMBswDQYJYIZIAWUDBAIBBQChCgYIKoZIzj0EAwIwLwYJKoZIhvcNAQkEMSIEIGEfVr+4x9RQXyfF8IYA0kraoK0pcZEaBlINo6EGrOReMAoGCCqGSM49BAMCBEgwRgIhAKunK47QEr/ZjxPlVl+etzVzbKA41xPLWtO01oUOlulmAiEAiaFH9F9LK6uqTFAUW/WIDkHWiFuSm5a3NVox7DlyIf0AAAAAAAA=",
+        "header": {
+          "ephemeralPublicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEX1ievoT8DRB8T5zGkhHZHeDr0oBmYEgsDSxyT0MD0IZ2Mpfjz2LdWq6LUwSH9EmxdPEzMunsZKWMyOr3K/zlsw==",
+          "publicKeyHash": "tqYV+tmG9aMh+l/K6cicUnPqkb1gUiLjSTM9gEz6Nl0=",
+          "transactionId": "3cee89679130a4b2617c76118a1c62fd400cd45b49dc0916d5b951b560cd17b4"
+        }
+      }
+    }
+
+### The POST response
+
+#### Response example
+
+    { 
+      "type": 'applepay',
+      "token": 'tok_ymu4qlccztkedmd6b7c3hcf6ae',
+      "expires_on": '2019-10-21T10:48:35Z',
+      "expiry_month": 8,
+      "expiry_year": 2023,
+      "scheme": 'Visa',
+      "last4": '6222',
+      "bin": '481891',
+      "card_type": 'Debit',
+      "card_category": 'Consumer',
+      "issuer": 'HSBC BANK PLC',
+      "issuer_country": 'GB',
+      "product_id": 'F',
+      "product_type": 'Visa Classic'
+    }
+
+Supporting Mada cards
+
+If accepting [Mada cards](/display/DOCS/Mada) via Apple Pay, do not include the supportsEMV value in the `[merchantCapabilities](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/1916123-merchantcapabilities)` array, otherwise it may cause a failure with a `20030` format error.
+
+**Step 2:** Request a payment
+-----------------------------
+
+Using the token (`tok_...`) you got in the response above, make a standard payment request.
+
+### The POST request
+
+#### Endpoints
+
+*   [**Live**](#tabs-576e8e3e-92c1-4c82-941f-86c14146d8df-1)
+*   [**Sandbox**](#tabs-576e8e3e-92c1-4c82-941f-86c14146d8df-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `token`.
+
+`source.token`
+
+REQUIRED
+
+STRING
+
+The token you got in the response of step 2.
+
+`amount`
+
+REQUIRED
+
+INTEGER
+
+The payment amount in your chosen currency
+
+The format depends on the currency. For more information, see [calculating the value](/display/DOCS/Calculating+the+value).
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The currency in which the payment is being made (three-letter ISO 4217 code).
+
+#### Request example
+
+    {
+      "source": {
+        "type": "token",
+        "token": "tok_ymu4qlccztkedmd6b7c3hcf6ae"
+      },
+      "amount": 6500,
+      "currency": "USD"
+    }
+
+### The POST response
+
+If you get a `201 Success` response and the `approved` field is `true`, your payment was successful. If the transaction failed, it's likely that the payment request was made with an invalid/expired card, or a valid card with an insufficient available balance.
+
+Testing Apple Pay
+-----------------
+
+### Before you start
+
+To test Apple Pay payments, you'll need the following:
+
+*   An [Apple Pay compatible device](https://support.apple.com/en-us/HT208531).
+*   A [sandbox Apple Pay wallet](https://developer.apple.com/apple-pay/sandbox-testing/). (You cannot use a real Apple Pay wallet with real cards to test in sandbox.)
+
+### Apple Pay test cards
+
+Once you've got a compatible device and a sandbox Apple Pay wallet, you can add one of the following test cards to it. See our [testing guide](/display/DOCS/Testing) for more information.
+
+Card
+
+Number
+
+Expiry
+
+CVV
+
+Card
+
+Number
+
+Expiry
+
+CVV
+
+Visa
+
+`4761 1200 1000 0492`
+
+11/2022
+
+533
+
+Mastercard
+
+`5204 2477 5000 1471`
+
+11/2022
+
+111
+
+### Troubleshooting
+
+If something goes wrong, make sure you're using the correct keys, merchant ID and certificates. This is the most common issue we encounter. We recommend using descriptive names for your merchant IDs to clearly separate between your test and production environments.
+
+### Displaying the Apple Pay button
+
+If you don't have a card in your Apple Pay wallet, or you have a card that is not accepted based on the settings configured for Apple Pay (supported networks), your Apple Pay button might not be displayed if you display it conditionally (`session.canMakePaymentsWithActiveCard(...)`).
+
+### Validating the Apple Pay Session
+
+When validating the Apple Pay Session, keep note of the following:
+
+*   Make sure you're using the correct merchant ID, and the correct `.key` and `.pem` certificates associated with it.
+*   If you process payments for more than one business with us, make sure you are using the correct merchant ID and keys for each business.
+*   The same goes for the environment; if you configured your merchant ID in sandbox, make sure you are using the sandbox environment.
+
+### Making a payment
+
+If you are processing payments in UAE or Saudi Arabia, make sure you contact your customer success manager so they can enable Apple Pay on your account.
+
+Also, if you configured Apple Pay for one of your businesses, but then tried to send a payment request using the keys for another of your businesses, you may get an error.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Apple+Pay?showComments=true&showCommentArea=true#addcomment)

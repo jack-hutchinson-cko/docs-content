@@ -1,0 +1,204 @@
+---
+title: Refund a payment
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [May 21, 2021](/pages/diffpagesbyversion.action?pageId=8488226&selectedPageVersions=5&selectedPageVersions=6 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Use a refund to return a payment to a customer. Refunds can be made in the [Hub](https://hub.checkout.com/v2) or by using this API endpoint.
+
+There are two types of refunds you might need to process:
+
+*   **Full refund**. A full refund returns the total amount of the payment to the customer — it can only be performed once.
+*   **Partial refund**. A partial refund returns a sum less than the captured amount. A payment can be refunded multiple times, but cannot exceed the original payment amount.
+
+Refunds are always processed in the same currency as the captured payment.
+
+You cannot cancel a refund after it has been processed.
+
+Overview
+--------
+
+To process a refund successfully, you must provide the payment ID of the captured payment. You can find the ID:
+
+*   In the response of the payment request
+*   In the webhook notification
+
+The requests are the same for partial and full refunds. Any refunds for less than the original captured amount will be considered partial refunds.
+
+### The POST request
+
+Use the endpoint below to request a refund.
+
+If required by the card scheme, we will trigger a [refund authorization](#Refundapayment-refundauthorization) before processing your refund.
+
+#### Endpoints
+
+*   [**Live**](#tabs-228bbec4-dc81-4655-a535-811e9a589774-1)
+*   [**Sandbox**](#tabs-228bbec4-dc81-4655-a535-811e9a589774-2)
+
+POST`https://api.checkout.com/payments/{id}/refunds`
+
+POST`https://api.sandbox.checkout.com/payments/{id}/refunds`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`Bearer {OAuth access token}  
+`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`id`
+
+REQUIRED
+
+The identifier of the captured payment, embedded within the payment response (prefixed by `pay_`).
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`amount`
+
+OPTIONAL
+
+INTEGER
+
+The amount to refund. If not specified, the full payment amount will be refunded.
+
+`reference`
+
+OPTIONAL
+
+STRING
+
+A reference you can later use to identify this refund request.
+
+`metadata`
+
+OPTIONAL
+
+OBJECT
+
+A set of key/value pairs that you can attach to the refund request. It can be useful for storing additional information in a structured format.
+
+#### Request example
+
+    {
+      "reference": "ORD-5023-4E89",
+      "metadata": {
+        "coupon_code": "NY2018",
+        "partner_id": 123989
+      }
+    }
+
+### The POST response
+
+A successful refund request returns a `202 Refund accepted` response. However, if there was a problem with your request, you'll receive an error response.
+
+#### Response examples
+
+*   [**202 Refund accepted**](#tabs-ecd76c89-80df-49ec-9d2c-b5380d96deef-1)
+*   [**422 Invalid data was sent**](#tabs-ecd76c89-80df-49ec-9d2c-b5380d96deef-2)
+
+    {
+      "action_id": "act_y3oqhf46pyzuxjbcn2giaqnb44",
+      "reference": "ORD-5023-4E89",
+      "_links": {
+        "payment": {
+          "href": "https://api.checkout.com/payments/pay_y3oqhf46pyzuxjbcn2giaqnb44"
+        }
+      }
+    }
+
+    {
+      "request_id": "0HL80RJLS76I7",
+      "error_type": "request_invalid",
+      "error_codes": [
+        "payment_source_required"
+      ]
+    }
+
+If unsuccessful, you may also receive a `403 Refund not allowed` or `404 Payment not found` error.
+
+Refund authorization 
+---------------------
+
+If the card scheme requires it, we will automatically trigger a refund authorization on your behalf before processing your refund.
+
+Refund authorizations only apply to card payments.
+
+  
+
+If a refund authorization is requested, you can find the Retrieval Reference Number (RRN) in [refund webhook notifications](/display/x/Workflows) and in the [get payment actions](/display/x/Get+payment+actions) call.
+
+If the refund authorization is declined, you will receive a 422 response, like the one below.
+
+    {
+       "request_id": "f5feff3f-d2ef-4c82-b4d0-ff443731581f",
+       "error_type": "processing_error",
+       "error_codes": [
+           "refund_authorization_declined"
+       ]
+    }
+
+If you want to know the reason for the decline, you can either [subscribe to refund webhook notifications](/display/x/Workflows), use our [get payment actions endpoint](/display/x/Get+payment+actions), or view it in your Dashboard account.
+
+Testing
+
+To test a declined refund authorization, request a refund with the `amount` set to `3738`.
+
+Troubleshooting
+---------------
+
+If your refund request was unsuccessful, the checklist below may help you identify the problem:
+
+*   Is the refund amount higher than the original payment?
+*   Has the payment already been refunded?
+*   Did you send the authorization ID instead of the payment ID?
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Refund+a+payment?showComments=true&showCommentArea=true#addcomment)

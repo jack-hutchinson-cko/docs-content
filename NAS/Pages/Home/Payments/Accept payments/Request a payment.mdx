@@ -1,0 +1,980 @@
+---
+title: Request a payment
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [May 21, 2021](/pages/diffpagesbyversion.action?pageId=8488010&selectedPageVersions=18&selectedPageVersions=19 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+There are three possible ways for you to request a payment:
+
+*   [using a token](#Requestapayment-token)
+*   [using a network token](/display/x/Request+a+payment)
+*   [using full card details](#Requestapayment-card) (requires SAQ D PCI compliance)
+
+Using a token
+-------------
+
+### The POST request
+
+Use the details below to set up your request.
+
+#### Endpoint
+
+*   [**Live**](#tabs-17ab985d-37e4-4261-8a81-a2becc92438b-1)
+*   [**Sandbox**](#tabs-17ab985d-37e4-4261-8a81-a2becc92438b-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+Bearer {OAuth access token}
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+`Cko-Idempotency-Key`
+
+OPTIONAL
+
+An optional idempotency key for safely retrying payment requests.
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. For the full API specification, see the [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Payments).
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `token`.
+
+`source.token`
+
+REQUIRED
+
+STRING
+
+  
+
+The Checkout.com card token.
+
+`amount`
+
+OPTIONAL
+
+INTEGER
+
+The payment amount in your chosen currency. Omit the amount or provide a value of `0` to perform a card verification.
+
+The format depends on the currency. For more information, see [how to calculate the amount](/display/x/Calculating+the+amount).
+
+`currency`
+
+REQUIRED
+
+STRING
+
+A three-letter ISO currency code representing the currency of the payment.
+
+`processing_channel_id`
+
+OPTIONAL
+
+STRING
+
+The processing channel to be used for the payment. This is prefixed by `pc_`.
+
+`reference`
+
+OPTIONAL
+
+STRING
+
+An optional reference you can use to identify the payment later. For example, an order number.
+
+`metadata`
+
+OPTIONAL
+
+OBJECT
+
+Allows you to store additional information about a transaction (e.g., a coupon code) with custom fields and up to five user-defined fields (`udf1` to `udf5`), which can be used for reporting purposes.
+
+`udf1` is also used for some of our risk rules.
+
+IPv4 or IPv6 addresses?
+
+The optional `payment_ip` field, which is used by our risk engine to check the customer's IP address, _only accepts IPv4 addresses_.
+
+#### Request example
+
+    {
+      "source": {
+        "type": "token",
+        "token": "tok_4gzeau5o2uqubbk6fufs3m7p54"
+      },
+      "amount": 6500,
+      "currency": "USD",
+      "processing_channel_id": "pc_ovo75iz4hdyudnx6tu74mum3fq",
+      "reference": "ORD-5023-4E89",
+      "metadata": {
+        "udf1": "TEST123",
+        "coupon_code": "NY2018",
+        "partner_id": 123989
+      }
+    }
+
+### The POST response
+
+Use the `approved` field to check whether or not the authorization was successful (`"approved": true`). If your authorization was not successful, it's possible the payment used an invalid/expired card, or a valid card with an insufficient available balance.
+
+If you received a `202` response, the payment requires a redirect. For example, if the payment is 3D Secure.
+
+The following pages can help you understand the response message:
+
+*   [CVV codes and descriptions](/display/x/CVV+response+codes)
+*   [AVS codes](/display/x/AVS+codes)
+*   [Response codes](/display/x/Response+codes) (if the authorization was unsuccessful)
+
+#### Response example
+
+The possible values for the `status` field include `Authorized`, `Pending`, `Card Verified`, `Captured`, `Declined`, or `Paid`. Note that `Pending` only applies to 3D Secure payments.
+
+*   [**201 Success**](#tabs-09960a08-bda9-43e8-adf5-1c955ab9b7da-1)
+*   [**202 Payment asynchronous / further action required**](#tabs-09960a08-bda9-43e8-adf5-1c955ab9b7da-2)
+*   [**422 Invalid data was sent**](#tabs-09960a08-bda9-43e8-adf5-1c955ab9b7da-3)
+
+    {
+      "id": "pay_mbabizu24mvu3mela5njyhpit4",
+      "action_id": "act_mbabizu24mvu3mela5njyhpit4",
+      "amount": 6540,
+      "currency": "USD",
+      "approved": true,
+      "status": "Authorized",
+      "auth_code": "770687",
+      "response_code": "10000",
+      "response_summary": "Approved",
+      "3ds": {
+        "downgraded": true,
+        "enrolled": "N"
+      },
+      "risk": {
+        "flagged": true
+      },
+      "source": {
+        "type": "card",
+        "id": "src_nwd3m4in3hkuddfpjsaevunhdy",
+        "billing_address": {
+          "address_line1": "Checkout.com",
+          "address_line2": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        },
+        "phone": {
+          "country_code": "+1",
+          "number": "415 555 2671"
+        },
+        "last4": "4242",
+        "fingerprint": "F31828E2BDABAE63EB694903825CDD36041CC6ED461440B81415895855502832",
+        "bin": "424242"
+      },
+      "customer": {
+        "id": "cus_udst2tfldj6upmye2reztkmm4i",
+        "email": "jokershere@gmail.com",
+        "name": "Jack Napier"
+      },
+      "processed_on": "2019-09-10T10:11:12Z",
+      "reference": "ORD-5023-4E89",
+      "processing": {
+        "retrieval_reference_number": "909913440644",
+        "acquirer_transaction_id": "440644309099499894406"
+      },
+      "eci": "06",
+      "scheme_id": "489341065491658",
+      "links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4"
+        },
+        "action": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4/actions"
+        },
+        "void": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4/captures"
+        },
+        "capture": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4/voids"
+        }
+      }
+    }
+
+    {
+      "id": "pay_mbabizu24mvu3mela5njyhpit4",
+      "status": "Pending",
+      "reference": "ORD-5023-4E89",
+      "customer": {
+        "id": "cus_y3oqhf46pyzuxjbcn2giaqnb44",
+        "email": "jokershere@gmail.com",
+        "name": "Jack Napier"
+      },
+      "3ds": {
+        "downgraded": false,
+        "enrolled": "Y"
+      },
+      "instruction": {
+        "value_date": "2020-08-25"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4"
+        },
+        "redirect": {
+          "href": "https://api.checkout.com/3ds/pay_mbabizu24mvu3mela5njyhpit4"
+        }
+      }
+    }
+
+    {
+      "request_id": "0HL80RJLS76I7",
+      "error_type": "request_invalid",
+      "error_codes": [
+        "payment_source_required"
+      ]
+    }
+
+Using a network token
+---------------------
+
+### The POST request
+
+Use the details below to set up your request.
+
+#### Endpoint
+
+*   [**Live**](#tabs-68ca8dfb-3788-4f87-ac28-f39dd7d647ee-1)
+*   [**Sandbox**](#tabs-68ca8dfb-3788-4f87-ac28-f39dd7d647ee-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`Bearer {OAuth access token}  
+`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+`Cko-Idempotency-Key`
+
+OPTIONAL
+
+An optional idempotency key for safely retrying payment requests.
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. For the full API specification, see the [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Payments).
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `network_token`.
+
+`source.token`
+
+REQUIRED
+
+STRING
+
+The network token PAN.
+
+`expiry_month`
+
+REQUIRED
+
+INTEGER (3 OR 4 CHARS)
+
+The expiry month of the network token.
+
+`expiry_year`
+
+REQUIRED
+
+INTEGER (4 CHARS)
+
+The expiry year of the network token.
+
+`token_type`
+
+REQUIRED
+
+STRING (ENUM)
+
+  
+
+The type of token.
+
+This can be one of:
+
+*   `vts`
+*   `mdes`
+*   `applepay`
+*   `googlepay`
+
+`cryptogram`
+
+CONDITIONAL
+
+STRING
+
+The Base64 encoded cryptographic identifier (TAVV) used by card schemes to validate the token verification result. Required, unless `previous_payment_id` is specified and `3ds.enabled` is `false`.
+
+`eci`
+
+CONDITIONAL
+
+STRING
+
+The Electronic Commerce Indicator (ECI) security level associated with the token. Required, unless `previous_payment_id` is specified and `3ds.enabled` is false.
+
+`stored`
+
+OPTIONAL
+
+BOOLEAN
+
+This must be set to `true` for payments that use stored card details. By default, this is set to `false`.
+
+If using stored card details, you'll need to [follow certain requirements set by Visa and Mastercard](/display/x/About+stored+card+details).
+
+`nam`e
+
+OPTIONAL
+
+STRING
+
+The customer's name.
+
+`cvv`
+
+OPTIONAL
+
+STRING
+
+The card verification value (CVV) or code.
+
+`billing_address`
+
+OPTIONAL
+
+OBJECT
+
+The customer's billing address.
+
+`phone`
+
+OPTIONAL
+
+OBJECT
+
+The customer's phone number.
+
+`amount`
+
+OPTIONAL
+
+INTEGER
+
+The payment amount in your chosen currency. Omit the amount or provide a value of `0` to perform a card verification.
+
+The format depends on the currency. For more information, see [how to calculate the amount](/display/x/Calculating+the+amount).
+
+`currency`
+
+REQUIRED
+
+STRING
+
+A three-letter ISO currency code representing the currency of the payment.
+
+`processing_channel_i`
+
+OPTIONAL
+
+STRING
+
+The processing channel to be used for the payment. This is prefixed by `pc_`.
+
+`reference`
+
+OPTIONAL
+
+STRING
+
+An optional reference you can use to identify the payment later. For example, an order number.
+
+`metadata`
+
+OPTIONAL
+
+OBJECT
+
+Allows you to store additional information about a transaction (e.g., a coupon code) with custom fields and up to five user-defined fields (`udf1` to `udf5`), which can be used for reporting purposes.
+
+`udf1` is also used for some of our risk rules.
+
+IPv4 or IPv6 addresses?
+
+The optional `payment_ip` field, which is used by our risk engine to check the customer's IP address, _only accepts IPv4 addresses_.
+
+#### Request example
+
+    {
+      "source": {
+        "type": "network_token",
+        "token": "tok_4gzeau5o2uqubbk6fufs3m7p54"
+      },
+      "amount": 6500,
+      "currency": "USD",
+      "processing_channel_id": "pc_ovo75iz4hdyudnx6tu74mum3fq",
+      "reference": "ORD-5023-4E89",
+      "metadata": {
+        "udf1": "TEST123",
+        "coupon_code": "NY2018",
+        "partner_id": 123989
+      }
+    }
+
+### The POST response
+
+Use the `approved` field to check whether or not the authorization was successful (`"approved": true`). If your authorization was not successful, it's possible the payment used an invalid/expired card, or a valid card with an insufficient available balance.
+
+If you received a `202` response, the payment requires a redirect. For example, if the payment is 3D Secure.
+
+The following pages can help you understand the response message:
+
+*   [CVV codes and descriptions](/display/x/CVV+response+codes)
+*   [AVS codes](/display/x/AVS+codes)
+*   [Response codes](/display/x/Response+codes) (if the authorization was unsuccessful)
+
+#### Response example
+
+The possible values for the `status` field include `Authorized`, `Pending`, `Card Verified`, `Captured`, `Declined`, or `Paid`. Note that `Pending` only applies to 3D Secure payments.
+
+*   [**201 Success**](#tabs-6ceb94ce-94c0-4a0b-adc0-328f347d9f24-1)
+*   [**202 Payment asynchronous / further action required**](#tabs-6ceb94ce-94c0-4a0b-adc0-328f347d9f24-2)
+*   [**422 Invalid data was sent**](#tabs-6ceb94ce-94c0-4a0b-adc0-328f347d9f24-3)
+
+    {
+      "id": "pay_mbabizu24mvu3mela5njyhpit4",
+      "action_id": "act_mbabizu24mvu3mela5njyhpit4",
+      "amount": 6540,
+      "currency": "USD",
+      "approved": true,
+      "status": "Authorized",
+      "auth_code": "770687",
+      "response_code": "10000",
+      "response_summary": "Approved",
+      "3ds": {
+        "downgraded": true,
+        "enrolled": "N"
+      },
+      "risk": {
+        "flagged": true
+      },
+      "source": {
+        "type": "card",
+        "id": "src_nwd3m4in3hkuddfpjsaevunhdy",
+        "billing_address": {
+          "address_line1": "Checkout.com",
+          "address_line2": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        },
+        "phone": {
+          "country_code": "+1",
+          "number": "415 555 2671"
+        },
+        "last4": "4242",
+        "fingerprint": "F31828E2BDABAE63EB694903825CDD36041CC6ED461440B81415895855502832",
+        "bin": "424242"
+      },
+      "customer": {
+        "id": "cus_udst2tfldj6upmye2reztkmm4i",
+        "email": "jokershere@gmail.com",
+        "name": "Jack Napier"
+      },
+      "processed_on": "2019-09-10T10:11:12Z",
+      "reference": "ORD-5023-4E89",
+      "processing": {
+        "retrieval_reference_number": "909913440644",
+        "acquirer_transaction_id": "440644309099499894406"
+      },
+      "eci": "06",
+      "scheme_id": "489341065491658",
+      "links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4"
+        },
+        "action": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4/actions"
+        },
+        "void": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4/captures"
+        },
+        "capture": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4/voids"
+        }
+      }
+    }
+
+    {
+      "id": "pay_mbabizu24mvu3mela5njyhpit4",
+      "status": "Pending",
+      "reference": "ORD-5023-4E89",
+      "customer": {
+        "id": "cus_y3oqhf46pyzuxjbcn2giaqnb44",
+        "email": "jokershere@gmail.com",
+        "name": "Jack Napier"
+      },
+      "3ds": {
+        "downgraded": false,
+        "enrolled": "Y"
+      },
+      "instruction": {
+        "value_date": "2020-08-25"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4"
+        },
+        "redirect": {
+          "href": "https://api.checkout.com/3ds/pay_mbabizu24mvu3mela5njyhpit4"
+        }
+      }
+    }
+
+    {
+      "request_id": "0HL80RJLS76I7",
+      "error_type": "request_invalid",
+      "error_codes": [
+        "payment_source_required"
+      ]
+    }
+
+Using full card details
+-----------------------
+
+If you are [SAQ D PCI compliant](/display/x/PCI+compliance), you can use our Full Card API to request a payment using the full card details.
+
+### The POST request
+
+Use the details below to set up your request.
+
+#### Endpoint
+
+*   [**Live**](#tabs-bd685878-57df-46ed-b189-42d1de488a22-1)
+*   [**Sandbox**](#tabs-bd685878-57df-46ed-b189-42d1de488a22-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`Bearer {OAuth access token}  
+`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+`Cko-Idempotency-Key`
+
+OPTIONAL
+
+An optional idempotency key for safely retrying payment requests.
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. For the full API specification, see the [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Payments).
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `card`.
+
+`source.number`
+
+REQUIRED
+
+STRING
+
+The card number (without separators).
+
+`source.expiry_month`
+
+REQUIRED
+
+INTEGER >= 1
+
+The expiry month of the card.
+
+`source.expiry_year`
+
+REQUIRED
+
+INTEGER (4 CHARS)
+
+The expiry year of the card.
+
+`name`
+
+OPTIONAL
+
+STRING
+
+The cardholders' name.
+
+`cvv`
+
+OPTIONAL
+
+STRING (3 CHARS)
+
+The card verification value (CVV).
+
+`stored`
+
+OPTIONAL
+
+BOOLEAN
+
+This must be set to `true` for payments that use stored card details. By default, this is set to `false`.
+
+If using stored card details, you'll need to [follow certain requirements set by Visa and Mastercard](/display/x/About+stored+card+details).
+
+`billing_address`
+
+OPTIONAL
+
+OBJECT
+
+The cardholder's billing address.
+
+phone
+
+OPTIONAL
+
+OBJECT
+
+The cardholder's phone number.
+
+`amount`
+
+OPTIONAL
+
+INTEGER
+
+The payment amount in your chosen currency. Omit the amount or provide a value of `0` to perform a card verification.
+
+The format depends on the currency. For more information, see [how to calculate the amount](/display/x/Calculating+the+amount).
+
+`currency`
+
+REQUIRED
+
+STRING
+
+A three-letter ISO currency code representing the currency of the payment.
+
+`processing_channel_id`
+
+OPTIONAL
+
+STRING
+
+The processing channel to be used for the payment. This is prefixed by `pc_`.
+
+`reference`
+
+OPTIONAL
+
+STRING
+
+An optional reference you can use to identify the payment later. For example, an order number.
+
+`metadata`
+
+OPTIONAL
+
+OBJECT
+
+Allows you to store additional information about a transaction (e.g., a coupon code) with custom fields and up to five user-defined fields (`udf1` to `udf5`), which can be used for reporting purposes.
+
+`udf1` is also used for some of our risk rules.
+
+IPv4 or IPv6 addresses?
+
+The optional `payment_ip` field, which is used by our risk engine to check the customer's IP address, _only accepts IPv4 addresses_.
+
+#### Request example
+
+    {
+      "source": {
+        "type": "card",
+    	"number": "4242424242424242",
+    	"expiry_month": 12,
+    	"expiry_year": 2022
+      },
+      "amount": 6500,
+      "currency": "USD",
+      "processing_channel_id": "processing_channel_id",
+      "reference": "ORD-5023-4E89",
+      "metadata": {
+        "udf1": "TEST123",
+        "coupon_code": "NY2018",
+        "partner_id": 123989
+      }
+    }
+
+### The POST response
+
+Use the `approved` field to check whether or not the authorization was successful (`"approved": true`). If your authorization was not successful, it's possible the payment used an invalid/expired card, or a valid card with an insufficient available balance.
+
+If you received a `202` response, the payment requires a redirect. For example, if the payment is 3D Secure.
+
+The following pages can help you understand the response message:
+
+*   [CVV codes and descriptions](/display/x/CVV+response+codes)
+*   [AVS codes](/display/x/AVS+codes)
+*   [Response codes](/display/x/Response+codes) (if the authorization was unsuccessful)
+
+#### Response example
+
+The possible values for the `status` field include `Authorized`, `Pending`, `Card Verified`, `Captured`, `Declined`, or `Paid`. Note that `Pending` only applies to 3D Secure payments.
+
+*   [**201 Success**](#tabs-bd7d1824-82d8-475c-a285-6ffd5d8fa656-1)
+*   [**202 Payment asynchronous / further action required**](#tabs-bd7d1824-82d8-475c-a285-6ffd5d8fa656-2)
+*   [**422 Invalid data was sent**](#tabs-bd7d1824-82d8-475c-a285-6ffd5d8fa656-3)
+
+    {
+      "id": "pay_mbabizu24mvu3mela5njyhpit4",
+      "action_id": "act_mbabizu24mvu3mela5njyhpit4",
+      "amount": 6540,
+      "currency": "USD",
+      "approved": true,
+      "status": "Authorized",
+      "auth_code": "770687",
+      "response_code": "10000",
+      "response_summary": "Approved",
+      "3ds": {
+        "downgraded": true,
+        "enrolled": "N"
+      },
+      "risk": {
+        "flagged": true
+      },
+      "source": {
+        "type": "card",
+        "id": "src_nwd3m4in3hkuddfpjsaevunhdy",
+        "billing_address": {
+          "address_line1": "Checkout.com",
+          "address_line2": "90 Tottenham Court Road",
+          "city": "London",
+          "state": "London",
+          "zip": "W1T 4TJ",
+          "country": "GB"
+        },
+        "phone": {
+          "country_code": "+1",
+          "number": "415 555 2671"
+        },
+        "last4": "4242",
+        "fingerprint": "F31828E2BDABAE63EB694903825CDD36041CC6ED461440B81415895855502832",
+        "bin": "424242"
+      },
+      "customer": {
+        "id": "cus_udst2tfldj6upmye2reztkmm4i",
+        "email": "jokershere@gmail.com",
+        "name": "Jack Napier"
+      },
+      "processed_on": "2019-09-10T10:11:12Z",
+      "reference": "ORD-5023-4E89",
+      "processing": {
+        "retrieval_reference_number": "909913440644",
+        "acquirer_transaction_id": "440644309099499894406"
+      },
+      "eci": "06",
+      "scheme_id": "489341065491658",
+      "links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4"
+        },
+        "action": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4/actions"
+        },
+        "void": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4/captures"
+        },
+        "capture": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4/voids"
+        }
+      }
+    }
+
+    {
+      "id": "pay_mbabizu24mvu3mela5njyhpit4",
+      "status": "Pending",
+      "reference": "ORD-5023-4E89",
+      "customer": {
+        "id": "cus_y3oqhf46pyzuxjbcn2giaqnb44",
+        "email": "jokershere@gmail.com",
+        "name": "Jack Napier"
+      },
+      "3ds": {
+        "downgraded": false,
+        "enrolled": "Y"
+      },
+      "instruction": {
+        "value_date": "2020-08-25"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/payments/pay_mbabizu24mvu3mela5njyhpit4"
+        },
+        "redirect": {
+          "href": "https://api.checkout.com/3ds/pay_mbabizu24mvu3mela5njyhpit4"
+        }
+      }
+    }
+
+    {
+      "request_id": "0HL80RJLS76I7",
+      "error_type": "request_invalid",
+      "error_codes": [
+        "payment_source_required"
+      ]
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Request+a+payment?showComments=true&showCommentArea=true#addcomment)

@@ -1,0 +1,155 @@
+---
+title: Reconciliation FAQ
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 19, 2021](/pages/diffpagesbyversion.action?pageId=2785486&selectedPageVersions=4&selectedPageVersions=5 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Here you'll find some common questions and a bit more detail about our reconciliation API.
+
+General
+-------
+
+### Action and amount types explained
+
+The following table describes the action types and their possible associated amount and fee types.
+
+Action type
+
+Amount and fees
+
+Authorization
+
+*   Gateway Fee
+*   Authorization Fee
+*   Scheme Fixed Fee
+*   Scheme Variable Fee
+*   Reconciliation Fee
+
+Void
+
+*   Gateway Fee
+*   Void Fee
+*   Scheme Variable Fee
+*   Scheme Fixed Fee
+*   Reconciliation Fee
+
+Capture
+
+*   Gateway Fee
+*   Captured
+*   Capture Fee
+*   RR (Rolling Reserve)
+*   Scheme Fixed Fee
+*   Scheme Variable Fee
+*   Premium Fee
+*   SchemeIC
+*   Reconciliation Fee
+*   Blended Fee
+
+Refund
+
+*   Gateway Fee
+*   Refunded
+*   Scheme Fixed Fee
+*   Scheme Variable Fee
+*   Refund Fee
+*   Reconciliation Fee
+
+Retrieval
+
+*   Retrieval fee
+
+Chargeback
+
+*   Chargeback (ADJM)
+*   Chargeback Fee
+*   Scheme Chargeback Variable Fee
+*   Scheme Chargeback Fixed Fee
+*   Representment Fee
+*   Chargeback (CBRV)
+*   Chargeback (AUTO)
+*   Chargeback (RPDR)
+*   Chargeback (RPDL)
+*   Chargeback (RPDW)
+
+Payout to Card
+
+*   PayoutsToCard Fee
+*   PayoutsToCard Success Fee
+*   PayoutsToCard Fail Fee
+*   Scheme PayoutsToCard Variable Fee
+*   Scheme PayoutsToCard Fixed Fee
+*   PayoutsToCard SchemeIC
+
+Expiry
+
+*   Reconciliation Fee
+
+Payments endpoint FAQ
+---------------------
+
+**Are alternative payments available in the response as well?** 
+
+Yes, all payments including alternative payments are available with this endpoint.
+
+**Are payments from multiple regions available through the same API?**
+
+Yes, you are able to see all your payments globally in a single location to facilitate your business decisions and reconciliation process.
+
+**How do I see the entire history of a payment?**
+
+Each payment is uniquely identified with an ID which is generated at the first action administered to a payment which is usually the authorization. You can query this particular ID in your request and you will get all the actions administered to this payment and all the associated fees and amounts. In the CSV report, you will see that each row corresponds to a payment fee or an amount relating to a certain action.
+
+**How long do I need to wait before being able to download an accurate list of my payments for the day?**
+
+Data is accessible in real-time, but keep in mind that some fees are not applied in real-time and might not appear in your report yet. For instance, interchange fees are only typically applied one day after the original date of the capture and will only appear in your report at that moment.
+
+**To which date does the date parameter in the request correspond?**
+
+When you create your request, you can specify a date. This date corresponds to the original date of the first action administered to a payment, usually the authorization. In the payments endpoint’s response, you will get all the subsequent actions and amounts that are related to this payment even if they happened on a later date. 
+
+For example, when you set a date range from `2019-01-21 to 2019-01-21`, you will get all actions related to the payments where the first date of the first action of the payment was `2019-01-21`, which will be the date of the authorization most likely. Even if the interchange fees are only applied on `2019-01-22` (i.e., one day later), you would still see them in your report for the `2019-01-21` as long as your request happens after they have been taken into account (i.e., after `2019-01-22`).
+
+**What is the difference between the payments I can see in the Hub and the ones in the payments endpoint?**
+
+In the payments endpoint, you will only find payments that are associated with movement of funds or fee application. For example, you will not find any mention of a declined payment that would have no associated fees, but the payment will be visible on the Hub, as it is a reflection of payments processed through Checkout.com.
+
+**What should I do if I want to reconcile the amount deposited in my bank account against one of the reports provided by the reconciliation API?**
+
+To do so, please refer to the statements endpoint.
+
+Statements endpoint FAQ
+-----------------------
+
+**What is the difference between the content of PDF statement report and information retrieved from the statement endpoint?**
+
+The data contained in your statement report and the reconciliation API is the same.
+
+**What is the difference between the payments endpoint and the statement reports?**
+
+The payments endpoint only contains transactional information. Non-transactional information (i.e., business or merchant level data such as the payout fee, payout fee tax, admin fees or general adjustments) is only included in the statements endpoint. The payments endpoint is a view of your processed volume and fees at payment level, but it will not allow you to reconcile the amounts against your payout amounts. This is because payouts contain non-transactional elements which are not reflected in this report.
+
+**How should I use the Reconciliation API if I want to reconcile it against one of my statements?**
+
+You should get the statement ID of your statement and add it in the statements endpoint. Do not use the statement period date because if for some reason an action has only been taken into account in a later date, then it will appear in a later statement even if it will still show the original date when the action was taken. 
+
+**Does my payments endpoint report for a given date always match with the corresponding statement?**
+
+Not always, in the scenario of a bug leading to a delay of processing, you will still see the _original_ date recorded in your reports even if the _effective_ date was later.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Reconciliation+FAQ?showComments=true&showCommentArea=true#addcomment)

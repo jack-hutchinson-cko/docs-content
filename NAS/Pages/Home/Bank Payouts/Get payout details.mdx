@@ -1,0 +1,287 @@
+---
+title: Get payout details
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [May 21, 2021](/pages/diffpagesbyversion.action?pageId=8489256&selectedPageVersions=9&selectedPageVersions=10 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Fetch and view relevant information and parameters related to a specific payout. Before you start, make sure you have the payment identifier (prefixed by `pay_`).
+
+The request
+-----------
+
+Use the details below to set up your request.
+
+### Endpoints
+
+*   [**Live**](#tabs-e409e6d8-69c9-4051-bea1-7724f5d4c839-1)
+*   [**Sandbox**](#tabs-e409e6d8-69c9-4051-bea1-7724f5d4c839-2)
+
+GET`https://api.checkout.com/payments/{id}`
+
+GET`https://api.sandbox.checkout.com/payments/{id}`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`Bearer {OAuth access token}  
+`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Path parameters
+
+Path
+
+Value
+
+Path
+
+Value
+
+`id`
+
+REQUIRED
+
+The payment identifier (prefixed with `pay_`).
+
+### The response
+
+If your request is successful, the response will return information about the payout.
+
+    {
+      "id": "pay_gwlowf7eap7uzm4cyaaqoq62au",
+      "requested_on": "2020-06-12T13:49:19.085546Z",
+      "source": {
+        "id": "ca_y3oqhf46pyzuxjbcn2giaqnb44",
+        "type": "currency_account"
+      },
+      "destination": {
+        "id": "src_4pakgjwmv5re5m5ivqohsqpxnm",
+        "type": "bank_account"
+      },
+      "amount": 1000,
+      "currency": "GBP",
+      "reference": "PO-215-5721",
+      "billing_descriptor": {
+        "reference": "Withdrawal"
+      },
+      "status": "Returned",
+      "approved": true,
+      "sender": {
+        "type": "instrument",
+        "reference": "8285282045818"
+      },
+      "instruction": {
+        "value_date": "2020-06-13T01:49:19.1864428Z",
+        "purpose": "Wallet withdrawal",
+        "quote_id": "qte_xrhaw53z5m6ehbbxz2n6n5lk74"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_gwlowf7eap7uzm4cyaaqoq62au"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_gwlowf7eap7uzm4cyaaqoq62au/actions"
+        }
+      }
+    }
+
+If unsuccessful, you may get a `404 – Payment not found` error.
+
+#### Response parameters
+
+Find out what the different fields in your successful response mean.
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`id`
+
+STRING
+
+The unique identifier of the payout action.
+
+`requested_on`
+
+STRING
+
+The date and time the payout was requested.
+
+`source`
+
+OBJECT
+
+Details about the payout source.
+
+`source.id`
+
+STRING
+
+The payment source identifier, which can be used for subsequent payments.
+
+`source.type`
+
+STRING
+
+The payment source type. This is always set to `currency_account` for payouts.
+
+`destination`
+
+OBJECT
+
+Details about destination of the payout.
+
+`destination.id`
+
+STRING
+
+The payment instrument identifier.
+
+`destination.type`
+
+STRING
+
+The payout destination.
+
+`amount`
+
+INTEGER
+
+The original payout amount.
+
+`currency`
+
+STRING
+
+The three-letter ISO [currency code](/display/x/Currency+codes) of the payment.
+
+`reference`
+
+STRING
+
+Your reference for the payout.
+
+`billing_descriptor`
+
+OBJECT
+
+Details about the billing descriptor.
+
+`billing_descriptor.reference`
+
+STRING
+
+The reference that is displayed on the account holder's statement.
+
+`status`
+
+STRING
+
+The status of the payout.
+
+This can be one of:
+
+*   `Pending`
+*   `Paid`
+*   `Declined`
+*   `Returned`
+
+`approved`
+
+BOOLEAN
+
+Whether the authorization was successful.
+
+`sender`
+
+OBJECT
+
+Details about the sender of the payout's funds.
+
+`sender.type`
+
+STRING
+
+The type of sender.
+
+This can be one of:
+
+*   `instrument`
+*   `individual`
+*   `corporate`
+
+`sender.reference`
+
+STRING
+
+The payout sender's unique identifier.
+
+`instruction`
+
+OBJECT
+
+Details about the instruction for payouts to bank accounts.
+
+Depending on the initial request, this can contain the following strings:
+
+*   `instruction.value_date`
+*   `instruction.purpose`
+*   `instruction.charge_bearer`
+*   `instruction.repair`
+*   `instruction.scheme`
+*   `instruction.quote_id`
+
+`links`
+
+OBJECT
+
+Links related to the payout.
+
+`links.self`
+
+STRING
+
+The direct link to the payout.
+
+`links.actions`
+
+STRING
+
+The link to the list of actions related to this payout.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Get+payout+details?showComments=true&showCommentArea=true#addcomment)

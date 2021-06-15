@@ -1,0 +1,83 @@
+---
+title: Customization guide
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 30, 2021](/pages/diffpagesbyversion.action?pageId=2785814&selectedPageVersions=14&selectedPageVersions=15 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+The module extends a Frame layout so that you can use XML attributes such as:
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@colors/your_color"
+
+  
+
+Additionally, the module inherits the `Theme.AppCompat.Light.DarkActionBar` style, so if you want to customize the look of the payment form you can define your own style and theme the module with it:
+
+    <style name="YourCustomTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+      <!-- TOOLBAR COLOR. -->
+      <item name="colorPrimary">#000000</item>
+      <!--FIELDS HIGHLIGHT COLOR-->
+      <item name="colorAccent">#000000</item>
+      <!--PAY/DONE BUTTON COLOR-->
+      <item name="colorButtonNormal">#000000</item>
+      <!--HELPER LABELS AND UNSELECTED FIELD COLOR-->
+      <item name="colorControlNormal">#000000</item>
+      <!--FONT FAMILY-->
+      <item name="android:fontFamily">@font/myFont</item>
+    </style>
+    ...
+    <com.example.android_sdk.PaymentForm
+      android:id="@+id/checkout_card_form"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:theme="@style/YourCustomTheme"/>
+
+  
+
+If you would like to customize the helper labels of the payment form fields, you can use the following method:
+
+    mPaymentForm
+      ...
+      .setAcceptedCardsLabel("We accept the following card types")
+      .setCardHolderLabel("Name on card")
+      .setCardLabel("Card number")
+      .setDateLabel("Expiration date")
+      .setCvvLabel("Security code")
+      .setAddress1Label("Address line 1")
+      .setAddress2Label("Address line 2")
+      .setTownLabel("City")
+      .setStateLabel("State")
+      .setPostcodeLabel("Zip code")
+      .setPhoneLabel("Phone number")
+
+  
+
+If you want to customize the buttons in the payment form, you have the following options:
+
+    mPaymentForm = findViewById(R.id.checkout_card_form);
+      mPaymentForm
+        ...
+        .setPayButtonText("Pay Now")     // Pay button text; dafault "Pay"
+        .setDoneButtonText("Save")       // Done button text on the billing address page; dafault "Done"
+        .setClearButtonText("Clear")     // Clear button text on the billing address page; dafault "Clear"
+        .setPayButtonLayout(params)      // LayoutParams for the Pay button
+        .setDoneButtonLayout(params)     // LayoutParams for the Done button
+        .setClearButtonLayout(params)    // LayoutParams for the Clear button
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Customization+guide?showComments=true&showCommentArea=true#addcomment)

@@ -1,0 +1,79 @@
+---
+title: card_verified
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Mar 19, 2021](/pages/diffpagesbyversion.action?pageId=2785554&selectedPageVersions=1&selectedPageVersions=2 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Example: Card verified
+----------------------
+
+    {
+      "id": "evt_gfb4ff5iov6efmgqggzsqactau",
+      "type": "card_verified",
+      "created_on": "2019-06-07T08:29:34Z",
+      "data": {
+        "action_id": "act_sdcdhwmpjgberkbzkugqe7pfum",
+        "payment_type": "REGULAR",
+        "auth_code": "075867",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "scheme_id": "638284745624527",
+        "source": {
+          "id": "src_isu5yyegxg4e5l5yadnpu6y744",
+          "type": "card",
+          "billing_address": {},
+          "expiry_month": 12,
+          "expiry_year": 2025,
+          "scheme": "VISA",
+          "last_4": "4242",
+          "fingerprint": "71580b426f1d190d29087ff265d8f48df1ad34ede41c27cbff9d23c1a14d1776",
+          "bin": "424242",
+          "card_type": "Credit",
+          "card_category": "Consumer",
+          "issuer": "JPMORGAN CHASE BANK NA",
+          "issuer_country": "US",
+          "product_id": "A",
+          "product_type": "Visa Traditional",
+          "avs_check": "S",
+          "cvv_check": ""
+         },
+         "customer": {
+           "id": "cus_gs47qn23bqmefhkmlpokm7vzxm"
+         },
+         "processing": {
+           "acquirer_transaction_id": "8137549646",
+           "retrieval_reference_number": "000075867708"
+         },
+         "amount": 0,
+         "metadata": {},
+         "risk": {
+           "flagged": false
+         },
+         "id": "pay_sdcdhwmpjgberkbzkugqe7pfum",
+         "currency": "EUR",
+         "processed_on": "2019-06-07T08:29:35Z",
+         "reference": "ORD-5023-4E89"
+        },
+        "_links": {
+          "self": {
+            "href": "https://api.sandbox.checkout.com/events/evt_gfb4ff5iov6efmgqggzsqactau"
+        }
+      }
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/card_verified?showComments=true&showCommentArea=true#addcomment)

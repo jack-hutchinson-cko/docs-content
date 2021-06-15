@@ -1,0 +1,139 @@
+---
+title: Go further with PrestaShop
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Chrisi Webster](    /display/~chrisiwebster
+    ) on [May 05, 2021](/pages/diffpagesbyversion.action?pageId=5931119&selectedPageVersions=9&selectedPageVersions=10 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+There are a number of ways you can extend your PrestaShop integration so that it suits all of your business needs.
+
+In this guide, you'll find how to:
+
+*   [Add more payment methods](#GofurtherwithPrestaShop-paymentmethods)
+*   [Enable 3D Secure payments](#GofurtherwithPrestaShop-3dSecure)
+*   [Configure card payment options](#GofurtherwithPrestaShop-cardpaymentoptions)
+*   [Configure order statuses](#GofurtherwithPrestaShop-orderstatuses)
+
+Add more payment methods 
+-------------------------
+
+In order to start accepting an alternative payment method, we first need to enable it on your account. Please contact your Customer Success manager or our [Sales team](https://checkout.com/contact-sales) to get started.
+
+We currently support the following payment methods on PrestaShop:
+
+*   [Alipay](/display/DOCS/Alipay)
+*   [Bancontact](/display/DOCS/Bancontact)
+*   [Boleto Bancário](/pages/viewpage.action?pageId=2785387)
+*   [EPS](/display/DOCS/EPS)
+*   [Fawry](/display/DOCS/Fawry)
+*   [Giropay](/display/DOCS/Giropay)
+*   [Google Pay](/display/DOCS/Google+Pay)
+*   [iDEAL](/display/DOCS/iDEAL)
+*   [Klarna](/display/DOCS/Klarna)
+*   [KNET](/display/DOCS/KNET)
+*   [Poli](/display/DOCS/Poli)
+*   [SEPA Direct Debit](/display/DOCS/SEPA+Direct+Debit)
+*   [Sofort](/display/DOCS/Sofort)
+
+### Enable alternative payments
+
+1.  Log in to your PrestaShop admin dashboard, and go to _Modules > Modules Manager_.
+2.  Find the Checkout.com plugin, click **Configure** and go to **Alternative payments**.
+3.  Select the payment methods you want to support.  
+      
+    ![](/download/attachments/5931119/enable_alternative_payments.png?version=1&modificationDate=1587484690651&api=v2)
+4.  Click **Save**.
+
+### Google Pay
+
+1.  Log in to your PrestaShop admin dashboard, and go to _Modules > Modules Manager_.
+2.  Find the Checkout.com plugin, click **Configure** and go to **Google Pay**.
+3.  Set _Enable Google Pay_ to **Yes**.
+4.  Enter a **Payment Option Title** (e.g., `Pay by Google Pay with Checkout.com`). This is the name of the payment option that will be displayed to the customer.
+5.  Enter your **Merchant ID**. You can find this in your Google payments profile.
+6.  Click **Save**.  
+    
+
+Enable 3D Secure payments 
+--------------------------
+
+1.  Log in to your PrestaShop admin dashboard, and go to _Modules > Modules Manager_.
+2.  Find the Checkout.com plugin, click **Configure** and go to **Card payments**.
+3.  Set _Use 3D Secure_ to **Yes**.
+4.  Next, select whether or not you want to _Attempt non-3D Secure transactions_. If you select **Yes**, any cards that do not support 3DS will go through without a 3DS check. If you select **No**, cards that do no support 3DS will be blocked.
+5.  Click **Save**.
+
+Card payment options 
+---------------------
+
+### Manually capture payments
+
+1.  Log in to your PrestaShop admin dashboard, and go to _Modules > Modules Manager_.
+2.  Find the Checkout.com plugin, and click **Configure**.
+3.  Set _Payment Action_ to **Authorize**. This will only authorize the charge; you will now have to manually capture the payment yourself.
+4.  Click **Save**.
+
+### Delay payment capture
+
+1.  Log in to your PrestaShop admin dashboard, and go to _Modules > Modules Manager_.
+2.  Find the Checkout.com plugin, and click **Configure**.
+3.  Make sure you've set _Payment Action_ to **Authorize + Capture**.
+4.  Specify the _Capture Time_. By default, this is blank, meaning the charge will be authorized and captured at the same time. If you want to delay the payment's capture, you can set the period of delay (in hours) here (e.g., `1` = payment captured after one hour; `1.5` = payment captured after one hour and 30 minutes).
+5.  Click **Save**.
+
+### Enable dynamic descriptor
+
+This is an extra field that you can send to the issuer, appearing on the customer's bank statement as an additional description of the payment.
+
+1.  Log in to your PrestaShop admin dashboard, and go to _Modules > Modules Manager_.
+2.  Find the Checkout.com plugin, and click **Configure**.
+3.  Set _Enable Dynamic Descriptor_ to **Yes**.
+4.  Specify your **Descriptor Name**. This is the first line of the descriptor, usually your merchant name.
+5.  Specify your **Descriptor City**. This is the second line of the descriptor, usually the city of your merchant address.
+6.  Click **Save**.
+
+### Enable saved cards
+
+This setting allows your customers to save their cards for future payments. They can then use the same card on your website without re-entering the details.
+
+1.  Log in to your PrestaShop admin dashboard, and go to _Modules > Modules Manager_.
+2.  Find the Checkout.com plugin, click **Configure** and go to **Card payments**.
+3.  Set _Save Card Option_ to **Yes**.
+4.  Click **Save**.
+
+### Enable Mada BIN check
+
+Mada is a local card scheme in Saudi Arabia. When enabled, we check the card's BIN to see if the customer is using a Mada card, and then apply the necessary configuration before sending the payment request.
+
+Take a look at our [Mada guide](/display/DOCS/Mada) to find out more.
+
+1.  Log in to your PrestaShop admin dashboard, and go to _Modules > Modules Manager_.
+2.  Find the Checkout.com plugin, click **Configure** and go to **Card payments**.
+3.  Set _Enable MADA BIN Check_ to **Yes**.
+4.  Click **Save**.
+
+Order statuses 
+---------------
+
+These settings allow you edit the order statuses in line with the status of the payment. But they are automatically set to PrestaShop's default values, so it's unlikely you will need to edit them.
+
+To find these settings, log in to your PrestaShop admin dashboard, go to _Modules > Modules Manager_, find the Checkout.com plugin, click **Configure** and then scroll down.
+
+![](/download/attachments/5931119/order_statuses.png?version=1&modificationDate=1587485702994&api=v2)
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Go+further+with+PrestaShop?showComments=true&showCommentArea=true#addcomment)

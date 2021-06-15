@@ -1,0 +1,384 @@
+---
+title: Sofort
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ), last modified on [May 31, 2021](/pages/diffpagesbyversion.action?pageId=20120977&selectedPageVersions=9&selectedPageVersions=10 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Start accepting payments using [Sofort](https://www.checkout.com/payment-methods/accept/sofort), a favorite payment method in Europe.
+
+Sofort is a direct payment method allowing your customers to use only their online banking details. Shortly after making a purchase, they receive a transaction confirmation so you can start processing the order immediately.
+
+To start accepting Sofort payments, please contact your Customer Success Manager.
+
+Overview
+--------
+
+You process a Sofort payment in two steps:
+
+1.  [Request a payment](#Sofort-requestapayment)
+2.  [Redirect the customer](#Sofort-redirectthecustomer)
+
+Request a payment 
+------------------
+
+### The POST request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-02ecd0f8-dfc5-446f-9840-10e64a1c55b5-1)
+*   [**Sandbox**](#tabs-02ecd0f8-dfc5-446f-9840-10e64a1c55b5-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameter
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your [Checkout.com](http://checkout.com/) account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+  
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `sofort`.
+
+`amount`
+
+OPTIONAL
+
+INTEGER
+
+The payment amount.
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The three-letter ISO currency code. Set this to `EUR`.
+
+#### Request example
+
+    {
+      "source": {
+        "type": "sofort"
+      },
+      "amount": 1000,
+      "currency": "EUR"
+    }
+
+If a customer ID or email is not provided in the request, we automatically create a customer profile and return the customer `id` in the response.
+
+### The POST response
+
+If you receive a `202 Success` response with a payment `id` and a `status` field set to `Pending`, your request was successful.
+
+#### Response example
+
+    {
+      "id": "pay_ylcikkxovyjunekfu7a444mmvy",
+      "status": "Pending",
+      "customer": {
+        "id": "cus_izfg7cwguvxuhaquys6qtof2f4"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_ylcikkxovyjunekfu7a444mmvy"
+        },
+        "redirect": {
+          "href": "https://sandbox.checkout.com/LP.Core/api/payment/108689"
+        }
+      }
+    }
+
+Redirect the customer 
+======================
+
+Redirect your customer to the `redirect` link’s href in the above response. The redirect transfers the customer to their bank's website where they will be asked to enter their authorization details; if successful, the payment can be approved.
+
+Once completed, the customer is transferred to your predefined success or failure URL. Confirmation of a Sofort payment is **communicated only through webhooks**. When you receive a `payment_captured` webhook notification, the transaction has been completed successfully. Until the `payment_captured` webhook is received (response code `10000`), all payments are labeled as _Pending_.
+
+Get details about a payment
+===========================
+
+You can retrieve details about an existing Sofort payment with the following request.
+
+If the payment has been approved by a customer on the banking page, you’ll receive a `payment_capture_pending` webhook and the payment response will include the `bic`, `iban`, and `account_holder_name` fields.
+
+### The GET request
+
+#### Endpoints
+
+*   [**Live**](#tabs-5aa689ba-1231-4a25-b004-a45387e985ec-1)
+*   [**Sandbox**](#tabs-5aa689ba-1231-4a25-b004-a45387e985ec-2)
+
+GET`https://api.checkout.com/payments/{payment_id}`
+
+GET`https://api.sandbox.checkout.com/payments/{payment_id}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your [Checkout.com](http://checkout.com/) account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`payment_id`
+
+REQUIRED
+
+The payment ID found in the response of the initial payment.
+
+### The GET response
+
+#### Response example
+
+*   [**Pending**](#tabs-480edcbe-03b9-47d1-9521-8dc130bc28be-1)
+*   [**Pending capture**](#tabs-480edcbe-03b9-47d1-9521-8dc130bc28be-2)
+*   [**Captured**](#tabs-480edcbe-03b9-47d1-9521-8dc130bc28be-3)
+
+    {
+      "id": "pay_ylcikkxovyjunekfu7a444mmvy",
+      "requested_on": "2018-11-22T15:58:35Z",
+      "source": {
+        "type": "sofort"
+        },
+      "amount": 100,
+      "currency": "EUR",
+      "payment_type": "Regular",
+      "status": "Pending",
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_izfg7cwguvxuhaquys6qtof2f4"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_ylcikkxovyjunekfu7a444mmvy"
+        }
+      }
+    }
+
+    {
+      "id": "pay_ylcikkxovyjunekfu7a444mmvy",
+      "requested_on": "2018-11-22T15:58:35Z",
+      "source": {
+        "type": "sofort",
+        "bic": "SFRTDE20XXX",
+        "iban": "DE06000000000023456789",
+        "account_holder_name": "Max Mustermann"
+      },
+      "amount": 100,
+      "currency": "EUR",
+      "payment_type": "Regular",
+      "status": "Pending",
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_izfg7cwguvxuhaquys6qtof2f4"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_ylcikkxovyjunekfu7a444mmvy"
+        }
+      }
+    }
+
+    {
+      "id": "pay_ylcikkxovyjunekfu7a444mmvy",
+      "requested_on": "2018-11-22T16:04:35Z",
+      "source": {
+        "type": "sofort",
+        "bic": "SFRTDE20XXX",
+        "iban": "DE06000000000023456789",
+        "account_holder_name": "Max Mustermann"
+      },
+      "amount": 100,
+      "currency": "EUR",
+      "payment_type": "Regular",
+      "approved": true,
+      "status": "Captured",
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_izfg7cwguvxuhaquys6qtof2f4"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_ylcikkxovyjunekfu7a444mmvy"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_ylcikkxovyjunekfu7a444mmvy/actions"
+        },
+        "refund": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_ylcikkxovyjunekfu7a444mmvy/refunds"
+        }
+      }
+    }
+
+Refund a payment
+----------------
+
+Sofort supports both partial and full refunds. You can refund a payment through the [Hub](https://hub.checkout.com/v2) or using the [refund endpoint](https://api-reference.checkout.com/#operation/refundAPayment) of the Unified Payments API.
+
+Cancel a payment
+----------------
+
+If the customer cancels or fails to complete the transaction at any point after the payment is created, it will automatically be canceled, and we’ll send you a `payment_canceled` webhook.
+
+Webhooks
+--------
+
+When using Sofort, you may receive the following webhooks.
+
+Webhook
+
+Description
+
+Webhook
+
+Description
+
+`payment_pending`
+
+Occurs when a payment request has successfully initiated.
+
+`payment_declined`
+
+Occurs when a payment is declined.
+
+`payment_expired`
+
+Occurs when the payment has expired. (Sofort payments expire after two hours.)
+
+`payment_capture_pending`
+
+Occurs when the customer has approved the payment on the banking page.
+
+`payment_captured`
+
+Occurs when a capture is successful.
+
+`payment_canceled`
+
+Occurs when the customer has canceled the payment or the payment has failed.
+
+`payment_refunded`
+
+Occurs when a refund is successful.
+
+`payment_refund_declined`
+
+Occurs when a refund is declined.
+
+Testing Sofort
+--------------
+
+To start testing, you'll need to:
+
+*   [Create a test account](https://www.checkout.com/get-test-account).
+*   Contact your Customer Success Manager or Integrations engineer to activate Sofort payments in the sandbox environment.
+
+1.  Create a Sofort transaction as above, and then follow the redirect link to Sofort/Klarna's website.
+2.  Into the **Bank name, BLZ, IBAN or BIC** field enter **88888888**, and then click **Next**.
+3.  Enter **88888888** in the **Account number** field, and **123456** in the **PIN** field. Click **Next**.
+4.  Select any account on the next page and then click **Next**.
+5.  Enter **12345** in the **TAN** field and click **Next**.
+6.  You should then be redirected to your predefined success URL.
+    
+    The payment remains in a deferred capture state. To test a full capture, contact us at [integration@checkout.com](mailto:integration@checkout.com) to request that a transaction be manually set to captured.
+    
+
+  
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Sofort?showComments=true&showCommentArea=true#addcomment)

@@ -1,0 +1,306 @@
+---
+title: View events
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 14, 2021](/pages/diffpagesbyversion.action?pageId=8488407&selectedPageVersions=7&selectedPageVersions=8 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Get a list of all event types, view details about a specific event, or get a list of all events related to a specific subject.
+
+Get event types
+---------------
+
+Get a list of sources and their events to help you build new workflows.
+
+### The GET request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-46e07525-c704-4be6-9ef5-64d75233be8c-1)
+*   [**Sandbox**](#tabs-46e07525-c704-4be6-9ef5-64d75233be8c-2)
+
+GET`https://api.checkout.com/workflows/event-types`
+
+GET`https://api.sandbox.checkout.com/workflows/event-types`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+### The GET response
+
+Below is an example of a successful response.
+
+    [
+      {
+        "id": "gateway",
+        "display_name": "Gateway",
+        "description": "Events from the Checkout.com payment gateway",
+        "events": [
+          {
+            "id": "payment_approved",
+            "display_name": "Payment Authorized",
+            "description": "Occurs when a payment is successfully authorized by the Checkout.com payment gateway"
+          }
+        ]
+      }
+    ]
+
+  
+
+Other possible responses: 
+
+*   401 - Unauthorized
+*   422 - Invalid data was sent
+*   500 - Internal error
+
+Get an event
+------------
+
+Get details about a specific event using the event's ID.
+
+### The GET request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-afd24a5d-2935-474c-a95f-afb4e056bb2f-1)
+*   [**Sandbox**](#tabs-afd24a5d-2935-474c-a95f-afb4e056bb2f-2)
+
+GET`https://api.checkout.com/workflows/events/{eventId}`
+
+GET`https://api.sandbox.checkout.com/workflows/events/{eventId}`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+OAuth Bearer access token
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Path parameters
+
+Path
+
+Description
+
+Path
+
+Description
+
+`eventId`
+
+REQUIRED
+
+The event identifier.
+
+### The GET response
+
+Below is an example of a successful response.
+
+    {
+      "id": "evt_az5sblvku4ge3dwpztvyizgcau",
+      "source": "gateway",
+      "type": "payment_approved",
+      "timestamp": "2020-08-25T11:12:10Z",
+      "version": "1.0.0",
+      "data": {
+        "id": "pay_mbabizu24mvu3mela5njyhpit4",
+        "action_id": "act_y3oqhf46pyzuxjbcn2giaqnb44",
+        "amount": 6540,
+        "currency": "USD",
+        "approved": true,
+        "status": "Authorized",
+        "auth_code": "643381",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "3ds": {
+          "downgraded": true,
+          "enrolled": "N"
+        },
+        "flagged": true,
+        "source": {
+          "type": "card",
+          "id": "src_nwd3m4in3hkuddfpjsaevunhdy",
+          "billing_address": {
+            "address_line1": "Checkout.com",
+            "address_line2": "90 Tottenham Court Road",
+            "city": "London",
+            "state": "London",
+            "zip": "W1T 4TJ",
+            "country": "GB"
+          },
+          "phone": {
+            "country_code": "+1",
+            "number": "415 555 2671"
+          }
+        },
+        "customer": {
+          "id": "cus_y3oqhf46pyzuxjbcn2giaqnb44",
+          "email": "jokershere@gmail.com",
+          "name": "Jack Napier"
+        },
+        "processed_on": "2020-02-27T11:26:59Z",
+        "reference": "ORD-5023-4E89",
+        "metadata": {
+          "coupon_code": "NY2018",
+          "partner_id": 123989
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/events/evt_az5sblvku4ge3dwpztvyizgcau"
+        }
+      }
+    }
+
+Other possible responses:
+
+*   401 - Unauthorized
+*   404 - Event not found
+*   500 - Internal error
+
+Get subject events
+------------------
+
+Get a list of all events related to a specific subject.
+
+### The GET request
+
+Use the details below to set up your request.
+
+*   [**Live**](#tabs-602535ba-5b88-4d04-a102-6379323ae417-1)
+*   [**Sandbox**](#tabs-602535ba-5b88-4d04-a102-6379323ae417-2)
+
+GET`https://api.checkout.com/workflows/events/subject/{subjectId}`
+
+GET`https://api.sandbox.checkout.com/workflows/events/subject/{subjectId}`
+
+#### Endpoints
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`OAuth Bearer access token`
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Path parameters
+
+Path
+
+Description
+
+Path
+
+Description
+
+`subjectId`
+
+REQUIRED
+
+The subject identifier.
+
+### The GET response
+
+Below is an example of a successful response.
+
+    {
+      "data": [
+        {
+          "id": "evt_zrrgsvsr47ou7fng4shy4mtf64",
+          "type": "payment_approved",
+          "timestamp": "2019-05-23T08:25:53Z",
+          "_links": {
+            "self": {
+              "href": "https://api.checkout.com/events/evt_zrrgsvsr47ou7fng4shy4mtf64"
+            }
+          }
+        },
+        {
+          "id": "evt_wgwdfyem4ode5furs5swyy6b2u",
+          "type": "payment_captured",
+          "timestamp": "2019-05-24T07:00:53Z",
+          "_links": {
+            "self": {
+              "href": "https://api.checkout.com/events/evt_zrrgsvsr47ou7fng4shy4mtf64"
+            }
+          }
+        }
+      ]
+    }
+
+  
+
+Other possible responses: 
+
+*   401 - Unauthorized
+*   404 - Subject not found
+*   500 - Internal error
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/View+events?showComments=true&showCommentArea=true#addcomment)

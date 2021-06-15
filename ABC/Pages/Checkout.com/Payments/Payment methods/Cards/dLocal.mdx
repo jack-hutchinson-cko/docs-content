@@ -1,0 +1,512 @@
+---
+title: dLocal
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [Jun 09, 2021](/pages/diffpagesbyversion.action?pageId=5931521&selectedPageVersions=7&selectedPageVersions=8 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Our partnership with dLocal allows you to accept payments from customers across Latin America using both international and local card schemes.
+
+To start accepting payments via dLocal, please contact your Customer Success Manager.
+
+Overview
+--------
+
+A dLocal payment request uses the same endpoint as a standard [card payment](/display/DOCS/Request+a+card+payment), and is structured similarly, but there are a few important differences.
+
+For Latin American countries, merchants are required to provide their customers' identification numbers along with all authorization requests. Depending on the customer's country of residence, a differing type of identification number might be required, so a customer-specific country field needs to be sent in the authorization request.
+
+Also, the billing country associated with the payer's data may not be the same as the customer's country of residence (if, for instance, the payer is different from the customer). For this reason, a specific field for the merchant customer's country of residence needs to be specified explicitly.
+
+*   [Make a payment using an international card scheme](#dLocal-international)
+*   [Make a payment using a local card scheme](#dLocal-local)
+
+International card schemes payment request 
+-------------------------------------------
+
+ Supported international schemes
+
+Argentina
+
+Visa, Mastercard, Amex, Diners, and Maestro.
+
+Brazil
+
+Visa, Mastercard, Amex, and JCB.
+
+Chile
+
+Visa, Mastercard, Amex, and Diners.
+
+Colombia
+
+Visa, Mastercard, Amex, and Diners.
+
+Ecuador
+
+Visa and Mastercard.
+
+Mexico
+
+Visa, Mastercard, Amex, Visa Debit, and Mastercard Debit.
+
+Peru
+
+Visa, Mastercard, Amex, and Visa Debit.
+
+Uruguay
+
+Visa, Mastercard, and Diners.
+
+### The request
+
+Use the details below to set up your request.
+
+#### Endpoint
+
+*   [**Live**](#tabs-b3dc228b-fd64-4247-bc7c-0c4bfbbe91cc-1)
+
+POST`https://api.checkout.com/payments`
+
+This endpoint is only available in a live environment.
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `card`.
+
+`source.number`
+
+REQUIRED
+
+STRING
+
+The card number.
+
+`source.expiry_month`
+
+REQUIRED
+
+STRING
+
+The two-digit expiry month of the card.
+
+`source.expiry_year`
+
+REQUIRED
+
+STRING
+
+The four-digit expiry year of the card.
+
+`source.cvv`
+
+REQUIRED
+
+STRING
+
+The card verification value/code.
+
+3 digits, except for Amex, which is 4.
+
+`reference`
+
+REQUIRED
+
+STRING
+
+An optional reference you can use to identify the payment later.
+
+For example, an order number.
+
+`capture`
+
+OPTIONAL
+
+BOOLEAN
+
+Whether to capture the payment (if applicable).
+
+`amount`
+
+OPTIONAL
+
+INTEGER
+
+The payment amount in your chosen currency. Omit the amount or provide a value of `0` to perform a [card verification](/display/DOCS/Card+verification).
+
+The format depends on the currency. For more information, see [calculating the value](/display/DOCS/Calculating+the+value).
+
+`currency`
+
+REQUIRED
+
+STRING
+
+A three-letter ISO currency code representing the currency of the payment.
+
+`billing_descriptor`
+
+OPTIONAL
+
+OBJECT
+
+Details about the optional dynamic billing descriptor. This is displayed on the account owner's statement.
+
+`billing_descriptor.name`
+
+REQUIRED if using the `billing_descriptor` object
+
+STRING
+
+A dynamic description of the charge.
+
+Up to 25 characters.
+
+`billing_descriptor.city`
+
+REQUIRED if using the `billing_descriptor` object
+
+STRING
+
+The city from which the charge originated.
+
+Up to 13 characters.
+
+`processing`
+
+REQUIRED
+
+OBJECT
+
+The processing object.
+
+`processing.dlocal`
+
+REQUIRED
+
+OBJECT
+
+The dLocal object.
+
+`processing.dlocal.country`
+
+REQUIRED
+
+STRING
+
+The customer's country. This must be a two-digit ISO country code.
+
+See all [country codes](/display/DOCS/Country+codes).
+
+`processing.dlocal.payer`
+
+REQUIRED
+
+OBJECT
+
+Details about the cardholder.
+
+`processing.dlocal.payer.document`
+
+REQUIRED
+
+STRING
+
+The cardholder's personal identification number. You must send correct identification based on country-specific requirements. See the [official dLocal documentation](https://docs.dlocal.com/api-documentation/payins-api-reference/country-reference#documents) for more information.
+
+`processing.dlocal.payer.name`
+
+REQUIRED
+
+STRING
+
+The cardholder's full name.
+
+`processing.dlocal.payer.email`
+
+REQUIRED
+
+STRING
+
+The cardholder's email address.
+
+`processing.dlocal.installments`
+
+OPTIONAL
+
+OBJECT
+
+Details about the [installment payment plan](#dLocal-installments).
+
+`processing.dlocal.installments.count`
+
+OPTIONAL
+
+STRING
+
+The number of payments in the [installment payment plan](#dLocal-installments).
+
+#### Request example
+
+    {
+      "source": {
+        "type": "card",
+        "number": "4242424242424242",
+        "expiry_month": "12",
+        "expiry_year": "25",
+        "cvv": "100"
+      },
+      "reference" : "668",
+      "capture": false,
+      "amount": 10000,
+      "currency": "MXN",
+      "billing_descriptor": {
+        "name": "dynamic_descriptor",
+        "city": "GOTHAM"
+      },
+      "processing": {
+        "dlocal": {
+          "country": "MX",
+          "payer": {
+            "document": "SomeDocumentId",
+            "name": "John Doe",
+            "email": "john@doe.com"
+          },
+          "installments": {
+            "count": "3"
+          }
+        }
+      }
+    }
+
+### The response
+
+Use the `approved` field to check whether or not the authorization was successful (`"approved": true`). If your authorization was not successful, it's possible the payment used an invalid/expired card, or a valid card with an insufficient available balance.
+
+If you received a `202` response, the payment requires a redirect. For example, if the payment is 3D Secure.
+
+#### Response example
+
+    {
+      "id": "pay_z7mylvkcalbedkvjxidz2wt7ea",
+      "action_id": "act_z7mylvkcalbedkvjxidz2wt7ea",
+      "amount": 10000,
+      "currency": "MXN",
+      "approved": true,
+      "status": "Authorized",
+      "auth_code": "213348",
+      "eci": "05",
+      "scheme_id": "923918049434504",
+      "response_code": "10000",
+      "response_summary": "Approved",
+      "risk": {
+        "flagged": false
+      },
+      "source": {
+        "id": "src_rcqlc7uaqxcelg6j4ya7ww7vme",
+        "type": "card",
+        "expiry_month": 12,
+        "expiry_year": 2025,
+        "scheme": "Visa",
+        "last4": "4242",
+        "fingerprint": "71580B426F1D190D29087FF265D8F48DF1AD34EDE41C27CBFF9D23C1A14D1776",
+        "bin": "424242",
+        "card_type": "Credit",
+        "card_category": "Consumer",
+        "issuer": "JPMORGAN CHASE BANK NA",
+        "issuer_country": "US",
+        "product_id": "A",
+        "product_type": "Visa Traditional",
+        "avs_check": "S",
+        "cvv_check": "Y",
+        "payouts": true,
+        "fast_funds": "d"
+      },
+      "customer": {
+        "id": "cus_givlst32wmsebgwmar3ozgqlj4"
+      },
+      "processed_on": "2019-11-05T10:02:30Z",
+      "processing": {
+        "acquirer_transaction_id": "4616546139",
+        "retrieval_reference_number": "914387252893"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_z7mylvkcalbedkvjxidz2wt7ea"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_z7mylvkcalbedkvjxidz2wt7ea/actions"
+        },
+        "capture": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_z7mylvkcalbedkvjxidz2wt7ea/captures"
+        },
+        "void": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_z7mylvkcalbedkvjxidz2wt7ea/voids"
+        }
+      }
+    }
+
+Local card schemes payment request 
+-----------------------------------
+
+ Supported local schemes
+
+Argentina
+
+Cabal, Cabal Debito, Naranja, Cordinal, Cordobesa, Cencosud, and CMR Falabella.
+
+Brazil
+
+Elo, Hipercard, and Aura.
+
+Chile
+
+Presto, CMR Falabella, and Magna.
+
+Ecuador
+
+Alia
+
+Uruguay
+
+OCA and Lider.
+
+### The request
+
+Make a payment request using the same endpoint and parameters [as above](#dLocal-international), with two differences:
+
+*   Set `source.type` to `dlocal`.
+*   Latin American card numbers (`source.number`) are between 12-19 characters in length.
+
+Card number validation
+
+Because Latin American card numbers vary in length and structure, they cannot be validated with a [Luhn check](https://en.wikipedia.org/wiki/Luhn_algorithm). You should disable this check when making a `dlocal` payment request to avoid the card number being flagged as invalid to the customer and to prevent the request from being rejected.
+
+#### Request example
+
+    {
+      "source": {
+        "type": "dlocal",
+        "number": "6362970000457013",
+        "expiry_month": "04",
+        "expiry_year": "22",
+        "cvv": "551"
+      },
+      "reference" : "668",
+      "capture": false,
+      "amount": 100,
+      "currency": "USD",
+      "billing_descriptor": {
+        "name": "dynamic_descriptor",
+        "city": "GOTHAM"
+      },
+      "processing": {
+        "dlocal": {
+          "country": "BR",
+          "payer": {
+            "document": "53033315550",
+            "name": "John Doe",
+            "email": "john@doe.com"
+          },
+          "installments": {
+            "count": 4
+          }
+        }
+      }
+    }
+
+Pay in installments 
+--------------------
+
+Paying in installments works with both international and local card schemes.
+
+Paying in installments is a popular way of paying by credit card in Latin America. It allows customers to receive the goods or services straight away, but spread the cost of the purchase over several months.
+
+When a customer pays via an installment plan, the purchase is split into multiple smaller payments, or installments. The first payment is charged to the customer's card immediately, and subsequent installments are charged every 30 days until their purchase has been fully paid.
+
+To make an installment payment, include the `processing.dlocal.installments` object in your request, and set the number of payments to be made each year with the `processing.dlocal.installments.count` field.
+
+### Number of payments per year
+
+The number of payments a customer can make per year in an installment plan varies by country:
+
+*   In **Argentina**, **Brazil**, **Chile**, **Colombia** and **Peru**, the customer can make **1 to 12 payments a year**.
+*   In **Mexico**, the customer can make either **3, 6, 9 or 12 payments a year**.
+
+### Fees
+
+The customer will be charged a fee by their bank for making payments via an installment plan, and you must make these fees clear to your customers.
+
+These fees change frequently, so you should request the latest fee tables from dLocal regularly to ensure your customers are kept up to date.
+
+Displaying installment fees
+
+Use the fee tables from dLocal to build a user interface that shows the customer:
+
+*   The fees per installment payment, using the formula `(order amount + order amount * interest) / number of installments`.
+*   The total cost of the plan, including the fees, using the formula `purchase amount + (purchase amount * interest fee)`.
+
+When accepting payments in installments in Latin American countries, you are legally required to show the customer the fees for each individual installment as well as the total cost of the plan.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/dLocal?showComments=true&showCommentArea=true#addcomment)

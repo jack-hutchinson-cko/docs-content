@@ -1,0 +1,440 @@
+---
+title: Webhook event types
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Toby Knott](    /display/~toby.knott
+    ) on [Jun 11, 2021](/pages/diffpagesbyversion.action?pageId=8488133&selectedPageVersions=22&selectedPageVersions=23 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Gateway
+-------
+
+ See gateway event types and descriptions
+
+  
+
+Event type
+
+Display name
+
+Description
+
+`payment_pending`
+
+View a [payment pending webhook example](/display/x/payment_pending).
+
+Payment pending
+
+Occurs when a payment request has successfully initiated.
+
+`payment_approved`
+
+View a [payment approved webhook example](https://docs.checkout.com/four/workflows/webhook-event-types/payment_approved).
+
+Payment approved
+
+Occurs when a payment is successfully approved.
+
+`payment_paid`
+
+View a [payment paid webhook example](https://docs.checkout.com/four/workflows/webhook-event-types/payment_paid).
+
+Payment paid
+
+Occurs when a payment is paid.
+
+`payment_returned`
+
+View a [payment returned webhook example](https://docs.checkout.com/four/workflows/webhook-event-types/payment_returned).
+
+Payment returned
+
+Occurs when a payment is returned.
+
+`payment_canceled`
+
+View a payment canceled webhook example.
+
+Payment canceled
+
+Occurs when the customer has canceled the payment or the payment has failed.
+
+`payment_declined`
+
+View a [payment declined webhook example](https://docs.checkout.com/four/workflows/webhook-event-types/payment_declined).
+
+Payment declined
+
+Occurs when a payment is declined.
+
+`payment_expired`
+
+View a [payment expired webhook example](/display/x/payment_expired).
+
+Payment expired
+
+Occurs when the payment has expired.
+
+`card_verification_declined`
+
+View a [card verification declined webhook example](https://docs.checkout.com/four/workflows/webhook-event-types/card_verification_declined).
+
+Card verification declined
+
+Occurs when a card verification is declined.
+
+`card_verified`
+
+View a [card verified webhook example](https://docs.checkout.com/four/workflows/webhook-event-types/card_verified).
+
+Card verified
+
+Occurs when a card verification is successful.
+
+`payment_authorization_incremented`
+
+View a [payment authorization incremented webhook example](https://docs.checkout.com/four/workflows/webhook-event-types/payment_authorization_incremented).
+
+Payment authorization incremented
+
+Occurs when an authorization is successfully incremented.
+
+`payment_authorization_increment_declined`
+
+View a [payment authorization increment declined webhook example](https://docs.checkout.com/four/workflows/webhook-event-types/payment_authorization_increment_declined).
+
+Payment authorization increment declined
+
+Occurs when an authorization is declined.
+
+`payment_capture_pending`
+
+View a [payment capture pending webhook example](/display/x/payment_capture_pending).
+
+Payment capture pending
+
+Occurs when the customer has approved the payment on the banking page.
+
+`payment_capture_declined`
+
+View a [payment capture declined webhook example](https://docs.checkout.com/four/workflows/webhook-event-types/payment_capture_declined).
+
+Payment capture declined
+
+Occurs when a capture is declined.
+
+`payment_captured`
+
+View a [payment captured webhook example](https://docs.checkout.com/four/workflows/webhook-event-types/payment_captured).
+
+Payment captured
+
+Occurs when a capture is successful.
+
+`payment_refund_pending`
+
+View a [payment refund pending example](/display/x/payment_refund_pending).
+
+Payment refund pending
+
+Occurs when a refund request has been successfully initiated.
+
+`payment_refund_declined`
+
+View a [payment refund declined webhook example](https://docs.checkout.com/four/workflows/webhook-event-types/payment_refund_declined).
+
+Payment refund declined
+
+Occurs when a refund is declined.
+
+`payment_void_declined`
+
+View a [payment void declined webhook example](https://docs.checkout.com/four/workflows/webhook-event-types/payment_void_declined).
+
+Payment void declined
+
+Occurs when a void is declined.
+
+`payment_refunded`
+
+View a [payment refunded webhook example](https://docs.checkout.com/four/workflows/webhook-event-types/payment_refunded).
+
+Payment refunded
+
+Occurs when a refund is successful.
+
+`payment_voided`
+
+View a [payment voided webhook example](https://docs.checkout.com/four/workflows/webhook-event-types/payment_voided).
+
+Payment voided
+
+Occurs when a void is successful.
+
+Marketplace
+-----------
+
+ See marketplace event types and descriptions
+
+  
+
+Event type
+
+Display name
+
+Description
+
+`sub_entity_created`
+
+View a [sub entity created webhook example](/display/x/sub_entity_created).
+
+Sub entity created
+
+The sub-entity has been created successfully.
+
+`payments_enabled`
+
+View a [payments enabled webhook example](/display/x/payments_enabled).
+
+Payments enabled
+
+Occurs when payment capabilities are enabled for a sub-entity.
+
+`payments_disabled`
+
+View a [payments disabled webhook example](/display/x/payments_disabled).
+
+Payments disabled
+
+Occurs when payment capabilities are disabled for a sub-entity.
+
+`payouts_enabled`
+
+View a [payouts enabled webhook example](/display/x/payments_enabled).
+
+Payouts enabled
+
+Occurs when payout capabilities are enabled for a sub-entity.
+
+`payouts_disabled`
+
+View a [payouts disabled webhook example](/display/x/payments_disabled).
+
+Payouts disabled
+
+Occurs when payout capabilities are disabled for a sub-entity.
+
+`vmss_passed`
+
+View a [VMSS passed webhook example](/display/x/full_dd_passed).
+
+VMSS passed
+
+Occurs when a sub-entity passes due diligence VMSS checks.
+
+`vmss_failed`
+
+View a [VMSS failed webhook example](/display/x/vmss_failed).
+
+VMSS failed
+
+Occurs when a sub-entity fails due diligence VMSS checks.
+
+`match_passed`
+
+View a [MATCH passed webhook example](/display/x/match_passed).
+
+Match passed
+
+The sub-entity has passed their MATCH check.
+
+`match_failed`
+
+View a [MATCH failed webhook example](/display/x/match_failed).
+
+Match failed
+
+The sub-entity has failed their MATCH check.
+
+`full_dd_passed`
+
+View a [full DD passed webhook example](/display/x/full_dd_passed).
+
+Full DD passed
+
+The sub-entity has passed their due diligence checks.
+
+`full_dd_failed`
+
+View a [full DD failed webhook example](/display/x/full_dd_failed).
+
+Full DD failed
+
+The sub-entity has failed their due diligence checks.
+
+`status_changed`
+
+View the [status changed webhook example](/display/x/status_changed).
+
+Status changed
+
+Occurs when the [status of a sub-entity](/display/x/About+onboarding) has changed.
+
+Dispute
+-------
+
+ See dispute event types and descriptions
+
+  
+
+Event type
+
+Display name
+
+Description
+
+`dispute_accepted`
+
+View a [dispute accepted webhook example](/display/x/dispute_accepted).
+
+Dispute accepted
+
+Occurs when you have accepted a dispute. No further action is required.
+
+`dispute_arbitration_lost`
+
+View a [dispute arbitration lost webhook example](/display/x/dispute_arbitration_lost).
+
+Dispute arbitration lost
+
+Occurs when an arbitration has been lost. Your account will be debited any additional arbitration-related fees.
+
+`dispute_arbitration_sent_to_scheme`
+
+View a [dispute arbitration sent to scheme webhook example](/display/x/dispute_arbitration_sent_to_scheme).
+
+Dispute arbitration sent to scheme
+
+Occurs when the documentation for an arbitration has been sent to the scheme.
+
+`dispute_arbitration_won`
+
+View a [dispute arbitration won webhook example](/display/x/dispute_arbitration_won).
+
+Dispute arbitration won
+
+Occurs when the arbitration has been won. Your account will be credited the disputed amount.
+
+`dispute_canceled`
+
+View a [dispute canceled webhook example](/display/x/dispute_canceled).
+
+Dispute canceled
+
+Occurs when a dispute is canceled by the issuing bank. If previously debited, the disputed amount has been credited back to you.
+
+`dispute_expired`
+
+View a [dispute expired webhook example](/display/x/dispute_expired).
+
+Dispute expired
+
+Occurs when the time limit to take action against a dispute has been exceeded. No further action is possible.
+
+`dispute_lost`
+
+View a [dispute lost webhook example](/display/x/dispute_lost).
+
+Dispute lost
+
+Occurs when the issuing bank has rejected your evidence and you have lost the dispute.
+
+`dispute_resolved`
+
+View a [dispute resolved webhook example](/display/x/dispute_resolved).
+
+Dispute resolved
+
+Occurs when a dispute is received but no further actions is required from you.
+
+`dispute_won`
+
+View a [dispute won webhook example](/display/x/dispute_won).
+
+Dispute won
+
+Occurs when the issuing bank has accepted your evidence and you have won the dispute. If previously debited, the amount of the dispute has been credited back to you.
+
+`dispute_evidence_acknowledged_by_scheme`
+
+View a [dispute evidence acknowledged by the scheme webhook example](/display/x/dispute_evidence_acknowledged_by_scheme).
+
+Dispute evidence acknowledged by the scheme
+
+Occurs when the supporting documents you sent us have been forwarded to the scheme.
+
+`dispute_evidence_required`
+
+View a [dispute evidence required webhook example](/display/x/dispute_evidence_required).
+
+Dispute evidence required
+
+Occurs when a dispute has been received for which evidence is required.
+
+`dispute_received`
+
+View a [dispute received webhook example](/display/x/dispute_received).
+
+Dispute received
+
+Sent when a dispute notification has been received from the scheme before knowing if further action is possible.
+
+`request_for_information_received`
+
+View a [request for information received webhook example](/display/x/request_for_information_received).
+
+Request for Information Received
+
+Occurs when additional information has been requested for a given payment.
+
+`dispute_evidence_submitted`
+
+View a [dispute evidence submitted webhook example](/display/x/dispute_evidence_submitted).
+
+Dispute evidence submitted
+
+Occurs once you have submitted evidence for a given dispute. No further action is required from you.
+
+FinCrime
+--------
+
+ See FinCrime event types and descriptions
+
+Event type
+
+Display name
+
+Description
+
+`payment_compliance_review`
+
+View a [compliance review webhook example](/display/x/payment_compliance_review).
+
+Compliance review
+
+Occurs when a payment is pending while under compliance review.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Webhook+event+types?showComments=true&showCommentArea=true#addcomment)

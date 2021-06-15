@@ -1,0 +1,249 @@
+---
+title: Use an existing card
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 13, 2021](/pages/diffpagesbyversion.action?pageId=5931096&selectedPageVersions=6&selectedPageVersions=7 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+There's no need to request your customers’ card details for every payment. Instead, you can use a stored card's source ID to securely process their subsequent payments without having to re-enter their card number. It's simple, fast, and secure!
+
+How it works
+------------
+
+After your customer makes an initial order, we securely store the card information as a payment instrument, each one identified by a unique ID (prefixed with `src_`). This source ID replaces the card number in all future payments, removing the need to re-enter and exchange sensitive payment information.
+
+We do not store a card's CVV (the three- or four-digit number on the back of the card) in a payment instrument. If you want to run a [CVV check](/display/DOCS/CVV+check) on a payment using the source ID, you should include the CVV in your request.
+
+Request a payment using an existing card
+----------------------------------------
+
+### The POST request
+
+Use the details below to set up your request.
+
+#### Endpoint
+
+*   [**Live**](#tabs-1517cd37-665d-4f09-b79f-79a5dfa929fc-1)
+*   [**Sandbox**](#tabs-1517cd37-665d-4f09-b79f-79a5dfa929fc-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. For the full API specification, see the [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+Field name
+
+Description
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `id`.
+
+`source.id`
+
+REQUIRED
+
+STRING
+
+The source ID (prefixed by `src_`).
+
+`source.cvv`
+
+OPTIONAL
+
+STRING
+
+The card verification value/code.
+
+3 digits, except for Amex which is 4.
+
+`amount`
+
+OPTIONAL
+
+INTEGER
+
+The payment amount in your chosen currency. Omit the amount or provide a value of `0` to perform a [card verification](/display/DOCS/Card+verification).
+
+The format depends on the currency. For more information, see [Calculating the value](/display/DOCS/Calculating+the+value).
+
+`currency`
+
+REQUIRED
+
+STRING
+
+A three-letter ISO currency code representing the currency of the payment.
+
+`reference`
+
+OPTIONAL
+
+STRING
+
+An optional reference you can use to identify the payment later. For example, an order number.
+
+If using Bambora as a third-party acquirer, this field is numeric only and limited to 12 characters maximum.
+
+#### Request example
+
+    {
+      "source": {
+        "type": "id",
+        "id": "src_aj4isch2q2lujekf2o4cenzrpe",
+        "cvv": 100
+      },
+      "amount": 6000,
+      "currency": "USD",
+      "reference": "ORD-5023-4E89"
+    }
+
+### The POST response
+
+Use the `approved` field to check whether or not the authorization was successful (`"approved": true`). If your authorization was not successful, it's possible the payment used an invalid/expired card, or a valid card with an insufficient available balance.
+
+If you received a `202` response, the payment requires a redirect. For example, if the payment is 3D Secure.
+
+#### Response example
+
+The possible values for the `status` field include `Authorized`, `Captured`, `Card Verified`, `Declined`, and `Pending`. Note that `Pending` only applies to 3D Secure payments and alternative payments.
+
+*   [**201 Success**](#tabs-77d1c352-8bca-49e0-bcf9-0dde5ab3e214-1)
+*   [**202 Payment asynchronous / further action required**](#tabs-77d1c352-8bca-49e0-bcf9-0dde5ab3e214-2)
+*   [**422 Invalid data was sent**](#tabs-77d1c352-8bca-49e0-bcf9-0dde5ab3e214-3)
+
+    {
+      "id": "pay_zpg25obbkv2uld22vto2zy5b3m",
+      "action_id": "act_zpg25obbkv2uld22vto2zy5b3m",
+      "amount": 6000,
+      "currency": "USD",
+      "approved": true,
+      "status": "Authorized",
+      "auth_code": "876545",
+      "eci": "05",
+      "scheme_id": "638284745624527",
+      "response_code": "10000",
+      "response_summary": "Approved",
+      "risk": {
+        "flagged": false
+      },
+      "source": {
+        "id": "src_aj4isch2q2lujekf2o4cenzrpe",
+        "type": "card",
+        "expiry_month": 9,
+        "expiry_year": 2022,
+        "scheme": "Visa",
+        "last4": "4242",
+        "fingerprint": "F31828E2BDABAE63EB694903825CDD36041CC6ED461440B81415895855502832",
+        "bin": "424242",
+        "card_type": "Credit",
+        "card_category": "Consumer",
+        "issuer": "JPMORGAN CHASE BANK NA",
+        "issuer_country": "US",
+        "product_id": "A",
+        "product_type": "Visa Traditional",
+        "avs_check": "S",
+        "cvv_check": "Y"
+      },
+      "customer": {
+        "id": "cus_hafan7x5nfru7fpcs3yto645si"
+      },
+      "processed_on": "2019-01-25T10:42:20Z",
+      "reference": "ORD-5023-4E89",
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_zpg25obbkv2uld22vto2zy5b3m"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_zpg25obbkv2uld22vto2zy5b3m/actions"
+        },
+        "capture": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_zpg25obbkv2uld22vto2zy5b3m/captures"
+        },
+        "void": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_zpg25obbkv2uld22vto2zy5b3m/voids"
+        }
+      }
+    }
+
+    {
+      "id": "pay_y3oqhf46pyzuxjbcn2giaqnb44",
+      "status": "Pending",
+      "reference": "ORD-5023-4E89",
+      "customer": {
+        "id": "cus_y3oqhf46pyzuxjbcn2giaqnb44",
+        "email": "sarah.mitchell@gmail.com",
+        "name": "Sarah Mitchell"
+      },
+      "3ds": {
+        "downgraded": false,
+        "enrolled": "Y"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/payments/pay_y3oqhf46pyzuxjbcn2giaqnb44"
+        },
+        "redirect": {
+          "href": "https://api.checkout.com/3ds/pay_y3oqhf46pyzuxjbcn2giaqnb44"
+        }
+      }
+    }
+
+    {
+      "request_id": "0HL80RJLS76I7",
+      "error_type": "request_invalid",
+      "error_codes": [
+        "payment_source_required"
+      ]
+    }
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Use+an+existing+card?showComments=true&showCommentArea=true#addcomment)

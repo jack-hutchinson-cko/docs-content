@@ -1,0 +1,127 @@
+---
+title: Requirements for financial institutions
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Jack Hutchinson](    /display/~jack.hutchinson
+    ) on [Apr 14, 2021](/pages/diffpagesbyversion.action?pageId=8488765&selectedPageVersions=4&selectedPageVersions=5 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Due to requirements implemented by Visa and Mastercard Europe, any business categorized as a financial institution (MCC 6012) must provide additional information when processing any domestic UK transaction (transactions for customers based in the UK) through their account.
+
+The scope for these changes varies slightly between Visa and Mastercard:
+
+*   **Visa**: applies to all merchants categorized as MCC 6012 on all payments.
+*   **Mastercard**: applies only to merchants categorized as MCC 6012 for domestic UK debit card payments being used to pay off a credit or prepaid card.
+
+For **Mastercard payments** or **payments involving** **a full card number**, merchants categorized as a financial institution must be fully PCI compliant (SAQ D PCI).
+
+What is a financial institution?
+--------------------------------
+
+The term financial institution encapsulates businesses that, for example, issue payday loans, handle mortgage repayments, or facilitate the paying off of credit card balances. These are businesses that fall under the Merchant Category Code 6012.
+
+If your business falls into this area, you will be **required** to submit additional information with all your UK transactions.
+
+What do I need to do?
+---------------------
+
+If your company is a financial institution, you must provide further information, when processing a domestic UK transaction with us, about the primary recipient of the funds. Additional fields needed for financial institutions:
+
+The primary recipient's...
+
+*   Date of birth
+*   Account number
+*   Postcode
+*   Surname
+
+#### Example request
+
+    "recipient": {
+      "dob": "1991-12-30",
+      "account_number": "8573498821",
+      "zip": "W1T",
+      "last_name": "Smith"
+    }
+
+#### Body parameters
+
+Field name
+
+Description
+
+Example
+
+Length
+
+Field name
+
+Description
+
+Example
+
+Length
+
+`account_number`
+
+REQUIRED
+
+STRING
+
+*   **Visa**: If the payment is being made with a VISA card, then provide the first six digits and the last four digits of the primary recipient’s card, without any spaces. Or, the first 10 digits of the primary recipient’s account number.
+*   **Mastercard**: If the payment is being made with a Mastercard card, then provide the primary recipient's full card number.
+
+`8573498821`
+
+*   **Visa**: 10
+*   **Mastercard**: Full
+
+`dob`
+
+REQUIRED
+
+STRING
+
+The date of birth of the primary recipient in the following format: `yyyy-mm-dd`
+
+`1991-12-30`
+
+8
+
+`zip`
+
+REQUIRED
+
+STRING
+
+The first part of the UK postcode. For example, W1T 4TJ would be `W1T`.
+
+`W1T`
+
+6
+
+`last_name`
+
+REQUIRED
+
+STRING
+
+The first six characters of the primary recipient’s surname. Only alphabetic characters are allowed.
+
+`Smith`
+
+6
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Requirements+for+financial+institutions?showComments=true&showCommentArea=true#addcomment)

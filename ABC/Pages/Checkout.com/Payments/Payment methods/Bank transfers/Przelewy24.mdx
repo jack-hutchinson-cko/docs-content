@@ -1,0 +1,302 @@
+---
+title: Przelewy24
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [Jun 09, 2021](/pages/diffpagesbyversion.action?pageId=2785429&selectedPageVersions=9&selectedPageVersions=10 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Accept payments using Przelewy24, the most popular payment method in Poland.
+
+To start accepting Przelewy24 payments, please contact your Customer Success Manager.
+
+Overview
+--------
+
+Przelewy24 payments follow a two-step process:
+
+1.  [Request a payment](#Przelewy24-requestapayment)
+2.  [Redirect the customer](#Przelewy24-redirectthecustomer)
+
+Request a payment 
+------------------
+
+### The POST request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-1d820ee2-8772-4159-8cab-af4db52e333b-1)
+*   [**Sandbox**](#tabs-1d820ee2-8772-4159-8cab-af4db52e333b-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`amount`
+
+REQUIRED
+
+INTEGER
+
+The payment amount.
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The currency in which the payment is being made (three-letter ISO 4217 code). Set this to `PLN`.
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `p24`.
+
+`source.payment_country`
+
+REQUIRED
+
+STRING
+
+The country in which the payment instrument is issued/operated (two-letter ISO 3166 code). Set this to `PL`.
+
+`source.account_holder_name`
+
+REQUIRED
+
+STRING
+
+The account holder's name.
+
+`source.account_holder_email`
+
+REQUIRED
+
+STRING
+
+The account holder's email address.
+
+`source.billing_descriptor`
+
+OPTIONAL
+
+STRING
+
+Typically, the trading name of your company or the name of your service.
+
+#### Request example
+
+    {
+      "amount": 100,
+      "currency": "PLN",
+      "source": {
+        "type": "p24",
+        "payment_country": "PL",
+        "account_holder_name": "Bruce Wayne",
+        "account_holder_email":"bruce@wayne-enterprises.com",
+        "billing_descriptor": "P24 Demo Payment"
+      }
+    }
+
+### The POST response
+
+If you receive a `202 Success` response with a `status` field set to `Pending`, your request was successful.
+
+#### Response example
+
+    {
+      "id": "pay_yo7mr2qvrj5ubirhehlbjr4yda",
+      "status": "Pending",
+      "customer": {
+        "id": "cus_dd7efezan2xexdfhtrhoz6tvam"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_yo7mr2qvrj5ubirhehlbjr4yda"
+        },
+        "redirect": {
+          "href": "https://r.girogate.de/ti/simp24?tx=431811890&rs=6FlzR3BeW8SvfX4U0H7weTEkDPSWJBVb&cs=dfcf0cab1a0522652133e8dc0302cdcae683ac07f1317b3db6450893ce007831"
+        }
+      }
+    }
+
+Redirect the customer 
+----------------------
+
+Redirect your customer to the `redirect` link’s href in the response. The customer will be redirected to a Przelewy24 page where they can authorize the payment, before being transferred to your predefined success or failure URL.
+
+Get details about a payment
+---------------------------
+
+You can use the `payment_id` found in the payment response, or the `cko-session-id` from the success/failure URL (e.g., `https://www.checkout.com/order/succeeded?cko-session-id=**sid_vii64oquze5u3h2x6hh4rurc4y**`) to retrieve details about the payment.
+
+The `cko-session-id` expires 15 minutes after being created.
+
+### The GET request
+
+#### Endpoints
+
+*   [**Live**](#tabs-6cc07dcf-6ba5-43a0-90f0-891cf8fb1bab-1)
+*   [**Sandbox**](#tabs-6cc07dcf-6ba5-43a0-90f0-891cf8fb1bab-2)
+
+GET`https://api.checkout.com/payments/{payment_id}`
+
+GET`https://api.sandbox.checkout.com/payments/{payment_id}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`payment_id`
+
+REQUIRED
+
+The payment ID found in the response of the initial payment.
+
+### The GET response
+
+#### Response example
+
+    {
+      "id": "pay_yo7mr2qvrj5ubirhehlbjr4yda",
+      "requested_on": "2019-08-08T06:48:21Z",
+      "source": {
+        "type": "p24",
+        "p24_descriptor": "P24-H99-999-999 ABC1234 Dynamic"
+      },
+      "amount": 100,
+      "currency": "PLN",
+      "payment_type": "Regular",
+      "status": "Captured",
+      "approved": true,
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_dd7efezan2xexdfhtrhoz6tvam"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_yo7mr2qvrj5ubirhehlbjr4yda"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_yo7mr2qvrj5ubirhehlbjr4yda/actions"
+        },
+        "refund": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_yo7mr2qvrj5ubirhehlbjr4yda/refunds"
+        }
+      }
+    }
+
+Refund a payment
+----------------
+
+Przelewy24 supports both partial and full refunds. You can refund a payment through the [Hub](https://hub.checkout.com/v2) or using the [refund API](/display/DOCS/Refund+a+payment).
+
+Testing Przelewy24
+------------------
+
+To start testing, you'll need to:
+
+*   [create a test account](https://www.checkout.com/get-test-account), and
+*   contact your Customer Success Manager or Integrations engineer to activate Przelewy24 payments in the sandbox environment.
+
+1.  Create a Przelewy24 transaction as above, following the redirect link in the response to Przelewy24's website.
+2.  Leave the **Bank name or BIC** field blank and click **Next**.
+3.  Leave the **Account Number** and **PIN** fields blank and then click **Login**.
+4.  Leave the **TAN** field blank and click **Make Payment**.
+5.  Click **Back to where you came from** to be redirected to your predefined success URL.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/Przelewy24?showComments=true&showCommentArea=true#addcomment)

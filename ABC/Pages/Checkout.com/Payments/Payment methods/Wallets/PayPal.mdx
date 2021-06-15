@@ -1,0 +1,305 @@
+---
+title: PayPal
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [Jun 09, 2021](/pages/diffpagesbyversion.action?pageId=2785383&selectedPageVersions=9&selectedPageVersions=10 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Start accepting PayPal payments and open your business to thousands of online shoppers.
+
+To start accepting PayPal payments, please contact your Customer Success Manager.
+
+Overview
+--------
+
+PayPal payments follow a two-step process:
+
+1.  [Request a PayPal payment](#PayPal-requestapayment)
+2.  [Redirect the customer](#PayPal-redirectthecustomer)
+
+Request a payment 
+------------------
+
+### The POST request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-74a94673-b7db-42ab-aee7-dd38b45739d4-1)
+*   [**Sandbox**](#tabs-74a94673-b7db-42ab-aee7-dd38b45739d4-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`amount`
+
+REQUIRED
+
+INTEGER
+
+The payment amount.
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The currency in which the payment is being made (three-letter ISO 4217 code).
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `paypal`.
+
+`source.invoice_number`
+
+REQUIRED
+
+STRING
+
+Your unique internal invoice number or tracking ID.
+
+Using the same value in the optional `reference` field will help you match up the transactions across your Hub and PayPal accounts.
+
+`source.recipient_name`
+
+OPTIONAL
+
+STRING
+
+The full name of the shipment's recipient, if applicable.
+
+If provided, the `shipping.address` field becomes required.
+
+`source.logo_url`
+
+OPTIONAL
+
+STRING
+
+The URL for your logo. Your logo will appear at the top of the cart review area.
+
+Use a graphic file format, such as .gif, .jpeg or .png, and host the image on a secure (`https`) server. Character limit: 127 alphanumeric characters. Width: 190px. Height: 60px.
+
+`source.stc`
+
+OPTIONAL
+
+OBJECT
+
+These details are used by PayPal to perform a pre-transaction risk management evaluation. The property names should match those you agreed with PayPal.
+
+#### Request example
+
+    {
+      "amount": 100,
+      "currency": "EUR",
+      "source": {
+        "type": "paypal",
+        "invoice_number": "CKO00001",
+        "logo_url": "https://www.example.com/logo.jpg",
+        "stc": {
+          "property_name1": "property 1",
+          "property_name2": "property 2",
+          "property_name3": "property 3"
+        }
+      }
+    }
+
+### The POST response
+
+If you receive a `202 Success` response containing a `status` field set to `Pending`, your request was successful.
+
+#### Response example
+
+    {
+      "id": "pay_ks2zlgzmff7ejnbvkpdw5n4liq",
+      "status": "Pending",
+      "customer": {
+        "id": "cus_ho2i3q5rgl4e7ed3uox4ez4a5m"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_ks2zlgzmff7ejnbvkpdw5n4liq"
+        },
+        "redirect": {
+          "href": "https://www.sandbox.paypal.com/checkoutnow?token=EC-45B75666L8055651R&useraction=commit"
+        }
+      }
+    }
+
+Redirect the customer 
+----------------------
+
+Redirect your customer to the `redirect` link’s href in the response. The customer will be redirected to a PayPal page where they can authorize the payment, before being transferred to your predefined success or failure URL.
+
+Get details about a payment
+---------------------------
+
+You can use the `payment_id` found in the payment response, or the `cko-session-id` from the success/failure URL (e.g., https://www.checkout.com/order/succeeded?cko-session-id=**sid\_vii64oquze5u3h2x6hh4rurc4y**) to retrieve details about the payment.
+
+The `cko-session-id` expires 15 minutes after being created.
+
+### The GET request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-a59e2992-b9fd-46ee-8419-d8ba1b3af50d-1)
+*   [**Sandbox**](#tabs-a59e2992-b9fd-46ee-8419-d8ba1b3af50d-2)
+
+GET`https://api.checkout.com/payments/{payment_id}`
+
+GET`https://api.sandbox.checkout.com/payments/{payment_id}`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`payment_id`
+
+REQUIRED
+
+The payment ID found in the response of the initial response
+
+### The GET response
+
+#### Response example
+
+    {
+      "id": "pay_ks2zlgzmff7ejnbvkpdw5n4liq",
+      "requested_on": "2019-07-17T07:24:12Z",
+      "source": {
+        "type": "paypal"
+      },
+      "amount": 100,
+      "currency": "EUR",
+      "payment_type": "Regular",
+      "status": "Captured",
+      "approved": true,
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_ho2i3q5rgl4e7ed3uox4ez4a5m"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_ks2zlgzmff7ejnbvkpdw5n4liq"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_ks2zlgzmff7ejnbvkpdw5n4liq/actions"
+        },
+        "refund": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_ks2zlgzmff7ejnbvkpdw5n4liq/refunds"
+        }
+      }
+    }
+
+Testing PayPal
+--------------
+
+To start testing, you'll need to:
+
+*   [create a test account](https://www.checkout.com/get-test-account), and
+*   contact your Customer Success Manager or Integrations engineer to activate PayPal payments in the sandbox environment.
+
+1.  Create a PayPal transaction as above, following the redirect link in the response to PayPal's website.
+2.  Log in with your PayPal username and password.
+3.  Set the payment status – pending, paid, or refused – and then click **Confirm**. You should then be redirected to your predefined success URL.
+
+  
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/PayPal?showComments=true&showCommentArea=true#addcomment)

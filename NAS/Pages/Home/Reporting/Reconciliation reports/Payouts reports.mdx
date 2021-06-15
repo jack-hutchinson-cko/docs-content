@@ -1,0 +1,213 @@
+---
+title: Payouts reports
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Toby Knott](    /display/~toby.knott
+    ) on [Apr 09, 2021](/pages/diffpagesbyversion.action?pageId=8488101&selectedPageVersions=5&selectedPageVersions=6 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Payouts reports provide an overview of payouts paid to you along with a breakdown of the associated fees over a specific period of time. This allows you to reconcile payouts with amounts paid out to your bank account and shown on bank statements.
+
+Using the payouts and the financial actions reports together, you can reconcile payouts with the associated payments and fees by using the payout ID on both reports.
+
+Understanding your payouts reports
+----------------------------------
+
+Payouts reports are available for each entity. Each row on the report shows a payout from a currency account, and for each payout the total amount paid out to you, aggregated fees applied to payments processed (for example, interchange fees), and any account level fees applied to the payout (for example, merchant payout fees) are shown.
+
+Report format
+-------------
+
+Payouts reports come in .csv format with the file name following this template:
+
+`payouts_{Entity ID}_{Start Date:YYYYMMDD}___{End Date:YYYYMMDD}_1.csv`
+
+When are the reports available?
+-------------------------------
+
+These reports are available from 12:00:00 UTC each day, and the data includes any payouts from your currency accounts that took place between 12:00:00 UTC and 23:59:59 UTC the previous day.
+
+For example, all payouts paid out to you on 3 August 2020 (from 00:00:00 to 23:59:59 UTC) will be included in a daily payouts report generated and available by 4 August 2020 at 12:00:00 UTC.
+
+Your payouts reports can be made available on a daily, weekly, or monthly basis.
+
+Report fields
+-------------
+
+ See full list of field names and descriptions
+
+Fields with monetary amounts are expressed in their major currency unit up to eight decimal places. For example, a payout of $50 will be expressed as 50.00.
+
+Field name
+
+Description
+
+Client Entity ID
+
+The unique ID of the entity for which the payment was processed.
+
+Client Entity Name
+
+The designated name of the entity for which the payment was processed.
+
+Sub Entity ID
+
+The unique ID of the sub entity for which the payment was processed.
+
+Sub Entity Name
+
+The name of the sub entity for which the payment was processed.
+
+Currency Account ID
+
+The unique ID of the currency account a payout is settled from.
+
+Currency Account Name
+
+The custom descriptor of the associated currency account a payout is settled from.
+
+Holding Currency
+
+Three-digit ISO currency code of the currency account. For example, USD for dollars.
+
+Learn more about [ISO currency codes](/display/x/Currency+codes).
+
+Payout ID
+
+The unique ID of the payout settled from your currency account to your bank account.
+
+Payout Date
+
+The date on which the payout was settled to your account expressed in ISO format in UTC (YYYY-MM-DD THH:MM:SS:sss).
+
+Reporting Start Date
+
+The start date of all payouts included in the report expressed in ISO format in UTC (YYYY-MM-DD THH:MM:SS:sss).
+
+Reporting End Date
+
+The end date of all payouts included in the report expressed in ISO format in UTC (YYYY-MM-DD THH:MM:SS:sss).
+
+Payout Amount
+
+The total value of funds settled to your bank account.
+
+Merchant Payout Fees
+
+Placeholder field for the total fees charged for payouts paid to your bank account.
+
+Payments
+
+The total gross value of your payments processed in this period.
+
+Refunds
+
+The total gross value of refunds (including partial refunds) processed in this period.
+
+Chargebacks
+
+The total net amount of chargeback transactions processed.
+
+Pay To Cards (coming soon)
+
+Placeholder field for the total value of funds paid out to cards.
+
+Card Payment Interchange Fees
+
+The total interchange fees charged by issuing banks for card payments.
+
+Card Payment Scheme Fees
+
+The total amount of scheme fees charged for card payments by payment schemes, such as Visa or Mastercard.
+
+Acquiring Premiums
+
+The total amount of CKO Premium fees applied in each successful capture for card processing payments.
+
+Card Payment Gateway Fees
+
+The total gateway fees charged for card payments when payment actions (for example, authorization, verification, voiding) occur.
+
+Card Payment Blended Fees
+
+The total scheme related agreed on card payment blended fees applied to captured payments if applicable.
+
+Refunded Interchange Fees
+
+The total interchange fees charged by issuing banks refunded.
+
+Refund Scheme Fees
+
+The total scheme fees charged by a card scheme for refunds.
+
+Refund Gateway Fees
+
+The total amount of gateway fees charged for refund actions.
+
+Chargeback Fees
+
+The total fees charged for processing chargebacks as part of the disputes process.
+
+Retrieval Fees
+
+The total fees charged for retrieval actions as part of the disputes process.
+
+Representment Fees
+
+The total fees charged for representment actions as part of the disputes process.
+
+Pay To Card Interchange Fees (coming soon)
+
+Placeholder field for the total interchange fees charged by an issuing bank for processing card payouts.
+
+Pay To Card Scheme Fees (coming soon)
+
+Placeholder field for the total scheme fees charged by a card scheme for processing card payouts.
+
+Pay To Card Fees (coming soon)
+
+Placeholder field for the total fees charged for card payouts.
+
+Alternative Payment Method Fees (coming soon)
+
+The total fees charged for accepting local payment methods, such as Sofort or Klarna.
+
+Adjustments
+
+Placeholder field for the total amount of adjustments applied to you currency account.
+
+Tax
+
+The total local value-added tax applied to your fees if applicable.
+
+Account Updater Fees (coming soon)
+
+The total fees charged for the Account Updater service.
+
+Transfers In (coming soon)
+
+Placeholder field for the total value of transfers into the currency account.
+
+Transfers Out (coming soon)
+
+Placeholder field for the total value of transfers out of the currency account.
+
+Sample report
+-------------
+
+[Download a sample payout report](https://assets.checkout.com/docs/downloads/SAMPLE-payouts_ent_zxmc2csd961nfd2mcwzkvdgmpb_20210114_20210115_1.csv) (.csv file). If you're using Safari, hold the **Option** key when you click.
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/x/Payouts+reports?showComments=true&showCommentArea=true#addcomment)

@@ -1,0 +1,449 @@
+---
+title: How disputes work
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by [Toby Knott](    /display/~toby.knott
+    ), last modified on [May 27, 2021](/pages/diffpagesbyversion.action?pageId=8490262&selectedPageVersions=64&selectedPageVersions=65 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+The dispute process begins when a transaction is questioned by the cardholder. It then goes through a number of stages before it is resolved. The process differs slightly depending on the card scheme, but all disputes follow a similar pattern.
+
+![](/download/attachments/8490262/Disputes%20flow.png?version=5&modificationDate=1619696010665&api=v2)
+
+Stage 1: Dispute received
+-------------------------
+
+The customer’s bank (the issuer) creates a formal dispute and assigns it a [chargeback code](/display/DOCS/Chargeback+codes), which describes why they are reversing the payment.
+
+Once the dispute is issued, the disputed amount, and a separate dispute fee, will be immediately deducted from your account.
+
+The issuer has 120 days from the date on which the goods or services were, or should have been, provided to raise the dispute. Generally, this can be no more than 540 days from the date of the transaction.
+
+### Next steps
+
+*   If you’ve **already refunded the customer**, we will automatically defend against the dispute by sending the issuer the refund information.
+    
+*   If you **haven't refunded the customer**, you need to decide how to respond to the dispute (go to stage 2).
+    
+*   If you've **partially refunded the customer**, you still need to respond to the part of the dispute that covers the unrefunded amount. Once you've accepted or challenged that part of the dispute, we will send the evidence of your partial refund to the issuer.
+
+Dispute canceled
+
+The issuer can cancel a dispute (for instance, because the reason code given was incorrect) at any time before you submit evidence. The dispute ends and you will be repaid the disputed amount (but not any dispute-related fees). However, the issuer may submit a new dispute for the same transaction with the corrected information, and you will need to respond to this like any other dispute.
+
+### Statuses and webhooks
+
+These are the statuses and webhooks associated with this stage.
+
+Event
+
+API status
+
+Webhook
+
+Chargeback code
+
+Event
+
+API status
+
+Webhook
+
+Chargeback code
+
+You've already refunded the customer, so we automatically submitted the relevant evidence and resolved the dispute for you.
+
+`resolved`
+
+`[dispute_resolved](/display/DOCS/dispute_resolved)  
+`
+
+`AUTO`
+
+You’ve received a dispute and you need to submit evidence if you want to defend against it.
+
+`evidence_required`
+
+`[dispute_evidence_required](/display/DOCS/dispute_evidence_required)`
+
+`ADJM`
+
+The issuer has canceled the dispute.
+
+`canceled`
+
+`[dispute_canceled](/display/DOCS/dispute_canceled)  
+`
+
+`CBRV`
+
+Stage 2: Challenge or accept the dispute
+----------------------------------------
+
+You now need to decide how you want to respond to the dispute.
+
+*   **Accept**. If you agree with the dispute and the specific reason given, you should accept the dispute.
+    
+*   **Challenge**. If you want to defend against the dispute, you will need to submit evidence to make your case.
+    
+*   **Ignore**. If you ignore the dispute, it will expire after a certain amount of time and you will not then be able to respond to it.
+    
+
+### Challenging a dispute
+
+To challenge a dispute, submit all the relevant evidence to us and we will send it on to the issuer. Each scheme has a different [timeframe](#Howdisputeswork-timeframes) in which you need to respond, but it's best to respond as soon as possible.
+
+The evidence you need to provide depends on the reason for the dispute. See our responding to disputes guide to learn more.
+
+You can submit evidence through [the Hub](/display/DOCS/Manage+disputes), or with our [API](https://docs.checkout.com/risk-management/disputes/disputes-api#DisputesAPI-provideevidence).
+
+You have a maximum of 20 days from receiving the dispute to submit your evidence, but this varies by scheme, and if you use a third-party acquirer. See the [timeframes](#Howdisputeswork-timeframes) for more information.
+
+Once you've submitted your evidence, you cannot change the submitted documents or add more. Make sure you've uploaded all the evidence you want to send before submitting.
+
+### Statuses and webhooks
+
+These are the statuses and webhooks associated with this stage.
+
+**Event**
+
+**API status**
+
+**Webhook**
+
+Chargeback code
+
+**Event**
+
+**API status**
+
+**Webhook**
+
+Chargeback code
+
+You’ve submitted your evidence and the issuer is now reviewing it.
+
+`evidence_under_review`
+
+n/a
+
+`RPDR`
+
+You have accepted the dispute.
+
+`accepted`
+
+n/a
+
+n/a
+
+You’ve ignored the dispute and it has expired. You can no longer accept or defend against it.
+
+`expired`
+
+`[dispute_expired](/display/DOCS/dispute_expired)`
+
+n/a
+
+Stage 3: Await the outcome
+--------------------------
+
+Once you've submitted your evidence, the issuer will review it and decide whether to accept or decline liability for the disputed amount.
+
+They may take up to 55 days to get back to you with their decision.
+
+### Outcomes
+
+*   **Dispute won**. If the issuer is satisfied with the evidence you've provided, you win the dispute and the disputed amount will be returned to your account.
+    
+*   **Dispute lost**. If the issuer is not satisfied with your evidence, you lose the dispute. You can take your case to [arbitration](#Howdisputeswork-arbitration) if you want to argue your case further.
+    
+
+Dispute outcomes can be partial, meaning you only recover part of the disputed amount.
+
+### Statuses and webhooks
+
+These are the statuses and webhooks associated with this stage.
+
+**Event**
+
+**API status**
+
+**Webhook**
+
+Chargeback code
+
+**Event**
+
+**API status**
+
+**Webhook**
+
+Chargeback code
+
+The issuer has accepted your evidence, and you have won the dispute.
+
+`won`
+
+`[dispute_won](/display/DOCS/dispute_won)  
+`
+
+`RPDW`
+
+The issuer is not satisfied with your evidence, and you have lost the dispute.
+
+`lost`
+
+`[dispute_lost](/display/DOCS/dispute_lost)  
+`
+
+`RPDL`
+
+Arbitration 
+------------
+
+If you lost the dispute but you want to argue your case further, you can escalate the case to arbitration. But you should note the following points before considering it:
+
+*   You can submit additional evidence at this stage (unless it is a Visa [fraud](https://docs.checkout.com/resources/codes/chargeback-codes#Chargebackcodes-Fraud) or [authorization](https://docs.checkout.com/resources/codes/chargeback-codes#Chargebackcodes-Authorization) dispute). Your evidence should show why the dispute is now resolved, or why the issuer’s argument for rejecting your case is invalid.
+    
+*   Arbitrations can cost a lot to pursue and take a long time to resolve. The costs of arbitration may well outweigh the disputed amount.
+    
+
+If you do want to take your case to arbitration, contact our Disputes Team at [disputes@checkout.com](mailto:disputes@checkout.com) .
+
+Arbitration rulings can be partial, meaning you only recover part of the disputed amount.
+
+### Statuses and webhooks
+
+These are the statuses and webhooks associated with this stage.
+
+**Event**
+
+**Status**
+
+**Webhook**
+
+Chargeback code
+
+**Event**
+
+**Status**
+
+**Webhook**
+
+Chargeback code
+
+You have escalated your case to arbitration with the issuer and/or scheme.
+
+`arbitration_under_review`
+
+n/a
+
+`ARBR`
+
+The scheme has decided the case in your favour.
+
+`arbitration_won`
+
+n/a
+
+`ARBW`
+
+The scheme has decided the case in the issuer’s favour.
+
+`arbitration_lost`
+
+n/a
+
+`ARBL`
+
+Request for information 
+------------------------
+
+Sometimes, the issuer will request more information about a transaction (also known as a retrieval request or soft chargeback).
+
+They may do this before raising a formal dispute, or use it instead of a dispute if they can no longer raise one because too much time has passed since the transaction. No money is taken from your account at this stage.
+
+You should provide the requested information to the issuer as quickly as possible. And, if you think the transaction being questioned is not valid, it's best to refund the customer to avoid the potential of a formal dispute being raised.
+
+Regardless of how you choose to respond, it’s a good idea to contact the customer first, to find out why they are requesting more information about the transaction.
+
+For American Express transactions, failure to respond quickly to a request for information may result in a chargeback.
+
+### Outcomes
+
+*   **Matter resolved** . If the issuer accepts your information, the matter is resolved. You don't need to do anything else.
+    
+*   **Formal dispute begins**. If you fail to respond to the request in time, or the issuer deems your information insufficient, the issuer may start a formal dispute (if they are within the time limit).
+    
+
+### Statuses and webhooks
+
+These are the statuses and webhooks associated with this stage.
+
+**Event**
+
+**API status**
+
+**Webhook**
+
+Chargeback code
+
+**Event**
+
+**API status**
+
+**Webhook**
+
+Chargeback code
+
+You’ve received a request for more information.
+
+Our API does not currently return retrieval requests.
+
+`[payment_retrieval](/display/DOCS/payment_retrieval)`
+
+n/a
+
+Defense timeframes 
+-------------------
+
+This table outlines how much time you have to respond (in days) at each stage of the dispute process. We recommend, however, that you act as quickly as possible at each stage.
+
+  
+
+**Stage**
+
+**Visa**
+
+**Mastercard**
+
+**American Express**
+
+**Diners / Discover**
+
+**JCB**
+
+**Cartes Bancaires**
+
+Respond to request for information1
+
+Optional
+
+Optional
+
+202
+
+\-
+
+\-
+
+\-
+
+Submit evidence3
+
+20
+
+20
+
+7
+
+20
+
+20
+
+20
+
+Arbitration
+
+For information about dealing with arbitrations, contact our Dispute Team.4
+
+Not available
+
+1 From the date you received the request.
+
+2 Failure to respond to a retrieval request within this time may result in a formal dispute.
+
+3 From the date you received the dispute.
+
+4 You have five days to contact our Disputes Team at  [disputes@checkout.com](mailto:disputes@checkout.com) if want to take your case to arbitration.
+
+### Timeframes for third-party acquirers
+
+If you use a third-party acquirer to process your payments, but manage your disputes with us, the time you have to respond is shorter, because we need to work with your acquirer to submit the evidence.
+
+  
+
+**Acquirer**
+
+**Scheme**
+
+**Days to submit your evidence**
+
+Mashreq
+
+Visa
+
+10
+
+Mastercard
+
+10
+
+Worldpay
+
+Visa
+
+10
+
+Mastercard
+
+10
+
+American Express
+
+2
+
+Discover
+
+10
+
+Next steps
+----------
+
+[
+
+### Manage disputes from the Hub
+
+Learn how to handle disputes from your Hub account.
+
+
+
+
+
+](https://docs.checkout.com/the-hub/manage-disputes)[
+
+### Manage disputes with our API
+
+Learn how to handle disputes using our API.
+
+
+
+
+
+](https://docs.checkout.com/risk-management/disputes/disputes-api)
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/How+disputes+work?showComments=true&showCommentArea=true#addcomment)

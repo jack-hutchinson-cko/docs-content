@@ -1,0 +1,346 @@
+---
+title: QPay
+account: ABC
+---
+
+<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
+
+*   Created by user-faddb, last modified by [Cristina Szilagyi](    /display/~cristina.szilagyi
+    ) on [Jun 09, 2021](/pages/diffpagesbyversion.action?pageId=1835034&selectedPageVersions=18&selectedPageVersions=19 "Show changes")
+
+[Go to start of metadata](#page-metadata-start)
+
+Start accepting payments using QPay, a favorite payment method in Qatar.
+
+To start accepting QPay payments, please contact your Customer Success Manager.
+
+Overview
+--------
+
+QPay payments follow a two-step process:
+
+1.  [Request a QPay payment](#QPay-requestapayment)
+2.  [Redirect the customer](https://docs.checkout.com/payment-methods/cards/qpay#QPay-Redirectthecustomerredirectthecustomer)
+
+Request a payment
+-----------------
+
+### The POST request
+
+#### Endpoints
+
+*   [**Live**](#tabs-f73f24bb-725a-4bfd-9320-b2a2b93216f8-1)
+*   [**Sandbox**](#tabs-f73f24bb-725a-4bfd-9320-b2a2b93216f8-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+Field name
+
+Description
+
+Field name
+
+Description
+
+`amount`
+
+REQUIRED
+
+INTEGER
+
+The payment amount.
+
+`currency`
+
+REQUIRED
+
+STRING
+
+The currency in which the payment is being made (three-letter ISO 4217 code). Set this to `QAR`.
+
+`source`
+
+REQUIRED
+
+OBJECT
+
+Details about the payment source.
+
+`source.type`
+
+REQUIRED
+
+STRING
+
+The type of payment source. Set this to `qpay`.
+
+`source.description`
+
+REQUIRED
+
+STRING
+
+A description of the transaction.
+
+Maximum of 255 characters (after UTF-8 URL encoding).
+
+source.language
+
+OPTIONAL
+
+STRING
+
+The customer's preferred language (2-letter ISO code). Set this to either `ar` (Arabic) or `en` (English).
+
+Defaults to `en` if not specified.
+
+`source.quantity`
+
+OPTIONAL
+
+STRING
+
+The quantity (minimum value of `1`) of the purchased item.
+
+Used for display purposes only; does not affect the total amount of the payment.
+
+`source.national_id`
+
+OPTIONAL
+
+STRING
+
+The national ID of the customer.
+
+Maximum of 32 characters.
+
+#### Request example
+
+    {
+      "amount": 100,
+      "currency": "QAR",
+      "source": {
+        "type": "qpay",
+        "description": "QPay Demo Payment",
+        "language": "en",
+        "quantity": "1",
+        "national_id": "070AYY010BU234M"
+      }
+    }
+    
+
+### The POST response
+
+If you receive a `202 Success` response with a `status` field set to `Pending`, your request was successful.
+
+#### Response example
+
+    {
+      "id": "pay_7eil5osdlcdehe62et5aihec4q",
+      "status": "Pending",
+      "customer": {
+        "id": "cus_mydbq4wrfp3excwlexeefsv3be"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_7eil5osdlcdehe62et5aihec4q"
+        },
+        "redirect": {
+          "href": "https://sbapi.ckotech.co/qpay-external/redirect-to-qpay?pun=52h7saoi5edthll6ceec"
+        }
+      }
+    }
+    
+
+Redirect the customer
+---------------------
+
+Redirect your customer to the `redirect` link’s href in the response. This will allow the customer to authorize the payment, before they are transferred to your predefined success or failure URL.
+
+Get details about a payment
+---------------------------
+
+You can use the `payment_id` found in the payment response, or the `cko-session-id` from the success/failure URL (e.g., `https://www.checkout.com/order/succeeded?cko-session-id=**sid_vii64oquze5u3h2x6hh4rurc4y**`) to retrieve details about the payment.
+
+The `cko-session-id` expires 15 minutes after being created.
+
+### The GET request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-330de095-3ef7-47b5-9740-b1b5c78c686c-1)
+*   [**Sandbox**](#tabs-330de095-3ef7-47b5-9740-b1b5c78c686c-2)
+
+GET`https://api.checkout.com/payments/{payment_id}`
+
+GET`https://api.sandbox.checkout.com/payments/{payment_id}`
+
+#### Header and path parameters
+
+Header
+
+Value
+
+Header
+
+Value
+
+`Authorization`
+
+REQUIRED
+
+`secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+`Content-Type`
+
+REQUIRED
+
+`application/json`
+
+Path
+
+Value
+
+Path
+
+Value
+
+`payment_id`
+
+REQUIRED
+
+The payment ID found in the response of the initial response.
+
+### The GET response
+
+#### Response example
+
+    {
+      "id": "pay_7eil5osdlcdehe62et5aihec4q",
+      "requested_on": "2019-06-20T10:03:42Z",
+      "source": {
+        "type": "qpay",
+        "description": "QPay Demo Payment",
+    	"pun": "skqewp72qqxpuckrdf2c"
+      },
+      "amount": 100,
+      "currency": "QAR",
+      "payment_type": "Regular",
+      "status": "Captured",
+      "approved": true,
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_mydbq4wrfp3excwlexeefsv3be"
+      },
+      "_links": {
+        "redirect": {
+          "href": "https://sbapi.ckotech.co/qpay-external/redirect-to-qpay?pun=52h7saoi5edthll6ceec"
+        },
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_7eil5osdlcdehe62et5aihec4q"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_7eil5osdlcdehe62et5aihec4q/actions"
+        },
+        "refund": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_7eil5osdlcdehe62et5aihec4q/refunds"
+        }
+      }
+    }
+
+Refund a payment
+----------------
+
+QPay supports both partial and full refunds. You can refund a payment through the [Hub](https://hub.checkout.com/v2) or by using the [refund API](/display/DOCS/Refund+a+payment).
+
+Cancel a payment
+----------------
+
+If the customer fails to complete their payment, we will automatically void the payment and send a `payment_expired` webhook.
+
+If the customer cancels their payment, we will send a `payment_canceled` webhook.
+
+Testing QPay
+------------
+
+To start testing, you'll need to:
+
+*   [create a test account](https://www.checkout.com/get-test-account), and
+*   contact your Customer Success Manager or Integrations engineer to activate QPay payments in the sandbox environment.
+
+1.  Create a QPay transaction as above, following the redirect link in the response to QPay's website.
+2.  Enter the details of one of our test cards:
+    
+    Card number
+    
+    Expiry date
+    
+    PIN
+    
+    Card number
+    
+    Expiry date
+    
+    PIN
+    
+    `4166 3904 1957 0368`
+    
+    `06/2022`
+    
+    (any PIN)
+    
+    `4215 3755 0088 3243`
+    
+    (any future date)
+    
+    `123456`
+    
+3.  Click **Pay**. You should then be redirected to your predefined success URL.  
+    
+
+LikeBe the first to like this
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+[Add Comment](/display/DOCS/QPay?showComments=true&showCommentArea=true#addcomment)
