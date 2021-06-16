@@ -2,6 +2,7 @@
 title: Dynamic billing descriptor
 account: ABC
 ---
+
 The billing descriptor is the text that is displayed on the customer's credit card statement identifying a purchase from a merchant’s website. This descriptor can be set dynamically in a payment request.
 
 If you would like to enable this functionality, please contact your Customer Success manager.
@@ -9,41 +10,11 @@ If you would like to enable this functionality, please contact your Customer Suc
 Parameters
 ----------
 
-Field name
-
-Description
-
-Field name
-
-Description
-
-`billing_descriptor`
-
-OBJECT
-
-OPTIONAL
-
-Details about the billing descriptor.
-
-`billing_descriptor.name`
-
-STRING
-
-REQUIRED
-
-Dynamic description of the charge.
-
-Up to 25 characters
-
-`billing_descriptor.city`
-
-STRING
-
-REQUIRED
-
-City from which the charge originated.
-
-Up to 13 characters
+| Field name | Description |
+| --- | --- |
+| `billing_descriptor` <br> OBJECT <br> OPTIONAL | Details about the billing descriptor. |
+| `billing_descriptor.name` <br> STRING <br> REQUIRED | Dynamic description of the charge. Up to 25 characters |
+| `billing_descriptor.city` <br> STRING <br> REQUIRED | City from which the charge originated. Up to 13 characters |
 
 You can use the following characters in your descriptor:
 

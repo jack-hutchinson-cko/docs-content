@@ -10,40 +10,16 @@ Concurrent rate limits
 
 Concurrent rate limits restrict the maximum number of simultaneous requests-per-second (RPS) you can make to our APIs. Our standard limits are as follows:
 
-Operation
-
-Description
-
-Limit (RPS)
-
-Example operations
-
-Operation
-
-Description
-
-Limit (RPS)
-
-Example operations
-
-Read
-
-HTTP GET operations used to retrieve data/resources
-
-100
-
-*   Get payment details
-*   Get disputes
-
-Write
-
-HTTP POST/PUT/DELETE operations used to create or update data/resources
-
-100
-
-*   Authorize payment
-*   Refund payment
-*   Submit dispute evidence
+| Operation | Description | Limit (RPS)| Example operations |
+| --- | --- | --- | --- |
+| Read | HTTP GET operations used to retrieve data/resources | 100 | 
+    *   Get payment details
+    *   Get disputes|
+| Write | HTTP POST/PUT/DELETE operations used to create or update data/resources | 100 | 
+    *   Authorize payment
+    *   Refund payment
+    *   Submit dispute evidence
+ |
 
 Rate limits are calculated across all APIs. For example, when sending 50 write operations per second to our payments API, a further 50 write operations per second can be used on any API.
 
