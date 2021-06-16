@@ -11,7 +11,6 @@ const password = '';
 const loginUrl = 'https://docs.checkout.com/admin';
 const docsUrl = 'https://docs.checkout.com/display/DOCS/Checkout.com';
 
-
 (async function() {
     await scrapeHTML();
     await transformHTML();
@@ -56,6 +55,7 @@ async function scrapeHTML() {
     // GET ALL LINKS
     const hrefs = await page.$$eval('.ia-secondary-container a', anchors => anchors.map(a => a['href']));
     const uniqueHrefs = new Set(hrefs);
+    console.log({hrefs, uniqueHrefs})
 
     for(const href of uniqueHrefs) {
         await page.goto(href);

@@ -3,13 +3,6 @@ title: About stored card details
 account: NAS
 ---
 
-<table class="aui"> <thead> <tr class="header"> <th class="search-result-title">Page Title</th> <th class="search-result-space">Space</th> <th class="search-result-date">Updated</th> </tr> </thead> </table> <p class="search-result-count">{0}</p> <tr class="search-result"> <td class="search-result-title"><a href="{1}" class="content-type-{2}"><span>{0}</span></a></td> <td class="search-result-space"><a class="space" href="/display/{4}/" title="{3}">{3}</a></td> <td class="search-result-date"><span class="date" title="{6}">{5}</span></td> </tr> [Skip to end of metadata](#page-metadata-end)
-
-*   Created by user-faddb, last modified by [Toby Knott](    /display/~toby.knott
-    ) on [May 26, 2021](/pages/diffpagesbyversion.action?pageId=8488719&selectedPageVersions=13&selectedPageVersions=14 "Show changes")
-
-[Go to start of metadata](#page-metadata-start)
-
 If you store customers' card details (whether in full on your server, or in a tokenized form) to allow cardholder-initiated transactions (CITs) and merchant-initiated transactions (MITs), you need to provide extra information about these payments to satisfy card scheme requirements.
 
 We've introduced a new `merchant_initiated` field to our API, which you must set to `true` in all merchant-initiated transactions.
