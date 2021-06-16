@@ -1,0 +1,168 @@
+---
+title: Error codes
+account: ABC
+---
+
+Below you'll find all the possible error codes you might receive when sending a request through our API. 
+
+Payments endpoint
+=================
+
+The following table lists the error codes that exist for the `/payments` endpoint.
+
+| Name | Description |
+| ---- | ---- |
+| `address_invalid` | The shipping address is invalid. |
+| `amount_exceeds_balance` | The payment amount exceeds the balance. |
+| `amount_invalid` | The payment amount is invalid. |
+| `api_calls_quota_exceeded` | The quota for API calls has been exceeded. |
+| `billing_descriptor_city_invalid` | The city from which the charge originated is invalid. |
+| `billing_descriptor_city_required` | The city from which the charge originated is required. |
+| `billing_descriptor_name_invalid` | The dynamic description of the charge is invalid. |
+| `billing_descriptor_name_required` | A dynamic description of the charge is required. |
+| `business_invalid` | The business settings are invalid. |
+| `business_settings_missing` | The business settings are missing. |
+| `capture_value_greater_than_authorized` | The capture value is greater than the authorized value. |
+| `capture_value_greater_than_remaining_authorized` | The capture value is greater than the remaining authorized value. |
+| `card_authorization_failed` | The card authorization has failed. |
+| `card_disabled` | The card is disabled. |
+| `card_expired` | The card is expired. |
+| `card_expiry_month_invalid` | The two-digit expiry month is invalid. |
+| `card_expiry_month_required` | A two-digit expiry month is required. |
+| `card_expiry_year_invalid` | The four-digit expiry year is invalid. |
+| `card_expiry_year_required` | A four-digit expiry year is required. |
+| `card_holder_invalid` | The cardholder is invalid. |
+| `card_not_found` | The card is not found. |
+| `card_number_invalid` | The card number is invalid. |
+| `card_number_required` | The card number is required. |
+| `channel_details_invalid` | The channel details are invalid. |
+| `channel_url_missing` | The channel URL is missing. |
+| `charge_details_invalid` | The charge details are invalid. |
+| `city_invalid` | The city from which the charge originated is invalid. |
+| `country_address_invalid` | The first or second line of the payment source owner's billing address is invalid. |
+| `country_invalid` | The two-letter ISO country code of the payment source owner's billing address is invalid. |
+| `country_phone_code_invalid` | The international country calling code is invalid. |
+| `country_phone_code_length_invalid` | The international country calling code length is invalid. |
+| `currency_invalid`| The three-letter ISO currency code is invalid.  
+See [currency codes](/display/DOCS/Currency+codes) for a full list of valid currency codes.
+
+ |
+| `currency_required` | The three-letter ISO currency code is required. |
+| `customer_already_exists` | The customer details already exist. |
+| `customer_email_invalid` | The email address associated with the customer is invalid. |
+| `customer_id_invalid` | The customer identifier is invalid. |
+| `customer_mismatch` | The customer ID you provided does not match the ID associated with the payment source. |
+| `customer_not_found` | The customer's details cannot be found. |
+| `customer_number_invalid` | The customer number is invalid. |
+| `customer_plan_edit_failed` | Editing the customer plan has failed. |
+| `customer_plan_id_invalid` | The customer plan identifier is invalid. |
+| `cvv_invalid` | The CVV is invalid. |
+| `destination_amount_invalid` | The payout destination amount is invalid. |
+| `destination_id_invalid` | The payout destination identifier is invalid. |
+| `destination_token_required` | The payout destination token is required. |
+| `destination_token_invalid` | The payout destination token is invalid. |
+| `email_in_use` | The email address is already in use. |
+| `email_invalid` | The email address is invalid. |
+| `email_required` | The email address is required. |
+| `endpoint_invalid` | The endpoint is invalid. |
+| `expiry_date_format_invalid` | The expiry date format is invalid. |
+| `fail_url_invalid` | The failure URL is invalid. |
+| `first_name_required` | The account holder's first name is required. |
+| `last_name_required` | The account holder's last name is required. |
+| `ip_address_invalid` | The IP address used to make the payment is invalid. |
+| `issuer_network_unavailable` | The issuer network is unavailable. |
+| `metadata_key_invalid` | The metadata key is invalid. |
+| `parameter_invalid` | The parameter is invalid. |
+| `password_invalid` | The password is invalid. |
+| `payment_expired` | The payment has expired. |
+| `payment_invalid` | The payment is invalid. |
+| `payment_method_invalid` | The payment method is invalid. |
+| `payment_source_required` | The payment source linked to a specific customer is required. |
+| `payment_type_invalid` | The payment type is invalid. |
+| `phone_number_invalid` | The phone number associated with the shipping address is invalid. |
+| `phone_number_length_invalid` | The length of the phone number associated with the shipping address is invalid. |
+| `previous_payment_id_invalid` | The previous payment identifier is invalid. |
+| `recipient_account_number_invalid` | The recipient's account number is invalid. |
+| `recipient_account_number_required` | The recipient's account number is required. |
+| `recipient_dob_invalid` | The recipient's date of birth (`YYYY-MM-DD`) is invalid. |
+| `recipient_dob_required` | The recipient's date of birth (`YYYY-MM-DD`) is required. |
+| `recipient_last_name_required` | The recipient's last name is required. |
+| `recipient_zip_invalid` | The first part of the recipient's UK postcode is required. |
+| `recipient_zip_required` | The first part of the recipient's UK postcode is required. |
+| `recurring_plan_exists` | The recurring plan exists. |
+| `recurring_plan_not_exist` | The recurring plan does not exist. |
+| `recurring_plan_removal_failed` | Removing the recurring plan has failed. |
+| `request_invalid` | The request is invalid. |
+| `request_json_invalid` | The JSON in the request is invalid. |
+| `risk_enabled_required` | The risk check that is enabled is required. |
+| `server_api_not_allowed` | The full API is not enabled on your sandbox account. To enable it, please contact our Integration team at [integration@checkout.com](mailto:integration@checkout.com). |
+| `source_email_invalid` | The payment source owner's email address is invalid. |
+| `source_email_required` | The payment source owner's email address is required. |
+| `source_id_invalid` | The payment source identifier is invalid. |
+| `source_id_or_email_required` | The payment source identifier or email address is required. |
+| `source_id_required` | The payment source identifier is required. |
+| `source_id_unknown` | The payment source identifier is unknown. |
+| `source_invalid` | The payment source is invalid. |
+| `source_or_destination_required` | The payment source or destination is required. |
+| `source_token_invalid` | The Checkout.com token is invalid. |
+| `source_token_required` | The Checkout.com token number is required. |
+| `source_token_type_required` | The source token type is required. |
+| `source_token_type_invalid` | The source token type is invalid. |
+| `source_type_required` | The payment source type is required. |
+| `success_url_invalid` | The success URL provided is invalid. |
+| `3ds_malfunction` | 3DS has malfunctioned. |
+| `3ds_not_configured` | 3DS is not configured. |
+| `3ds_not_enabled_for_card` | 3DS is not enabled for card. |
+| `3ds_not_supported` | 3DS is not supported. |
+| `3ds_payment_required` | 3DS payment required. |
+| `token_expired` | The Checkout.com token has expired. |
+| `token_in_use` | The Checkout.com token is in use. |
+| `token_invalid` | The Checkout.com token is invalid. |
+| `token_required` | The Checkout.com token is required. |
+| `token_type_required` | The Checkout.com token type is required. |
+| `token_used` | The Checkout.com token has already been used. |
+| `void_amount_invalid` | The void request amount is invalid. |
+| `wallet_id_invalid` | The wallet identifier is invalid. |
+| `zip_invalid` | The first part of the UK postcode is invalid. |
+| `processing_key_required` | The processing key is required. |
+| `processing_value_required` | The processing value is required. |
+| `3ds_version_invalid` | The 3DS version is invalid. |
+| `3ds_version_not_supported` | The 3DS version is not supported. |
+
+Payment sources endpoint
+========================
+
+The following table lists the error codes that exist for the `/sources` endpoint.
+
+| Name | Description |
+| ---- | ---- |
+| `currency_invalid` | The three-letter ISO currency code is invalid.
+
+See [currency codes](/display/DOCS/Currency+codes) for a full list of valid currency codes.
+
+ |
+| `customer_not_found` | The customer ID you provided does not exist. |
+| `payment_method_not_supported` | The payment method is not supported. |
+| `payment_source_does_not_exist` | The payment source does not exist. |
+| `payments_not_supported` | Payments are not supported. |
+| `processing_error` | There is a processing error. |
+| `refunds_not_supported` | Refund requests are not supported. |
+| `request_invalid` | The request is invalid. |
+| `service_unavailable` | The service is unavailable. |
+
+Tokens endpoint
+===============
+
+The following table lists the error codes that exist for the `/tokens` endpoint.
+
+| Name | Description |
+| ---- | ---- |
+| `processing_error` | There is a processing error. |
+| `request_invalid` | The request is invalid. |
+| `service_unavailable` | The service is unavailable. |
+| `token_type_invalid` | The token type is invalid. |
+| `token_data_invalid` | The token data is invalid. |
+
+
+
+

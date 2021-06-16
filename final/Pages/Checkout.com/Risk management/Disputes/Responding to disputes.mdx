@@ -1,0 +1,117 @@
+---
+title: Responding to disputes
+account: ABC
+---
+
+
+To respond to disputes effectively and increase your chances of winning a case, you should directly address the specific reason for the dispute.
+
+Each dispute has a [reason code](/display/DOCS/Chargeback+codes) associated with it, which tells you the specific grounds for the dispute. For example, your customer claims the transaction was fraudulent, or that they did not receive the product they paid for, or that you’ve continued charging them for a subscription they think they canceled.
+
+Keep these principles in mind when responding to disputes:
+
+*   Communicate with the customer.
+*   Don’t feel you need to challenge every dispute. It can be better, and less costly, to accept a dispute.
+*   If you challenge a dispute, make sure the evidence you provide is addressing the specific reason for the dispute.
+
+You can manage and respond to disputes in two ways: through the [Hub](/display/DOCS/Manage+disputes), or our [API](/display/DOCS/Disputes+API).
+
+Before you respond
+------------------
+
+First, check the reason code for the dispute. This will tell you why the dispute has been raised, and will help you know what to ask the customer and how you want to respond to it.
+
+### Contacting the customer
+
+When you receive a dispute, it's a good idea to contact the customer and discuss the issue before you accept or challenge it. Sometimes, they simply didn’t recognise a legitimate transaction when they looked through their bank statement (often caused by an unfamiliar billing descriptor – how your business’s name appears on a cardholder’s statement).
+
+Contacting the customer will help you decide how to respond to the case, and what sort of evidence you might need to defend it successfully.
+
+If you agree that the customer’s dispute is valid, you should accept the dispute. Do not ask them to withdraw their dispute and accept a regular refund instead.
+
+### Dispute triage
+
+You might not want to defend against every dispute. Defending a dispute can be a lengthy, costly process, so it can be better to accept liability in some cases.
+
+Try to to prioritise cases based on whether:
+
+*   You have the **right evidence available**, and in the language of the card scheme.
+*   Winning the dispute will offset the overall **cost of defending it**.
+*   You have a **good success rate** against similar dispute cases.
+
+Accepting or challenging a dispute
+----------------------------------
+
+You have two options when responding to a dispute: accept or challenge.
+
+*   If you **accept** the dispute, you agree that the reason given for the dispute is valid. This ends the process.
+*   If you **challenge** the dispute, you will need to submit evidence which shows that the reason given for the dispute is invalid. Your case will then be reviewed by the issuer.
+
+If you’ve already refunded the customer, we will automatically defend the dispute on your behalf to prevent a double refund, helping you to focus on other cases. See below for [partial refunds](#Respondingtodisputes-partialrefunds).
+
+Dispute activity is based on the the number of disputes you receive, not on whether you accept, win, or lose cases, so it’s important to try to prevent disputes before they arise.
+
+### Accepting disputes
+
+If you agree with the cardholder that the dispute is valid for the reason given, and you have no intention to defend against it, you should accept the dispute.
+
+Accepting a dispute is not an admission of wrongdoing, and is often the most appropriate response.
+
+As soon as the dispute is raised by the issuer, the customer is refunded and your account is debited. You **should not refund** them if you accept the dispute.
+
+You might want to accept a dispute if:
+
+*   You know the reason for the dispute is valid.
+*   You don’t have the documentation to successfully defend against it.
+*   The transaction amount will not cover the cost of defending against the dispute.
+
+### Challenging disputes
+
+If you choose to challenge a dispute, make sure you know the specific [reason code](/display/DOCS/Chargeback+codes) for it and then start preparing the evidence you want to submit to the card issuer to make your case.
+
+#### Submitting evidence
+
+Only submit evidence that satisfies the defence criteria for the specific dispute reason – less is more.
+
+Providing legible, succinct, and relevant evidence makes it easier for the issuer and/or card scheme to assess the situation among thousands of other cases, and increases your chances of winning the dispute.
+
+Learn more about the [dispute categories and the best evidence to submit](/display/DOCS/Dispute+reasons+and+recommended+evidence).
+
+You can upload and submit evidence through the [Hub](/display/DOCS/Manage+disputes) or with our [API](/display/DOCS/Disputes+API).
+
+Once you’ve submitted a dispute, you can no longer edit or add to it. Make sure you’ve uploaded all the relevant evidence and reviewed it carefully before submitting.
+
+You cannot submit audio or video files, links to third-party websites (a screenshot may be submitted if relevant) or file downloads, or ask that the card issuer contacts you for more information. The issuer will not accept these as evidence.
+
+Disputes on partially refunded payments 
+----------------------------------------
+
+Sometimes, a dispute can be raised for the full amount of a transaction, even though you have already partially refunded the customer.
+
+If you want to challenge the unrefunded part of the dispute, you should submit evidence of your partial refund and any evidence that addresses the reason for the dispute.
+
+If you accept or ignore the unrefunded part of the dispute, your account will be credited with the amount you partially refunded.
+
+Misunderstandings
+-----------------
+
+If the cardholder has made an honest mistake (for instance, they didn’t recognise the transaction on their statement), they can tell their bank that they no longer dispute the transaction. The issuer should then withdraw the dispute.
+
+However, even if your customer has told you they are withdrawing the dispute, you should still provide evidence to defend against it. Withdrawing a dispute can be a lengthy, complicated process, so it's best to treat it as a live dispute until you have confirmation that it has been formally withdrawn.
+
+Next steps
+----------
+
+[
+
+### Dispute reasons and recommended evidence
+
+Learn why disputes are raised and the best evidence to defend against them.](https://docs.checkout.com/risk-management/disputes/responding-to-disputes/dispute-reasons-and-recommended-evidence)[
+
+### Manage disputes from the Hub
+
+Learn how to handle disputes from your Hub account.](https://docs.checkout.com/the-hub/manage-disputes)
+
+
+
+

@@ -1,0 +1,43 @@
+---
+title: payment_refunded
+account: ABC
+---
+
+Example: Payment refunded
+-------------------------
+
+    {
+      "id": "evt_rmbwhvwacc7u5iczmz2tdcogum",
+      "type": "payment_refunded",
+      "created_on": "2020-02-03T11:35:03Z",
+      "data": {
+        "action_id": "act_7fmebms4rtmuja2poigylogjk4",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "reference": "ORD-5023-4E89",
+        "amount": 200,
+        "processing": {
+          "acquirer_transaction_id": "7026208384",
+          "acquirer_reference_number": "773993129364"
+        },
+        "id": "pay_pswr5qaqzzferh2puzfyrefzuy",
+        "currency": "GBP",
+        "processed_on": "2020-02-03T11:35:03Z",
+        "metadata": {
+          "coupon_code": "NY2018",
+          "partner_id": 123989
+        }
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/events/evt_rmbwhvwacc7u5iczmz2tdcogum"
+        },
+        "payment": {
+          "href": "https://api.checkout.com/payments/pay_pswr5qaqzzferh2puzfyrefzuy"
+        }
+      }
+    }
+
+
+
+

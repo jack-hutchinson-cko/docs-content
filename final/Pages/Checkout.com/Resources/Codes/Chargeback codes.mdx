@@ -1,0 +1,522 @@
+---
+title: Chargeback codes
+account: ABC
+---
+
+Below you'll find a list of chargeback codes along with an explanation of what each one means, covering both general codes and those specific to the major card schemes.
+
+Dispute indicator codes
+-----------------------
+
+**Cbind** is the chargeback indicator (4-char).
+
+| Name | Chargeback code | Description |
+| ---- | ---- | ---- |
+| Debit to Account | ADJM | The chargeback has been issued, and your account has been debited. |
+| Auto Representment | AUTO | The chargeback was received, but the bank automatically represented it for specific reasons, e.g., the transaction was already refunded before the chargeback was received. |
+| Issuer Reversal | CBRV | The chargeback was reversed/canceled by the issuing bank. |
+| Evidence Under Review | RPDR | You have provided the required evidence and we have forwarded this to card scheme. |
+| Case Lost | RPDL | You have lost the dispute. |
+| Case Won | RPDW | You have won the dispute. |
+| Arbitration Review | ARBR | The case has been escalated to arbitration upon your request, supported by your rebuttal letter/other additional evidence. |
+| Arbitration won | ARBW | You have won the arbitration case. |
+| Arbitration Lost | ARBL | You have lost the arbitration case. Your account will be debited the arbitration fee. |
+
+Visa
+----
+
+### Fraud
+
+| Reason code | Description | Media required |
+| ---- | ---- | ---- |
+| 10.1| **EMV Liability Shift Counterfeit Fraud**  
+A cardholder has disputed the transaction, claiming that either a fraudster or an unwitting participant authorized the transaction without the cardholder's knowledge. The cardholder may also claim that a counterfeit card authorized a transaction from his or her account.
+
+ | A signed sales receipt with imprint or swipe. |
+| 10.2| **EMV Liability Shift Non-Counterfeit Fraud**  
+The cardholder believes that the fraudulent activity originated with the EMV terminal. He or she may claim you were negligent in spotting the fraudulent activity.
+
+ | Provide correct documentation to prove your EMV terminal had no relation to the disputed transaction. Some examples include your MID and the payment gateways that you use to process transactions. |
+| 10.3| **Fraud – Card Present Environment**  
+The cardholder never authorized or participated in a Card Present environment transaction. Or a fraudulent transaction was completed in a Card Present environment using an account number for which no valid card was issued or is outstanding, and no authorization was obtained.
+
+ | A signed sales receipt with a valid imprint or swipe. If you participate in the CVV2 in lieu of imprint program, the signed draft and CVV2 certification letter are required at draft retrieval in order to protect you. |
+| 10.4| **Fraudulent Transaction – Card Absent Environment**  
+The cardholder did not authorize or participate in a transaction conducted in a Card Not Present environment. _or_ A fraudulent transaction was completed in a Card Not Present environment using an account number where no valid card was issued or is outstanding, and no authorization was obtained.
+
+ | An invoice with ship to/bill to addresses matching, AVS results of X or Y, and signed proof of delivery. If T&E, proof that the sale was a properly processed "no show" transaction. |
+| 10.5| **Visa Fraud Monitoring Program**  
+Visa notified the issuer that the Visa Fraud Monitoring Program identified the transaction and the issuer has not successfully charged back the transaction using another reason code.
+
+ | No reversal rights except for credit issued. |
+
+### Authorization
+
+| Reason code | Description | Media required |
+| ---- | ---- | ---- |
+| 11.1| **Card Recovery Bulletin**  
+The transaction was below the merchant's floor limit, and an authorization was not obtained. On the date of the transaction, the account number appeared in the Card Recovery Bulletin for the Visa Region where the merchant is located (All excluding US Domestic).
+
+ | Auth code along with date and amount of authorization, if other than the transaction date and amount. |
+| 11.2| **Declined Authorization**  
+Authorization was declined and merchant completed the transaction. If the authorization response was `decline`, `pick-up` or `referral` and a key entered _or_ a voice authorization code was obtained and a counterfeit card was used, the sale may be charged back.
+
+ | Auth code along with date and amount of authorization, if other than the transaction date and amount. |
+| 11.3| **No Authorization**  
+Transaction exceeds the floor limit, and an authorization was not obtained on the transaction, _or_ the transaction is an online check card transaction or an original adjustment.
+
+ | Auth code along with date and amount of authorization, if other than the transaction date and amount. |
+| 11.4| **Service Code Violation**  
+Authorization was not obtained for a magnetic-stripe read transaction on a Visa Electron Card or on a Visa Card in a registered mandatory positive authorization (X2X service code) account range, excluding U.S. comestic transactions.
+
+ | Date and amount of authorization, if other than the transaction date and amount. |
+
+### Processing errors
+
+| Reason code | Description | Media required |
+| ---- | ---- | ---- |
+| 12.1| **Late Presentment**  
+The transaction was not processed within the required time-limit, and the account used was not in a positive status on the date the chargeback was processed.  
+_or_  
+The transaction date was more than 180 days before the processing date.
+
+ | Limited reversal rights: permitted only if credit was issued or if proof can be presented that the sale was processed within the allotted time. |
+| 12.2| **Incorrect Transaction Code**  
+The transaction processing code used has caused the cardholder to suffer a financial loss. For example, if a full credit processed does not fully offset the debit on a cardholder’s card account (due to fluctuation in exchange rate), the latter may use this chargeback reason code to recover the financial loss.
+
+ | A signed sales receipt with imprint or swipe for all transactions involved in the dispute and a written rebuttal to explain why the cardholder is not due credit. |
+| 12.3| **Incorrect Currency**  
+This chargeback involves the use of an incorrect currency.
+
+ | Provide evidence and authorization details that indicates consent was given to the merchant, and that the currency is correct. |
+| 12.4| **Non-Matching Account Number**  
+Transaction did not receive authorization and was processed using an account number that does not match any on the issuer's master file or an original credit was processed using an account number that does not match any on the issuer's master file.
+
+ | Sales receipt and proof of authorization by issuer. |
+| 12.5| **Incorrect Transaction Amount or Account Number**  
+Used under any of the following circumstances:
+
+*   merchant processed an incorrect transaction amount
+*   merchant processed an account number that did not match the one on the transaction receipt
+*   cardholder’s transaction receipt contains an addition or transposition error
+*   transaction receipt was altered without cardholder permission
+
+ | A signed sales receipt with imprint or swipe to show that cardholder agreed to the amount or that card number was correct. Written rebuttal if amount was altered after cardholder signed the receipt. |
+| 12.6.1| **Duplicate Processing**  
+A single transaction was presented two or more times to the issuer for the same cardholder account number, similar transaction amounts and similar clearing data. If the same transaction was processed by different acquirers, the issuer is required to dispute the transaction that posted last.  
+For express payment service (EPS) or small ticket transactions, the amounts must be the same.
+
+ | Two different, signed (if possible) receipts or invoices. If sales receipt does not contain detail of items purchase, include an itemized list. For EPS and Small Ticket transactions, signatures aren’t required, just detail of what was purchased. |
+| 12.6.2| **Altered Amount / Paid by Other Means**  
+A sale posted to the cardholder’s credit card account; however, the cardholder can prove that he paid by an alternative means. Alternative means can be cash, check, a sale to a different credit card, or a sale to a debit card.
+
+ | A written rebuttal addressing the cardholder’s claim and any supporting documentation to prove the case such as proof that credit was issued or that each transaction is different (i.e., different merchandise). |
+| 12.7| **Invalid Data**  
+No authorization or invalid data for authorization.
+
+ | Provide evidence that an authorization was provided by the cardholder. |
+
+### Consumer disputes
+
+| Reason code | Description | Media required |
+| ---- | ---- | ---- |
+| 13.1| **Services Not Provided or Merchandise Not Received**  
+Cardholder did not receive, due to merchant’s unwillingness or inability:
+
+*   services
+*   shipped merchandise or merchandise that was to be received at the point of sale and was not
+*   merchandise delivered at the agreed-upon location or by the agreed-upon date
+*   airline or passenger rail tickets order via mail/phone or online
+
+ | Documentation to prove that the cardholder received the services or merchandise, or proof that credit was issued. |
+| 13.2| **Canceled Recurring Transaction**  
+The sale resulted from a recurring transaction or pre-authorized healthcare transaction and:
+
+*   the issuer receives a complaint from the cardholder that payment of a recurring transaction or pre-authorized health care transaction was canceled prior to or on the transaction date; or
+*   a previous transaction, resulting from the same written authorization was charged back and such authorization was not expressly renewed by the cardholder; or
+*   the issuer receives a complaint from the cardholder that (i) the recurring transaction amount was not within the range of amounts pre-authorized by the cardholder on the recurring transaction order form or (ii) the merchant was to notify the cardholder prior to processing each recurring transaction, and
+*   the cardholder did not receive written notification of the charge from the merchant postmarked at least 10 days prior to the transaction date, or
+*   the merchant sent written notification of the charge at least 10 days prior to the transaction date but the cardholder responded denying consent for the change to be posted to his/her account; or
+*   the cardholder's account was canceled and/or is closed and previous notice was provided to the acquirer or the merchant that the account number was not be honored
+
+ | A written rebuttal addressing the cardholder’s claim and any supporting documentation (i.e., contract that shows cancelation requirements). |
+| 13.3| **Not as Described or Defective Merchandise/Services**  
+Goods or services received were not as described on the transaction receipt or other documentation presented to the cardholder or, if a mail/phone order or online purchase, as described by the merchant or, the merchandise was received damaged, defective or otherwise unsuitable for the purpose sold.  
+Cardholder must attempt to return the merchandise or resolve the dispute before contacting their bank.
+
+ | A detailed written rebuttal addressing the cardholder’s claim (point by point) and any supporting documentation to prove the case. Rebuttal must address what steps were taken to resolve the complaint before it became a chargeback. |
+| 13.4| **Counterfeit Merchandise**  
+The cardholder claims that the purchased merchandise was counterfeit.
+
+ | Provide proof that the purchased merchandise is authentic, and that the cardholder knew of its quality during the transaction. |
+| 13.5| **Misrepresentation**  
+The cardholder claims the purchased good/service was misrepresented during the transaction.
+
+ | Provide proof that all representation of purchased good/service was, and is, accurate during the transaction. |
+| 13.6| **Credit Not Processed**  
+The merchant issued a credit transaction receipt or refund acknowledgement but the transaction was not processed through interchange, _or_  
+The cardholder returned merchandise or canceled a sale but did not receive a credit receipt or refund acknowledgement.
+
+ | A written rebuttal addressing the cardholder’s claim and any supporting documentation to prove the case, such as a signed contract, return policy, or proof of proper disclosure. If credit has been issued, a statement/proof that credit issued belongs to transaction in question. |
+| 13.7| **Canceled Merchandise/Services**  
+The cardholder claims that the merchant had charged him or her for a merchandise/service that was canceled.
+
+ | Provide proof that the disputed transaction was not canceled, and that the cardholder did not give any demand to cancel said transaction. |
+| 13.8 | **Original Credit Transaction Not Accepted** | Provide evidence of either the transaction receipt or other records to prove that the merchant properly disclosed a limited return or cancelation policy at the time of the transaction. |
+| 13.9| **Non-receipt of cash or merchandise**  
+Cardholder completed an ATM or TravelMoney transaction but received only partial funds or no funds.
+
+ | ATM audit log. |
+
+Mastercard
+----------
+
+| Reason code | Description | Media required |
+| ---- | ---- | ---- |
+| 4807| **Warning Bulletin File**  
+A transaction was not previously authorized with an approval response as specified in the MasterCard Authorization System Manual and the account number was listed in the Mastercard Electronic Warning Bulletin File on the date of the transaction for the region in which the transaction was acquired.
+
+ | Date and amount of authorization, if other than the transaction date and amount. |
+| 4808| **Authorization-Related Chargeback**  
+1\. Requested/Required Authorization Not Obtained (e.g., the authorization was declined)  
+2\. Warning Bulletin File  
+3\. Account Number Not On File
+
+| 1 & 2. Date and amount of authorization, if other than the transaction date and amount.
+
+3\. A signed sales receipt with imprint or swipe. If card-not-present transaction, date of authorization if different from transaction date.
+
+ |
+| 4812| **Account Number Not On File**  
+A transaction was presented with an account number that does not match any account number on file.
+
+ | A signed sales receipt with imprint or swipe. If card-not-present transaction, date of authorization if different from transaction date. |
+| 4831| **Transaction Amount Differs**  
+Cardholder states that he or she was billed an incorrect amount.
+
+ | Signed sales receipt or documentation proving that an addition error has not occurred. |
+| 4834| **Point-Of Interaction Error**  
+1\. Duplicate Processing (cardholder or issuer)  
+2\. Transaction amount differs  
+3\. Late presentment  
+4\. Correct transaction currency code not provided
+
+| 1\. Two different, signed receipts (signature not required) or invoices if sale draft does not. If receipt does not contain detail of items purchased, include an itemized list or invoices.
+
+2\. Signed sales receipt or documentation proving that an addition error has not occurred.
+
+3\. The sales receipt and/or date and amount of the authorization if other than the transaction date.
+
+4\. Documentation proving that the correct currency was used to settle the sale.
+
+ |
+| 4837| **No Cardholder Authorization**  
+The cardholder states, in writing, that neither they nor anyone authorized by them engaged in the transaction _or_,  
+A face-to-face transaction took place using a once valid, unexpired, revoked account number and the issuer can certify in writing that the unexpired physical card is not outstanding because it was recovered, destroyed, or both.
+
+ | A signed and swiped/imprinted sales receipt. If Card Not Present transaction, invoice with bill to/ship to addresses, AVS results signed proof of delivery (signed POD good to have but not required). |
+| 4840| **Fraudulent Processing of Transactions**  
+The cardholder states, in writing, that neither they nor anyone authorized by them was still in the possession and control of all valid cards at the time of the transaction, and the cardholder admits to at least one legitimate transaction at a given card acceptor location, but denies knowledge of one or more additional unauthorized transactions at that same card acceptor location.
+
+ | Signed sales receipts or invoices on all transactions and a detailed rebuttal describing the difference in the sales, or any additional information as to why cardholder did make both transactions (ie rebate or gift needed two separate receipts) |
+| 4841| **Canceled Recurring Transaction**
+
+It must be a payment without an end-date in order to qualify as a recurring transaction (i.e., an insurance premium, computer service, or a book-of-the-month club).
+
+The card acceptor continued to bill a cardholder after receiving notification of cancelation from the cardholder or issuer.
+
+_or_
+
+The issuer listed the cardholder’s account information on the Recurring Payment Cancelation Service (RPCS) and notified the acquirer. | A written rebuttal addressing the cardholder's claim and any supporting documentation to prove the case (i.e., contract). |
+| 4842| **Late Presentment**  
+The issuer may use message reason code 4842 if the account is permanently closed and the Central Site Business Date is:
+
+*   more than seven calendar days after the transaction date and the transaction was completed with electronically recorded card information (whether card-read or key-entered)
+*   more than 30 calendar days after the transaction date, and the transaction was completed with manually recorded card information (whether imprinted or handwritten)
+*   more than 30 calendar days after the transaction date and the account is statused by one of the following codes:
+    *   C: credit problem
+    *   F: other fraud (lost/stolen/never received)
+    *   X: counterfeit card
+    *   O: account closed
+
+A payment transaction must be presented in clearing within one business day of the authorization date. Therefore, the issuer may submit a chargeback for a Payment Transaction using the message reason code 4842 before the 30-calendar day presentment time frame normally required for this message reason code.
+
+ | The sales receipt and/or date and amount of the authorization if other than the transaction date. |
+| 4846| **Correct Transaction Currency Code Not Provided**  
+The acquirer did not transmit the correct transaction currency code for the currency in which the transaction was completed.
+
+_or_
+
+The transaction occurred in a dual currency environment and a transaction currency is not specified on the TID.  
+No Specified Currency on TID. If no currency indicator is specified on the transaction receipt, the currency which is legal tender in the country where the transaction took place is the original transaction currency.
+
+ | Documentation proving that the correct currency was used to settle the sale. |
+| 4849| **Questionable Merchant Activity**  
+An acquirer processed a transaction for a card acceptor that later was listed in a Mastercard Global Security Bulletin for violating section 9.14.1 in the Mastercard Bylaws and Rules or section 8.4 in the Security Rules and Procedures manual.  
+The issuer must have properly reported the transaction to SAFE with one of the following fraud codes:
+
+*   00: Lost Fraud
+*   01: Stolen Fraud
+*   04: Counterfeit Card Fraud
+*   06: Card Not Present Fraud
+*   07: Multiple Imprint Fraud
+
+ | No reversal rights except for credit issued. The card acceptor in question was not listed in the Mastercard Global Security Bulletin. The transaction did not occur within the period specified |
+| 4850| **Instalment** **Billing Dispute**  
+A cardholder account has been inaccurately posted with a debit instead of a credit as a result of an incorrect transaction code or keying error (i.e., credit posted as a retail sale).
+
+ | A copy of the TID or other documentation showing that the cardholder agreed to the number of installments and amount processed, or proof that the acquirer corrected the discrepancy that led to the dispute. |
+| 4853| **Cardholder Dispute**  
+1\. Defective/Not As Described  
+2\. Canceled Recurring Transaction  
+3\. Non-Receipt of Merchandise  
+4\. Services Not Rendered  
+5\. Credit Not Processed
+
+| 1\. A detailed written rebuttal addressing the cardholder's claim (point by point) and any supporting documentation to prove the case. Rebuttal must address what steps the merchant took to resolve the complaint before it became a chargeback.  
+2\. A written rebuttal addressing the cardholder's claim and any supporting documentation to prove the case (ie: contract).  
+3\. Documentation to prove that the cardholder received the merchandise (e.g., signed proof of delivery) or proof that credit was issued.  
+4\. Documentation to prove that the cardholder received the services, or proof that credit was issued.  
+5\. A written rebuttal addressing the cardholder's claim and any supporting documentation to prove the case. (e.g., goods/services have been used by cardholder).
+
+ |
+| 4854| **Cardholder Dispute — Not Elsewhere Slassified (US region only)**  
+Cardholder has made an unsuccessful good-faith effort to resolve a dispute with the card acceptor that involves goods or services, and the dispute reflects a claim or defense authorized against issuers or creditors according to federal, state, or local truth-in-lending laws.
+
+ | A detailed written rebuttal addressing the cardholder's claim (point by point) and any supporting documentation to prove the case. Rebuttal must address what steps the merchant took to resolve the complaint before it became a chargeback. |
+| 4855| **Goods or Services Not Provided**  
+The cardholder or his or her authorized representative did not receive goods that were to be shipped or delivered.
+
+ | Documentation to prove that the cardholder received the merchandise or proof that credit was issued. |
+| 4859| **Addendum, No-show, or ATM Dispute**  
+Cardholder disputes a transaction for one of the following reasons:
+
+*   cardholder received none or only part of an ATM cash disbursement (not applicable in cases of alleged fraud)
+*   cardholder is disputing a "no-show” hotel charge from a card acceptor that participates in the Mastercard Guaranteed Reservations Service
+*   cardholder is disputing any subsequent transaction representing an addendum to any valid transaction from the same card acceptor
+
+ | Documentation to prove that the cardholder received the services, or proof that credit was issued. |
+| 4860| **Credit Not Processed**  
+Issuer received a letter of complaint from a cardholder stating that a card acceptor has not posted a credit to his or her account or that the card acceptor posted a credit and reduced the amount of the credit due without proper disclosure.
+
+ | A written rebuttal addressing the cardholder's claim and any supporting documentation to prove the case. |
+| 4863| **Cardholder Does Not Recognize — Potential Fraud**  
+Cardholder claims that he or she does not recognize a face-to-face transaction appearing on their statement and the issuer made a good-faith effort to identify the transaction for the cardholder.  
+The issuer may use message reason code 4863 for all non–face-to-face (Card Not Present) transactions if the cardholder claims that he or she does not recognize the transaction appearing on the cardholder statement.
+
+ | A signed sales receipt with imprint or swipe. If card-not-present transaction, invoice, AVS results, CVV2 results, and signed proof of delivery. Documentation that would further identify the transaction. |
+| 4870, 4871| **Counterfeit transaction, chip liability shift, chip/PIN liability shift**
+
+The cardholder did not participate in the transaction (a fraudster made a duplicate or counterfeit copy of the card). Applicable to Card Present transactions only.
+
+ | N/A |
+| 4999| **Domestic chargeback dispute (Europe region only)**
+
+This reason code may be used by issuer where a dispute is available according to the applicable domestic rule, but cannot be processed under a different message reason code.
+
+ | Documentation to support that the disputed transaction has been completed in accordance to applicable domestic rule. |
+
+American Express
+----------------
+
+| Reason code | Description |
+| ---- | ---- |
+| 6003 | Chargeback Documentation. |
+| 6006 | Cardmember Claims Fraud. |
+| 6008 | Cardmember Requests Copy Bearing Signature. |
+| 6013 | Documentation Previously Sent Is Illegible/Incomplete. |
+| 6014 | Unrecognized Transaction. |
+| 6016 | Personal Information. |
+| 4507 | Incorrect Transaction Amount or Primary Account Number Presented. |
+| 4512 | Multiple Processing. |
+| 4513 | Credit Not Presented. |
+| 4515 | Paid Through Other Means |
+| 4516 | No Reply To Disputes Enquiry Letter. |
+| 4517 | Insufficient or Unclear Reply to Disputes Enquiry Letter. |
+| 4521 | Invalid Authorization. |
+| 4523 | Unassigned Cardmember Account Number. |
+| 4526 | Missing Signature. |
+| 4527 | Missing Imprint. |
+| 4530 | Currency Discrepancy. |
+| 4534 | Multiple ROCs. |
+| 4536 | Late Presentment. |
+| 4540 | Card Not Present. |
+| 4544 | Cancelation of Recurring Goods/Services. |
+| 4553 | Not As Described. |
+| 4554 | Goods/Services Ordered but Not Received. |
+| 4750 | Car Rental Charge Non-Qualified or Unsubstantiated. |
+| 4752 | Credit/Debit Presentment Error. |
+| 4754 | Local Regulatory/Legal Dispute. |
+| 4755 | No Valid Authorization. |
+| 4758 | Expired/Not Yet Valid Card. |
+| 4763 | Fraud Full Recourse. |
+| 4798 | Fraud Liability Shift — Counterfeit. |
+| 4799 | Fraud Liability Shift — Lost/Stolen. |
+
+American Express for US merchants
+---------------------------------
+
+| Reason code | Description |
+| ---- | ---- |
+| A01 | Charge Amount Exceeds Authorization Amount. |
+| A02 | No Valid Authorization. |
+| A08 | Authorization Approval Expired. |
+| F10 | Missing Imprint (requires Inquiry prior to Chargeback). |
+| F22 | Expired or Not Yet Valid Card. |
+| F24 | No Card Member Authorization (requires Inquiry prior to Chargeback). |
+| F29 | Card Not Present. |
+| F30 | EMV Counterfeit. |
+| C02 | Credit (or Partial Credit) Not Processed. |
+| C04 | Goods/Services Returned or Refused. |
+| C05 | Goods/Services Canceled. |
+| C08 | Goods/Services Not Received or Only Partially Received |
+| C14 | Paid by Other Means. |
+| C18 | "No Show" or CARDeposit Canceled. |
+| C28 | Canceled Recurring Billing. |
+| C31 | Goods/Services Not as Described. |
+| C32 | Goods/Services Damaged or Defective. |
+| M10 | Vehicle Rental - Capital Damages. |
+| M49 | Vehicle Rental - Theft or Loss of Use. |
+| P01 | Unassigned Card Number. |
+| P03 | Credit Processed as Charge. |
+| P04 | Charge Processed as Credit. |
+| P05 | Incorrect Charge Amount. |
+| P07 | Late Submission. |
+| P08 | Duplicate Charge. |
+| P22 | Nonmatching Card Number. |
+| P23 | Currency Discrepancy. |
+| R03 | Insufficient Reply (requires Inquiry prior to Chargeback). |
+| R13 | No Reply (requires Inquiry prior to Chargeback). |
+| M01 | Chargeback Authorization (requires Inquiry prior to Chargeback). |
+| FR2 | Fraud Full Recourse Program. |
+| FR4 | Immediate Chargeback Program. |
+| FR6 | Partial Immediate Chargeback Program. |
+
+Diners
+------
+
+| Reason code | Description |
+| ---- | ---- |
+| A02 | Acquirer Stand-In Processing Errors. |
+| A03 | Required Authorization Not Obtained. |
+| A05 | Card Not Valid or Expired. |
+| A06 | Unissued Account Number. |
+| A07 | Incorrect Charge type Provided in Authorization Request. |
+| B21 | Requested Digitized Copy of the Charge Form Not Received. |
+| B22 | Wrong Document Received for Retrieval Request. |
+| B23 | Requested Digitized Copy of the Charge Form Not Legible. |
+| B24 | Charge Older Than Thirty Days. |
+| B25 | Duplicate Charge. |
+| B26 | Alternate Settlement Currency Incorrect Exchange Rates. |
+| B27 | Incorrect Currency. |
+| C41 | Key Entered Fraudulent Charge. |
+| C42 | Card Not Present Fraudulent Charge. |
+| C43 | Skimming Counterfeit Fraudulent Charge. |
+| C44 | Manual Counterfeit Fraudulent Charge. |
+| C46 | Multiple Charges at Service Establishment Fraudulent Transaction. |
+| C47 | Unsigned Fraudulent Transactions. |
+| C48 | Card Not Present Fraudulent Transaction. |
+| C49 | Cardmember Activated Transaction. |
+| C50 | Suspect Service Establishment – No Response to the Suspected Fraudulent Service Establishment Report. |
+| C51 | Suspect Service Establishment–Terminated Service Establishment. |
+| D61 | Altered Charges. |
+| D62 | Service Not Received. |
+| D63 | Merchandise Not Received. |
+| D64 | Additional Amounts on Settled Charges. |
+| D65 | Credit Processed as a Charge. |
+| D66 | Credit Not Processed. |
+| D67 | Cardmember Paid by Other Means. |
+| D68 | No Show Charges. |
+| D69 | Canceled Recurring Transaction. |
+| D70 | Unsigned Charges. |
+| D71 | Non Receipt of Cash (ATM). |
+
+Discover for US merchants
+-------------------------
+
+| Reason code | Description |
+| ---- | ---- |
+| 4502 | Illegible Sales Data. |
+| 4534 | Duplicate Processing. |
+| 4541 | Recurring Payments. |
+| 4542 | Late Presentation. |
+| 4550 | Credit/Debit Posted Incorrectly. |
+| 4553 | Cardholder Disputes Quality of Goods or Services. |
+| 4554 | Not Classified. |
+| 4586 | Altered Amount. |
+| 4753 | Invalid Cardholder Number. |
+| 4755 | Non-Receipt of Goods or Services. |
+| 4757 | Violation of Operating Regulations. |
+| 4863 | Authorization Noncompliance. |
+| 7001 | Fraud - Card Present Transaction. |
+| 7030 | Fraud - Card Not Present Transaction. |
+| 8002 | Credit Not Processed. |
+
+JCB
+---
+
+### Invalid transaction/authorization
+
+| Reason code | Description | Media required |
+| ---- | ---- | ---- |
+| 501 | No Authorization /Non-JCB Card | Documentation to show that the transaction was authorized online by the issuer with an authorization number. |
+| 503 | Expired JCB Card | Documentation to show that the transaction was authorized online by the issuer with an authorization number. |
+| 521 | Transaction Exceeds Floor Limit | Documentation to show that the transaction was authorized online by the issuer with an authorization number. |
+| 522 | Authorization Declined | Documentation to show that the transaction was authorized online by the issuer with an authorization number |
+| 523 | Incorrect Cardnumber | Documentation to show that the transaction was authorized online by the issuer with an authorization number |
+| 541 | Illegible Item | Documentation to show that the transaction was authorized online by the issuer with an authorization number |
+| 547 | JCB Card on Stop List | Documentation to show that the transaction was authorized online by the issuer with an authorization number |
+| 581 | Split Sale | Documentation to show that the transaction was authorized online by the issuer with an authorization number |
+
+### Retrieval requests
+
+| Reason code | Description | Media required |
+| ---- | ---- | ---- |
+| 516 | Non-Receipt of Requested Item | Documentation to show that a legible and correct documentation were sent with the fulfilment. |
+| 517 | Requested Copy Illegible | Documentation to show that a legible and correct documentation were sent with the fulfilment. |
+| 580 | Non-Receipt of T&E Document | Documentation to show that a legible and correct documentation were sent with the fulfilment. |
+
+### T&E transactions
+
+| Reason code | Description | Media required |
+| ---- | ---- | ---- |
+| 537 | No Show Dispute | Copy of cancelation and refund policy. Documentation to proof the correct processing of the No show charge, or evidence showing that the charge is not in connection to No show. |
+| 538 | Advance Deposit | Copy of cancelation and refund policy. Documentation showing that cardholder did not cancel according to cancelation policy and that the cancelation/refund policy was properly disclosed to the cardholder at the beginning of purchase. |
+
+### Card absent transactions
+
+| Reason code | Description | Media required |
+| ---- | ---- | ---- |
+| 544 | Canceled Recurring transaction | Copy of cancelation and refund policy. Documentation showing that cardholder did not cancel according to cancelation policy and that the cancelation/refund policy was properly disclosed to the cardholder at the beginning purchase. Copy of usage log showing use of service after date of claimed cancelation. |
+| 546 | Unauthorized Purchase | Documentation showing cardholders involvement and authorization of the transaction. |
+
+### Cardmember disputes
+
+| Reason code | Description | Media required |
+| ---- | ---- | ---- |
+| 502 | Card Member Dispute | Documentation as applicable. Copy of cancelation and refund policy. Documentation showing that the cancelation/refund policy was properly disclosed to the cardholder at the beginning purchase. Evidence showing that the merchandise/service was received by the cardholder e.g. delivery receipt signed by cardholder. Evidence showing that the description of goods on order form/invoice was delivered, accepted and signed for by the cardholder. Copy of email communications with cardholder. |
+| 513 | Credit Not Received | Copy of cancelation and refund policy. Documentation showing that cardholder did not cancel according to cancelation policy and that the cancelation/refund policy was properly disclosed to the cardholder at the beginning purchase. Proof that credit was processed, if applicable. |
+| 526 | No Signature | Copy of card present sale slip signed by the cardholder or verified with PIN. |
+| 527 | No Imprint | Copy of card present sale slip signed by the cardholder or verified with PIN. |
+| 534 | Unauthorized Multiple Transaction | Copy of two card present sale slips signed by the cardholder or verified with PIN. |
+| 554 | Non-receipt of Merchandise | Evidence showing that the merchandise/service was received by the cardholder e.g., delivery receipt signed by cardholder. Evidence showing that the description of goods on order form/invoice was delivered, accepted and signed for by the cardholder. |
+| 583 | Paid by Other Means | Documentation proving that the merchant did not receive payment by other means. |
+
+### Processing errors
+
+| Reason code | Description | Media required |
+| ---- | ---- | ---- |
+| 507 | Incorrect Transaction Amount | Documentation showing that the cardholder authorized the amount charged. |
+| 510 | Mispot | Documentation showing that the cardholder authorized the amount charged. |
+| 512 | Duplicate Processing | Copies of two different transaction documents showing different merchandise or service. |
+| 524 | Addition Error | Documentation proofing the correct addition and that the cardholder authorized the amount charged. |
+| 525 | Altered Amount | Documentation showing that the cardholder authorized the amount charged. |
+| 536 | Late Submission | Proof that the transaction was processed within the presentment timeframe rules. |
+| 545 | Incorrect ECI | Documentation showing the cardmembers authorization of the ECI transaction. |
+| 582 | Domestic Transaction | Evidence showing the transaction to be international. |
+
+  
+
+
+
+

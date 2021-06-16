@@ -1,0 +1,159 @@
+---
+title: Apple Pay
+account: ABC
+---
+
+
+
+Start seamlessly accepting credit card payments from your customers via Touch ID and Face ID, eliminating the need for them to manually type in their card and shipping details.
+
+Apple Pay is automatically enabled on your account, unless you process payments in UAE or Saudi Arabia. If you operate in these regions, contact your Customer Success Manager to activate Apple Pay.
+
+Before you start
+----------------
+
+Before you can accept Apple Pay payments, you need to [set up and configure Apple Pay](/display/DOCS/Set+up+Apple+Pay).
+
+If you plan to process Apple Pay payment through an entity outside the European Economic Area (EEA), please contact your Customer Success manager or Integration engineer.
+
+Make a payment
+--------------
+
+Once you've set up and configured Apple Pay, you're ready to accept Apple Pay payments through our payment gateway.
+
+Supporting Mada cards
+
+Within Saudi Arabia, [Mada cards](/display/DOCS/Mada) can be processed in much the same way as other cards with Apple Pay, but you need to make sure that the device's payments permission is enabled for your merchant ID, and include Mada in the `supportedNetworks` array.
+
+### **Step 1:** Generate a Checkout.com token from the Apple Pay token
+
+After your customer validates their transaction with biometrics, Apple will generate a [payment token](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymenttoken).
+
+The first step in processing an Apple Pay transaction is to convert this Apple Pay token into a Checkout.com card token.
+
+Alternatively, if you want to decrypt the Apple Pay token yourself and process a payment, follow our [pay with a pre-decrypted token guide](/display/DOCS/Pay+with+a+pre-decrypted+Apple+Pay+token).
+
+### Endpoints
+
+For the full API specification, see the [API reference](https://api-reference.checkout.com/).
+
+*   [**Live**](#tabs-4ef7afcb-0403-405e-92e9-36909a84bc95-1)
+*   [**Sandbox**](#tabs-4ef7afcb-0403-405e-92e9-36909a84bc95-2)
+
+POST`https://api.checkout.com/tokens`
+
+POST`https://api.sandbox.checkout.com/tokens`
+
+### Request example
+
+    {
+      "type": "applepay",
+      "token_data": {
+        "version": "EC_v1",
+        "data": "t7GeajLB9skXB6QSWfEpPA4WPhDqB7ekdd+F7588arLzvebKp3P0TekUslSQ8nkuacUgLdks2IKyCm7U3OL/PEYLXE7w60VkQ8WE6FXs/cqHkwtSW9vkzZNDxSLDg9slgLYxAH2/iztdipPpyIYKl0Kb6Rn9rboF+lwgRxM1B3n84miApwF5Pxl8ZOOXGY6F+3DsDo7sMCUTaJK74DUJJcjIXrigtINWKW6RFa/4qmPEC/Y+syg04x7B99mbLQQzWFm7z6HfRmynPM9/GA0kbsqd/Kn5Mkqssfhn/m6LuNKsqEmbKi85FF6kip+F17LRawG48bF/lT8wj/QEuDY0G7t/ryOnGLtKteXmAf0oJnwkelIyfyj2KI8GChBuTJonGlXKr5klPE89/ycmkgDl+T6Ms7PhiNZpuGEE2QE=",
+        "signature": "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",
+        "header": {
+          "ephemeralPublicKey": "MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEX1ievoT8DRB8T5zGkhHZHeDr0oBmYEgsDSxyT0MD0IZ2Mpfjz2LdWq6LUwSH9EmxdPEzMunsZKWMyOr3K/zlsw==",
+          "publicKeyHash": "tqYV+tmG9aMh+l/K6cicUnPqkb1gUiLjSTM9gEz6Nl0=",
+          "transactionId": "3cee89679130a4b2617c76118a1c62fd400cd45b49dc0916d5b951b560cd17b4"
+        }
+      }
+    }
+
+### Response example
+
+    { 
+      "type": 'applepay',
+      "token": 'tok_ymu4qlccztkedmd6b7c3hcf6ae',
+      "expires_on": '2019-10-21T10:48:35Z',
+      "expiry_month": 8,
+      "expiry_year": 2023,
+      "scheme": 'Visa',
+      "last4": '6222',
+      "bin": '481891',
+      "card_type": 'Debit',
+      "card_category": 'Consumer',
+      "issuer": 'HSBC BANK PLC',
+      "issuer_country": 'GB',
+      "product_id": 'F',
+      "product_type": 'Visa Classic'
+    }
+
+Supporting Mada cards
+
+If accepting [Mada cards](/display/DOCS/Mada) via Apple Pay, do not include the supportsEMV value in the `[merchantCapabilities](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/1916123-merchantcapabilities)` array, otherwise it may cause a failure with a `20030` format error.
+
+### Step 2: Request a payment
+
+Using the token (`tok_...`) you got in the response above, make a standard payment request.
+
+### Endpoints
+
+For the full API specification, see the [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+*   [**Live**](#tabs-84d41802-40c6-47ee-84ff-72520e3faca3-1)
+*   [**Sandbox**](#tabs-84d41802-40c6-47ee-84ff-72520e3faca3-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+### Request example
+
+    {
+      "source": {
+        "type": "token",
+        "token": "tok_ymu4qlccztkedmd6b7c3hcf6ae"
+      },
+      "amount": 6500,
+      "currency": "USD"
+    }
+
+### Response
+
+If you get a `201 Success` response and the `approved` field is `true`, your payment was successful. If the transaction failed, it's likely that the payment request was made with an invalid/expired card, or a valid card with an insufficient available balance.
+
+Testing Apple Pay
+-----------------
+
+### Before you start
+
+To test Apple Pay payments, you'll need the following:
+
+*   An [Apple Pay compatible device](https://support.apple.com/en-us/HT208531).
+*   A [sandbox Apple Pay wallet](https://developer.apple.com/apple-pay/sandbox-testing/). (You cannot use a real Apple Pay wallet with real cards to test in sandbox.)
+
+### Apple Pay test cards
+
+Once you've got a compatible device and a sandbox Apple Pay wallet, you can add one of the following test cards to it. See our [testing guide](/display/DOCS/Testing) for more information.
+
+| Card | Number | Expiry | CVV |
+| ---- | ---- | ---- | ---- | --- |
+| Visa | `4761 1200 1000 0492` | 11/2022 | 533 |
+| Mastercard | `5204 2477 5000 1471` | 11/2022 | 111 |
+
+### Troubleshooting
+
+If something goes wrong, make sure you're using the correct keys, merchant ID and certificates. This is the most common issue we encounter. We recommend using descriptive names for your merchant IDs to clearly separate between your test and production environments.
+
+### Displaying the Apple Pay button
+
+If you don't have a card in your Apple Pay wallet, or you have a card that is not accepted based on the settings configured for Apple Pay (supported networks), your Apple Pay button might not be displayed if you display it conditionally (`session.canMakePaymentsWithActiveCard(...)`).
+
+### Validating the Apple Pay Session
+
+When validating the Apple Pay Session, keep note of the following:
+
+*   Make sure you're using the correct merchant ID, and the correct `.key` and `.pem` certificates associated with it.
+*   If you process payments for more than one business with us, make sure you are using the correct merchant ID and keys for each business.
+*   The same goes for the environment; if you configured your merchant ID in sandbox, make sure you are using the sandbox environment.
+
+### Making a payment
+
+If you are processing payments in UAE or Saudi Arabia, make sure you contact your customer success manager so they can enable Apple Pay on your account.
+
+Also, if you configured Apple Pay for one of your businesses, but then tried to send a payment request using the keys for another of your businesses, you may get an error.
+
+
+
+

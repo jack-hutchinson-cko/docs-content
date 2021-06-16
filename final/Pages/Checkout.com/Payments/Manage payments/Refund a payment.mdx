@@ -1,0 +1,124 @@
+---
+title: Refund a payment
+account: ABC
+---
+
+
+
+Use a refund to return a payment to a customer. Refunds can be made in the [Hub](https://hub.checkout.com/v2) or by using this API endpoint.
+
+There are two types of refunds you might need to process:
+
+*   **Full refund**. A full refund returns the total amount of the payment to the customer — it can only be performed once.
+*   **Partial refund**. A partial refund returns a sum less than the captured amount. A payment can be refunded multiple times, but cannot exceed the original payment amount.
+
+Refunds are always processed in the same currency as the captured payment.
+
+  
+
+You cannot cancel a refund after it has been processed.
+
+Overview
+--------
+
+To process a refund successfully, you must provide the payment ID of the captured payment. You can find the ID:
+
+*   In the response of the payment request
+*   In the webhook notification
+
+The requests are the same for partial and full refunds. Any refunds for less than the original captured amount will be considered partial refunds.
+
+Refund a payment
+----------------
+
+Use the endpoint below to request a refund.
+
+If required by the card scheme, we will trigger a [refund authorization](#Refundapayment-refundauthorization) before processing your refund.
+
+### Endpoints
+
+For the full API specification, see the [API reference](https://api-reference.checkout.com/).
+
+*   [**Live**](#tabs-1c3077ba-107e-4a9e-97a1-db57d630b064-1)
+*   [**Sandbox**](#tabs-1c3077ba-107e-4a9e-97a1-db57d630b064-2)
+
+POST`https://api.checkout.com/payments/{id}/refunds`
+
+POST`https://api.sandbox.checkout.com/payments/{id}/refunds`
+
+### Request example
+
+    {
+      "reference": "ORD-5023-4E89",
+      "metadata": {
+        "coupon_code": "NY2018",
+        "partner_id": 123989
+      }
+    }
+
+### Response examples
+
+A successful refund request returns a `202 Refund accepted` response. However, if there was a problem with your request, you'll receive an error response.
+
+*   [**202 Refund accepted**](#tabs-c2f8b8c5-962e-4ce6-bd0d-9217f4d5a462-1)
+*   [**422 Invalid data was sent**](#tabs-c2f8b8c5-962e-4ce6-bd0d-9217f4d5a462-2)
+
+    {
+      "action_id": "act_y3oqhf46pyzuxjbcn2giaqnb44",
+      "reference": "ORD-5023-4E89",
+      "_links": {
+        "payment": {
+          "href": "https://api.checkout.com/payments/pay_y3oqhf46pyzuxjbcn2giaqnb44"
+        }
+      }
+    }
+
+    {
+      "request_id": "0HL80RJLS76I7",
+      "error_type": "request_invalid",
+      "error_codes": [
+        "payment_source_required"
+      ]
+    }
+
+If unsuccessful, you may also receive a `403 Refund not allowed` or `404 Payment not found` error.
+
+Refund authorization 
+---------------------
+
+If the card scheme requires it, we will automatically trigger a refund authorization on your behalf before processing your refund.
+
+Refund authorizations only apply to card payments.
+
+  
+
+If a refund authorization is requested, you can find the Retrieval Reference Number (RRN) in [refund webhook notifications](/display/DOCS/Webhooks) and in the [get payment actions](/display/DOCS/Manage+payments) call.
+
+If the refund authorization is declined, you will receive a 422 response, like the one below.
+
+    {
+       "request_id": "f5feff3f-d2ef-4c82-b4d0-ff443731581f",
+       "error_type": "processing_error",
+       "error_codes": [
+           "refund_authorization_declined"
+       ]
+    }
+
+If you want to know the reason for the decline, you can either [subscribe to refund webhook notifications](/display/DOCS/Webhooks), use our [get payment actions endpoint](/display/DOCS/Get+payment+actions), or view it in your [Hub](/display/DOCS/Manage+Hub+payments) account.
+
+Testing
+
+To test a declined refund authorization, request a refund with the `amount` set to `3738`.
+
+Troubleshooting
+---------------
+
+If your refund request was unsuccessful, the checklist below may help you identify the problem:
+
+*   Is the refund amount higher than the original payment?
+*   Has the payment already been refunded?
+*   Did you send the authorization ID instead of the payment ID?
+
+
+
+

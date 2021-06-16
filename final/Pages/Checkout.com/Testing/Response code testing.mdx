@@ -1,0 +1,59 @@
+---
+title: Response code testing
+account: ABC
+---
+
+
+Create a payment with the amounts in the table below to simulate and trigger the listed response codes. To use them, just change the amount of your test payment. If you use any other amount, your payment will return as approved (response code `10000`).
+
+If an amount contains an `x`, you can replace it with any number of your choosing. For example, `xxx05` could be used as `12305`.
+
+| Amount | Response code | Description |
+| ---- | ---- | ---- |
+| `xxx05` | `20005` | Declined - Do not honour |
+| `xxx12` | `20012` | Invalid payment |
+| `xxx14` | `20014` | Invalid card number |
+| `xxx51` | `20051` | Insufficient funds |
+| `xxx54` | `20087` | Bad track data |
+| `xxx62` | `20062` | Restricted card |
+| `xxx63` | `20063` | Security violation |
+| `9998` | `20068` | Response received too late / timeout |
+| 
+
+`xxx150`
+
+Only for 3D Secure payments
+
+ | `20150` | Card not 3D Secure enabled |
+| 
+
+`6900`
+
+Only for 3D Secure payments
+
+ | `20150` | Unable to specify if card is 3D Secure enabled |
+| `5000` - `5029` | `20153` | 3D Secure system malfunction |
+| `6510` | `20154` | 3D Secure authentication required |
+| `6520` | `20154` | 3D Secure authentication required |
+| `6530` | `20154` | 3D Secure authentication required |
+| `6540` | `20154` | 3D Secure authentication required |
+| `xxx33` | `30033` | Expired card - Pick up |
+| `4001` | `40101` | Payment blocked due to risk |
+| `4008` | `40108` | Gateway reject - Post code failed |
+| `2011` | `200R1` | Issuer initiated a stop payment (revocation order) for this authorization |
+| `2013` | `200R3` | Issuer initiated a stop payment (revocation order) for all payments |
+
+Testing the amounts 2011 and 2013
+
+When testing the amounts `2011` and `2013`, the response codes `200R1` and `200R3` will only be returned on the first attempt. Additionally, if multiple attempts are made using a non-Visa credit card, this will lead to the card being locally blacklisted. You will need to whitelist it via the [risk engine settings](/display/DOCS/Risk+engine+settings).
+
+Bypassing the response codes
+----------------------------
+
+You can turn off this feature so that the payment will be approved no matter which amount is provided. To do so, simply set the card's expiry date to `01/2099`. 
+
+Response codes related to 3D Secure (`xxx150`, `6900`, and `5000` - `5029`) will not be bypassed.
+
+
+
+

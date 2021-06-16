@@ -1,0 +1,377 @@
+---
+title: Payments endpoint
+account: ABC
+---
+
+The payments endpoint allows you to search for all payments within parameters you specify.
+
+The payments endpoint is not available in the sandbox environment.
+
+If you're not familiar with creating API requests, you might want to take a look at our [Postman guide](/display/DOCS/Postman+guide).
+
+No payments from before February 7th, 2019 at 00.00.00 UTC will appear when using the payments endpoint. To view payments from before this time, please [contact our Support team](mailto:support@checkout.com).
+
+Request JSON
+------------
+
+### The GET request
+
+Use the details below to set up your request. To set the timeframe of your request, replace `{start-date-time}` and `{end-date-time}` with your desired start and end dates in ISO format (`yyyy-mm-ddThh:mm:ss`). Please note that the time zone for the request will be UTC.
+
+#### Endpoint
+
+*   [**Live**](#tabs-2aee3d41-3327-4040-8746-adc83148e807-1)
+
+GET`https://api.checkout.com/reporting/payments`
+
+#### Header parameters
+
+|
+
+#### Request parameters and endpoints
+
+You can filter the data in the payments endpoint by using the parameters below:
+
+|
+
+You can also [limit results](#Paymentsendpoint-limitresults).
+
+### The GET response
+
+If the payments endpoint returns a response, then the request was successful. Below, you can find an example response from the payments endpoint, in addition to a list of the fields that will be shown.
+
+By default, the payments endpoint returns up to 200 payments per page of results. You can [change this limit](#Paymentsendpoint-limitresults) if you'd like.
+
+#### Response example
+
+    {
+      "count": 1,
+      "data": [
+        {
+          "id": "pay_nezg6bx2k22utmk4xm5s2ughxi",
+          "processing_currency": "USD",
+          "payout_currency": "GBP",
+          "requested_on": "2019-03-08T10:29:51.922",
+          "channel_name": "www.example.com",
+          "reference": "ORD-5023-4E89",
+          "payment_method": "VISA",
+          "card_type": "CREDIT",
+          "card_category": "Consumer",
+          "issuer_country": "US",
+          "merchant_country": "SI",
+          "mid": "123456",
+          "actions": [
+            {
+              "type": "Authorization",
+              "id": "act_nezg6bx2k22utmk4xm5s2ughxi",
+              "processed_on": "2019-03-08T10:29:51.922",
+              "response_code": "10000",
+              "response_description": "Approved",
+              "breakdown": [
+                {
+                  "type": "Gateway Fee Tax ARE USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:51.922",
+                  "processing_currency_amount": -0.003,
+                  "payout_currency_amount": -0.00229212
+                },
+                {
+                  "type": "Authorization Fee Tax ARE USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:51.922",
+                  "processing_currency_amount": -0.0045,
+                  "payout_currency_amount": -0.00343819
+                },
+                {
+                  "type": "Scheme Fixed Fee Tax ARE USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:51.922",
+                  "processing_currency_amount": -0.00238223,
+                  "payout_currency_amount": -0.00182012
+                },
+                {
+                  "type": "Gateway Fee USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:51.922",
+                  "processing_currency_amount": -0.06,
+                  "payout_currency_amount": -0.04584248
+                },
+                {
+                  "type": "Authorization Fee USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:51.922",
+                  "processing_currency_amount": -0.09,
+                  "payout_currency_amount": -0.06876371
+                },
+                {
+                  "type": "Scheme Fixed Fee USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:51.922",
+                  "processing_currency_amount": -0.04764462,
+                  "payout_currency_amount": -0.03640246
+                }
+              ]
+            },
+            {
+              "type": "Capture",
+              "id": "act_chgfpd2kn3iellv7hwo6cfekea",
+              "processed_on": "2019-03-08T10:29:52.562",
+              "response_code": "10000",
+              "response_description": "Approved",
+              "breakdown": [
+                {
+                  "type": "Gateway Fee Tax ARE USD/GBP@0.7640412612",    
+                  "date": "2019-03-08T10:29:52.562",
+                  "processing_currency_amount": -0.003,
+                  "payout_currency_amount": -0.00229212
+                },
+                {
+                  "type": "Capture Fee Tax ARE USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:52.562",
+                  "processing_currency_amount": -0.0045,
+                  "payout_currency_amount": -0.00343819
+                },
+                {
+                  "type": "Scheme Fixed Fee Tax ARE USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:52.562",
+                  "processing_currency_amount": -0.00364341,
+                  "payout_currency_amount": -0.00278372
+                },
+                {
+                  "type": "Scheme Variable Fee Tax ARE USD/GBP@0.7640412612",      
+                  "date": "2019-03-08T10:29:52.562",
+                  "processing_currency_amount": -0.00714,
+                  "payout_currency_amount": -0.00545525
+                },
+                {
+                  "type": "Premium Fee Tax ARE USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:52.562",
+                  "processing_currency_amount": -0.06,
+                  "payout_currency_amount": -0.04584248
+                },
+                {
+                  "type": "Gateway Fee USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:52.562",
+                  "processing_currency_amount": -0.06,
+                  "payout_currency_amount": -0.04584248
+                },
+                {
+                  "type": "Capture Fee USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:52.562",
+                  "processing_currency_amount": -0.09,
+                  "payout_currency_amount": -0.06876371
+                },
+                {
+                  "type": "Scheme Fixed Fee USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:52.562",
+                  "processing_currency_amount": -0.07286825,
+                  "payout_currency_amount": -0.05567435
+                },
+                {               
+                  "type": "Scheme Variable Fee USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:52.562",
+                  "processing_currency_amount": -0.1428,
+                  "payout_currency_amount": -0.10910509
+                },
+                {
+                  "type": "Premium Fee USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:52.562",
+                  "processing_currency_amount": -1.2,
+                  "payout_currency_amount": -0.91684951
+                },
+                {
+                  "type": "RR (0.06%, Release: 2019-03-08) USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:52.562",
+                  "processing_currency_amount": -0.012,
+                  "payout_currency_amount": -0.01
+                },
+                {
+                  "type": "Captured USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:52.562",
+                  "processing_currency_amount": 20,
+                  "payout_currency_amount": 15.28082522
+                }
+              ]
+            },
+            {
+              "type": "Void Authorization",
+              "id": "act_4i7tyuj97qzendoopldc74rsg4",
+              "processed_on": "2019-03-08T10:29:53.157",
+              "response_code": "10000",
+              "response_description": "Approved",
+              "breakdown": [
+                {
+                  "type": "Void Fee USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:53.157",
+                  "processing_currency_amount": -0.55094670,
+                  "payout_currency_amount": -0.42094676
+                }
+              ]
+            },
+            {
+              "type": "Chargeback",
+              "id": "act_E198KE9B174L71WD6TF9",
+              "processed_on": "2019-03-08T10:29:53.399",
+              "response_code": "10.4",
+              "response_description": "Fraudulent Transaction – Card Absent Environment",
+              "breakdown": [
+                {
+                  "type": "Chargeback Fee",
+                  "date": "2019-03-08T10:29:53.399",
+                  "processing_currency_amount": -10.00000000,
+                  "payout_currency_amount": -10.00000000
+                },
+                {
+                  "type": "Chargeback (ADJM)",
+                  "date": "2019-03-08T10:29:53.399",
+                  "processing_currency_amount": -20.6700,
+                  "payout_currency_amount": -20.6700
+                }
+              ]
+            },
+            {
+              "type": "Refund",
+              "id": "act_hdwpzxgcoaceekwa8n54tmim5i",
+              "processed_on": "2019-03-08T10:29:53.864",
+              "response_code": "10000",
+              "response_description": "Approved",
+              "breakdown": [
+                {
+                  "type": "Refund Fee USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:53.864",
+                  "processing_currency_amount": -0.56329695,
+                  "payout_currency_amount": -0.43038211
+                },
+                {
+                  "type": "Refunded USD/GBP@0.7640412612",
+                  "date": "2019-03-08T10:29:53.864",
+                  "processing_currency_amount": -1195.65,
+                  "payout_currency_amount": -890.604696
+                }
+              ]
+            }
+          ],
+          "_links": {
+            "self": {
+              "href": "https://api.checkout.com/reporting/payments/pay_nezg6bx2k22utmk4xm5s2ughxi"
+            }
+          }
+        }
+      ],
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/reporting/payments/pay_nezg6bx2k22utmk4xm5s2ughxi"
+        }
+      }
+    }
+
+### Understanding the response
+
+The payments endpoint is designed to present your payments as clearly as possible. Depending on your parameters, you may receive a large response. If you’re looking for data even more quickly, try amending the parameters in the request. Regardless of the parameters in your request, the payments endpoint’s response can be split into four sections, each of which is outlined below.
+
+#### 1\. Payments
+
+This section displays all payment information in accordance with your chosen parameters. The table below shows the full list of parameters displayed, and how to decipher them.
+
+|
+
+#### 2\. Actions
+
+This section outlines all the actions — authorization, void, capture, refund, retrieval, and chargeback — which have been administered to a payment. The table below outlines and explains the parameters of the report.
+
+|
+
+#### 3\. Breakdown
+
+The amounts summary shows the amounts corresponding with a particular action. The table below shows the full list of these parameters and their explanations.
+
+|
+
+If you're looking for the outcome of a particular chargeback, please allow up to 60 days from the date the evidence was provided.
+
+#### 4\. Links
+
+You might have noticed several links at the bottom of the response from the payments endpoint. Let’s take a look at each one.
+
+##### Payment ID – Self
+
+This link allows you to focus on a particular payment that has been included in the response. As you can see, the final component of the link is `pay_sv6ikhu36mgepkm3l22pztvywa`, which corresponds to the payment ID for that particular payment in the response.
+
+    "_links": {
+      "self": {
+        "href": "http://api.checkout.com/reporting/payments/pay_sv6ikhu36mgepkm3l22pztvywa"
+      }
+    }
+
+##### Next
+
+This link lets you move to the next page of results. Results are paginated at a payment level. By default, a page contains 200 results — though you can [change this limit](#Paymentsendpoint-limitresults) if you'd like.
+
+    "_links": {
+      "next": {
+        "href": "http://api.checkout.com/reporting/payments?from=01%2F03%2F2019%2000%3A00%3A00&to=01%2F03%2F2019%2000%3A00%3A00&limit=1&after=11111111"
+      }
+    }
+
+##### Self
+
+This link provides the URL associated with the current request.
+
+    "_links": {
+      "self": {
+        "href": "http://api.checkout.com/reporting/payments?from=01%2F03%2F2019%2000%3A00%3A00&to=01%2F03%2F2019%2000%3A00%3A00&limit=1"
+      }
+    }
+
+Download a CSV
+--------------
+
+In addition to the JSON format described above, you can download a CSV report containing the data from the payments endpoint. To do this, follow the steps below.
+
+### How to download the CSV file
+
+In the URL for the payments endpoint, add `/download` after `/payments`. An example of this can be found below:
+
+    https://api.checkout.com/reporting/payments/download?from={start-date-time}&to={end-date-time}
+
+  
+If you are using Postman or an equivalent application, rather than sending the GET request, use the **Send and Download** functionality for the GET request to download the CSV report.
+
+Using `/download` will return a CSV containing all your payments unlike a standard request, which is paginated.
+
+You can also get a CSV report by amending the Headers section of the request to accept a value of `text/csv`. Note that this will contain the same paginated results as the JSON.
+
+### How to read the CSV file
+
+In your CSV file, a single payment is uniquely identified by an ID in the first column of the table and will be made of multiple rows, each of them reflecting a fee or an amount applied to a different action within the payment lifecycle. 
+
+Regardless of the parameters in your request, the payments endpoint’s CSV file will have the same overall structure and columns titles which can be split into three sections.
+
+#### 1\. Payment and card attributes
+
+This section displays all payment and card attributes in accordance with your chosen parameters.
+
+![](/download/attachments/2785479/payment_card_attributes.png?version=1&modificationDate=1586269227490&api=v2)
+
+#### 2\. Actions
+
+This section outlines all the actions — authorization, void, capture, refund and chargeback — which have been administered to a payment.
+
+![](/download/attachments/2785479/actions.png?version=1&modificationDate=1586269257664&api=v2)
+
+#### 3\. Breakdown
+
+This section provides details of the associated amounts to an action in both the processing and the payout currencies.
+
+![](/download/attachments/2785479/breakdown.png?version=1&modificationDate=1586269308205&api=v2)
+
+Limit results 
+--------------
+
+Responses from the payments endpoint can be large, depending on the number of payments you process and the parameters you have chosen. By default, each page includes 200 results.
+
+To limit your results, add `limit=` followed by a number of your choice (up to 500) at the end of the URL.
+
+For example:
+
+    http://api.checkout.com/reporting/payments?from=01%2F03%2F2019%2000%3A00%3A00&to=01%2F03%2F2019%2000%3A00%3A00&limit=100
+
+You can only limit results for JSON responses. A CSV will always contain all possible results.
+
+
+
+

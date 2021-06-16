@@ -1,0 +1,34 @@
+---
+title: dispute_lost
+account: ABC
+---
+
+Example: Dispute lost
+---------------------
+
+    {
+      "id": "evt_2ewyh3rdawmezabpjv5ott4zb4",
+      "type": "dispute_lost",
+      "created_on": "2018-07-10T11:04:48Z",
+      "data": {
+        "id": "dsp_htsplbakojv9xrhjiq10",
+        "date": "2018-07-10T11:04:48Z",
+        "category": "canceled_recurring",
+        "payment_id": "pay_jw6hstgapfjwqruebmrh"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.checkout.com/events/evt_2ewyh3rdawmezabpjv5ott4zb4"
+        },
+        "payment": {
+          "href": "https://api.checkout.com/payments/pay_jw6hstgapfjwqruebmrh"
+        },
+        "dispute": {
+          "href": "https://api.checkout.com/disputes/dsp_htsplbakojv9xrhjiq10"
+        }
+      }
+    }
+
+
+
+

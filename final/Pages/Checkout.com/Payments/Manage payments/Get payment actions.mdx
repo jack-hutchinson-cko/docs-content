@@ -1,0 +1,87 @@
+---
+title: Get payment actions
+account: ABC
+---
+
+
+
+Find out all you need to know about history of a payment. This API provides details about each step of the payment lifecycle.
+
+Use the details below to set up your request. In the URI, replace `{id}` with the `payment_id`.
+
+### Endpoints
+
+For the full API specification, see the [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+*   [**Live**](#tabs-63ebd7ec-e79a-405c-86e5-b89cacaf47d2-1)
+*   [**Sandbox**](#tabs-63ebd7ec-e79a-405c-86e5-b89cacaf47d2-2)
+
+GET`https://api.checkout.com/payments/{id}/actions`
+
+GET`https://api.sandbox.checkout.com/payments/{id}/actions`
+
+### Response example
+
+If successful, you should get a `200 Success` response returning a list of data relating to the payment.
+
+    [
+      {
+        "id": "act_gefycn3jcvuupboxfmqrhk2aym",
+        "type": "Refund",
+        "processed_on": "2018-01-20T10:30:48Z",
+        "amount": 6540,
+        "approved": true,
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "_links": {
+          "response-code": {
+            "href": "https://api.checkout.com/refs/response-codes/10000"
+          }
+        }
+      },
+      {
+        "id": "act_gefycn3jcvuupboxfmqrhk2aym",
+        "type": "Capture",
+        "processed_on": "2018-01-17T10:30:48Z",
+        "amount": 6540,
+        "approved": true,
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "metadata": {
+          "shipping_ref": "MQIBN2"
+        },
+        "_links": {
+          "response-code": {
+            "href": "https://api.checkout.com/refs/response-codes/10000"
+          }
+        }
+      },
+      {
+        "id": "act_y3oqhf46pyzuxjbcn2giaqnb44",
+        "type": "Authorization",
+        "processed_on": "2018-01-17T09:30:48Z",
+        "amount": 6540,
+        "approved": true,
+        "auth_code": "643381",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "reference": "ORD-5023-4E89",
+        "_links": {
+          "response-code": {
+            "href": "https://api.checkout.com/refs/response-codes/10000"
+          }
+        }
+      }
+    ]
+
+If your request is unsuccessful, you may receive a `404 – Payment not found` error.
+
+#### Payment actions
+
+The table below outlines the different payment actions and their meanings.
+
+|
+
+
+
+

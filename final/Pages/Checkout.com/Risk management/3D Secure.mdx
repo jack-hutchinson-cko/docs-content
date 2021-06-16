@@ -1,0 +1,256 @@
+---
+title: 3D Secure
+account: ABC
+---
+
+
+Authenticate your customers' payments with 3D Secure to reduce fraud and meet regulatory requirements.
+
+We currently support version 2.1.0 of the 3D Secure protocol.
+
+What is 3D Secure?
+==================
+
+3D Secure (3DS) – commonly known by its branded names: Visa Secure, Mastercard Identity Check, American Express SafeKey, and Diners Club ProtectBuy – requires customers to complete an extra authentication step with their card issuer when making a payment. Typically, you direct the customer to their bank’s website where they enter a password or a code sent to their phone to verify the payment. This helps protect you from fraud and makes payments more secure.
+
+3D Secure 2
+-----------
+
+The new version of 3D Secure – 3D Secure 2 (3DS2) – improves the checkout experience compared to 3D Secure 1. It uses a wider range of data and biometric authentication to allow for “frictionless authentication”, meaning a smoother, more secure payment flow for both you and your customers. If you do business in Europe, it's the best way to comply with the new [Strong Customer Authentication](#id-3DSecure-whatissca) (SCA) requirements introduced by the revised Payment Services Directive (PSD2).
+
+And if you're already using our existing 3DS integration, you don't have to do anything – our [3DS2 solution](/display/DOCS/3D+Secure+2+API+integration) does all the work for you.
+
+As of 31 December 2020 for the European Economic Area (EEA), or 14 September 2021 for the United Kingdom, if you do business in Europe, you need to be able to support 3DS2 and comply with SCA. This includes merchants who have not previously used 3DS. Please see below for [more detail on the SCA enforcement timeline](#id-3DSecure-enforcementtimeline).
+
+What is Strong Customer Authentication? 
+========================================
+
+When a customer makes an online payment, their bank may "challenge" them to provide more information before authenticating the payment – this is where SCA comes in.
+
+SCA requires you to build additional authentication into your payment flow, using two out of the following three authentication elements:
+
+*   Something the customers **knows** (like a password or PIN)
+*   Something the customer **has** (like a mobile phone or wearable device)
+*   Something the customer **is** (like their fingerprint or facial recognition)
+
+Banks will start soft declining payments that require SCA and don't meet these requirements from September 2020. [See below for more details on the enforcement timeline](#id-3DSecure-enforcementtimeline).
+
+Does SCA apply to me?
+---------------------
+
+The SCA requirements only apply to you if **both** of the following statements are true:
+
+1.  you are processing payments from cards issued in Europe (including the UK), **and**
+2.  you are processing payments through a European (including the UK) acquirer.
+
+If neither, or just one, of the above statements is true, you should apply SCA to transactions on the basis of best practice.
+
+However, even if it does apply to your business, particular payments you process may [fall out outside its scope or be exempt](#id-3DSecure-scaexemptions).
+
+When will SCA be enforced? 
+---------------------------
+
+The SCA requirements were originally meant to come into effect on 14 September 2019, but enforcement has been delayed.
+
+*   If you accept payments from the EEA, you must implement SCA by **31 December 2020**. 
+*   If you only accept payments from the UK, you need to implement SCA by **14 September 2021**.
+
+However, some issuing banks have started soft declining payments (in other words, not authorizing the payment without 3DS2 authentication) in preparation for this deadline, so we recommend you support 3DS2 as soon as possible to avoid any potential issues.
+
+When is SCA required? 
+----------------------
+
+SCA applies to customer-initiated payments, meaning most online card payments and bank transfers. However, specific low-risk payments fall outside its scope or are exempt.
+
+### Out of scope 
+
+#### **Merchant-initiated payments**
+
+Payments of a fixed or variable amount originating from the merchant, where the payment is made with a saved card, such as direct debits, recurring payments and subscriptions, are out of scope. However, this must be agreed between you and the cardholder, and addressed in the terms and conditions.
+
+As of 31 December 2020, you need to strongly authenticate the customer's card when you save it or when you take the first payment. However, we expect that banks will not start enforcing this immediately, but gradually as the volume through 3DS2 slowly increases. [See above](#id-3DSecure-enforcementtimeline) for more details on the enforcement timeline.
+
+#### **Mail order and telephone order payments**
+
+Mail order and telephone order (MOTO) payments fall outside the scope of SCA.
+
+#### **One leg out payments**
+
+One leg out (OLO) payments are transactions where the merchant, acquirer or issuer are based outside the European Economic Area (EEA).
+
+Possible scenarios of OLO payments which are considered as out of scope for SCA:
+
+|
+
+### Exemptions 
+
+If there is an SCA exemption that may be applicable to a payment, the relevant exemption may be requested in either the authentication or payment authorization. The customer's bank will then assess the risk of the payment and decide whether to accept the exemption or request strong customer authentication if they still think it is necessary.
+
+These exemptions include:
+
+#### **Low-risk payments**
+
+The payment may be exempted if the acquirer's and/or issuer’s average fraud levels for card payments and the amount do not exceed the following thresholds:
+
+*   Below 0.13% and the payment is less than €100
+*   Below 0.06% and the payment is less than €250
+*   Below 0.01% and the payment is less than €500
+
+#### **Low-value payments**
+
+Payments below €30 are considered low-value and may be exempt. However, the bank may still trigger strong authentication if, within a 24-hour period, this exemption has been used five times since the customer's last successful authentication or the total value spent on the card without SCA exceeds €100.
+
+#### **Payments to a trusted business**
+
+The customer may add a merchant to a whitelist after the initial strong customer authentication, meaning all subsequent payments to that business will be exempt.
+
+#### **Corporate payments**
+
+Corporate payments made with virtual and lodge cards (typically used for business travel expenses) or from central travel accounts are exempt.
+
+How 3D Secure 2 works
+=====================
+
+With 3DS2, you can embed the authentication process in your checkout flow, making for a better user experience compared to the original 3DS.
+
+Whenever a customer makes a payment, 3DS2 allows the merchant and a payment provider like us to send over 100 data elements (like the customer's shipping address, device ID and payment history) to the cardholder's bank to assess its risk level. And this all takes place behind the scenes within your web or mobile checkout flow.
+
+Based on this data, the customer's bank will then choose to immediately authenticate the payment ([frictionless flow](#id-3DSecure-frictionless)) or ask for more information before authenticating the payment ([challenge flow](#id-3DSecure-challenge)).
+
+Frictionless flow 
+------------------
+
+If the data is sufficient for the bank (so they trust that it is the cardholder making the payment), the payment will qualify for frictionless authentication and complete without affecting the customer's experience.
+
+Challenge flow 
+---------------
+
+If the bank decides it needs more proof, the authentication will follow the challenge flow and your customer will be prompted for [additional information](#id-3DSecure-whatissca) to authenticate their payment.
+
+Liability shift
+
+If the 3DS authentication is successful (whether following the frictionless or challenge flow), the liability for the payment is passed to the bank, protecting you from fraudulent transactions. However, if a payment relies on one of the exemptions mentioned above, the liability remains with you, the merchant.
+
+What is liability shift, and when does it occur?
+================================================
+
+This is when the liability for fraud-related chargebacks (for instance, your customer denies they made the purchase, suspecting someone has stolen their card details) shifts from you to the card issuer.
+
+As a general rule, the shift occurs when a payment is successfully authenticated with 3DS.
+
+Specifically:
+
+*   If the **card is enrolled for 3DS and authentication is successful**, the liability shifts from you to the issuer, and you can authorize the payment. [See Electronic Commerce Indicator (ECI) values 05 / 02](#id-3DSecure-liabilityshiftrules).
+    
+
+*   If you **attempt authentication but the issuer doesn't support 3DS or its access control server doesn't respond**, the liability shifts to the issuer, as long as the attempt includes a cryptogram (CAVV/AVV) from the card scheme's directory server. [See ECI 06 (non-Mastercard) / 01](#id-3DSecure-liabilityshiftrules).
+    
+
+*   If the **card supports 3DS but authentication could not be attempted for technical reasons** (for example, there's a network error, or the customer closes the window during verification), liability remains with you, but you can decide whether or not to authorize the transaction. [See ECI 07 (non-Mastercard) / 00](#id-3DSecure-liabilityshiftrules).
+    
+
+*   If **authentication fails because the cardholder does not pass the challenge**, liability remains with you and you should not proceed with the payment. [See ECI 07 (non-Mastercard) / 00](#id-3DSecure-liabilityshiftrules).
+
+*   Mastercard also has some **rules specific to 3DS2**. [See Mastercard ECIs 04, 06, 07](#id-3DSecure-liabilityshiftrules).
+
+ Liability shift rules
+
+### Visa, American Express, and JCB liability shift rules
+
+| Transaction type | Electronic Commerce Indicator | 3D Secure version | Liability shift |
+| ---- | ---- | ---- | ---- |
+| 
+
+3DS authentication was attempted but was not or could not be completed.
+
+| 06
+
+| 3DS1 and 2
+
+| Yes (where a cryptogram was included in the attempt)
+
+ |
+| 
+
+3DS authentication either failed or could not be attempted.
+
+| 07
+
+| 3DS1 and 2
+
+| No
+
+ |
+
+### Mastercard liability shift rules
+
+| Transaction type | Electronic Commerce Indicator | 3D Secure version | Liability shift |
+| ---- | ---- | ---- | ---- |
+| 
+
+3DS authentication was attempted but was not or could not be completed.
+
+| 01
+
+| 3DS1 and 2
+
+| Yes (where a cryptogram was included in the attempt)
+
+ |
+| 
+
+3DS authentication was successful; transaction secured by 3DS.
+
+| 02
+
+| 3DS1 and 2
+
+| Yes
+
+ |
+| 
+
+Frictionless authentication via the Mastercard Identity Check Data Only service.
+
+| 04
+
+| 3DS2
+
+| No
+
+ |
+| 
+
+Transaction is [out of scope](#id-3DSecure-outofscope) or [exempt](#id-3DSecure-exemptions) from Strong Customer Authentication.
+
+| 06
+
+| 3DS2
+
+| No
+
+ |
+| 
+
+3DS authentication was successful; recurring transaction secured by 3DS.
+
+| 07
+
+| 3DS2
+
+| Yes
+
+ |
+
+Our 3DS2 solution
+=================
+
+[Our 3DS2 solution](/display/DOCS/3D+Secure+2+API+integration) is integrated into your payment flow, gathering all the required information for you to comply with SCA. And it's built on our existing 3DS integration, so if you're already using that, you don't have to change anything.
+
+We're gradually switching European merchants' traffic over to 3DS2 in countries where card issuers widely support the new protocol. If they don't yet support the new version, the request will automatically default to the original 3DS.
+
+  
+
+
+
+

@@ -1,0 +1,510 @@
+---
+title: Boleto Bancário
+account: ABC
+---
+
+
+Start accepting payments using Boleto Bancário, a favorite payment method in Brazil. Used as vouchers, it can process payments in US Dollars and Brazilian Real.
+
+If you want to use a gateway model for accepting Boleto Bancário payments, you will need to arrange an agreement with our provider, dLocal, and create merchant details (specifically,  `x_login` and `x_trans_key`) and a secret key with them. Share these details with our Customer Support team and we'll get you up and running. If you have already been onboarded for one of our other dLocal payment methods, you can use the same credentials.
+
+Overview
+--------
+
+Boleto Bancário can be used by either redirecting the customer to a statically hosted ticket (`redirect` integration method) or by rendering the complete ticket within your own checkout flow (`direct` integration method).
+
+Payments follow a two-step process:
+
+1.  [Request a payment](#BoletoBancário-request)
+2.  [Redirect the customer or render the ticket](#BoletoBancário-redirect-render)
+
+Step 1: Request a payment 
+--------------------------
+
+### The POST request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-3730a8d7-1ce3-4a48-9261-8038495348fd-1)
+*   [**Sandbox**](#tabs-3730a8d7-1ce3-4a48-9261-8038495348fd-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+| Header | Value |
+| ---- | ---- |
+| 
+
+`Authorization`
+
+REQUIRED| `secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2). |
+| 
+
+`Content-Type`
+
+REQUIRED | `application/json` |
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+| Field name | Description |
+| ---- | ---- |
+| 
+
+`source`
+
+REQUIRED
+
+OBJECT| Details about the payment source.
+
+ |
+| 
+
+`source.type`
+
+REQUIRED
+
+STRING| The type of payment source. Set this to `boleto`.
+
+ |
+| 
+
+`source.integration_type`
+
+REQUIRED
+
+STRING
+
+| The type of integration. Either `direct` or `redirect`.
+
+*   `direct`: a ticket object is returned, which you can use to render a ticket to the customer. No redirect URL is returned.
+*   `redirect`: a redirect URL is returned. Redirect the customer to this URL to proceed with the payment.
+
+ |
+| 
+
+`source.country`
+
+REQUIRED
+
+STRING| The two-letter code (ISO 3166) of the customer's country. Should be `BR`.
+
+ |
+| 
+
+`source.payer`
+
+REQUIRED
+
+OBJECT| Details about the customer.
+
+ |
+| 
+
+`source.payer.name`
+
+REQUIRED
+
+STRING| The full name of the customer.
+
+ |
+| 
+
+`source.payer.email`
+
+REQUIRED
+
+STRING| The email address of the customer.
+
+ |
+| 
+
+`source.payer.document`
+
+REQUIRED
+
+STRING | The customer's tax identification number. Either Cadastro de Pessoas Físicas (CPF) or Cadastro Nacional da Pessoa Jurídica (CNPJ). |
+| 
+
+`source.description`
+
+OPTIONAL
+
+STRING
+
+ | A description of the payment. |
+| 
+
+`amount`
+
+REQUIRED
+
+INTEGER | The payment amount. |
+| 
+
+`currency`
+
+REQUIRED
+
+STRING | The three-letter currency code (ISO 4217). Should be `BRL` or `USD`. |
+
+#### Request examples
+
+*   [**Redirect**](#tabs-84246597-1412-48af-95b2-a99beba5057f-1)
+*   [**Direct**](#tabs-84246597-1412-48af-95b2-a99beba5057f-2)
+
+    {
+      "source": {
+        "type": "boleto",
+        "integration_type": "redirect",
+        "country": "BR",
+        "payer": {
+          "name": "John Doe",
+          "email": "john@doe-enterprises.com",
+          "document": "53033315550"
+        },
+        "description": "boleto payment"
+      },
+      "amount": 100,
+      "currency": "BRL"
+    }
+
+    {
+      "source": {
+        "type": "boleto",
+        "integration_type": "direct",
+        "country": "BR",
+        "payer": {
+          "name": "John Doe",
+          "email": "john@doe-enterprises.com",
+          "document": "53033315550"
+        },
+        "description": "boleto payment"
+      },
+      "amount": 100,
+      "currency": "BRL"
+    }
+
+### The POST response
+
+Whether you used the direct or redirect method, you should get a `202` response with the `status` field set to `Pending`. This means your request has been accepted.
+
+#### Response examples
+
+*   [**Redirect**](#tabs-fd6b615c-555e-4151-93f9-9a48696f77be-1)
+*   [**Direct**](#tabs-fd6b615c-555e-4151-93f9-9a48696f77be-2)
+
+    {
+      "id": "pay_hcklpcd45ymepcr7thciirbdaa",
+      "status": "Pending",
+      "customer": {
+        "id": "cus_kh6eqv276rou7ae5s3uwj4emnq"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_hcklpcd45ymepcr7thciirbdaa"
+        },
+        "redirect": {
+          "href": "https://sandbox.dlocal.com/collect/pay/pay/M-8aaf7e50-682f-11ea-ab15-cd9dd592717d?xtid=CATH-ST-1584436398-2076616064"
+        }
+      }
+    }
+
+    {
+      "id": "pay_gxw65fs6rijepgn4rb5tqqvp5u",
+      "status": "Pending",
+      "customer": {
+        "id": "cus_6unw4ulqvrlenduk4xiurlbiyq"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_gxw65fs6rijepgn4rb5tqqvp5u"
+        }
+      }
+    }
+
+Step 2: Redirect the customer or render the ticket 
+---------------------------------------------------
+
+To complete the payment, you need to provide the customer with a Boleto Bancário ticket by following one of two flows:
+
+*   If you used the `redirect` method, [redirect the customer](#BoletoBancário-redirect).
+*   If you used the `direct` method, [render the ticket](#BoletoBancário-rendertheticket).
+
+### Redirect the customer 
+
+When using the `redirect` integration method, make sure your customer is aware that they will be redirected to the ticket page when they click your "Pay now" button, and that they should print or save the ticket.
+
+Using the redirection URL returned in the response above via `_links.redirect`, redirect your customer to the static, hosted Boleto Bancário ticket page. Once redirected, your customer should save or print the ticket.
+
+A button on the page will allow them to return to your shop:
+
+*   If the ticket is still valid, they will be redirected to your success URL.
+*   If the ticket has expired, they will be redirected to your failure URL.
+
+  
+
+Your payment confirmation page should make it clear to the customer that their purchase has not yet been completed. Explain that it has been reserved and is pending payment before the order can be completed and the goods/services can be delivered.
+
+### Render the ticket 
+
+Redirect your customer to your payment confirmation page, where you should summarize their order and render the Boleto Bancário ticket so they can complete the payment.
+
+Your payment confirmation page should make it clear to the customer that their purchase has not yet been completed. Explain that it has been reserved and is pending payment before the order can be completed and the goods/services can be delivered.
+
+To get the components necessary to render the ticket, use the ['get payment details' endpoint](https://docs.checkout.com/docs/boleto-bancario#section-get-details-about-a-payment) below. This will return a `ticket` object which contains the components to display the ticket.
+
+  
+
+Tips for displaying the ticket:
+
+*   Allow the customer to copy the **ticket number**. They need to enter this in their banking app/website to complete the payment.
+*   Include the **barcode**. Customers who pay at a physical store or use a barcode reader will need this.
+*   The barcode needs to be in the **Interleaved 2 of 5** (ITF) format to be recognised by all Boleto Bancário barcode readers.
+*   Include the **amount** and **currency** on the ticket.
+*   Make sure the **expiry date** is clear and visible, and use the **dd/mm/yyyy** format.
+*   You can also include a link to the full ticket with the `source.ticket.image_url`. It's not necessary for payment, but some customers prefer to have it.
+
+Here's an example:
+
+![](/download/attachments/2785387/boleto_ticket_render_example.png?version=1&modificationDate=1588766754170&api=v2)
+
+Get details about a payment
+---------------------------
+
+Using the following endpoint, pass the payment `id` (for example, `pay_hcklpcd45ymepcr7thciirbdaa`) from the payment response to get details about the payment.
+
+### The GET request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-f35db5ff-59aa-48bb-aa15-4f0c599eb196-1)
+*   [**Sandbox**](#tabs-f35db5ff-59aa-48bb-aa15-4f0c599eb196-2)
+
+GET`https://api.checkout.com/payments/{payment_id}`
+
+GET`https://api.sandbox.checkout.com/payments/{payment_id}`
+
+#### Header and path parameters
+
+| Header | Value |
+| ---- | ---- |
+| 
+
+`Authorization`
+
+REQUIRED| `secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2). |
+| 
+
+`Content-Type`
+
+REQUIRED | `application/json` |
+
+| Path | Value |
+| ---- | ---- |
+| 
+
+`payment_id`
+
+REQUIRED | The payment ID found in the response of the initial response |
+
+### The GET response
+
+The response will differ depending on which integration type (`redirect` or `direct`) you used in the initial payment request.
+
+#### Response examples
+
+##### Redirect
+
+*   [**Payment pending**](#tabs-d531514b-d9fa-4ff0-b776-11a04daf96e3-1)
+*   [**Payment captured**](#tabs-d531514b-d9fa-4ff0-b776-11a04daf96e3-2)
+
+    {
+      "id": "pay_hcklpcd45ymepcr7thciirbdaa",
+      "requested_on": "2020-03-17T09:13:18Z",
+      "source": {
+        "type": "boleto",
+        "dlocal_order_id": "430fa151c1034a8788950dcaf061c6b8",
+        "dlocal_payment_id": "D-30150-39d14a21-f598-4163-b8d0-2befaf9acc29"
+      },
+      "amount": 100,
+      "currency": "BRL",
+      "payment_type": "Regular",
+      "status": "Pending",
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_kh6eqv276rou7ae5s3uwj4emnq"
+      },
+      "_links": {
+        "redirect": {
+          "href": "https://sandbox.dlocal.com/collect/pay/pay/M-8aaf7e50-682f-11ea-ab15-cd9dd592717d?xtid=CATH-ST-1584436398-2076616064"
+        },
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_hcklpcd45ymepcr7thciirbdaa"
+        }
+      }
+    }
+
+    {
+      "id": "pay_wflckd47jlwetk6zbm472m7vjm",
+      "requested_on": "2020-04-27T12:59:26Z",
+      "source": {
+        "type": "boleto",
+        "dlocal_order_id": "33f1ab1423b24d70baee5aea9207ee97",
+        "dlocal_payment_id": "D-30150-e017ac0d-4f42-43d2-a12b-60f2322367bb",
+        "integration_type": "redirect",
+        "description": "simulate Boleto Bancário Demo Payment"
+      },
+      "amount": 100,
+      "currency": "BRL",
+      "payment_type": "Regular",
+      "status": "Captured",
+      "approved": true,
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_cjdi2jubn2gevguvki3qsl5zby"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_wflckd47jlwetk6zbm472m7vjm"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_wflckd47jlwetk6zbm472m7vjm/actions"
+        },
+        "refund": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_wflckd47jlwetk6zbm472m7vjm/refunds"
+        }
+      }
+    }
+
+##### Direct
+
+    {
+      "id": "pay_gxw65fs6rijepgn4rb5tqqvp5u",
+      "requested_on": "2020-03-17T09:14:17Z",
+      "source": {
+        "type": "boleto",
+        "dlocal_order_id": "c0e6cc2bf24c43c79fbbee55df293f5c",
+        "dlocal_payment_id": "D-30150-e59f330d-4b92-487c-a09a-3307be2184b7",
+        "ticket": {
+          "type": "custom",
+          "number": "10499136581700010004400067492298882020000000100",
+          "barcode": "10498820200000001009136517000100040006749229",
+          "id": "14000000000674922",
+          "expiration_date": "2020-03-23T02:59:00Z",
+          "company_name": "dLocal",
+          "provider_name": "caixa",
+          "provider_logo_url": "https://static-sandbox.dlocal.com/images/providers/caixa.png",
+          "ticket_url": "https://sandbox.dlocal.com/gmf/payments/M-ae4c2980-682f-11ea-ab15-cd9dd592717d"
+        }
+      },
+      "amount": 100,
+      "currency": "BRL",
+      "payment_type": "Regular",
+      "status": "Pending",
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_6unw4ulqvrlenduk4xiurlbiyq"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_gxw65fs6rijepgn4rb5tqqvp5u"
+        }
+      }
+    }
+
+  
+
+Refund and chargebacks
+----------------------
+
+### Refund a payment
+
+You can refund a Boleto Bancário payment using our [refund API](/display/DOCS/Refund+a+payment). Partial and multiple – as well as full – refunds are allowed.
+
+The customer will get an email (the email address is taken from the `source.payer.email` property in the initial payment request) from dLocal asking for their banking details. Once the customer has provided their details, dLocal transfer the money to the customer's bank account.
+
+The payment status will update to `refunded` and you will receive a `payment_refunded` (or `payment_refund_declined`, if unsuccessful) webhook notification.
+
+A refund processing fee may apply.
+
+### Chargebacks
+
+There is no chargeback mechanism for Boleto Bancário.
+
+Cancel a payment
+----------------
+
+You cannot cancel a Boleto Bancário payment, but it will expire after seven days (or more, if you have requested a longer period) if the customer fails to complete the transaction in this time. If the payment expires, we'll send you a `payment_expired` webhook.
+
+Webhooks
+--------
+
+| Webhooks | Description |
+| ---- | ---- |
+| `payment_pending`| Sent when a payment request is successfully initiated.
+
+ |
+| `payment_capture_pending`| Sent when the acquirer is in the process of accepting the payment.
+
+ |
+| `payment_captured`| Sent when the customer has completed the payment with the ticket.
+
+ |
+| `payment_expired`| Sent when the ticket has expired.
+
+ |
+| `payment_declined`| Sent when there was a failure in creating the payment.
+
+ |
+| `payment_refund_pending`| Sent when a refund is successfully initiated.
+
+ |
+| `payment_refunded`| Sent when a refund is successfully processed.
+
+ |
+| `payment_refund_declined`| Sent when a refund is declined.
+
+ |
+
+Learn more about [webhooks and how to subscribe to them](/display/DOCS/Webhooks).
+
+Testing
+-------
+
+To start testing, you'll need to:
+
+*   [create a test account](https://www.checkout.com/get-test-account), and
+*   contact your Customer Success Manager or Integrations engineer to activate Boleto Bancário payments in the sandbox environment.
+
+In your sandbox environment, you can test payment capture and expiration, as well as refund success and failure.
+
+In order to test these actions, pass the string `"simulate"` as part of the `source.description` field in the initial payment request.
+
+When you do, you will receive additional hypermedia links in the `_links` object in the payment response and in the 'get payment details' response.
+
+Use the URLs contained in the `simulator:payment-succeed`, `simulator:payment-expire`, `simulator:refund-succeed` and `simulator:refund-fail` hypermedia objects to simulate the respective action/state change on the test payment.
+
+You can only test the `redirect` payment flow in sandbox.
+
+
+
+

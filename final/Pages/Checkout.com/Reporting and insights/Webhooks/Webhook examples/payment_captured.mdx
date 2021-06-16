@@ -1,0 +1,39 @@
+---
+title: payment_captured
+account: ABC
+---
+
+Example: Captured payment
+-------------------------
+
+    {
+      "id": "evt_6aznipgxbuaure3qen5qbzyswy",
+      "type": "payment_captured",
+      "created_on": "2019-06-07T08:25:22Z",
+      "data": {
+        "action_id": "act_gse7gcrhleuedmzhq25n3mhweq",
+        "response_code": "10000",
+        "response_summary": "Approved",
+        "amount": 10000,
+        "processing": {
+          "acquirer_transaction_id": "8137549557",
+          "acquirer_reference_number": "000220552364"
+        },
+        "id": "pay_waji5li3mqtetnaor77xmow4bq",
+        "currency": "EUR",
+        "processed_on": "2019-06-07T08:25:22Z",
+        "reference": "ORD-5023-4E89"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/events/evt_6aznipgxbuaure3qen5qbzyswy"
+        },
+        "payment": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_waji5li3mqtetnaor77xmow4bq"
+        }
+      }
+    }
+
+
+
+

@@ -1,0 +1,108 @@
+---
+title: Calculating the value
+account: ABC
+---
+
+Our payment gateway determines the charge amount by assessing the value and the currency contained in the charge request.
+
+The value field in a charge request must be a non-zero positive integer — no decimals. Depending on the currency of the payment, there are three options for calculating the value amount:
+
+*   [The full value](#Calculatingthevalue-fullvalue)
+*   [The value divided by 1000](#Calculatingthevalue-valuediv1000)
+*   [The value divided by 100](#Calculatingthevalue-valuediv100)
+
+**Please note:**  
+The `amount` field accepts a minimum of one and a maximum of nine digits; this is true for all currencies.
+
+Option 1: The full value 
+-------------------------
+
+For the following currencies, the value is the same as the full charge amount. For example, `amount = 100` is equal to 100 Japanese Yen.
+
+| Currency code | Currency name |
+| ---- | ---- |
+| BIF | Burundian Franc |
+| CLF | Chilean Unidad de Fomentos |
+| DJF | Djiboutian Franc |
+| GNF | Guinean Franc |
+| ISK | Icelandic Krona |
+| JPY | Japanese Yen |
+| KMF | Comoran Franc |
+| KRW | South Korean Won |
+| PYG | Paraguayan Guarani |
+| RWF | Rwandan Franc |
+| UGX | Ugandan Shilling |
+| VUV | Vanuatu Vatu |
+| VND | Vietnamese Dong |
+| XAF | Central African Franc |
+| XOF | West African CFA franc |
+| XPF | Comptoirs Français du Pacifique |
+
+Below is an example payment request for 5000 Japanese Yen. 
+
+    {
+      "source": {
+        "type": "card",
+        "number": "4242424242424242",
+        "expiry_month": 6,
+        "expiry_year": 2022
+      },
+      "amount": 5000,
+      "currency": "JPY"
+    }
+
+Option 2: The value divided by 1000 
+------------------------------------
+
+With the below currencies, divide the value by 1000 to work out the value amount. For example, `value = 1000` is the same as 1 Bahraini Dinar.
+
+**Please note:**  
+The last digit must always be a `0`. For example, a value of `1310` would be processed, whereas `1312` will fail.
+
+| Currency code | Currency name |
+| ---- | ---- |
+| BHD | Bahraini Dinar |
+| IQD | Iraqi Dinar |
+| JOD | Jordanian Dinar |
+| KWD | Kuwaiti Dinar |
+| LYD | Libyan Dinar |
+| OMR | Omani Rial |
+| TND | Tunisian Dinar |
+
+The example below shows a payment request for 50 Bahraini Dinars.
+
+    {
+      "source": {
+        "type": "card",
+        "number": "4242424242424242",
+        "expiry_month": 6,
+        "expiry_year": 2022
+      },
+      "amount": 50000,
+      "currency": "BHD"
+    }
+
+Option 3: The value divided by 100 
+-----------------------------------
+
+For all other currencies, divide the value by 100 to calculate the charge amount. For example, `value = 100` is equivalent to 1 US Dollar.
+
+**For Chilean Peso (CLP) payments:**  
+The last two digits must be `00`. For example, a value of `500100` would be processed successfully whereas `500095` would not.
+
+The following example is a payment request for 50.95 US Dollars.
+
+    {
+      "source": {
+        "type": "card",
+        "number": "4242424242424242",
+        "expiry_month": 6,
+        "expiry_year": 2022
+      },
+      "amount": 5095,
+      "currency": "USD"
+    }
+
+
+
+

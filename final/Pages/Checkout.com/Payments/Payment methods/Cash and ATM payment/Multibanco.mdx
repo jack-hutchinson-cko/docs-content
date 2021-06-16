@@ -1,0 +1,262 @@
+---
+title: Multibanco
+account: ABC
+---
+
+
+Accept payments using Multibanco, a popular payment method in Portugal.
+
+To start accepting Multibanco payments, please contact your Customer Success Manager.
+
+Overview
+--------
+
+Multibanco payments follow a two-step process:
+
+1.  [Request a Multibanco payment](#Multibanco-requestapayment)
+2.  [Redirect the customer](#Multibanco-redirectthecustomer)
+
+Request a payment 
+------------------
+
+### The POST request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-2f3eaed5-1288-416d-876a-d07f7a7b76b9-1)
+*   [**Sandbox**](#tabs-2f3eaed5-1288-416d-876a-d07f7a7b76b9-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+| Header | Value |
+| ---- | ---- |
+| 
+
+`Authorization`
+
+REQUIRED| `secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+ |
+| 
+
+`Content-Type`
+
+REQUIRED | `application/json` |
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+| Field name | Description |
+| ---- | ---- |
+| 
+
+`amount`
+
+REQUIRED
+
+INTEGER
+
+ | The payment amount |
+| 
+
+`currency`
+
+REQUIRED
+
+STRING | The currency in which the payment is being made (three-letter ISO 4217 code). Set this to `EUR` |
+| 
+
+`source`
+
+REQUIRED
+
+OBJECT | Details about the payment source |
+| 
+
+`source.type`
+
+REQUIRED
+
+STRING | The type of payment source. Set this to `multibanco`. |
+| 
+
+`source.payment_country`
+
+REQUIRED
+
+STRING | The country in which the payment instrument is issued/operated (two-letter ISO 3166 code). Set this to `PT`. |
+| 
+
+`source.account_holder_name`
+
+REQUIRED
+
+STRING | The account holder's name. |
+| 
+
+`source.billing_descriptor`
+
+OPTIONAL
+
+STRING | Typically, the trading name of your company or the name of your service. |
+
+#### Request example
+
+    {
+      "amount": 100,
+      "currency": "EUR",
+      "source": {
+        "type": "multibanco",
+        "payment_country": "PT",
+        "account_holder_name": "Bruce Wayne",
+        "billing_descriptor": "Multibanco Demo Payment"
+      }
+    }
+
+### The POST response
+
+If you receive a `202 Success` response with a `status` field set to `Pending`, your request was successful.
+
+#### Response example
+
+    {
+      "id": "pay_cdv64cky2neeljlss37yjpofzu",
+      "status": "Pending",
+      "customer": {
+        "id": "cus_ezuq5ju3ln4udgaz6joebp3p44"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_cdv64cky2neeljlss37yjpofzu"
+        },
+        "multibanco:static-reference-page": {
+          "href": "https://r.girogate.de/ti/simmultibanco?tx=512308296&rs=y5XBJFK6UF0R7gcn4lcQlbtc5wD2ppQ1&cs=058d2f4cecebaf97933ac9fb465a517ab84395eca459900105526a823460a90a"
+        }
+      }
+    }
+
+Redirect the customer 
+----------------------
+
+Redirect your customer to the `multibanco:static-reference-page` link’s href in the response. The customer will be redirected to a Multibanco page where they can authorize the payment, before being transferred to your predefined success or failure URL.
+
+Get details about a payment
+---------------------------
+
+You can use the `payment_id` found in the payment response, or the `cko-session-id` from the success/failure URL (e.g., `https://www.checkout.com/order/succeeded?cko-session-id=**sid_vii64oquze5u3h2x6hh4rurc4y**`) to retrieve details about the payment.
+
+The `cko-session-id` expires 15 minutes after being created.
+
+### The GET request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-67b81985-1766-41bd-b1e9-4fd00b472bca-1)
+*   [**Sandbox**](#tabs-67b81985-1766-41bd-b1e9-4fd00b472bca-2)
+
+GET`https://api.checkout.com/payments/{payment_id}`
+
+GET`https://api.sandbox.checkout.com/payments/{payment_id}`
+
+#### Header and path parameters
+
+| Header | Value |
+| ---- | ---- |
+| 
+
+`Authorization`
+
+REQUIRED| `secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2). |
+| 
+
+`Content-Type`
+
+REQUIRED | `application/json` |
+
+| Path | Value |
+| ---- | ---- |
+| 
+
+`payment_id`
+
+REQUIRED | The payment ID found in the response of the initial response. |
+
+### The GET response
+
+#### Response example
+
+    {
+      "id": "pay_cdv64cky2neeljlss37yjpofzu",
+      "requested_on": "2019-09-25T06:05:22Z",
+      "source": {
+        "type": "multibanco",
+        "service_supplier_id": "11854",
+        "payment_reference": "999999919"
+      },
+      "amount": 100,
+      "currency": "EUR",
+      "payment_type": "Regular",
+      "status": "Captured",
+      "approved": true,
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_ezuq5ju3ln4udgaz6joebp3p44"
+      },
+      "actions": [
+        {
+          "id": "act_n7qvjkcqgvlutongpq7vxshauy",
+          "type": "Capture",
+          "response_code": "10000",
+          "response_summary": "Approved"
+        }
+      ],
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_cdv64cky2neeljlss37yjpofzu"
+        },
+        "actions": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_cdv64cky2neeljlss37yjpofzu/actions"
+        },
+        "refund": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_cdv64cky2neeljlss37yjpofzu/refunds"
+        }
+      }
+    }
+
+Testing Multibanco
+------------------
+
+To start testing, you'll need to:
+
+*   [create a test account](https://www.checkout.com/get-test-account), and
+*   contact your Customer Success Manager or Integrations engineer to activate Multibanco payments in the sandbox environment.
+
+1.  Create a Multibanco transaction as above, following the redirect link in the response to Multibanco's website.
+    
+2.  Select **Multibanco**.
+    
+3.  Click **Pay now**. You will be redirected to the Multibanco Simulator.
+    
+4.  Leave the _Pin_ field blank and click **Make Payment**.
+    
+5.  Click **Back to where you came from** to be redirected to your predefined success URL.
+    
+
+
+
+

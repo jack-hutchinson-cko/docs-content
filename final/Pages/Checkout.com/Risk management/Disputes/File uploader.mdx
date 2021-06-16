@@ -1,0 +1,140 @@
+---
+title: File uploader
+account: ABC
+---
+
+
+Our file uploader allows you to upload files to Checkout.com. You can then use these to [provide evidence in a dispute](/display/DOCS/Disputes+API).
+
+Upload a file
+-------------
+
+Upload a file to use as evidence in a dispute. Your request must be multipart/form-data and the file must be in either JPEG/JPG, PNG or PDF format, and no larger than 4MB.
+
+### The POST request
+
+#### Endpoints
+
+*   [**Live**](#tabs-19ac82ae-43ad-4852-b88b-035d709df22a-1)
+*   [**Sandbox**](#tabs-19ac82ae-43ad-4852-b88b-035d709df22a-2)
+
+POST`https://api.checkout.com/files`
+
+POST`https://api.sandbox.checkout.com/files`
+
+#### Header parameters
+
+| Header | Value |
+| ---- | ----  |
+| `Authorization`<br> REQUIRED | `secret key` <br> Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2) |
+
+#### Additional parameters
+
+| Parameter | Description |
+| ---- | ---- |
+| `file` <br> REQUIRED | STRING (BINARY)| The path of the file to upload, and its type. <br> This must be a local path. |
+| `purpose` <br> REQUIRED <br>STRING| The purpose of the file upload. You must set this to `dispute_evidence`. |
+
+#### Request example
+
+*   [**cURL**](#tabs-30528602-ffb1-47e8-99ef-cfb7c9b89269-1)
+*   [**C#**](#tabs-30528602-ffb1-47e8-99ef-cfb7c9b89269-2)
+
+    curl https://api.sandbox.checkout.com/files
+    -H "Authorization: sk_11111111-2222-3333-4444-555555555555"
+    -F "file=@/path/receipt.png;type=image/png"
+    -F "purpose=dispute_evidence"
+
+    public static async Task Main(string[] args)
+    {
+      using (var httpClient = new HttpClient())
+      {
+        httpClient.DefaultRequestHeaders.Add("Authorization", "sk_11111111-2222-3333-4444-555555555555");
+        using (var form = new MultipartFormDataContent())
+        {
+          using (var fileStream = new FileStream("test.png", FileMode.Open))
+          {
+            var streamContent = new StreamContent(fileStream);
+            streamContent.Headers.ContentType = new MediaTypeHeaderValue("image/png");
+            form.Add(streamContent, "File", "test.png");
+            form.Add(new StringContent("dispute_evidence"), "purpose");
+            var response = await httpClient.PostAsync("https://api.sandbox.checkout.com/files", form);
+            Console.WriteLine(response.StatusCode);
+            string responseContent = await response.Content.ReadAsStringAsync();
+            Console.WriteLine(responseContent);
+          }
+        }
+      }
+    }
+
+#### The POST response
+
+If the response returns a file `id`, your request was successful. Take a look at the example response below.
+
+#### Response example
+
+    {
+      "id": "file_6lbss42ezvoufcb2beo76rvwly",
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/files/file_6lbss42ezvoufcb2beo76rvwly"
+        }
+      }
+    }
+
+Get file information
+--------------------
+
+Use the following endpoint to retrieve information about a file that you've uploaded.
+
+### The GET request
+
+#### Endpoints
+
+*   [**Live**](#tabs-b37cab5e-df12-4b34-88fa-75a1c17dccb1-1)
+*   [**Sandbox**](#tabs-b37cab5e-df12-4b34-88fa-75a1c17dccb1-2)
+
+GET`https://api.checkout.com/files/{file_id}`
+
+GET`https://api.sandbox.checkout.com/files/{file_id}`
+
+#### Header and path parameters
+
+| Header | Value |
+| ---- | ---- |
+| `Authorization` <br> REQUIRED| `secret key` <br> Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2) |
+
+| Path | Value |
+| ---- | ---- |
+| `file_id` <br> REQUIRED <br> STRING (FILE) | The file identifier. It is always prefixed by `file_`. |
+
+#### Request example
+
+    curl https://api.sandbox.checkout.com/files/file_6lbss42ezvoufcb2beo76rvwly
+        -H "Authorization: sk_11111111-2222-3333-4444-555555555555"
+
+### The GET response
+
+If the response returns a file `id`, your request was successful.
+
+#### Response example
+
+    {
+      "id": "file_6lbss42ezvoufcb2beo76rvwly",
+      "filename": "receipt.png",
+      "purpose": "dispute_evidence",
+      "size": 1024,
+      "uploaded_on": "2016-05-17T16:48:52.000Z",
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/files/file_6lbss42ezvoufcb2beo76rvwly"
+        },
+        "download": {
+          "href": "https://checkout-file-upload.s3.eu-west-2.amazonaws.com/ucdac/ucdac/6lbss42ezvoufcb2beo76rvwly?X-Amz-Expires=3600&x-amz-security-token=FQoDYXdzENL%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEa"
+        }
+      }
+    }
+
+
+
+

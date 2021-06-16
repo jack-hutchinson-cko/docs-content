@@ -1,0 +1,69 @@
+---
+title: Customization guide
+account: ABC
+---
+
+The module extends a Frame layout so that you can use XML attributes such as:
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@colors/your_color"
+
+  
+
+Additionally, the module inherits the `Theme.AppCompat.Light.DarkActionBar` style, so if you want to customize the look of the payment form you can define your own style and theme the module with it:
+
+    <style name="YourCustomTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+      <!-- TOOLBAR COLOR. -->
+      <item name="colorPrimary">#000000</item>
+      <!--FIELDS HIGHLIGHT COLOR-->
+      <item name="colorAccent">#000000</item>
+      <!--PAY/DONE BUTTON COLOR-->
+      <item name="colorButtonNormal">#000000</item>
+      <!--HELPER LABELS AND UNSELECTED FIELD COLOR-->
+      <item name="colorControlNormal">#000000</item>
+      <!--FONT FAMILY-->
+      <item name="android:fontFamily">@font/myFont</item>
+    </style>
+    ...
+    <com.example.android_sdk.PaymentForm
+      android:id="@+id/checkout_card_form"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:theme="@style/YourCustomTheme"/>
+
+  
+
+If you would like to customize the helper labels of the payment form fields, you can use the following method:
+
+    mPaymentForm
+      ...
+      .setAcceptedCardsLabel("We accept the following card types")
+      .setCardHolderLabel("Name on card")
+      .setCardLabel("Card number")
+      .setDateLabel("Expiration date")
+      .setCvvLabel("Security code")
+      .setAddress1Label("Address line 1")
+      .setAddress2Label("Address line 2")
+      .setTownLabel("City")
+      .setStateLabel("State")
+      .setPostcodeLabel("Zip code")
+      .setPhoneLabel("Phone number")
+
+  
+
+If you want to customize the buttons in the payment form, you have the following options:
+
+    mPaymentForm = findViewById(R.id.checkout_card_form);
+      mPaymentForm
+        ...
+        .setPayButtonText("Pay Now")     // Pay button text; dafault "Pay"
+        .setDoneButtonText("Save")       // Done button text on the billing address page; dafault "Done"
+        .setClearButtonText("Clear")     // Clear button text on the billing address page; dafault "Clear"
+        .setPayButtonLayout(params)      // LayoutParams for the Pay button
+        .setDoneButtonLayout(params)     // LayoutParams for the Done button
+        .setClearButtonLayout(params)    // LayoutParams for the Clear button
+
+
+
+

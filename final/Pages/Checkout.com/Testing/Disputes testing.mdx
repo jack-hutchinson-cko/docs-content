@@ -1,0 +1,81 @@
+---
+title: Disputes testing
+account: ABC
+---
+
+
+You can simulate a dispute (also called chargeback) by using the following payment methods and corresponding amounts in a payment request. This will work with any of our [test card numbers](/pages/createpage.action?spaceKey=DRAFT&title=Test+card+numbers).
+
+For a dispute to be generated, the payment must have been authorized and captured. Payments are auto-captured by default, but if you decide to initiate both the authorization and capture from your server, make sure the actions occur within five minutes of each other.
+
+The value you supply in the `amount` field of your request depends on the chosen currency and whether it is divided by 1000 or by 100. Note that this means that you cannot test disputes with currencies where the value is provided in full, such as Japanese Yen.
+
+For more information about this, see our page about [calculating the value](/display/DOCS/Calculating+the+value).
+
+  
+| Payment method
+
+| Amount in local currency
+
+| Value to supply for USD (will be divided by 100)
+
+| Value to supply for BHD (will be divided by 1000)
+
+| Dispute reason code triggered
+
+ |
+| --- | --- | --- | --- | --- |
+| 
+
+Payment method
+
+| Amount in local currency
+
+| Value to supply for USD (will be divided by 100)
+
+| Value to supply for BHD (will be divided by 1000)
+
+| Dispute reason code triggered
+
+ |
+| --- | --- | --- | --- | --- |
+| Visa | `10.4` | `1040` | `10400` | `10.4` |
+| Mastercard | `48.55` | `4855` | `48550` | `4855` |
+| Amex | `45.16` | `4516` | `45160` | `4516` |
+
+### Example requests
+
+*   [**GBP**](#tabs-dadc698c-3e79-447e-9a4c-fc9a88c10bff-1)
+*   [**BHD**](#tabs-dadc698c-3e79-447e-9a4c-fc9a88c10bff-2)
+
+    {
+      "source": {
+       "type": "card",
+       "number": "4242424242424242",
+       "expiry_month": 8,
+       "expiry_year": 2025,
+       "name": "Sarah Mitchell",
+       "cvv": "100"
+      },
+      "amount": 1040,
+      "currency": "GBP",
+      "reference": "Testing disputes for Visa"
+    }
+
+    {
+      "source": {
+       "type": "card",
+       "number": "4242424242424242",
+       "expiry_month": 8,
+       "expiry_year": 2025,
+       "name": "Sarah Mitchell",
+       "cvv": "100"
+      },
+      "amount": 10400,
+      "currency": "BHD",
+      "reference": "Testing disputes for Visa"
+    }
+
+
+
+

@@ -1,0 +1,70 @@
+---
+title: Mada
+account: ABC
+---
+
+Start accepting payments with Mada, Saudi Arabia's domestic payment network.
+
+Mada has partnerships with major card schemes like Visa and Mastercard, so the cards can be accepted both locally and globally.
+
+Accepting Mada cards outside Saudi Arabia
+-----------------------------------------
+
+When you process a Mada card outside Saudi Arabia, it behaves like any other debit card, so you can [process a card payment](/display/DOCS/Request+a+card+payment) without any need for specific configurations or extra parameters.
+
+However, we recommend that you process Mada cards using [3D Secure](/display/DOCS/3D+Secure) and the [card verification value (CVV) / card security code (CSC)](/display/DOCS/CVV+check).
+
+Accepting Mada cards within Saudi Arabia
+----------------------------------------
+
+To process Mada cards within Saudi Arabia's debit card network, you will first need to obtain a merchant ID from a Saudi Arabian card acquirer.
+
+**Authorization and void requests**  
+Currently, you can only process purchases and refunds with Mada – authorization and void requests will be rejected.
+
+### Processing payments with Frames and Checkout.js
+
+Once the customer submits the credit card form, the first six digits of their card – the bank identification number (BIN) – will be returned, and you'll need to compare this against the list of Mada BINs:
+
+ Mada BINs
+
+|
+
+If the card's BIN matches one from the list above, you'll know it's a Mada card.
+
+Next, follow these steps:
+
+1.  Before you redirect the customer, send a hidden HTML field or another indication that the card type is Mada to your server. For instance: `<input name=”cardType” type=”hidden” value=”mada”>`.
+2.  In the backend code, check if the posted hidden variable `cardType` was a Mada card. If so, make sure you:
+    1.  set `"3ds.enabled"` to `true` to process the payment with 3D Secure authentication,
+        
+    2.  set `"metadata.udf1"` to `"mada"`, and
+        
+    3.  **do not** pass `"capture"` or `"capture_on"` in the request.
+        
+
+### Processing payments with full card details
+
+To process a Mada card with full card details, simply follow the steps in the Frames/Checkout.js section above.
+
+The only difference is that you won't need to wait to receive the customer's BIN because you'll have full access to the card number. Simply get the first six digits from the card form, compare it with the Mada BIN list (see above), and then send a request with the required parameters described in the Frames/Checkout.js section above.
+
+### Mobile app integration
+
+To process Mada card payments through a mobile app, follow the Frames/Checkout.js process above.
+
+Like step 1 in that process, before you post the cart data and checkout data to your web server, you'll need to add a field to your API request that indicates whether or not it's a Mada card. For example: `cardType:”mada”`
+
+### Apple Pay integration
+
+Mada cards processed through Apple Pay all have the same BIN: 506968
+
+Mada cards can be processed the same way as other cards in [Apple Pay](/display/DOCS/Apple+Pay), but you'll need to make sure that the device's payments permission is enabled for your merchant ID.
+
+Also, in order to process Mada cards on the local Saudi Arabian network, you'll need to include `mada` in the [supportedNetworks](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/1916122-supportednetworks) array.
+
+Please contact your customer success manager if you’re not dealing with the acquiring bank directly.
+
+
+
+

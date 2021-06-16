@@ -1,0 +1,411 @@
+---
+title: Fawry
+account: ABC
+---
+
+
+Start accepting payments using Fawry, the dominant payment method in Egypt.
+
+Shoppers can now make Fawry payments via the myFawry app ([App Store](https://apps.apple.com/de/app/myfawry/id1462911630?l=en) and [Google Play](https://play.google.com/store/apps/details?id=com.fawry.myfawry&hl=en&gl=US)), rather than having to take their payment reference to a shop or ATM, meaning a better payment experience for both you and your customers.
+
+To start accepting Fawry payments, please contact your Customer Success Manager.
+
+Request a payment
+-----------------
+
+### The POST request
+
+Use the details below to set up your request.
+
+#### Endpoints
+
+*   [**Live**](#tabs-c3716356-3f8d-41d4-bef6-e92e97c2ac6e-1)
+*   [**Sandbox**](#tabs-c3716356-3f8d-41d4-bef6-e92e97c2ac6e-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+| Header | Value |
+| ---- | ---- |
+| 
+
+`Authorization`
+
+REQUIRED| `secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2). |
+| 
+
+`Content-Type`
+
+REQUIRED | `application/json` |
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+| Field name | Description |
+| ---- | ---- |
+| 
+
+`amount`
+
+REQUIRED
+
+INTEGER | The payment amount |
+| 
+
+`currency`
+
+REQUIRED
+
+STRING | The currency in which the payment is being made (three-letter ISO 4217 code). Set this to `EGP`. |
+| 
+
+`source`
+
+REQUIRED
+
+OBJECT | Details about the payment source |
+| 
+
+`source.type`
+
+REQUIRED
+
+STRING | The type of payment source. Set this to `fawry`. |
+| 
+
+`source.description`
+
+REQUIRED
+
+STRING| A description of the payment.
+
+Less than or equal to 265 characters.
+
+ |
+| 
+
+`source.customer_mobile`
+
+REQUIRED
+
+STRING| The customer's mobile number. The number must:
+
+*   Contain only digits. No spaces, dashes, etc.
+*   Be an Egyptian mobile number.
+*   Not include the country code.
+*   Be 11 digits in total, starting with the three-digit operator code.
+
+ |
+| 
+
+`source.customer_email`
+
+REQUIRED
+
+STRING| The customer's email address.
+
+ |
+| 
+
+`source.customer_profile_id`
+
+OPTIONAL
+
+STRING| The profile ID that the merchant has assigned to the customer.
+
+Alphanumeric characters only.
+
+ |
+| 
+
+`source.expires_on`
+
+OPTIONAL
+
+STRING| Use to set a date and time (UTC, in ISO 8601 format) on which the payment will expire.
+
+This overrides the expiration period you specified during onboarding.
+
+ |
+| 
+
+`source.products`
+
+REQUIRED
+
+ARRAY | An array of Fawry product objects. |
+| 
+
+`product.product_id`
+
+REQUIRED
+
+STRING| The product's ID.
+
+Less than or equal to 265 characters.
+
+ |
+| 
+
+`product.quantity`
+
+REQUIRED
+
+INTEGER| The quantity of product being purchased.
+
+ |
+| 
+
+`product.price`
+
+REQUIRED
+
+INTEGER| The unit price of the product.
+
+ |
+| 
+
+`product.description`
+
+REQUIRED
+
+STRING| A description of the product.
+
+Less than or equal to 265 characters.
+
+ |
+
+#### Request example
+
+    {
+      "amount": 1000,
+      "currency": "EGP",
+      "source": {
+        "type": "fawry",
+        "description": "Fawry Demo Payment",
+        "customer_mobile": "01058375055",
+        "customer_email": "bruce@wayne-enterprises.com",
+        "products": [
+          {
+            "product_id": "0123456789",
+            "quantity": 1,
+            "price": 1000,
+            "description": "Fawry Demo Product"
+          }
+        ]
+      }
+    }
+
+### The POST response
+
+If you receive a `202 Success` response containing a `status` field set to `Pending`, your request was successful.
+
+In addition, you will receive `payment_pending` and `payment_capture_pending` webhook notifications. And, when the customer completes the Fawry payment in a timely manner at a point of sale, you will get a `payment_captured` webhook notification to confirm that the payment has completed.
+
+#### Response example
+
+    {
+      "id": "pay_xksrrfuzksge5gyyqubpgbn7gy",
+      "status": "Pending",
+      "customer": {
+        "id": "cus_v65kd7q5tojehd23eftbaiktru"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_xksrrfuzksge5gyyqubpgbn7gy"
+        }
+      }
+    }
+
+Payment capture, expiration and cancellation
+
+The payment will remain pending for the duration that you agreed when you onboarded your business with Fawry, or until the date and time you set for `expires_on`. If the customer fails to complete the transaction at a point of sale by then, the payment will expire and you will receive a `payment_expired` webhook notification. If, for any reason, the payment gets canceled before being captured or expiring, you will receive the `payment_canceled` webhook notification instead. Make sure that your products and/or services are not shipped and/or provided before receiving confirmation of the capture.
+
+Get details about a payment
+---------------------------
+
+You can retrieve details about an existing Fawry payment with the following endpoint.
+
+### The GET request
+
+#### Endpoints
+
+*   [**Live**](#tabs-c9be6567-b273-468c-8866-185028c5d9aa-1)
+*   [**Sandbox**](#tabs-c9be6567-b273-468c-8866-185028c5d9aa-2)
+
+GET`https://api.checkout.com/payments/{payment_id}`
+
+GET`https://api.sandbox.checkout.com/payments/{payment_id}`
+
+#### Header and path parameters
+
+| Header | Value |
+| ---- | ---- |
+| 
+
+`Authorization`
+
+REQUIRED| `secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+ |
+| 
+
+`Content-Type`
+
+REQUIRED | `application/json` |
+
+| Path | Value |
+| ---- | ---- |
+| 
+
+`payment_id`
+
+REQUIRED | The payment ID found in the response of the initial response. |
+
+### The GET response
+
+#### Response example
+
+    {
+      "id": "pay_xksrrfuzksge5gyyqubpgbn7gy",
+      "requested_on": "2019-05-27T14:10:32Z",
+      "source": {
+        "type": "fawry",
+        "description": "Fawry Demo Payment",
+        "reference_number": "1019734277"
+      },
+      "amount": 1000,
+      "currency": "EGP",
+      "payment_type": "Regular",
+      "status": "Pending",
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_v65kd7q5tojehd23eftbaiktru"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_xksrrfuzksge5gyyqubpgbn7gy"
+        }
+      }
+    }
+
+Refund a payment
+----------------
+
+Fawry supports both partial (see note below for details) and full refunds. You can refund a payment through the [Hub](https://hub.checkout.com/v2) or by using the [refund API](/display/DOCS/Refund+a+payment).
+
+Only **one refund action** may be taken on a Fawry payment, meaning that if you carry out a partial refund, you cannot then refund any more, even if there is some amount left. In addition, Fawry **refunds are always rounded down** to the nearest whole number. For example, attempting to refund a payment amount of 10999 (EGP 109.99) will only refund 10900 (EGP 109.00).
+
+Testing Fawry
+-------------
+
+To start testing, you'll need to:
+
+*   [create a test account](https://www.checkout.com/get-test-account), and
+*   contact your Customer Success Manager or Integrations engineer to activate Fawry payments in the sandbox environment.
+
+  
+
+The following endpoints are for **testing purposes only**. They will not work in the live environment.
+
+  
+
+You can use the two following endpoints to test capturing and canceling a payment in our sandbox environment.
+
+### Get payment details
+
+First, you will need to get the details of payment (as above) and make a note of the `reference_number` in the response.
+
+### Capture a payment
+
+Use the `reference_number` from the above response to test capturing a payment.
+
+#### Endpoint
+
+*   [**Sandbox**](#tabs-e84d2636-c59c-44a4-82d5-012ae7a3b784-1)
+
+PUT`https://api.sandbox.checkout.com/fawry/payments/{reference_number}/approval`
+
+#### Header and path parameters
+
+| Header | Value |
+| ---- | ---- |
+| 
+
+`Authorization`
+
+REQUIRED| `secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2). |
+| 
+
+`Content-Type`
+
+REQUIRED | `application/json` |
+
+| Path | Value |
+| ---- | ---- |
+| 
+
+`reference_number`
+
+`REQUIRED`| The reference number you received in the response to the 'get payment details' request.
+
+ |
+
+If successful, you will receive a `payment_captured` webhook notification.
+
+### Cancel a payment
+
+Use the `reference_number` from the response to your get payment details request to test canceling a payment.
+
+#### Endpoint
+
+*   [**Sandbox**](#tabs-7e0f47ed-bde9-463d-b74d-7e84f50f2eef-1)
+
+PUT`https://api.sandbox.checkout.com/fawry/payments/{reference_number}/cancellation`
+
+#### Header and path parameters
+
+| Header | Value |
+| ---- | ---- |
+| 
+
+`Authorization`
+
+REQUIRED| `secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+ |
+| 
+
+`Content-Type`
+
+REQUIRED | `application/json` |
+
+| Path | Value |
+| ---- | ---- |
+| 
+
+`reference_number`
+
+`REQUIRED`| The reference number you received in the response to the 'get payment details' request.
+
+ |
+
+If successful, you will receive a `payment_canceled` webhook notification.
+
+
+
+

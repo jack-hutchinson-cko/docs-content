@@ -1,0 +1,37 @@
+---
+title: Store payment details
+account: ABC
+---
+
+
+Securely store and manage customer details and payment information in our Vault. You can reuse these stored details for future payments, so your customers don't have to re-enter their payment information each time they make a purchase.
+
+Customers and payment instruments
+---------------------------------
+
+You can store two sorts of objects in the Vault: **customers** and **payment** **instruments**.
+
+### Customers
+
+A customer object contains the details of a particular customer, like their name, email, and phone number. Each customer has a unique ID (for example, `cus_y3oqhf46pyzuxjbcn2giaqnb44`), to which you can associate multiple payment instruments. You can also set a default payment instrument for the customer, which will be charged if you use the customer ID as the source when making a payment request.
+
+### Payment instruments
+
+A payment instrument allows you to store the details of a payment card. Each payment instrument has a unique ID (for example, `src_nwd3m4in3hkuddfpjsaevunhdy`), which you can use as the source or destination for payments. An instrument can only be associated with one customer.
+
+Next steps
+----------
+
+[
+
+### Customers
+
+Learn how to create, retrieve, update, and delete your customer objects.](https://docs.checkout.com/payments/store-payment-details/customers)[
+
+### Payment instruments
+
+Learn how to create, retrieve, update, and delete your payment instruments.](https://docs.checkout.com/payments/store-payment-details/payment-instruments)
+
+
+
+

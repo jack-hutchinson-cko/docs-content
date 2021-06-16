@@ -1,0 +1,290 @@
+---
+title: Event types
+account: ABC
+---
+
+Checkout.com sends webhooks for a number of event types.
+
+To subscribe to certain event types, follow the instructions in [webhook management](/display/DOCS/Webhook+management).
+
+List of event types
+-------------------
+
+| Webhook event type | Description |
+| ---- | ---- |
+| 
+
+`card_verified`  
+View a [card verified webhook example](/display/DOCS/card_verified).
+
+| **Card verified**  
+Occurs when a [card verification](/display/DOCS/Card+verification) is successful.
+
+ |
+| 
+
+`card_verification_declined`  
+View a [card verification declined webhook example](/display/DOCS/card_verification_declined).
+
+| **Card verification declined**  
+Occurs when a [card verification](/display/DOCS/Card+verification) is not approved.
+
+ |
+| 
+
+`dispute_canceled`  
+View a [dispute canceled webhook example](/display/DOCS/dispute_canceled).
+
+| **Dispute canceled**  
+Occurs when a dispute is canceled by the issuing bank and your account is credited back the disputed amount.
+
+ |
+| 
+
+`dispute_evidence_required`  
+View a [dispute evidence required webhook example](/display/DOCS/dispute_evidence_required).
+
+| **Dispute evidence required**  
+Notifies you that you need to respond to a dispute, and that your account has been debited the disputed amount.
+
+ |
+| 
+
+`dispute_expired`  
+View a [dispute expired webhook example](/display/DOCS/dispute_expired).
+
+| **Dispute expired**  
+Notifies you that you can no longer respond to a dispute, because the time limit to take action has been exceeded.
+
+ |
+| 
+
+`dispute_lost`  
+View a [dispute lost webhook example](/display/DOCS/dispute_lost).
+
+| **Dispute lost**  
+Notifies you that the issuing bank has rejected your evidence and you have lost the dispute.
+
+ |
+| 
+
+`dispute_resolved`  
+View a [dispute resolved webhook example](/display/DOCS/dispute_resolved).
+
+| **Dispute resolved**  
+Occurs when we automatically resolve the dispute because it had already been refunded.
+
+ |
+| 
+
+`dispute_won`  
+View a [dispute won webhook example](/display/DOCS/dispute_won).
+
+| **Dispute won**  
+Notifies you that the issuing bank has accepted your evidence and you have won the dispute. Your account has been credited back the disputed amount.
+
+ |
+| 
+
+`payment_approved`  
+View a [payment approved webhook example](/display/DOCS/payment_approved).
+
+| **Payment approved**  
+Occurs when an acquirer or provider approves a payment.
+
+ |
+| 
+
+`payment_pending`  
+View a [payment pending webhook example](/display/DOCS/payment_pending).
+
+| **Payment pending**  
+Occurs on asynchronous payments when further action is required.
+
+ |
+| 
+
+`payment_declined`  
+View a [payment declined webhook example](/display/DOCS/payment_declined) (for payments) or a [payment declined webhook example](/pages/viewpage.action?pageId=2785778) (for Card Payouts).
+
+| **Payment declined**  
+Occurs when a payment times out, or is declined by the acquirer or provider.
+
+ |
+| 
+
+`payment_expired`  
+View a [payment expired webhook example](/display/DOCS/payment_expired).
+
+| **Payment expired**  
+Occurs when the merchant generates an alternative payment link but the customer fails to access it to complete the payment.
+
+ |
+| 
+
+`payment_voided`  
+View a [payment voided webhook example](/display/DOCS/payment_voided).
+
+| **Payment voided**  
+Occurs when an acquirer voids an authorized payment.
+
+ |
+| 
+
+`payment_canceled`  
+View a [payment canceled webhook example](/display/DOCS/payment_canceled).
+
+| **Payment canceled**  
+Occurs when an end user cancels the payment through the provider’s interface.
+
+ |
+| 
+
+`payment_void_declined`  
+View a [payment void declined webhook example](/display/DOCS/payment_void_declined).
+
+| **Payment void declined**  
+Occurs when a void attempt times out, or is declined by the acquirer or provider.
+
+ |
+| 
+
+`payment_captured`  
+View a [payment captured webhook example](/display/DOCS/payment_captured).
+
+| **Payment captured**  
+Occurs when an acquirer captures an authorized card payment, or when the provider completes an alternative payment capture.
+
+ |
+| 
+
+`payment_capture_declined`  
+View a [payment capture declined webhook example](/display/DOCS/payment_capture_declined).
+
+| **Payment capture declined**  
+Occurs when a capture times out, or is declined by the acquirer.
+
+ |
+| 
+
+`payment_capture_pending`  
+View a [payment capture pending webhook example](/display/DOCS/payment_capture_pending).
+
+| **Payment capture pending**  
+Occurs when an acquirer is in the process of capturing a payment.
+
+ |
+| 
+
+`payment_refunded`  
+View a [payment refunded webhook example](/display/DOCS/payment_refunded).
+
+| **Payment refunded**  
+Occurs when an acquirer refunds a captured payment.
+
+ |
+| 
+
+`payment_refund_declined`  
+View a [payment refund declined webhook example](/display/DOCS/payment_refund_declined).
+
+| **Payment refund declined**  
+Occurs when a payment refund times out, or is declined by an acquirer.
+
+ |
+| 
+
+`payment_refund_pending`  
+View a [payment refund pending webhook example](/display/DOCS/payment_refund_pending).
+
+| **Payment refund pending**  
+Occurs when an acquirer is in the process of refunding a payment.
+
+ |
+| 
+
+`payment_chargeback`  
+View a [payment chargeback webhook example](/display/DOCS/payment_chargeback).
+
+| **Payment chargeback**  
+Occurs when a chargeback is requested for a payment.
+
+ |
+| 
+
+`payment_retrieval`  
+View a [payment retrieval webhook example](/display/DOCS/payment_retrieval).
+
+| **Payment retrieval**  
+Occurs when a retrieval is requested for a payment.
+
+ |
+| 
+
+`source_updated`  
+View a [source updated webhook example](/display/DOCS/source_updated).
+
+| **Source updated**  
+Occurs when a payment source has been updated.
+
+ |
+| 
+
+`payment_paid`  
+Only applies to payouts. View a [payment paid webhook example](/display/DOCS/payment_paid).
+
+| **Payment paid**  
+Occurs when a payout is made to a card.
+
+ |
+
+Receiving a `payment_captured` notification via webhooks is the only way to confirm a payment completes successfully.
+
+Get event types (API)
+---------------------
+
+Use this API request to view all available event types.
+
+### The GET request
+
+#### Endpoints
+
+*   [**Live**](#tabs-c11f07a6-c0a2-4b98-a141-eb4cfd0a0aad-1)
+*   [**Sandbox**](#tabs-c11f07a6-c0a2-4b98-a141-eb4cfd0a0aad-2)
+
+GET`https://api.checkout.com/event-types`
+
+GET`https://api.sandbox.checkout.com/event-types`
+
+#### Header parameters
+
+| Header | Value |
+| ---- | ---- |
+| 
+
+`Authorization`
+
+REQUIRED| `secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2).
+
+ |
+| 
+
+`Content-Type`
+
+REQUIRED | `application/json` |
+
+#### Query parameters
+
+| Query parameter | Description |
+| ---- | ---- |
+| 
+
+`version`
+
+OPTIONAL | The version of the API that you wish to retrieve event types for. Use `version=1.0` for the Classic API and `?version=2.0` for the Unified Payments API. If you do not use this parameter, event types for both versions will be returned. |
+
+
+
+

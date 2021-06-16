@@ -1,0 +1,184 @@
+---
+title: Frames migration guide
+account: ABC
+---
+
+Follow this guide to upgrade from the legacy version of Frames (v1) to the newest version (v2).
+
+### Step 1: Replace the script
+
+Find the following script tag:  
+`<script src="https://cdn.checkout.com/js/frames.js">`
+
+Replace it with this tag:  
+`<script src="https://cdn.checkout.com/js/framesv2.min.js">`
+
+### Step 2: Rename the event handlers
+
+Rename `cardTokenisednow` to `cardTokenized` and `cardTokenisationFailed` to `cardTokenizationFailed`.
+
+If you have custom styling, **skip to step 4**.
+
+If you don't have any custom styling, continue to step 3.
+
+### Step 3 (optional): Add a style tag
+
+To get started quickly, you can use our default styling:
+
+    
+    <style>
+    *,
+    *::after,
+    *::before {
+    	box-sizing: border-box
+    }
+    
+    html {
+    	padding: 1rem;
+    	background-color: #FFF;
+    	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+    }
+    
+    #payment-form {
+    	width: 31.5rem;
+    	margin: 0 auto
+    }
+    
+    iframe {
+    	width: 100%
+    }
+    
+    .one-liner {
+    	display: flex;
+    	flex-direction: column
+    }
+    
+    #pay-button {
+    	border: none;
+    	border-radius: 3px;
+    	color: #FFF;
+    	font-weight: 500;
+    	height: 40px;
+    	width: 100%;
+    	background-color: #13395E;
+    	box-shadow: 0 1px 3px 0 rgba(19, 57, 94, 0.4)
+    }
+    
+    #pay-button:active {
+    	background-color: #0B2A49;
+    	box-shadow: 0 1px 3px 0 rgba(19, 57, 94, 0.4)
+    }
+    
+    #pay-button:hover {
+    	background-color: #15406B;
+    	box-shadow: 0 2px 5px 0 rgba(19, 57, 94, 0.4)
+    }
+    
+    #pay-button:disabled {
+    	background-color: #697887;
+    	box-shadow: none
+    }
+    
+    #pay-button:not(:disabled) {
+    	cursor: pointer
+    }
+    
+    .card-frame {
+    	border: solid 1px #13395E;
+    	border-radius: 3px;
+    	width: 100%;
+    	margin-bottom: 8px;
+    	height: 40px;
+    	box-shadow: 0 1px 3px 0 rgba(19, 57, 94, 0.2)
+    }
+    
+    .card-frame.frame--rendered {
+    	opacity: 1
+    }
+    
+    .card-frame.frame--rendered.frame--focus {
+    	border: solid 1px #13395E;
+    	box-shadow: 0 2px 5px 0 rgba(19, 57, 94, 0.15)
+    }
+    
+    .card-frame.frame--rendered.frame--invalid {
+    	border: solid 1px #D96830;
+    	box-shadow: 0 2px 5px 0 rgba(217, 104, 48, 0.15)
+    }
+    
+    .success-payment-message {
+    	color: #13395E;
+    	line-height: 1.4
+    }
+    
+    .token {
+    	color: #b35e14;
+    	font-size: 0.9rem;
+    	font-family: monospace
+    }
+    
+    @media screen and (min-width: 31rem) {
+    	.one-liner {
+    		flex-direction: row
+    	}
+    	.card-frame {
+    		width: 318px;
+    		margin-bottom: 0
+    	}
+    	#pay-button {
+    		width: 175px;
+    		margin-left: 8px
+    	}
+    }
+    
+    </style>
+    
+
+  
+
+Replace the div tags inside the form element with the new ones from the example below. Make sure to update the card-frame class with your custom frameSelector if you have changed it.
+
+### Step 4 (optional): Rename or replace the HTML tags 
+
+    <div class="one-liner">
+        <div class="card-frame">
+            <!-- form will be added here -->
+        </div>
+            <!-- add submit button -->
+        <button id="pay-button" disabled>
+            PAY GBP 24.99
+        </button>
+    </div>
+    <p class="success-payment-message"></p>
+    
+
+The div with the `one-liner` class is used by our default style. You can safely remove it if you're providing your own.
+
+### Step 5 (optional): Rename containerSelector
+
+If you were using the `containerSelector` option in Frames v1, make sure to rename it to `frameSelector`.  
+
+Please note:
+
+`frameSelector` is not a required field. Without it, Frames v2 will use `card-frame` by default.
+
+Deprecated options
+
+`theme` and `themeProvider` have been deprecated and can be safely removed. They will not have any effect on Frames v2.
+
+### Step 6: Rename the form element selectors
+
+Rename the `paymentForm` selector to `payment-form` and the `payNowButton` selector to `pay-button`.
+
+### Step 7: Update the JavaScript
+
+Wherever needed, update the JavaScript with the new version. Both types of initialization are supported.
+
+*   No labels
+*   [Edit Labels](# "Edit Labels (Type 'l')")
+
+[![User icon: Add a picture of yourself](/s/en_GB/7901/abf7b35644d5a5d1d7e4b0969a83e8eb2b569fb5/_/images/icons/profilepics/add_profile_pic.svg)](/users/profile/editmyprofilepicture.action)
+
+Write a comment…
+
+

@@ -1,0 +1,32 @@
+---
+title: CVV check
+account: ABC
+---
+
+
+The card verification value (CVV) appears on credit and debit cards. It is a three-digit number on Visa, Mastercard and Discover branded cards, and a four-digit number on American Express cards. Running a CVV check adds an additional layer of fraud protection to your payments.
+
+The CVV is not required when sending a payment with source ID or a default card, but you still have the option of adding the CVV if you wish. However, when you include the CVV in a request, it is subject to verification—if it does not match, the request will fail.
+
+If you want to change your default CVV configuration, please contact your Customer Success manager.
+
+CVV check configurations
+------------------------
+
+There are two possible configurations for using the CVV check in your payments: [CVV required](#CVVcheck-cvvrequired) and [CVV optional](#CVVcheck-cvvoptional).
+
+### CVV required 
+
+If the CVV is required, you must include it for all payment request types, except for those using a source ID. If the payment contains incorrect or missing CVV information, the request will fail.
+
+If you require the CVV when creating a new customer or adding a card, you must include the CVV. If you don't, you will receive an `invalid CVV` response.
+
+### CVV optional 
+
+Where the CVV is optional, you can send any type of payment request with or without the CVV. However, if you include the CVV in a payment request, it will be subject to verification. If it's incorrect, the payment will not be successful.
+
+If the CVV is optional when you're creating a new customer or adding a new card, you don't have to include the CVV. But, if you do, it will be subject to verification checks.
+
+
+
+

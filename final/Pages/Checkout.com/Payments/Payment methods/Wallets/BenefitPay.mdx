@@ -1,0 +1,275 @@
+---
+title: BenefitPay
+account: ABC
+---
+
+
+Start accepting payments using BenefitPay, Bahrain's electronic wallet payment system.
+
+To start accepting BenefitPay payments, please contact your Customer Success Manager.
+
+Overview
+--------
+
+You can process a BenefitPay payment in two steps:
+
+1.  [Request a BenefitPay payment](#BenefitPay-requestapayment)
+2.  [Display the QR code to the customer](#BenefitPay-displayqrcode)
+
+Request a payment
+-----------------
+
+### The POST request
+
+Use the details below to set up your request.
+
+You can request either a **web payment** or a **mobile payment** by setting the `source.integration_type` field to `web` or `mobile`.
+
+Mobile payments
+
+If you opt for a mobile payment, the customer can pay with the BenefitPay mobile app by either [scanning the QR code](#BenefitPay-displayqrcode) or logging in to pay with the card attached to their account.
+
+#### Endpoints
+
+*   [**Live**](#tabs-9644856c-63df-42e2-bd71-ddbaac50cdc0-1)
+*   [**Sandbox**](#tabs-9644856c-63df-42e2-bd71-ddbaac50cdc0-2)
+
+POST`https://api.checkout.com/payments`
+
+POST`https://api.sandbox.checkout.com/payments`
+
+#### Header parameters
+
+| Header | Value |
+| ---- | ---- |
+| 
+
+`Authorization`
+
+REQUIRED| `secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2). |
+| 
+
+`Content-Type`
+
+REQUIRED | `application/json` |
+
+#### Body parameters
+
+The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
+
+| Field name | Description |
+| ---- | ---- |
+| 
+
+`amount`
+
+REQUIRED
+
+INTEGER | The payment amount. |
+| 
+
+`currency`
+
+REQUIRED
+
+STRING | The currency in which the payment is being made (three-letter ISO 4217 code). Set this to `BHD`. |
+| 
+
+`source`
+
+REQUIRED
+
+OBJECT | Details about the payment source. |
+| 
+
+`source.type`
+
+REQUIRED
+
+STRING | The type of payment source. Set this to `benefitpay`. |
+| 
+
+`source.integration_type`
+
+REQUIRED
+
+STRING | The type of BenefitPay integration. Set this to `web` for a web payment, or `mobile` for a mobile payment. |
+
+#### Request examples
+
+*   [**Web payment**](#tabs-d1103f4d-0352-4805-bd70-cddbfdeccc41-1)
+*   [**Mobile payment**](#tabs-d1103f4d-0352-4805-bd70-cddbfdeccc41-2)
+
+    {
+      "amount": 1000,
+      "currency": "BHD",
+      "source": {
+        "type": "benefitpay",
+        "integration_type": "web"
+      }
+    }
+
+    {
+      "amount": 1000,
+      "currency": "BHD",
+      "source": {
+        "type": "benefitpay",
+        "integration_type": "mobile"
+      }
+    }
+
+### The POST response
+
+If you receive a 202 response with "status": "Pending", BenefitPay has accepted your transaction request. We will also send you `payment_pending` and `payment_capture_pending` webhooks to confirm.
+
+#### Response example
+
+    {
+      "id": "pay_aeb7fegfsihejgpeeby36rrf3y",
+      "status": "Pending",
+      "customer": {
+        "id": "cus_uj7uhbi2lwaela6fsx6apeztv4"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_aeb7fegfsihejgpeeby36rrf3y"
+        }
+      }
+    }
+
+Display the QR code 
+--------------------
+
+To capture the pending payment, you will need to display the associated QR code to your customer for them to scan with the BenefitPay mobile app.
+
+To do this you will need to get the QR code data, convert that into a QR code and then display it on your payment page.
+
+### Get QR code data
+
+#### The GET request
+
+Use the details below to get the `source.qr_data`.
+
+#### Endpoints
+
+*   [**Live**](#tabs-4360348b-e0fa-4817-8429-7de506b41fe3-1)
+*   [**Sandbox**](#tabs-4360348b-e0fa-4817-8429-7de506b41fe3-2)
+
+GET`https://api.checkout.com/payments/{payment_id}`
+
+GET`https://api.sandbox.checkout.com/payments/{payment_id}`
+
+#### Header and path parameters
+
+| Header | Value |
+| ---- | ---- |
+| 
+
+`Authorization`
+
+REQUIRED| `secret key`
+
+Use the valid secret key of your Checkout.com account. You can find this in the [Hub](https://hub.checkout.com/v2). |
+| 
+
+`Content-Type`
+
+REQUIRED | `application/json` |
+
+| Path | Value |
+| ---- | ---- |
+| 
+
+`payment_id`
+
+REQUIRED| The payment ID found in the response of the initial response.
+
+ |
+
+### The GET response
+
+#### Response example
+
+    {
+      "id": "pay_aeb7fegfsihejgpeeby36rrf3y",
+      "requested_on": "2019-10-16T06:54:09Z",
+      "source": {
+        "type": "benefitpay",
+        "reference_number": "aaf902e2-23de-4980-a305-d3c43a013255",
+        "qr_data": "00020101021205081000019949440008mobi.foo010810000199021010000000010402db52046300530304854051.0005802BH5907Talabat6003Web62570536aaf902e2-23de-4980-a305-d3c43a0132550713201754708940863048B0C"
+      },
+      "amount": 1000,
+      "currency": "BHD",
+      "payment_type": "Regular",
+      "status": "Pending",
+      "risk": {
+        "flagged": false
+      },
+      "customer": {
+        "id": "cus_uj7uhbi2lwaela6fsx6apeztv4"
+      },
+      "_links": {
+        "self": {
+          "href": "https://api.sandbox.checkout.com/payments/pay_aeb7fegfsihejgpeeby36rrf3y"
+        }
+      }
+    }
+
+Create and display the QR code
+------------------------------
+
+Now take the `source.qr_data` obtained in the previous step and turn it into a QR code (via an API or your own implementation). You should then display this on your payment page so the customer can scan it with their BenefitPay mobile app and complete the transaction.
+
+Once the customer has completed the payment by scanning the QR code, we will send you a `payment_captured` webhook notification to confirm the success of the payment.
+
+Refunds and chargebacks
+-----------------------
+
+BenefitPay has no native support for refunds. If you want to refund a customer who has made a BenefitPay payment, we recommend that you make the refund using a standard bank transfer.
+
+In addition, there is no chargeback mechanism for BenefitPay.
+
+Webhooks
+--------
+
+When using BenefitPay, you may receive the following webhooks.
+
+| Webhook | Description |
+| ---- | ---- |
+| `payment_pending`| Sent when a payment request is successfully initiated.
+
+ |
+| `payment_capture_pending`| Sent when the acquirer is in the process of accepting the payment.
+
+ |
+| `payment_captured`| Sent when the payment has been successfully approved.
+
+ |
+| `payment_declined`| Sent when the payment is declined.
+
+ |
+
+Learn more about [webhooks and how to subscribe to them](/display/DOCS/Webhooks).
+
+Testing BenefitPay
+------------------
+
+To start testing, you'll need to:
+
+*   [create a test account](https://www.checkout.com/get-test-account), and
+*   contact your Customer Success Manager or Integrations engineer to activate BenefitPay payments in the sandbox environment.
+
+1.  Create a BenefitPay payment request and get the QR code data, as described above.
+2.  Convert the QR code data into a QR code.
+3.  Download BenefitPay's simulator app.
+4.  Scan the QR code with the app to capture and complete the test payment.
+
+**Downloading BenefitPay's mobile app**
+
+To download BenefitPay's simulator app, simply provide BenefitPay with an account ID (either a Google Play Store ID or an Apple ID) and then, once you've installed it, supply a mobile number to complete your registration.
+
+
+
+
