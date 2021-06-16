@@ -4,10 +4,12 @@ const puppeteer = require('puppeteer');
 const fs = require('fs/promises');
 const path = require('path');
 const TurndownService = require('turndown');
-const username = '';
-const password = '';
+const turndownPluginGfm = require('turndown-plugin-gfm');
+const tables = turndownPluginGfm.tables;
+const username = 'docs-shared';
+const password = 'Checkout2020';
 const loginUrl = 'https://docs.checkout.com/admin';
-const docsUrl = 'https://docs.checkout.com/display/FAQ/Home';
+const docsUrl = 'https://docs.checkout.com/display/DOCS/Checkout.com';
 
 
 (async function() {
@@ -74,15 +76,16 @@ async function transformHTML() {
     const filenames = await fs.readdir('./scraped');
     
     const turndownService = new TurndownService();
+    turndownService.use([tables])
 
     for(const filename of filenames) {
         const json = await fs.readFile(`./scraped/${filename}`, 'utf-8');
         const data = JSON.parse(json);
         const metadata = `---
-            title: ${data.title}
-            account: ABC
-            ---
-        `;
+title: ${data.title}
+account: ABC
+---
+`;
         const md = metadata + '\n' + turndownService.turndown(data.html);
 
         const filepath = `./final/${data.path}/${data.title.replace(/\//g, '-')}.mdx`;
