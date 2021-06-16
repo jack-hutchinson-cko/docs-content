@@ -6,8 +6,8 @@ const path = require('path');
 const TurndownService = require('turndown');
 const turndownPluginGfm = require('turndown-plugin-gfm');
 const tables = turndownPluginGfm.tables;
-const username = 'docs-shared';
-const password = 'Checkout2020';
+const username = '';
+const password = '';
 const loginUrl = 'https://docs.checkout.com/admin';
 const docsUrl = 'https://docs.checkout.com/display/DOCS/Checkout.com';
 
