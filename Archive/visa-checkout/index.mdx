@@ -1,0 +1,180 @@
+---
+title: visa-checkout
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+Visa Checkout is no longer available for sandbox testing. It is now only available in production. 
+
+This feature is only available to merchants already integrated with Visa Checkout. 
+
+This endpoint allows merchants integrated with \*\*Visa Checkout \*\*to submit a Call ID (provided by Visa) and receive a card token in response. The card token is a temporary reference of card details which is stored on our gateway and has a lifetime of 15 minutes. It can be used to create a charge using our \[payment with card token endpoint\](doc:authorize-a-payment). 
+
+\## The request Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/tokens/card/visa-checkout</p></pre> ### Header and body parameters 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+\`Authorization\` <span class="req-def">Required</span> 
+
+ | 
+
+\`secret key\`\* 
+
+ |
+| 
+
+\`Content-Type\` <span class="req-def">Required</span> 
+
+ | 
+
+\`application/json\` 
+
+ |
+
+\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+\`callId\` <span class="field-type">String</span> <span class="req-def">Required</span> 
+
+ | 
+
+Call ID provided by Visa. 
+
+ |
+| 
+
+\`includeBinData\` <span class="field-type">Boolean</span> <span class="optional-def">Optional</span> 
+
+ | 
+
+If true, returns the issuing country of a card based on the card's 4-6 digit BIN (Bank Identification Number). <span class="table-info">BIN data is currently only available for credit/debit cards issued by Visa and Mastercard.</span> 
+
+ |
+
+\### Request example 
+
+Shell
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+curl https://api2.checkout.com/v2/tokens/card/visa-checkout
+
+2
+
+ \-H "Authorization: pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14"
+
+3
+
+ \-H "Content-Type:application/json;charset=UTF-8"
+
+4
+
+ \-X POST
+
+5
+
+ \-d ' {
+
+6
+
+ "callId": "6937148828912356701",
+
+7
+
+ "includeBinData": true
+
+8
+
+ } '
+
+Import from Gist
+
+\## The response A successful response contains a Card Token (\`card\_tok\_XXXXX\`), which you can use to create a payment. If the request is unsuccessful, you will receive a response with an \[error code\](doc:response-codes#section-response-codes) and description. 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+12
+
+1
+
+{
+
+2
+
+ "id": "card\_tok\_82FECFE6-370C-4C57-AE45-11262365A225",
+
+3
+
+ "liveMode": true,
+
+4
+
+ "created": "2016-05-20T11:37:31Z",
+
+5
+
+ "used": false,
+
+6
+
+ "binData": {
+
+7
+
+ "bin": "400552",
+
+8
+
+ "issuerCountryISO2": "US",
+
+9
+
+ "countryName": "United States",
+
+10
+
+ "cardType": "Credit"
+
+11
+
+ }
+
+12
+
+}
+
+Import from Gist
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

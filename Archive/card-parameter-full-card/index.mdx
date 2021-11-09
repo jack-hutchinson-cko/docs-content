@@ -1,0 +1,275 @@
+---
+title: card-parameter-full-card
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+The \`card\` object contains the full details of a customer's credit or debit card and —optionally— the associated billing details. ### Example: The card object (full card details) 
+
+Shell
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+"card": {
+
+2
+
+ "name": "Miss Matt Quigley",
+
+3
+
+ "number": "4242424242424242",
+
+4
+
+ "expiryYear": "2018",
+
+5
+
+ "cvv": "100"
+
+6
+
+}
+
+Import from Gist
+
+\### Object payload fields for card The table below outlines the parameters used to make up the \`card\` object. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+\`expiryMonth\` <span class="field-type">Integer</span> <span class="req-def">required</span> 
+
+ | 
+
+Two digit number representing the card’s expiration month. 
+
+ |
+| 
+
+\`expiryYear\` <span class="field-type">Integer</span> <span class="req-def">required</span> 
+
+ | 
+
+Two digit number representing the card’s expiration year. 
+
+ |
+| 
+
+\`number\` <span class="field-type">Integer</span> <span class="req-def">required</span> 
+
+ | 
+
+The card number without spaces. Maximum characters: 19. 
+
+ |
+| 
+
+\`billingDetails\` <span class="field-type">Object</span> <span class="optional-def">Optional</span> 
+
+ | 
+
+Cardholder's billing address details. 
+
+ |
+| 
+
+\`CVV\` <span class="field-type">Number</span> <span class="optional-def">Optional</span> 
+
+ | 
+
+Card security code. <span class="table-info">Three digits for most cards, except American Express which uses four.</span> 
+
+ |
+| 
+
+\`name\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
+
+ | 
+
+Full name of the cardholder. Maximum characters: 100. 
+
+ |
+
+\### Example: card object with \`billingDetails\` 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+19
+
+1
+
+"card": {
+
+2
+
+ "name": "Miss Matt Quigley",
+
+3
+
+ "number": "4242424242424242",
+
+4
+
+ "expiryMonth": "06",
+
+5
+
+ "expiryYear": "2018",
+
+6
+
+ "cvv": "100",
+
+7
+
+ "billingDetails": {
+
+8
+
+ "addressLine1": "72 Myrna Parkways",
+
+9
+
+ "addressLine2": "Hoppe Fork",
+
+10
+
+ "postcode": "aq81ct",
+
+11
+
+ "country": "US",
+
+12
+
+ "city": "Serenamouth",
+
+13
+
+ "state": "Luzmouth",
+
+14
+
+ "phone" : {
+
+15
+
+ "countryCode" : "44",
+
+16
+
+ "number" : "12345678"
+
+17
+
+ }
+
+18
+
+ }
+
+19
+
+}
+
+Import from Gist
+
+\### Object payload fields for \`billingDetails\` 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+\`addressLine1\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
+
+ | 
+
+Address field line 1 — maximum length: 200 characters. 
+
+ |
+| 
+
+\`addressLine2\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
+
+ | 
+
+Address field line 2 — maximum length: 200 characters. 
+
+ |
+| 
+
+\`city\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
+
+ | 
+
+The city — maximum length: 50 characters. 
+
+ |
+| 
+
+\`country\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
+
+ | 
+
+The country — must be represented by an ISO2 country code (e.g. US). 
+
+ |
+| 
+
+\`phone\` <span class="field-type">Object</span> <span class="optional-def">Optional</span> 
+
+ | 
+
+Contact phone number for the cardholder. Must contain: \* \`countryCode\`: Valid country code for the phone number (e.g. 44 for the United Kingdom). \* \`number\`: Cardholder's contact phone number. \*Must be between 6 and 25 characters. \* <span class="table-info">Allowed characters are: numbers, +, (,) ,/ and ' '. If countryCode is included, the phone number must also be included and cannot be NULL. </span> 
+
+ |
+| 
+
+\`postcode\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
+
+ | 
+
+The postcode — maximum length: 50 characters. 
+
+ |
+| 
+
+\`state\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
+
+ | 
+
+The state — maximum length: 50 characters. 
+
+ |
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

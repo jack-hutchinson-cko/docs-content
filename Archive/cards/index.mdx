@@ -1,0 +1,143 @@
+---
+title: cards
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+These APIs can be used to create, retrieve, update, and delete operations on a customer's card objects. 
+
+The card object is an outline of all the information stored about a customer's card. It consists of the following fields: 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+\`id\` <span class="field-type">String</span> 
+
+ | 
+
+Prefixed with \`card\_\` the ID uniquely identifies a card to an associated email address (customer). <span class="table-info"> More info: \* Each time a different customer uses the same card, we generate a new card ID. \* A card ID is only created if you receive a 10000 or 10100 response code in the response of a create card, create customer, or payment request. \* Card IDs are generated on a merchant-account level, meaning a card ID created under a business can be used by any other business belonging to the same merchant account. </span> 
+
+ |
+| 
+
+\`avsCheck\` <span class="field-type">String</span> 
+
+ | 
+
+Address verification service code. 
+
+ |
+| 
+
+\`billingDetails\` <span class="field-type">Object</span> 
+
+ | 
+
+Billing address of the card. <span class="table-info">\[Find out more\](ref:shipping-and-billing-details-1) </span> 
+
+ |
+| 
+
+\`bin\` <span class="field-type">Integer</span> 
+
+ | 
+
+The first six digits of the credit card number. Known as a BIN or Banking Identification Number, used to identify the institution that issued the card. 
+
+ |
+| 
+
+\`customerId\` <span class="field-type">String</span> 
+
+ | 
+
+The customer's ID (prefixed with cust\_). 
+
+ |
+| 
+
+\`cvvCheck\` <span class="field-type">String</span> 
+
+ | 
+
+If a CVV is provided, returns a \[CVV code\](doc:cvv-codes) as a response. <span class="table-info">"cvvCheck": "Y", signals that Card Verification was done and the CVD was valid.</span> 
+
+ |
+| 
+
+\`expiryMonth\` <span class="field-type">Integer</span> 
+
+ | 
+
+A two-digit number representing the expiry month of a card (e.g., \`06\` for June). 
+
+ |
+| 
+
+\`expiryYear\` <span class="field-type">Integer</span> 
+
+ | 
+
+A two or a four-digit number representing the expiry year of a card (e.g., '17' or '2017' for 2017). 
+
+ |
+| 
+
+\`fingerprint\` <span class="field-type">String</span> 
+
+ | 
+
+A unique identifier of a card, irrespective of the associated customer. If a card is used by multiple customers, the same fingerprint will be generated each time. 
+
+ |
+| 
+
+\`last4\` <span class="field-type">String</span> 
+
+ | 
+
+The last four digits of the card number. 
+
+ |
+| 
+
+\`name\` <span class="field-type">String</span> 
+
+ | 
+
+The customer's name. 
+
+ |
+| 
+
+\`paymentMethod\` <span class="field-type">String</span> 
+
+ | 
+
+The payment method (e.g., 'VISA'). 
+
+ |
+| 
+
+\`responseCode\` <span class="field-type">String</span> 
+
+ | 
+
+\[Response code\](doc:response-codes) indicating the status of the request. 
+
+ |
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

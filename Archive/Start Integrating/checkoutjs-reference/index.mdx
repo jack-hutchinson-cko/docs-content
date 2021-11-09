@@ -1,0 +1,1330 @@
+---
+title: checkoutjs-reference
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+This is a complete list of Checkout.js configuration options. ## Required 
+
+You can only create charges in currencies that have been enabled for your account. Please contact your relationship manager if you need to process in additional currencies. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+\`data-public-key\` 
+
+ | 
+
+\`publicKey\` 
+
+ | 
+
+Your public key — find it in \[The Hub\](https://hub.checkout.com/) 
+
+ |
+| 
+
+\`data-payment-token\` 
+
+ | 
+
+\`paymentToken\` 
+
+ | 
+
+Your payment token. This is only required when creating an alternative payment charge with payment token. 
+
+ |
+| 
+
+\`data-customer-email\` 
+
+ | 
+
+\`customerEmail\` 
+
+ | 
+
+Customer's email address 
+
+ |
+| 
+
+\`data-value\` 
+
+ | 
+
+\`value\` 
+
+ | 
+
+Transaction value displayed in the Payment Lightbox. 
+
+ |
+| 
+
+\`data-currency\` 
+
+ | 
+
+\`currency\` 
+
+ | 
+
+Transaction currency displayed in the Payment Lightbox. 
+
+ |
+| 
+
+\`data-payment-mode\` 
+
+ | 
+
+\`paymentMode\` 
+
+ | 
+
+Specifies the available payment methods: \* mixed = All enabled credit/debit cards and alternative/local payments. \* cards = All enabled credit/debit cards only. \* localpayments = Alternative payment methods. \*\*Note: \*\*This is a required field for card payments and must be set to either ‘cards’ or ‘mixed’. 
+
+ |
+| 
+
+\`data-card-form-mode\` 
+
+ | 
+
+\`cardFormMode\` 
+
+ | 
+
+Set to cardTokenisation to enable the card tokenisation charge option. \*\*Note: \*\*This is a required field for card payments and must be set to ‘cardTokenisation’ (i.e. cardFormMode: 'cardTokenisation'). Please note that this does not apply for alternative payments. 
+
+ |
+
+\## Optional 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+\`data-debug-mode\` 
+
+ | 
+
+\`debugMode\` 
+
+ | 
+
+Set to \`true\` to view console messages. 
+
+ | 
+
+n/a 
+
+ |
+| 
+
+\`data-namespace\` 
+
+ | 
+
+\`namespace \` 
+
+ | 
+
+Customise the default Checkout namespace. 
+
+ | 
+
+n/a 
+
+ |
+
+\## Customer details 
+
+\`billingDetails\` is the only way to send customer details when using Checkout.js. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+\`data-customer-name\` 
+
+ | 
+
+\`customerName\` 
+
+ | 
+
+The name of the customer 
+
+ | 
+
+n/a 
+
+ |
+| 
+
+Sorry, not supported. 
+
+ | 
+
+\`billingDetails\` 
+
+ | 
+
+Transaction billing details: {addressLine1, addressLine2, postcode, country, city, phone{number}} 
+
+ | 
+
+n/a 
+
+ |
+
+\*\*Billing details example\*\* 
+
+HTML
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+20
+
+1
+
+<form class\="payment-form" method\="POST" action\="https://merchant.com/chargeCard"\>
+
+2
+
+ <script\>
+
+3
+
+ window.CKOConfig \= {
+
+4
+
+ publicKey: 'pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14',
+
+5
+
+ paymentToken: 'pay\_tok\_SPECIMEN-000',
+
+6
+
+ customerEmail: 'user@email.com',
+
+7
+
+ value: 100,
+
+8
+
+ customerName: 'John Smith',
+
+9
+
+ billingDetails: {
+
+10
+
+ 'addressLine1': "623 Slade Street",
+
+11
+
+ 'addressLine2': "Apartment 8",
+
+12
+
+ 'postcode': "31313",
+
+13
+
+ 'country': "US",
+
+14
+
+ 'city': "Hinesville",
+
+15
+
+ 'phone': {'number': "9125084652"}
+
+16
+
+ }
+
+17
+
+ };
+
+18
+
+ </script\>
+
+19
+
+ <script async src\="https://cdn.checkout.com/sandbox/js/checkout.js"\></script\>
+
+20
+
+</form\>
+
+Import from Gist
+
+In a live environment, replace \`<script async src="https://cdn.checkout.com/sandbox/js/checkout.js"></script>\` with \`<script async src="https://cdn.checkout.com/js/checkout.js"></script>\`. 
+
+\## Payment details 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+\`data-payment-mode\` 
+
+ | 
+
+\`paymentMode\` 
+
+ | 
+
+Specifies the available payment methods: \* mixed = All enabled credit/debit cards and alternative/local payments. \* cards = All enabled credit/debit cards only. \* localpayments = All enabled alternative/local payments only. 
+
+ | 
+
+mixed 
+
+ |
+| 
+
+\`data-payment-provider-id\` 
+
+ | 
+
+\`paymentProviderId\` 
+
+ | 
+
+Defines a single alternative payment method within the payment widget (e.g. "lpp\_12" for Alipay). 
+
+ | 
+
+n/a 
+
+ |
+| 
+
+\`data-lp-code\` 
+
+ | 
+
+\`lpCode\` 
+
+ | 
+
+Deprecated - please use paymentProviderId (above) instead. 
+
+ | 
+
+n/a 
+
+ |
+| 
+
+\`data-use-currency-code\` 
+
+ | 
+
+\`useCurrencyCode\` 
+
+ | 
+
+Boolean value that displays ISO3 currency code (e.g. GBP) instead of the currency symbol (e.g. £). \* true = Display ISO3 currency code \* false = Display currency symbol 
+
+ | 
+
+false 
+
+ |
+| 
+
+\`data-geo-country-code\` 
+
+ | 
+
+\`countryCode\` 
+
+ | 
+
+ISO2 country code (e.g. CN = China, UK = United Kingdom) that determines the order in which alternative payment methods are displayed in the Payment Widget and Lightbox. Alternative payment methods supported in the country specified will be displayed first. 
+
+ | 
+
+n/a 
+
+ |
+
+\## Widget options 
+
+Not applicable when integrating via \*\*Checkout.configure()\*\*, as it does not display the payment widget. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+\`data-widget-color\` 
+
+ | 
+
+\`widgetColor \` 
+
+ | 
+
+HEX value of your chosen widget color. 
+
+ | 
+
+\`#000333\` 
+
+ |
+| 
+
+\`data-button-color\` 
+
+ | 
+
+\`buttonColor \` 
+
+ | 
+
+HEX value of your chosen button color. 
+
+ | 
+
+\`#00b660\` 
+
+ |
+| 
+
+\`data-button-label-color\` 
+
+ | 
+
+\`buttonLabelColor \` 
+
+ | 
+
+HEX value of your chosen button text color. 
+
+ | 
+
+\`#ffffff\` 
+
+ |
+| 
+
+\`data-button-label\` 
+
+ | 
+
+\`buttonLabel\` 
+
+ | 
+
+String value that sets the text inside the widget button. 
+
+ | 
+
+Pay Now 
+
+ |
+| 
+
+\`data-pay-button-selector\` 
+
+ | 
+
+\`payButtonSelector\` 
+
+ | 
+
+The .class or #id of the element acting as the parent for the widget button. 
+
+ | 
+
+n/a 
+
+ |
+| 
+
+Sorry, not supported 
+
+ | 
+
+\`widgetContainerSelector\` 
+
+ | 
+
+The .class or #id of the element hosting the Checkout.js widget. 
+
+ | 
+
+<body> 
+
+ |
+| 
+
+\`data-icon-container-selector\` 
+
+ | 
+
+\`iconContainerSelector\` 
+
+ | 
+
+The .class or #id of the element hosting the Checkout.js widget card icons. 
+
+ | 
+
+Same element as Pay Now button 
+
+ |
+| 
+
+\`data-render-mode\` 
+
+ | 
+
+\`renderMode\` 
+
+ | 
+
+0 = All 1 = Pay Button Only 2 = Icons Only 3 = Active Icons Only (clicking an icon opens the Payment lightbox) 
+
+ | 
+
+0 
+
+ |
+
+\## Lightbox options 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+\`data-title\` 
+
+ | 
+
+\`title\` 
+
+ | 
+
+The title of your payment form. 
+
+ | 
+
+n/a 
+
+ |
+| 
+
+\`data-subtitle\` 
+
+ | 
+
+\`subtitle\` 
+
+ | 
+
+The subtitle of your payment form. 
+
+ | 
+
+n/a 
+
+ |
+| 
+
+\`data-logo-url\` 
+
+ | 
+
+\`logoUrl\` 
+
+ | 
+
+The URL of your logo (180 x 36 pixels) beginning with 'https'. 
+
+ | 
+
+Checkout.com's Logo 
+
+ |
+| 
+
+\`data-theme-color\` 
+
+ | 
+
+\`themeColor\` 
+
+ | 
+
+HEX value of your chosen theme color. 
+
+ | 
+
+\`#00b660\` 
+
+ |
+| 
+
+Sorry, not supported. 
+
+ | 
+
+\`iconColor\` 
+
+ | 
+
+HEX value of your chosen icon color. 
+
+ | 
+
+\`#3075dd\` 
+
+ |
+| 
+
+\`data-form-button-label\` 
+
+ | 
+
+\`formButtonLabel\` 
+
+ | 
+
+String value that sets the text inside the lightbox form's submit button. 
+
+ | 
+
+Checkout Now 
+
+ |
+| 
+
+\`data-force-redirect\` 
+
+ | 
+
+\`forceRedirect\` 
+
+ | 
+
+Boolean value that forces redirect to the payment app instead of opening the payment app in an iframe. \* \`true\` = enable redirection \* \`false\` = disable redirection 
+
+ | 
+
+false 
+
+ |
+| 
+
+\`data-force-mobile-redirect \` 
+
+ | 
+
+\`forceMobileRedirect\` 
+
+ | 
+
+Boolean value that forces mobile redirection instead of using tabs. \* \`true\` = enable mobile redirection \* \`false\` = disable mobile redirection 
+
+ | 
+
+false 
+
+ |
+| 
+
+Sorry, not supported. 
+
+ | 
+
+\`redirectUrl\` 
+
+ | 
+
+The URL where a cardholder would be redirected once their card details are submitted via the payment app. I<span class="table-info">If \`forceRedirect\` or \`forceMobileRedirect\` are enabled, a \`redirectUrl\` must be specified. If the redirect URL parameter is specified it will override the FORM action URL.</span> 
+
+ | 
+
+n/a 
+
+ |
+| 
+
+\`data-enable-iframe-preloading\` 
+
+ | 
+
+\`enableIframePreloading\` 
+
+ | 
+
+Boolean value that preloads lightbox. \* \`true\` = enable lightbox preload \* \`false\` = disable lightbox preload 
+
+ | 
+
+true 
+
+ |
+| 
+
+\`data-single-state\` 
+
+ | 
+
+\`singleState\` 
+
+ | 
+
+Boolean value that locks the lightbox into a single state. \* \`true\` = enable single state \* \`false\` = disable single state 
+
+ | 
+
+false 
+
+ |
+| 
+
+\`data-theme\` 
+
+ | 
+
+\`theme\` 
+
+ | 
+
+Sets the colour scheme of the lightbox. Available options include: \* \`standard\` = blue \* \`light\` = white 
+
+ | 
+
+standard 
+
+ |
+| 
+
+Sorry, not supported. 
+
+ | 
+
+\`cardFormMode\` 
+
+ | 
+
+Enables payments with a card token \[Find out more\](doc:authorize-a-payment). <span class="table-info">Please see \[Checkout.js\](doc:checkoutjs) for examples.</span> 
+
+ | 
+
+\`Checkout.CardFormModes.CARD\_CHARGE\` or \`cardTokenised\` if Checkout.js is called asynchronously. 
+
+ |
+| 
+
+Sorry, not supported. 
+
+ | 
+
+\`useMobileLightbox\` 
+
+ | 
+
+Opens the payment app inside the merchant checkout screen on mobile devices. 
+
+ | 
+
+false 
+
+ |
+
+\## Localization 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+\`data-localisation\` 
+
+ | 
+
+\`localisation\` 
+
+ | 
+
+Defines language of the (supplied) text displayed in the payment widget and payment lightbox. Available options include: \* DE-DE = German \* EN-GB = English \* ES-ES = Spanish \* FR-FR = French \* IT-IT = Italian \* KR-KR = Korean \* NL-NL = Dutch 
+
+ | 
+
+ |
+
+It is possible to define advanced styling and customisation of Checkout.js using the Javascript API and setting the styling property in the configuration object. ### Example: window.CKOConfig 
+
+null
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+// Method A
+
+2
+
+​
+
+3
+
+window.CKOConfig.styling \= {
+
+4
+
+ formButtonColor: "#591459",
+
+5
+
+ overlayShade: "light"
+
+6
+
+};
+
+Import from Gist
+
+\### Example: Checkout.render() 
+
+JavaScript
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+// Method B
+
+2
+
+​
+
+3
+
+Checkout.render({
+
+4
+
+ ...
+
+5
+
+ styling: {
+
+6
+
+ formButtonColor: "#591459",
+
+7
+
+ overlayShade: "light"
+
+8
+
+ }
+
+9
+
+});
+
+Import from Gist
+
+The available options for the styling object: 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+n/a 
+
+ | 
+
+\`formButtonColor\` 
+
+ | 
+
+HEX value of your chosen lightbox submit button color. 
+
+ | 
+
+\`#00b660\` 
+
+ |
+| 
+
+n/a 
+
+ | 
+
+\`formButtonLabelColor\` 
+
+ | 
+
+HEX value of your chosen lightbox submit button label color. 
+
+ | 
+
+\`#ffffff\` 
+
+ |
+| 
+
+n/a 
+
+ | 
+
+\`overlayShade\` 
+
+ | 
+
+Sets the color of the overlay behind the Payment Lightbox. Available options include: \* dark \* light 
+
+ | 
+
+dark 
+
+ |
+| 
+
+n/a 
+
+ | 
+
+\`overlayOpacity\` 
+
+ | 
+
+Opacity of the overlay displayed behind the payment lightbox, expressed as a number between 0.8 and 1. 
+
+ | 
+
+0.9 
+
+ |
+| 
+
+\`data-show-mobile-icons\` 
+
+ | 
+
+\`showMobileIcons\` 
+
+ | 
+
+Boolean value that displays widget icons on mobile. \* \`true\` = mobile icons enabled \* \`false\` = mobile icons disabled 
+
+ | 
+
+false 
+
+ |
+| 
+
+\`data-widget-icon-size\` 
+
+ | 
+
+\`widgetIconSize\` 
+
+ | 
+
+Sets size of the Payment Widget icons. Available options include: \* small (40 x 22px) \* medium (50 x 28px) \* large (60 x 34px) 
+
+ | 
+
+small 
+
+ |
+
+With Checkout.js we dispatch events which you can handle for various purposes. The table below provides the full list of events — use them to attach to one or more handlers. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+\`ready\` 
+
+ | 
+
+\`READY\` 
+
+ | 
+
+Triggered when Checkout.js is registered on the global namespace and is safe to use. 
+
+ |
+| 
+
+\`cardTokenised\` 
+
+ | 
+
+\`CARD\_TOKENISED\` 
+
+ | 
+
+After tokenizing a card; it returns a card token and a card object containing the \`paymentMethod\` (e.g., VISA, AMEX, etc.) and bin (first six digits of the credit card number). For example, \`{cardToken: "card\_tok\_111", card: {paymentMethod: 'VISA', bin: '424242'}}\` 
+
+ |
+| 
+
+\`cardTokenisationFailed\` 
+
+ | 
+
+\`CARD\_TOKENISATION\_FAILED\` 
+
+ | 
+
+After card tokenization fails. 
+
+ |
+| 
+
+\`paymentTokenExpired\` 
+
+ | 
+
+\`PAYMENT\_TOKEN\_EXPIRED\` 
+
+ | 
+
+After paymentToken expires. 
+
+ |
+| 
+
+\`lpCharged\` 
+
+ | 
+
+\`LP\_CHARGED\` 
+
+ | 
+
+After successful local payment charge (see sample code below) 
+
+ |
+| 
+
+\`lpChargeFailed\` 
+
+ | 
+
+\`LP\_CHARGE\_FAILED\` 
+
+ | 
+
+After a local payment fails; this event object will contain the payment URL and response code. For example, \`{localPayment: {paymentUrl: "http://www..."}, responseCode: 20\*\*\*}\` 
+
+ |
+| 
+
+\`apiError\` 
+
+ | 
+
+\`API\_ERROR\` 
+
+ | 
+
+Failure to receive a correct response from the Checkout's Merchant API will result in an \`apiError\` event being dispatched. 
+
+ |
+
+\#### Example: Using Configuration Options to Define \`lpCharged\` Options 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+13
+
+1
+
+Checkout.render({
+
+2
+
+ publicKey: '...',
+
+3
+
+ lpCharged: {
+
+4
+
+ callback: function(event) {
+
+5
+
+ console.log(event.data);
+
+6
+
+ },
+
+7
+
+ options: {
+
+8
+
+ removeOverlayOnRedirect: false,
+
+9
+
+ removeSpinnerOnRedirect: false,
+
+10
+
+ onRedirectMessage: "your message here..."
+
+11
+
+ }
+
+12
+
+ }
+
+13
+
+});
+
+Import from Gist
+
+\## Localization events 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+\`localisationLoaded\` 
+
+ | 
+
+\`LOCALISATION\_LOADED\` 
+
+ | 
+
+When a language other than English is loaded. 
+
+ |
+| 
+
+\`localisationLoadFailed\` 
+
+ | 
+
+\`OCALISATION\_LOAD\_FAILED\` 
+
+ | 
+
+When failing to load a requested language. 
+
+ |
+
+\## Widget and lightbox events 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+\`widgetRendered\` 
+
+ | 
+
+\`WIDGET\_RENDERED\` 
+
+ | 
+
+After the Checkout.js widget is rendered. 
+
+ |
+| 
+
+\`lightboxActivated\` 
+
+ | 
+
+\`LIGHTBOX\_ACTIVATED\` 
+
+ | 
+
+After the Checkout.js lightbox opens. 
+
+ |
+| 
+
+\`lightboxDeactivated\` 
+
+ | 
+
+\`LIGHTBOX\_DEACTIVATED\` 
+
+ | 
+
+After the Checkout.js lightbox closes automatically: following the completion of a transaction or after the user closes the lightbox manually. 
+
+ |
+| 
+
+\`lightboxCancelled\` 
+
+ | 
+
+\`LIGHTBOX\_CANCELLED\` 
+
+ | 
+
+If the user presses esc or cancel before the Checkout.js lightbox loads. 
+
+ |
+| 
+
+\`lightboxLoadFailed\` 
+
+ | 
+
+\`LIGHTBOX\_LOAD\_FAILED\` 
+
+ | 
+
+If the Checkout.js lightbox fails to load. 
+
+ |
+| 
+
+\`invalidLightboxConfig\` 
+
+ | 
+
+\`INVALID\_LIGHTBOX\_CONFIG\` 
+
+ | 
+
+If configuration parameters required by the Checkout.js lightbox (\`publicKey\`, \`paymentToken\`, \`value\`, \`currency\`) are missing or invalid. 
+
+ |
+
+\## Adding an event handler There are two ways to add an event handler: \* the standard approach \* using configuration options #### Example 1: the standard approach 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+Checkout.addEventHandler(Checkout.Events.<EVENT\_CONSTANT\>, handler, options);
+
+Import from Gist
+
+\#### Example 2: the configuration options 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+ Checkout.render({
+
+2
+
+ publicKey: '...',
+
+3
+
+ <event name\>: handler
+
+4
+
+ });
+
+Import from Gist
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

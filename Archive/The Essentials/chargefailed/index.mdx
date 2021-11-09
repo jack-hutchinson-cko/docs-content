@@ -1,0 +1,414 @@
+---
+title: chargefailed
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+\## Example: Transaction authorisation failed 
+
+Transaction authorization failed example
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+96
+
+1
+
+{
+
+2
+
+ "eventType": "charge.failed",
+
+3
+
+ "message": {
+
+4
+
+ "id": "charge\_test\_551AF7755E5P7A8810CF",
+
+5
+
+ "liveMode": false,
+
+6
+
+ "created": "2016-05-19T14:50:47Z",
+
+7
+
+ "value": 111,
+
+8
+
+ "currency": "USD",
+
+9
+
+ "trackId": "TRK12345",
+
+10
+
+ "description": "charge description",
+
+11
+
+ "email": "sarah.mitchell@checkout.com",
+
+12
+
+ "chargeMode": 1,
+
+13
+
+ "transactionIndicator": 1,
+
+14
+
+ "customerIp": "192.168.1.93",
+
+15
+
+ "responseMessage": "Gateway Reject - Card Number Blacklist",
+
+16
+
+ "responseAdvancedInfo": null,
+
+17
+
+ "responseCode": "40201",
+
+18
+
+ "status": "Declined",
+
+19
+
+ "authCode": "00000",
+
+20
+
+ "isCascaded": false,
+
+21
+
+ "autoCapture": "N",
+
+22
+
+ "autoCapTime": 0.0,
+
+23
+
+ "card": {
+
+24
+
+ "customerId": "cust\_1082AE61-C38B-433C-863B-23E8C0A126C5",
+
+25
+
+ "expiryMonth": "6",
+
+26
+
+ "expiryYear": "2018",
+
+27
+
+ "billingDetails": {
+
+28
+
+ "addressLine1": "27 Acacia Tree Street",
+
+29
+
+ "addressLine2": "Apartment 15",
+
+30
+
+ "postcode": "01072",
+
+31
+
+ "country": "US",
+
+32
+
+ "city": "Shutesbury",
+
+33
+
+ "state": "Massachusetts",
+
+34
+
+ "phone": {
+
+35
+
+ "countryCode": "1",
+
+36
+
+ "number": "111 222-333"
+
+37
+
+ }
+
+38
+
+ },
+
+39
+
+ "id": "card\_370A60CD-636E-4D28-8C9B-A4601E85F1F0",
+
+40
+
+ "last4": "4242",
+
+41
+
+ "paymentMethod": "Visa",
+
+42
+
+ "fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
+
+43
+
+ "name": "cardholdername"
+
+44
+
+ },
+
+45
+
+ "riskCheck": true,
+
+46
+
+ "customerPaymentPlans": null,
+
+47
+
+ "metadata": {
+
+48
+
+ "key1": "value1",
+
+49
+
+ "key2": "value2",
+
+50
+
+ "key3": "value3",
+
+51
+
+ "key4": "value4",
+
+52
+
+ "key5": "value5",
+
+53
+
+ "key6": "value6",
+
+54
+
+ "key7": "value7",
+
+55
+
+ "key8": "value8",
+
+56
+
+ "key9": "value9",
+
+57
+
+ "key10": "value10"
+
+58
+
+ },
+
+59
+
+ "shippingDetails": {
+
+60
+
+ "addressLine1": "27 Acacia Tree Street",
+
+61
+
+ "addressLine2": "Apartment 15",
+
+62
+
+ "postcode": "01072",
+
+63
+
+ "country": "US",
+
+64
+
+ "city": "Shutesbury",
+
+65
+
+ "state": "Massachusetts",
+
+66
+
+ "phone": {
+
+67
+
+ "countryCode": "1",
+
+68
+
+ "number": "111 222-333"
+
+69
+
+ }
+
+70
+
+ },
+
+71
+
+ "products": \[{
+
+72
+
+ "name": "T-Shirt Ladies",
+
+73
+
+ "description": "T-Shirt Ladies Medium",
+
+74
+
+ "sku": "tee123",
+
+75
+
+ "price": 2000,
+
+76
+
+ "quantity": 1,
+
+77
+
+ "image": "https://www.example.com/tshirt.jpg",
+
+78
+
+ "shippingCost": 0,
+
+79
+
+ "trackingUrl": "https://www.example.com"
+
+80
+
+ }, {
+
+81
+
+ "name": "Watch Ladies Gold",
+
+82
+
+ "description": "Watch Ladies",
+
+83
+
+ "sku": "watch123",
+
+84
+
+ "price": 20000,
+
+85
+
+ "quantity": 2,
+
+86
+
+ "image": "https://www.example.com/watch.jpg",
+
+87
+
+ "shippingCost": 10.0,
+
+88
+
+ "trackingUrl": "https://www.example.com"
+
+89
+
+ }\],
+
+90
+
+ "udf1": "udf 1 value",
+
+91
+
+ "udf2": "udf 2 value",
+
+92
+
+ "udf3": "udf 3 value",
+
+93
+
+ "udf4": "udf 4 value",
+
+94
+
+ "udf5": "udf 5 value"
+
+95
+
+ }
+
+96
+
+}
+
+Import from Gist
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

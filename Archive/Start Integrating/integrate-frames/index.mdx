@@ -1,0 +1,790 @@
+---
+title: integrate-frames
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+\*When it comes to integrating Frames into your page, it requires a little bit of technical knowledge — for starters, you will need to customize your Pay Now button. If you're looking for a simpler solution, then take a look at \[Checkout.js\](doc:checkoutjs).\* On this page, we provide four variants for embedding Frames, each very similar but with their individual characteristics. 
+
+The following examples are all the start of the payment process. They equip you with the tools to <<glossary:tokenize>> a customer's sensitive card information using Frames. From this point, you can \[authorize a payment\](doc:authorize-a-payment), \[create a customer\](doc:create-a-customer), or \[save a card\](doc:create-a-card) for later. 
+
+In every example, replace the supplied \`publicKey\` with your own. 
+
+\## Using submitCard promise This code excerpt uses a JavaScript Promise to tokenize a customer's payment details. 
+
+The card token will be posted via the URL specified in the form action attribute. 
+
+HTML
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+41
+
+1
+
+<body\>
+
+2
+
+ <!-- add frames script -->
+
+3
+
+ <script src\="https://cdn.checkout.com/js/frames.js"\></script\>
+
+4
+
+ <form id\="payment-form" method\="POST" action\="https://merchant.com/charge-card"\>
+
+5
+
+ <div class\="frames-container"\>
+
+6
+
+ <!-- form will be added here -->
+
+7
+
+ </div\>
+
+8
+
+ <!-- add submit button -->
+
+9
+
+ <button id\="pay-now-button" type\="submit" disabled\>Pay now</button\>
+
+10
+
+ </form\>
+
+11
+
+​
+
+12
+
+ <script\>
+
+13
+
+ var paymentForm \= document.getElementById('payment-form');
+
+14
+
+ var payNowButton \= document.getElementById('pay-now-button');
+
+15
+
+​
+
+16
+
+ Frames.init({
+
+17
+
+ publicKey: 'pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14',
+
+18
+
+ containerSelector: '.frames-container',
+
+19
+
+ cardValidationChanged: function() {
+
+20
+
+ // if all fields contain valid information, the Pay now
+
+21
+
+ // button will be enabled and the form can be submitted
+
+22
+
+ payNowButton.disabled \= !Frames.isCardValid();
+
+23
+
+ },
+
+24
+
+ cardSubmitted: function() {
+
+25
+
+ payNowButton.disabled \= true;
+
+26
+
+ // display loader
+
+27
+
+ }
+
+28
+
+ });
+
+29
+
+ paymentForm.addEventListener('submit', function(event) {
+
+30
+
+ event.preventDefault();
+
+31
+
+ Frames.submitCard()
+
+32
+
+ .then(function(data) {
+
+33
+
+ Frames.addCardToken(paymentForm, data.cardToken);
+
+34
+
+ paymentForm.submit();
+
+35
+
+ })
+
+36
+
+ .catch(function(err) {
+
+37
+
+ // catch the error
+
+38
+
+ });
+
+39
+
+ });
+
+40
+
+ </script\>
+
+41
+
+</body\>
+
+Import from Gist
+
+\## Using cardTokenised handler The example here uses a cardTokenized handler to gain a payment token for your customers' card details. 
+
+HTML
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+42
+
+1
+
+<body\>
+
+2
+
+ <!-- add frames script -->
+
+3
+
+ <script src\="https://cdn.checkout.com/js/frames.js"\></script\>
+
+4
+
+ <form id\="payment-form" method\="POST" action\="https://merchant.com/charge-card"\>
+
+5
+
+ <div class\="frames-container"\>
+
+6
+
+ <!-- form will be added here -->
+
+7
+
+ </div\>
+
+8
+
+ <!-- add submit button -->
+
+9
+
+ <button id\="pay-now-button" type\="submit" disabled\>Pay now</button\>
+
+10
+
+ </form\>
+
+11
+
+​
+
+12
+
+ <script\>
+
+13
+
+ var paymentForm \= document.getElementById('payment-form');
+
+14
+
+ var payNowButton \= document.getElementById('pay-now-button');
+
+15
+
+​
+
+16
+
+ Frames.init({
+
+17
+
+ publicKey: 'pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14',
+
+18
+
+ containerSelector: '.frames-container',
+
+19
+
+ cardValidationChanged: function() {
+
+20
+
+ // if all fields contain valid information, the Pay now
+
+21
+
+ // button will be enabled and the form can be submitted
+
+22
+
+ payNowButton.disabled \= !Frames.isCardValid();
+
+23
+
+ },
+
+24
+
+ cardSubmitted: function() {
+
+25
+
+ payNowButton.disabled \= true;
+
+26
+
+ // display loader
+
+27
+
+ },
+
+28
+
+ cardTokenised: function(event) {
+
+29
+
+ var cardToken \= event.data.cardToken;
+
+30
+
+ Frames.addCardToken(paymentForm, cardToken)
+
+31
+
+ paymentForm.submit()
+
+32
+
+ },
+
+33
+
+ cardTokenisationFailed: function(event) {
+
+34
+
+ // catch the error
+
+35
+
+ }
+
+36
+
+ });
+
+37
+
+ paymentForm.addEventListener('submit', function(event) {
+
+38
+
+ event.preventDefault();
+
+39
+
+ Frames.submitCard();
+
+40
+
+ });
+
+41
+
+ </script\>
+
+42
+
+</body\>
+
+Import from Gist
+
+\## Loading Frames asynchronously If you load Frames asynchronously, you can change the namespace to a name other than 'Frames'. The example below uses Checkout as the namespace. 
+
+Use \*\*window.CKOConfig\*\* to change the namespace, or to load Frames asynchronously. 
+
+HTML
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+44
+
+1
+
+<body\>
+
+2
+
+ <form id\="payment-form" method\="POST" action\="https://merchant.com/charge-card"\>
+
+3
+
+ <div class\="frames-container"\>
+
+4
+
+ <!-- form will be added here -->
+
+5
+
+ </div\>
+
+6
+
+ <!-- add submit button -->
+
+7
+
+ <button id\="pay-now-button" type\="submit" disabled\>Pay now</button\>
+
+8
+
+ </form\>
+
+9
+
+ <!-- add frames script with async attribute -->
+
+10
+
+ <script async src\="https://cdn.checkout.com/js/frames.js"\></script\>
+
+11
+
+ <script\>
+
+12
+
+ var paymentForm \= document.getElementById('payment-form');
+
+13
+
+ var payNowButton \= document.getElementById("pay-now-button");
+
+14
+
+​
+
+15
+
+ window.CKOConfig \= {
+
+16
+
+ publicKey: 'pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14',
+
+17
+
+ containerSelector: '.frames-container',
+
+18
+
+ // change the namespace to Checkout
+
+19
+
+ namespace: 'Checkout',
+
+20
+
+ ready: function() {
+
+21
+
+ // Frames is registered on the global namespace and safe to use
+
+22
+
+ payNowButton.addEventListener('click', function() {
+
+23
+
+ // Use the namespace in the settings instead of Frames
+
+24
+
+ Checkout.submitCard();
+
+25
+
+ });
+
+26
+
+ },
+
+27
+
+ cardValidationChanged: function() {
+
+28
+
+ // if all fields contain valid information, the Pay now
+
+29
+
+ // button will be enabled and the form can be submitted
+
+30
+
+ payNowButton.disabled \= !Checkout.isCardValid();
+
+31
+
+ },
+
+32
+
+ cardSubmitted: function() {
+
+33
+
+ payNowButton.disabled \= true;
+
+34
+
+ // display loader
+
+35
+
+ },
+
+36
+
+ cardTokenised: function(event) {
+
+37
+
+ // add card token to the form
+
+38
+
+ Checkout.addCardToken(paymentForm, event.data.cardToken);
+
+39
+
+ // submit the form
+
+40
+
+ paymentForm.submit();
+
+41
+
+ }
+
+42
+
+ };
+
+43
+
+ </script\>
+
+44
+
+</body\>
+
+Import from Gist
+
+\## Including billing details Use the attribute \`billingDetails\` to send the customer's details. In the example, we have added the customer's billing details to a Frames form. 
+
+HTML
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+50
+
+1
+
+<body\>
+
+2
+
+ <!-- add frames script -->
+
+3
+
+ <script src\="https://cdn.checkout.com/js/frames.js"\></script\>
+
+4
+
+ <form id\="payment-form" method\="POST" action\="https://merchant.com/charge-card"\>
+
+5
+
+ <div class\="frames-container"\>
+
+6
+
+ <!-- form will be added here -->
+
+7
+
+ </div\>
+
+8
+
+ <!-- add submit button -->
+
+9
+
+ <button id\="pay-now-button" type\="submit" disabled\>Pay now</button\>
+
+10
+
+ </form\>
+
+11
+
+​
+
+12
+
+ <script\>
+
+13
+
+ var paymentForm \= document.getElementById('payment-form');
+
+14
+
+ var payNowButton \= document.getElementById('pay-now-button');
+
+15
+
+​
+
+16
+
+ Frames.init({
+
+17
+
+ publicKey: 'pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14',
+
+18
+
+ containerSelector: '.frames-container',
+
+19
+
+ customerName: 'John Smith',
+
+20
+
+ billingDetails: {
+
+21
+
+ addressLine1: '623 Slade Street',
+
+22
+
+ addressLine2: 'Apartment 8',
+
+23
+
+ postcode: '31313',
+
+24
+
+ country: 'US',
+
+25
+
+ city: 'Hinesville',
+
+26
+
+ phone: { number: '9125084652' }
+
+27
+
+ },
+
+28
+
+ cardValidationChanged: function () {
+
+29
+
+ // if all fields contain valid information, the Pay now
+
+30
+
+ // button will be enabled and the form can be submitted
+
+31
+
+ payNowButton.disabled \= !Frames.isCardValid();
+
+32
+
+ },
+
+33
+
+ cardSubmitted: function () {
+
+34
+
+ payNowButton.disabled \= true;
+
+35
+
+ // display loader
+
+36
+
+ }
+
+37
+
+ });
+
+38
+
+ paymentForm.addEventListener('submit', function (event) {
+
+39
+
+ event.preventDefault();
+
+40
+
+ Frames.submitCard()
+
+41
+
+ .then(function (data) {
+
+42
+
+ Frames.addCardToken(paymentForm, data.cardToken);
+
+43
+
+ paymentForm.submit();
+
+44
+
+ })
+
+45
+
+ .catch(function (err) {
+
+46
+
+ // catch the error
+
+47
+
+ });
+
+48
+
+ });
+
+49
+
+ </script\>
+
+50
+
+</body\>
+
+Import from Gist
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

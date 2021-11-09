@@ -1,0 +1,412 @@
+---
+title: chargerefunded
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+\## Example: Refunded card transaction 
+
+Refunded card transaction example
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+46
+
+1
+
+{
+
+2
+
+ "eventType": "charge.refunded",
+
+3
+
+ "message": {
+
+4
+
+ "id": "charge\_test\_E018DBAE674I64D9AEE9",
+
+5
+
+ "originalId": "charge\_test\_C5C8EBAE674W64D9AED3",
+
+6
+
+ "liveMode": false,
+
+7
+
+ "created": "2016-05-20T06:02:18Z",
+
+8
+
+ "value": 2000,
+
+9
+
+ "currency": "USD",
+
+10
+
+ "trackId": "TRK1234",
+
+11
+
+ "description": "Description",
+
+12
+
+ "chargeMode": 1,
+
+13
+
+ "responseMessage": "Approved",
+
+14
+
+ "responseAdvancedInfo": "Approved",
+
+15
+
+ "responseCode": "10000",
+
+16
+
+ "status": "Refunded",
+
+17
+
+ "hasChargeback": "N",
+
+18
+
+ "metadata": {
+
+19
+
+ "trackid": "10055"
+
+20
+
+ },
+
+21
+
+ "products": \[{
+
+22
+
+ "name": "T-Shirt Ladies",
+
+23
+
+ "description": "T-Shirt Ladies Medium",
+
+24
+
+ "sku": "tee123",
+
+25
+
+ "price": 2000,
+
+26
+
+ "quantity": 1,
+
+27
+
+ "image": "http://www.example.com/tshirt.jpg",
+
+28
+
+ "shippingCost": 0,
+
+29
+
+ "trackingUrl": "http://www.example.com"
+
+30
+
+ }, {
+
+31
+
+ "name": "Watch Ladies",
+
+32
+
+ "description": "Watch Ladies Gold",
+
+33
+
+ "sku": "watch123",
+
+34
+
+ "price": 20000,
+
+35
+
+ "quantity": 1,
+
+36
+
+ "image": null,
+
+37
+
+ "shippingCost": 0,
+
+38
+
+ "trackingUrl": "https://www.example.com"
+
+39
+
+ }\],
+
+40
+
+ "udf1": "null",
+
+41
+
+ "udf2": "null",
+
+42
+
+ "udf3": "null",
+
+43
+
+ "udf4": "null",
+
+44
+
+ "udf5": "null"
+
+45
+
+ }
+
+46
+
+}
+
+Import from Gist
+
+\## Example: Refunded LP transaction 
+
+Refunded LP transaction example
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+46
+
+1
+
+{
+
+2
+
+ "eventType": "charge.refunded",
+
+3
+
+ "message": {
+
+4
+
+ "id": "charge\_B2CC9BBE674Q76B41995",
+
+5
+
+ "originalId": "charge\_E2CADACDF74X76B41EA5",
+
+6
+
+ "liveMode": true,
+
+7
+
+ "created": "2016-05-20T07:46:35Z",
+
+8
+
+ "value": 2000,
+
+9
+
+ "currency": "USD",
+
+10
+
+ "trackId": "Updatetrackid",
+
+11
+
+ "description": "Test for updating a charge",
+
+12
+
+ "chargeMode": 3,
+
+13
+
+ "responseMessage": "Approved",
+
+14
+
+ "responseAdvancedInfo": "Approved",
+
+15
+
+ "responseCode": "10000",
+
+16
+
+ "status": "Refunded",
+
+17
+
+ "hasChargeback": "N",
+
+18
+
+ "metadata": {
+
+19
+
+ "key1": "value11",
+
+20
+
+ "key2": "value21",
+
+21
+
+ "key3": "value31",
+
+22
+
+ "key4": "value41",
+
+23
+
+ "key5": "value51",
+
+24
+
+ "key6": "value61",
+
+25
+
+ "key7": "value71",
+
+26
+
+ "key8": "value81",
+
+27
+
+ "key9": "value91",
+
+28
+
+ "key10": "value101"
+
+29
+
+ },
+
+30
+
+ "products": \[{
+
+31
+
+ "name": "T-Shirt Ladies",
+
+32
+
+ "description": "T-Shirt Ladies Medium",
+
+33
+
+ "sku": "tee123",
+
+34
+
+ "price": 2000,
+
+35
+
+ "quantity": 1,
+
+36
+
+ "image": "http://www.example.com/tshirt.jpg",
+
+37
+
+ "shippingCost": 0,
+
+38
+
+ "trackingUrl": "http://www.example.com"
+
+39
+
+ }\],
+
+40
+
+ "udf1": "null",
+
+41
+
+ "udf2": "null",
+
+42
+
+ "udf3": "null",
+
+43
+
+ "udf4": "null",
+
+44
+
+ "udf5": "null"
+
+45
+
+ }
+
+46
+
+}
+
+Import from Gist
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

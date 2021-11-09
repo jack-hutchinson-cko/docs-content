@@ -1,0 +1,698 @@
+---
+title: zero-dollar-authorization
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+You can verify a card using zero dollar authorization, this allows you to accept and verify a cardholder's payment information without actually billing the customer for a charge. This type of authorization request is particularly useful for merchants offering trial periods for a product or a service. The cardholder's details are saved to their account, allowing you to charge the card when necessary. For example, you may choose to collect credit card information during an initial registration process but offer a 30-day trial period before charging the customer's credit card. 
+
+All merchants with Checkout.com can submit a zero dollar authorization request. It's as simple as setting up a charge and can be accomplished with any of the following endpoints. \* \[Authorize a payment with Card Token\](doc:authorize-a-payment) \* \[Payment with full card details\](doc:payment-with-full-card-details-pci-warning) \* \[Create a payment with a new plan\](doc:create-a-payment-with-a-new-payment-plan) \* \[Create a payment with an existing payment plan\](doc:create-a-payment-with-existing-payment-plan) 
+
+Some issuing banks do not support zero dollar authorization and reject the charge request even if all card details are accurate. If the issuing bank refuses the zero dollar authorization request, a follow-up request will be sent automatically with a $1 total amount (or the equivalent in the submitted processing currency). 
+
+\## Zero dollar request example For zero dollar authorization, the \`value\` field in the request must either be omitted or set to \`0\`. Notice that the value field in the request example below is omitted and a 0 value is returned in the response. 
+
+Shell
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+30
+
+1
+
+curl https://sandbox.checkout.com/api2/v2/charges/card
+
+2
+
+ \-H "Authorization: sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+
+3
+
+ \-H "Content-Type:application/json;charset=UTF-8"
+
+4
+
+ \-X POST
+
+5
+
+ \-d '{
+
+6
+
+ "chargeMode": 1,
+
+7
+
+ "transactionIndicator": "2",
+
+8
+
+ "email": "sarah.mitchell@checkout.com",
+
+9
+
+ "currency": "USD",
+
+10
+
+ "card": {
+
+11
+
+ "name": "Sarah Mitchell",
+
+12
+
+ "number": "4242424242424242",
+
+13
+
+ "cvv": "100",
+
+14
+
+ "expiryMonth": "06",
+
+15
+
+ "expiryYear": "2018",
+
+16
+
+ "billingDetails": {
+
+17
+
+ "addressLine1": "27 Acacia Tree Street",
+
+18
+
+ "addressLine2": "Apartment 15",
+
+19
+
+ "postcode": "01072",
+
+20
+
+ "country": "US",
+
+21
+
+ "city": "Shutesbury",
+
+22
+
+ "state": "Massachusetts",
+
+23
+
+ "phone" : {
+
+24
+
+ "countryCode" : "1",
+
+25
+
+ "number" : "111 222-333"
+
+26
+
+ }
+
+27
+
+ },
+
+28
+
+ "includeBinData": "true"
+
+29
+
+ }
+
+30
+
+ }'
+
+Import from Gist
+
+If a payment response object returns, then your zero dollar authorization completed successfully. If you didn't get the response you expected and you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for advice. Below, you can see an example response to a zero dollar authorization request. ## Zero dollar response example 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+64
+
+1
+
+{
+
+2
+
+ "id": "charge\_899859787D946X521AB2",
+
+3
+
+ "liveMode": true,
+
+4
+
+ "created": "2017-07-19T09:30:53Z",
+
+5
+
+ "value": 0,
+
+6
+
+ "currency": "USD",
+
+7
+
+ "trackId": null,
+
+8
+
+ "description": null,
+
+9
+
+ "email": "sarah.mitchell@checkout.com",
+
+10
+
+ "chargeMode": 1,
+
+11
+
+ "transactionIndicator": 1,
+
+12
+
+ "customerIp": null,
+
+13
+
+ "responseMessage": "Approved",
+
+14
+
+ "responseAdvancedInfo": "Approved",
+
+15
+
+ "responseCode": "10000",
+
+16
+
+ "status": "Card Verified",
+
+17
+
+ "authCode": "230050",
+
+18
+
+ "isCascaded": false,
+
+19
+
+ "autoCapture": "Y",
+
+20
+
+ "autoCapTime": 0,
+
+21
+
+ "card": {
+
+22
+
+ "customerId": "cust\_385F7F66-BB49-4019-AC5B-99BEEFF46289",
+
+23
+
+ "expiryMonth": "06",
+
+24
+
+ "expiryYear": "2018",
+
+25
+
+ "billingDetails": {
+
+26
+
+ "addressLine1": "27 Acacia Tree Street",
+
+27
+
+ "addressLine2": "Apartment 15",
+
+28
+
+ "postcode": "01072",
+
+29
+
+ "country": "US",
+
+30
+
+ "city": "Shutesbury",
+
+31
+
+ "state": "Massachusetts",
+
+32
+
+ "phone": {
+
+33
+
+ "countryCode": "1",
+
+34
+
+ "number": "111 222-333"
+
+35
+
+ }
+
+36
+
+ },
+
+37
+
+ "id": "card\_62769293-2F9A-4732-B3C7-2D8AC37F0A59",
+
+38
+
+ "last4": "4242",
+
+39
+
+ "bin": "424242",
+
+40
+
+ "paymentMethod": "Visa",
+
+41
+
+ "fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
+
+42
+
+ "name": "Sarah Mitchell",
+
+43
+
+ "cvvCheck": "Y",
+
+44
+
+ "avsCheck": "A"
+
+45
+
+ },
+
+46
+
+ "riskCheck": true,
+
+47
+
+ "customerPaymentPlans": null,
+
+48
+
+ "metadata": {},
+
+49
+
+ "shippingDetails": {
+
+50
+
+ "addressLine1": null,
+
+51
+
+ "addressLine2": null,
+
+52
+
+ "postcode": null,
+
+53
+
+ "country": null,
+
+54
+
+ "city": null,
+
+55
+
+ "state": null,
+
+56
+
+ "phone": {}
+
+57
+
+ },
+
+58
+
+ "products": \[\],
+
+59
+
+ "udf1": null,
+
+60
+
+ "udf2": null,
+
+61
+
+ "udf3": null,
+
+62
+
+ "udf4": null,
+
+63
+
+ "udf5": null
+
+64
+
+}
+
+Import from Gist
+
+\## One dollar authorization example If a zero dollar authorization request is not successful, the Checkout.com payment gateway will automatically submit a new request to verify the card details. This follow-up request will automatically set the value to $1 (or the equivalent amount in the processing currency). 
+
+Notice that the value field is now returned as \`100\` in the response example, which is equivalent to $1. 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+64
+
+1
+
+{
+
+2
+
+ "id": "charge\_test\_ADFA59AC144U739AAA07",
+
+3
+
+ "liveMode": false,
+
+4
+
+ "created": "2018-05-01T14:02:09Z",
+
+5
+
+ "value": 100,
+
+6
+
+ "currency": "USD",
+
+7
+
+ "trackId": null,
+
+8
+
+ "description": null,
+
+9
+
+ "email": "sarah.mitchell@checkout.com",
+
+10
+
+ "chargeMode": 1,
+
+11
+
+ "transactionIndicator": 2,
+
+12
+
+ "customerIp": null,
+
+13
+
+ "responseMessage": "Approved",
+
+14
+
+ "responseAdvancedInfo": "Approved",
+
+15
+
+ "responseCode": "10000",
+
+16
+
+ "status": "Authorised",
+
+17
+
+ "authCode": "321375",
+
+18
+
+ "isCascaded": false,
+
+19
+
+ "autoCapture": "Y",
+
+20
+
+ "autoCapTime": 0,
+
+21
+
+ "card": {
+
+22
+
+ "customerId": "cust\_597C3BDE-E266-4B5C-B9D4-9D5115341B3F",
+
+23
+
+ "expiryMonth": "06",
+
+24
+
+ "expiryYear": "2018",
+
+25
+
+ "billingDetails": {
+
+26
+
+ "addressLine1": "27 Acacia Tree Street",
+
+27
+
+ "addressLine2": "Apartment 15",
+
+28
+
+ "postcode": "01072",
+
+29
+
+ "country": "US",
+
+30
+
+ "city": "Shutesbury",
+
+31
+
+ "state": "Massachusetts",
+
+32
+
+ "phone": {
+
+33
+
+ "countryCode": "1",
+
+34
+
+ "number": "111 222-333"
+
+35
+
+ }
+
+36
+
+ },
+
+37
+
+ "id": "card\_C00F69AC-D2FD-4083-88C0-9E30BF225161",
+
+38
+
+ "last4": "4242",
+
+39
+
+ "bin": "424242",
+
+40
+
+ "paymentMethod": "Visa",
+
+41
+
+ "fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
+
+42
+
+ "name": "Sarah Mitchell",
+
+43
+
+ "cvvCheck": "Y",
+
+44
+
+ "avsCheck": "S"
+
+45
+
+ },
+
+46
+
+ "riskCheck": true,
+
+47
+
+ "customerPaymentPlans": null,
+
+48
+
+ "metadata": {},
+
+49
+
+ "shippingDetails": {
+
+50
+
+ "addressLine1": null,
+
+51
+
+ "addressLine2": null,
+
+52
+
+ "postcode": null,
+
+53
+
+ "country": null,
+
+54
+
+ "city": null,
+
+55
+
+ "state": null,
+
+56
+
+ "phone": {}
+
+57
+
+ },
+
+58
+
+ "products": \[\],
+
+59
+
+ "udf1": null,
+
+60
+
+ "udf2": null,
+
+61
+
+ "udf3": null,
+
+62
+
+ "udf4": null,
+
+63
+
+ "udf5": null
+
+64
+
+}
+
+Import from Gist
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

@@ -1,0 +1,252 @@
+---
+title: authorize-a-paypal-payment
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+\*Learn to authorize a payment using PayPal.\* With Checkout.com, you can accept direct API-to-API payments using our alternative payment methods. The great news is, many\* of our alternative payment methods use a very similar workflow. 
+
+\## <span class="step\_hl">Step 1:</span> \*\*Create a payment token\*\* First, you need to create a payment token for PayPal. A payment token is a snapshot of the transaction information — it is uneditable at the browser end. Payment tokens expire after 15-minutes — so, be quick. The \`trackId\` parameter is required when creating a payment token to be used with PayPal and should be unique for each request. Also, set auto capture to \`n\` (no) to capture authorised charges manually. An example PayPal payment token request and response is listed below. 
+
+Request Response
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+19
+
+1
+
+{
+
+2
+
+ "autoCapture": "n",
+
+3
+
+ "value": 100,
+
+4
+
+ "currency": "EUR",
+
+5
+
+ "chargeMode": "3",
+
+6
+
+ "metadata": {
+
+7
+
+ "paypal\_logoUrl": "https://merchant.com/your-logo.jpg",
+
+8
+
+ "paypal\_stc\_test1": "value1",
+
+9
+
+ "paypal\_stc\_test2": "value2"
+
+10
+
+ },
+
+11
+
+ "trackId": "PayPalPayment123",
+
+12
+
+ "udf1": "test data 1",
+
+13
+
+ "udf2": "test data 2",
+
+14
+
+ "udf3": "test data 3",
+
+15
+
+ "udf4": "test data 4",
+
+16
+
+ "udf5": "test data 5",
+
+17
+
+ "successUrl": "http://mycustomerurl.com/order?result=pass",
+
+18
+
+ "failUrl": "http://mycustomerurl.com/order?result=fail"
+
+19
+
+}
+
+Import from Gist
+
+xxxxxxxxxx
+
+1
+
+{
+
+2
+
+ "id": "pay\_tok\_76918102-264F-40DF-A6D4-987BAE5939B3",
+
+3
+
+ "liveMode": true
+
+4
+
+}
+
+Import from Gist
+
+For a complete list of payload fields required for processing airline tickets with PayPal, please read \[PayPal metadata\](doc:paypal-metadata). 
+
+\## <span class="step\_hl">Step 2:</span>\*\* Authorize a PayPal payment\*\* The following endpoint authorizes a PayPal payment. 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+{
+
+2
+
+ "email" : "test@email.com",
+
+3
+
+ "localPayment" : {
+
+4
+
+ "lppId" : "lpp\_19",
+
+5
+
+ "userData" : {}
+
+6
+
+ },
+
+7
+
+ "paymentToken" : "pay\_tok\_76918102-264F-40DF-A6D4-987BAE5939B3"
+
+8
+
+}
+
+Import from Gist
+
+\## <span class="step\_hl">Step 3:</span> \*\*Handle PayPal's response\*\* A successful response for a PayPal payment request includes a \`responseCode\` of \*\*10000\*\*, as well as a \`paymentUrl\`. You will need to redirect to the \`paymentUrl\` to allow the customer to complete the alternative payment. 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+{
+
+2
+
+ "id": "pay\_tok\_76918102-264f-40df-a6d4-987bae5939b3",
+
+3
+
+ "liveMode": true,
+
+4
+
+ "responseCode": "10000",
+
+5
+
+ "chargeMode": 3,
+
+6
+
+ "localPayment": {
+
+7
+
+ "paymentUrl": "https://www.sandbox.paypal.com/checkoutnow?token=EC-PayPalPaymentToken&useraction=commit"
+
+8
+
+ }
+
+9
+
+}
+
+Import from Gist
+
+\## <span class="step\_hl">Step 4:</span> \*\* Customer completes alternative payment page\*\* A successful response to an alternative payment request will include a \`responseCode\` of 10000 and a \`paymentUrl\`. It is necessary to redirect the customer to the \`paymentUrl\` to allow them to complete the alternative payment. Once the customer is redirected to the \`paymentUrl\`, they are prompted to complete the alternative payment flow to finalize the transaction. 
+
+*   **Image Sizing:**
+*    Smart Fit
+*    100% Width
+*    80% Width
+*    Original Size
+*   * * *
+    
+*   **Options:**
+*    Image Border
+
+![](https://files.readme.io/484a01d-Screenshot_2018-03-12_11.24.29.png)
+
+Upload an image...
+
+![](https://files.readme.io/484a01d-Screenshot_2018-03-12_11.24.29.png)**Screenshot 2018-03-12 11.24.29.png**
+
+change·remove
+
+Don't have one handy? Use our logo to start!
+
+If the customer closes, abandons or otherwise does not complete the PayPal payment page, the payment automatically cancels. 
+
+\## <span class="step\_hl">Step 5:</span> \*\* Checkout.com redirects to merchant's 'payment successful' page\*\* If the PayPal payment is successful, the customer is redirected to the merchant's 'Payment Successful' page. ## <span class="step\_hl">Step 6:</span> \*\*Verify the PayPal payment\*\* At your server end, grab the payment token using the form variable \`cko-payment-token\` and use it to \[verify the alternative payment\](doc:verify-an-alternative-payment). ## <span class="step\_hl">Step 7:</span> \*\*Confirm the payment with webhooks\*\* 
+
+Webhooks are the only way to confirm the successful completion of an alternative payment transaction. 
+
+Checkout's merchant API uses webhooks to push information to a merchant's destination URL whenever there is a charge transaction. All the notifications are delivered via an \*\*\[HTTP POST\](https://en.wikipedia.org/wiki/POST\_(HTTP))\*\* request in \*\*\[JSON\](https://www.json.org/)\*\* or \*\*\[XML\](https://en.wikipedia.org/wiki/XML)\*\* format. Receiving a \`charge.captured\` notification via Webhooks is the only way to confirm whether an Alternative Payment charge has been completed successfully. All orders should be marked as pending until you receive a successful Webhook response (response code \`10000\`). Only then should a transaction be marked as completed. Find out more about \[webhooks\](ref:webhooks-1). 
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

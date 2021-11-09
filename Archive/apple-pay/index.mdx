@@ -1,0 +1,262 @@
+---
+title: apple-pay
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+Start seamlessly accepting credit card payments and eliminate the need for your customers to type card and shipping details manually. Apple Pay payments are authorized through Touch ID and Face ID. 
+
+Apple Pay is currently only available to EU, US, and UAE merchants. To enable Apple Pay in the UAE, please request activation from your relationship manager. 
+
+Apple Pay integration and payments can be simplified into a three-step method: \* \[Integrate with Apple Pay\](doc:apple-pay-v2#section-step-1-integrate-with-apple-pay) \* \[Generate an Apple Pay token\](doc:apple-pay-v2#section-step-2-generate-an-apple-pay-token) \* \[Authorize a payment using Apple Pay\](doc:apple-pay-v2#section-step-3-authorize-a-payment-using-apple-pay) 
+
+To get started with Apple Pay payments, you must first download your Certificate Signing Request from The Hub and upload it to the \[Apple Developer Center\](https://developer.apple.com/account/). You can find step-by-step instructions for this in the \[Business Channel Settings\](doc:business-level-administration#section-channel-settings) of The Hub. 
+
+To process Apple Pay payments, you must configure your Apple Developer account, complete the certification process, and enhance your iOS app or website to have the capability to access Apple Pay payments. For Apple Pay configuration resources, please refer to the following: \* \[Apple Pay for iOS\](https://developer.apple.com/documentation/passkit/apple\_pay/setting\_up\_apple\_pay\_requirements) \* \[Apple Pay for Websites\](https://developer.apple.com/documentation/applepayjs) \* \[Complete Apple Pay Reference\](https://developer.apple.com/apple-pay/). 
+
+By using this endpoint, you can support Apple Pay on your iOS app and website. 
+
+Apple Pay transactions using Mastercard and American Express enjoy a liability shift to the card issuer — similar to 3-D secure transactions. Please be aware that although this is a known practice, the issuers are not bound by these terms and can change the liability agreement at any time. 
+
+\## The request Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/tokens</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/tokens</p></pre> ### Header parameters 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+\`Authorization\` <span class="req-def">Required</span> 
+
+ | 
+
+\`Public key\`\* 
+
+ |
+| 
+
+\`Content-Type\` <span class="req-def">Required</span> 
+
+ | 
+
+\`application/json\` 
+
+ |
+
+\*For authorization, use the valid \`public key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). ### Request example This following code snippet :fa-code: is an example of the request body for an Apple Pay payment. 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+13
+
+1
+
+{
+
+2
+
+ "type": "applepay",
+
+3
+
+ "token\_data": { 
+
+4
+
+ "version":"EC\_v1",
+
+5
+
+ "data":"t7GeajLB9skXB6QS...2QE=",
+
+6
+
+ "signature":"MIAGCSqG....f0AAAAAAAA=",
+
+7
+
+ "header":{ 
+
+8
+
+ "ephemeralPublicKey":"MFkwEwYHKoZIzj0CEmxdPEzMunsZKWMyOr3K/zlsw==",
+
+9
+
+ "publicKeyHash":"tqYV+tmG9aMh+l/KgUiLjSTM9gEz6Nl0=",
+
+10
+
+ "transactionId":"3cee89679130a4b2617c7611951b560cd17b4"
+
+11
+
+ }
+
+12
+
+ }
+
+13
+
+}
+
+Import from Gist
+
+\### Additional parameters 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+\`data \` <span class="field-type">String</span> <span class="req-def">required</span> 
+
+ | 
+
+Encrypted payment data 
+
+ |
+| 
+
+\`publicKeyHash\` <span class="field-type">String</span> <span class="req-def">required</span> 
+
+ | 
+
+Hash of the X.509 encoded public key bytes of the merchant’s certificate. Found within the header of the request. 
+
+ |
+| 
+
+\`signature\` <span class="field-type">String</span> <span class="req-def">required</span> 
+
+ | 
+
+The signature of the payment and header data. 
+
+ |
+| 
+
+\`transactionId\` <span class="field-type">String</span> <span class="req-def">required</span> 
+
+ | 
+
+Transaction identifier, generated on the device. 
+
+ |
+| 
+
+\`version\` <span class="field-type">String</span> <span class="req-def">required</span> 
+
+ | 
+
+Version information about the Apple Pay token. 
+
+ |
+| 
+
+\`ephemeralPublicKey\` <span class="field-type">String</span> <span class="req-def">required</span> 
+
+ | 
+
+Ephemeral public key bytes. EC\_v1 only. Found within the header of the request. 
+
+ |
+
+\## The response The token returned in the response can be used to \[authorize a payment\](doc:authorize-a-payment). 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+{
+
+2
+
+ "type": "applepay",
+
+3
+
+ "token": "tok\_5xgrat2fiuzeraaym3qn2ozdoq",
+
+4
+
+ "expires\_on": "2018-04-27T16:16:58Z"
+
+5
+
+}
+
+Import from Gist
+
+Once you have the token, you can authorize a payment. Take the token from the previous response and use it in the body a card token \[payment request\](doc:authorize-a-payment) from your application or website's backend server. 
+
+The \`currency\` and \`value\` fields are required for Apple Pay transactions. These will need to be added to the \[payment with card\](doc:authorize-a-payment) token request when performing a charge. 
+
+Apple Pay charges can be tested and simulated by using either one of the test cards below. For additional information, please refer to our \[testing guide\](doc:testing). Standard test cards will not work with Apple Pay. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+:fa-cc-visa: Visa 
+
+ | 
+
+4761 1200 1000 0492 
+
+ | 
+
+11/2022 
+
+ | 
+
+533 
+
+ |
+| 
+
+:fa-cc-mastercard: Mastercard 
+
+ | 
+
+5204 2477 5000 1471 
+
+ | 
+
+11/2022 
+
+ | 
+
+111 
+
+ |
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

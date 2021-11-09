@@ -1,0 +1,170 @@
+---
+title: integrate-the-kit
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+Using \`window.CKOConfig\`, The Kit can be set to load asynchronously, as shown in the example below, or via other conventional async script loading techniques. The recommended —and safest way— to configure The Kit is via \`window.CKOConfig\`; this is both synchronous and asynchronous-compatible, and allows bulk configuration including adding event handlers. During the initialization process, The Kit always checks for the existence of \`window.CKOConfig\` in the global namespace. As a result, the configuration parameters, such as namespace, can be set early and picked up by The Kit safely. 
+
+JavaScript
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+15
+
+1
+
+<script\>
+
+2
+
+ window.CKOConfig \= {
+
+3
+
+ debugMode: true,
+
+4
+
+ publicKey: 'pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14',
+
+5
+
+ ready: function (event) {
+
+6
+
+ console.log("The Kit is ready");
+
+7
+
+ CheckoutKit.monitorForm('.card-form', CheckoutKit.CardFormModes.CARD\_TOKENISATION);
+
+8
+
+ },
+
+9
+
+ apiError: function (event) {
+
+10
+
+ // ...
+
+11
+
+ }
+
+12
+
+ };
+
+13
+
+</script>
+
+14
+
+​
+
+15
+
+<script async src\="https://cdn.checkout.com/js/checkoutkit.js"\></script>
+
+Import from Gist
+
+\*\*Important notes\*\* \* Setting \`debugMode: true\` is highly recommended during the integration process; the browser’s console will display helpful information, such as key events including event data and/or any issues found. \* Use \`namespace\` when there are clashes in the global namespace or if you prefer a namespace other than \`CheckoutKit\`. 
+
+Depending on your approach, the form on your server should contain either \`cko-card-token\` or \`cko-payment-token\`. The following examples show you how to take various payment actions from the form. 
+
+Example: Charge with card token
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+CheckoutKit.monitorForm('.card-form', CheckoutKit.CardFormModes.CARD\_TOKENISATION);
+
+Import from Gist
+
+Example: Charge with card token (include binData)
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+CheckoutKit.monitorForm('.card-form', CheckoutKit.CardFormModes.CARD\_CHARGE);
+
+Import from Gist
+
+You can reference event constants via \`CheckoutKit.Events.xxx\`. Take a look at the example below: 
+
+Example 1: cardCharged
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+CheckoutKit.Events.CARD\_CHARGED \=== 'cardCharged'
+
+2
+
+​
+
+3
+
+{ cardCharged: function(event) { ... } }
+
+Import from Gist
+
+Example 2: cardTokenized
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+CheckoutKit.Events.CARD\_CHARGED \=== 'cardCharged'
+
+2
+
+​
+
+3
+
+{ cardTokenised: function(event) { ... } }
+
+Import from Gist
+
+\*\*Important notes:\*\* \* Adding a handler for the ready event \`CheckoutKit.Events.READY\` enables safe access to The Kit; it will trigger when the API is loaded and registered on the global namespace as \`CheckoutKit\` or any provided custom namespace. \* You can add event handlers via \`window.CKOConfig\` using the value of an event. \* This is an ideal area to include in any \*boilerplate\* info that involves The Kit. 
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

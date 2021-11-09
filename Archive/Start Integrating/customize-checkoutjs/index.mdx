@@ -1,0 +1,445 @@
+---
+title: customize-checkoutjs
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+\*Display your company's logo, use custom fonts and add some color to represent your brand's personality — it’s putty in your hands.\* The Checkout.js experience is made up of two parts: the payment widget, and the payment Lightbox. 
+
+The payment widget includes a \*\*Pay Now\*\* button and \*\*icons\*\* for all accepted payment methods. Depending on your preferences you can configure the payment widget for three different display options: 
+
+*   **Image Sizing:**
+*    Smart Fit
+*    100% Width
+*    80% Width
+*    Original Size
+*   * * *
+    
+*   **Options:**
+*    Image Border
+
+![](https://files.readme.io/0a86bef-Screenshot-checkoutjs.png)
+
+Upload an image...
+
+![](https://files.readme.io/0a86bef-Screenshot-checkoutjs.png)**Screenshot-checkoutjs.png**
+
+change·remove
+
+Don't have one handy? Use our logo to start!
+
+*   **Image Sizing:**
+*    Smart Fit
+*    100% Width
+*    80% Width
+*    Original Size
+*   * * *
+    
+*   **Options:**
+*    Image Border
+
+![](https://files.readme.io/6f90926-checkout-paymethods-display.png)
+
+Upload an image...
+
+![](https://files.readme.io/6f90926-checkout-paymethods-display.png)**checkout-paymethods-display.png**
+
+change·remove
+
+Don't have one handy? Use our logo to start!
+
+*   **Image Sizing:**
+*    Smart Fit
+*    100% Width
+*    80% Width
+*    Original Size
+*   * * *
+    
+*   **Options:**
+*    Image Border
+
+![](https://files.readme.io/c16f223-paynow-js2.png)
+
+Upload an image...
+
+![](https://files.readme.io/c16f223-paynow-js2.png)**paynow-js2.png**
+
+change·remove
+
+Don't have one handy? Use our logo to start!
+
+\## Styling the Payment Widget Why not add a bit of color to your Checkout.js widget? Match every element to the colors of your brand with just a few simple codes. Here's a list of the Data-Key attributes and JavaScript keys used to style the widget: 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+\`data-widget-color\` 
+
+ | 
+
+\`widgetColor\` 
+
+ | 
+
+Choose a #HEX value for your widget color. 
+
+ | 
+
+<p>#333333</p> 
+
+ |
+| 
+
+\`data-button-color\` 
+
+ | 
+
+\`buttonColor\` 
+
+ | 
+
+Choose a #HEX value for your button color. 
+
+ | 
+
+<p>#00b660</p> 
+
+ |
+| 
+
+\`data-button-label-color\` 
+
+ | 
+
+\`buttonLabelColor\` 
+
+ | 
+
+Choose a #HEX value for your button's text color. 
+
+ | 
+
+<p>#ffffff</p> 
+
+ |
+| 
+
+\`data-button-label\` 
+
+ | 
+
+\`buttonLabel\` 
+
+ | 
+
+String value to insert the text inside the widget button. Max. 12 characters. 
+
+ | 
+
+Pay Now 
+
+ |
+| 
+
+\`data-render-mode\` 
+
+ | 
+
+\`renderMode\` 
+
+ | 
+
+\`0\` = All \`1\` = Pay Button Only \`2\` = Icons Only \`3\` = Active Icons Only (clicking an icon opens the Payment Lightbox) 
+
+ | 
+
+0 
+
+ |
+
+Try customizing your widget with this JSFiddle (\*click Edit in JSFiddle\*). To make it simple, we've filled in the configurable keys for you. Study the code and play with the colors to make it look \*awesome\*. 
+
+**Custom HTML / CSS** _JavaScript will stripped, CSS will be scoped_
+
+xxxxxxxxxx
+
+1
+
+<iframe width\="100%" height\="200" src\="//jsfiddle.net/gareth\_cko/qzmn2kqn/2/embedded/result,html/" allowfullscreen\="allowfullscreen" frameborder\="0"\></iframe\>
+
+Once a customer clicks the \*\*Pay Now\*\* button, the payment Lightbox opens. The payment Lightbox supports credit and debit card payments (by default), and it can also be customised to offer alternative payment options. In its standard form, the payment Lightbox looks like this: 
+
+*   **Image Sizing:**
+*    Smart Fit
+*    100% Width
+*    80% Width
+*    Original Size
+*   * * *
+    
+*   **Options:**
+*    Image Border
+
+![](https://files.readme.io/6d1ca2a-payment-lightbox.png)
+
+Upload an image...
+
+![](https://files.readme.io/6d1ca2a-payment-lightbox.png)**payment-lightbox.png**
+
+change·remove
+
+Don't have one handy? Use our logo to start!
+
+\## Styling the payment Lightbox You can configure the payment Lightbox to display text, colors, and even a custom logo. The table below shows the Data-Key Attributes and JavaScript Keys used to customize your payment Lightbox. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+\`data-title\` 
+
+ | 
+
+\`title\` 
+
+ | 
+
+The title of your payment form. 
+
+ | 
+
+n/a 
+
+ |
+| 
+
+\`data-subtitle\` 
+
+ | 
+
+\`subtitle\` 
+
+ | 
+
+The subtitle of your payment form. 
+
+ | 
+
+n/a 
+
+ |
+| 
+
+\`data-logo-url\` 
+
+ | 
+
+\`logoUrl\` 
+
+ | 
+
+The URL of your company logo beginning with "https" (must be 180 x 36 pixels). 
+
+ | 
+
+Checkout.com's logo 
+
+ |
+| 
+
+\`data-theme-color\` 
+
+ | 
+
+\`themeColor\` 
+
+ | 
+
+Choose a #HEX value for your theme. 
+
+ | 
+
+<p>#00b660 </p> 
+
+ |
+| 
+
+\`data-form-button-label\` 
+
+ | 
+
+\`formButtonLabel\` 
+
+ | 
+
+A string value that sets the text inside the Lightbox's submit button. Max. 12 characters. 
+
+ | 
+
+Checkout Now 
+
+ |
+| 
+
+\`data-theme\` 
+
+ | 
+
+\`theme\` 
+
+ | 
+
+Sets the colour scheme of the Lightbox; standard = blue, light = white. 
+
+ | 
+
+standard 
+
+ |
+
+Use the code excerpt below to understand how to customize the widget and Lightbox fully. We've pre-entered all the customizable parameters for you — they're the attributes between these comments: \`// Customizable attributes start\` ... ... \`// Customizable attributes end\` \*Make sure you remove these comments from your own code.\* 
+
+HTML
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+31
+
+1
+
+<form class\="payment-form" method\="POST" action\="https://merchant.com/successUrl"\>
+
+2
+
+ <script\>
+
+3
+
+ window.CKOConfig \= {
+
+4
+
+ publicKey: 'pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14',
+
+5
+
+ paymentToken: 'pay\_tok\_SPECIMEN-000',
+
+6
+
+ customerEmail: 'user@email.com',
+
+7
+
+ value: 100,
+
+8
+
+ currency: 'EUR',
+
+9
+
+ cardFormMode: 'cardTokenisation',
+
+10
+
+ paymentMode: 'cards' || 'mixed' || 'localpayments',
+
+11
+
+ countryCode: 'DE',
+
+12
+
+ renderMode: 0 || 1 || 2 || 3,
+
+13
+
+14
+
+// Customizable attributes start
+
+15
+
+16
+
+ buttonLabel: 'BUY NOW',
+
+17
+
+ widgetColor: '#123123',
+
+18
+
+ buttonColor: '#123123',
+
+19
+
+ buttonLabelColor: '#123123',
+
+20
+
+ title: 'Merchant',
+
+21
+
+ subtitle: 'Merchant Subtitle',
+
+22
+
+ logoUrl: 'https://docs.checkout.com/img/merchant-logo.png',
+
+23
+
+ formButtonLabel: 'Complete Purchase',
+
+24
+
+ theme: 'light',
+
+25
+
+26
+
+// Customizable attributes end
+
+27
+
+28
+
+ };
+
+29
+
+ </script\>
+
+30
+
+ <script async src\="https://cdn.checkout.com/sandbox/js/checkout.js"\></script\>
+
+31
+
+</form\>
+
+Import from Gist
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

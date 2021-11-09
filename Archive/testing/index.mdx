@@ -1,0 +1,1028 @@
+---
+title: testing
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+Our sandbox environment provides an excellent opportunity to make sure everything is working perfectly. Use the information on this page to test your integration thoroughly before going live. # Test keys Always use your test keys when testing your integration, this is how we know to link all test transactions to your sandbox account. You can find your test keys in our sandbox version of \[The Hub\](https://sandbox.checkout.com/) under your business Channel Settings — test keys use the prefix \`sk\_test\` and \`pk\_test\`. 
+
+*   **Image Sizing:**
+*    Smart Fit
+*    100% Width
+*    80% Width
+*    Original Size
+*   * * *
+    
+*   **Options:**
+*    Image Border
+
+![](https://files.readme.io/cd53a06-Screenshot_2017-12-18_10.55.21.png)
+
+Upload an image...
+
+![](https://files.readme.io/cd53a06-Screenshot_2017-12-18_10.55.21.png)**Screenshot 2017-12-18 10.55.21.png**
+
+change·remove
+
+Don't have one handy? Use our logo to start!
+
+\--- # Test card numbers Genuine card numbers will produce an error in your test environment. To simulate payments, use any of the following test card details provided in the table below. 
+
+Test payments are possible in any currency except KWD, BHD, JOD, and OMR. 
+
+\## Credit cards 
+
+Use any expiry date (\`mm/yy\`) with our test cards — there's just one restriction: you use a date in the future.​ 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+Visa 
+
+ | 
+
+<span class="card-number">4242 4242 4242 4242</span> 
+
+ | 
+
+100 
+
+ |
+| 
+
+Visa 
+
+ | 
+
+<span class="card-number">4543 4740 0224 9996</span> 
+
+ | 
+
+956 
+
+ |
+| 
+
+Mastercard 
+
+ | 
+
+<span class="card-number">5436 0310 3060 6378</span> 
+
+ | 
+
+257 
+
+ |
+| 
+
+Mastercard 
+
+ | 
+
+<span class="card-number">2223 0000 1047 9399</span> 
+
+ | 
+
+299 
+
+ |
+| 
+
+Mastercard 
+
+ | 
+
+<span class="card-number">5199 9923 1264 1465</span> 
+
+ | 
+
+010 
+
+ |
+| 
+
+AMEX 
+
+ | 
+
+<span class="card-number">3456 789012 34564</span> 
+
+ | 
+
+1051 
+
+ |
+| 
+
+AMEX 
+
+ | 
+
+<span class="card-number">3782 822463 10005</span> 
+
+ | 
+
+1000 
+
+ |
+| 
+
+DinersClub 
+
+ | 
+
+<span class="card-number">3012 345678 9019</span> 
+
+ | 
+
+257 
+
+ |
+| 
+
+Discover 
+
+ | 
+
+<span class="card-number">6011 1111 1111 1117</span> 
+
+ | 
+
+100 
+
+ |
+| 
+
+JCB 
+
+ | 
+
+<span class="card-number">3530 1113 3330 0000</span> 
+
+ | 
+
+100 
+
+ |
+
+\## Debit cards 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+Visa 
+
+ | 
+
+<span class="card-number">4658 5840 9000 0001</span> 
+
+ | 
+
+257 
+
+ |
+| 
+
+Mastercard 
+
+ | 
+
+<span class="card-number">5000 1866 2234 6654</span> 
+
+ | 
+
+257 
+
+ |
+
+\## Commercial cards 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+Visa 
+
+ | 
+
+<span class="card-number">4484 0700 0003 5519</span> 
+
+ | 
+
+257 
+
+ |
+| 
+
+Mastercard 
+
+ | 
+
+<span class="card-number">5352 1515 7000 3404</span> 
+
+ | 
+
+100 
+
+ |
+
+\--- # Response codes Create a payment with the values in the table below to simulate and trigger the listed response codes. To use them, just change the value (amount) of your test transaction. If you use any other \`value\`, your payment will return as approved (response code \`10000\`). 
+
+If a value contains an \`x\`, you can replace it with any number of your choosing, for example, \`xxx05\` could be used as \`12305\`. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+xxx05 
+
+ | 
+
+20005 
+
+ | 
+
+Declined - Do Not Honour 
+
+ |
+| 
+
+xxx12 
+
+ | 
+
+20012 
+
+ | 
+
+Invalid Transaction 
+
+ |
+| 
+
+xxx14 
+
+ | 
+
+20014 
+
+ | 
+
+Invalid Card Number 
+
+ |
+| 
+
+xxx51 
+
+ | 
+
+20051 
+
+ | 
+
+Insufficient Funds 
+
+ |
+| 
+
+xxx54 
+
+ | 
+
+20087 
+
+ | 
+
+Bad Track Data 
+
+ |
+| 
+
+xxx62 
+
+ | 
+
+20062 
+
+ | 
+
+Restricted Card 
+
+ |
+| 
+
+xxx63 
+
+ | 
+
+20063 
+
+ | 
+
+Security Violation 
+
+ |
+| 
+
+9998 
+
+ | 
+
+20068 
+
+ | 
+
+Response Received Too Late / Timeout 
+
+ |
+| 
+
+xxx150 \*(3-D Secure transactions only)\* 
+
+ | 
+
+20150 
+
+ | 
+
+Card not 3-D Secure enabled 
+
+ |
+| 
+
+6900 \*(3-D Secure transactions only)\* 
+
+ | 
+
+20150 
+
+ | 
+
+Unable to specify if card is 3-D Secure enabled 
+
+ |
+| 
+
+5000 - 5029 \*(3-D Secure transactions only)\* 
+
+ | 
+
+20153 
+
+ | 
+
+3-D Secure system malfunction 
+
+ |
+| 
+
+xxx33 
+
+ | 
+
+30033 
+
+ | 
+
+Expired Card - Pick Up 
+
+ |
+| 
+
+4001 
+
+ | 
+
+40101 
+
+ | 
+
+Transaction blocked due to risk 
+
+ |
+| 
+
+4008 
+
+ | 
+
+40102 
+
+ | 
+
+Gateway Reject - Card Number Blacklisted 
+
+ |
+| 
+
+2011 
+
+ | 
+
+200R1 
+
+ | 
+
+Issuer initiated a stop payment (revocation order) for this authorization 
+
+ |
+| 
+
+2013 
+
+ | 
+
+200R3 
+
+ | 
+
+Issuer initiated a stop payment (revocation order) for all transactions 
+
+ |
+
+\## Bypassing the response codes You can turn off this feature so that the payment will be approved no matter which amount is provided. To do so, simply set the card's expiry date to \`01/2099\`. 
+
+Response codes related to 3-D Secure (\`xxx150\`, \`6900\`, and \`5000 - 5029\`) will not be bypassed. 
+
+\--- # Address Verification Service (AVS) check You can simulate various AVS checks by including any of the following values in \`addressLine1\` of \`billingDetails\` in a payment request. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+Test\_A 
+
+ | 
+
+A 
+
+ | 
+
+Street Match 
+
+ |
+| 
+
+Test\_B 
+
+ | 
+
+B 
+
+ | 
+
+Street Match Postal Not Verified 
+
+ |
+| 
+
+Test\_C 
+
+ | 
+
+C 
+
+ | 
+
+Street and Postal Not Verified 
+
+ |
+| 
+
+Test\_D 
+
+ | 
+
+D 
+
+ | 
+
+Street and Postal Match \*(D-Int\\'l only)\* 
+
+ |
+| 
+
+Test\_E 
+
+ | 
+
+E 
+
+ | 
+
+Address Match Error 
+
+ |
+| 
+
+Test\_F 
+
+ | 
+
+F 
+
+ | 
+
+Street and Postal Match (U.K. only) 
+
+ |
+| 
+
+Test\_G 
+
+ | 
+
+G 
+
+ | 
+
+Not Verified or Not Supported (Int\\'l only) 
+
+ |
+| 
+
+Test\_I 
+
+ | 
+
+I 
+
+ | 
+
+Street and Postal Not Verified (Int\\'l only) 
+
+ |
+| 
+
+Test\_M 
+
+ | 
+
+M 
+
+ | 
+
+Street and Postal Match (M-Int\\'l only) 
+
+ |
+| 
+
+Test\_N 
+
+ | 
+
+N 
+
+ | 
+
+No Address Match 
+
+ |
+| 
+
+Test\_O 
+
+ | 
+
+O 
+
+ | 
+
+AVS Not Requested 
+
+ |
+| 
+
+Test\_P 
+
+ | 
+
+P 
+
+ | 
+
+Street Not Verified Postal Match 
+
+ |
+| 
+
+Test\_R 
+
+ | 
+
+R 
+
+ | 
+
+AVS Not Available 
+
+ |
+| 
+
+Test\_S 
+
+ | 
+
+S 
+
+ | 
+
+AVS Not Supported 
+
+ |
+| 
+
+Test\_U 
+
+ | 
+
+U 
+
+ | 
+
+Match Not Capable 
+
+ |
+| 
+
+Test\_W 
+
+ | 
+
+W 
+
+ | 
+
+9 Digit Postal Match 
+
+ |
+| 
+
+Test\_X 
+
+ | 
+
+X 
+
+ | 
+
+Street and 9 Digit Postal Match 
+
+ |
+| 
+
+Test\_Y 
+
+ | 
+
+Y 
+
+ | 
+
+Street and 5 Digit Postal Match 
+
+ |
+| 
+
+Test\_Z 
+
+ | 
+
+Z 
+
+ | 
+
+5 Digit Postal Match 
+
+ |
+| 
+
+Test\_AE1 
+
+ | 
+
+AE1 
+
+ | 
+
+Cardholder Name Incorrect but Postal/ZIP Match (Amex Only) 
+
+ |
+| 
+
+Test\_AE2 
+
+ | 
+
+AE2 
+
+ | 
+
+Cardholder Name Incorrect, but Street and Postal/ZIP Match (Amex Only) 
+
+ |
+| 
+
+Test\_AE3 
+
+ | 
+
+AE3 
+
+ | 
+
+Cardholder Name Incorrect, but Street Match (Amex Only) 
+
+ |
+| 
+
+Test\_AE4 
+
+ | 
+
+AE4 
+
+ | 
+
+Cardholder Name Match (Amex Only) 
+
+ |
+| 
+
+Test\_AE5 
+
+ | 
+
+AE5 
+
+ | 
+
+Cardholder Name and Postal/ZIP Match (Amex Only) 
+
+ |
+| 
+
+Test\_AE6 
+
+ | 
+
+AE6 
+
+ | 
+
+Cardholder Name, Street and Postal/ZIP Match (Amex Only) 
+
+ |
+| 
+
+Test\_AE7 
+
+ | 
+
+AE7 
+
+ | 
+
+Cardholder Name and Street Match (Amex Only 
+
+ |
+
+Any other value in the \`addressLine1\` field will return AVS check \`S\` 
+
+\--- # CVV check You can simulate various CVV checks by including any of the following values as the card CVV in a payment request. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+201 
+
+ | 
+
+20087 
+
+ | 
+
+X 
+
+ | 
+
+No CVV2 information available. 
+
+ |
+| 
+
+202 
+
+ | 
+
+20087 
+
+ | 
+
+U 
+
+ | 
+
+The Issuer has not certified, or has not provided the encryption keys, to the interchange. 
+
+ |
+| 
+
+203 
+
+ | 
+
+20087 
+
+ | 
+
+P 
+
+ | 
+
+Card Verification not performed, CVD was not on the card. Not all cards have a CVD value encoded. 
+
+ |
+| 
+
+204 
+
+ | 
+
+20087 
+
+ | 
+
+D 
+
+ | 
+
+Card Verification was done and CVD was invalid 
+
+ |
+| 
+
+205 
+
+ | 
+
+20087 
+
+ | 
+
+N 
+
+ | 
+
+Authorising entity has not attempted card verification or could not verify the CVD due to a security device error. 
+
+ |
+| 
+
+Valid CVV 
+
+ | 
+
+10000 (if other information is valid) 
+
+ | 
+
+Y 
+
+ | 
+
+Card Verification was done and CVD was valid. 
+
+ |
+| 
+
+Empty CVV 
+
+ | 
+
+10000 (if other information is valid) 
+
+ | 
+
+\-- 
+
+ | 
+
+An empty CVV value will only be accepted if 'CVV Optional' is enabled for the merchant account. <span class="table-info">\[Find out more\](doc:cvv-check)</span> 
+
+ |
+
+\--- # 3-D Secure When simulating a 3-D Secure payment, you will receive a redirect URL to a 3-D Secure Authentication simulator page. The password for the 3-D Secure simulator is \*\*Checkout1!\*\* 
+
+*   **Image Sizing:**
+*    Smart Fit
+*    100% Width
+*    80% Width
+*    Original Size
+*   * * *
+    
+*   **Options:**
+*    Image Border
+
+![](https://files.readme.io/7259aa0-3d-secure-sim-greybg.png)
+
+Upload an image...
+
+![](https://files.readme.io/7259aa0-3d-secure-sim-greybg.png)**3d-secure-sim-greybg.png**
+
+change·remove
+
+Don't have one handy? Use our logo to start!
+
+\# Chargebacks You can simulate a chargeback by using the following payment methods and corresponding amounts in a payment request. Any of the test card numbers listed \[here\](doc:#section-test-card-numbers) will work. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+Visa 
+
+ | 
+
+10.4 
+
+ | 
+
+10.4 
+
+ | 
+
+Fraudulent 
+
+ |
+| 
+
+Mastercard 
+
+ | 
+
+48.55 
+
+ | 
+
+4855 
+
+ | 
+
+Product / service not received 
+
+ |
+| 
+
+Amex 
+
+ | 
+
+45.16 
+
+ | 
+
+4561 
+
+ | 
+
+Unrecognized 
+
+ |
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

@@ -1,0 +1,76 @@
+---
+title: dynamic-descriptor
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+The \`descriptor\` is the text that is displayed on the customer's credit card statement identifying a purchase from a merchant’s website. This descriptor can be set dynamically in a payment request. 
+
+If you would like to enable this functionality, please contact your relationship manager. 
+
+\## Example of \`descriptor\` 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+"descriptor": {
+
+2
+
+ "name": "laserpointer.electronics.",
+
+3
+
+ "city": "london"
+
+4
+
+}
+
+Import from Gist
+
+\### Payload fields 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+\`name\` <span class="field-type">String</span> <span class="req-def">required</span> 
+
+ | 
+
+Dynamic description of the charge. Maximum characters: 25. 
+
+ |
+| 
+
+\`city\` <span class="field-type">String</span> <span class="req-def">required</span> 
+
+ | 
+
+City where the charge originated. Maximum characters: 13. 
+
+ |
+
+The following characters are accepted in the \`descriptor\` field: \* Uppercase: A-Z \* Lowercase: a-z \* Numbers: 0-9 \* Special characters: . ! \* - = \_ 
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

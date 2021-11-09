@@ -1,0 +1,361 @@
+---
+title: google-pay
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+By integrating Google Pay into your website or Android application, your customers can securely make one-touch payments using any credit or debit card connected to their Google account. 
+
+Google Pay is currently available to EU and US merchants. 
+
+To start processing Google Pay payments, you must first integrate directly with Google. Once integration is complete, you can add the 'Google Pay' button to your checkout page and start requesting your customers' encrypted payment information. To simplify the process, we've condensed a Google Pay payment into a three-step method. \* \[Integrate with Google Pay\](/docs/google-pay#section--span-class-step\_hl-step-1-span-integrate-with-google-pay) \* \[Tokenize the Google Pay payment data\](/docs/google-pay#section--span-class-step\_hl-step-2-span-tokenize-the-google-pay-payment-data) \* \[Authorize the payment\](/docs/google-pay#section--span-class-step\_hl-step-3-span-authorize-a-payment-using-google-pay) 
+
+Unlike with some other wallets, payments made via Google Pay do \*not\* benefit from any liability shift. You will be subject to the same liability rules and chargeback policies as with regular credit and debit card payments, as described \[here\](https://support.google.com/pay/merchants/answer/6288992?hl=en-GB). In order to minimize risks of fraud and chargebacks, you may want to restrict the type of payment cards you accept. For more information, see \[this section\](https://developers.google.com/pay/api/web/reference/object) of the Google Pay API documentation. 
+
+\## <span class="step\_hl">Step 1:</span> Integrate with Google Pay 
+
+Before going live, merchants are required to \[register\](https://services.google.com/fb/forms/googlepayAPIenable/) with Google Pay and \*\*select Checkout.com\*\* as your payment processor. 
+
+For information on integrating with Google Pay, first, refer to the \[Google Pay API guide\](https://developers.google.com/pay/api/overview). When you submit a payment data request to the Google API, be sure to include the following parameters: \`'gateway': 'checkoutltd'\` \`'gatewayMerchantId': '<your Public Key>'\` ### \*\*Example for web\*\* 
+
+Google Pay API request (web)
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+'allowedPaymentMethods': \['CARD','TOKENIZED\_CARD'\],
+
+2
+
+'paymentMethodTokenizationParameters': {
+
+3
+
+ 'tokenizationType': 'PAYMENT\_GATEWAY',
+
+4
+
+ 'parameters':    {
+
+5
+
+ 'gateway': 'checkoutltd'
+
+6
+
+ 'gatewayMerchantId': '<replace with your Public Key>'
+
+7
+
+ }
+
+8
+
+}
+
+Import from Gist
+
+\### \*\*Example for Android\*\* 
+
+Google Pay API request (Android)
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+30
+
+1
+
+private PaymentDataRequest createPaymentDataRequest() {
+
+2
+
+ PaymentDataRequest.Builder request \=
+
+3
+
+ PaymentDataRequest.newBuilder()
+
+4
+
+ .setTransactionInfo(
+
+5
+
+ TransactionInfo.newBuilder()
+
+6
+
+ .setTotalPriceStatus(WalletConstants.TOTAL\_PRICE\_STATUS\_FINAL)
+
+7
+
+ .setTotalPrice("10.00")
+
+8
+
+ .setCurrencyCode("USD")
+
+9
+
+ .build())
+
+10
+
+ .addAllowedPaymentMethod(WalletConstants.PAYMENT\_METHOD\_CARD)
+
+11
+
+ .addAllowedPaymentMethod(WalletConstants.PAYMENT\_METHOD\_TOKENIZED\_CARD)
+
+12
+
+ .setCardRequirements(
+
+13
+
+ CardRequirements.newBuilder()
+
+14
+
+ .addAllowedCardNetworks(
+
+15
+
+ Arrays.asList(
+
+16
+
+ WalletConstants.CARD\_NETWORK\_VISA,
+
+17
+
+ WalletConstants.CARD\_NETWORK\_MASTERCARD))
+
+18
+
+ .build());
+
+19
+
+​
+
+20
+
+ PaymentMethodTokenizationParameters params \=
+
+21
+
+ PaymentMethodTokenizationParameters.newBuilder()
+
+22
+
+ .setPaymentMethodTokenizationType(
+
+23
+
+ WalletConstants.PAYMENT\_METHOD\_TOKENIZATION\_TYPE\_PAYMENT\_GATEWAY)
+
+24
+
+ .addParameter("gateway", "checkoutltd")
+
+25
+
+ .addParameter("gatewayMerchantId", "<replace with your Public Key>")
+
+26
+
+ .build();
+
+27
+
+​
+
+28
+
+ request.setPaymentMethodTokenizationParameters(params);
+
+29
+
+ return request.build();
+
+30
+
+}
+
+Import from Gist
+
+You will need to specify which card types and card schemes to support in your payment data request. Checkout.com and Google Pay support the use of both Visa and Mastercard. 
+
+\## <span class="step\_hl">Step 2:</span> Tokenize the Google Pay payment data Once you have received the payment data from Google, you then need to call Checkout.com’s endpoint for tokenizing the encrypted payment data; you can find this payment data in the \`paymentMethodToken\` property of the Google Pay payment data request's response. To find out more about Google Pay payment requests, read the \[Google Pay object reference\](https://developers.google.com/pay/api/web/object-reference). ## The request Requests are created using a POST request and should be performed on the client-side. Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/tokens</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/tokens</p></pre> ### Header parameters 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+\`Authorization\` <span class="req-def">Required</span> 
+
+ | 
+
+\`public key\`\* 
+
+ |
+| 
+
+\`Content-Type\` <span class="req-def">Required</span> 
+
+ | 
+
+\`application/json\` 
+
+ |
+
+\*For authorization, use the valid \`public key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). ### Request example This following code snippet :fa-code: is an example of the request body for an Google Pay payment. 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+10
+
+1
+
+{
+
+2
+
+ "type": "googlepay",
+
+3
+
+ "token\_data": {
+
+4
+
+ "signature": "MEUCIDh3...yI1A=",
+
+5
+
+ "protocolVersion": "ECv1",
+
+6
+
+ "signedMessage": "{\\"encryptedMessage\\": \\"ZW5jcnlwdGVkTWVzc2FnZQ==\\",
+
+7
+
+ \\"ephemeralPublicKey\\": \\"ZXBoZW1lcmFsUHVibGljS2V5\\",
+
+8
+
+ \\"tag\\": \\"c2lnbmF0dXJl\\"}"
+
+9
+
+ }
+
+10
+
+}
+
+Import from Gist
+
+\## The response 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+{
+
+2
+
+ "type": "googlepay",
+
+3
+
+ "token": "tok\_ubfj2q76miwundwlk72vxt2i7q",
+
+4
+
+ "expires\_on": "2018-03-15T15:36:54Z"
+
+5
+
+}
+
+Import from Gist
+
+\### Additional parameters 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+\`protocolVersion \` <span class="field-type">String</span> <span class="req-def">required</span> 
+
+ | 
+
+Identifies which encryption/signing scheme this message has been created. In this way, the protocol can evolve over time if needed. If it is not set, assume ECv0. 
+
+ |
+| 
+
+\`signature\` <span class="field-type">String</span> <span class="req-def">required</span> 
+
+ | 
+
+Verifies the message came from Google. The signature is created using ECDSA. 
+
+ |
+| 
+
+\`signedMessage\` <span class="field-type">String</span> <span class="req-def">required</span> 
+
+ | 
+
+A serialized JSON string containing the \`encryptedMessage\`, \`ephemeralPublicKey\` and \`tag\`. To simplify the signature verification process, this value is serialized. 
+
+ |
+
+\## <span class="step\_hl">Step 3:</span> Authorize a payment using Google Pay Now you have the token, it's time to authorize the payment. Grab the token, and use it in the body of a card token \[payment request\](doc:authorize-a-payment) from your application or website's backend server. 
+
+Google Pay does not allow the configuration of test cards within its online wallet. However, when using Google's test environment, if a real card is selected when making the online purchase, Google Pay provides a test card in the encrypted payment data; ensuring that no actual transaction takes place. 
+
+Find out more about \[testing and simulating payments\](doc:testing). 
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

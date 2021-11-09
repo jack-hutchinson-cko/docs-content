@@ -1,0 +1,4581 @@
+---
+title: response-codes
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+Response codes can tell you a lot about what happened during an API request. Checkout.com responds to API requests with: \* an HTTP status code \* a response object containing a \`responseCode\` that indicates the status of the request, or an error object containing an \`errorCode\`. # HTTP status codes 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+\`200\` 
+
+ | 
+
+OK - success 
+
+ |
+| 
+
+\`400\` 
+
+ | 
+
+Bad Request - The request could contain invalid data, the data structure is invalid, or there has been a problem with your transaction. Please check the response message for more information. 
+
+ |
+| 
+
+\`401\` 
+
+ | 
+
+Unauthorized - your API key is invalid 
+
+ |
+| 
+
+\`404\` 
+
+ | 
+
+Resource not found 
+
+ |
+
+\# Response Codes A \`responseCode\` is a five-digit numeric code that indicates the status of the request. Additional information on the request status may be found in the \`responseMessage\`, \`responseAdvancedInfo\` and \`status\` fields. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+APPROVED 
+
+ | 
+
+10000 
+
+ | 
+
+responseCode 
+
+ | 
+
+The request was successful. 
+
+ |
+| 
+
+SOFT DECLINE 
+
+ | 
+
+20000 
+
+ | 
+
+responseCode 
+
+ | 
+
+The request was declined, though subsequent attempts may be successful. 
+
+ |
+| 
+
+HARD DECLINE 
+
+ | 
+
+30000 
+
+ | 
+
+responseCode 
+
+ | 
+
+The request was declined. Most hard declines require the Issuer or Cardholder to rectify the oustanding issue(s) before a subsequent attempt can be made. 
+
+ |
+| 
+
+RISK RESPONSES 
+
+ | 
+
+40000 
+
+ | 
+
+responseMessage 
+
+ | 
+
+The request triggered a risk response. The status of the response (responseCode and status) will depend on the action specified in your risk settings. 
+
+ |
+
+\## Approved (10\*) 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+10000 
+
+ | 
+
+Approved 
+
+ |
+| 
+
+10100 
+
+ | 
+
+Approved, but risk \[Flagged\](doc:flags) 
+
+ |
+| 
+
+10200 
+
+ | 
+
+Deferred capture (for SOFORT only) 
+
+ |
+
+\### Example response: Approved (10000) 
+
+Example: Approved
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+63
+
+1
+
+{
+
+2
+
+ "id": "charge\_test\_513BC755BE5X7A9AFF0D",
+
+3
+
+ "liveMode": false,
+
+4
+
+ "created": "2016-05-17T16:43:05Z",
+
+5
+
+ "value": 5555,
+
+6
+
+ "currency": "USD",
+
+7
+
+ "trackId": "TRK12345",
+
+8
+
+ "description": null,
+
+9
+
+ "email": "LanaSMartin@dayrep.com",
+
+10
+
+ "chargeMode": 1,
+
+11
+
+ "transactionIndicator": 1,
+
+12
+
+ "customerIp": null,
+
+13
+
+ "responseMessage": "Approved",
+
+14
+
+ "responseAdvancedInfo": "Approved",
+
+15
+
+ "responseCode": "10000",
+
+16
+
+ "status": "Authorised",
+
+17
+
+ "authCode": "572900",
+
+18
+
+ "isCascaded": false,
+
+19
+
+ "autoCapture": "N",
+
+20
+
+ "autoCapTime": 0,
+
+21
+
+ "card": {
+
+22
+
+ "customerId": "cust\_9E07EFB6-32E0-4D6C-B5AD-6EE403BA3F97",
+
+23
+
+ "expiryMonth": "06",
+
+24
+
+ "expiryYear": "2018",
+
+25
+
+ "billingDetails": {
+
+26
+
+ "addressLine1": "72 Myrna Parkways",
+
+27
+
+ "addressLine2": "Hoppe Fork",
+
+28
+
+ "postcode": "aq81ct",
+
+29
+
+ "country": "US",
+
+30
+
+ "city": "Serenamouth",
+
+31
+
+ "state": "Luzmouth",
+
+32
+
+ "phone": {
+
+33
+
+ "countryCode": "44",
+
+34
+
+ "number": "12345678"
+
+35
+
+ }
+
+36
+
+ },
+
+37
+
+ "id": "card\_49E69E61-8E35-40E0-AA10-B0B15F198275",
+
+38
+
+ "last4": "4242",
+
+39
+
+ "paymentMethod": "Visa",
+
+40
+
+ "fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
+
+41
+
+ "name": "Miss Matt Quigley",
+
+42
+
+ "cvvCheck": "",
+
+43
+
+ "avsCheck": "S"
+
+44
+
+ },
+
+45
+
+ "riskCheck": true,
+
+46
+
+ "customerPaymentPlans": null,
+
+47
+
+ "metadata": {},
+
+48
+
+ "shippingDetails": {
+
+49
+
+ "addressLine1": null,
+
+50
+
+ "addressLine2": null,
+
+51
+
+ "postcode": null,
+
+52
+
+ "country": null,
+
+53
+
+ "city": null,
+
+54
+
+ "state": null,
+
+55
+
+ "phone": {}
+
+56
+
+ },
+
+57
+
+ "products": \[\],
+
+58
+
+ "udf1": null,
+
+59
+
+ "udf2": null,
+
+60
+
+ "udf3": null,
+
+61
+
+ "udf4": null,
+
+62
+
+ "udf5": null
+
+63
+
+}
+
+Import from Gist
+
+\## Soft decline (20\*) 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+20001 
+
+ | 
+
+Refer to Card Issuer 
+
+ |
+| 
+
+20002 
+
+ | 
+
+Refer to Card Issuer - Special Conditions 
+
+ |
+| 
+
+20003 
+
+ | 
+
+Invalid Merchant or Merchant is not active 
+
+ |
+| 
+
+20005 
+
+ | 
+
+Declined - Do Not Honour <span class="table-info">\[Learn more.\](doc:declined-do-not-honour)</span> 
+
+ |
+| 
+
+20006 
+
+ | 
+
+Error / Invalid Request Parameters 
+
+ |
+| 
+
+20009 
+
+ | 
+
+Request in Progress 
+
+ |
+| 
+
+20010 
+
+ | 
+
+Partial Value Approved 
+
+ |
+| 
+
+20012 
+
+ | 
+
+Invalid Transaction 
+
+ |
+| 
+
+20013 
+
+ | 
+
+Invalid Value/Amount 
+
+ |
+| 
+
+20014 
+
+ | 
+
+Invalid Card Number 
+
+ |
+| 
+
+20017 
+
+ | 
+
+Customer Cancellation 
+
+ |
+| 
+
+20018 
+
+ | 
+
+Customer Dispute 
+
+ |
+| 
+
+20019 
+
+ | 
+
+Re-enter Transaction or Transaction has been expired 
+
+ |
+| 
+
+20020 
+
+ | 
+
+Invalid Response 
+
+ |
+| 
+
+20021 
+
+ | 
+
+No Action Taken 
+
+ |
+| 
+
+20022 
+
+ | 
+
+Suspected Malfunction 
+
+ |
+| 
+
+20023 
+
+ | 
+
+Unacceptable Transaction Fee 
+
+ |
+| 
+
+20024 
+
+ | 
+
+File Update Not Supported by the Receiver 
+
+ |
+| 
+
+20025 
+
+ | 
+
+Unable to Locate Record on File 
+
+ |
+| 
+
+20026 
+
+ | 
+
+Duplicate file update record 
+
+ |
+| 
+
+20027 
+
+ | 
+
+File Update Field Edit Error 
+
+ |
+| 
+
+20028 
+
+ | 
+
+File Update File Locked Out 
+
+ |
+| 
+
+20029 
+
+ | 
+
+File Update not Successful 
+
+ |
+| 
+
+20030 
+
+ | 
+
+Format Error 
+
+ |
+| 
+
+20031 
+
+ | 
+
+Bank not Supported by Switch 
+
+ |
+| 
+
+20032 
+
+ | 
+
+Completed Partially 
+
+ |
+| 
+
+20039 
+
+ | 
+
+No CREDIT Account 
+
+ |
+| 
+
+20040 
+
+ | 
+
+Requested Function not Supported 
+
+ |
+| 
+
+20042 
+
+ | 
+
+No Universal Value/Amount 
+
+ |
+| 
+
+20044 
+
+ | 
+
+No Investment Account 
+
+ |
+| 
+
+20046 
+
+ | 
+
+Bank Decline 
+
+ |
+| 
+
+20051 
+
+ | 
+
+Insufficient Funds 
+
+ |
+| 
+
+20052 
+
+ | 
+
+No Cheque Account 
+
+ |
+| 
+
+20053 
+
+ | 
+
+No Savings Account 
+
+ |
+| 
+
+20054 
+
+ | 
+
+Expired Card 
+
+ |
+| 
+
+20055 
+
+ | 
+
+Incorrect PIN (invalid Amex CVV). 
+
+ |
+| 
+
+20056 
+
+ | 
+
+No Card Record 
+
+ |
+| 
+
+20057 
+
+ | 
+
+Transaction not Permitted to Cardholder 
+
+ |
+| 
+
+20058 
+
+ | 
+
+Transaction not Permitted to Terminal 
+
+ |
+| 
+
+20059 
+
+ | 
+
+Suspected Fraud 
+
+ |
+| 
+
+20060 
+
+ | 
+
+Card Acceptor Contact Acquirer 
+
+ |
+| 
+
+20061 
+
+ | 
+
+Exceeds Withdrawal Value/Amount Limits 
+
+ |
+| 
+
+20062 
+
+ | 
+
+Restricted Card 
+
+ |
+| 
+
+20063 
+
+ | 
+
+Security Violation 
+
+ |
+| 
+
+20064 
+
+ | 
+
+Original Value Incorrect 
+
+ |
+| 
+
+20065 
+
+ | 
+
+Exceeds Withdrawal Frequency Limit 
+
+ |
+| 
+
+20066 
+
+ | 
+
+Card Acceptor Call Acquirer Security 
+
+ |
+| 
+
+20067 
+
+ | 
+
+Hard Capture—Pick Up Card at ATM 
+
+ |
+| 
+
+20068 
+
+ | 
+
+Response Received Too Late / Timeout 
+
+ |
+| 
+
+20075 
+
+ | 
+
+Allowable PIN Tries Exceeded 
+
+ |
+| 
+
+20082 
+
+ | 
+
+No security model 
+
+ |
+| 
+
+20083 
+
+ | 
+
+No accounts 
+
+ |
+| 
+
+20084 
+
+ | 
+
+No PBF 
+
+ |
+| 
+
+20085 
+
+ | 
+
+PBF update error 
+
+ |
+| 
+
+20086 
+
+ | 
+
+ATM Malfunction / Invalid authorisation type 
+
+ |
+| 
+
+20087 
+
+ | 
+
+Bad Track Data (invalid CVV and/or expiry date) 
+
+ |
+| 
+
+20088 
+
+ | 
+
+Unable to Dispense/process 
+
+ |
+| 
+
+20089 
+
+ | 
+
+Administration Error 
+
+ |
+| 
+
+20090 
+
+ | 
+
+Cut-off in Progress 
+
+ |
+| 
+
+20091 
+
+ | 
+
+Issuer or Switch is Inoperative 
+
+ |
+| 
+
+20092 
+
+ | 
+
+Financial Institution not Found 
+
+ |
+| 
+
+20093 
+
+ | 
+
+Transaction Cannot be Completed 
+
+ |
+| 
+
+20094 
+
+ | 
+
+Duplicate Transmission/Invoice 
+
+ |
+| 
+
+20095 
+
+ | 
+
+Reconcile Error 
+
+ |
+| 
+
+20096 
+
+ | 
+
+System Malfunction 
+
+ |
+| 
+
+20097 
+
+ | 
+
+Reconciliation Totals Reset 
+
+ |
+| 
+
+20098 
+
+ | 
+
+MAC Error 
+
+ |
+| 
+
+20099 
+
+ | 
+
+Other / Unidentified responses 
+
+ |
+| 
+
+200N0 
+
+ | 
+
+Unable to authorize 
+
+ |
+| 
+
+200N7 
+
+ | 
+
+Decline for CVV2 failure 
+
+ |
+| 
+
+200O5 
+
+ | 
+
+Pin Required 
+
+ |
+| 
+
+200P1 
+
+ | 
+
+Over Daily Limit 
+
+ |
+| 
+
+200P9 
+
+ | 
+
+Limit exceeded. Enter a lesser value. 
+
+ |
+| 
+
+200R1 
+
+ | 
+
+Issuer initiated a stop payment (revocation order) for the Authorization 
+
+ |
+| 
+
+200R3 
+
+ | 
+
+Issuer initiated a stop payment (revocation order) for all Authorizations 
+
+ |
+| 
+
+200S4 
+
+ | 
+
+PTLF Full 
+
+ |
+| 
+
+200T2 
+
+ | 
+
+Invalid Transaction Date 
+
+ |
+| 
+
+200T3 
+
+ | 
+
+Card not supported 
+
+ |
+| 
+
+200T5 
+
+ | 
+
+CAF Status=0 or 9 
+
+ |
+| 
+
+20100 
+
+ | 
+
+Invalid Expiry Date Format 
+
+ |
+| 
+
+20101 
+
+ | 
+
+No Account / No Customer (Token incorrect or invalid) 
+
+ |
+| 
+
+20102 
+
+ | 
+
+Invalid Merchant/Wallet ID 
+
+ |
+| 
+
+20103 
+
+ | 
+
+Card type/Payment method not supported 
+
+ |
+| 
+
+20104 
+
+ | 
+
+Gateway Reject - Invalid Transaction 
+
+ |
+| 
+
+20105 
+
+ | 
+
+Gateway Reject - Violation 
+
+ |
+| 
+
+20106 
+
+ | 
+
+Unsupported currency 
+
+ |
+| 
+
+20107 
+
+ | 
+
+Billing address is missing 
+
+ |
+| 
+
+20108 
+
+ | 
+
+Declined - Updated Cardholder Available 
+
+ |
+| 
+
+20109 
+
+ | 
+
+Authorisation Already Reversed (voided) or Capture is larger than initial Authorised Value. 
+
+ |
+| 
+
+20110 
+
+ | 
+
+Authorization completed 
+
+ |
+| 
+
+20111 
+
+ | 
+
+Transaction already reversed 
+
+ |
+| 
+
+20112 
+
+ | 
+
+Merchant not MasterCard SecureCode enabled 
+
+ |
+| 
+
+20113 
+
+ | 
+
+Invalid Property 
+
+ |
+| 
+
+20114 
+
+ | 
+
+Invalid Channel or Token is incorrect 
+
+ |
+| 
+
+20115 
+
+ | 
+
+Missing/Invalid Lifetime 
+
+ |
+| 
+
+20116 
+
+ | 
+
+Invalid Encoding 
+
+ |
+| 
+
+20117 
+
+ | 
+
+Invalid API Version 
+
+ |
+| 
+
+20118 
+
+ | 
+
+Transaction Pending 
+
+ |
+| 
+
+20119 
+
+ | 
+
+Invalid Batch data and/or batch data is missing 
+
+ |
+| 
+
+20120 
+
+ | 
+
+Invalid Customer/User 
+
+ |
+| 
+
+20121 
+
+ | 
+
+Transaction Limit for Merchant/Terminal exceeded 
+
+ |
+| 
+
+20123 
+
+ | 
+
+MISSING BASIC DATA: zip, addr, member 
+
+ |
+| 
+
+20150 
+
+ | 
+
+Card not 3DS enabled 
+
+ |
+| 
+
+20151 
+
+ | 
+
+Cardholder failed 3D authentication 
+
+ |
+| 
+
+20152 
+
+ | 
+
+Initial 3D transaction not completed within 15 minutes 
+
+ |
+| 
+
+20153 
+
+ | 
+
+3D-Secure system malfunction 
+
+ |
+
+\## Hard decline (30\*) 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+30004 
+
+ | 
+
+Pick Up Card (No Fraud) The customer’s issuing bank has prevented the transaction from being authorized. Have your customer call their issuing bank (the number is typically printed on the back of the credit card) and ask why the transaction was declined. Once the issuing bank confirms that they will approve future attempts, try the transaction again. 
+
+ |
+| 
+
+30007 
+
+ | 
+
+Pick Up Card, Special Conditions The customer’s issuing bank has prevented the transaction from being authorized because fraudulent activity has been detected on this account. For a one time transaction, do not attempt the transaction again, and if possible do not provide goods or services to the person attempting the transaction. For a recurring or scheduled transaction, it is possible that the card was flagged after the last successfully processed payment (or after the authorization for the scheduled payment). In that case, contact your customer for a new credit card number, or ask for a different form of payment. Replace the old account number on the schedule with the new account number. 
+
+ |
+| 
+
+30015 
+
+ | 
+
+No Such Issuer The card number entered is invalid because it does not start with a 3 (AMEX), 4 (Visa), 5 (MasterCard) or 6 (Discover). Double check the credit card number and try the transaction again with a corrected card number. NOTE: Checkout.com is designed to flag this type of error before an authorization attempt is made. However, in some rare cases (typically when there is an error with a payment import) this type of failure may occur. 
+
+ |
+| 
+
+30033 
+
+ | 
+
+Expired Card - Pick Up 
+
+ |
+| 
+
+30034 
+
+ | 
+
+Suspected Fraud - Pick Up 
+
+ |
+| 
+
+30035 
+
+ | 
+
+Contact Acquirer - Pick Up 
+
+ |
+| 
+
+30036 
+
+ | 
+
+Restricted Card - Pick Up 
+
+ |
+| 
+
+30037 
+
+ | 
+
+Call Acquirer Security - Pick Up 
+
+ |
+| 
+
+30038 
+
+ | 
+
+Allowable PIN Tries Exceeded - Pick Up 
+
+ |
+| 
+
+30041 
+
+ | 
+
+Lost Card - Pick Up The customer’s issuing bank has prevented the transaction from being authorized because the card’s rightful owner has reported it as lost. For a one time transaction, do not attempt the transaction again, and if possible do not provide goods or services to the person attempting the transaction. For a recurring or scheduled transaction, it is possible that the card was lost after the last successfully processed payment (or after the authorization for the scheduled payment). In that case, contact your customer for a new credit card number, or ask for a different form of payment. Replace the lost account number on the schedule with the new account number. 
+
+ |
+| 
+
+30043 
+
+ | 
+
+Stolen Card - Pick Up The customer’s issuing bank has prevented the transaction from being authorized because the card’s rightful owner has reported it as lost. For a one time transaction, do not attempt the transaction again, and if possible do not provide goods or services to the person attempting the transaction. For a recurring or scheduled transaction, it is possible that the card was lost after the last successfully processed payment (or after the authorization for the scheduled payment). In that case, contact your customer for a new credit card number, or ask for a different form of payment. Replace the lost account number on the schedule with the new account number. 
+
+ |
+
+\## Risk responses (40\*) Risk Responses are triggered by Risk Rules set in The Hub and will appear in the \`responseMessage\` of a payment response. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+40101 
+
+ | 
+
+Risk Blocked Transaction refused due to risk model Please log-in to your gateway dashboard for more details 
+
+ |
+| 
+
+40102 
+
+ | 
+
+Country not supported The merchant country is not supported. The country which the shopper is located is restricted by your Risk Module. To change it or to authorize transaction, please log-in to your gateway dashboard. 
+
+ |
+| 
+
+40103 
+
+ | 
+
+Gateway Reject - Blacklist Transaction cannot be processed - Payment attributes in Blacklist One or more of the payment attributes has been blacklisted by either you or our international blacklist database. 
+
+ |
+| 
+
+40104 
+
+ | 
+
+Gateway Reject - CVV is missing or incorrect The merchant’s configuration requires a CVV to be entered, but no CVV was provided with this transaction or CVV is incorrect. Please try again, but this time include CVV number. Alternatively, you can change your settings in the Risk Module. To do that, please log-in to your gateway dashoard, and enter your Risk Module settings 
+
+ |
+| 
+
+40108 
+
+ | 
+
+Gateway Reject - Post code failed The card’s Post code failed validation. Retry the request with a different post code 
+
+ |
+| 
+
+40109 
+
+ | 
+
+Gateway Reject - Missing required data Please make sure all required data is sent, such as: CVV, Expiry date, Cardholder name, Billing address, Postcode etc. 
+
+ |
+| 
+
+40110 
+
+ | 
+
+Missing 3DSecure data or data is not correct 
+
+ |
+| 
+
+40111 
+
+ | 
+
+Declined - AVS not matched The transaction was declined because of a merchant risk filter for AVS. Specifically the merchant has set to decline transaction when the AVS returned a no match (AVS = N). Retry the request with a different Billing Address 
+
+ |
+| 
+
+40131 
+
+ | 
+
+Mismatch - Shipping to Billing Shipping country does not match billing country. 
+
+ |
+| 
+
+40132 
+
+ | 
+
+Mismatch - Shipping to BIN Shipping country does not match bin country. 
+
+ |
+| 
+
+40133 
+
+ | 
+
+Mismatch - Shipping to IP Shipping country does not match IP country. 
+
+ |
+| 
+
+40135 
+
+ | 
+
+Mismatch - Billing to BIN Billing country does not match bin country. 
+
+ |
+| 
+
+40136 
+
+ | 
+
+Mismatch - Billing to IP Billing country does not match IP country. 
+
+ |
+| 
+
+40138 
+
+ | 
+
+Mismatch - BIN to IP Bin country does not match IP country. 
+
+ |
+| 
+
+40141 - 40149 
+
+ | 
+
+Threshold Risk 
+
+ |
+| 
+
+40150 
+
+ | 
+
+Card velocity - Daily - Approved only 
+
+ |
+| 
+
+40151 
+
+ | 
+
+Card velocity - Daily - All transactions 
+
+ |
+| 
+
+40152 
+
+ | 
+
+Card velocity - Weekly - Approved only 
+
+ |
+| 
+
+40153 
+
+ | 
+
+Card velocity - Weekly - All transactions 
+
+ |
+| 
+
+40154 
+
+ | 
+
+Card velocity - Monthly - Approved only 
+
+ |
+| 
+
+40155 
+
+ | 
+
+Card velocity - Monthly - All transactions 
+
+ |
+| 
+
+40160 
+
+ | 
+
+Email velocity - Daily - Approved only 
+
+ |
+| 
+
+40161 
+
+ | 
+
+Email velocity - Daily - All transactions 
+
+ |
+| 
+
+40162 
+
+ | 
+
+Email velocity - Weekly - Approved only 
+
+ |
+| 
+
+40163 
+
+ | 
+
+Email velocity - Weekly - All transactions 
+
+ |
+| 
+
+40164 
+
+ | 
+
+Email velocity - Monthly - Approved only 
+
+ |
+| 
+
+40165 
+
+ | 
+
+Email velocity - Monthly - All transactions 
+
+ |
+| 
+
+40170 
+
+ | 
+
+IP velocity - Daily - Approved only 
+
+ |
+| 
+
+40171 
+
+ | 
+
+IP velocity - Daily - All transactions 
+
+ |
+| 
+
+40181 
+
+ | 
+
+Verified Info - Email 
+
+ |
+| 
+
+40182 
+
+ | 
+
+Verified Info - Address 
+
+ |
+| 
+
+40183 
+
+ | 
+
+Verified Info - Proxy 
+
+ |
+| 
+
+40201 
+
+ | 
+
+Gateway Reject - Card Number Blacklist 
+
+ |
+| 
+
+40202 
+
+ | 
+
+Gateway Reject - IP Address Blacklist 
+
+ |
+| 
+
+40203 
+
+ | 
+
+Gateway Reject - Email Blacklist 
+
+ |
+| 
+
+40204 
+
+ | 
+
+Gateway Reject - Phone Number Blacklist 
+
+ |
+| 
+
+40210 
+
+ | 
+
+Bin Velocity - Daily - Approved Only 
+
+ |
+| 
+
+40211 
+
+ | 
+
+Bin Velocity - Daily - All transactions 
+
+ |
+| 
+
+40212 
+
+ | 
+
+Bin Velocity - Weekly - Approved Only 
+
+ |
+| 
+
+40213 
+
+ | 
+
+Bin Velocity - Weekly - All transactions 
+
+ |
+| 
+
+40214 
+
+ | 
+
+Bin Velocity - Monthly - Approved Only 
+
+ |
+| 
+
+40215 
+
+ | 
+
+Bin Velocity - Monthly - All transactions 
+
+ |
+| 
+
+40216 
+
+ | 
+
+Billing Address Line 1 Velocity - Daily - Approved Only 
+
+ |
+| 
+
+40217 
+
+ | 
+
+Billing Address Line 1 Velocity - Daily - All transactions 
+
+ |
+| 
+
+40218 
+
+ | 
+
+Billing Address Line 1 Velocity - Weekly - Approved Only 
+
+ |
+| 
+
+40219 
+
+ | 
+
+Billing Address Line 1 Velocity - Weekly - All transactions 
+
+ |
+| 
+
+40220 
+
+ | 
+
+Billing Address Line 1 Velocity - Monthly - Approved Only 
+
+ |
+| 
+
+40221 
+
+ | 
+
+Billing Address Line 1 Velocity - Monthly - All transactions 
+
+ |
+| 
+
+40222 
+
+ | 
+
+Shipping Address Line 1 Velocity - Daily - Approved Only 
+
+ |
+| 
+
+40223 
+
+ | 
+
+Shipping Address Line 1 Velocity - Daily - All transactions 
+
+ |
+| 
+
+40224 
+
+ | 
+
+Shipping Address Line 1 Velocity - Weekly - Approved Only 
+
+ |
+| 
+
+40225 
+
+ | 
+
+Shipping Address Line 1 Velocity - Weekly - All transactions 
+
+ |
+| 
+
+40226 
+
+ | 
+
+Shipping Address Line 1 Velocity - Monthly - Approved Only 
+
+ |
+| 
+
+40227 
+
+ | 
+
+Shipping Address Line 1 Velocity - Monthly - All transactions 
+
+ |
+| 
+
+40228 
+
+ | 
+
+CardHolder Name Velocity - Daily - Approved Only 
+
+ |
+| 
+
+40229 
+
+ | 
+
+CardHolder Name Velocity - Daily - All transactions 
+
+ |
+| 
+
+40230 
+
+ | 
+
+CardHolder Name Velocity - Weekly - Approved Only 
+
+ |
+| 
+
+40231 
+
+ | 
+
+CardHolder Name Velocity - Weekly - All transactions 
+
+ |
+| 
+
+40232 
+
+ | 
+
+CardHolder Name Velocity - Monthly - Approved Only 
+
+ |
+| 
+
+40233 
+
+ | 
+
+CardHolder Name Velocity - Monthly - All transactions 
+
+ |
+| 
+
+40234 
+
+ | 
+
+UDF1 Velocity - Daily - Approved Only 
+
+ |
+| 
+
+40235 
+
+ | 
+
+UDF1 Velocity - Daily - All transactions 
+
+ |
+| 
+
+40236 
+
+ | 
+
+UDF1 Velocity - Weekly - Approved Only 
+
+ |
+| 
+
+40237 
+
+ | 
+
+UDF1 Velocity - Weekly - All transactions 
+
+ |
+| 
+
+40238 
+
+ | 
+
+UDF1 Velocity - Monthly - Approved Only 
+
+ |
+| 
+
+40239 
+
+ | 
+
+UDF1 Velocity - Monthly - All transactions 
+
+ |
+
+\### Example response: Risk threshold triggered 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+90
+
+1
+
+{
+
+2
+
+ "id": "charge\_test\_631C67059E8G7A7A8F19",
+
+3
+
+ "liveMode": false,
+
+4
+
+ "created": "2016-08-15T13:39:27Z",
+
+5
+
+ "value": 93399,
+
+6
+
+ "currency": "USD",
+
+7
+
+ "trackId": "TRK12345",
+
+8
+
+ "description": "charge description2",
+
+9
+
+ "email": "testuser@email.com",
+
+10
+
+ "chargeMode": 1,
+
+11
+
+ "transactionIndicator": 1,
+
+12
+
+ "customerIp": "96.125.185.51",
+
+13
+
+ "responseMessage": "40142 - Threshold Risk",
+
+14
+
+ "responseAdvancedInfo": "",
+
+15
+
+ "responseCode": "10100",
+
+16
+
+ "status": "Flagged",
+
+17
+
+ "authCode": "387207",
+
+18
+
+ "isCascaded": false,
+
+19
+
+ "autoCapture": "Y",
+
+20
+
+ "autoCapTime": 0,
+
+21
+
+ "card": {
+
+22
+
+ "customerId": "cust\_291262B9-FEF1-41AE-A593-311F481D3A85",
+
+23
+
+ "expiryMonth": "06",
+
+24
+
+ "expiryYear": "2018",
+
+25
+
+ "billingDetails": {
+
+26
+
+ "addressLine1": "623 Slade Street",
+
+27
+
+ "addressLine2": "Flat 9",
+
+28
+
+ "postcode": "E149SR",
+
+29
+
+ "country": null,
+
+30
+
+ "city": "London",
+
+31
+
+ "state": "Greater London",
+
+32
+
+ "phone": {
+
+33
+
+ "countryCode": "44",
+
+34
+
+ "number": "12345678"
+
+35
+
+ }
+
+36
+
+ },
+
+37
+
+ "id": "card\_99CB8B47-A2C3-4A35-8EDC-4498B60B0FE8",
+
+38
+
+ "last4": "4242",
+
+39
+
+ "bin": "424242",
+
+40
+
+ "paymentMethod": "Visa",
+
+41
+
+ "fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
+
+42
+
+ "name": "Seymour Duncan",
+
+43
+
+ "cvvCheck": "Y",
+
+44
+
+ "avsCheck": "S"
+
+45
+
+ },
+
+46
+
+ "riskCheck": true,
+
+47
+
+ "customerPaymentPlans": null,
+
+48
+
+ "metadata": {
+
+49
+
+ "key1": "value1"
+
+50
+
+ },
+
+51
+
+ "shippingDetails": {
+
+52
+
+ "addressLine1": "623 Slade Street",
+
+53
+
+ "addressLine2": "Flat 9",
+
+54
+
+ "postcode": "E149SR",
+
+55
+
+ "country": "UK",
+
+56
+
+ "city": "London",
+
+57
+
+ "state": "Greater London",
+
+58
+
+ "phone": {
+
+59
+
+ "countryCode": "44",
+
+60
+
+ "number": "12345678"
+
+61
+
+ }
+
+62
+
+ },
+
+63
+
+ "products": \[
+
+64
+
+ {
+
+65
+
+ "name": "Tablet 1 gold limited",
+
+66
+
+ "description": "Tablet 1 gold limited",
+
+67
+
+ "sku": "1aab2aa",
+
+68
+
+ "price": 100,
+
+69
+
+ "quantity": 1,
+
+70
+
+ "image": "https://www.checkout.com/uploads/Logo.png",
+
+71
+
+ "shippingCost": 10,
+
+72
+
+ "trackingUrl": "https://www.tracker.com"
+
+73
+
+ },
+
+74
+
+ {
+
+75
+
+ "name": "Tablet 2 gold limited",
+
+76
+
+ "description": "Tablet 2 gold limited",
+
+77
+
+ "sku": "1aab2aa",
+
+78
+
+ "price": 200,
+
+79
+
+ "quantity": 2,
+
+80
+
+ "image": null,
+
+81
+
+ "shippingCost": 10,
+
+82
+
+ "trackingUrl": "https://www.tracker.com"
+
+83
+
+ }
+
+84
+
+ \],
+
+85
+
+ "udf1": "udf 1 value",
+
+86
+
+ "udf2": "udf 2 value",
+
+87
+
+ "udf3": "udf 3 value",
+
+88
+
+ "udf4": "udf 4 value",
+
+89
+
+ "udf5": "udf 5 value"
+
+90
+
+}
+
+Import from Gist
+
+\# Error codes An error code (\`errorCode\`) is a five-digit numeric code that indicates the type of error triggered by the request. Additional information about the error may be found in the fields \`message\`, \`errors\` and \`errorMessageCodes\`. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+API VALIDATION 
+
+ | 
+
+70000 
+
+ | 
+
+\`errorCode\` \`errorMessageCodes\` 
+
+ | 
+
+The request failed API validation and was not successful due to the error indicated by the \`errorCode\` and/or \`errorMessageCodes\`. 
+
+ |
+| 
+
+BUSINESS VALIDATION 
+
+ | 
+
+80000 
+
+ | 
+
+\`errorCode\` \`errorMessageCodes\` 
+
+ | 
+
+The request failed Business validation and was not successful due to the error indicated by the \`errorCode\` and/or \`errorMessageCodes\`. 
+
+ |
+| 
+
+AP VALIDATION 
+
+ | 
+
+90000 
+
+ | 
+
+\`errorCode\` \`errorMessageCodes\` 
+
+ | 
+
+The request failed Alternative Payments validation and was not successful due to the error indicated by the \`errorCode\` and/or \`errorMessageCodes\`. 
+
+ |
+
+\## API validation (70\*) 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+70000 
+
+ | 
+
+Validation error 
+
+ |
+| 
+
+70001 
+
+ | 
+
+Validation error is unmapped 
+
+ |
+| 
+
+70002 
+
+ | 
+
+An error was experienced while parsing the payload. Please ensure that the structure is correct. 
+
+ |
+| 
+
+70003 
+
+ | 
+
+No parameters were found 
+
+ |
+| 
+
+70004 
+
+ | 
+
+Insufficient privileges for this request 
+
+ |
+| 
+
+70005 
+
+ | 
+
+Authorization has been denied for this request. 
+
+ |
+| 
+
+70006 
+
+ | 
+
+Invalid value for 'token' 
+
+ |
+| 
+
+70007 
+
+ | 
+
+Invalid token id 
+
+ |
+| 
+
+700076 
+
+ | 
+
+Invalid length for 'city' in 'descriptor' 
+
+ |
+| 
+
+70008 
+
+ | 
+
+Field 'token' is required 
+
+ |
+| 
+
+70009 
+
+ | 
+
+Field 'paymentToken' is required 
+
+ |
+| 
+
+70010 
+
+ | 
+
+Invalid value for 'paymentToken' 
+
+ |
+| 
+
+70011 
+
+ | 
+
+Field \`chargeMode\` is required 
+
+ |
+| 
+
+70012 
+
+ | 
+
+Invalid value for \`chargeMode\` 
+
+ |
+| 
+
+70013 
+
+ | 
+
+Invalid customer id 
+
+ |
+| 
+
+70014 
+
+ | 
+
+Invalid email address 
+
+ |
+| 
+
+70015 
+
+ | 
+
+Field \`email\` is required 
+
+ |
+| 
+
+70016 
+
+ | 
+
+Invalid date value in \`created\` 
+
+ |
+| 
+
+70017 
+
+ | 
+
+Invalid field value length 
+
+ |
+| 
+
+70018 
+
+ | 
+
+Invalid phone number 
+
+ |
+| 
+
+70019 
+
+ | 
+
+Invalid length for \`phone number\` 
+
+ |
+| 
+
+70020 
+
+ | 
+
+Field \`phone number\` is required 
+
+ |
+| 
+
+70021 
+
+ | 
+
+Invalid value for \`provider id\` 
+
+ |
+| 
+
+70022 
+
+ | 
+
+Invalid value for \`userData\` 
+
+ |
+| 
+
+70023 
+
+ | 
+
+Field \`lppId\` is required 
+
+ |
+| 
+
+70024 
+
+ | 
+
+Invalid value for \`lppId\` 
+
+ |
+| 
+
+70025 
+
+ | 
+
+Field \`localPayment\` is required 
+
+ |
+| 
+
+70026 
+
+ | 
+
+Invalid value for \`limit\` 
+
+ |
+| 
+
+70027 
+
+ | 
+
+Invalid value for \`name\` 
+
+ |
+| 
+
+70028 
+
+ | 
+
+Invalid value for \`region\` 
+
+ |
+| 
+
+70029 
+
+ | 
+
+Field \`mpiTransactionResponseId\` is required 
+
+ |
+| 
+
+70030 
+
+ | 
+
+Invalid value for 'mpiTransactionResponseId' 
+
+ |
+| 
+
+70031 
+
+ | 
+
+Field \`MD\` is required 
+
+ |
+| 
+
+70032 
+
+ | 
+
+Invalid value for \`MD\` 
+
+ |
+| 
+
+70034 
+
+ | 
+
+Invalid card id 
+
+ |
+| 
+
+70035 
+
+ | 
+
+Invalid charge id 
+
+ |
+| 
+
+70036 
+
+ | 
+
+Invalid value for \`offset\` 
+
+ |
+| 
+
+70037 
+
+ | 
+
+Invalid value for \`customer\` 
+
+ |
+| 
+
+70038 
+
+ | 
+
+Invalid value for \`count\` 
+
+ |
+| 
+
+70039 
+
+ | 
+
+Invalid value for start date 
+
+ |
+| 
+
+70040 
+
+ | 
+
+Invalid value for end date 
+
+ |
+| 
+
+70041 
+
+ | 
+
+Invalid value for \`ip\` 
+
+ |
+| 
+
+70042 
+
+ | 
+
+Invalid value for \`country\` 
+
+ |
+| 
+
+70043 
+
+ | 
+
+Invalid value for \`countryCode\` 
+
+ |
+| 
+
+70044 
+
+ | 
+
+Invalid \`countryCode\` for phone 
+
+ |
+| 
+
+70045 
+
+ | 
+
+Invalid \`countryCode\` length for phone. 
+
+ |
+| 
+
+70046 
+
+ | 
+
+Invalid value for \`value\` 
+
+ |
+| 
+
+70047 
+
+ | 
+
+Invalid value for \`autoCapture\` 
+
+ |
+| 
+
+70048 
+
+ | 
+
+Invalid value for \`autoCapTime\` 
+
+ |
+| 
+
+70049 
+
+ | 
+
+Field \`value\` is required 
+
+ |
+| 
+
+70050 
+
+ | 
+
+Invalid value for \`currency\` 
+
+ |
+| 
+
+70051 
+
+ | 
+
+Field 'currency' is required 
+
+ |
+| 
+
+70052 
+
+ | 
+
+Require both \`autoCapture\` and \`autoCapTime\` values 
+
+ |
+| 
+
+70053 
+
+ | 
+
+Require either a \`card\`, \`token\` value 
+
+ |
+| 
+
+70054 
+
+ | 
+
+Require either a \`cardId\` or \`card\` values 
+
+ |
+| 
+
+70055 
+
+ | 
+
+Require either a \`customerId\` or \`email\` value 
+
+ |
+| 
+
+70056 
+
+ | 
+
+Cannot process request with both \`card\` and \`token\` values 
+
+ |
+| 
+
+70057 
+
+ | 
+
+Cannot process request with both \`CustomerID\` and \`Email\` values 
+
+ |
+| 
+
+70058 
+
+ | 
+
+Cannot process request where request has both \`cardid\` and card (\`name\`, \`number\`, \`expiryDay\` & \`expiryYear\`) values 
+
+ |
+| 
+
+70059 
+
+ | 
+
+Field \`cvv\` number in \`card\` is required 
+
+ |
+| 
+
+70060 
+
+ | 
+
+Invalid \`cvv\` number in \`card\` 
+
+ |
+| 
+
+70061 
+
+ | 
+
+Invalid \`expiryDay\` in \`card\` 
+
+ |
+| 
+
+70062 
+
+ | 
+
+Field \`expiryMonth\` in \`card\` is required 
+
+ |
+| 
+
+70063 
+
+ | 
+
+Invalid \`expiryMonth\` in \`card\` 
+
+ |
+| 
+
+70064 
+
+ | 
+
+Field \`expiryYear\` in \`card\` is required 
+
+ |
+| 
+
+70065 
+
+ | 
+
+Invalid \`expiryYear\` in \`card\` 
+
+ |
+| 
+
+70066 
+
+ | 
+
+Field \`number\` in \`card\` is required 
+
+ |
+| 
+
+70067 
+
+ | 
+
+Invalid \`number\` in \`card\` 
+
+ |
+| 
+
+70068 
+
+ | 
+
+Field \`name\` in \`card\` is required 
+
+ |
+| 
+
+70069 
+
+ | 
+
+Invalid value for \`name\` in \`card\` 
+
+ |
+| 
+
+70070 
+
+ | 
+
+Field \`token\` is required 
+
+ |
+| 
+
+70071 
+
+ | 
+
+Field \`cardId\` is required 
+
+ |
+| 
+
+70072 
+
+ | 
+
+Invalid value for \`transactionIndicator\` 
+
+ |
+| 
+
+70073 
+
+ | 
+
+Field \`name\` in \`descriptor\` is required 
+
+ |
+| 
+
+70074 
+
+ | 
+
+Field \`city\` in \`descriptor\` is required 
+
+ |
+| 
+
+70075 
+
+ | 
+
+Invalid length for \`name\` in \`descriptor\` 
+
+ |
+| 
+
+70077 
+
+ | 
+
+Expired Card 
+
+ |
+| 
+
+70078 
+
+ | 
+
+Invalid plan name 
+
+ |
+| 
+
+70079 
+
+ | 
+
+Invalid plan track id 
+
+ |
+| 
+
+70080 
+
+ | 
+
+Invalid auto capture time 
+
+ |
+| 
+
+70081 
+
+ | 
+
+Invalid value 
+
+ |
+| 
+
+70082 
+
+ | 
+
+Invalid currency 
+
+ |
+| 
+
+70083 
+
+ | 
+
+Invalid notification 
+
+ |
+| 
+
+70084 
+
+ | 
+
+Invalid cycle 
+
+ |
+| 
+
+70085 
+
+ | 
+
+Invalid max retry count 
+
+ |
+| 
+
+70086 
+
+ | 
+
+Invalid status 
+
+ |
+| 
+
+70087 
+
+ | 
+
+Invalid recurring count 
+
+ |
+| 
+
+70088 
+
+ | 
+
+Invalid recurring plan id 
+
+ |
+| 
+
+70089 
+
+ | 
+
+You should provide either card id or status 
+
+ |
+| 
+
+70090 
+
+ | 
+
+Invalid start date 
+
+ |
+| 
+
+70100 
+
+ | 
+
+Invalid start date for recurring plan 
+
+ |
+| 
+
+70101 
+
+ | 
+
+Field \`thirdPartyId\` is required 
+
+ |
+| 
+
+70102 
+
+ | 
+
+Invalid value for \`thirdPartyId\` 
+
+ |
+| 
+
+70103 
+
+ | 
+
+Invalid customer plan id 
+
+ |
+| 
+
+70104 
+
+ | 
+
+Invalid next recurring date 
+
+ |
+| 
+
+70105 
+
+ | 
+
+Invalid \`cvv\` length in \`card\` 
+
+ |
+| 
+
+70110 
+
+ | 
+
+Invalid value for \`page number\` 
+
+ |
+| 
+
+70111 
+
+ | 
+
+Invalid value for \`page size\` 
+
+ |
+| 
+
+70112 
+
+ | 
+
+Invalid value for \`sort order\` 
+
+ |
+| 
+
+70113 
+
+ | 
+
+Invalid value for \`sort column\` 
+
+ |
+| 
+
+70114 
+
+ | 
+
+Invalid value for \`filters\` 
+
+ |
+| 
+
+70115 
+
+ | 
+
+Invalid value for \`ReasonCode\` 
+
+ |
+| 
+
+70116 
+
+ | 
+
+Invalid value for \`IssueDate\` 
+
+ |
+| 
+
+70117 
+
+ | 
+
+Invalid value for \`RetrievalDate\` 
+
+ |
+| 
+
+70121 
+
+ | 
+
+Invalid payment method or currency 
+
+ |
+| 
+
+70126 
+
+ | 
+
+Field \`destination\` required 
+
+ |
+| 
+
+70127 
+
+ | 
+
+Field \`destination\` invalid 
+
+ |
+| 
+
+70128 
+
+ | 
+
+Field \`firstName\` required 
+
+ |
+| 
+
+70129 
+
+ | 
+
+Field \`lastName\` required 
+
+ |
+| 
+
+70185 
+
+ | 
+
+Invalid value for \`BIN\` 
+
+ |
+| 
+
+70186 
+
+ | 
+
+Invalid length for \`BIN\` 
+
+ |
+
+\### Example response: Validation Error (70015) 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+11
+
+1
+
+{
+
+2
+
+ "errorCode": "70000",
+
+3
+
+ "message": "Validation error",
+
+4
+
+ "errors": \[
+
+5
+
+ "Field 'email' is required"
+
+6
+
+ \],
+
+7
+
+ "errorMessageCodes": \[
+
+8
+
+ "70015"
+
+9
+
+ \],
+
+10
+
+ "eventId": "ad5708d2-5bde-4bd2-a643-bc6484a28c20"
+
+11
+
+}
+
+Import from Gist
+
+\## Business validation (8\*) 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+81001 
+
+ | 
+
+Invalid \`payment currency\` 
+
+ |
+| 
+
+81002 
+
+ | 
+
+Payment method and currency required 
+
+ |
+| 
+
+82001 
+
+ | 
+
+System malfunction. Please contact our support team at \[support@checkout.com\](mailto:support@checkout.com). 
+
+ |
+| 
+
+82004 
+
+ | 
+
+Action failure limit exceeded. The quota of failed payment actions has been exceeded. 
+
+ |
+| 
+
+82005 
+
+ | 
+
+Issuer network unavailable 
+
+ |
+| 
+
+82006 
+
+ | 
+
+Invalid parameter 
+
+ |
+| 
+
+82011 
+
+ | 
+
+Invalid \`cvv\` 
+
+ |
+| 
+
+82012 
+
+ | 
+
+Invalid \`postal code\` 
+
+ |
+| 
+
+82013 
+
+ | 
+
+Invalid \`address\` 
+
+ |
+| 
+
+82014 
+
+ | 
+
+Invalid \`walletID\` 
+
+ |
+| 
+
+82016 
+
+ | 
+
+Invalid \`ActionCode\` 
+
+ |
+| 
+
+82017 
+
+ | 
+
+Invalid \`Customer Number\` 
+
+ |
+| 
+
+82022 
+
+ | 
+
+Invalid \`Telephone Number\` 
+
+ |
+| 
+
+82023 
+
+ | 
+
+Invalid \`Country\` 
+
+ |
+| 
+
+82024 
+
+ | 
+
+Invalid \`City\` 
+
+ |
+| 
+
+82031 
+
+ | 
+
+Invalid \`payment method\` 
+
+ |
+| 
+
+82040 
+
+ | 
+
+Invalid \`currency code\` 
+
+ |
+| 
+
+82050 
+
+ | 
+
+Invalid \`card holder\` 
+
+ |
+| 
+
+82051 
+
+ | 
+
+Invalid \`Customer IP\` 
+
+ |
+| 
+
+83013 
+
+ | 
+
+Invalid \`Email\` 
+
+ |
+| 
+
+83020 
+
+ | 
+
+Email already in use 
+
+ |
+| 
+
+83021 
+
+ | 
+
+Token Expired 
+
+ |
+| 
+
+83022 
+
+ | 
+
+Authentication failed - Invalid Token or Password 
+
+ |
+| 
+
+83023 
+
+ | 
+
+Token already used 
+
+ |
+| 
+
+83025 
+
+ | 
+
+Manual capture not allowed when \`autoCapture\` is \`true\` 
+
+ |
+| 
+
+83026 
+
+ | 
+
+Refund not allowed when chargeback present 
+
+ |
+| 
+
+83027 
+
+ | 
+
+Transaction Refunded 
+
+ |
+| 
+
+83028 
+
+ | 
+
+Amount greater than authorised value 
+
+ |
+| 
+
+83029 
+
+ | 
+
+Transaction Captured 
+
+ |
+| 
+
+83030 
+
+ | 
+
+Amount not equal to original value 
+
+ |
+| 
+
+83031 
+
+ | 
+
+Transaction Not Found 
+
+ |
+| 
+
+83032 
+
+ | 
+
+Card Not Found 
+
+ |
+| 
+
+83033 
+
+ | 
+
+MO/TO Transaction is not allowed 
+
+ |
+| 
+
+83034 
+
+ | 
+
+Checkout Server Api is not allowed 
+
+ |
+| 
+
+83035 
+
+ | 
+
+Transaction Voided 
+
+ |
+| 
+
+83036 
+
+ | 
+
+Missing business service settings 
+
+ |
+| 
+
+83037 
+
+ | 
+
+Only 3D transaction can be processed 
+
+ |
+| 
+
+83038 
+
+ | 
+
+Amount greater than remaining captured value 
+
+ |
+| 
+
+83039 
+
+ | 
+
+Payment token currently in use 
+
+ |
+| 
+
+83040 
+
+ | 
+
+Invalid \`Customer Plan ID\` 
+
+ |
+| 
+
+84009 
+
+ | 
+
+Invalid \`ID\` 
+
+ |
+| 
+
+84022 
+
+ | 
+
+Invalid \`channel name\` 
+
+ |
+| 
+
+84040 
+
+ | 
+
+Invalid \`Channel\` or \`token\` incorrect 
+
+ |
+| 
+
+84120 
+
+ | 
+
+Invalid \`Charge Details\` 
+
+ |
+| 
+
+84121 
+
+ | 
+
+Invalid request 
+
+ |
+| 
+
+84123 
+
+ | 
+
+Invalid transaction 
+
+ |
+| 
+
+84124 
+
+ | 
+
+Unsupported currency 
+
+ |
+| 
+
+84126 
+
+ | 
+
+Invalid \`Charge id\` 
+
+ |
+| 
+
+84125 
+
+ | 
+
+Invalid \`Amount\` 
+
+ |
+| 
+
+84127 
+
+ | 
+
+Invalid \`Card Number\` 
+
+ |
+| 
+
+84128 
+
+ | 
+
+Expired Card 
+
+ |
+| 
+
+84129 
+
+ | 
+
+Unable to Authorise 
+
+ |
+| 
+
+84130 
+
+ | 
+
+Customer not found 
+
+ |
+| 
+
+84131 
+
+ | 
+
+Customer already exists 
+
+ |
+| 
+
+84133 
+
+ | 
+
+Unable to determine channel url 
+
+ |
+| 
+
+84139 
+
+ | 
+
+Recurring Plan already exists 
+
+ |
+| 
+
+84140 
+
+ | 
+
+Recurring Plan does not exist 
+
+ |
+| 
+
+84141 
+
+ | 
+
+Unable to delete recurring Plan 
+
+ |
+| 
+
+84142 
+
+ | 
+
+Customer Plan does not exist 
+
+ |
+| 
+
+84143 
+
+ | 
+
+Unable to delete recurring customer plan 
+
+ |
+| 
+
+84146 
+
+ | 
+
+Not configured for 3D-Secure 
+
+ |
+| 
+
+84314 
+
+ | 
+
+Invalid webhook request 
+
+ |
+| 
+
+84315 
+
+ | 
+
+Invalid create queue request 
+
+ |
+
+\### Example response: Validation Error (82051) 
+
+JSON
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+{
+
+2
+
+ "errorCode": "82051",
+
+3
+
+ "message": "Invalid Customer IP",
+
+4
+
+ "eventId": "afb144e7-7833-460c-a25e-5720ea2de9a3"
+
+5
+
+}
+
+Import from Gist
+
+\## AP validation (90\*) 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+90000 
+
+ | 
+
+This transaction could not be completed. 
+
+ |
+| 
+
+90001 
+
+ | 
+
+Shipping address line 1 is required. 
+
+ |
+| 
+
+90002 
+
+ | 
+
+Shipping address city is required. 
+
+ |
+| 
+
+90003 
+
+ | 
+
+Shipping address state is required. 
+
+ |
+| 
+
+90004 
+
+ | 
+
+Shipping address postal code is required. 
+
+ |
+| 
+
+90005 
+
+ | 
+
+Shipping address country is required. 
+
+ |
+| 
+
+90006 
+
+ | 
+
+Shipping address city state postal code is invalid. 
+
+ |
+| 
+
+90007 
+
+ | 
+
+Transaction refused because of an invalid argument. See additional error messages for details. 
+
+ |
+| 
+
+90008 
+
+ | 
+
+Amount limit exceeded. 
+
+ |
+| 
+
+90009 
+
+ | 
+
+Internal error. 
+
+ |
+| 
+
+90010 
+
+ | 
+
+Account is locked or inactive. 
+
+ |
+| 
+
+90011 
+
+ | 
+
+PayPal is not available at the moment. Please try again at a later time. 
+
+ |
+| 
+
+90012 
+
+ | 
+
+Payment not authorised. 
+
+ |
+| 
+
+90013 
+
+ | 
+
+This transaction couldn’t be completed. 
+
+ |
+| 
+
+90014 
+
+ | 
+
+Authorisation is voided. 
+
+ |
+| 
+
+90015 
+
+ | 
+
+Authorisation expired. 
+
+ |
+| 
+
+90016 
+
+ | 
+
+Authorisation completed. 
+
+ |
+| 
+
+90017 
+
+ | 
+
+Currency not supported. 
+
+ |
+| 
+
+90018 
+
+ | 
+
+Authorisation & capture unavailable. 
+
+ |
+| 
+
+90019 
+
+ | 
+
+Currency mismatch. 
+
+ |
+| 
+
+90020 
+
+ | 
+
+Cannot void reauthorisation. 
+
+ |
+| 
+
+90021 
+
+ | 
+
+Transaction already voided or expired. 
+
+ |
+| 
+
+90022 
+
+ | 
+
+The maximum number of authorisations allowed for this order has been reached. 
+
+ |
+| 
+
+90023 
+
+ | 
+
+Duplicate transaction. 
+
+ |
+| 
+
+90024 
+
+ | 
+
+The transaction cannot be processed at this time. Please try again later. 
+
+ |
+| 
+
+90025 
+
+ | 
+
+Processor warning. 
+
+ |
+| 
+
+90026 
+
+ | 
+
+The transaction cannot be processed at this time. Please try again later. 
+
+ |
+| 
+
+90027 
+
+ | 
+
+Request for billing address failed. 
+
+ |
+| 
+
+90028 
+
+ | 
+
+Duplicate request. 
+
+ |
+| 
+
+90029 
+
+ | 
+
+Multiple default shipping options specified. 
+
+ |
+| 
+
+90030 
+
+ | 
+
+No default shipping option specified. 
+
+ |
+| 
+
+90031 
+
+ | 
+
+Invalid shipping total. 
+
+ |
+| 
+
+90032 
+
+ | 
+
+Maximum amount of order is less than itemised amounts. 
+
+ |
+| 
+
+90033 
+
+ | 
+
+Failed payment review. 
+
+ |
+| 
+
+90034 
+
+ | 
+
+Buyer cannot pay. 
+
+ |
+| 
+
+90035 
+
+ | 
+
+Buyer did not complete. 
+
+ |
+| 
+
+90036 
+
+ | 
+
+Duplicate refund request. 
+
+ |
+| 
+
+90037 
+
+ | 
+
+Capture not allowed. 
+
+ |
+| 
+
+90038 
+
+ | 
+
+This authorisation must be captured, voided, updated, or reauthorised through the gateway. 
+
+ |
+| 
+
+90039 
+
+ | 
+
+Duplicate transaction. 
+
+ |
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

@@ -1,0 +1,921 @@
+---
+title: the-kit-reference
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+\*The Kit reference is designed to assist you in finding reference material and essential bits of information all in one place. Use the navigation on the right to find your way around the page.\* 
+
+Here's a complete list of configuration options for The Kit. ### Required 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+\`data-public-key\` 
+
+ | 
+
+\`publicKey\` 
+
+ | 
+
+You can find this in \[The Hub\](https://hub.checkout.com). 
+
+ |
+| 
+
+\`data-payment-token\` <span class="table-info">Not required for card tokenisation</span> 
+
+ | 
+
+\`paymentToken\` 
+
+ | 
+
+Your payment token. 
+
+ |
+
+\### Optional 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+\`data-debug-mode\` 
+
+ | 
+
+\`debugMode \` 
+
+ | 
+
+Set to true to see console messages. 
+
+ |
+| 
+
+\`data-namespace\` 
+
+ | 
+
+\`namespace\` 
+
+ | 
+
+Customise the default Checkout namespace. 
+
+ |
+| 
+
+not supported 
+
+ | 
+
+\`billingDetails\` 
+
+ | 
+
+Transaction billing details. 
+
+ |
+
+The Kit dispatches events which can be handled for various purposes. The table below provides the list of core events which you can attach one or more handlers to. 
+
+Event constants in the Javascript API are accessible via CheckoutKit.Events 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+\`ready\` 
+
+ | 
+
+\`READY\` 
+
+ | 
+
+Triggered when The Kit is registered on the global namespace and is safe to use. 
+
+ |
+| 
+
+\`cardCharged\` 
+
+ | 
+
+\`CARD\_CHARGED\` 
+
+ | 
+
+After a card is charged: this event object will contain the payment token, the response code and the redirection URL set by the merchant. <span class="table-info">\[See the example\](doc:the-kit-reference#section-example-card-charged).</span> 
+
+ |
+| 
+
+\`cardChargeFailed\` 
+
+ | 
+
+\`CARD\_CHARGE\_FAILED\` 
+
+ | 
+
+After a card payment has failed: this event object contains the payment token, the response code and the redirection URL set by the merchant. <span class="table-info">\[See the example\](doc:the-kit-reference#section-example-card-charge-failed).</span> 
+
+ |
+| 
+
+\`cardTokenised\` 
+
+ | 
+
+\`CARD\_TOKENISED\` 
+
+ | 
+
+After a card is tokenised. The event object will contain the card token. <span class="table-info">\[See the example\](doc:the-kit-reference#section-example-card-tokenized).</span> 
+
+ |
+| 
+
+\`cardTokenisationFailed\` 
+
+ | 
+
+\`CARD\_TOKENISATION\_FAILED\` 
+
+ | 
+
+After card tokenisation fails. 
+
+ |
+| 
+
+\`apiError\` 
+
+ | 
+
+\`API\_ERROR\` 
+
+ | 
+
+Failure to get a correct response from Checkout.com's merchant API will result in an \`apiError\` event being dispatched. 
+
+ |
+| 
+
+\`paymentTokenExpired\` 
+
+ | 
+
+\`PAYMENT\_TOKEN\_EXPIRED\` 
+
+ | 
+
+Charging a card using an expired payment token will result in this API error. 
+
+ |
+| 
+
+\`formMonitored \` 
+
+ | 
+
+\`FORM\_MONITORED\` 
+
+ | 
+
+After a card capture form is successfully monitored by \`CheckoutKit.monitorForm(".custom-form")\`. 
+
+ |
+| 
+
+\`formMonitorCancelled\` 
+
+ | 
+
+\`FORM\_MONITOR\_CANCELLED\` 
+
+ | 
+
+After the monitor form has been canceled. 
+
+ |
+| 
+
+\`formSubmitting\` 
+
+ | 
+
+\`FORM\_SUBMITTING\` 
+
+ | 
+
+When the card capture form is being submitted to the API. 
+
+ |
+| 
+
+\`formSubmitError\` 
+
+ | 
+
+\`FORM\_SUBMIT\_ERROR\` 
+
+ | 
+
+If the submit process of a card capture form fails. 
+
+ |
+
+\#### Example: Card charged 
+
+Card charged
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+{paymentToken: "pay\_tok\_111", responseCode: 10\*\*\*, redirectUrl: "http://www.example.com"}
+
+Import from Gist
+
+\#### Example: Card charge failed 
+
+Card charge failed
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+{
+
+2
+
+ paymentToken: "pay\_tok\_111",
+
+3
+
+ responseCode: 20\*\*\*,
+
+4
+
+ redirectUrl: "http://www..example.com"
+
+5
+
+}
+
+Import from Gist
+
+\#### Example: Card tokenized 
+
+Card tokenized
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+{
+
+2
+
+ id: 'card\_tok\_111'
+
+3
+
+}
+
+Import from Gist
+
+\## Adding an Event Handler There are two ways to add an event handler: 1. using the standard approach 2. using configuration options #### 1. Using the standard approach 
+
+Standard approach
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+CheckoutKit.addEventHandler(CheckoutKit.Events.<EVENT\_CONSTANT\>, handler, options);
+
+Import from Gist
+
+\#### 2. Using configuration options 
+
+Using configuration options
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+ CheckoutKit.render({
+
+2
+
+ publicKey: '...',
+
+3
+
+ <event name\>: handler
+
+4
+
+ });
+
+Import from Gist
+
+\#### 2. b. Using configuration options to define handler-specific options 
+
+Using configuration options to define handler-specific options
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+10
+
+1
+
+CheckoutKit.render({
+
+2
+
+ publicKey: '...',
+
+3
+
+ <event name\>: {
+
+4
+
+ handler: handler,
+
+5
+
+ options: {
+
+6
+
+ key: value,
+
+7
+
+ key: value
+
+8
+
+ }
+
+9
+
+ }
+
+10
+
+});
+
+Import from Gist
+
+\## Synchronous 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+\`configure(object)\` 
+
+ | 
+
+Configures Checkout.js, but will not render the widget. 
+
+ | 
+
+{publicKey: '...'} 
+
+ | 
+
+n/a 
+
+ |
+| 
+
+\`getResponseMessage(code)\` 
+
+ | 
+
+Returns the response message for the \`responseCode\` provided. 
+
+ | 
+
+code: 20057 
+
+ | 
+
+{ type: 'success' OR 'error', title: '...', description: '...', ...} 
+
+ |
+| 
+
+\`isSuccessResponseCode(code)\` 
+
+ | 
+
+Returns \`true\` if the \`responseCode\` provided is successful, otherwise returns \`false\`. 
+
+ | 
+
+code: 10000 
+
+ | 
+
+true / false 
+
+ |
+| 
+
+\`isPaymentTokenExpiredError(code)\` 
+
+ | 
+
+Returns \`true\` if the \`errorCode\` provided matches the payment token expiration error code. 
+
+ | 
+
+code: 10000 
+
+ | 
+
+true / false 
+
+ |
+| 
+
+\`addEventHandler(event,handler)\` 
+
+ | 
+
+Adds a handler that is called when the specified event is triggered. Call the \`Checkout.Events\` object to retrieve the list of accepted events. 
+
+ | 
+
+event: Events.CARD\_CHARGED, handler: function(event){} 
+
+ | 
+
+n/a 
+
+ |
+| 
+
+\`removeEventHandler(event,handler)\` 
+
+ | 
+
+Removes a previously added handler from an event by providing the event name and handler as arguments in the method. 
+
+ | 
+
+event: Events.CARD\_CHARGED,handler: function(event){} 
+
+ | 
+
+true / false 
+
+ |
+| 
+
+\`removeAllEventHandlers(event)\` 
+
+ | 
+
+Removes all handlers added to the event specified. 
+
+ | 
+
+event: Events.CARD\_CHARGED 
+
+ | 
+
+true / false 
+
+ |
+| 
+
+\`log(msg, level, ...args)\` 
+
+ | 
+
+Behaves like \`console.log\`, but only logs to console if \`debug:true\` in the configure method or \`CKOConfig\` object. 
+
+ | 
+
+msg: 'Header', level: 'log', args: 'Name', 1, 2 
+
+ | 
+
+Console: Header :: Name, 1, 2 
+
+ |
+
+The log action will only log messages on the console if debugMode is set to true. 
+
+\## Asynchronous ### Callbacks All callbacks can be passed as either two functions: 1. representing a success callback and an error callback respectively. 2. a single function that acts as a “success or failure” callback. If a single function is passed, the response will either be the expected success response or a message with error details. Example 1: representing a success callback and an error callback respectively 
+
+JavaScript
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+action(function(response){
+
+2
+
+ console.log(response); // success or error
+
+3
+
+});
+
+Import from Gist
+
+Example 2: representing a success callback and an error callback respectively 
+
+JavaScript
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+action(function(data){
+
+2
+
+ console.log(data); // success
+
+3
+
+},function(err){
+
+4
+
+ console.error(err); // error
+
+5
+
+});
+
+Import from Gist
+
+\## Get card providers \* \*\*Signature:\*\* \`getCardProviders(callback)\` \* \*\*Requires:\*\* Public key (via configuration or setters) \* \*\*Returns:\*\* \`Array\[\]\` of card provides selected for a particular Channel (linked to a Public key) ## Create Card Token \* \*\*Signature:\*\* \`createCardToken(card, callback)\` \* \*\*Requires:\*\* Public key (via configuration or setters) 
+
+Example Return
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+11
+
+1
+
+createCardToken({
+
+2
+
+ number: '...',
+
+3
+
+ name: '...',
+
+4
+
+ expiryMonth: '...',
+
+5
+
+ expiryYear: '...',
+
+6
+
+ cvv: '...'
+
+7
+
+},
+
+8
+
+{
+
+9
+
+ includeBinData: true || false
+
+10
+
+},
+
+11
+
+callback);
+
+Import from Gist
+
+xxxxxxxxxx
+
+20
+
+1
+
+{
+
+2
+
+ "id": "card\_tok\_22008D7D-B198-4D62-9970-E03476933162",
+
+3
+
+ "liveMode": "false",
+
+4
+
+ "created": "2016-10-17T12:30:02Z",
+
+5
+
+ "used": false,
+
+6
+
+ "card": {
+
+7
+
+ "expiryMonth": "06",
+
+8
+
+ "expiryYear": "2018",
+
+9
+
+ "last4": "8845",
+
+10
+
+ "bin": "488065",
+
+11
+
+ "paymentMethod": "Visa"
+
+12
+
+ },
+
+13
+
+ "binData": {
+
+14
+
+ "bin": "488065",
+
+15
+
+ "cardType": "Debit",
+
+16
+
+ "countryName": "Netherlands",
+
+17
+
+ "bankName": "ING Bank",
+
+18
+
+ "issuerCountryISO2": "NL"
+
+19
+
+ }
+
+20
+
+}
+
+Import from Gist
+
+\`includeBinData\` is not required and is only applicable to Visa and Mastercard charges. BIN data refers to the issuing country of a card based on the card's 4-6 digit BIN (Bank Identification Number). 
+
+\### Getters and setters 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+\`getPublicKey()\` 
+
+ | 
+
+\`setPublicKey(value)\` 
+
+ | 
+
+The secret key of your Checkout.com account. You can find this in \[The Hub\](hub.checkout.com). 
+
+ |
+| 
+
+\`getTestMode()\` 
+
+ | 
+
+n/a 
+
+ | 
+
+Returns \*true\* if public key is in Test Mode. 
+
+ |
+| 
+
+\`getDebugMode()\` 
+
+ | 
+
+n/a 
+
+ | 
+
+Returns \*true\* if in Debug Mode. 
+
+ |
+| 
+
+\`getNamespace()\` 
+
+ | 
+
+n/a 
+
+ | 
+
+Returns \*CheckoutKit\* or a custom namespace. 
+
+ |
+| 
+
+\`getVersion()\` 
+
+ | 
+
+n/a 
+
+ | 
+
+Returns the version of The Kit being used. 
+
+ |
+| 
+
+\`getPaymentToken()\` 
+
+ | 
+
+\`setPaymentToken(value)\` 
+
+ | 
+
+Your payment token 
+
+ |
+| 
+
+\`getTransactionValue()\` 
+
+ | 
+
+n/a 
+
+ | 
+
+Returns an object containing your transaction value, currency and payment token. 
+
+ |
+| 
+
+\`getCustomerName()\` 
+
+ | 
+
+\`setCustomerName(value)\` 
+
+ | 
+
+Customer name 
+
+ |
+| 
+
+\`getBillingDetails()\` 
+
+ | 
+
+\`setBillingDetails(value)\` 
+
+ | 
+
+Transaction billing details 
+
+ |
+| 
+
+\`getLocalisation()\` 
+
+ | 
+
+n/a 
+
+ | 
+
+Returns selected language 
+
+ |
+| 
+
+\`getConfig()\` 
+
+ | 
+
+n/a 
+
+ | 
+
+Returns the configuration details of Checkout.js/The Kit. 
+
+ |
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

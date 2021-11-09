@@ -1,0 +1,524 @@
+---
+title: frames-reference
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+Our Frames reference is here to help you find those hard to find bits of information all in one place. Use the navigation on the right to find your way around the page. 
+
+Here's a complete list of Frames configuration options. ## Required You can only create charges in currencies that have been enabled for your account. Please contact your relationship manager if you need to process in additional currencies. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+\`publicKey\` 
+
+ | 
+
+Your public key — find it in \[The Hub\](https://hub.checkout.com/) 
+
+ |
+
+## Optional 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+\`theme\` 
+
+ | 
+
+Choose the \[theme\](doc:customize-frames#section-the-payment-form) of your payment form. 
+
+ | 
+
+standard 
+
+ |
+| 
+
+\`themeOverride\` 
+
+ | 
+
+Use this to load your \[custom stylesheet\](doc:customize-frames#section-using-a-custom-stylesheet). 
+
+ | 
+
+none 
+
+ |
+| 
+
+\`debugMode\` 
+
+ | 
+
+Set to \`true\` to view console messages. 
+
+ | 
+
+false 
+
+ |
+| 
+
+\`namespace\` 
+
+ | 
+
+Customise the default Frames namespace. 
+
+ | 
+
+Frames 
+
+ |
+| 
+
+\`containerSelector\` 
+
+ | 
+
+The .class or #id of the parent element in the Frames payment form. 
+
+ | 
+
+none 
+
+ |
+
+\## Customer details 
+
+\`billingDetails\` is the only way to send customer details when using Frames. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+\`customerName\` 
+
+ | 
+
+The customer's name 
+
+ | 
+
+none 
+
+ |
+| 
+
+\`billingDetails\` 
+
+ | 
+
+Transaction billing details: {addressLine1, addressLine2, postcode, country, city, phone{number}} 
+
+ | 
+
+none 
+
+ |
+
+\## Localization options 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+\`localisation\` 
+
+ | 
+
+Sets the \[language\](doc:customize-frames#section-localization) of the text used. Available options are: \* EN-GB (English) \* ES-ES (Spanish) \* DE-DE (German) \* KR-KR (Korean) \* FR-FR (French) \* IT-IT (Italian) \* NL-NL (Dutch) 
+
+ | 
+
+EN-GB 
+
+ |
+
+Frames dispatches events which can be handled for various purposes. The table below provides the full list of events that you can attach one or more handlers to. 
+
+Event constants on the JavaScript API are accessible via Frames.Events. 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+\`ready\` 
+
+ | 
+
+\`READY\` 
+
+ | 
+
+Triggered when Frames is registered on the global namespace and safe to use. 
+
+ |
+| 
+
+\`frameActivated\` 
+
+ | 
+
+\`FRAME\_ACTIVATED\` 
+
+ | 
+
+Triggered when the form is rendered. 
+
+ |
+| 
+
+\`cardValidationChanged\` 
+
+ | 
+
+\`CARD\_VALIDATION\_CHANGED\` 
+
+ | 
+
+Triggered when the state of the card form validation changes. This will return: \`isValid: true / false\` 
+
+ |
+| 
+
+\`cardSubmitted\` 
+
+ | 
+
+\`CARD\_SUBMITTED\` 
+
+ | 
+
+Triggered when the card form has been submitted. 
+
+ |
+| 
+
+\`cardTokenised\` 
+
+ | 
+
+\`CARD\_TOKENISED\` 
+
+ | 
+
+Triggered after a card is tokenised. Returns an object containing the card token and card information such as payment methods, expiration date, the first 6 (bin) and last 4 digits of the credit card. 
+
+ |
+| 
+
+\`cardTokenisationFailed\` 
+
+ | 
+
+\`CARD\_TOKENISATION\_FAILED\` 
+
+ | 
+
+Triggered if card tokenisation fails. 
+
+ |
+
+\## Localisation event 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+\`invalidLocalisation \` 
+
+ | 
+
+\`INVALID\_LOCALISATION\` 
+
+ | 
+
+Triggered when failing to load the requested language. 
+
+ |
+
+\## Adding an event handler There are two ways to add an event handler; the standard approach or configuration options. <span class="method\_hl">Method 1:</span> The standard approach \`Frames.addEventHandler(Frames.Events.<EVENT\_CONSTANT>, handler);\` <span class="method\_hl">Method 2:</span> Configuration options 
+
+Config options
+
+rename · delete
+
+TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+
+xxxxxxxxxx
+
+1
+
+Frames.init({
+
+2
+
+ publicKey: 'pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14',
+
+3
+
+ <eventName\>: handler
+
+4
+
+});
+
+Import from Gist
+
+\*\*Synchronous\*\* 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |  |
+| --- | --- | --- | --- |
+| 
+\`init(object)\` 
+
+ | 
+
+Initialises Frames 
+
+ | 
+
+{ publicKey: '...' } 
+
+ | 
+
+\- 
+
+ |
+| 
+
+\`isCardValid()\` 
+
+ | 
+
+Returns the state of the card form validation. 
+
+ | 
+
+Frames.isCardValid() 
+
+ | 
+
+boolean 
+
+ |
+| 
+
+\`submitCard()\` 
+
+ | 
+
+Submits the card form if all form values are valid. 
+
+ | 
+
+Frames.submitCard() 
+
+ | 
+
+\- 
+
+ |
+| 
+
+\`addEventHandler(event, handler)\` 
+
+ | 
+
+Adds a handler that is called when the specified event is triggered. Call the Frames.Events object to retrieve the list of accepted events. 
+
+ | 
+
+event: Events.CARD\_TOKENISED handler: function(event){} 
+
+ | 
+
+\- 
+
+ |
+| 
+
+\`removeEventHandler(event, handler)\` 
+
+ | 
+
+Removes a previously added handler from an event by providing the event name and handler as arguments in the method. 
+
+ | 
+
+event: Events.CARD\_TOKENISED handler: function(event){} 
+
+ | 
+
+boolean 
+
+ |
+| 
+
+\`removeAllEventHandlers(event)\` 
+
+ | 
+
+Removes all handlers added to the event specified. 
+
+ | 
+
+event: Events.CARD\_TOKENISED 
+
+ | 
+
+boolean 
+
+ |
+
+\*\*Getters / Setters\*\* 
+
+ x     
+
+Add Row Add Col
+
+|  |  |  |
+| --- | --- | --- |
+| 
+\`getPublicKey()\` 
+
+ | 
+
+\`setPublicKey(value)\` 
+
+ | 
+
+Your public key — find it in \[The Hub\](https://hub.checkout.com/) 
+
+ |
+| 
+
+\`getDebugMode()\` 
+
+ | 
+
+n/a 
+
+ | 
+
+Returns true if in debug mode 
+
+ |
+| 
+
+\`getNamespace()\` 
+
+ | 
+
+n/a 
+
+ | 
+
+Returns Frames or a custom namespace 
+
+ |
+| 
+
+\`getVersion()\` 
+
+ | 
+
+n/a 
+
+ | 
+
+Returns Frames version 
+
+ |
+| 
+
+\`getCustomerName()\` 
+
+ | 
+
+\`setCustomerName(value)\` 
+
+ | 
+
+Customer name 
+
+ |
+| 
+
+\`getBillingDetails()\` 
+
+ | 
+
+\`setBillingDetails(value)\` 
+
+ | 
+
+Transaction billing details 
+
+ |
+| 
+
+\`getLocalisation()\` 
+
+ | 
+
+n/a 
+
+ | 
+
+Returns the selected language or the path to the localisation file 
+
+ |
+| 
+
+\`getConfig()\` 
+
+ | 
+
+n/a 
+
+ | 
+
+Returns the configuration of Frames 
+
+ |
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

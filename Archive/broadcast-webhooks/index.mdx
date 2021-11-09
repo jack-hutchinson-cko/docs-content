@@ -1,0 +1,232 @@
+---
+title: broadcast-webhooks
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+\*Making sure you receive the information you need when you need it.\* Broadcast is a webhook notification system. When an event occurs, it sends a webhook notification to inform you of the situation. You'll find out what happened and the type of issue at hand, enabling you to take action and keep your business running smoothly. Webhooks provide a definitive confirmation of a status update and are used for a variety of purposes, such as fulfilling orders, sending automated status updates to customers, or even integrating with third-party application services. \*\*Broadcast provides some great features:\*\* \* View a filterable log of all your notifications. \* Our \[webhook retry mechanism\](doc:broadcast-webhooks#section-webhook-retries) for failed webhooks. \* Explanations and reasons why a notification failed. \* View webhooks for chargebacks and retrievals. 
+
+In the diagram below, a merchant using \[Checkout.js\](doc:checkoutjs) has configured a \`charge.captured\` webhook to trigger a notification to the merchant's server confirming the payment. 
+
+*   **Image Sizing:**
+*    Smart Fit
+*    100% Width
+*    80% Width
+*    Original Size
+*   * * *
+    
+*   **Options:**
+*    Image Border
+
+![](https://files.readme.io/7379202-checkout-webhook-flow.png)
+
+Upload an image...
+
+![](https://files.readme.io/7379202-checkout-webhook-flow.png)**checkout-webhook-flow.png**
+
+change·remove
+
+Don't have one handy? Use our logo to start!
+
+It is highly recommended that you use \`charge.captured\` as the webhook trigger since this is the final state of a processed charge. 
+
+You can take advantage of Broadcast by setting up your webhooks in the \[Business level administration\](doc:business-level-administration) of The Hub or by using our \[webhook management\](doc:broadcast-webhook-management) API. Easily configure multiple webhook endpoints to perform various processes for each of your channels: \* Add or remove webhook endpoints \* Enable or disable a particular endpoint \* Subscribe or unsubscribe your endpoint event types \* Add authorization headers to your endpoints 
+
+When a webhook notification fails, the retry mechanism begins. We automatically try to resend the web notification multiple times, before sending you an email informing you of the failure. If we detect that failures are still occurring after a set period of time, we will unsubscribe that event type from the problematic webhook endpoint. This will not affect any other subscribed event types. You can re-enable, view, and configure the webhook at any time in the business level settings of The Hub. However, if you no longer require this particular event type, then no further action is necessary. 
+
+Amazon’s Simple Queue Service (SQS) features "at-least-once delivery"; this indicates an endpoint could receive a webhook more than once if Broadcast receives duplicate copies of a message. Although this is a rare occurrence, we recommend that endpoints process webhooks in a manner that anticipates duplicates and deals with them appropriately. To do this, save all original webhooks, and when a new webhook is received, disregard it if it already exists. Requests sent from Broadcast to an endpoint will time out after 30 seconds. Therefore it's vital for the endpoint to return a 2xx HTTP status code before this time expires and the request fails. 
+
+Because webhook notifications are asynchronous, we recommend implementing a fallback logic in case you experience any delivery delays that could affect your cardholders' journey. The fallback logic should be applied when no authorization or capture webhooks have been received within ~15 seconds after they were expected to be received. 1. Call the GET payment history endpoint using the charge ID of the authorization. You can find instructions on how to do this \[here\](doc:view-payment-history) . 2. Analyze the response to see the latest payment action. Look out for \`"status": "Captured"\` in particular. 
+
+A webhook signature is a security measure which allows you to verify the integrity and authenticity of the data you’re receiving. Each webhook contains a hash-based message authentication code (<<glossary:HMAC>>) in its \`CKO-Signature\` header. Checkout.com generates the HMAC by taking the contents of the webhook notification and hashing it using the \`secret key\` as the key. Using signatures is simple. All you need to do is take the webhook's body and apply the SHA-256 hash function to it, using the \`secret key\` as the hash key. You then compare the resulting HMAC to the one contained in the \`CKO-Signature\` header. If the HMACs are identical, then the data corresponds to what Checkout.com sent. If they are different, this indicates that the data has been intercepted and altered in some way. You can simply delete the webhook notification and use the Broadcast API to regenerate it. 
+
+Checkout.com sends webhooks for the following event types: 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+Authorized 
+
+ | 
+
+\`charge.succeeded\` <span class="table-info">View a \[charge succeeded webhook example\](doc:chargesucceeded)</span> 
+
+ |
+| 
+
+Authorized failed 
+
+ | 
+
+\`charge.failed\` <span class="table-info">View a \[charge failed webhook example\](doc:chargefailed)</span> 
+
+ |
+| 
+
+Captured 
+
+ | 
+
+\`charge.captured\` <span class="table-info">View a \[charge captured webhook example\](doc:chargecaptured)</span> 
+
+ |
+| 
+
+Captured failed 
+
+ | 
+
+\`charge.captured.failed\` <span class="table-info">View a \[charge captured failed webhook example\](doc:chargecapturedfailed)</span> 
+
+ |
+| 
+
+Refunded 
+
+ | 
+
+\`charge.refunded\` <span class="table-info">View a \[charge refunded webhook example\](doc:chargerefunded)</span> 
+
+ |
+| 
+
+Refunded failed 
+
+ | 
+
+\`charge.refunded.failed\` <span class="table-info">View a \[charge refunded failed webhook example\](doc:chargerefundedfailed)</span> 
+
+ |
+| 
+
+Voided 
+
+ | 
+
+\`charge.voided\` <span class="table-info">View a \[charge voided webhook example\](doc:chargevoided)</span> 
+
+ |
+| 
+
+Voided failed 
+
+ | 
+
+\`charge.voided.failed\` <span class="table-info">View a \[charge voided failed webhook example\](doc:chargevoidedfailed)</span> 
+
+ |
+| 
+
+Retrieval 
+
+ | 
+
+\`charge.retrieval\` 
+
+ |
+| 
+
+Chargeback 
+
+ | 
+
+\`charge.chargeback\` <span class="table-info">View a \[chargeback webhook example\](doc:chargeback-webhook-example)</span> 
+
+ |
+| 
+
+Captured deferred 
+
+ | 
+
+\`charge.captured.deferred\` <span class="table-info">View a \[charge captured deferred webhook example\](doc:chargecaptureddeferred)</span> 
+
+ |
+| 
+
+Pending 
+
+ | 
+
+\`charge.pending\` <span class="table-info">View a \[charge pending webhook example\](doc:chargepending)</span> 
+
+ |
+| 
+
+Cancelled 
+
+ | 
+
+\`invoice.cancelled\` <span class="table-info">View an \[invoice cancelled webhook example\](doc:invoicecancelled)</span> 
+
+ |
+
+Receiving a \`charge.captured\` notification via webhooks is the only way to confirm a payment completes successfully. 
+
+If a merchant account is configured to receive webhook notifications, callbacks will be sent from one of the following IP addresses: 
+
+ x     
+
+Add Row Add Col
+
+|  |  |
+| --- | --- |
+| 
+52.31.105.56 
+
+ | 
+
+Live 
+
+ |
+| 
+
+52.210.98.185 
+
+ | 
+
+Live 
+
+ |
+| 
+
+52.210.86.142 
+
+ | 
+
+Live 
+
+ |
+| 
+
+52.56.73.133 
+
+ | 
+
+Sandbox 
+
+ |
+| 
+
+52.56.70.215 
+
+ | 
+
+Sandbox 
+
+ |
+
+Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

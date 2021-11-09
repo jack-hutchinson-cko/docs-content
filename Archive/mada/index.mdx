@@ -1,0 +1,586 @@
+---
+title: mada
+account: Archive
+---
+
+*   Header
+*   Code Sample
+*   Callout
+*   Table
+*   Image
+*   Embed
+*   HTML/CSS
+
+View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+
+Start accepting payments with Mada, Saudi Arabia's domestic payment network. Mada has partnerships with major card schemes like Visa and Mastercard, so the cards can be accepted both locally and globally. 
+
+When you process a Mada card outside Saudi Arabia, it behaves like any other debit card, so you can \[request a payment\](doc:payments-quickstart) without any need for specific configurations or extra parameters. However, we recommend that you process Mada cards using \[3D Secure\](doc:3-d-secure) and the \[card verification value (CVV) / card security code (CSC)\](doc:cvv-check). 
+
+To process Mada cards within Saudi Arabia's debit card network, you will first need to obtain a merchant ID from a Saudi Arabian card acquirer. 
+
+\*\*Authorization and void requests\*\* Currently, you can only process purchases and refunds with Mada – authorization and void requests will be rejected. 
+
+\## Processing payments with Frames and Checkout.js Once the customer submits the credit card form, the first six digits of their card – the bank identification number (BIN) – will be returned, and you'll need to compare this against the list of Mada BINs: 
+
+**Custom HTML / CSS** _JavaScript will stripped, CSS will be scoped_
+
+xxxxxxxxxx
+
+138
+
+1
+
+<div class\="cko-toggle-box"\>
+
+2
+
+ <input id\="collapsible-1" class\="cko-toggle" type\="checkbox"\>
+
+3
+
+ <label for\="collapsible-1" class\="cko-label-toggle"\>Mada BINs</label\>
+
+4
+
+ <div class\="cko-toggle-content"\>
+
+5
+
+ <div class\="cko-toggle-content-inner"\>
+
+6
+
+ <table style\="width:100%"\>
+
+7
+
+ <tr\>
+
+8
+
+ <td style\="text-align:center"\>588845</td\>
+
+9
+
+ <td style\="text-align:center"\>440647</td\> 
+
+10
+
+ <td style\="text-align:center"\>440795</td\>
+
+11
+
+ <td style\="text-align:center"\>446404</td\>
+
+12
+
+ <td style\="text-align:center"\>457865</td\>
+
+13
+
+ <td style\="text-align:center"\>968208</td\>
+
+14
+
+ </tr\>
+
+15
+
+ <tr\>
+
+16
+
+ <td style\="text-align:center"\>588846</td\>
+
+17
+
+ <td style\="text-align:center"\>493428</td\> 
+
+18
+
+ <td style\="text-align:center"\>539931</td\>
+
+19
+
+ <td style\="text-align:center"\>558848</td\>
+
+20
+
+ <td style\="text-align:center"\>557606</td\>
+
+21
+
+ <td style\="text-align:center"\>968210</td\>
+
+22
+
+ </tr\>
+
+23
+
+ <tr\>
+
+24
+
+ <td style\="text-align:center"\>636120</td\>
+
+25
+
+ <td style\="text-align:center"\>417633</td\> 
+
+26
+
+ <td style\="text-align:center"\>468540</td\>
+
+27
+
+ <td style\="text-align:center"\>468541</td\>
+
+28
+
+ <td style\="text-align:center"\>468542</td\>
+
+29
+
+ <td style\="text-align:center"\>468543</td\>
+
+30
+
+ </tr\>
+
+31
+
+ <tr\>
+
+32
+
+ <td style\="text-align:center"\>968201</td\> 
+
+33
+
+ <td style\="text-align:center"\>446393</td\> 
+
+34
+
+ <td style\="text-align:center"\>588847</td\> 
+
+35
+
+ <td style\="text-align:center"\>400861</td\> 
+
+36
+
+ <td style\="text-align:center"\>409201</td\> 
+
+37
+
+ <td style\="text-align:center"\>458456</td\>
+
+38
+
+ </tr\>
+
+39
+
+ <tr\>
+
+40
+
+ <td style\="text-align:center"\>484783</td\>
+
+41
+
+ <td style\="text-align:center"\>968205</td\> 
+
+42
+
+ <td style\="text-align:center"\>462220</td\> 
+
+43
+
+ <td style\="text-align:center"\>455708</td\> 
+
+44
+
+ <td style\="text-align:center"\>588848</td\> 
+
+45
+
+ <td style\="text-align:center"\>455036</td\> 
+
+46
+
+ </tr\>
+
+47
+
+ <tr\>
+
+48
+
+ <td style\="text-align:center"\>968203</td\>
+
+49
+
+ <td style\="text-align:center"\>486094</td\>
+
+50
+
+ <td style\="text-align:center"\>486095</td\>
+
+51
+
+ <td style\="text-align:center"\>486096</td\>
+
+52
+
+ <td style\="text-align:center"\>504300</td\>
+
+53
+
+ <td style\="text-align:center"\>440533</td\>
+
+54
+
+ </tr\>
+
+55
+
+ <tr\>
+
+56
+
+ <td style\="text-align:center"\>489317</td\>
+
+57
+
+ <td style\="text-align:center"\>489318</td\>
+
+58
+
+ <td style\="text-align:center"\>489319</td\>
+
+59
+
+ <td style\="text-align:center"\>445564</td\>
+
+60
+
+ <td style\="text-align:center"\>968211</td\>
+
+61
+
+ <td style\="text-align:center"\>401757</td\>
+
+62
+
+ </tr\>
+
+63
+
+ <tr\>
+
+64
+
+ <td style\="text-align:center"\>410685</td\>
+
+65
+
+ <td style\="text-align:center"\>432328</td\>
+
+66
+
+ <td style\="text-align:center"\>428671</td\>
+
+67
+
+ <td style\="text-align:center"\>428672</td\>
+
+68
+
+ <td style\="text-align:center"\>428673</td\>
+
+69
+
+ <td style\="text-align:center"\>968206</td\>
+
+70
+
+ </tr\>
+
+71
+
+ <tr\>
+
+72
+
+ <td style\="text-align:center"\>446672</td\>
+
+73
+
+ <td style\="text-align:center"\>543357</td\>
+
+74
+
+ <td style\="text-align:center"\>434107</td\>
+
+75
+
+ <td style\="text-align:center"\>431361</td\>
+
+76
+
+ <td style\="text-align:center"\>604906</td\>
+
+77
+
+ <td style\="text-align:center"\>521076</td\>
+
+78
+
+ </tr\>
+
+79
+
+ <tr\>
+
+80
+
+ <td style\="text-align:center"\>588850</td\>
+
+81
+
+ <td style\="text-align:center"\>968202</td\>
+
+82
+
+ <td style\="text-align:center"\>535825</td\>
+
+83
+
+ <td style\="text-align:center"\>529415</td\>
+
+84
+
+ <td style\="text-align:center"\>543085</td\>
+
+85
+
+ <td style\="text-align:center"\>524130</td\>
+
+86
+
+ </tr\>
+
+87
+
+ <tr\>
+
+88
+
+ <td style\="text-align:center"\>554180</td\>
+
+89
+
+ <td style\="text-align:center"\>549760</td\>
+
+90
+
+ <td style\="text-align:center"\>588849</td\>
+
+91
+
+ <td style\="text-align:center"\>968209</td\>
+
+92
+
+ <td style\="text-align:center"\>524514</td\>
+
+93
+
+ <td style\="text-align:center"\>529741</td\>
+
+94
+
+ </tr\>
+
+95
+
+ <tr\>
+
+96
+
+ <td style\="text-align:center"\>537767</td\>
+
+97
+
+ <td style\="text-align:center"\>535989</td\>
+
+98
+
+ <td style\="text-align:center"\>536023</td\>
+
+99
+
+ <td style\="text-align:center"\>513213</td\>
+
+100
+
+ <td style\="text-align:center"\>585265</td\>
+
+101
+
+ <td style\="text-align:center"\>588983</td\>
+
+102
+
+ </tr\>
+
+103
+
+ <tr\>
+
+104
+
+ <td style\="text-align:center"\>588982</td\>
+
+105
+
+ <td style\="text-align:center"\>589005</td\>
+
+106
+
+ <td style\="text-align:center"\>508160</td\>
+
+107
+
+ <td style\="text-align:center"\>531095</td\>
+
+108
+
+ <td style\="text-align:center"\>530906</td\>
+
+109
+
+ <td style\="text-align:center"\>532013</td\>
+
+110
+
+ </tr\>
+
+111
+
+ <tr\>
+
+112
+
+ <td style\="text-align:center"\>588851</td\>
+
+113
+
+ <td style\="text-align:center"\>605141</td\>
+
+114
+
+ <td style\="text-align:center"\>968204</td\>
+
+115
+
+ <td style\="text-align:center"\>422817</td\>
+
+116
+
+ <td style\="text-align:center"\>422818</td\>
+
+117
+
+ <td style\="text-align:center"\>422819</td\>
+
+118
+
+ </tr\>
+
+119
+
+ <tr\>
+
+120
+
+ <td style\="text-align:center"\>428331</td\>
+
+121
+
+ <td style\="text-align:center"\>483010</td\>
+
+122
+
+ <td style\="text-align:center"\>483011</td\>
+
+123
+
+ <td style\="text-align:center"\>483012</td\>
+
+124
+
+ <td style\="text-align:center"\>589206</td\>
+
+125
+
+ <td style\="text-align:center"\>968207</td\>
+
+126
+
+ </tr\>
+
+127
+
+ <tr\>
+
+128
+
+ <td style\="text-align:center"\>419593</td\>
+
+129
+
+ <td style\="text-align:center"\>439954</td\>
+
+130
+
+ <td style\="text-align:center"\>407197</td\>
+
+131
+
+ <td style\="text-align:center"\>407395</td\>
+
+132
+
+ <td style\="text-align:center"\>\-</td\>
+
+133
+
+ <td style\="text-align:center"\>\-</td\>
+
+134
+
+ </tr\>
+
+135
+
+ </table\>
+
+136
+
+ </div\>
+
+137
+
+ </div\>
+
+138
+
+</div\>
+
+If the card's BIN matches one from the list above, you'll know it's a Mada card. Next, follow these steps: 1. Before you redirect the customer, send a hidden HTML field or another indication that the card type is Mada to your server. For instance: \`<input name=”cardType” type=”hidden” value=”mada”>\` 2. In the backend code, check if the posted hidden variable \`cardType\` was a Mada card. If so, make sure that: a. \`chargeMode\` is set to \`2\` to process the payment with 3D Secure b. \`autoCapture\` is set to \`Y\` to auto-capture the payment c. \`autoCapTime\` is set to \`0\` to capture the payment immediately d. \`UDF1\` is set to \`"mada"\` ## Processing payments with full card details To process a Mada card with full card details, simply follow the steps in the Frames/Checkout.js section above. The only difference is that you won't need to wait to receive the customer's BIN because you'll have full access to the card number. Simply get the first six digits from the card form, compare it with the Mada BIN list (see above), and then send a request with the required parameters described in the Frames/Checkout.js section above. ## Mobile app integration To process Mada card payments through a mobile app, follow the Frames/Checkout.js process above. Like step 1 in that process, before you post the cart data and checkout data to your web server, you'll need to add a field to your API request that indicates whether or not it's a Mada card. For example: \`cardType:”mada”\` ## Apple Pay integration Mada cards can be processed the same way as other cards in \[Apple Pay\](doc:apple-pay), but you'll need to make sure that the device's payments permission is enabled for your merchant ID. Also, in order to process Mada cards on the local Saudi Arabian network, you'll need to include \`mada\` in the <a href="https://developer.apple.com/documentation/apple\_pay\_on\_the\_web/applepaypaymentrequest/1916122-supportednetworks">\`supportedNetworks\`</a> array. Please contact your customer success manager if you’re not dealing with the acquiring bank directly. 
+
+Thanks for using Checkout.com. If you need any help, or just have a question, please get in touch with our support team at \[support@checkout.com\](mailto:support@checkout.com).
