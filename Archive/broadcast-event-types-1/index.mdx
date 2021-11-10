@@ -3,43 +3,36 @@ title: broadcast-event-types-1
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-Use this API request to view all events and their type. ## The request Requests are created using a GET request. Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api.checkout.com/event-types </p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api.sandbox.checkout.com/event-types </p></pre> ### Header parameters 
+Use this API request to view all events and their type. ## The request Requests are created using a GET request. Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api.checkout.com/event-types </p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api.sandbox.checkout.com/event-types </p></pre> ### Header parameters
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`Authorization\` <span class="req-def">Required</span> 
 
- | 
+|
+\`Authorization\` <span class="req-def">Required</span>
 
-\`secret key\`\* 
+|
 
- |
-| 
+\`secret key\`\*
 
-\`Content-Type\` <span class="req-def">Required</span> 
+|
+|
 
- | 
+\`Content-Type\` <span class="req-def">Required</span>
 
-\`application/json\` 
+|
 
- |
+\`application/json\`
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). ## The response Below is an example successful response. 
+|
+
+\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). ## The response Below is an example successful response.
 
 JSON
 
@@ -57,63 +50,63 @@ xxxxxxxxxx
 
 2
 
- "events": \[
+"events": \[
 
 3
 
- "charge.succeeded",
+"charge.succeeded",
 
 4
 
- "charge.failed",
+"charge.failed",
 
 5
 
- "charge.captured",
+"charge.captured",
 
 6
 
- "charge.captured.failed",
+"charge.captured.failed",
 
 7
 
- "charge.refunded",
+"charge.refunded",
 
 8
 
- "charge.refunded.failed",
+"charge.refunded.failed",
 
 9
 
- "charge.voided",
+"charge.voided",
 
 10
 
- "charge.voided.failed",
+"charge.voided.failed",
 
 11
 
- "charge.retrieval",
+"charge.retrieval",
 
 12
 
- "charge.chargeback",
+"charge.chargeback",
 
 13
 
- "charge.captured.deferred",
+"charge.captured.deferred",
 
 14
 
- "charge.pending",
+"charge.pending",
 
 15
 
- "invoice.cancelled"
+"invoice.cancelled"
 
 16
 
- \]
+\]
 
 17
 

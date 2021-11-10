@@ -3,29 +3,22 @@ title: customize-frames
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-One of our favorite things about Frames is its customizability. By following this styling guide, you can make changes to just about everything. 
+One of our favorite things about Frames is its customizability. By following this styling guide, you can make changes to just about everything.
 
-To start, let's look at the payment form itself. Frames comes in two variants: standard and simple. ## Standard view The standard view is the default template for Frames. It is a shorter two-row layout with icons depicting each field. 
+To start, let's look at the payment form itself. Frames comes in two variants: standard and simple. ## Standard view The standard view is the default template for Frames. It is a shorter two-row layout with icons depicting each field.
 
-*   **Image Sizing:**
-*    Smart Fit
-*    100% Width
-*    80% Width
-*    Original Size
-*   * * *
-    
-*   **Options:**
-*    Image Border
+- **Image Sizing:**
+- Smart Fit
+- 100% Width
+- 80% Width
+- Original Size
+
+---
+
+- **Options:**
+- Image Border
 
 ![](https://files.readme.io/20f5546-standard-theme-dimensions.png)
 
@@ -37,17 +30,18 @@ change·remove
 
 Don't have one handy? Use our logo to start!
 
-Although not necessary (as it is default), to specify the \*\*standard theme\*\* use the \`theme\` attribute in your code. For example, \`theme: 'standard',\`. ## Simple view Use the theme attribute to change to the \*simple\* version of Frames. Simple view is a taller three-row layout with icons depicting each field. 
+Although not necessary (as it is default), to specify the \*\*standard theme\*\* use the \`theme\` attribute in your code. For example, \`theme: 'standard',\`. ## Simple view Use the theme attribute to change to the \*simple\* version of Frames. Simple view is a taller three-row layout with icons depicting each field.
 
-*   **Image Sizing:**
-*    Smart Fit
-*    100% Width
-*    80% Width
-*    Original Size
-*   * * *
-    
-*   **Options:**
-*    Image Border
+- **Image Sizing:**
+- Smart Fit
+- 100% Width
+- 80% Width
+- Original Size
+
+---
+
+- **Options:**
+- Image Border
 
 ![](https://files.readme.io/80427d9-simple-theme-dimensions.png)
 
@@ -59,9 +53,9 @@ change·remove
 
 Don't have one handy? Use our logo to start!
 
-To use the \*\*simple view\*\*, define the theme attribute in your code as \`theme: 'simple',\`. 
+To use the \*\*simple view\*\*, define the theme attribute in your code as \`theme: 'simple',\`.
 
-Frames can be customized to fit seamlessly with your brand. By using a \`style\` variable within the Frames script itself, it's easy to start making changes. All customizations are achieved using \*\*selectors\*\*, \*\*properties\*\*, and \*\*values\*\* in a manner very familiar to developers. Use the tabs below to view an example of styling, and a reference of selectors to use when styling your version of Frames. 
+Frames can be customized to fit seamlessly with your brand. By using a \`style\` variable within the Frames script itself, it's easy to start making changes. All customizations are achieved using \*\*selectors\*\*, \*\*properties\*\*, and \*\*values\*\* in a manner very familiar to developers. Use the tabs below to view an example of styling, and a reference of selectors to use when styling your version of Frames.
 
 Styling Selectors reference
 
@@ -73,27 +67,27 @@ xxxxxxxxxx
 
 1
 
- // custom style
+// custom style
 
 2
 
- var style \= {
+var style \= {
 
 3
 
- '.embedded .card-form .input-group': {
+'.embedded .card-form .input-group': {
 
 4
 
- borderRadius: '5px'
+borderRadius: '5px'
 
 5
 
- },
+},
 
 6
 
- }
+}
 
 Import from Gist
 
@@ -103,139 +97,139 @@ xxxxxxxxxx
 
 1
 
- // custom style
+// custom style
 
 2
 
- var style \= {
+var style \= {
 
 3
 
- '.embedded .card-form .input-group': {
+'.embedded .card-form .input-group': {
 
 4
 
- borderRadius: '5px'
+borderRadius: '5px'
 
 5
 
- },
+},
 
 6
 
- /\* focus \*/
+/\* focus \*/
 
 7
 
- '.embedded .card-form .input-group.focus:not(.error)': {
+'.embedded .card-form .input-group.focus:not(.error)': {
 
 8
 
- border: '1px solid green'
+border: '1px solid green'
 
 9
 
- },
+},
 
 10
 
- /\* icons \*/
+/\* icons \*/
 
 11
 
- '.embedded .card-form .input-group .icon': {
+'.embedded .card-form .input-group .icon': {
 
 12
 
- color: 'slategray'
+color: 'slategray'
 
 13
 
- },
+},
 
 14
 
- /\* hint icon (CVV) \*/
+/\* hint icon (CVV) \*/
 
 15
 
- '.embedded .card-form .input-group .hint-icon': {
+'.embedded .card-form .input-group .hint-icon': {
 
 16
 
- color: 'slategray'
+color: 'slategray'
 
 17
 
- },
+},
 
 18
 
- '.embedded .card-form .input-group .hint-icon:hover': {
+'.embedded .card-form .input-group .hint-icon:hover': {
 
 19
 
- color: 'darkslategray'
+color: 'darkslategray'
 
 20
 
- },
+},
 
 21
 
- /\* error \*/
+/\* error \*/
 
 22
 
- '.embedded .card-form .input-group.error': {
+'.embedded .card-form .input-group.error': {
 
 23
 
- border: '1px solid red'
+border: '1px solid red'
 
 24
 
- },
+},
 
 25
 
- '.embedded .card-form .input-group.error .hint.error-message': { /\* message container \*/
+'.embedded .card-form .input-group.error .hint.error-message': { /\* message container \*/
 
 26
 
- background: 'lightgray', /\* make sure to match the pointer color (below) \*/
+background: 'lightgray', /\* make sure to match the pointer color (below) \*/
 
 27
 
- color: 'red'
+color: 'red'
 
 28
 
- },
+},
 
 29
 
- '.embedded .card-form .input-group.error .hint.error-message .arrow': { /\* message container pointer \*/
+'.embedded .card-form .input-group.error .hint.error-message .arrow': { /\* message container pointer \*/
 
 30
 
- borderBottomColor: 'lightgray' /\* matches message container background \*/
+borderBottomColor: 'lightgray' /\* matches message container background \*/
 
 31
 
- },
+},
 
 32
 
- '.embedded .card-form .input-group.error .hint-icon:hover': { /\* hint icon \*/
+'.embedded .card-form .input-group.error .hint-icon:hover': { /\* hint icon \*/
 
 33
 
- color: 'red'
+color: 'red'
 
 34
 
- },
+},
 
 35
 
@@ -243,87 +237,87 @@ xxxxxxxxxx
 
 36
 
- '.embedded .card-form .input-group:not(.error) input': {
+'.embedded .card-form .input-group:not(.error) input': {
 
 37
 
- color: 'dimgray'
+color: 'dimgray'
 
 38
 
- },
+},
 
 39
 
- '.embedded .card-form .input-group.focus input': {
+'.embedded .card-form .input-group.focus input': {
 
 40
 
- color: 'black'
+color: 'black'
 
 41
 
- },
+},
 
 42
 
- '.embedded .card-form .input-group.error input': {
+'.embedded .card-form .input-group.error input': {
 
 43
 
- color: 'red'
+color: 'red'
 
 44
 
- },
+},
 
 45
 
- '.embedded .card-form .input-group input::-webkit-input-placeholder': { /\* Chrome/Opera/Safari \*/
+'.embedded .card-form .input-group input::-webkit-input-placeholder': { /\* Chrome/Opera/Safari \*/
 
 46
 
- color: 'lightgray'
+color: 'lightgray'
 
 47
 
- },
+},
 
 48
 
- '.embedded .card-form .input-group input::-moz-placeholder': { /\* Firefox 19+ \*/
+'.embedded .card-form .input-group input::-moz-placeholder': { /\* Firefox 19+ \*/
 
 49
 
- color: 'lightgray'
+color: 'lightgray'
 
 50
 
- },
+},
 
 51
 
- '.embedded .card-form .input-group input:-ms-input-placeholder': { /\* IE 10+ \*/
+'.embedded .card-form .input-group input:-ms-input-placeholder': { /\* IE 10+ \*/
 
 52
 
- color: 'lightgray'
+color: 'lightgray'
 
 53
 
- },
+},
 
 54
 
- '.embedded .card-form .input-group input:-moz-placeholder': { /\* Firefox 18- \*/
+'.embedded .card-form .input-group input:-moz-placeholder': { /\* Firefox 18- \*/
 
 55
 
- color: 'lightgray'
+color: 'lightgray'
 
 56
 
- },
+},
 
 57
 
@@ -331,37 +325,37 @@ xxxxxxxxxx
 
 58
 
- '.embedded .card-form .split-view .left': {
+'.embedded .card-form .split-view .left': {
 
 59
 
- paddingRight: '3px'
+paddingRight: '3px'
 
 60
 
- },
+},
 
 61
 
- '.embedded .card-form .split-view .right': {
+'.embedded .card-form .split-view .right': {
 
 62
 
- paddingLeft: '3px'
+paddingLeft: '3px'
 
 63
 
- }
+}
 
 64
 
- }
+}
 
 Import from Gist
 
-Due to stringent PCI compliance rules, Frames can only support Web-safe fonts. 
+Due to stringent PCI compliance rules, Frames can only support Web-safe fonts.
 
-Make your customers feel at home by using our localization settings to change the language of your payment form. Use one of our pre-defined languages or create your own. ### Pre-defined localization If the language you would like to use appears in our pre-defined list, then just set the \`localisation\` parameter, for example \`localisation: 'FR-FR'\`. The pre-defined languages: English = \*\*EN-GB\*\* Dutch = \*\*NL-NL\*\* French = \*\*FR-FR\*\* German = \*\*DE-DE\*\* Italian = \*\*IT-IT\*\* Korean = \*\*KR-KR\*\* Spanish = \*\*ES-ES\*\* ### Custom localization You can customize the language of both the placeholders of the form's input fields and the card number error message. If you would like to use a language that is not a part of any of the pre-defined localization language sets, you can define your own localization fields. To define the language of your form, use the \`localisation\` variable with the following properties and custom values. The example below shows the localisation variable in action: 
+Make your customers feel at home by using our localization settings to change the language of your payment form. Use one of our pre-defined languages or create your own. ### Pre-defined localization If the language you would like to use appears in our pre-defined list, then just set the \`localisation\` parameter, for example \`localisation: 'FR-FR'\`. The pre-defined languages: English = \*\*EN-GB\*\* Dutch = \*\*NL-NL\*\* French = \*\*FR-FR\*\* German = \*\*DE-DE\*\* Italian = \*\*IT-IT\*\* Korean = \*\*KR-KR\*\* Spanish = \*\*ES-ES\*\* ### Custom localization You can customize the language of both the placeholders of the form's input fields and the card number error message. If you would like to use a language that is not a part of any of the pre-defined localization language sets, you can define your own localization fields. To define the language of your form, use the \`localisation\` variable with the following properties and custom values. The example below shows the localisation variable in action:
 
 JavaScript
 
@@ -377,31 +371,31 @@ xxxxxxxxxx
 
 2
 
- var localisation \= {
+var localisation \= {
 
 3
 
- cardNumberPlaceholder: "Custom text",
+cardNumberPlaceholder: "Custom text",
 
 4
 
- expiryMonthPlaceholder: "Custom text",
+expiryMonthPlaceholder: "Custom text",
 
 5
 
- expiryYearPlaceholder: "Custom text",
+expiryYearPlaceholder: "Custom text",
 
 6
 
- cvvPlaceholder: "Custom text",
+cvvPlaceholder: "Custom text",
 
 7
 
- cardNumberErrorMessage: "Custom text"
+cardNumberErrorMessage: "Custom text"
 
 8
 
- }
+}
 
 9
 
@@ -409,9 +403,9 @@ xxxxxxxxxx
 
 Import from Gist
 
-The example above can be used in your own Frames localization, simply replace the text "Custom text" with your own translation or wording. 
+The example above can be used in your own Frames localization, simply replace the text "Custom text" with your own translation or wording.
 
-Customizing Frames for the first time can be a little daunting. To make it easier for you, we have provided the code example below. The comments in the code are there to help you with customizing your own payment form. Notice how we fit the custom styling and localization within the same script. This means there is no need to rely on external files, making Frames more secure and PCI compliant. 
+Customizing Frames for the first time can be a little daunting. To make it easier for you, we have provided the code example below. The comments in the code are there to help you with customizing your own payment form. Notice how we fit the custom styling and localization within the same script. This means there is no need to rely on external files, making Frames more secure and PCI compliant.
 
 HTML
 
@@ -896,5 +890,3 @@ xxxxxxxxxx
 </body\>
 
 Import from Gist
-
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

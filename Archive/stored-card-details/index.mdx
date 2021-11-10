@@ -3,285 +3,283 @@ title: stored-card-details
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-Requirements, by both Visa and Mastercard, state that merchants must provide extra information about transactions using stored card details—transactions where the merchant handles and stores card details \*\*in full\*\* on their server or uses cards tokenized at Checkout.com for future payments. 
+Requirements, by both Visa and Mastercard, state that merchants must provide extra information about transactions using stored card details—transactions where the merchant handles and stores card details \*\*in full\*\* on their server or uses cards tokenized at Checkout.com for future payments.
 
-This section outlines the new regulations introduced by Visa and Mastercard—they can sound a little heavy at first, but keep reading for more information. #### For Visa and Mastercard \* While initiating a payment, the merchant must indicate if they are using \*\*previously stored card details\*\*. \* For recurring payments, the initial cardholder-initiated transaction (CIT) should not be marked as recurring, however, all subsequent payments in the subscription plan should be. #### For Visa \* In recurring and \[unscheduled merchant-initiated transactions\](doc:stored-card-details#section-unscheduled-merchant-initiated-transaction), the merchant must reference either \[the originating payment or the previous payment\](doc:stored-card-details#section-recurring-payments-fa-cc-visa-). ## Satisfying these requirements To satisfy these requirements, we've introduced the following attributes to our endpoints. \* \`cardOnFile\` Set to \`true\` if you're making a payment with our \[full card API\](doc:payment-with-full-card-details-pci-warning) using card details previously stored on \*\*your\*\* server. \* \`transactionIndicator\` Set this to \`2\` to indicate that the authorization or payment is part of a recurring plan. \* \`previousChargeId\` Used to reference either the previous transaction or the opening transaction of the payment plan. The \`previousChargeId\` is the \`chargeId\` issued after the authorization of the relevant payment. Learn more about the \[previous charge ID\](doc:stored-card-details#section-previous-charge-id-explained) Check which attributes apply to you, by reading the applicable business models below. # Cardholder-initiated transactions In a cardholder-initiated transaction, the cardholder is actively involved in initiating the payment and authorizes the use of their stored card details. For example, a cardholder ordering takeaway food and using a card previously stored with the merchant. ## Required attributes for CITs #### Visa required attributes for CITs 
+This section outlines the new regulations introduced by Visa and Mastercard—they can sound a little heavy at first, but keep reading for more information. #### For Visa and Mastercard \* While initiating a payment, the merchant must indicate if they are using \*\*previously stored card details\*\*. \* For recurring payments, the initial cardholder-initiated transaction (CIT) should not be marked as recurring, however, all subsequent payments in the subscription plan should be. #### For Visa \* In recurring and \[unscheduled merchant-initiated transactions\](doc:stored-card-details#section-unscheduled-merchant-initiated-transaction), the merchant must reference either \[the originating payment or the previous payment\](doc:stored-card-details#section-recurring-payments-fa-cc-visa-). ## Satisfying these requirements To satisfy these requirements, we've introduced the following attributes to our endpoints. \* \`cardOnFile\` Set to \`true\` if you're making a payment with our \[full card API\](doc:payment-with-full-card-details-pci-warning) using card details previously stored on \*\*your\*\* server. \* \`transactionIndicator\` Set this to \`2\` to indicate that the authorization or payment is part of a recurring plan. \* \`previousChargeId\` Used to reference either the previous transaction or the opening transaction of the payment plan. The \`previousChargeId\` is the \`chargeId\` issued after the authorization of the relevant payment. Learn more about the \[previous charge ID\](doc:stored-card-details#section-previous-charge-id-explained) Check which attributes apply to you, by reading the applicable business models below. # Cardholder-initiated transactions In a cardholder-initiated transaction, the cardholder is actively involved in initiating the payment and authorizes the use of their stored card details. For example, a cardholder ordering takeaway food and using a card previously stored with the merchant. ## Required attributes for CITs #### Visa required attributes for CITs
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |  |
+|     |     |     |
 | --- | --- | --- |
-| 
-Full card API 
 
- | 
+|
+Full card API
 
-n/a 
+|
 
- | 
+n/a
 
-\`cardOnFile: true\` 
+|
 
- |
-| 
+\`cardOnFile: true\`
 
-Card ID 
+|
+|
 
- | 
+Card ID
 
-n/a 
+|
 
- | 
+n/a
 
-n/a 
+|
 
- |
+n/a
 
-\#### Mastercard required attributes for CITs 
+|
 
- x     
+\#### Mastercard required attributes for CITs
+
+x
 
 Add Row Add Col
 
-|  |  |  |
+|     |     |     |
 | --- | --- | --- |
-| 
-Full card API 
 
- | 
+|
+Full card API
 
-n/a 
+|
 
- | 
+n/a
 
-\`cardOnFile: true\` 
+|
 
- |
-| 
+\`cardOnFile: true\`
 
-Card ID 
+|
+|
 
- | 
+Card ID
 
-n/a 
+|
 
- | 
+n/a
 
-n/a 
+|
 
- |
+n/a
 
-\# Unscheduled merchant-initiated transaction An unscheduled transaction, using stored card details, for a fixed or variable amount where the cardholder has previously provided consent for the merchant to initiate future transactions using the stored details. For example, topping up a digital wallet that has fallen below a certain threshold. ## Required attributes for unscheduled MITs #### Visa required attributes for unscheduled MITs 
+|
 
- x     
+\# Unscheduled merchant-initiated transaction An unscheduled transaction, using stored card details, for a fixed or variable amount where the cardholder has previously provided consent for the merchant to initiate future transactions using the stored details. For example, topping up a digital wallet that has fallen below a certain threshold. ## Required attributes for unscheduled MITs #### Visa required attributes for unscheduled MITs
+
+x
 
 Add Row Add Col
 
-|  |  |  |
+|     |     |     |
 | --- | --- | --- |
-| 
-Full card API 
 
- | 
+|
+Full card API
 
-n/a 
+|
 
- | 
+n/a
 
-\`cardOnFile: true\` \`previousChargeId: "charge\_Id"\` 
+|
 
- |
-| 
+\`cardOnFile: true\` \`previousChargeId: "charge_Id"\`
 
-Card ID 
+|
+|
 
- | 
+Card ID
 
-n/a 
+|
 
- | 
+n/a
 
-\`previousChargeId: "charge\_Id"\` 
+|
 
- |
+\`previousChargeId: "charge_Id"\`
 
-\#### Mastercard requirements for unscheduled MITs 
+|
 
- x     
+\#### Mastercard requirements for unscheduled MITs
+
+x
 
 Add Row Add Col
 
-|  |  |  |
+|     |     |     |
 | --- | --- | --- |
-| 
-Full card API 
 
- | 
+|
+Full card API
 
-n/a 
+|
 
- | 
+n/a
 
-\`cardOnFile: true\` \`previousChargeId: "charge\_Id"\` 
+|
 
- |
-| 
+\`cardOnFile: true\` \`previousChargeId: "charge_Id"\`
 
-Card ID 
+|
+|
 
- | 
+Card ID
 
-n/a 
+|
 
- | 
+n/a
 
-\`previousChargeId: "charge\_Id"\` 
+|
 
- |
+\`previousChargeId: "charge_Id"\`
 
-\# Recurring payments Recurring payments are scheduled payments to pay for products or services that occur on a regular basis, e.g., monthly. For example, a cardholder paying an on-demand television provider's monthly subscriptions fee. ## Required attributes for recurring payments #### Visa required attributes for recurring payments 
+|
 
- x     
+\# Recurring payments Recurring payments are scheduled payments to pay for products or services that occur on a regular basis, e.g., monthly. For example, a cardholder paying an on-demand television provider's monthly subscriptions fee. ## Required attributes for recurring payments #### Visa required attributes for recurring payments
+
+x
 
 Add Row Add Col
 
-|  |  |  |
+|     |     |     |
 | --- | --- | --- |
-| 
-Full card API 
 
- | 
+|
+Full card API
 
-\`transactionIndicator: "2"\` 
+|
 
- | 
+\`transactionIndicator: "2"\`
 
-\`cardOnFile: true\` \`transactionIndicator: "2"\` \`previousChargeId: "charge\_Id"\` 
+|
 
- |
-| 
+\`cardOnFile: true\` \`transactionIndicator: "2"\` \`previousChargeId: "charge_Id"\`
 
-Card ID 
+|
+|
 
- | 
+Card ID
 
-\`transactionIndicator: "2"\` 
+|
 
- | 
+\`transactionIndicator: "2"\`
 
-\`transactionIndicator: "2"\` \`previousChargeId: "charge\_Id"\` 
+|
 
- |
+\`transactionIndicator: "2"\` \`previousChargeId: "charge_Id"\`
 
-\#### Mastercard required attributes for recurring payments 
+|
 
- x     
+\#### Mastercard required attributes for recurring payments
+
+x
 
 Add Row Add Col
 
-|  |  |  |
+|     |     |     |
 | --- | --- | --- |
-| 
-Full card API 
 
- | 
+|
+Full card API
 
-n/a 
+|
 
- | 
+n/a
 
-\`cardOnFile: true\` \`transactionIndicator: "2"\` \`previousChargeId: "charge\_Id"\` 
+|
 
- |
-| 
+\`cardOnFile: true\` \`transactionIndicator: "2"\` \`previousChargeId: "charge_Id"\`
 
-Card ID 
+|
+|
 
- | 
+Card ID
 
-n/a 
+|
 
- | 
+n/a
 
-\`transactionIndicator: "2"\` \`previousChargeId: "charge\_Id"\` 
+|
 
- |
+\`transactionIndicator: "2"\` \`previousChargeId: "charge_Id"\`
 
-\# Digital wallets For Visa :fa-cc-visa: payments, using Google Pay or Apple Pay, the attribute \`previousChargeId\` must be used. Learn more about the \[previous charge ID\](doc:stored-card-details#section-previous-charge-id-explained). #### Visa required attributes for digital wallets 
+|
 
- x     
+\# Digital wallets For Visa :fa-cc-visa: payments, using Google Pay or Apple Pay, the attribute \`previousChargeId\` must be used. Learn more about the \[previous charge ID\](doc:stored-card-details#section-previous-charge-id-explained). #### Visa required attributes for digital wallets
+
+x
 
 Add Row Add Col
 
-|  |  |  |
+|     |     |     |
 | --- | --- | --- |
-| 
-Alternative payments and wallets 
 
- | 
+|
+Alternative payments and wallets
 
-n/a 
+|
 
- | 
+n/a
 
-\`previousChargeId: "charge\_Id"\` 
+|
 
- |
+\`previousChargeId: "charge_Id"\`
 
-\### Previous charge ID explained Use the attribute \`previousChargeId\` to reference either the previous transaction or the opening transaction of the payment series. The \`previousChargeId\` is the \`chargeId\` issued after the authorization of the relevant payment. Your previous charge ID will contain the prefix \`charge\_\`, for example, \`charge\_B41BEAAC175U76BD3EE1\`. #### Example: Using the previous charge ID Recurring payments and unscheduled MITs can begin in two ways: a zero dollar authorization or a payment transaction. In the example below, a user could reference their \`previousChargeId\` as either row one or row four. 
+|
 
- x     
+\### Previous charge ID explained Use the attribute \`previousChargeId\` to reference either the previous transaction or the opening transaction of the payment series. The \`previousChargeId\` is the \`chargeId\` issued after the authorization of the relevant payment. Your previous charge ID will contain the prefix \`charge\_\`, for example, \`charge_B41BEAAC175U76BD3EE1\`. #### Example: Using the previous charge ID Recurring payments and unscheduled MITs can begin in two ways: a zero dollar authorization or a payment transaction. In the example below, a user could reference their \`previousChargeId\` as either row one or row four.
+
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-1\. \*\*Zero dollar authorization\*\* <span class="table-info">Can be used for previous charge ID.</span> 
 
- | 
+|
+1\. \*\*Zero dollar authorization\*\* <span class="table-info">Can be used for previous charge ID.</span>
 
-1\. \*\*Payment #1\*\* <span class="table-info">Can be used for previous charge ID.</span> 
+|
 
- |
-| 
+1\. \*\*Payment #1\*\* <span class="table-info">Can be used for previous charge ID.</span>
 
-2\. Payment #1 
+|
+|
 
- | 
+2\. Payment #1
 
-2\. Payment #2 
+|
 
- |
-| 
+2\. Payment #2
 
-3\. Payment #2 
+|
+|
 
- | 
+3\. Payment #2
 
-3\. Payment #3 
+|
 
- |
-| 
+3\. Payment #3
 
-4\. Payment #3 <span class="table-info">Can be used for previous charge ID.</span> 
+|
+|
 
- | 
+4\. Payment #3 <span class="table-info">Can be used for previous charge ID.</span>
 
-4\. Payment #4 <span class="table-info">Can be used for previous charge ID.</span> 
+|
 
- |
+4\. Payment #4 <span class="table-info">Can be used for previous charge ID.</span>
 
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).
+|

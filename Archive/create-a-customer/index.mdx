@@ -3,45 +3,38 @@ title: create-a-customer
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-Use this API endpoint to create a new customer and, if you want, add a new card at the same time. 
+Use this API endpoint to create a new customer and, if you want, add a new card at the same time.
 
-\## The request Create a customer by sending a \*\*POST\*\* API request to the URI below. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/customers</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/customers</p></pre> ### Header parameters 
+\## The request Create a customer by sending a \*\*POST\*\* API request to the URI below. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/customers</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/customers</p></pre> ### Header parameters
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`Authorization\` <span class="req-def">Required</span> 
 
- | 
+|
+\`Authorization\` <span class="req-def">Required</span>
 
-\`secret key\`\* 
+|
 
- |
-| 
+\`secret key\`\*
 
-\`Content-Type\` <span class="req-def">Required</span> 
+|
+|
 
- | 
+\`Content-Type\` <span class="req-def">Required</span>
 
-\`application/json\` 
+|
 
- |
+\`application/json\`
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). ### Request example 
+|
+
+\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). ### Request example
 
 Shell Java
 
@@ -59,67 +52,67 @@ curl https://api2.checkout.com/v2/customers
 
 2
 
- \-H "Authorization: sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31" 
+\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
 3
 
- \-H "Content-Type:application/json;charset=UTF-8"
+\-H "Content-Type:application/json;charset=UTF-8"
 
 4
 
- \-X POST
+\-X POST
 
 5
 
- \-d '{
+\-d '{
 
 6
 
- "name": "Sarah Mitchell",
+"name": "Sarah Mitchell",
 
 7
 
- "email" : "sarah.mitchell@checkout.com",
+"email" : "sarah.mitchell@checkout.com",
 
 8
 
- "description" : "description",
+"description" : "description",
 
 9
 
- "phone" : {
+"phone" : {
 
 10
 
- "countryCode" : "1",
+"countryCode" : "1",
 
 11
 
- "number" : "111 222-333"
+"number" : "111 222-333"
 
 12
 
- },
+},
 
 13
 
- "metadata" : {
+"metadata" : {
 
 14
 
- "keyname" : "testvalue"
+"keyname" : "testvalue"
 
 15
 
- },
+},
 
 16
 
- "cardToken" : "card\_tok\_0E9B1C1A-CD5E-431D-9507-0EDC3794AEAF"
+"cardToken" : "card_tok_0E9B1C1A-CD5E-431D-9507-0EDC3794AEAF"
 
 17
 
- }'
+}'
 
 Import from Gist
 
@@ -261,19 +254,19 @@ try {
 
 34
 
- // Create APIClient instance with your secret key
+// Create APIClient instance with your secret key
 
 35
 
- APIClient ckoAPIClient\= new APIClient("sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 36
 
- // Submit your request and receive an apiResponse
+// Submit your request and receive an apiResponse
 
 37
 
- Response<Customer\></Customer\> apiResponse \= ckoAPIClient.customerService.createCustomer(customerCreatePayload);
+Response<Customer\></Customer\> apiResponse \= ckoAPIClient.customerService.createCustomer(customerCreatePayload);
 
 38
 
@@ -281,31 +274,31 @@ try {
 
 39
 
- if(!apiResponse.hasError){
+if(!apiResponse.hasError){
 
 40
 
- // Access the response object retrieved from the api
+// Access the response object retrieved from the api
 
 41
 
- Customer customer \= apiResponse.model;
+Customer customer \= apiResponse.model;
 
 42
 
- } else {
+} else {
 
 43
 
- // Api has returned an error object. You can access the details in the error property of the apiResponse.
+// Api has returned an error object. You can access the details in the error property of the apiResponse.
 
 44
 
- // apiResponse.error
+// apiResponse.error
 
 45
 
- }
+}
 
 46
 
@@ -313,60 +306,61 @@ try {
 
 Import from Gist
 
-\### Additional parameters 
+\### Additional parameters
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`description\` <span class="field-type">String</span> <span class="req-def">Required</span> 
 
- | 
+|
+\`description\` <span class="field-type">String</span> <span class="req-def">Required</span>
 
-Description of the request. 
+|
 
- |
-| 
+Description of the request.
 
-\`email\` <span class="field-type">String</span> <span class="req-def">Required</span> 
+|
+|
 
- | 
+\`email\` <span class="field-type">String</span> <span class="req-def">Required</span>
 
-The customer's email address. 
+|
 
- |
-| 
+The customer's email address.
 
-\`metadata\` <span class="field-type">Hash</span> <span class="req-def">Optional</span> 
+|
+|
 
- | 
+\`metadata\` <span class="field-type">Hash</span> <span class="req-def">Optional</span>
 
-A hash of the Field name and value pairs (e.g., {"keyname": "Value1"}). <span class="table-info">The maximum length of keys and values is 100 each. A maximum of 10 KVP is allowed.</span> 
+|
 
- |
-| 
+A hash of the Field name and value pairs (e.g., {"keyname": "Value1"}). <span class="table-info">The maximum length of keys and values is 100 each. A maximum of 10 KVP is allowed.</span>
 
-\`name\` <span class="field-type">String</span> <span class="req-def">Optional</span> 
+|
+|
 
- | 
+\`name\` <span class="field-type">String</span> <span class="req-def">Optional</span>
 
-Customer's name. Maximum characters: 100. 
+|
 
- |
-| 
+Customer's name. Maximum characters: 100.
 
-\`phone\` <span class="field-type">Object</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`phone\` <span class="field-type">Object</span> <span class="optional-def">Optional</span>
 
-Phone number of the customer containing: \* \`countryCode\`: Valid country code for the phone number (e.g., 44 for the United Kingdom). \* \`number\`: Phone number. Permitted characters include: numbers, +, (,) ,/ and ' '. Must be between 6 and 25 characters. Example: "phone": {"countryCode": "44", "number": "12345678"} <span class="table-info">If countryCode is included, the number cannot be NULL.</span> 
+|
 
- |
+Phone number of the customer containing: \* \`countryCode\`: Valid country code for the phone number (e.g., 44 for the United Kingdom). \* \`number\`: Phone number. Permitted characters include: numbers, +, (,) ,/ and ' '. Must be between 6 and 25 characters. Example: "phone": {"countryCode": "44", "number": "12345678"} <span class="table-info">If countryCode is included, the number cannot be NULL.</span>
 
-\--- ## The response If a customer object returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example 
+|
+
+\--- ## The response If a customer object returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example
 
 rename · delete
 
@@ -382,180 +376,178 @@ xxxxxxxxxx
 
 2
 
- "id": "cust\_2B6C9D26-5C63-4B37-9348-160F3C3A47CB",
+"id": "cust_2B6C9D26-5C63-4B37-9348-160F3C3A47CB",
 
 3
 
- "name": "Sarah Mitchell",
+"name": "Sarah Mitchell",
 
 4
 
- "livemode": false,
+"livemode": false,
 
 5
 
- "created": "2016-06-23T16:02:26Z",
+"created": "2016-06-23T16:02:26Z",
 
 6
 
- "email": "sarah.mitchell@checkout.com",
+"email": "sarah.mitchell@checkout.com",
 
 7
 
- "phone": {
+"phone": {
 
 8
 
- "countryCode": "1",
+"countryCode": "1",
 
 9
 
- "number": "111 222-333"
+"number": "111 222-333"
 
 10
 
- },
+},
 
 11
 
- "description": "description",
+"description": "description",
 
 12
 
- "metadata": {
+"metadata": {
 
 13
 
- "keyname": "testvalue"
+"keyname": "testvalue"
 
 14
 
- },
+},
 
 15
 
- "cards": {
+"cards": {
 
 16
 
- "count": 1,
+"count": 1,
 
 17
 
- "data": \[
+"data": \[
 
 18
 
- {
+{
 
 19
 
- "customerId": "cust\_2B6C9D26-5C63-4B37-9348-160F3C3A47CB",
+"customerId": "cust_2B6C9D26-5C63-4B37-9348-160F3C3A47CB",
 
 20
 
- "expiryMonth": "06",
+"expiryMonth": "06",
 
 21
 
- "expiryYear": "2018",
+"expiryYear": "2018",
 
 22
 
- "billingDetails": {
+"billingDetails": {
 
 23
 
- "addressLine1": "27 Acacia Tree Street",
+"addressLine1": "27 Acacia Tree Street",
 
 24
 
- "addressLine2": "Apartment 15",
+"addressLine2": "Apartment 15",
 
 25
 
- "postcode": "01072",
+"postcode": "01072",
 
 26
 
- "country": "US",
+"country": "US",
 
 27
 
- "city": "Shutesbury",
+"city": "Shutesbury",
 
 28
 
- "state": "Massachusetts",
+"state": "Massachusetts",
 
 29
 
- "phone": {
+"phone": {
 
 30
 
- "countryCode": "1",
+"countryCode": "1",
 
 31
 
- "number": "111 222-333"
+"number": "111 222-333"
 
 32
 
- }
+}
 
 33
 
- },
+},
 
 34
 
- "id": "card\_D45FB138-15BA-4116-ADCE-49354D89D6C0",
+"id": "card_D45FB138-15BA-4116-ADCE-49354D89D6C0",
 
 35
 
- "last4": "4242",
+"last4": "4242",
 
 36
 
- "bin": "424242",
+"bin": "424242",
 
 37
 
- "paymentMethod": "VISA",
+"paymentMethod": "VISA",
 
 38
 
- "fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
+"fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
 
 39
 
- "name": "Sarah Mitchell",
+"name": "Sarah Mitchell",
 
 40
 
- "responseCode": "10000"
+"responseCode": "10000"
 
 41
 
- }
+}
 
 42
 
- \]
+\]
 
 43
 
- },
+},
 
 44
 
- "defaultCard": "card\_D45FB138-15BA-4116-ADCE-49354D89D6C0"
+"defaultCard": "card_D45FB138-15BA-4116-ADCE-49354D89D6C0"
 
 45
 
 }
 
 Import from Gist
-
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

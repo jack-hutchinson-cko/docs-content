@@ -3,19 +3,11 @@ title: api-quickstart
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-The Checkout.com API is constructed around a \[RESTful\](https://en.wikipedia.org/wiki/Representational\_state\_transfer) structure. By using familiar and predictable URLs, our API works with HTTP response codes to define and signal errors. HTTP methods (or verbs as they are commonly called) are used to determine the action of a request. API responses and errors return in \[JSON\](http://www.json.org/) or \[XML\](https://www.w3.org/XML/) format, and our API libraries can be used to convert responses to required language-specific objects. 
+The Checkout.com API is constructed around a \[RESTful\](https://en.wikipedia.org/wiki/Representational\_state\_transfer) structure. By using familiar and predictable URLs, our API works with HTTP response codes to define and signal errors. HTTP methods (or verbs as they are commonly called) are used to determine the action of a request. API responses and errors return in \[JSON\](http://www.json.org/) or \[XML\](https://www.w3.org/XML/) format, and our API libraries can be used to convert responses to required language-specific objects.
 
-Our official API libraries are stored and maintained on \[GitHub\](https://github.com/) for various programming languages and platforms. 
+Our official API libraries are stored and maintained on \[GitHub\](https://github.com/) for various programming languages and platforms.
 
 **Custom HTML / CSS** _JavaScript will stripped, CSS will be scoped_
 
@@ -29,7 +21,9 @@ xxxxxxxxxx
 
 2
 
- <br/>
+{" "}
+
+<br />
 
 3
 
@@ -53,7 +47,7 @@ xxxxxxxxxx
 
 8
 
- </div\>
+</div\>
 
 9
 
@@ -61,7 +55,7 @@ xxxxxxxxxx
 
 10
 
- <h3\>JAVA<br/></h3\>
+<h3\>JAVA<br/></h3\>
 
 11
 
@@ -69,19 +63,19 @@ xxxxxxxxxx
 
 12
 
- </div\>
+</div\>
 
 13
 
- </div\>
+</div\>
 
 14
 
- </a\>
+</a\>
 
 15
 
- </div\>
+</div\>
 
 16
 
@@ -109,7 +103,7 @@ xxxxxxxxxx
 
 22
 
- </div\>
+</div\>
 
 23
 
@@ -117,7 +111,7 @@ xxxxxxxxxx
 
 24
 
- <h3\>PHP</h3\>
+<h3\>PHP</h3\>
 
 25
 
@@ -125,19 +119,19 @@ xxxxxxxxxx
 
 26
 
- </div\>
+</div\>
 
 27
 
- </div\>
+</div\>
 
 28
 
- </a\>
+</a\>
 
 29
 
- </div\>
+</div\>
 
 30
 
@@ -163,7 +157,7 @@ xxxxxxxxxx
 
 36
 
- </div\>
+</div\>
 
 37
 
@@ -171,7 +165,7 @@ xxxxxxxxxx
 
 38
 
- <h3\>.NET<br/></h3\>
+<h3\>.NET<br/></h3\>
 
 39
 
@@ -179,19 +173,19 @@ xxxxxxxxxx
 
 40
 
- </div\>
+</div\>
 
 41
 
- </div\>
+</div\>
 
 42
 
- </a\>
+</a\>
 
 43
 
- </div\>
+</div\>
 
 44
 
@@ -199,11 +193,11 @@ xxxxxxxxxx
 
 </div\>
 
-\## Authentication To initiate a request to any of Checkout.com’s endpoints, the \`Authorization\` field of your HTTPS header must include either your public key or secret key. Use your secret key for server-to-server requests and your public key for requests initiated from the client side. We'll help you with this, as all examples in the documentation indicate which key to use. 
+\## Authentication To initiate a request to any of Checkout.com’s endpoints, the \`Authorization\` field of your HTTPS header must include either your public key or secret key. Use your secret key for server-to-server requests and your public key for requests initiated from the client side. We'll help you with this, as all examples in the documentation indicate which key to use.
 
-Use HTTPS for all API requests, HTTP requests will not be successful. 
+Use HTTPS for all API requests, HTTP requests will not be successful.
 
-\### Example header 
+\### Example header
 
 cURL
 
@@ -215,15 +209,15 @@ xxxxxxxxxx
 
 1
 
-curl "https://API\_endpoint\_here"
+curl "https://API_endpoint_here"
 
 2
 
-\-H "Authorization: pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14"
+\-H "Authorization: pk_test_6ff46046-30af-41d9-bf58-929022d2cd14"
 
 Import from Gist
 
-You can use your API keys in either Sandbox or Live mode, but we require a different set of keys for each business channel. ## Request and response Checkout.com's Merchant API supports content negotiation; this means you can specify the format of your requests and responses as either JSON or XML. The examples below demonstrate how to send and receive requests and responses in the same format. However, it is also possible to send a JSON request and receive an XML response, or vice versa. ### JSON example To send a JSON payload to the server and receive a JSON response, set the header to \`Content-Type:application/json\` and \`Accept:application/json\`. 
+You can use your API keys in either Sandbox or Live mode, but we require a different set of keys for each business channel. ## Request and response Checkout.com's Merchant API supports content negotiation; this means you can specify the format of your requests and responses as either JSON or XML. The examples below demonstrate how to send and receive requests and responses in the same format. However, it is also possible to send a JSON request and receive an XML response, or vice versa. ### JSON example To send a JSON payload to the server and receive a JSON response, set the header to \`Content-Type:application/json\` and \`Accept:application/json\`.
 
 Request Response
 
@@ -239,23 +233,23 @@ curl https://api2.checkout.com/v2/tokens/payment
 
 2
 
- \-H "Authorization: sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
 3
 
- \-H "Content-Type:application/json;charset=UTF-8"
+\-H "Content-Type:application/json;charset=UTF-8"
 
 4
 
- \-H "Accept:application/json"
+\-H "Accept:application/json"
 
 5
 
- \-X POST
+\-X POST
 
 6
 
- \-d '{"value":"2867", "currency":"USD", "chargeMode": "1"}'
+\-d '{"value":"2867", "currency":"USD", "chargeMode": "1"}'
 
 Import from Gist
 
@@ -267,11 +261,11 @@ xxxxxxxxxx
 
 2
 
- "id": "pay\_tok\_5a010daa-4a30-4171-a8e9-8ae0c6de1c68",
+"id": "pay_tok_5a010daa-4a30-4171-a8e9-8ae0c6de1c68",
 
 3
 
- "liveMode": false
+"liveMode": false
 
 4
 
@@ -279,7 +273,7 @@ xxxxxxxxxx
 
 Import from Gist
 
-\*Use the tabs to alternate between the request and the response.\* ### XML example To send an XML payload to the server and receive an XML response, set the header to \`Content-Type:application/xml\` and \`Accept:application/xml\`. 
+\*Use the tabs to alternate between the request and the response.\* ### XML example To send an XML payload to the server and receive an XML response, set the header to \`Content-Type:application/xml\` and \`Accept:application/xml\`.
 
 Request Response
 
@@ -297,35 +291,41 @@ curl https://api2.checkout.com/v2/tokens/card
 
 2
 
- \-H "Authorization: pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14"
+\-H "Authorization: pk_test_6ff46046-30af-41d9-bf58-929022d2cd14"
 
 3
 
- \-H "Content-Type:application/xml;charset=UTF-8"
+\-H "Content-Type:application/xml;charset=UTF-8"
 
 4
 
- \-H "Accept:application/xml"
+\-H "Accept:application/xml"
 
 5
 
- \-X POST
+\-X POST
 
 6
 
- \-d '<data>
+\-d '<data>
 
 7
 
- <value>2326</value>
+{" "}
+
+<value>2326</value>
 
 8
 
- <currency>USD</currency>
+{" "}
+
+<currency>USD</currency>
 
 9
 
- <chargeMode>1</chargeMode>
+{" "}
+
+<chargeMode>1</chargeMode>
 
 10
 
@@ -341,11 +341,11 @@ xxxxxxxxxx
 
 2
 
- <id\>pay\_tok\_F445293C-CB60-4A9F-90ED-85374E164DEF</id\>
+<id\>pay_tok_F445293C-CB60-4A9F-90ED-85374E164DEF</id\>
 
 3
 
- <liveMode\>false</liveMode\>
+<liveMode\>false</liveMode\>
 
 4
 
@@ -353,6 +353,4 @@ xxxxxxxxxx
 
 Import from Gist
 
-\*Use the tabs to alternate between the request and the response.\* 
-
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).
+\*Use the tabs to alternate between the request and the response.\*

@@ -3,62 +3,56 @@ title: verify-an-alternative-payment
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-Use this endpoint to query an alternative payment using either the \`chargeId\` or \`paymentToken\`. It assumes that a payment has already been authorized. 
+Use this endpoint to query an alternative payment using either the \`chargeId\` or \`paymentToken\`. It assumes that a payment has already been authorized.
 
-\## The request Use the details below to set up your request. ### Endpoint <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/charges/{chargeId}</p></pre> ### Header and path parameters 
+\## The request Use the details below to set up your request. ### Endpoint <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/charges/{chargeId}</p></pre> ### Header and path parameters
 
- x     
-
-Add Row Add Col
-
-|  |  |
-| --- | --- |
-| 
-\`Authorization\` <span class="req-def">Required</span> 
-
- | 
-
-\`secret key\`\* 
-
- |
-| 
-
-\`Content-Type\` <span class="req-def">Required</span> 
-
- | 
-
-\`application/json\` 
-
- |
-
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`chargeId\` or \`paymentToken\` <span class="req-def">Required</span> 
 
- | 
+|
+\`Authorization\` <span class="req-def">Required</span>
 
-The charge ID or payment token ID. The following prefixes are embedded within the URI: \* charge ID = \`charge\_\` \* payment token = \`pay\_tok\_\` 
+|
 
- |
+\`secret key\`\*
 
-\### Request example 
+|
+|
+
+\`Content-Type\` <span class="req-def">Required</span>
+
+|
+
+\`application/json\`
+
+|
+
+\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
+
+x
+
+Add Row Add Col
+
+|     |     |
+| --- | --- |
+
+|
+\`chargeId\` or \`paymentToken\` <span class="req-def">Required</span>
+
+|
+
+The charge ID or payment token ID. The following prefixes are embedded within the URI: \* charge ID = \`charge\_\` \* payment token = \`pay_tok\_\`
+
+|
+
+\### Request example
 
 Shell Java
 
@@ -70,15 +64,15 @@ xxxxxxxxxx
 
 1
 
-curl https://api2.checkout.com/v2/charges/charge\_B41BEAAC175U76BD3EE1 or pay\_tok\_7a66140a-ffc9-48a7-80c3-6e1b70e8076d
+curl https://api2.checkout.com/v2/charges/charge\_B41BEAAC175U76BD3EE1 or pay_tok_7a66140a-ffc9-48a7-80c3-6e1b70e8076d
 
 2
 
- \-H "Authorization: sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
 3
 
- \-X GET
+\-X GET
 
 Import from Gist
 
@@ -92,7 +86,7 @@ xxxxxxxxxx
 
 2
 
-String paymentToken \= "pay\_tok\_7a66140a-ffc9-48a7-80c3-6e1b70e8076d";
+String paymentToken \= "pay_tok_7a66140a-ffc9-48a7-80c3-6e1b70e8076d";
 
 3
 
@@ -100,23 +94,23 @@ String paymentToken \= "pay\_tok\_7a66140a-ffc9-48a7-80c3-6e1b70e8076d";
 
 4
 
- try {
+try {
 
 5
 
- // Create APIClient instance with your secret key
+// Create APIClient instance with your secret key
 
 6
 
- APIClient ckoAPIClient\= new APIClient("sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 7
 
- // Submit your request and receive an apiResponse
+// Submit your request and receive an apiResponse
 
 8
 
- Response<Charge\> apiResponse \= ckoAPIClient.chargeService.verifyCharge(paymentToken);
+Response<Charge\> apiResponse \= ckoAPIClient.chargeService.verifyCharge(paymentToken);
 
 9
 
@@ -124,31 +118,31 @@ String paymentToken \= "pay\_tok\_7a66140a-ffc9-48a7-80c3-6e1b70e8076d";
 
 10
 
- if(!apiResponse.hasError){
+if(!apiResponse.hasError){
 
 11
 
- // Access the response object retrieved from the api
+// Access the response object retrieved from the api
 
 12
 
- Charge charge \= apiResponse.model;
+Charge charge \= apiResponse.model;
 
 13
 
- } else {
+} else {
 
 14
 
- // Api has returned an error object. You can access the details in the error property of the apiResponse.
+// Api has returned an error object. You can access the details in the error property of the apiResponse.
 
 15
 
- // apiResponse.error
+// apiResponse.error
 
 16
 
- }
+}
 
 17
 
@@ -156,7 +150,7 @@ String paymentToken \= "pay\_tok\_7a66140a-ffc9-48a7-80c3-6e1b70e8076d";
 
 Import from Gist
 
-\## Response That's it! If a payment object returns, you just charged a card. 
+\## Response That's it! If a payment object returns, you just charged a card.
 
 JSON
 
@@ -174,371 +168,371 @@ xxxxxxxxxx
 
 2
 
- "id": "charge\_test\_88D0DCBAFEE78R54701B",
+"id": "charge_test_88D0DCBAFEE78R54701B",
 
 3
 
- "liveMode": false,
+"liveMode": false,
 
 4
 
- "created": "2017-09-28T13:44:14Z",
+"created": "2017-09-28T13:44:14Z",
 
 5
 
- "value": 456,
+"value": 456,
 
 6
 
- "currency": "GBP",
+"currency": "GBP",
 
 7
 
- "trackId": "TRK12345",
+"trackId": "TRK12345",
 
 8
 
- "description": "charge description",
+"description": "charge description",
 
 9
 
- "email": "a@gmail.com",
+"email": "a@gmail.com",
 
 10
 
- "chargeMode": 2,
+"chargeMode": 2,
 
 11
 
- "transactionIndicator": 1,
+"transactionIndicator": 1,
 
 12
 
- "customerIp": "96.125.185.51",
+"customerIp": "96.125.185.51",
 
 13
 
- "responseMessage": "Approved",
+"responseMessage": "Approved",
 
 14
 
- "responseAdvancedInfo": "Approved",
+"responseAdvancedInfo": "Approved",
 
 15
 
- "responseCode": "10000",
+"responseCode": "10000",
 
 16
 
- "status": "Authorised",
+"status": "Authorised",
 
 17
 
- "authCode": "467377",
+"authCode": "467377",
 
 18
 
- "isCascaded": false,
+"isCascaded": false,
 
 19
 
- "autoCapture": "N",
+"autoCapture": "N",
 
 20
 
- "autoCapTime": 0,
+"autoCapTime": 0,
 
 21
 
- "card": {
+"card": {
 
 22
 
- "customerId": "cust\_8CE5B1B6-C46C-4201-910E-C42BB589989D",
+"customerId": "cust_8CE5B1B6-C46C-4201-910E-C42BB589989D",
 
 23
 
- "expiryMonth": "8",
+"expiryMonth": "8",
 
 24
 
- "expiryYear": "2025",
+"expiryYear": "2025",
 
 25
 
- "billingDetails": {
+"billingDetails": {
 
 26
 
- "addressLine1": "623 Slade Street",
+"addressLine1": "623 Slade Street",
 
 27
 
- "addressLine2": "Flat 9",
+"addressLine2": "Flat 9",
 
 28
 
- "postcode": "NW11 8NL",
+"postcode": "NW11 8NL",
 
 29
 
- "country": "UK",
+"country": "UK",
 
 30
 
- "city": "London",
+"city": "London",
 
 31
 
- "state": "Greater London",
+"state": "Greater London",
 
 32
 
- "phone": {
+"phone": {
 
 33
 
- "countryCode": "44",
+"countryCode": "44",
 
 34
 
- "number": "12345678"
+"number": "12345678"
 
 35
 
- }
+}
 
 36
 
- },
+},
 
 37
 
- "id": "card\_B6E16CAC-357A-4E06-B82D-4DFB644012E6",
+"id": "card_B6E16CAC-357A-4E06-B82D-4DFB644012E6",
 
 38
 
- "last4": "1465",
+"last4": "1465",
 
 39
 
- "bin": "519999",
+"bin": "519999",
 
 40
 
- "paymentMethod": "MASTERCARD",
+"paymentMethod": "MASTERCARD",
 
 41
 
- "fingerprint": "EF6107604AE20CB5EE03BE1FB3066234343D40DA23F0FCF1178C74383E55AB09",
+"fingerprint": "EF6107604AE20CB5EE03BE1FB3066234343D40DA23F0FCF1178C74383E55AB09",
 
 42
 
- "name": "Seymour Duncan",
+"name": "Seymour Duncan",
 
 43
 
- "cvvCheck": "Y",
+"cvvCheck": "Y",
 
 44
 
- "avsCheck": "S"
+"avsCheck": "S"
 
 45
 
- },
+},
 
 46
 
- "metadata": {
+"metadata": {
 
 47
 
- "key1": "value1"
+"key1": "value1"
 
 48
 
- },
+},
 
 49
 
- "shippingDetails": {
+"shippingDetails": {
 
 50
 
- "addressLine1": "623 Slade Street",
+"addressLine1": "623 Slade Street",
 
 51
 
- "addressLine2": "Flat 9",
+"addressLine2": "Flat 9",
 
 52
 
- "postcode": "E149SR",
+"postcode": "E149SR",
 
 53
 
- "country": "UK",
+"country": "UK",
 
 54
 
- "city": "London",
+"city": "London",
 
 55
 
- "state": "Greater London",
+"state": "Greater London",
 
 56
 
- "phone": {
+"phone": {
 
 57
 
- "countryCode": "44",
+"countryCode": "44",
 
 58
 
- "number": "11112222"
+"number": "11112222"
 
 59
 
- }
+}
 
 60
 
- },
+},
 
 61
 
- "products": \[
+"products": \[
 
 62
 
- {
+{
 
 63
 
- "name": "Tablet 1 gold limited",
+"name": "Tablet 1 gold limited",
 
 64
 
- "description": "Tablet 1 gold limited",
+"description": "Tablet 1 gold limited",
 
 65
 
- "sku": "1aab2aa",
+"sku": "1aab2aa",
 
 66
 
- "price": 100,
+"price": 100,
 
 67
 
- "quantity": 1,
+"quantity": 1,
 
 68
 
- "image": null,
+"image": null,
 
 69
 
- "shippingCost": 10,
+"shippingCost": 10,
 
 70
 
- "trackingUrl": "https://www.tracker.com"
+"trackingUrl": "https://www.tracker.com"
 
 71
 
- },
+},
 
 72
 
- {
+{
 
 73
 
- "name": "Tablet 2 gold limited",
+"name": "Tablet 2 gold limited",
 
 74
 
- "description": "Tablet 2 gold limited",
+"description": "Tablet 2 gold limited",
 
 75
 
- "sku": "1aab2aa",
+"sku": "1aab2aa",
 
 76
 
- "price": 200,
+"price": 200,
 
 77
 
- "quantity": 2,
+"quantity": 2,
 
 78
 
- "image": null,
+"image": null,
 
 79
 
- "shippingCost": 10,
+"shippingCost": 10,
 
 80
 
- "trackingUrl": "https://www.tracker.com"
+"trackingUrl": "https://www.tracker.com"
 
 81
 
- }
+}
 
 82
 
- \],
+\],
 
 83
 
- "udf1": "udf 1 value",
+"udf1": "udf 1 value",
 
 84
 
- "udf2": "udf 2 value",
+"udf2": "udf 2 value",
 
 85
 
- "udf3": "udf 3 value",
+"udf3": "udf 3 value",
 
 86
 
- "udf4": "udf 4 value",
+"udf4": "udf 4 value",
 
 87
 
- "udf5": "udf 5 value",
+"udf5": "udf 5 value",
 
 88
 
- "enrolled": "Y",
+"enrolled": "Y",
 
 89
 
- "signatureValid": "Y",
+"signatureValid": "Y",
 
 90
 
- "authenticationResponse": "A",
+"authenticationResponse": "A",
 
 91
 
- "eci": "01",
+"eci": "01",
 
 92
 
- "cavv": "hv8mUFzPzRZoCAAAAAEQBDMAAAA=",
+"cavv": "hv8mUFzPzRZoCAAAAAEQBDMAAAA=",
 
 93
 
- "xid": "MDAwMDAwMDAwMDAwMDAwMzIyNzY="
+"xid": "MDAwMDAwMDAwMDAwMDAwMzIyNzY="
 
 94
 
@@ -546,66 +540,65 @@ xxxxxxxxxx
 
 Import from Gist
 
-\### Response parameters The information below pertains to the enrolment status of a card in 3-D Secure. Please refer to the \[Verify a 3-D Secure payment\](doc:verify-a-3-d-secure-payment) reference for more information. 
+\### Response parameters The information below pertains to the enrolment status of a card in 3-D Secure. Please refer to the \[Verify a 3-D Secure payment\](doc:verify-a-3-d-secure-payment) reference for more information.
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`enrolled\` <span class="field-type">String</span> 
 
- | 
+|
+\`enrolled\` <span class="field-type">String</span>
 
-Shows whether a card is enrolled in 3-D Secure. Possible values: \`Y\` — Card enrolled in 3-D Secure. \`N\` — Card not enrolled in 3-D Secure. \`U\` — Unable to determine whether card is enrolled in 3-D Secure due to technical issue. 
+|
 
- |
-| 
+Shows whether a card is enrolled in 3-D Secure. Possible values: \`Y\` — Card enrolled in 3-D Secure. \`N\` — Card not enrolled in 3-D Secure. \`U\` — Unable to determine whether card is enrolled in 3-D Secure due to technical issue.
 
-\`signatureValid\` <span class="field-type">String</span> 
+|
+|
 
- | 
+\`signatureValid\` <span class="field-type">String</span>
 
-Verification to ensure the integrity of the response. 
+|
 
- |
-| 
+Verification to ensure the integrity of the response.
 
-\`authenticationResponse\` <span class="field-type">String</span> 
+|
+|
 
- | 
+\`authenticationResponse\` <span class="field-type">String</span>
 
-Checks whether or not the cardholder was authenticated and if not, why. Possible values: \`Y\` — Customer authenticated. \`N\` — Customer not authenticated. \`A\` — An authentication attempt occurred but could not be completed. \`U\` — Unable to perform authentication. 
+|
 
- |
-| 
+Checks whether or not the cardholder was authenticated and if not, why. Possible values: \`Y\` — Customer authenticated. \`N\` — Customer not authenticated. \`A\` — An authentication attempt occurred but could not be completed. \`U\` — Unable to perform authentication.
 
-\`eci\` <span class="field-type">String</span> 
+|
+|
 
- | 
+\`eci\` <span class="field-type">String</span>
 
-Defines the E-Commerce Indicator security level associated with the transaction. 
+|
 
- |
-| 
+Defines the E-Commerce Indicator security level associated with the transaction.
 
-\`cavv\` <span class="field-type">Number</span> 
+|
+|
 
- | 
+\`cavv\` <span class="field-type">Number</span>
 
-The cryptographic identifier used by the card schemes to validate the integrity of the 3-D Secure transaction data. 
+|
 
- |
-| 
+The cryptographic identifier used by the card schemes to validate the integrity of the 3-D Secure transaction data.
 
-\`xid\` <span class="field-type">Number</span> 
+|
+|
 
- | 
+\`xid\` <span class="field-type">Number</span>
 
-The unique identifier for the transaction assigned by the MPI. 
+|
 
- |
+The unique identifier for the transaction assigned by the MPI.
 
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).
+|

@@ -3,17 +3,9 @@ title: integrate-checkoutjs
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-\*Depending on your requirements, there are several ways to integrate Checkout.js into your website. Use this page to read about the options and decide upon the best solution for you.\* Take a peek at our three Checkout.js display options: 
+\*Depending on your requirements, there are several ways to integrate Checkout.js into your website. Use this page to read about the options and decide upon the best solution for you.\* Take a peek at our three Checkout.js display options:
 
 **Custom HTML / CSS** _JavaScript will stripped, CSS will be scoped_
 
@@ -27,7 +19,7 @@ xxxxxxxxxx
 
 2
 
- <div class\="col-xs-12 col-sm-12 col-md-12 guide-margin"\> 
+ <div class\="col-xs-12 col-sm-12 col-md-12 guide-margin"\>
 
 3
 
@@ -39,11 +31,11 @@ xxxxxxxxxx
 
 5
 
- <h3\>window.CKOConfig</h3\>
+<h3\>window.CKOConfig</h3\>
 
 6
 
- <p\>Our recommended option that allows you to run Checkout.js synchronously or asynchronously</p\>
+<p\>Our recommended option that allows you to run Checkout.js synchronously or asynchronously</p\>
 
 7
 
@@ -51,15 +43,15 @@ xxxxxxxxxx
 
 8
 
- </div\>
+</div\>
 
 9
 
- </a\>
+</a\>
 
 10
 
- </div\>
+</div\>
 
 11
 
@@ -81,7 +73,7 @@ xxxxxxxxxx
 
 2
 
- <div class\="col-xs-12 col-sm-12 col-md-12 guide-margin"\> 
+ <div class\="col-xs-12 col-sm-12 col-md-12 guide-margin"\>
 
 3
 
@@ -93,11 +85,11 @@ xxxxxxxxxx
 
 5
 
- <h3\>Checkout.configure()</h3\>
+<h3\>Checkout.configure()</h3\>
 
 6
 
- <p\>Hide Checkout.com's payment widget and launch the payment lightbox manually.
+<p\>Hide Checkout.com's payment widget and launch the payment lightbox manually.
 
 7
 
@@ -109,15 +101,15 @@ xxxxxxxxxx
 
 9
 
- </div\>
+</div\>
 
 10
 
- </a\> 
+</a\>
 
 11
 
- </div\>
+</div\>
 
 12
 
@@ -139,7 +131,7 @@ xxxxxxxxxx
 
 2
 
- <div class\="col-xs-12 col-sm-12 col-md-12 guide-margin"\> 
+ <div class\="col-xs-12 col-sm-12 col-md-12 guide-margin"\>
 
 3
 
@@ -151,15 +143,15 @@ xxxxxxxxxx
 
 5
 
- <h3\>Checkout.render()</h3\>
+<h3\>Checkout.render()</h3\>
 
 6
 
- <p\>Configure Checkout.js, renders the widget automatically, and runs Checkout.js asynchronously.
+<p\>Configure Checkout.js, renders the widget automatically, and runs Checkout.js asynchronously.
 
 7
 
- </p\>
+</p\>
 
 8
 
@@ -167,19 +159,19 @@ xxxxxxxxxx
 
 9
 
- </div\>
+</div\>
 
 10
 
- </a\>
+</a\>
 
 11
 
- </div\>
+</div\>
 
 12
 
-<!--    <div class="col-xs-12 col-sm-12 col-md-12 guide-margin"> 
+<!--    <div class="col-xs-12 col-sm-12 col-md-12 guide-margin">
 
 13
 
@@ -215,7 +207,7 @@ xxxxxxxxxx
 
 21
 
- </a> 
+ </a>
 
 22
 
@@ -225,15 +217,15 @@ xxxxxxxxxx
 
 </div\>
 
-\_window.CKOConfig\_ is the recommended and safest way to configure Checkout.js. Run it both synchronously or asynchronously — \_it's up to you\_. This simple integration method provides a widget displaying \*\*accepted payment icons\*\* alongside a \*\*Pay Now\*\* button that triggers the \*\*payment form\*\*. After completing the form, Checkout.com passes a card token to your server-side code for use. Look at the window.CKOConfig demo below and click the \*\*Pay Now\*\* button to launch the payment form. Fill the fields in like this: \* email address — we have completed this for you \* use one of our \[test cards\](doc:testing#section-test-card-numbers), for example, :fa-cc-visa: <span class="card-number">4242 4242 4242 4242</span> \* use any future expiry date (mm/yy) \* and the CVV is :fa-lock: \*\*100\*\* 
+\_window.CKOConfig\_ is the recommended and safest way to configure Checkout.js. Run it both synchronously or asynchronously — \_it's up to you\_. This simple integration method provides a widget displaying \*\*accepted payment icons\*\* alongside a \*\*Pay Now\*\* button that triggers the \*\*payment form\*\*. After completing the form, Checkout.com passes a card token to your server-side code for use. Look at the window.CKOConfig demo below and click the \*\*Pay Now\*\* button to launch the payment form. Fill the fields in like this: \* email address — we have completed this for you \* use one of our \[test cards\](doc:testing#section-test-card-numbers), for example, :fa-cc-visa: <span class="card-number">4242 4242 4242 4242</span> \* use any future expiry date (mm/yy) \* and the CVV is :fa-lock: \*\*100\*\*
 
 **URL to Embed:**
 
-* * *
+---
 
 Embed URL
 
-* * *
+---
 
 Try embedding YouTube, GitHub Gists, JSFiddles, PDFs and more
 
@@ -241,11 +233,11 @@ false
 
 **[Checkout.js Default](https://archive.docs.checkout.com/demos/samples/checkoutjs_default.html)**
 
-* * *
+---
 
-_Replace Embed_  Embed as iFrame?  x 
+_Replace Embed_ Embed as iFrame? x
 
-\## Embedding window.CKOConfig Add the Checkout.js payment widget to your page using the provided code excerpt :fa-code:. Remember to swap the \`publicKey\` for your own—otherwise, we won't know it's you. You'll also need to configure some additional required \`keys\`. You can read about these in the \[JavaScript keys table\](doc:integrate-checkoutjs#section-javascript-keys). 
+\## Embedding window.CKOConfig Add the Checkout.js payment widget to your page using the provided code excerpt :fa-code:. Remember to swap the \`publicKey\` for your own—otherwise, we won't know it's you. You'll also need to configure some additional required \`keys\`. You can read about these in the \[JavaScript keys table\](doc:integrate-checkoutjs#section-javascript-keys).
 
 HTML
 
@@ -263,55 +255,55 @@ xxxxxxxxxx
 
 2
 
- <script\>
+<script\>
 
 3
 
- window.CKOConfig \= {
+window.CKOConfig \= {
 
 4
 
- publicKey: 'pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14',
+publicKey: 'pk_test_6ff46046-30af-41d9-bf58-929022d2cd14',
 
 5
 
- customerEmail: 'user@email.com',
+customerEmail: 'user@email.com',
 
 6
 
- value: 100,
+value: 100,
 
 7
 
- currency: 'GBP',
+currency: 'GBP',
 
 8
 
- paymentMode: 'cards',
+paymentMode: 'cards',
 
 9
 
- cardFormMode: 'cardTokenisation',
+cardFormMode: 'cardTokenisation',
 
 10
 
- cardTokenised: function(event) {
+cardTokenised: function(event) {
 
 11
 
- console.log(event.data.cardToken);
+console.log(event.data.cardToken);
 
 12
 
- }
+}
 
 13
 
- };
+};
 
 14
 
- </script\>
+</script\>
 
 15
 
@@ -323,21 +315,21 @@ xxxxxxxxxx
 
 Import from Gist
 
-In a live environment, replace \`<script async src="https://cdn.checkout.com/sandbox/js/checkout.js"></script>\` with \`<script async src="https://cdn.checkout.com/js/checkout.js"></script>\`. 
+In a live environment, replace \`<script async src="https://cdn.checkout.com/sandbox/js/checkout.js"></script>\` with \`<script async src="https://cdn.checkout.com/js/checkout.js"></script>\`.
 
-Checkout.configure() is a variant of our Checkout.js integration method. It allows the payment Lightbox to be opened directly without the \*\*Pay Now\*\* button. This flexibility enables you to use a personalized payment button, or to open the payment Lightbox instantaneously. 
+Checkout.configure() is a variant of our Checkout.js integration method. It allows the payment Lightbox to be opened directly without the \*\*Pay Now\*\* button. This flexibility enables you to use a personalized payment button, or to open the payment Lightbox instantaneously.
 
-Checkout.js can only be run synchronously when using Checkout.configure(). 
+Checkout.js can only be run synchronously when using Checkout.configure().
 
-\## Embedding Checkout.configure() Checkout.configure() can be set up with two different variants, as such, we have two different configuration examples to try: \* \[Example A :fa-code:\](doc:integrate-checkoutjs#section-example-a-open-the-payment-lightbox-instantly) opens the payment Lightbox instantly, without the use of a Pay Now button. \* \[Example B :fa-code:\](doc:integrate-checkoutjs#section-example-b-use-a-custom-pay-now-button) uses a custom Pay Now button to launch the payment Lightbox. For both examples, place the provided code snippet :fa-code: on your page. You will need to replace the \`publicKey\` with your own and configure some extra attributes. You can find out about these and what they do in the \[JavaScript keys table\](doc:integrate-checkoutjs#section-javascript-keys). ### <span class="example\_hl">Example A:</span> Open the payment Lightbox instantly In this example, you can see a demonstration of Checkout.configure() instantly generating the payment Lightbox. On the mock webpage, the link takes the user to a new page where the payment Lightbox opens up immediately. For this, you can use a text link, a button, or even an image to link to the payment form. As such, Checkout.configure() is an extremely versatile method of integrating Checkout.js. Complete the payment with these details: \* email address — we have completed this for you \* use one of our \[test cards\](doc:testing#section-test-card-numbers), for example, :fa-cc-visa: <span class="card-number">4242 4242 4242 4242</span> \* use any future expiry date (mm/yy) \* and the CVV is :fa-lock: \*\*100\*\* 
+\## Embedding Checkout.configure() Checkout.configure() can be set up with two different variants, as such, we have two different configuration examples to try: \* \[Example A :fa-code:\](doc:integrate-checkoutjs#section-example-a-open-the-payment-lightbox-instantly) opens the payment Lightbox instantly, without the use of a Pay Now button. \* \[Example B :fa-code:\](doc:integrate-checkoutjs#section-example-b-use-a-custom-pay-now-button) uses a custom Pay Now button to launch the payment Lightbox. For both examples, place the provided code snippet :fa-code: on your page. You will need to replace the \`publicKey\` with your own and configure some extra attributes. You can find out about these and what they do in the \[JavaScript keys table\](doc:integrate-checkoutjs#section-javascript-keys). ### <span class="example\_hl">Example A:</span> Open the payment Lightbox instantly In this example, you can see a demonstration of Checkout.configure() instantly generating the payment Lightbox. On the mock webpage, the link takes the user to a new page where the payment Lightbox opens up immediately. For this, you can use a text link, a button, or even an image to link to the payment form. As such, Checkout.configure() is an extremely versatile method of integrating Checkout.js. Complete the payment with these details: \* email address — we have completed this for you \* use one of our \[test cards\](doc:testing#section-test-card-numbers), for example, :fa-cc-visa: <span class="card-number">4242 4242 4242 4242</span> \* use any future expiry date (mm/yy) \* and the CVV is :fa-lock: \*\*100\*\*
 
 **URL to Embed:**
 
-* * *
+---
 
 Embed URL
 
-* * *
+---
 
 Try embedding YouTube, GitHub Gists, JSFiddles, PDFs and more
 
@@ -345,11 +337,11 @@ false
 
 **[Checkout.js Direct Opening](https://archive.docs.checkout.com/demos/samples/checkoutjs_direct_opening.html)**
 
-* * *
+---
 
-_Replace Embed_  Embed as iFrame?  x 
+_Replace Embed_ Embed as iFrame? x
 
-\#### Embedding example A: Open the payment Lightbox instantly The following code snippet :fa-code: will embed Checkout.js into your site while hiding the payment widget. Use the attribute Checkout.open() to open the Lightbox. 
+\#### Embedding example A: Open the payment Lightbox instantly The following code snippet :fa-code: will embed Checkout.js into your site while hiding the payment widget. Use the attribute Checkout.open() to open the Lightbox.
 
 HTML
 
@@ -672,4 +664,5 @@ Customer's email address
 
 Another option for integrating Checkout.js into your web page is by using our data attributes option. Please be aware, that the range of configuration options available through data attributes is limited compared to our JavaScript options. 
 
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).
+
+

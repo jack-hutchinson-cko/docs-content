@@ -3,253 +3,248 @@ title: the-kit-reference
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-\*The Kit reference is designed to assist you in finding reference material and essential bits of information all in one place. Use the navigation on the right to find your way around the page.\* 
+\*The Kit reference is designed to assist you in finding reference material and essential bits of information all in one place. Use the navigation on the right to find your way around the page.\*
 
-Here's a complete list of configuration options for The Kit. ### Required 
+Here's a complete list of configuration options for The Kit. ### Required
 
- x     
-
-Add Row Add Col
-
-|  |  |  |
-| --- | --- | --- |
-| 
-\`data-public-key\` 
-
- | 
-
-\`publicKey\` 
-
- | 
-
-You can find this in \[The Hub\](https://hub.checkout.com). 
-
- |
-| 
-
-\`data-payment-token\` <span class="table-info">Not required for card tokenisation</span> 
-
- | 
-
-\`paymentToken\` 
-
- | 
-
-Your payment token. 
-
- |
-
-\### Optional 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |  |
+|     |     |     |
 | --- | --- | --- |
-| 
-\`data-debug-mode\` 
 
- | 
+|
+\`data-public-key\`
 
-\`debugMode \` 
+|
 
- | 
+\`publicKey\`
 
-Set to true to see console messages. 
+|
 
- |
-| 
+You can find this in \[The Hub\](https://hub.checkout.com).
 
-\`data-namespace\` 
+|
+|
 
- | 
+\`data-payment-token\` <span class="table-info">Not required for card tokenisation</span>
 
-\`namespace\` 
+|
 
- | 
+\`paymentToken\`
 
-Customise the default Checkout namespace. 
+|
 
- |
-| 
+Your payment token.
 
-not supported 
+|
 
- | 
+\### Optional
 
-\`billingDetails\` 
-
- | 
-
-Transaction billing details. 
-
- |
-
-The Kit dispatches events which can be handled for various purposes. The table below provides the list of core events which you can attach one or more handlers to. 
-
-Event constants in the Javascript API are accessible via CheckoutKit.Events 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |  |
+|     |     |     |
 | --- | --- | --- |
-| 
-\`ready\` 
 
- | 
+|
+\`data-debug-mode\`
 
-\`READY\` 
+|
 
- | 
+\`debugMode \`
 
-Triggered when The Kit is registered on the global namespace and is safe to use. 
+|
 
- |
-| 
+Set to true to see console messages.
 
-\`cardCharged\` 
+|
+|
 
- | 
+\`data-namespace\`
 
-\`CARD\_CHARGED\` 
+|
 
- | 
+\`namespace\`
 
-After a card is charged: this event object will contain the payment token, the response code and the redirection URL set by the merchant. <span class="table-info">\[See the example\](doc:the-kit-reference#section-example-card-charged).</span> 
+|
 
- |
-| 
+Customise the default Checkout namespace.
 
-\`cardChargeFailed\` 
+|
+|
 
- | 
+not supported
 
-\`CARD\_CHARGE\_FAILED\` 
+|
 
- | 
+\`billingDetails\`
 
-After a card payment has failed: this event object contains the payment token, the response code and the redirection URL set by the merchant. <span class="table-info">\[See the example\](doc:the-kit-reference#section-example-card-charge-failed).</span> 
+|
 
- |
-| 
+Transaction billing details.
 
-\`cardTokenised\` 
+|
 
- | 
+The Kit dispatches events which can be handled for various purposes. The table below provides the list of core events which you can attach one or more handlers to.
 
-\`CARD\_TOKENISED\` 
+Event constants in the Javascript API are accessible via CheckoutKit.Events
 
- | 
+x
 
-After a card is tokenised. The event object will contain the card token. <span class="table-info">\[See the example\](doc:the-kit-reference#section-example-card-tokenized).</span> 
+Add Row Add Col
 
- |
-| 
+|     |     |     |
+| --- | --- | --- |
 
-\`cardTokenisationFailed\` 
+|
+\`ready\`
 
- | 
+|
 
-\`CARD\_TOKENISATION\_FAILED\` 
+\`READY\`
 
- | 
+|
 
-After card tokenisation fails. 
+Triggered when The Kit is registered on the global namespace and is safe to use.
 
- |
-| 
+|
+|
 
-\`apiError\` 
+\`cardCharged\`
 
- | 
+|
 
-\`API\_ERROR\` 
+\`CARD_CHARGED\`
 
- | 
+|
 
-Failure to get a correct response from Checkout.com's merchant API will result in an \`apiError\` event being dispatched. 
+After a card is charged: this event object will contain the payment token, the response code and the redirection URL set by the merchant. <span class="table-info">\[See the example\](doc:the-kit-reference#section-example-card-charged).</span>
 
- |
-| 
+|
+|
 
-\`paymentTokenExpired\` 
+\`cardChargeFailed\`
 
- | 
+|
 
-\`PAYMENT\_TOKEN\_EXPIRED\` 
+\`CARD_CHARGE_FAILED\`
 
- | 
+|
 
-Charging a card using an expired payment token will result in this API error. 
+After a card payment has failed: this event object contains the payment token, the response code and the redirection URL set by the merchant. <span class="table-info">\[See the example\](doc:the-kit-reference#section-example-card-charge-failed).</span>
 
- |
-| 
+|
+|
 
-\`formMonitored \` 
+\`cardTokenised\`
 
- | 
+|
 
-\`FORM\_MONITORED\` 
+\`CARD_TOKENISED\`
 
- | 
+|
 
-After a card capture form is successfully monitored by \`CheckoutKit.monitorForm(".custom-form")\`. 
+After a card is tokenised. The event object will contain the card token. <span class="table-info">\[See the example\](doc:the-kit-reference#section-example-card-tokenized).</span>
 
- |
-| 
+|
+|
 
-\`formMonitorCancelled\` 
+\`cardTokenisationFailed\`
 
- | 
+|
 
-\`FORM\_MONITOR\_CANCELLED\` 
+\`CARD_TOKENISATION_FAILED\`
 
- | 
+|
 
-After the monitor form has been canceled. 
+After card tokenisation fails.
 
- |
-| 
+|
+|
 
-\`formSubmitting\` 
+\`apiError\`
 
- | 
+|
 
-\`FORM\_SUBMITTING\` 
+\`API_ERROR\`
 
- | 
+|
 
-When the card capture form is being submitted to the API. 
+Failure to get a correct response from Checkout.com's merchant API will result in an \`apiError\` event being dispatched.
 
- |
-| 
+|
+|
 
-\`formSubmitError\` 
+\`paymentTokenExpired\`
 
- | 
+|
 
-\`FORM\_SUBMIT\_ERROR\` 
+\`PAYMENT_TOKEN_EXPIRED\`
 
- | 
+|
 
-If the submit process of a card capture form fails. 
+Charging a card using an expired payment token will result in this API error.
 
- |
+|
+|
 
-\#### Example: Card charged 
+\`formMonitored \`
+
+|
+
+\`FORM_MONITORED\`
+
+|
+
+After a card capture form is successfully monitored by \`CheckoutKit.monitorForm(".custom-form")\`.
+
+|
+|
+
+\`formMonitorCancelled\`
+
+|
+
+\`FORM_MONITOR_CANCELLED\`
+
+|
+
+After the monitor form has been canceled.
+
+|
+|
+
+\`formSubmitting\`
+
+|
+
+\`FORM_SUBMITTING\`
+
+|
+
+When the card capture form is being submitted to the API.
+
+|
+|
+
+\`formSubmitError\`
+
+|
+
+\`FORM_SUBMIT_ERROR\`
+
+|
+
+If the submit process of a card capture form fails.
+
+|
+
+\#### Example: Card charged
 
 Card charged
 
@@ -261,11 +256,11 @@ xxxxxxxxxx
 
 1
 
-{paymentToken: "pay\_tok\_111", responseCode: 10\*\*\*, redirectUrl: "http://www.example.com"}
+{paymentToken: "pay_tok_111", responseCode: 10\*\*\*, redirectUrl: "http://www.example.com"}
 
 Import from Gist
 
-\#### Example: Card charge failed 
+\#### Example: Card charge failed
 
 Card charge failed
 
@@ -281,15 +276,15 @@ xxxxxxxxxx
 
 2
 
- paymentToken: "pay\_tok\_111",
+paymentToken: "pay_tok_111",
 
 3
 
- responseCode: 20\*\*\*,
+responseCode: 20\*\*\*,
 
 4
 
- redirectUrl: "http://www..example.com"
+redirectUrl: "http://www..example.com"
 
 5
 
@@ -297,7 +292,7 @@ xxxxxxxxxx
 
 Import from Gist
 
-\#### Example: Card tokenized 
+\#### Example: Card tokenized
 
 Card tokenized
 
@@ -313,7 +308,7 @@ xxxxxxxxxx
 
 2
 
- id: 'card\_tok\_111'
+id: 'card_tok_111'
 
 3
 
@@ -321,7 +316,7 @@ xxxxxxxxxx
 
 Import from Gist
 
-\## Adding an Event Handler There are two ways to add an event handler: 1. using the standard approach 2. using configuration options #### 1. Using the standard approach 
+\## Adding an Event Handler There are two ways to add an event handler: 1. using the standard approach 2. using configuration options #### 1. Using the standard approach
 
 Standard approach
 
@@ -333,11 +328,11 @@ xxxxxxxxxx
 
 1
 
-CheckoutKit.addEventHandler(CheckoutKit.Events.<EVENT\_CONSTANT\>, handler, options);
+CheckoutKit.addEventHandler(CheckoutKit.Events.<EVENT_CONSTANT\>, handler, options);
 
 Import from Gist
 
-\#### 2. Using configuration options 
+\#### 2. Using configuration options
 
 Using configuration options
 
@@ -349,11 +344,11 @@ xxxxxxxxxx
 
 1
 
- CheckoutKit.render({
+CheckoutKit.render({
 
 2
 
- publicKey: '...',
+publicKey: '...',
 
 3
 
@@ -361,11 +356,11 @@ xxxxxxxxxx
 
 4
 
- });
+});
 
 Import from Gist
 
-\#### 2. b. Using configuration options to define handler-specific options 
+\#### 2. b. Using configuration options to define handler-specific options
 
 Using configuration options to define handler-specific options
 
@@ -383,7 +378,7 @@ CheckoutKit.render({
 
 2
 
- publicKey: '...',
+publicKey: '...',
 
 3
 
@@ -391,27 +386,27 @@ CheckoutKit.render({
 
 4
 
- handler: handler,
+handler: handler,
 
 5
 
- options: {
+options: {
 
 6
 
- key: value,
+key: value,
 
 7
 
- key: value
+key: value
 
 8
 
- }
+}
 
 9
 
- }
+}
 
 10
 
@@ -419,153 +414,154 @@ CheckoutKit.render({
 
 Import from Gist
 
-\## Synchronous 
+\## Synchronous
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |  |  |
+|     |     |     |     |
 | --- | --- | --- | --- |
-| 
-\`configure(object)\` 
 
- | 
+|
+\`configure(object)\`
 
-Configures Checkout.js, but will not render the widget. 
+|
 
- | 
+Configures Checkout.js, but will not render the widget.
 
-{publicKey: '...'} 
+|
 
- | 
+{publicKey: '...'}
 
-n/a 
+|
 
- |
-| 
+n/a
 
-\`getResponseMessage(code)\` 
+|
+|
 
- | 
+\`getResponseMessage(code)\`
 
-Returns the response message for the \`responseCode\` provided. 
+|
 
- | 
+Returns the response message for the \`responseCode\` provided.
 
-code: 20057 
+|
 
- | 
+code: 20057
 
-{ type: 'success' OR 'error', title: '...', description: '...', ...} 
+|
 
- |
-| 
+{ type: 'success' OR 'error', title: '...', description: '...', ...}
 
-\`isSuccessResponseCode(code)\` 
+|
+|
 
- | 
+\`isSuccessResponseCode(code)\`
 
-Returns \`true\` if the \`responseCode\` provided is successful, otherwise returns \`false\`. 
+|
 
- | 
+Returns \`true\` if the \`responseCode\` provided is successful, otherwise returns \`false\`.
 
-code: 10000 
+|
 
- | 
+code: 10000
 
-true / false 
+|
 
- |
-| 
+true / false
 
-\`isPaymentTokenExpiredError(code)\` 
+|
+|
 
- | 
+\`isPaymentTokenExpiredError(code)\`
 
-Returns \`true\` if the \`errorCode\` provided matches the payment token expiration error code. 
+|
 
- | 
+Returns \`true\` if the \`errorCode\` provided matches the payment token expiration error code.
 
-code: 10000 
+|
 
- | 
+code: 10000
 
-true / false 
+|
 
- |
-| 
+true / false
 
-\`addEventHandler(event,handler)\` 
+|
+|
 
- | 
+\`addEventHandler(event,handler)\`
 
-Adds a handler that is called when the specified event is triggered. Call the \`Checkout.Events\` object to retrieve the list of accepted events. 
+|
 
- | 
+Adds a handler that is called when the specified event is triggered. Call the \`Checkout.Events\` object to retrieve the list of accepted events.
 
-event: Events.CARD\_CHARGED, handler: function(event){} 
+|
 
- | 
+event: Events.CARD_CHARGED, handler: function(event){}
 
-n/a 
+|
 
- |
-| 
+n/a
 
-\`removeEventHandler(event,handler)\` 
+|
+|
 
- | 
+\`removeEventHandler(event,handler)\`
 
-Removes a previously added handler from an event by providing the event name and handler as arguments in the method. 
+|
 
- | 
+Removes a previously added handler from an event by providing the event name and handler as arguments in the method.
 
-event: Events.CARD\_CHARGED,handler: function(event){} 
+|
 
- | 
+event: Events.CARD_CHARGED,handler: function(event){}
 
-true / false 
+|
 
- |
-| 
+true / false
 
-\`removeAllEventHandlers(event)\` 
+|
+|
 
- | 
+\`removeAllEventHandlers(event)\`
 
-Removes all handlers added to the event specified. 
+|
 
- | 
+Removes all handlers added to the event specified.
 
-event: Events.CARD\_CHARGED 
+|
 
- | 
+event: Events.CARD_CHARGED
 
-true / false 
+|
 
- |
-| 
+true / false
 
-\`log(msg, level, ...args)\` 
+|
+|
 
- | 
+\`log(msg, level, ...args)\`
 
-Behaves like \`console.log\`, but only logs to console if \`debug:true\` in the configure method or \`CKOConfig\` object. 
+|
 
- | 
+Behaves like \`console.log\`, but only logs to console if \`debug:true\` in the configure method or \`CKOConfig\` object.
 
-msg: 'Header', level: 'log', args: 'Name', 1, 2 
+|
 
- | 
+msg: 'Header', level: 'log', args: 'Name', 1, 2
 
-Console: Header :: Name, 1, 2 
+|
 
- |
+Console: Header :: Name, 1, 2
 
-The log action will only log messages on the console if debugMode is set to true. 
+|
 
-\## Asynchronous ### Callbacks All callbacks can be passed as either two functions: 1. representing a success callback and an error callback respectively. 2. a single function that acts as a “success or failure” callback. If a single function is passed, the response will either be the expected success response or a message with error details. Example 1: representing a success callback and an error callback respectively 
+The log action will only log messages on the console if debugMode is set to true.
+
+\## Asynchronous ### Callbacks All callbacks can be passed as either two functions: 1. representing a success callback and an error callback respectively. 2. a single function that acts as a “success or failure” callback. If a single function is passed, the response will either be the expected success response or a message with error details. Example 1: representing a success callback and an error callback respectively
 
 JavaScript
 
@@ -581,7 +577,7 @@ action(function(response){
 
 2
 
- console.log(response); // success or error
+console.log(response); // success or error
 
 3
 
@@ -589,7 +585,7 @@ action(function(response){
 
 Import from Gist
 
-Example 2: representing a success callback and an error callback respectively 
+Example 2: representing a success callback and an error callback respectively
 
 JavaScript
 
@@ -605,7 +601,7 @@ action(function(data){
 
 2
 
- console.log(data); // success
+console.log(data); // success
 
 3
 
@@ -613,7 +609,7 @@ action(function(data){
 
 4
 
- console.error(err); // error
+console.error(err); // error
 
 5
 
@@ -621,7 +617,7 @@ action(function(data){
 
 Import from Gist
 
-\## Get card providers \* \*\*Signature:\*\* \`getCardProviders(callback)\` \* \*\*Requires:\*\* Public key (via configuration or setters) \* \*\*Returns:\*\* \`Array\[\]\` of card provides selected for a particular Channel (linked to a Public key) ## Create Card Token \* \*\*Signature:\*\* \`createCardToken(card, callback)\` \* \*\*Requires:\*\* Public key (via configuration or setters) 
+\## Get card providers \* \*\*Signature:\*\* \`getCardProviders(callback)\` \* \*\*Requires:\*\* Public key (via configuration or setters) \* \*\*Returns:\*\* \`Array\[\]\` of card provides selected for a particular Channel (linked to a Public key) ## Create Card Token \* \*\*Signature:\*\* \`createCardToken(card, callback)\` \* \*\*Requires:\*\* Public key (via configuration or setters)
 
 Example Return
 
@@ -639,23 +635,23 @@ createCardToken({
 
 2
 
- number: '...',
+number: '...',
 
 3
 
- name: '...',
+name: '...',
 
 4
 
- expiryMonth: '...',
+expiryMonth: '...',
 
 5
 
- expiryYear: '...',
+expiryYear: '...',
 
 6
 
- cvv: '...'
+cvv: '...'
 
 7
 
@@ -667,7 +663,7 @@ createCardToken({
 
 9
 
- includeBinData: true || false
+includeBinData: true || false
 
 10
 
@@ -689,75 +685,75 @@ xxxxxxxxxx
 
 2
 
- "id": "card\_tok\_22008D7D-B198-4D62-9970-E03476933162",
+"id": "card_tok_22008D7D-B198-4D62-9970-E03476933162",
 
 3
 
- "liveMode": "false",
+"liveMode": "false",
 
 4
 
- "created": "2016-10-17T12:30:02Z",
+"created": "2016-10-17T12:30:02Z",
 
 5
 
- "used": false,
+"used": false,
 
 6
 
- "card": {
+"card": {
 
 7
 
- "expiryMonth": "06",
+"expiryMonth": "06",
 
 8
 
- "expiryYear": "2018",
+"expiryYear": "2018",
 
 9
 
- "last4": "8845",
+"last4": "8845",
 
 10
 
- "bin": "488065",
+"bin": "488065",
 
 11
 
- "paymentMethod": "Visa"
+"paymentMethod": "Visa"
 
 12
 
- },
+},
 
 13
 
- "binData": {
+"binData": {
 
 14
 
- "bin": "488065",
+"bin": "488065",
 
 15
 
- "cardType": "Debit",
+"cardType": "Debit",
 
 16
 
- "countryName": "Netherlands",
+"countryName": "Netherlands",
 
 17
 
- "bankName": "ING Bank",
+"bankName": "ING Bank",
 
 18
 
- "issuerCountryISO2": "NL"
+"issuerCountryISO2": "NL"
 
 19
 
- }
+}
 
 20
 
@@ -765,157 +761,156 @@ xxxxxxxxxx
 
 Import from Gist
 
-\`includeBinData\` is not required and is only applicable to Visa and Mastercard charges. BIN data refers to the issuing country of a card based on the card's 4-6 digit BIN (Bank Identification Number). 
+\`includeBinData\` is not required and is only applicable to Visa and Mastercard charges. BIN data refers to the issuing country of a card based on the card's 4-6 digit BIN (Bank Identification Number).
 
-\### Getters and setters 
+\### Getters and setters
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |  |
+|     |     |     |
 | --- | --- | --- |
-| 
-\`getPublicKey()\` 
 
- | 
+|
+\`getPublicKey()\`
 
-\`setPublicKey(value)\` 
+|
 
- | 
+\`setPublicKey(value)\`
 
-The secret key of your Checkout.com account. You can find this in \[The Hub\](hub.checkout.com). 
+|
 
- |
-| 
+The secret key of your Checkout.com account. You can find this in \[The Hub\](hub.checkout.com).
 
-\`getTestMode()\` 
+|
+|
 
- | 
+\`getTestMode()\`
 
-n/a 
+|
 
- | 
+n/a
 
-Returns \*true\* if public key is in Test Mode. 
+|
 
- |
-| 
+Returns \*true\* if public key is in Test Mode.
 
-\`getDebugMode()\` 
+|
+|
 
- | 
+\`getDebugMode()\`
 
-n/a 
+|
 
- | 
+n/a
 
-Returns \*true\* if in Debug Mode. 
+|
 
- |
-| 
+Returns \*true\* if in Debug Mode.
 
-\`getNamespace()\` 
+|
+|
 
- | 
+\`getNamespace()\`
 
-n/a 
+|
 
- | 
+n/a
 
-Returns \*CheckoutKit\* or a custom namespace. 
+|
 
- |
-| 
+Returns \*CheckoutKit\* or a custom namespace.
 
-\`getVersion()\` 
+|
+|
 
- | 
+\`getVersion()\`
 
-n/a 
+|
 
- | 
+n/a
 
-Returns the version of The Kit being used. 
+|
 
- |
-| 
+Returns the version of The Kit being used.
 
-\`getPaymentToken()\` 
+|
+|
 
- | 
+\`getPaymentToken()\`
 
-\`setPaymentToken(value)\` 
+|
 
- | 
+\`setPaymentToken(value)\`
 
-Your payment token 
+|
 
- |
-| 
+Your payment token
 
-\`getTransactionValue()\` 
+|
+|
 
- | 
+\`getTransactionValue()\`
 
-n/a 
+|
 
- | 
+n/a
 
-Returns an object containing your transaction value, currency and payment token. 
+|
 
- |
-| 
+Returns an object containing your transaction value, currency and payment token.
 
-\`getCustomerName()\` 
+|
+|
 
- | 
+\`getCustomerName()\`
 
-\`setCustomerName(value)\` 
+|
 
- | 
+\`setCustomerName(value)\`
 
-Customer name 
+|
 
- |
-| 
+Customer name
 
-\`getBillingDetails()\` 
+|
+|
 
- | 
+\`getBillingDetails()\`
 
-\`setBillingDetails(value)\` 
+|
 
- | 
+\`setBillingDetails(value)\`
 
-Transaction billing details 
+|
 
- |
-| 
+Transaction billing details
 
-\`getLocalisation()\` 
+|
+|
 
- | 
+\`getLocalisation()\`
 
-n/a 
+|
 
- | 
+n/a
 
-Returns selected language 
+|
 
- |
-| 
+Returns selected language
 
-\`getConfig()\` 
+|
+|
 
- | 
+\`getConfig()\`
 
-n/a 
+|
 
- | 
+n/a
 
-Returns the configuration details of Checkout.js/The Kit. 
+|
 
- |
+Returns the configuration details of Checkout.js/The Kit.
 
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).
+|

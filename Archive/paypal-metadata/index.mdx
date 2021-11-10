@@ -3,331 +3,326 @@ title: paypal-metadata
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-The following metadata can be used exclusively with PayPal payments. \* \[Standard metadata\](/docs/paypal-metadata#section-standard-metadata) \* \[Metadata for Airlines\](/docs/paypal-metadata#section-metadata-for-airlines) — for merchants processing airline tickets. 
+The following metadata can be used exclusively with PayPal payments. \* \[Standard metadata\](/docs/paypal-metadata#section-standard-metadata) \* \[Metadata for Airlines\](/docs/paypal-metadata#section-metadata-for-airlines) — for merchants processing airline tickets.
 
- x     
-
-Add Row Add Col
-
-|  |  |
-| --- | --- |
-| 
-\`paypal\_logoUrl\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
-
- | 
-
-A URL to your logo. Use a graphics format, such as .gif, .jpg, or .png. The logo appears at the top of the cart review area. <span class="table-info"> Host the image on a secure (https) server. Character limit: 127 single-byte alphanumeric characters. Width: 190px Height: 60px </span> 
-
- |
-| 
-
-\`paypal\_stc\_{key}\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
-
- | 
-
-These details are used by Paypal to perform a pre-transaction risk management evaluation. <span class="table-info">The {key} used should be the same one as agreed between the merchant and PayPal.</span> 
-
- |
-| 
-
-\`paypal\_order\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
-
- | 
-
-Set this flag to \`y\` to use the Deferred Settlement (Order / Auth / Capture) flow. This will only create an order for a customer's approval and will require an additional API authorisation call before a capture. <span class="table-info">Default value is "n" if omitted.</span> 
-
- |
-| 
-
-\`paypal\_collection\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
-
- | 
-
-Set this to \`y\` if the products will be collected by the customer. 
-
- |
-| 
-
-\`paypal\_displayShipping\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
-
- | 
-
-Applies to ECS transactions only. Set this flag to \`y\` if the shipping details from PayPal should be displayed on the payment screen. <span class="table-info">Default value is "n" if omitted.</span> 
-
- |
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`paypal\_passengerName\` <span class="field-type">String</span> <span class="req-def">required</span> 
 
- | 
+|
+\`paypal_logoUrl\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
-Name of passenger or person to whom the ticket was issued. <span class="table-info">Character length: 1-25 single-byte characters.<span> 
+|
 
- |
-| 
+A URL to your logo. Use a graphics format, such as .gif, .jpg, or .png. The logo appears at the top of the cart review area. <span class="table-info"> Host the image on a secure (https) server. Character limit: 127 single-byte alphanumeric characters. Width: 190px Height: 60px </span>
 
-\`paypal\_issueDate\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_stc\_{key}\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
-Date when the ticket was issued to the buyer. In case of multiple issuances of the same ticket to a buyer, the merchant should use the last ticket date. The date is in the format YYYYMMDD. <span class="table-info">Character length: 8 single-byte numeric characters.</span> 
+|
 
- |
-| 
+These details are used by Paypal to perform a pre-transaction risk management evaluation. <span class="table-info">The {key} used should be the same one as agreed between the merchant and PayPal.</span>
 
-\`paypal\_travelAgencyName\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_order\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
-Name of the travel agency issuing the ticket. For direct airline integration, leave this field blank. <span class="table-info">Character length: 1-25 single-byte characters.</span> 
+|
 
- |
-| 
+Set this flag to \`y\` to use the Deferred Settlement (Order / Auth / Capture) flow. This will only create an order for a customer's approval and will require an additional API authorisation call before a capture. <span class="table-info">Default value is "n" if omitted.</span>
 
-\`paypal\_travelAgencyCode\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_collection\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
-The travel agency code. For direct airline integration, leave this field blank. <span class="table-info">Character length: 1-8 single-byte alphanumeric characters.</span> 
+|
 
- |
-| 
+Set this to \`y\` if the products will be collected by the customer.
 
-\`paypal\_ticketNumber\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_displayShipping\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
-The ticket number. If multiple tickets are purchased with one payment, use the primary ticket number. <span class="table-info">Character length: 1-16 single-byte alphanumeric.</span> 
+|
 
- |
-| 
+Applies to ECS transactions only. Set this flag to \`y\` if the shipping details from PayPal should be displayed on the payment screen. <span class="table-info">Default value is "n" if omitted.</span>
 
-\`paypal\_issuingCarrierCode\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
 
- | 
-
-Airline code for the airline issuing the ticket. <span class="table-info">Character length: 4 single-byte alphanumeric characters.</span> 
-
- |
-| 
-
-\`paypal\_customerCode\` <span class="field-type">String</span> <span class="req-def">required</span> 
-
- | 
-
-A code that the buyer supplied to the merchant, such as a frequent flyer number. <span class="table-info">Character length: 17 single-byte alphanumeric characters.</span> 
-
- |
-| 
-
-\`paypal\_totalFare\` <span class="field-type">String</span> <span class="req-def">required</span> 
-
- | 
-
-Total fare for all legs on the ticket, excluding taxes and fees. If multiple tickets are purchased, this is the total fare for all tickets. <span class="table-info">Character length and limitations: Must not exceed 10,000.00 in any currency. No currency symbol. Must have two decimal places, decimal separator must be a period (.), and the optional thousands separator must be a comma (,).</span> 
-
- |
-| 
-
-\`paypal\_totalTaxes\` <span class="field-type">String</span> <span class="req-def">required</span> 
-
- | 
-
-Total taxes for all legs on the ticket. If multiple tickets are purchased, this is the total taxes for all tickets. <span class="table-info">Character length and limitations: Must not exceed 10,000.00 in any currency. No currency symbol. Must have two decimal places, decimal separator must be a period (.), and the optional thousands separator must be a comma (,).</span> 
-
- |
-| 
-
-\`paypal\_totalFee\` <span class="field-type">String</span> <span class="req-def">required</span> 
-
- | 
-
-The total fee for all legs on the ticket. If multiple tickets are purchased, this is the total fee for all tickets. <span class="table-info">Character length and limitations: Must not exceed 10,000.00 in any currency. No currency symbol. Must have two decimal places, decimal separator must be a period (.), and the optional thousands separator must be a comma (,).</span> 
-
- |
-| 
-
-\`paypal\_restrictedTicket\` <span class="field-type">String</span> <span class="req-def">required</span> 
-
- | 
-
-For direct airline integration, indicates whether the ticket is restricted (refundable). \*\*Permitted values:\*\* \*\*0\*\* – ticket is not restricted. \*\*1\*\* – ticket is restricted <span class="table-info">Character length: 1 single-byte numeric character.</span> 
-
- |
-
-\## Flight leg details 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`paypal\_conjunctionTicket\_0\` <span class="field-type">String</span> <span class="req-def">required</span> 
 
- | 
+|
+\`paypal_passengerName\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-The identifying number of a ticket issued to a passenger in conjunction with this ticket and that constitutes a single contract of carriage. Character length and limitations: 1-14 single-byte alphanumeric characters. 
+|
 
- |
-| 
+Name of passenger or person to whom the ticket was issued. <span class="table-info">Character length: 1-25 single-byte characters.<span>
 
-\`paypal\_exchangeTicket\_0\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_issueDate\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-New ticket number that is issued when a ticket is exchanged. Character length and limitations: 1-15 single-byte characters. 
+|
 
- |
-| 
+Date when the ticket was issued to the buyer. In case of multiple issuances of the same ticket to a buyer, the merchant should use the last ticket date. The date is in the format YYYYMMDD. <span class="table-info">Character length: 8 single-byte numeric characters.</span>
 
-\`paypal\_couponNumber\_0\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_travelAgencyName\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-The coupon number associated with this leg of the trip. A ticket can contain several legs of travel, and each leg of travel requires a separate coupon. Character length and limitations: 1 single-byte alphanumeric character. 
+|
 
- |
-| 
+Name of the travel agency issuing the ticket. For direct airline integration, leave this field blank. <span class="table-info">Character length: 1-25 single-byte characters.</span>
 
-\`paypal\_serviceClass\_0\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_travelAgencyCode\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-The type of service, such as first class or coach. Character length and limitations: 1-2 single-byte alphanumeric characters. 
+|
 
- |
-| 
+The travel agency code. For direct airline integration, leave this field blank. <span class="table-info">Character length: 1-8 single-byte alphanumeric characters.</span>
 
-\`paypal\_travelDate\_0\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_ticketNumber\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-The date of travel for this leg Date is in the format YYYYMMDD. Character length and limitation: 8 single-byte numeric characters. 
+|
 
- |
-| 
+The ticket number. If multiple tickets are purchased with one payment, use the primary ticket number. <span class="table-info">Character length: 1-16 single-byte alphanumeric.</span>
 
-\`paypal\_carrierCode\_0\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_issuingCarrierCode\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-Standard abbreviation for the airline carrier. Character length and limitations: 2 single-byte alphanumeric characters. 
+|
 
- |
-| 
+Airline code for the airline issuing the ticket. <span class="table-info">Character length: 4 single-byte alphanumeric characters.</span>
 
-\`paypal\_stopOverPermitted\_0\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_customerCode\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-A code indicating a non-direct flight or route on the same ticket number. Allowable values are: 0 – stopover is not restricted 1 – stopover is restricted Character length and limitations: 1 single-byte numeric character. 
+|
 
- |
-| 
+A code that the buyer supplied to the merchant, such as a frequent flyer number. <span class="table-info">Character length: 17 single-byte alphanumeric characters.</span>
 
-\`paypal\_departureAirport\_0\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_totalFare\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-The origin or departure airport code for this leg. Character length and limitations: 1-5 single-byte alphanumeric characters. 
+|
 
- |
-| 
+Total fare for all legs on the ticket, excluding taxes and fees. If multiple tickets are purchased, this is the total fare for all tickets. <span class="table-info">Character length and limitations: Must not exceed 10,000.00 in any currency. No currency symbol. Must have two decimal places, decimal separator must be a period (.), and the optional thousands separator must be a comma (,).</span>
 
-\`paypal\_arrivalAirport\_0\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_totalTaxes\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-The destination or arrival airport code for this leg. Character length and limitations: 1-5 single-byte alphanumeric characters. 
+|
 
- |
-| 
+Total taxes for all legs on the ticket. If multiple tickets are purchased, this is the total taxes for all tickets. <span class="table-info">Character length and limitations: Must not exceed 10,000.00 in any currency. No currency symbol. Must have two decimal places, decimal separator must be a period (.), and the optional thousands separator must be a comma (,).</span>
 
-\`paypal\_flightNumber\_0\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_totalFee\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-The flight number assigned by the airline carrier Character length and limitations: 1-5 single-byte alphanumeric characters, with no leading spaces. 
+|
 
- |
-| 
+The total fee for all legs on the ticket. If multiple tickets are purchased, this is the total fee for all tickets. <span class="table-info">Character length and limitations: Must not exceed 10,000.00 in any currency. No currency symbol. Must have two decimal places, decimal separator must be a period (.), and the optional thousands separator must be a comma (,).</span>
 
-\`paypal\_departureTime\_0\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_restrictedTicket\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-The departure time, in the local time zone. Time is in the format HH24:MM, where HH24 is 00-23 and MM is 00-59. Character length and limitations: 5 single-byte characters. 
+|
 
- |
-| 
+For direct airline integration, indicates whether the ticket is restricted (refundable). \*\*Permitted values:\*\* \*\*0\*\* – ticket is not restricted. \*\*1\*\* – ticket is restricted <span class="table-info">Character length: 1 single-byte numeric character.</span>
 
-\`paypal\_arrivalTime\_0\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
 
- | 
+\## Flight leg details
 
-The arrival time, in the local time zone. Time is in the format HH24:MM, where HH24 is 00-23 and MM is 00-59. Character length and limitations: 5 single-byte characters. 
+x
 
- |
-| 
+Add Row Add Col
 
-\`paypal\_fareBasisCode\_0\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|     |     |
+| --- | --- |
 
- | 
+|
+\`paypal_conjunctionTicket_0\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-The code that carriers assign to a particular ticket type, such as discounted or non-refundable. Character length and limitations: 1-15 single-byte alphanumeric characters. 
+|
 
- |
-| 
+The identifying number of a ticket issued to a passenger in conjunction with this ticket and that constitutes a single contract of carriage. Character length and limitations: 1-14 single-byte alphanumeric characters.
 
-\`paypal\_fare\_0\` <span class="field-type">Number</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_exchangeTicket_0\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-Fare for this leg of the trip, excluding taxes and fees Character length and limitations: Must not exceed 10,000.00 in any currency. No currency symbol. Must have two decimal places, decimal separator must be a period (.), and the optional thousands separator must be a comma (,). 
+|
 
- |
-| 
+New ticket number that is issued when a ticket is exchanged. Character length and limitations: 1-15 single-byte characters.
 
-\`paypal\_taxes\_0\` <span class="field-type">Number</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_couponNumber_0\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-Taxes for this leg of the trip Character length and limitations: Must not exceed 10,000.00 in any currency. No currency symbol. Must have two decimal places, decimal separator must be a period (.), and the optional thousands separator must be a comma (,). 
+|
 
- |
-| 
+The coupon number associated with this leg of the trip. A ticket can contain several legs of travel, and each leg of travel requires a separate coupon. Character length and limitations: 1 single-byte alphanumeric character.
 
-\`paypal\_fee\_0\` <span class="field-type">Number</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_serviceClass_0\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-Fees for this leg of the trip Character length and limitations: Must not exceed 10,000.00 in any currency. No currency symbol. Must have two decimal places, decimal separator must be a period (.), and the optional thousands separator must be a comma (,). 
+|
 
- |
-| 
+The type of service, such as first class or coach. Character length and limitations: 1-2 single-byte alphanumeric characters.
 
-\`paypal\_endorsementToRestriction\_0\` <span class="field-type">String</span> <span class="req-def">required</span> 
+|
+|
 
- | 
+\`paypal_travelDate_0\` <span class="field-type">String</span> <span class="req-def">required</span>
 
-An endorsement can be an agency-added notation or a mandatory government required notation, such as value-added tax. A restriction is a limitation based on the type of fare, such as a ticket with a 3-day minimum stay. Character length and limitations: 1-20 single-byte alphanumeric characters. 
+|
 
- |
+The date of travel for this leg Date is in the format YYYYMMDD. Character length and limitation: 8 single-byte numeric characters.
+
+|
+|
+
+\`paypal_carrierCode_0\` <span class="field-type">String</span> <span class="req-def">required</span>
+
+|
+
+Standard abbreviation for the airline carrier. Character length and limitations: 2 single-byte alphanumeric characters.
+
+|
+|
+
+\`paypal_stopOverPermitted_0\` <span class="field-type">String</span> <span class="req-def">required</span>
+
+|
+
+A code indicating a non-direct flight or route on the same ticket number. Allowable values are: 0 – stopover is not restricted 1 – stopover is restricted Character length and limitations: 1 single-byte numeric character.
+
+|
+|
+
+\`paypal_departureAirport_0\` <span class="field-type">String</span> <span class="req-def">required</span>
+
+|
+
+The origin or departure airport code for this leg. Character length and limitations: 1-5 single-byte alphanumeric characters.
+
+|
+|
+
+\`paypal_arrivalAirport_0\` <span class="field-type">String</span> <span class="req-def">required</span>
+
+|
+
+The destination or arrival airport code for this leg. Character length and limitations: 1-5 single-byte alphanumeric characters.
+
+|
+|
+
+\`paypal_flightNumber_0\` <span class="field-type">String</span> <span class="req-def">required</span>
+
+|
+
+The flight number assigned by the airline carrier Character length and limitations: 1-5 single-byte alphanumeric characters, with no leading spaces.
+
+|
+|
+
+\`paypal_departureTime_0\` <span class="field-type">String</span> <span class="req-def">required</span>
+
+|
+
+The departure time, in the local time zone. Time is in the format HH24:MM, where HH24 is 00-23 and MM is 00-59. Character length and limitations: 5 single-byte characters.
+
+|
+|
+
+\`paypal_arrivalTime_0\` <span class="field-type">String</span> <span class="req-def">required</span>
+
+|
+
+The arrival time, in the local time zone. Time is in the format HH24:MM, where HH24 is 00-23 and MM is 00-59. Character length and limitations: 5 single-byte characters.
+
+|
+|
+
+\`paypal_fareBasisCode_0\` <span class="field-type">String</span> <span class="req-def">required</span>
+
+|
+
+The code that carriers assign to a particular ticket type, such as discounted or non-refundable. Character length and limitations: 1-15 single-byte alphanumeric characters.
+
+|
+|
+
+\`paypal_fare_0\` <span class="field-type">Number</span> <span class="req-def">required</span>
+
+|
+
+Fare for this leg of the trip, excluding taxes and fees Character length and limitations: Must not exceed 10,000.00 in any currency. No currency symbol. Must have two decimal places, decimal separator must be a period (.), and the optional thousands separator must be a comma (,).
+
+|
+|
+
+\`paypal_taxes_0\` <span class="field-type">Number</span> <span class="req-def">required</span>
+
+|
+
+Taxes for this leg of the trip Character length and limitations: Must not exceed 10,000.00 in any currency. No currency symbol. Must have two decimal places, decimal separator must be a period (.), and the optional thousands separator must be a comma (,).
+
+|
+|
+
+\`paypal_fee_0\` <span class="field-type">Number</span> <span class="req-def">required</span>
+
+|
+
+Fees for this leg of the trip Character length and limitations: Must not exceed 10,000.00 in any currency. No currency symbol. Must have two decimal places, decimal separator must be a period (.), and the optional thousands separator must be a comma (,).
+
+|
+|
+
+\`paypal_endorsementToRestriction_0\` <span class="field-type">String</span> <span class="req-def">required</span>
+
+|
+
+An endorsement can be an agency-added notation or a mandatory government required notation, such as value-added tax. A restriction is a limitation based on the type of fare, such as a ticket with a 3-day minimum stay. Character length and limitations: 1-20 single-byte alphanumeric characters.
+
+|

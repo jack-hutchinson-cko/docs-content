@@ -3,71 +3,65 @@ title: get-customer
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-Use this API endpoint to return a customer's information. 
+Use this API endpoint to return a customer's information.
 
-\## The request Update a customer's information by sending a \*\*GET\*\* API request to the URI below. In the URI, replace \*\*{customerId}\*\* with the customer's ID. Remember to use the prefix \`cust\_\` to your customer ID. If you don't have the customer's ID, you can use their registered email address instead. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/{customerId|email}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/customers/{customerId|email}</p></pre> ### Header and path parameters 
+\## The request Update a customer's information by sending a \*\*GET\*\* API request to the URI below. In the URI, replace \*\*{customerId}\*\* with the customer's ID. Remember to use the prefix \`cust\_\` to your customer ID. If you don't have the customer's ID, you can use their registered email address instead. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/{customerId|email}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/customers/{customerId|email}</p></pre> ### Header and path parameters
 
- x     
-
-Add Row Add Col
-
-|  |  |
-| --- | --- |
-| 
-\`Authorization\` <span class="req-def">Required</span> 
-
- | 
-
-\`secret key\`\* 
-
- |
-| 
-
-\`Content-Type\` <span class="req-def">Required</span> 
-
- | 
-
-\`application/json\` 
-
- |
-
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`customerId\` <span class="req-def">Required</span> 
 
- | 
+|
+\`Authorization\` <span class="req-def">Required</span>
 
-The customer's ID (prefixed with \`cust\_\`). 
+|
 
- |
-| 
+\`secret key\`\*
 
-\`email\` <span class="req-def">Required</span> 
+|
+|
 
- | 
+\`Content-Type\` <span class="req-def">Required</span>
 
-The customer's email. <span class="table-info">If the email contains a + character, it would need to be entered in the following way: \`/customers?email=elizabeth+seymore@domain.com\`</span> 
+|
 
- |
+\`application/json\`
 
-\### Request example 
+|
+
+\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
+
+x
+
+Add Row Add Col
+
+|     |     |
+| --- | --- |
+
+|
+\`customerId\` <span class="req-def">Required</span>
+
+|
+
+The customer's ID (prefixed with \`cust\_\`).
+
+|
+|
+
+\`email\` <span class="req-def">Required</span>
+
+|
+
+The customer's email. <span class="table-info">If the email contains a + character, it would need to be entered in the following way: \`/customers?email=elizabeth+seymore@domain.com\`</span>
+
+|
+
+\### Request example
 
 Shell Java
 
@@ -83,11 +77,11 @@ curl https://api2.checkout.com/v2/customers/cust\_49F7E6F8-B990-4E4E-BC58-419A3B
 
 2
 
- \-H "Authorization: sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
 3
 
- \-X GET
+\-X GET
 
 Import from Gist
 
@@ -101,7 +95,7 @@ xxxxxxxxxx
 
 2
 
-String customerId\="cust\_49F7E6F8-B990-4E4E-BC58-419A3B0556D0";
+String customerId\="cust_49F7E6F8-B990-4E4E-BC58-419A3B0556D0";
 
 3
 
@@ -113,19 +107,19 @@ try {
 
 5
 
- // Create APIClient instance with your secret key
+// Create APIClient instance with your secret key
 
 6
 
- APIClient ckoAPIClient\= new APIClient("sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 7
 
- // Submit your request and receive an apiResponse
+// Submit your request and receive an apiResponse
 
 8
 
- Response<Customer\> apiResponse \= ckoAPIClient.customerService.getCustomer(customerId);
+Response<Customer\> apiResponse \= ckoAPIClient.customerService.getCustomer(customerId);
 
 9
 
@@ -133,31 +127,31 @@ try {
 
 10
 
- if(!apiResponse.hasError){
+if(!apiResponse.hasError){
 
 11
 
- // Access the response object retrieved from the api
+// Access the response object retrieved from the api
 
 12
 
- Customer customer \= apiResponse.model;
+Customer customer \= apiResponse.model;
 
 13
 
- } else {
+} else {
 
 14
 
- // Api has returned an error object. You can access the details in the error property of the apiResponse.
+// Api has returned an error object. You can access the details in the error property of the apiResponse.
 
 15
 
- // apiResponse.error
+// apiResponse.error
 
 16
 
- }
+}
 
 17
 
@@ -165,7 +159,7 @@ try {
 
 Import from Gist
 
-\- -- ## The response If a customer object returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example 
+\- -- ## The response If a customer object returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example
 
 rename · delete
 
@@ -181,180 +175,178 @@ xxxxxxxxxx
 
 2
 
- "id": "cust\_7C997D0D-1996-4236-9579-2FE6970D5695",
+"id": "cust_7C997D0D-1996-4236-9579-2FE6970D5695",
 
 3
 
- "name": "Sarah Mitchell",
+"name": "Sarah Mitchell",
 
 4
 
- "livemode": false,
+"livemode": false,
 
 5
 
- "created": "2017-06-20T08:41:13Z",
+"created": "2017-06-20T08:41:13Z",
 
 6
 
- "email": "sarah.mitchell@checkout.com",
+"email": "sarah.mitchell@checkout.com",
 
 7
 
- "phone": {
+"phone": {
 
 8
 
- "countryCode": "44",
+"countryCode": "44",
 
 9
 
- "number": "12345678"
+"number": "12345678"
 
 10
 
- },
+},
 
 11
 
- "description": null,
+"description": null,
 
 12
 
- "metadata": {},
+"metadata": {},
 
 13
 
- "cards": {
+"cards": {
 
 14
 
- "count": 1,
+"count": 1,
 
 15
 
- "data": \[
+"data": \[
 
 16
 
- {
+{
 
 17
 
- "customerId": "cust\_7C997D0D-1996-4236-9579-2FE6970D5695",
+"customerId": "cust_7C997D0D-1996-4236-9579-2FE6970D5695",
 
 18
 
- "expiryMonth": "06",
+"expiryMonth": "06",
 
 19
 
- "expiryYear": "2018",
+"expiryYear": "2018",
 
 20
 
- "billingDetails": {
+"billingDetails": {
 
 21
 
- "addressLine1": "27 Acacia Tree Street",
+"addressLine1": "27 Acacia Tree Street",
 
 22
 
- "addressLine2": "Apartment 15",
+"addressLine2": "Apartment 15",
 
 23
 
- "postcode": "01072",
+"postcode": "01072",
 
 24
 
- "country": "US",
+"country": "US",
 
 25
 
- "city": "Shutesbury",
+"city": "Shutesbury",
 
 26
 
- "state": "Massachusetts",
+"state": "Massachusetts",
 
 27
 
- "phone": {
+"phone": {
 
 28
 
- "countryCode": "1",
+"countryCode": "1",
 
 29
 
- "number": "111 222-333"
+"number": "111 222-333"
 
 30
 
- }
+}
 
 31
 
- },
+},
 
 32
 
- "defaultCard": true,
+"defaultCard": true,
 
 33
 
- "id": "card\_6EDA2451-3F67-4B43-B9EA-EDD36F1559B2",
+"id": "card_6EDA2451-3F67-4B43-B9EA-EDD36F1559B2",
 
 34
 
- "last4": "4242",
+"last4": "4242",
 
 35
 
- "bin": "424242",
+"bin": "424242",
 
 36
 
- "paymentMethod": "VISA",
+"paymentMethod": "VISA",
 
 37
 
- "fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
+"fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
 
 38
 
- "name": "Sarah Mitchell",
+"name": "Sarah Mitchell",
 
 39
 
- "cvvCheck": "Y",
+"cvvCheck": "Y",
 
 40
 
- "avsCheck": "S"
+"avsCheck": "S"
 
 41
 
- }
+}
 
 42
 
- \]
+\]
 
 43
 
- },
+},
 
 44
 
- "defaultCard": "card\_6EDA2451-3F67-4B43-B9EA-EDD36F1559B2"
+"defaultCard": "card_6EDA2451-3F67-4B43-B9EA-EDD36F1559B2"
 
 45
 
 }
 
 Import from Gist
-
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

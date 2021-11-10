@@ -3,62 +3,56 @@ title: delete-customer
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-Use this API endpoint to return a customer's information. 
+Use this API endpoint to return a customer's information.
 
-\## The request Delete a customer's information by sending a \*\*DELETE\*\* API request to the URI below. In the URI, replace \*\*{customerId}\*\* with the customer's ID. Remember to use the prefix \`cust\_\` to your customer ID. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="delete-tag">DELETE</span>https://api2.checkout.com/v2/customers/{customerId}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="delete-tag">DELETE</span>https://sandbox.checkout.com/api2/v2/customers/{customerId}</p></pre> ### Header and path parameters 
+\## The request Delete a customer's information by sending a \*\*DELETE\*\* API request to the URI below. In the URI, replace \*\*{customerId}\*\* with the customer's ID. Remember to use the prefix \`cust\_\` to your customer ID. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="delete-tag">DELETE</span>https://api2.checkout.com/v2/customers/{customerId}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="delete-tag">DELETE</span>https://sandbox.checkout.com/api2/v2/customers/{customerId}</p></pre> ### Header and path parameters
 
- x     
-
-Add Row Add Col
-
-|  |  |
-| --- | --- |
-| 
-\`Authorization\` <span class="req-def">Required</span> 
-
- | 
-
-\`secret key\`\* 
-
- |
-| 
-
-\`Content-Type\` <span class="req-def">Required</span> 
-
- | 
-
-\`application/json\` 
-
- |
-
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`customerId\` <span class="req-def">Required</span> 
 
- | 
+|
+\`Authorization\` <span class="req-def">Required</span>
 
-The customer's ID (prefixed with \`cust\_\`). 
+|
 
- |
+\`secret key\`\*
 
-\### Request example 
+|
+|
+
+\`Content-Type\` <span class="req-def">Required</span>
+
+|
+
+\`application/json\`
+
+|
+
+\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
+
+x
+
+Add Row Add Col
+
+|     |     |
+| --- | --- |
+
+|
+\`customerId\` <span class="req-def">Required</span>
+
+|
+
+The customer's ID (prefixed with \`cust\_\`).
+
+|
+
+\### Request example
 
 Shell Java
 
@@ -74,15 +68,15 @@ curl https://api2.checkout.com/v2/customers/cust\_5F8B3C8A-ADED-411A-B34C-EE3970
 
 2
 
- \-H "Authorization: sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
 3
 
- \-H "Content-Type:application/json;charset=UTF-8"
+\-H "Content-Type:application/json;charset=UTF-8"
 
 4
 
- \-X DELETE
+\-X DELETE
 
 Import from Gist
 
@@ -96,7 +90,7 @@ xxxxxxxxxx
 
 2
 
-String customerId\="cust\_5F8B3C8A-ADED-411A-B34C-EE39703C10E5";
+String customerId\="cust_5F8B3C8A-ADED-411A-B34C-EE39703C10E5";
 
 3
 
@@ -108,19 +102,19 @@ try {
 
 5
 
- // Create APIClient instance with your secret key
+// Create APIClient instance with your secret key
 
 6
 
- APIClient ckoAPIClient\= new APIClient("sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 7
 
- // Submit your request and receive an apiResponse
+// Submit your request and receive an apiResponse
 
 8
 
- Response<OkResponse\> apiResponse \= ckoAPIClient.customerService.deleteCustomer(customerId);
+Response<OkResponse\> apiResponse \= ckoAPIClient.customerService.deleteCustomer(customerId);
 
 9
 
@@ -128,31 +122,31 @@ try {
 
 10
 
- if(!apiResponse.hasError){
+if(!apiResponse.hasError){
 
 11
 
- // Access the response object retrieved from the api
+// Access the response object retrieved from the api
 
 12
 
- OkResponse deleteResponse \= apiResponse.model;
+OkResponse deleteResponse \= apiResponse.model;
 
 13
 
- } else {
+} else {
 
 14
 
- // Api has returned an error object. You can access the details in the error property of the apiResponse.
+// Api has returned an error object. You can access the details in the error property of the apiResponse.
 
 15
 
- // apiResponse.error
+// apiResponse.error
 
 16
 
- }
+}
 
 17
 
@@ -160,7 +154,7 @@ try {
 
 Import from Gist
 
-\- -- ## The response If a success OK message returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example 
+\- -- ## The response If a success OK message returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example
 
 rename · delete
 
@@ -174,12 +168,10 @@ xxxxxxxxxx
 
 2
 
- "message": "ok"
+"message": "ok"
 
 3
 
 }
 
 Import from Gist
-
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

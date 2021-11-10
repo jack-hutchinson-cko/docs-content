@@ -3,71 +3,65 @@ title: update-a-card
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-If you need to update specific card details, for example, the billing address or expiration date, you can do so without having to re-enter the full card details. When you update a card, Checkout.com will automatically validate the card. Use this API endpoint to update an already existing card record. 
+If you need to update specific card details, for example, the billing address or expiration date, you can do so without having to re-enter the full card details. When you update a card, Checkout.com will automatically validate the card. Use this API endpoint to update an already existing card record.
 
-\## The request Update a card by sending a \*\*PUT\*\* API request to the URI below. In the URI, replace \*\*{customerId}\*\* with the customer's ID, and \*\*{cardId}\*\* with the ID of the card you wish to update. Remember to use the prefix \`cust\_\` to your customer ID and \`card\_\` to the card ID. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="put-tag">PUT</span> https://api2.checkout.com/v2/customers/{customerId}/cards/{cardId} </p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="put-tag">PUT</span> https://sandbox.checkout.com/api2/v2/customers/{customerId}/cards/{cardId} </p></pre> ### Header and path parameters 
+\## The request Update a card by sending a \*\*PUT\*\* API request to the URI below. In the URI, replace \*\*{customerId}\*\* with the customer's ID, and \*\*{cardId}\*\* with the ID of the card you wish to update. Remember to use the prefix \`cust\_\` to your customer ID and \`card\_\` to the card ID. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="put-tag">PUT</span> https://api2.checkout.com/v2/customers/{customerId}/cards/{cardId} </p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="put-tag">PUT</span> https://sandbox.checkout.com/api2/v2/customers/{customerId}/cards/{cardId} </p></pre> ### Header and path parameters
 
- x     
-
-Add Row Add Col
-
-|  |  |
-| --- | --- |
-| 
-\`Authorization\` <span class="req-def">Required</span> 
-
- | 
-
-\`secret key\`\* 
-
- |
-| 
-
-\`Content-Type\` <span class="req-def">Required</span> 
-
- | 
-
-\`application/json\` 
-
- |
-
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`customerId\` <span class="req-def">Required</span> 
 
- | 
+|
+\`Authorization\` <span class="req-def">Required</span>
 
-The customer's ID (prefixed with \`cust\_\`). 
+|
 
- |
-| 
+\`secret key\`\*
 
-\`cardId\` <span class="req-def">Required</span> 
+|
+|
 
- | 
+\`Content-Type\` <span class="req-def">Required</span>
 
-Card ID (prefixed with card\_) used to uniquely identify a card with respect to an associated customer. 
+|
 
- |
+\`application/json\`
 
-\### Request example 
+|
+
+\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
+
+x
+
+Add Row Add Col
+
+|     |     |
+| --- | --- |
+
+|
+\`customerId\` <span class="req-def">Required</span>
+
+|
+
+The customer's ID (prefixed with \`cust\_\`).
+
+|
+|
+
+\`cardId\` <span class="req-def">Required</span>
+
+|
+
+Card ID (prefixed with card\_) used to uniquely identify a card with respect to an associated customer.
+
+|
+
+\### Request example
 
 Shell Java
 
@@ -85,87 +79,87 @@ curl https://api2.checkout.com/v2/customers/cust\_630C8170-8F53-406B-BCCA-92E4B8
 
 2
 
- \-H "Authorization: sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
 3
 
- \-H "Content-Type:application/json;charset=UTF-8"
+\-H "Content-Type:application/json;charset=UTF-8"
 
 4
 
- \-X PUT
+\-X PUT
 
 5
 
- \-d '{
+\-d '{
 
 6
 
- "name": "Sarah Mitchell",
+"name": "Sarah Mitchell",
 
 7
 
- "expiryMonth": "06",
+"expiryMonth": "06",
 
 8
 
- "expiryYear": "2018",
+"expiryYear": "2018",
 
 9
 
- "billingDetails": {
+"billingDetails": {
 
 10
 
- "addressLine1": "27 Acacia Tree Street",
+"addressLine1": "27 Acacia Tree Street",
 
 11
 
- "addressLine2": "Apartment 15",
+"addressLine2": "Apartment 15",
 
 12
 
- "postcode": "01072",
+"postcode": "01072",
 
 13
 
- "country": "US",
+"country": "US",
 
 14
 
- "city": "Shutesbury",
+"city": "Shutesbury",
 
 15
 
- "state": "Massachusetts",
+"state": "Massachusetts",
 
 16
 
- "phone": {
+"phone": {
 
 17
 
- "countryCode": "1",
+"countryCode": "1",
 
 18
 
- "number": "111 222-333"
+"number": "111 222-333"
 
 19
 
- }
+}
 
 20
 
- },
+},
 
 21
 
- "defaultCard" : true
+"defaultCard" : true
 
 22
 
- }'
+}'
 
 Import from Gist
 
@@ -175,15 +169,15 @@ xxxxxxxxxx
 
 1
 
- // Create payload
+// Create payload
 
 2
 
- String customerId\="cust\_630C8170-8F53-406B-BCCA-92E4B8CE8643";
+String customerId\="cust_630C8170-8F53-406B-BCCA-92E4B8CE8643";
 
 3
 
- String cardId \= "card\_3F2740AC-771B-4198-ABEA-0FEF5191F1F9";
+String cardId \= "card_3F2740AC-771B-4198-ABEA-0FEF5191F1F9";
 
 4
 
@@ -191,7 +185,7 @@ xxxxxxxxxx
 
 5
 
- CardUpdate cardUpdatePayload \= new CardUpdate();
+CardUpdate cardUpdatePayload \= new CardUpdate();
 
 6
 
@@ -199,19 +193,19 @@ xxxxxxxxxx
 
 7
 
- cardUpdatePayload.name\="Miss Matt Quigley";
+cardUpdatePayload.name\="Miss Matt Quigley";
 
 8
 
- cardUpdatePayload.expiryMonth\="06";
+cardUpdatePayload.expiryMonth\="06";
 
 9
 
- cardUpdatePayload.expiryYear\="2018";
+cardUpdatePayload.expiryYear\="2018";
 
 10
 
- cardUpdatePayload.defaultCard\=true;
+cardUpdatePayload.defaultCard\=true;
 
 11
 
@@ -219,31 +213,31 @@ xxxxxxxxxx
 
 12
 
- cardUpdatePayload.billingDetails \= new Address();
+cardUpdatePayload.billingDetails \= new Address();
 
 13
 
- cardUpdatePayload.billingDetails.addressLine1 \= "56 Layla Rue";
+cardUpdatePayload.billingDetails.addressLine1 \= "56 Layla Rue";
 
 14
 
- cardUpdatePayload.billingDetails.addressLine2 \= "Junius Plain";
+cardUpdatePayload.billingDetails.addressLine2 \= "Junius Plain";
 
 15
 
- cardUpdatePayload.billingDetails.postcode \= "ei104xh";
+cardUpdatePayload.billingDetails.postcode \= "ei104xh";
 
 16
 
- cardUpdatePayload.billingDetails.country \= "US";
+cardUpdatePayload.billingDetails.country \= "US";
 
 17
 
- cardUpdatePayload.billingDetails.city \= "PortDeclan";
+cardUpdatePayload.billingDetails.city \= "PortDeclan";
 
 18
 
- cardUpdatePayload.billingDetails.state \= "Anthony";
+cardUpdatePayload.billingDetails.state \= "Anthony";
 
 19
 
@@ -251,15 +245,15 @@ xxxxxxxxxx
 
 20
 
- cardUpdatePayload.billingDetails.phone \= new Phone();
+cardUpdatePayload.billingDetails.phone \= new Phone();
 
 21
 
- cardUpdatePayload.billingDetails.phone.countryCode\="44";
+cardUpdatePayload.billingDetails.phone.countryCode\="44";
 
 22
 
- cardUpdatePayload.billingDetails.phone.number \= "12345678";
+cardUpdatePayload.billingDetails.phone.number \= "12345678";
 
 23
 
@@ -267,23 +261,23 @@ xxxxxxxxxx
 
 24
 
- try {
+try {
 
 25
 
- // Create APIClient instance with your secret key
+// Create APIClient instance with your secret key
 
 26
 
- APIClient ckoAPIClient\= new APIClient("sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 27
 
- // Submit your request and receive an apiResponse
+// Submit your request and receive an apiResponse
 
 28
 
- Response<OkResponse\> apiResponse \= ckoAPIClient.cardService.updateCard(customerId, cardId, cardUpdatePayload);
+Response<OkResponse\> apiResponse \= ckoAPIClient.cardService.updateCard(customerId, cardId, cardUpdatePayload);
 
 29
 
@@ -291,92 +285,93 @@ xxxxxxxxxx
 
 30
 
- if(!apiResponse.hasError){
+if(!apiResponse.hasError){
 
 31
 
- // Access the response object retrieved from the api
+// Access the response object retrieved from the api
 
 32
 
- OkResponse updateResponse \= apiResponse.model;
+OkResponse updateResponse \= apiResponse.model;
 
 33
 
- } else {
+} else {
 
 34
 
- // Api has returned an error object. You can access the details in the error property of the apiResponse.
+// Api has returned an error object. You can access the details in the error property of the apiResponse.
 
 35
 
- // apiResponse.error
+// apiResponse.error
 
 36
 
- }
+}
 
 37
 
- } catch (Exception e) {}
+} catch (Exception e) {}
 
 Import from Gist
 
-\### Additional parameters 
+\### Additional parameters
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`billingDetails\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
 
- | 
+|
+\`billingDetails\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
-Card billing address details. <span class="table-info">\[Find out more\](doc:shipping-and-billing-details).</span> 
+|
 
- |
-| 
+Card billing address details. <span class="table-info">\[Find out more\](doc:shipping-and-billing-details).</span>
 
-\`defaultCard\` <span class="field-type">Boolean</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`defaultCard\` <span class="field-type">Boolean</span> <span class="optional-def">Optional</span>
 
-Set to \`true\` to set the card as the default card of the customer. 
+|
 
- |
-| 
+Set to \`true\` to set the card as the default card of the customer.
 
-\`expiryMonth \` <span class="field-type">Integer</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`expiryMonth \` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
 
-A two-digit number representing the expiry month of the card (e.g., '06' for June). 
+|
 
- |
-| 
+A two-digit number representing the expiry month of the card (e.g., '06' for June).
 
-\`expiryYear\` <span class="field-type">Integer</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`expiryYear\` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
 
-The two or four-digit number representing the expiry year of the card (e.g., '17' or '2017' for 2017). 
+|
 
- |
-| 
+The two or four-digit number representing the expiry year of the card (e.g., '17' or '2017' for 2017).
 
-\`name\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`name\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
-Full name of the cardholder. Maximum characters: 100. 
+|
 
- |
+Full name of the cardholder. Maximum characters: 100.
 
-\--- ## The response If an OK response returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. ### Response example Take a look at the example response below. 
+|
+
+\--- ## The response If an OK response returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. ### Response example Take a look at the example response below.
 
 rename · delete
 
@@ -390,12 +385,10 @@ xxxxxxxxxx
 
 2
 
- "message": "ok"
+"message": "ok"
 
 3
 
 }
 
 Import from Gist
-
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

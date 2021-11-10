@@ -3,338 +3,376 @@ title: transaction-statuses
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-Each transaction displayed in The Hub has a distinctive status that is related to the state of the transaction. # Authorisation The cardholder's issuing bank approved a transaction and the transaction amount is held on the customer’s card, but not yet transferred to your account. Authorised transactions must be captured within 7 days. Otherwise, the transaction will be voided automatically and the transaction amount will be released back to the cardholder. 
+Each transaction displayed in The Hub has a distinctive status that is related to the state of the transaction. # Authorisation The cardholder's issuing bank approved a transaction and the transaction amount is held on the customer’s card, but not yet transferred to your account. Authorised transactions must be captured within 7 days. Otherwise, the transaction will be voided automatically and the transaction amount will be released back to the cardholder.
 
-The card verification statuses in the table below are applicable when processing a \[Zero Dollar Authorisation\](doc:zero-dollar-authorization) payment. 
+The card verification statuses in the table below are applicable when processing a \[Zero Dollar Authorisation\](doc:zero-dollar-authorization) payment.
 
- x     
-
-Add Row Add Col
-
-|  |  |
-| --- | --- |
-| 
-<span style="color:#51c470; white-space: nowrap;">Authorisation : Success</span> 
-
- | 
-
-The transaction has been approved by the Issuer and the amount is held on the customer’s card. 
-
- |
-| 
-
-<span style="color:#ff6d06; white-space: nowrap;">Authorisation : Flag </span> 
-
- | 
-
-The transaction triggered a risk scenario and needs to be reviewed manually at your level before capturing or voiding the transaction. 
-
- |
-| 
-
-<span style="color:#b11717; white-space: nowrap;">Authorisation : Fail </span> 
-
- | 
-
-The cardholder’s issuing bank did not approve the transaction. 
-
- |
-| 
-
-<span style="color:#51c470; white-space: nowrap;">Card Verification : Success </span> 
-
- | 
-
-The zero dollar authorisation request has been approved and the cardholder’s details have been saved to their account. 
-
- |
-| 
-
-<span style="color:#ff6d06; white-space: nowrap;">Card Verification : Flag </span> 
-
- | 
-
-The zero dollar authorisation request has been approved, but the charge is set to be flagged. 
-
- |
-| 
-
-<span style="color:#b11717; white-space: nowrap;">Card Verification : Fail </span> 
-
- | 
-
-The zero dollar authorisation request could not be processed. 
-
- |
-
-If the original transaction was processed under a 3-D Secure environment it would be reflected in the status. For example, Authorisation - 3D : Success. This also applies to Void, Capture, Refund, and Chargeback. 
-
-\--- # Void An authorized transaction was canceled and the authorized amount has been released back to the cardholder. Please note that only authorized transactions can be voided. In order to reverse a captured transaction, you must issue a refund. 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-<span style="color:#51c470; white-space: nowrap;">Void : Success</span> 
 
- | 
+|
 
-The transaction is voided successfully upon your request, or our system automatically voided it for not being captured within seven days of being authorized. 
+<span style="color:#51c470; white-space: nowrap;">Authorisation : Success</span>{" "}
 
- |
-| 
+|
 
-<span style="color:#b11717; white-space: nowrap;">Void : Fail</span> 
+The transaction has been approved by the Issuer and the amount is held on the customer’s card.
 
- | 
+|
+|
 
-The transaction could not be voided. 
+<span style="color:#ff6d06; white-space: nowrap;">
+  Authorisation : Flag{" "}
+</span>{" "}
 
- |
+|
 
-\# Capture The cardholder's issuing bank has processed the payment and the funds have been transferred. 
+The transaction triggered a risk scenario and needs to be reviewed manually at your level before capturing or voiding the transaction.
 
- x     
+|
+|
+
+<span style="color:#b11717; white-space: nowrap;">
+  Authorisation : Fail{" "}
+</span>{" "}
+
+|
+
+The cardholder’s issuing bank did not approve the transaction.
+
+|
+|
+
+<span style="color:#51c470; white-space: nowrap;">
+  Card Verification : Success{" "}
+</span>{" "}
+
+|
+
+The zero dollar authorisation request has been approved and the cardholder’s details have been saved to their account.
+
+|
+|
+
+<span style="color:#ff6d06; white-space: nowrap;">
+  Card Verification : Flag{" "}
+</span>{" "}
+
+|
+
+The zero dollar authorisation request has been approved, but the charge is set to be flagged.
+
+|
+|
+
+<span style="color:#b11717; white-space: nowrap;">
+  Card Verification : Fail{" "}
+</span>{" "}
+
+|
+
+The zero dollar authorisation request could not be processed.
+
+|
+
+If the original transaction was processed under a 3-D Secure environment it would be reflected in the status. For example, Authorisation - 3D : Success. This also applies to Void, Capture, Refund, and Chargeback.
+
+\--- # Void An authorized transaction was canceled and the authorized amount has been released back to the cardholder. Please note that only authorized transactions can be voided. In order to reverse a captured transaction, you must issue a refund.
+
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-<span style="color:#51c470; white-space: nowrap;">Capture : Success</span> 
 
- | 
+|
 
-The funds of a successfully authorized transaction have been transferred to your account. 
+<span style="color:#51c470; white-space: nowrap;">Void : Success</span>{" "}
 
- |
-| 
+|
 
-<span style="color:#b11717; white-space: nowrap;">Capture : Fail</span> 
+The transaction is voided successfully upon your request, or our system automatically voided it for not being captured within seven days of being authorized.
 
- | 
+|
+|
 
-The funds could not be transferred to your account. <span class="table-info">This status is rare and will usually be related to the Issuing bank having a technical issue at their end. Merchants are encouraged to re-attempt transactions with this status after a few hours.</span> 
+<span style="color:#b11717; white-space: nowrap;">Void : Fail</span>{" "}
 
- |
+|
 
-\# Refund Funds were transferred from your merchant account to the card holder's account. The refund amount can never exceed the capture amount of the transaction. Please note that only captured transactions can be refunded. To reverse an authorized transaction, you must void it. 
+The transaction could not be voided.
 
- x     
+|
+
+\# Capture The cardholder's issuing bank has processed the payment and the funds have been transferred.
+
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-<span style="color:#51c470; white-space: nowrap;">Refund : Success</span> 
 
- | 
+|
 
-A refund was successfully issued to the customer. 
+<span style="color:#51c470; white-space: nowrap;">Capture : Success</span>{" "}
 
- |
-| 
+|
 
-<span style="color:#b11717; white-space: nowrap;">Refund : Fail</span> 
+The funds of a successfully authorized transaction have been transferred to your account.
 
- | 
+|
+|
 
-The refund could not be issued. <span class="table-info">This status is rare and will usually be related to the Issuing bank having a technical issue at their end. Merchants are encouraged to re-attempt transactions with this status after a few hours.</span> 
+<span style="color:#b11717; white-space: nowrap;">Capture : Fail</span>{" "}
 
- |
+|
 
-\# Chargeback The issuing bank has issued a demand to reverse the transaction. Chargebacks, also known as reversals, are typically due to a complaint made by the cardholder concerning the goods or services purchased. Common reasons for a chargeback include merchandise not received, merchandise not as described and transaction/purchase not recognized. In The Hub, the status section of the Transaction Details screen will display a Chargeback Code, which will indicate the reason for the chargeback. 
+The funds could not be transferred to your account. <span class="table-info">This status is rare and will usually be related to the Issuing bank having a technical issue at their end. Merchants are encouraged to re-attempt transactions with this status after a few hours.</span>
 
-The statuses with the <span class="new-def">new</span> tag will be live from the October 15 2018 onwards. 
+|
 
- x     
+\# Refund Funds were transferred from your merchant account to the card holder's account. The refund amount can never exceed the capture amount of the transaction. Please note that only captured transactions can be refunded. To reverse an authorized transaction, you must void it.
+
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-<span style="white-space: nowrap;">Chargeback : Debit to Account</span> 
 
- | 
+|
 
-Funds have been deducted from your account. 
+<span style="color:#51c470; white-space: nowrap;">Refund : Success</span>{" "}
 
- |
-| 
+|
 
-<span style="white-space: nowrap;">Chargeback : Auto Representment</span> 
+A refund was successfully issued to the customer.
 
- | 
+|
+|
 
-The chargeback has been automatically resolved on your behalf, and no additional intervention is needed. 
+<span style="color:#b11717; white-space: nowrap;">Refund : Fail</span>{" "}
 
- |
-| 
+|
 
-<span style="white-space: nowrap;">Chargeback : Representment</span> 
+The refund could not be issued. <span class="table-info">This status is rare and will usually be related to the Issuing bank having a technical issue at their end. Merchants are encouraged to re-attempt transactions with this status after a few hours.</span>
 
- | 
+|
 
-The chargeback has been represented to the issuer on your behalf based on the gathered evidence to demonstrate that the transaction was completed accordingly. 
+\# Chargeback The issuing bank has issued a demand to reverse the transaction. Chargebacks, also known as reversals, are typically due to a complaint made by the cardholder concerning the goods or services purchased. Common reasons for a chargeback include merchandise not received, merchandise not as described and transaction/purchase not recognized. In The Hub, the status section of the Transaction Details screen will display a Chargeback Code, which will indicate the reason for the chargeback.
 
- |
-| 
+The statuses with the <span class="new-def">new</span> tag will be live from the October 15 2018 onwards.
 
-<span style="white-space: nowrap;">Chargeback : Pre Arbitration</span> 
-
- | 
-
-The issuing bank has rejected the evidence provided in the representment. 
-
- |
-| 
-
-<span style="white-space: nowrap;">Chargeback : Issuer Reversal</span> 
-
- | 
-
-The issuing bank has canceled a chargeback and credited your merchant account with the respective amount. 
-
- |
-| 
-
-<span style="white-space: nowrap;">Chargeback : Evidence Under Review</span> <span class="new-def">new</span> 
-
- | 
-
-You have provided the required evidence and we have forwarded this to the card scheme. 
-
- |
-| 
-
-<span style="white-space: nowrap;">Chargeback : Case Lost</span> <span class="new-def">new</span> 
-
- | 
-
-You have lost the case. 
-
- |
-| 
-
-<span style="white-space: nowrap;">Chargeback : Case Won</span> <span class="new-def">new</span> 
-
- | 
-
-You have won the case. 
-
- |
-
-\# Alternative payments Checkout.com supports a number of popular Alternative Payment Methods (APM). These types of transactions have their own separate set of statuses as shown in the table below. 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-<span style="color:#ff6d06; white-space: nowrap;">Authorisation - APM : Pending</span> 
 
- | 
+|
 
-A temporary status shown before a transaction is authorized or declined. 
+<span style="white-space: nowrap;">Chargeback : Debit to Account</span>{" "}
 
- |
-| 
+|
 
-<span style="color:#b11717; white-space: nowrap;">Authorisation - APM : Fail</span> 
+Funds have been deducted from your account.
 
- | 
+|
+|
 
-The alternative payment provider did not approve the transaction. 
+<span style="white-space: nowrap;">Chargeback : Auto Representment</span>{" "}
 
- |
-| 
+|
 
-<span style="color:#51c470; white-space: nowrap;">Void - APM : Success</span> 
+The chargeback has been automatically resolved on your behalf, and no additional intervention is needed.
 
- | 
+|
+|
 
-The customer canceled the transaction. 
+<span style="white-space: nowrap;">Chargeback : Representment</span>{" "}
 
- |
-| 
+|
 
-<span style="color:#51c470; white-space: nowrap;">Expiry - APM : Success</span> 
+The chargeback has been represented to the issuer on your behalf based on the gathered evidence to demonstrate that the transaction was completed accordingly.
 
- | 
+|
+|
 
-The alternative payment was not successfully captured after the deferred capture period. ie. The customer abandoned the session and did not finalize the purchase transaction. 
+<span style="white-space: nowrap;">Chargeback : Pre Arbitration</span>{" "}
 
- |
-| 
+|
 
-<span style="color:#51c470; white-space: nowrap;">Capture - APM : Success</span> 
+The issuing bank has rejected the evidence provided in the representment.
 
- | 
+|
+|
 
-The alternative payment provider has processed the transaction and the funds have been transferred into your account. 
+<span style="white-space: nowrap;">Chargeback : Issuer Reversal</span>{" "}
 
- |
-| 
+|
 
-<span style="color:#b11717; white-space: nowrap;">Capture - APM : Fail</span> 
+The issuing bank has canceled a chargeback and credited your merchant account with the respective amount.
 
- | 
+|
+|
 
-The funds could not be transferred into your account. 
+<span style="white-space: nowrap;">
+  Chargeback : Evidence Under Review
+</span> <span class="new-def">new</span>{" "}
 
- |
-| 
+|
 
-<span style="color:#51c470; white-space: nowrap;">Deferred Capture - APM : Success</span> 
+You have provided the required evidence and we have forwarded this to the card scheme.
 
- | 
+|
+|
 
-Some alternative payment methods (ie. Sofort) defer the capture of a transaction for up to several days. 
+<span style="white-space: nowrap;">
+  Chargeback : Case Lost
+</span> <span class="new-def">new</span>{" "}
 
- |
-| 
+|
 
-<span style="color:#b11717; white-space: nowrap;">Deferred Capture - APM : Fail</span> 
+You have lost the case.
 
- | 
+|
+|
 
-A deferred transaction could not be captured. 
+<span style="white-space: nowrap;">
+  Chargeback : Case Won
+</span> <span class="new-def">new</span>{" "}
 
- |
-| 
+|
 
-<span style="color:#51c470; white-space: nowrap;">Refund - APM : Success</span> 
+You have won the case.
 
- | 
+|
 
-A refund was successfully issued to the customer and funds were transferred from your merchant account back to the customer. 
+\# Alternative payments Checkout.com supports a number of popular Alternative Payment Methods (APM). These types of transactions have their own separate set of statuses as shown in the table below.
 
- |
-| 
+x
 
-<span style="color:#b11717; white-space: nowrap;">Refund - APM : Fail</span> 
+Add Row Add Col
 
- | 
+|     |     |
+| --- | --- |
 
-The refund could not be processed. 
+|
 
- |
+<span style="color:#ff6d06; white-space: nowrap;">
+  Authorisation - APM : Pending
+</span>{" "}
 
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).
+|
+
+A temporary status shown before a transaction is authorized or declined.
+
+|
+|
+
+<span style="color:#b11717; white-space: nowrap;">
+  Authorisation - APM : Fail
+</span>{" "}
+
+|
+
+The alternative payment provider did not approve the transaction.
+
+|
+|
+
+<span style="color:#51c470; white-space: nowrap;">
+  Void - APM : Success
+</span>{" "}
+
+|
+
+The customer canceled the transaction.
+
+|
+|
+
+<span style="color:#51c470; white-space: nowrap;">
+  Expiry - APM : Success
+</span>{" "}
+
+|
+
+The alternative payment was not successfully captured after the deferred capture period. ie. The customer abandoned the session and did not finalize the purchase transaction.
+
+|
+|
+
+<span style="color:#51c470; white-space: nowrap;">
+  Capture - APM : Success
+</span>{" "}
+
+|
+
+The alternative payment provider has processed the transaction and the funds have been transferred into your account.
+
+|
+|
+
+<span style="color:#b11717; white-space: nowrap;">
+  Capture - APM : Fail
+</span>{" "}
+
+|
+
+The funds could not be transferred into your account.
+
+|
+|
+
+<span style="color:#51c470; white-space: nowrap;">
+  Deferred Capture - APM : Success
+</span>{" "}
+
+|
+
+Some alternative payment methods (ie. Sofort) defer the capture of a transaction for up to several days.
+
+|
+|
+
+<span style="color:#b11717; white-space: nowrap;">
+  Deferred Capture - APM : Fail
+</span>{" "}
+
+|
+
+A deferred transaction could not be captured.
+
+|
+|
+
+<span style="color:#51c470; white-space: nowrap;">
+  Refund - APM : Success
+</span>{" "}
+
+|
+
+A refund was successfully issued to the customer and funds were transferred from your merchant account back to the customer.
+
+|
+|
+
+<span style="color:#b11717; white-space: nowrap;">
+  Refund - APM : Fail
+</span>{" "}
+
+|
+
+The refund could not be processed.
+
+|

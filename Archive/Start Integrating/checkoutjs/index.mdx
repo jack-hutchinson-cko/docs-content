@@ -3,27 +3,20 @@ title: checkoutjs
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-\*A simple way to integrate Checkout.com's full suite of payment options into your website.\* Checkout.js is one of the quickest ways to get started accepting payments. It's a widget that sits on your website and provides all the tools for collecting a customer's card details and sending them straight to us for <<glossary:tokenization>> — \*it's super safe, they never even touch your server\*. Subsequently, a card token is returned to you, enabling you to \[create a payment\](doc:authorize-a-payment) request. Take a look at the default Checkout.js payment widget below! If it's a bit cumbersome for you, try using a \[custom button\](doc:integrate-checkoutjs#section-example-b-use-a-custom-pay-now-button) instead. 
+\*A simple way to integrate Checkout.com's full suite of payment options into your website.\* Checkout.js is one of the quickest ways to get started accepting payments. It's a widget that sits on your website and provides all the tools for collecting a customer's card details and sending them straight to us for <<glossary:tokenization>> — \*it's super safe, they never even touch your server\*. Subsequently, a card token is returned to you, enabling you to \[create a payment\](doc:authorize-a-payment) request. Take a look at the default Checkout.js payment widget below! If it's a bit cumbersome for you, try using a \[custom button\](doc:integrate-checkoutjs#section-example-b-use-a-custom-pay-now-button) instead.
 
-*   **Image Sizing:**
-*    Smart Fit
-*    100% Width
-*    80% Width
-*    Original Size
-*   * * *
-    
-*   **Options:**
-*    Image Border
+- **Image Sizing:**
+- Smart Fit
+- 100% Width
+- 80% Width
+- Original Size
+
+---
+
+- **Options:**
+- Image Border
 
 ![](https://files.readme.io/eb279b0-Screenshot-checkoutjs.png)
 
@@ -35,17 +28,17 @@ change·remove
 
 Don't have one handy? Use our logo to start!
 
-Checkout.js is a quick and simple approach. If you'd prefer your own customizable payment form, then take a look at \[Frames\](doc:frames). 
+Checkout.js is a quick and simple approach. If you'd prefer your own customizable payment form, then take a look at \[Frames\](doc:frames).
 
-\*\*Why not give Checkout.js a test run?\*\* Click the \*\*Pay Now\*\* button below, and you'll see the form spring to life. Use the following details to fill in the form: \* email address — we have completed this for you \* use one of our \[test cards\](doc:testing#section-test-card-numbers), for example, :fa-cc-visa: <span class="card-number">4242 4242 4242 4242</span> \* use any future expiry date (mm/yy) \* and the CVV is :fa-lock: \*\*100\*\* \*Don't worry. It's just a test, we won't charge anyone's card.\* 
+\*\*Why not give Checkout.js a test run?\*\* Click the \*\*Pay Now\*\* button below, and you'll see the form spring to life. Use the following details to fill in the form: \* email address — we have completed this for you \* use one of our \[test cards\](doc:testing#section-test-card-numbers), for example, :fa-cc-visa: <span class="card-number">4242 4242 4242 4242</span> \* use any future expiry date (mm/yy) \* and the CVV is :fa-lock: \*\*100\*\* \*Don't worry. It's just a test, we won't charge anyone's card.\*
 
 **URL to Embed:**
 
-* * *
+---
 
 Embed URL
 
-* * *
+---
 
 Try embedding YouTube, GitHub Gists, JSFiddles, PDFs and more
 
@@ -53,23 +46,24 @@ false
 
 **[Checkout.js Default](https://s3-eu-west-1.amazonaws.com/cko-website-keystone/readme-docs/checkoutjs_default.html)**
 
-* * *
+---
 
-_Replace Embed_  Embed as iFrame?  x 
+_Replace Embed_ Embed as iFrame? x
 
-Checkout.js doesn't process a payment automatically, but it provides the first steps for obtaining a card token. To finish the payment process, you need some server-side code included on your page. 
+Checkout.js doesn't process a payment automatically, but it provides the first steps for obtaining a card token. To finish the payment process, you need some server-side code included on your page.
 
-\*Don't miss out on a sale! Checkout.js accepts all your favorite payment methods:\* 
+\*Don't miss out on a sale! Checkout.js accepts all your favorite payment methods:\*
 
-*   **Image Sizing:**
-*    Smart Fit
-*    100% Width
-*    80% Width
-*    Original Size
-*   * * *
-    
-*   **Options:**
-*    Image Border
+- **Image Sizing:**
+- Smart Fit
+- 100% Width
+- 80% Width
+- Original Size
+
+---
+
+- **Options:**
+- Image Border
 
 ![](https://files.readme.io/1f1c220-Payment.Methods.Logos.svg)
 
@@ -81,7 +75,7 @@ change·remove
 
 Don't have one handy? Use our logo to start!
 
-Try our 2-step process to get started with Checkout.js. Then, when you're ready, have a go customizing it to your brand. ### <span class="step\_hl">Step 1:</span> Pick a display method The first step to using Checkout.js is to pick a display method. Your requirements and technical know-how will significantly influence this decision. Our recommended and the most straightforward option is \*window.CKOConfig\*, but take a look at our \[integration options\](doc:integrate-checkoutjs) and decide which solution is best for you. ### <span class="step\_hl">Step 2:</span> Add the code To add Checkout.js, insert a supplied snippet of code to your page, and then change the action attribute to submit the form to your server-side code. Below is an example for \*window.CKOConfig\*, your integration method may be different, but the core process is the same. 
+Try our 2-step process to get started with Checkout.js. Then, when you're ready, have a go customizing it to your brand. ### <span class="step\_hl">Step 1:</span> Pick a display method The first step to using Checkout.js is to pick a display method. Your requirements and technical know-how will significantly influence this decision. Our recommended and the most straightforward option is \*window.CKOConfig\*, but take a look at our \[integration options\](doc:integrate-checkoutjs) and decide which solution is best for you. ### <span class="step\_hl">Step 2:</span> Add the code To add Checkout.js, insert a supplied snippet of code to your page, and then change the action attribute to submit the form to your server-side code. Below is an example for \*window.CKOConfig\*, your integration method may be different, but the core process is the same.
 
 HTML
 
@@ -99,39 +93,39 @@ xxxxxxxxxx
 
 2
 
- <script\>
+<script\>
 
 3
 
- window.CKOConfig \= {
+window.CKOConfig \= {
 
 4
 
- publicKey: 'pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14',
+publicKey: 'pk_test_6ff46046-30af-41d9-bf58-929022d2cd14',
 
 5
 
- paymentToken: 'pay\_tok\_SPECIMEN-000',
+paymentToken: 'pay_tok_SPECIMEN-000',
 
 6
 
- customerEmail: 'user@email.com',
+customerEmail: 'user@email.com',
 
 7
 
- value: 100,
+value: 100,
 
 8
 
- currency: 'GBP',
+currency: 'GBP',
 
 9
 
- };
+};
 
 10
 
- </script\>
+</script\>
 
 11
 
@@ -147,4 +141,5 @@ In the code, you must replace the example’s \`publicKey\` with your own. You c
 
 The \*next step\*, is to customize the appearance to match your brand. Luckily, Checkout.js gives you the flexibility to adjust its look and feel to your page. Learn how to \[configure the Checkout.js Payment Widget and Payment Lightbox\](doc:customize-your-checkoutjs). 
 
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).
+
+

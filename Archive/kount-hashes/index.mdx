@@ -3,66 +3,60 @@ title: kount-hashes
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-If you use Checkout.com to tokenize card information, you can still use the third-party risk tool Kount. Our API allows you to create a Kount hash based on a customer's full card details. You can then use this tokenized card information when requesting a risk check through the Kount API. 
+If you use Checkout.com to tokenize card information, you can still use the third-party risk tool Kount. Our API allows you to create a Kount hash based on a customer's full card details. You can then use this tokenized card information when requesting a risk check through the Kount API.
 
-You can use this feature out of the box, with no specific on-boarding required. 
+You can use this feature out of the box, with no specific on-boarding required.
 
-\### <span class="step\_hl">Step 1:</span> The cardholder completes a payment through Frames or Checkout.js. ### <span class="step\_hl">Step 2:</span> You receive a card token from us. ### <span class="step\_hl">Step 4:</span> You use our API (detailed below) to get the Kount hash. This is a hash of the card’s PAN achieved through their proprietary algorithm. ### <span class="step\_hl">Step 4:</span> You request a risk check from Kount using the Kount hash. ### <span class="step\_hl">Step 5:</span> Based on the result of step 4, you decide whether or not to proceed with creating a payment using the card token. 
+\### <span class="step\_hl">Step 1:</span> The cardholder completes a payment through Frames or Checkout.js. ### <span class="step\_hl">Step 2:</span> You receive a card token from us. ### <span class="step\_hl">Step 4:</span> You use our API (detailed below) to get the Kount hash. This is a hash of the card’s PAN achieved through their proprietary algorithm. ### <span class="step\_hl">Step 4:</span> You request a risk check from Kount using the Kount hash. ### <span class="step\_hl">Step 5:</span> Based on the result of step 4, you decide whether or not to proceed with creating a payment using the card token.
 
-\## The request Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api.checkout.com/api2/v2/tokens/{cardToken}?providers=kount</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/tokens/{cardToken}?providers=kount</p></pre> ### Header and path parameters 
+\## The request Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api.checkout.com/api2/v2/tokens/{cardToken}?providers=kount</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/tokens/{cardToken}?providers=kount</p></pre> ### Header and path parameters
 
- x     
-
-Add Row Add Col
-
-|  |  |
-| --- | --- |
-| 
-\`Authorization\` <span class="req-def">Required</span> 
-
- | 
-
-\`secret key\`\* 
-
- |
-| 
-
-\`Content-Type\` <span class="req-def">Required</span> 
-
- | 
-
-\`application/json\` 
-
- |
-
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`cardToken\` <span class="req-def">Required</span> 
 
- | 
+|
+\`Authorization\` <span class="req-def">Required</span>
 
-The card token. It is prefixed by \`card\_tok\_\`. 
+|
 
- |
+\`secret key\`\*
 
-\### Request example 
+|
+|
+
+\`Content-Type\` <span class="req-def">Required</span>
+
+|
+
+\`application/json\`
+
+|
+
+\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
+
+x
+
+Add Row Add Col
+
+|     |     |
+| --- | --- |
+
+|
+\`cardToken\` <span class="req-def">Required</span>
+
+|
+
+The card token. It is prefixed by \`card_tok\_\`.
+
+|
+
+\### Request example
 
 cURL
 
@@ -78,15 +72,15 @@ curl https://sandbox.checkout.com/api2/v2/tokens/card\_tok\_AF377225-9A51-4A33-B
 
 2
 
- \-H "Authorization: sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
 3
 
- \-X GET
+\-X GET
 
 Import from Gist
 
-\## The response If a kount hash object returns, then your request was successful. ### Response example 
+\## The response If a kount hash object returns, then your request was successful. ### Response example
 
 JSON
 
@@ -104,63 +98,63 @@ xxxxxxxxxx
 
 2
 
- "token": "card\_tok\_AF377225-9A51-4A33-B9F8-B75F9D14D709",
+"token": "card_tok_AF377225-9A51-4A33-B9F8-B75F9D14D709",
 
 3
 
- "bin": 549486,
+"bin": 549486,
 
 4
 
- "issuer": "ALANDSBANKEN ABP",
+"issuer": "ALANDSBANKEN ABP",
 
 5
 
- "issuerCountry": "Finland",
+"issuerCountry": "Finland",
 
 6
 
- "issuerCountryIso2": "FI",
+"issuerCountryIso2": "FI",
 
 7
 
- "scheme": "Visa",
+"scheme": "Visa",
 
 8
 
- "type": "Credit",
+"type": "Credit",
 
 9
 
- "category": "Consumer",
+"category": "Consumer",
 
 10
 
- "productId": "F",
+"productId": "F",
 
 11
 
- "productType": "CLASSIC",
+"productType": "CLASSIC",
 
 12
 
- "providers": {
+"providers": {
 
 13
 
- "kount": {
+"kount": {
 
 14
 
- "hash": "JKJL45646LKJBNM45646"
+"hash": "JKJL45646LKJBNM45646"
 
 15
 
- }
+}
 
 16
 
- }
+}
 
 17
 

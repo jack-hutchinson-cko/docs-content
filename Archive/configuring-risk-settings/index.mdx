@@ -3,106 +3,100 @@ title: configuring-risk-settings
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-The Hub's Risk Settings section provides a wide array of fraud management tools. This module is easily accessible and gives merchants the flexibility to customize their fraud rules within seconds. Merchants can have two different sets of privileges when it comes to updating risk controls: \* Option 1: Activate settings without approval. \* Option 2: Request approval from a Relationship Manager. 
+The Hub's Risk Settings section provides a wide array of fraud management tools. This module is easily accessible and gives merchants the flexibility to customize their fraud rules within seconds. Merchants can have two different sets of privileges when it comes to updating risk controls: \* Option 1: Activate settings without approval. \* Option 2: Request approval from a Relationship Manager.
 
-Due to the level of complexity involved in risk management, risk control updates need approval by default. Please contact your relationship manager if you would like to circumvent the approval process. Take into consideration that if you are on \*\*Option 1\*\*, changes to your risk controls will affect live processing immediately. Please proceed with caution when saving your updates. 
+Due to the level of complexity involved in risk management, risk control updates need approval by default. Please contact your relationship manager if you would like to circumvent the approval process. Take into consideration that if you are on \*\*Option 1\*\*, changes to your risk controls will affect live processing immediately. Please proceed with caution when saving your updates.
 
-The rules can be configured to trigger the actions listed below. If a transaction triggers more than one risk rule, the action taken will be in line with the following hierarchy: 
+The rules can be configured to trigger the actions listed below. If a transaction triggers more than one risk rule, the action taken will be in line with the following hierarchy:
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-Decline Blacklist^ 
 
- | 
+|
+Decline Blacklist^
 
-The transaction is declined by the Payment Gateway, and the attributes of the cardholder are blacklisted. 
+|
 
- |
-| 
+The transaction is declined by the Payment Gateway, and the attributes of the cardholder are blacklisted.
 
-Void Blacklist 
+|
+|
 
- | 
+Void Blacklist
 
-The transaction is voided by the Payment Gateway, and the attributes of the cardholder are blacklisted. 
+|
 
- |
-| 
+The transaction is voided by the Payment Gateway, and the attributes of the cardholder are blacklisted.
 
-Decline^ 
+|
+|
 
- | 
+Decline^
 
-Transaction is declined. 
+|
 
- |
-| 
+Transaction is declined.
 
-Flag 
+|
+|
 
- | 
+Flag
 
-The transaction is authorized but must be captured manually (even if \`autoCapture\` is enabled). <span class="table-info">\[Find out more\](doc:managing-flagged-transactions)</span> 
+|
 
- |
-| 
+The transaction is authorized but must be captured manually (even if \`autoCapture\` is enabled). <span class="table-info">\[Find out more\](doc:managing-flagged-transactions)</span>
 
-Void Authorise 
+|
+|
 
- | 
+Void Authorise
 
-The transaction is voided by the Payment Gateway. 
+|
 
- |
-| 
+The transaction is voided by the Payment Gateway.
 
-Process 3D^ 
+|
+|
 
- | 
+Process 3D^
 
-3-D Secure authentication is required. 
+|
 
- |
-| 
+3-D Secure authentication is required.
 
-Process^ 
+|
+|
 
- | 
+Process^
 
-The transaction is processed normally. 
+|
 
- |
+The transaction is processed normally.
 
-\*^Not available for AVS.\* ### Example A transaction triggers the Flag action from an AVS rule and a Decline action from a Velocity rule. Because Decline outranks Flag (see table above), the transaction will be Declined. 
+|
 
-Only applicable to US and EU credit cards. AVS rules are only applied to charges that include the cardholder's billing address. 
+\*^Not available for AVS.\* ### Example A transaction triggers the Flag action from an AVS rule and a Decline action from a Velocity rule. Because Decline outranks Flag (see table above), the transaction will be Declined.
 
-AVS is widely used in the US, Canada, and UK to verify the billing address provided by the cardholder with the address on file at the issuing bank. This section of The Hub allows you to trigger a specific action based on each listed AVS response. 
+Only applicable to US and EU credit cards. AVS rules are only applied to charges that include the cardholder's billing address.
 
-*   **Image Sizing:**
-*    Smart Fit
-*    100% Width
-*    80% Width
-*    Original Size
-*   * * *
-    
-*   **Options:**
-*    Image Border
+AVS is widely used in the US, Canada, and UK to verify the billing address provided by the cardholder with the address on file at the issuing bank. This section of The Hub allows you to trigger a specific action based on each listed AVS response.
+
+- **Image Sizing:**
+- Smart Fit
+- 100% Width
+- 80% Width
+- Original Size
+
+---
+
+- **Options:**
+- Image Border
 
 ![](https://files.readme.io/0bb04ac-risk-section-avs-screen.png)
 
@@ -114,61 +108,63 @@ change·remove
 
 Don't have one handy? Use our logo to start!
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-Toggle Switch 
 
- | 
+|
+Toggle Switch
 
-Enables/disables the rule. 
+|
 
- |
-| 
+Enables/disables the rule.
 
-CKO AVS Response 
+|
+|
 
- | 
+CKO AVS Response
 
-Response sent by Checkout.com if a mismatch is found. 
+|
 
- |
-| 
+Response sent by Checkout.com if a mismatch is found.
 
-Description 
+|
+|
 
- | 
+Description
 
-Description of the mismatch. 
+|
 
- |
-| 
+Description of the mismatch.
 
-Action 
+|
+|
 
- | 
+Action
 
-Action to be taken if the transaction meets the rule criteria. 
+|
 
- |
+Action to be taken if the transaction meets the rule criteria.
 
-Clicking on the \*\*Request Approval\*\* button will trigger a confirmation pop-up where you would need to verify your password. 
+|
 
-Once your AVS risk controls have been updated, you would need to submit a request for approval. Changes to these settings will be reviewed and verified by our relationship management team. This process confirms the validity of your updates and helps ensure that your account is protected from potentially fraudulent activities. These settings will become inactive as illustrated in the screenshot below, which means you will be unable to make additional changes to the risk controls until your request has been reviewed. 
+Clicking on the \*\*Request Approval\*\* button will trigger a confirmation pop-up where you would need to verify your password.
 
-*   **Image Sizing:**
-*    Smart Fit
-*    100% Width
-*    80% Width
-*    Original Size
-*   * * *
-    
-*   **Options:**
-*    Image Border
+Once your AVS risk controls have been updated, you would need to submit a request for approval. Changes to these settings will be reviewed and verified by our relationship management team. This process confirms the validity of your updates and helps ensure that your account is protected from potentially fraudulent activities. These settings will become inactive as illustrated in the screenshot below, which means you will be unable to make additional changes to the risk controls until your request has been reviewed.
+
+- **Image Sizing:**
+- Smart Fit
+- 100% Width
+- 80% Width
+- Original Size
+
+---
+
+- **Options:**
+- Image Border
 
 ![](https://files.readme.io/c9ef117-risk-section-avs-pending-request.png)
 
@@ -180,19 +176,20 @@ change·remove
 
 Don't have one handy? Use our logo to start!
 
-The pending approval process applies for each risk section individually. This means you can submit a change for AVS and then proceed to configure the other sections (i.e., Velocity, Mismatch, Threshold, Verified Info). 
+The pending approval process applies for each risk section individually. This means you can submit a change for AVS and then proceed to configure the other sections (i.e., Velocity, Mismatch, Threshold, Verified Info).
 
-The approval process can be bypassed by contacting your relationship manager and asking to be granted full permissions to your risk controls. This will switch the Request Approval / Cancel buttons with a Save button as illustrated in the screenshot below: 
+The approval process can be bypassed by contacting your relationship manager and asking to be granted full permissions to your risk controls. This will switch the Request Approval / Cancel buttons with a Save button as illustrated in the screenshot below:
 
-*   **Image Sizing:**
-*    Smart Fit
-*    100% Width
-*    80% Width
-*    Original Size
-*   * * *
-    
-*   **Options:**
-*    Image Border
+- **Image Sizing:**
+- Smart Fit
+- 100% Width
+- 80% Width
+- Original Size
+
+---
+
+- **Options:**
+- Image Border
 
 ![](https://files.readme.io/1da97e8-risk-section-mismatch.png)
 
@@ -204,19 +201,20 @@ change·remove
 
 Don't have one handy? Use our logo to start!
 
-If full permissions to the risk controls are enabled for your account, please proceed with caution. Changes to your settings will affect live processing immediately after your updates are saved. 
+If full permissions to the risk controls are enabled for your account, please proceed with caution. Changes to your settings will affect live processing immediately after your updates are saved.
 
-Velocity rules allow you to set actions based on the frequency of transactions with matching attributes over a specific period. The page is organized by attribute and includes sections for Card Rules, Email Rules, IP Rules, Bin Rules, Shipping Address Rules, Billing Address Rules, Card Holder Rules, and User Defined Rules. Rules can be established for a range of frequencies, including daily, weekly and monthly. 
+Velocity rules allow you to set actions based on the frequency of transactions with matching attributes over a specific period. The page is organized by attribute and includes sections for Card Rules, Email Rules, IP Rules, Bin Rules, Shipping Address Rules, Billing Address Rules, Card Holder Rules, and User Defined Rules. Rules can be established for a range of frequencies, including daily, weekly and monthly.
 
-*   **Image Sizing:**
-*    Smart Fit
-*    100% Width
-*    80% Width
-*    Original Size
-*   * * *
-    
-*   **Options:**
-*    Image Border
+- **Image Sizing:**
+- Smart Fit
+- 100% Width
+- 80% Width
+- Original Size
+
+---
+
+- **Options:**
+- Image Border
 
 ![](https://files.readme.io/417e4a6-risk-section-velocity-v2.png)
 
@@ -228,86 +226,88 @@ change·remove
 
 Don't have one handy? Use our logo to start!
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-Toggle Switch 
 
- | 
+|
+Toggle Switch
 
-Enables and disables the rule. 
+|
 
- |
-| 
+Enables and disables the rule.
 
-Reason Code 
+|
+|
 
- | 
+Reason Code
 
-If the rule is enabled and triggered, the reason code will appear in the charge response as the \`responseMessage\`. 
+|
 
- |
-| 
+If the rule is enabled and triggered, the reason code will appear in the charge response as the \`responseMessage\`.
 
-Description 
+|
+|
 
- | 
+Description
 
-Description of the rule. 
+|
 
- |
-| 
+Description of the rule.
 
-Frequency 
+|
+|
 
- | 
+Frequency
 
-The time period after which the Trigger Count is reset. 
+|
 
- |
-| 
+The time period after which the Trigger Count is reset.
 
-Trigger Count 
+|
+|
 
- | 
+Trigger Count
 
-Specifies the threshold after which the action is triggered. 
+|
 
- |
-| 
+Specifies the threshold after which the action is triggered.
 
-Transaction Type 
+|
+|
 
- | 
+Transaction Type
 
-The status of the transaction. 
+|
 
- |
-| 
+The status of the transaction.
 
-Action 
+|
+|
 
- | 
+Action
 
-Action to be taken if the transaction meets the rule criteria. 
+|
 
- |
+Action to be taken if the transaction meets the rule criteria.
 
-### Example You establish the following Velocity rule: 
+|
 
-*   **Image Sizing:**
-*    Smart Fit
-*    100% Width
-*    80% Width
-*    Original Size
-*   * * *
-    
-*   **Options:**
-*    Image Border
+### Example You establish the following Velocity rule:
+
+- **Image Sizing:**
+- Smart Fit
+- 100% Width
+- 80% Width
+- Original Size
+
+---
+
+- **Options:**
+- Image Border
 
 ![](https://files.readme.io/229bfb0-risk-section-velocity-example.png)
 
@@ -319,19 +319,20 @@ change·remove
 
 Don't have one handy? Use our logo to start!
 
-A customer makes three separate purchases (transactions) on your website in a single day using the same credit card. These three transactions are all processed and approved normally. Later that same day, he initiates his 4th purchase (transaction) using the same credit card. Because the Trigger Count has been set to 3, the rule displayed above will be triggered by the 4th transaction, and the customer will be prompted to complete payment using 3D Secure. 
+A customer makes three separate purchases (transactions) on your website in a single day using the same credit card. These three transactions are all processed and approved normally. Later that same day, he initiates his 4th purchase (transaction) using the same credit card. Because the Trigger Count has been set to 3, the rule displayed above will be triggered by the 4th transaction, and the customer will be prompted to complete payment using 3D Secure.
 
-Mismatch rules can be configured to trigger when the details of a transaction do not correspond with one another (e.g. difference in geo-location between the BIN country and the IP address of the cardholder). 
+Mismatch rules can be configured to trigger when the details of a transaction do not correspond with one another (e.g. difference in geo-location between the BIN country and the IP address of the cardholder).
 
-*   **Image Sizing:**
-*    Smart Fit
-*    100% Width
-*    80% Width
-*    Original Size
-*   * * *
-    
-*   **Options:**
-*    Image Border
+- **Image Sizing:**
+- Smart Fit
+- 100% Width
+- 80% Width
+- Original Size
+
+---
+
+- **Options:**
+- Image Border
 
 ![](https://files.readme.io/af39843-risk-section-mismatch.png)
 
@@ -343,59 +344,61 @@ change·remove
 
 Don't have one handy? Use our logo to start!
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-Toggle Switch 
 
- | 
+|
+Toggle Switch
 
-Enables and disables the rule. 
+|
 
- |
-| 
+Enables and disables the rule.
 
-Reason Code 
+|
+|
 
- | 
+Reason Code
 
-If the rule is enabled and triggered, the reason code will appear in the charge response as the \`responseMessage\`. 
+|
 
- |
-| 
+If the rule is enabled and triggered, the reason code will appear in the charge response as the \`responseMessage\`.
 
-Description 
+|
+|
 
- | 
+Description
 
-Description of the rule. 
+|
 
- |
-| 
+Description of the rule.
 
-Action 
+|
+|
 
- | 
+Action
 
-Action to be taken if the transaction meets the rule criteria. 
+|
 
- |
+Action to be taken if the transaction meets the rule criteria.
 
-Threshold amounts can be set to trigger a defined action based on the value and currency of a transaction. These rules typically allow merchants to manage their exposure to fraud from high-value orders. If the rule is enabled and triggered, the reason code will appear as the transaction response code. 
+|
 
-*   **Image Sizing:**
-*    Smart Fit
-*    100% Width
-*    80% Width
-*    Original Size
-*   * * *
-    
-*   **Options:**
-*    Image Border
+Threshold amounts can be set to trigger a defined action based on the value and currency of a transaction. These rules typically allow merchants to manage their exposure to fraud from high-value orders. If the rule is enabled and triggered, the reason code will appear as the transaction response code.
+
+- **Image Sizing:**
+- Smart Fit
+- 100% Width
+- 80% Width
+- Original Size
+
+---
+
+- **Options:**
+- Image Border
 
 ![](https://files.readme.io/186a96e-risk-section-threshold.png)
 
@@ -407,61 +410,63 @@ change·remove
 
 Don't have one handy? Use our logo to start!
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-Toggle Switch 
 
- | 
+|
+Toggle Switch
 
-Enables and disables the rule. 
+|
 
- |
-| 
+Enables and disables the rule.
 
-Reason Code 
+|
+|
 
- | 
+Reason Code
 
-If the rule is enabled and triggered, the reason code will appear in the charge response as the \`responseMessage\`. 
+|
 
- |
-| 
+If the rule is enabled and triggered, the reason code will appear in the charge response as the \`responseMessage\`.
 
-Threshold 
+|
+|
 
- | 
+Threshold
 
-Threshold value and currency. 
+|
 
- |
-| 
+Threshold value and currency.
 
-Action 
+|
+|
 
- | 
+Action
 
-Action to be taken if the transaction meets the rule criteria. 
+|
 
- |
+Action to be taken if the transaction meets the rule criteria.
 
-To establish a threshold rule: \* Select a currency and click Apply. \* Enter a threshold value and click Apply. \* Toggle the Status switch to enable the rule and select an action from the drop-down menu. 
+|
 
-Information such as email, billing address, shipping address, etc. can be checked against The Hub’s built-in tools to verify whether the information provided is valid or is fraud-prone, depending on the rules and actions established in this section. 
+To establish a threshold rule: \* Select a currency and click Apply. \* Enter a threshold value and click Apply. \* Toggle the Status switch to enable the rule and select an action from the drop-down menu.
 
-*   **Image Sizing:**
-*    Smart Fit
-*    100% Width
-*    80% Width
-*    Original Size
-*   * * *
-    
-*   **Options:**
-*    Image Border
+Information such as email, billing address, shipping address, etc. can be checked against The Hub’s built-in tools to verify whether the information provided is valid or is fraud-prone, depending on the rules and actions established in this section.
+
+- **Image Sizing:**
+- Smart Fit
+- 100% Width
+- 80% Width
+- Original Size
+
+---
+
+- **Options:**
+- Image Border
 
 ![](https://files.readme.io/9a0f1e8-risk-section-verified-info.png)
 
@@ -473,57 +478,59 @@ change·remove
 
 Don't have one handy? Use our logo to start!
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-Toggle Switch 
 
- | 
+|
+Toggle Switch
 
-Enables/disables the rule. 
+|
 
- |
-| 
+Enables/disables the rule.
 
-Reason Code 
+|
+|
 
- | 
+Reason Code
 
-If the rule is enabled and triggered, the reason code will appear in the charge response as the \`responseMessage\`. 
+|
 
- |
-| 
+If the rule is enabled and triggered, the reason code will appear in the charge response as the \`responseMessage\`.
 
-Description 
+|
+|
 
- | 
+Description
 
-Description of the rule. 
+|
 
- |
-| 
+Description of the rule.
 
-Action 
+|
+|
 
- | 
+Action
 
-Action to be taken if the transaction meets the rule criteria. 
+|
 
- |
+Action to be taken if the transaction meets the rule criteria.
 
-*   **Image Sizing:**
-*    Smart Fit
-*    100% Width
-*    80% Width
-*    Original Size
-*   * * *
-    
-*   **Options:**
-*    Image Border
+|
+
+- **Image Sizing:**
+- Smart Fit
+- 100% Width
+- 80% Width
+- Original Size
+
+---
+
+- **Options:**
+- Image Border
 
 ![](https://files.readme.io/91cab37-high-risk-countries-section.png)
 
@@ -535,6 +542,4 @@ change·remove
 
 Don't have one handy? Use our logo to start!
 
-A list of High-Risk Countries can be configured at the business level. This means that if a merchant account has several businesses associated with it, each business can have a different set of High-Risk Countries. 
-
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).
+A list of High-Risk Countries can be configured at the business level. This means that if a merchant account has several businesses associated with it, each business can have a different set of High-Risk Countries.

@@ -3,21 +3,13 @@ title: requirements-for-financial-institutions
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-Due to requirements implemented by :fa-cc-visa: Visa and :fa-cc-mastercard: Mastercard Europe, any business categorized as a financial institution (MCC 6012) must provide additional information when processing any\*\* domestic UK transaction\*\* (transactions for customers based in the UK) through their account. The scope for these changes varies slightly between Visa and Mastercard: \* \*\*Visa\*\* Applies to all merchants categorized as MCC 6012 on all payments. \* \*\*Mastercard\*\*: Applies only to merchants categorized as MCC 6012 for domestic UK debit card payments being used to pay off a credit- or prepaid card. 
+Due to requirements implemented by :fa-cc-visa: Visa and :fa-cc-mastercard: Mastercard Europe, any business categorized as a financial institution (MCC 6012) must provide additional information when processing any\*\* domestic UK transaction\*\* (transactions for customers based in the UK) through their account. The scope for these changes varies slightly between Visa and Mastercard: \* \*\*Visa\*\* Applies to all merchants categorized as MCC 6012 on all payments. \* \*\*Mastercard\*\*: Applies only to merchants categorized as MCC 6012 for domestic UK debit card payments being used to pay off a credit- or prepaid card.
 
-For \*\*Mastercard payments\*\* or payments involving \*\*a full card number,\*\* merchants categorized as a financial institution must be fully PCI compliant (SAQ D PCI). 
+For \*\*Mastercard payments\*\* or payments involving \*\*a full card number,\*\* merchants categorized as a financial institution must be fully PCI compliant (SAQ D PCI).
 
-\## What is a financial institution? The term financial institution encapsulates businesses that, for example, issue payday loans, handle mortgage repayments, or facilitate the paying off of credit card balances. These are businesses that fall under the Merchant Category Code 6012. If your business falls into this area, you will be \*\*required\*\* to submit additional information with all your UK transactions. ## What do I need to do? If your company is a financial institution, you \*\*must provide further information\*\*, when processing a \*\*domestic UK transaction\*\* with us, about the primary recipient of the funds. Additional fields needed for financial institutions: The primary recipient's... \* Date of Birth \* Account number \* Postcode \* Surname ## Example request 
+\## What is a financial institution? The term financial institution encapsulates businesses that, for example, issue payday loans, handle mortgage repayments, or facilitate the paying off of credit card balances. These are businesses that fall under the Merchant Category Code 6012. If your business falls into this area, you will be \*\*required\*\* to submit additional information with all your UK transactions. ## What do I need to do? If your company is a financial institution, you \*\*must provide further information\*\*, when processing a \*\*domestic UK transaction\*\* with us, about the primary recipient of the funds. Additional fields needed for financial institutions: The primary recipient's... \* Date of Birth \* Account number \* Postcode \* Surname ## Example request
 
 JSON
 
@@ -33,19 +25,19 @@ xxxxxxxxxx
 
 2
 
- "dob" : "19911230",
+"dob" : "19911230",
 
 3
 
- "accountNumber" : "8573498821",
+"accountNumber" : "8573498821",
 
 4
 
- "partialPostcode" : "W1T",
+"partialPostcode" : "W1T",
 
 5
 
- "surname" : "Smith"
+"surname" : "Smith"
 
 6
 
@@ -53,80 +45,79 @@ xxxxxxxxxx
 
 Import from Gist
 
-\## Field parameters 
+\## Field parameters
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |  |  |
+|     |     |     |     |
 | --- | --- | --- | --- |
-| 
-\`accountNumber\` <span class="field-type">String</span> <span class="req-def">Required</span> 
 
- | 
+|
+\`accountNumber\` <span class="field-type">String</span> <span class="req-def">Required</span>
 
-:fa-cc-visa: : If the payment is being made with a VISA card, then provide the first six digits and the last four digits of the primary recipient’s card, without any spaces. Or, the first 10 digits of the primary recipient’s account number. </p> :fa-cc-mastercard: : If the payment is being made with a Mastercard card, then provide the primary recipient's full card number. 
+|
 
- | 
+:fa-cc-visa: : If the payment is being made with a VISA card, then provide the first six digits and the last four digits of the primary recipient’s card, without any spaces. Or, the first 10 digits of the primary recipient’s account number. </p> :fa-cc-mastercard: : If the payment is being made with a Mastercard card, then provide the primary recipient's full card number.
 
-8573498821 
+|
 
- | 
+8573498821
 
-:fa-cc-visa: 10 :fa-cc-mastercard: Full 
+|
 
- |
-| 
+:fa-cc-visa: 10 :fa-cc-mastercard: Full
 
-\`dob\` <span class="field-type">String</span> <span class="req-def">Required</span> 
+|
+|
 
- | 
+\`dob\` <span class="field-type">String</span> <span class="req-def">Required</span>
 
-The date of birth of the primary recipient in the following format: \`yyyymmdd\` 
+|
 
- | 
+The date of birth of the primary recipient in the following format: \`yyyymmdd\`
 
-19911230 
+|
 
- | 
+19911230
 
-8 
+|
 
- |
-| 
+8
 
-\`partialPostcode\` <span class="field-type">String</span> <span class="req-def">Required</span> 
+|
+|
 
- | 
+\`partialPostcode\` <span class="field-type">String</span> <span class="req-def">Required</span>
 
-The first part of the UK postcode. For example, W1T 4TJ would be W1T. 
+|
 
- | 
+The first part of the UK postcode. For example, W1T 4TJ would be W1T.
 
-W1T 
+|
 
- | 
+W1T
 
-6 
+|
 
- |
-| 
+6
 
-\`surname\` <span class="field-type">String</span> <span class="req-def">Required</span> 
+|
+|
 
- | 
+\`surname\` <span class="field-type">String</span> <span class="req-def">Required</span>
 
-The first six characters of the primary recipient’s surname. Only alphabetic characters are allowed. 
+|
 
- | 
+The first six characters of the primary recipient’s surname. Only alphabetic characters are allowed.
 
-Smith 
+|
 
- | 
+Smith
 
-6 
+|
 
- |
+6
 
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).
+|

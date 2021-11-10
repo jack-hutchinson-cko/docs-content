@@ -3,71 +3,65 @@ title: get-card
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-View the card details associated with a customer with our get card API endpoint. 
+View the card details associated with a customer with our get card API endpoint.
 
-\## The request View a customer's card by sending a \*\*GET\*\* API request to the URI below. In the URI, replace \*\*{customerId}\*\* with the customer's ID, and \*\*{cardId}\*\* with the ID of the card you wish to update. Remember to add the prefix \`cust\_\` to your customer ID and \`card\_\` to the card ID. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/{customerId}/cards/{cardId}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/customers/{customerId}/cards/{cardId}</p></pre> ### Header and path parameters 
+\## The request View a customer's card by sending a \*\*GET\*\* API request to the URI below. In the URI, replace \*\*{customerId}\*\* with the customer's ID, and \*\*{cardId}\*\* with the ID of the card you wish to update. Remember to add the prefix \`cust\_\` to your customer ID and \`card\_\` to the card ID. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/{customerId}/cards/{cardId}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/customers/{customerId}/cards/{cardId}</p></pre> ### Header and path parameters
 
- x     
-
-Add Row Add Col
-
-|  |  |
-| --- | --- |
-| 
-\`Authorization\` <span class="req-def">Required</span> 
-
- | 
-
-\`secret key\`\* 
-
- |
-| 
-
-\`Content-Type\` <span class="req-def">Required</span> 
-
- | 
-
-\`application/json\` 
-
- |
-
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`customerId\` <span class="req-def">Required</span> 
 
- | 
+|
+\`Authorization\` <span class="req-def">Required</span>
 
-The customer's ID (prefixed with \`cust\_\`). 
+|
 
- |
-| 
+\`secret key\`\*
 
-\`cardId\` <span class="req-def">Required</span> 
+|
+|
 
- | 
+\`Content-Type\` <span class="req-def">Required</span>
 
-Card ID (prefixed with \`card\_\`) used to uniquely identify a card with respect to an associated customer. 
+|
 
- |
+\`application/json\`
 
-\### Request example 
+|
+
+\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
+
+x
+
+Add Row Add Col
+
+|     |     |
+| --- | --- |
+
+|
+\`customerId\` <span class="req-def">Required</span>
+
+|
+
+The customer's ID (prefixed with \`cust\_\`).
+
+|
+|
+
+\`cardId\` <span class="req-def">Required</span>
+
+|
+
+Card ID (prefixed with \`card\_\`) used to uniquely identify a card with respect to an associated customer.
+
+|
+
+\### Request example
 
 Shell Java
 
@@ -79,15 +73,15 @@ xxxxxxxxxx
 
 1
 
- curl https://api2.checkout.com/v2/customers/cust\_9E07EFB6-32E0-4D6C-B5AD-6EE403BA3F97/cards/card\_49E69E61-8E35-40E0-AA10-B0B15F198275
+curl https://api2.checkout.com/v2/customers/cust\_9E07EFB6-32E0-4D6C-B5AD-6EE403BA3F97/cards/card\_49E69E61-8E35-40E0-AA10-B0B15F198275
 
 2
 
- \-H "Authorization: sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31" 
+\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
 3
 
- \-X GET
+\-X GET
 
 Import from Gist
 
@@ -101,11 +95,11 @@ xxxxxxxxxx
 
 2
 
- String customerId\="cust\_9E07EFB6-32E0-4D6C-B5AD-6EE403BA3F97";
+String customerId\="cust_9E07EFB6-32E0-4D6C-B5AD-6EE403BA3F97";
 
 3
 
- String cardId \= "card\_49E69E61-8E35-40E0-AA10-B0B15F198275";
+String cardId \= "card_49E69E61-8E35-40E0-AA10-B0B15F198275";
 
 4
 
@@ -113,23 +107,23 @@ xxxxxxxxxx
 
 5
 
- try {
+try {
 
 6
 
- // Create APIClient instance with your secret key
+// Create APIClient instance with your secret key
 
 7
 
- APIClient ckoAPIClient\= new APIClient("sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 8
 
- // Submit your request and receive an apiResponse
+// Submit your request and receive an apiResponse
 
 9
 
- Response<Card\> apiResponse \= ckoAPIClient.cardService.getCard(customerId, cardId);
+Response<Card\> apiResponse \= ckoAPIClient.cardService.getCard(customerId, cardId);
 
 10
 
@@ -137,39 +131,39 @@ xxxxxxxxxx
 
 11
 
- if(!apiResponse.hasError){
+if(!apiResponse.hasError){
 
 12
 
- // Access the response object retrieved from the api
+// Access the response object retrieved from the api
 
 13
 
- Card card \= apiResponse.model;
+Card card \= apiResponse.model;
 
 14
 
- } else {
+} else {
 
 15
 
- // Api has returned an error object. You can access the details in the error property of the apiResponse.
+// Api has returned an error object. You can access the details in the error property of the apiResponse.
 
 16
 
- // apiResponse.error
+// apiResponse.error
 
 17
 
- }
+}
 
 18
 
- } catch (Exception e) {}
+} catch (Exception e) {}
 
 Import from Gist
 
-\--- ## The response If a card response object returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. ### Response example Take a look at the example response below. 
+\--- ## The response If a card response object returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. ### Response example Take a look at the example response below.
 
 rename · delete
 
@@ -185,92 +179,90 @@ xxxxxxxxxx
 
 2
 
- "customerId": "cust\_9E07EFB6-32E0-4D6C-B5AD-6EE403BA3F97",
+"customerId": "cust_9E07EFB6-32E0-4D6C-B5AD-6EE403BA3F97",
 
 3
 
- "expiryMonth": "06",
+"expiryMonth": "06",
 
 4
 
- "expiryYear": "2018",
+"expiryYear": "2018",
 
 5
 
- "billingDetails": {
+"billingDetails": {
 
 6
 
- "addressLine1": "27 Acacia Tree Street",
+"addressLine1": "27 Acacia Tree Street",
 
 7
 
- "addressLine2": "Apartment 15",
+"addressLine2": "Apartment 15",
 
 8
 
- "postcode": "01072",
+"postcode": "01072",
 
 9
 
- "country": "US",
+"country": "US",
 
 10
 
- "city": "Shutesbury",
+"city": "Shutesbury",
 
 11
 
- "state": "Massachusetts",
+"state": "Massachusetts",
 
 12
 
- "phone": {
+"phone": {
 
 13
 
- "countryCode": "1",
+"countryCode": "1",
 
 14
 
- "number": "111 222-333"
+"number": "111 222-333"
 
 15
 
- }
+}
 
 16
 
- },
+},
 
 17
 
- "id": "card\_49E69E61-8E35-40E0-AA10-B0B15F198275",
+"id": "card_49E69E61-8E35-40E0-AA10-B0B15F198275",
 
 18
 
- "last4": "4242",
+"last4": "4242",
 
 19
 
- "bin": "424242",
+"bin": "424242",
 
 20
 
- "paymentMethod": "Visa",
+"paymentMethod": "Visa",
 
 21
 
- "fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
+"fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
 
 22
 
- "name": "Miss Matt Quigley"
+"name": "Miss Matt Quigley"
 
 23
 
 }
 
 Import from Gist
-
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

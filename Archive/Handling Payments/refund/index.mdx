@@ -3,66 +3,60 @@ title: refund
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-\*Use a refund to return a payment to a customer; either partially or in full.\* There are two types of refunds you might need to process: \* \*\*Full refund\*\* A full refund returns the total amount of the transaction to the customer — it can only be performed once. \* \*\*Partial refund\*\* A partial refund returns a sum less than the captured amount. A payment can be refunded multiple times, but cannot exceed the original payment amount. 
+\*Use a refund to return a payment to a customer; either partially or in full.\* There are two types of refunds you might need to process: \* \*\*Full refund\*\* A full refund returns the total amount of the transaction to the customer — it can only be performed once. \* \*\*Partial refund\*\* A partial refund returns a sum less than the captured amount. A payment can be refunded multiple times, but cannot exceed the original payment amount.
 
-Refunds can be made in \[The Hub\](https://hub.checkout.com/) or by using this \[API endpoint :fa-code:\](doc:refund#section-the-request). Once processed, it is \*\*not possible\*\* to cancel a refund. To process a refund successfully, the merchant must send the payment ID of the captured transaction in the API. You can find the transaction' ID: \* In the response to the Payment request \* By querying the payment history \* From the Webhook notification For both full and partial refunds, the requests are the same. Any refunds for less than the original captured amount will be considered partial refunds. 
+Refunds can be made in \[The Hub\](https://hub.checkout.com/) or by using this \[API endpoint :fa-code:\](doc:refund#section-the-request). Once processed, it is \*\*not possible\*\* to cancel a refund. To process a refund successfully, the merchant must send the payment ID of the captured transaction in the API. You can find the transaction' ID: \* In the response to the Payment request \* By querying the payment history \* From the Webhook notification For both full and partial refunds, the requests are the same. Any refunds for less than the original captured amount will be considered partial refunds.
 
-For payments with an automatic capture, the payment response will contain the ID of the authorization. This ID cannot be used for refunds. 
+For payments with an automatic capture, the payment response will contain the ID of the authorization. This ID cannot be used for refunds.
 
-\## The request Refund requests are created using a POST request. Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/charges/{chargeId}/refund</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/charges/{chargeId}/refund</p></pre> ### Header and path parameters 
+\## The request Refund requests are created using a POST request. Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/charges/{chargeId}/refund</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/charges/{chargeId}/refund</p></pre> ### Header and path parameters
 
- x     
-
-Add Row Add Col
-
-|  |  |
-| --- | --- |
-| 
-\`Authorization\` <span class="req-def">Required</span> 
-
- | 
-
-\`secret key\`\* 
-
- |
-| 
-
-\`Content-Type\` <span class="req-def">Required</span> 
-
- | 
-
-\`application/json\` 
-
- |
-
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`chargeId\` <span class="req-def">Required</span> 
 
- | 
+|
+\`Authorization\` <span class="req-def">Required</span>
 
-The charge ID, embedded within the URI, prefixed with \`charge\_\` or \`charge\_test\_\`. 
+|
 
- |
+\`secret key\`\*
 
-\### Request example 
+|
+|
+
+\`Content-Type\` <span class="req-def">Required</span>
+
+|
+
+\`application/json\`
+
+|
+
+\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
+
+x
+
+Add Row Add Col
+
+|     |     |
+| --- | --- |
+
+|
+\`chargeId\` <span class="req-def">Required</span>
+
+|
+
+The charge ID, embedded within the URI, prefixed with \`charge\_\` or \`charge_test\_\`.
+
+|
+
+\### Request example
 
 Shell Java
 
@@ -80,103 +74,103 @@ curl https://api2.checkout.com/v2/charges/charge\_F2B8BA4C175P76BD3E07/refund
 
 2
 
- \-H "Authorization: sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
 3
 
- \-H "Content-Type:application/json;charset=UTF-8"
+\-H "Content-Type:application/json;charset=UTF-8"
 
 4
 
- \-X POST
+\-X POST
 
 5
 
- \-d '{
+\-d '{
 
 6
 
- "value": "2000",
+"value": "2000",
 
 7
 
- "trackId": "TRK12345",
+"trackId": "TRK12345",
 
 8
 
- "description": "The T-Shirt Store",
+"description": "The T-Shirt Store",
 
 9
 
- "products": \[
+"products": \[
 
 10
 
- {
+{
 
 11
 
- "description": "T-Shirt ladies medium",
+"description": "T-Shirt ladies medium",
 
 12
 
- "image": null,
+"image": null,
 
 13
 
- "name": "T-Shirt ladies",
+"name": "T-Shirt ladies",
 
 14
 
- "price": 2000,
+"price": 2000,
 
 15
 
- "quantity": 1,
+"quantity": 1,
 
 16
 
- "shippingCost": 0,
+"shippingCost": 0,
 
 17
 
- "sku": "tee123",
+"sku": "tee123",
 
 18
 
- "trackingUrl": "https://www.example.com"
+"trackingUrl": "https://www.example.com"
 
 19
 
- }
+}
 
 20
 
- \],
+\],
 
 21
 
- "udf1": "null",
+"udf1": "null",
 
 22
 
- "udf2": "null",
+"udf2": "null",
 
 23
 
- "udf3": "null",
+"udf3": "null",
 
 24
 
- "udf4": "null",
+"udf4": "null",
 
 25
 
- "udf5": "null"
+"udf5": "null"
 
 26
 
- }'
+}'
 
 Import from Gist
 
@@ -190,7 +184,7 @@ xxxxxxxxxx
 
 2
 
-String chargeId \= "charge\_F2B8BA4C175P76BD3E07";
+String chargeId \= "charge_F2B8BA4C175P76BD3E07";
 
 3
 
@@ -210,7 +204,7 @@ refundPayload.trackId \= "TRK12345";
 
 7
 
-refundPayload.description \=  "Sample product";
+refundPayload.description \= "Sample product";
 
 8
 
@@ -274,23 +268,23 @@ refundPayload.products.add(product1);
 
 23
 
- try {
+try {
 
 24
 
- // Create APIClient instance with your secret key
+// Create APIClient instance with your secret key
 
 25
 
- APIClient ckoAPIClient\= new APIClient("sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 26
 
- // Submit your request and receive an apiResponse
+// Submit your request and receive an apiResponse
 
 27
 
- Response<Refund\> apiResponse \= ckoAPIClient.chargeService.refundRequest(chargeId,refundPayload);
+Response<Refund\> apiResponse \= ckoAPIClient.chargeService.refundRequest(chargeId,refundPayload);
 
 28
 
@@ -298,31 +292,31 @@ refundPayload.products.add(product1);
 
 29
 
- if(!apiResponse.hasError){
+if(!apiResponse.hasError){
 
 30
 
- // Access the response object retrieved from the api
+// Access the response object retrieved from the api
 
 31
 
- Refund refund \= apiResponse.model;
+Refund refund \= apiResponse.model;
 
 32
 
- } else {
+} else {
 
 33
 
- // Api has returned an error object. You can access the details in the error property of the apiResponse.
+// Api has returned an error object. You can access the details in the error property of the apiResponse.
 
 34
 
- // apiResponse.error
+// apiResponse.error
 
 35
 
- }
+}
 
 36
 
@@ -330,69 +324,70 @@ refundPayload.products.add(product1);
 
 Import from Gist
 
-\### Additional parameters 
+\### Additional parameters
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`description\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
 
- | 
+|
+\`description\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
-A description of the refund. 
+|
 
- |
-| 
+A description of the refund.
 
-\`metadata\` <span class="field-type">Hash</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`metadata\` <span class="field-type">Hash</span> <span class="optional-def">Optional</span>
 
-A hash of \`FieldName\` and value pairs e.g. \`{'keys1': 'Value1'}\`. <span class="table-info">Maximum length of key(s) and value(s) is 100 each. A max. of 10 KVP are allowed.</span> 
+|
 
- |
-| 
+A hash of \`FieldName\` and value pairs e.g. \`{'keys1': 'Value1'}\`. <span class="table-info">Maximum length of key(s) and value(s) is 100 each. A max. of 10 KVP are allowed.</span>
 
-\`products\` <span class="field-type">Array</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`products\` <span class="field-type">Array</span> <span class="optional-def">Optional</span>
 
-An array of product information. <span class="table-info">\[Find out more\](doc:products-array)</span> 
+|
 
- |
-| 
+An array of product information. <span class="table-info">\[Find out more\](doc:products-array)</span>
 
-\`trackId\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`trackId\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
-An order tracking ID generated by the merchant. <span class="table-info">Maximum length: 50 characters.</span> 
+|
 
- |
-| 
+An order tracking ID generated by the merchant. <span class="table-info">Maximum length: 50 characters.</span>
 
-\`udf1\` to \`udf5\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`udf1\` to \`udf5\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
-User-defined fields 1 to 5, max. <span class="table-info">Maximum length: 100 characters.</span> 
+|
 
- |
-| 
+User-defined fields 1 to 5, max. <span class="table-info">Maximum length: 100 characters.</span>
 
-\`value\` <span class="field-type">Integer</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`value\` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
 
-Positive integer (without decimal separator) representing the refund amount. <span class="table-info">Cannot be greater than the original capture amount. Multiple refunds up to the original capture amount are allowed. Defaults to the captured amount if not specified.</span> 
+|
 
- |
+Positive integer (without decimal separator) representing the refund amount. <span class="table-info">Cannot be greater than the original capture amount. Multiple refunds up to the original capture amount are allowed. Defaults to the captured amount if not specified.</span>
 
-\## The response A successful refund will return a \[refund charge response object\](doc:refund#section-response-example). If you received that, nice one! If something went wrong, don't despair! Read our \[troubleshooting\](doc:refund#section-troubleshooting) section. ### Response example 
+|
+
+\## The response A successful refund will return a \[refund charge response object\](doc:refund#section-response-example). If you received that, nice one! If something went wrong, don't despair! Read our \[troubleshooting\](doc:refund#section-troubleshooting) section. ### Response example
 
 rename · delete
 
@@ -408,139 +403,139 @@ xxxxxxxxxx
 
 2
 
- "id": "charge\_test\_8C5A496E242M73BD0AE1",
+"id": "charge_test_8C5A496E242M73BD0AE1",
 
 3
 
- "originalId": "charge\_test\_8F3A796E242G73BD0AC3",
+"originalId": "charge_test_8F3A796E242G73BD0AC3",
 
 4
 
- "liveMode": false,
+"liveMode": false,
 
 5
 
- "created": "2018-03-22T18:03:13Z",
+"created": "2018-03-22T18:03:13Z",
 
 6
 
- "value": 2000,
+"value": 2000,
 
 7
 
- "currency": "USD",
+"currency": "USD",
 
 8
 
- "trackId": "TRK12345",
+"trackId": "TRK12345",
 
 9
 
- "description": "The T-Shirt Store",
+"description": "The T-Shirt Store",
 
 10
 
- "chargeMode": 1,
+"chargeMode": 1,
 
 11
 
- "responseMessage": "Approved",
+"responseMessage": "Approved",
 
 12
 
- "responseAdvancedInfo": "Approved",
+"responseAdvancedInfo": "Approved",
 
 13
 
- "responseCode": "10000",
+"responseCode": "10000",
 
 14
 
- "status": "Refunded",
+"status": "Refunded",
 
 15
 
- "hasChargeback": "N",
+"hasChargeback": "N",
 
 16
 
- "metadata": {
+"metadata": {
 
 17
 
- "product": "T-Shirt"
+"product": "T-Shirt"
 
 18
 
- },
+},
 
 19
 
- "products": \[
+"products": \[
 
 20
 
- {
+{
 
 21
 
- "name": "T-Shirt ladies",
+"name": "T-Shirt ladies",
 
 22
 
- "description": "T-Shirt ladies medium",
+"description": "T-Shirt ladies medium",
 
 23
 
- "sku": "tee123",
+"sku": "tee123",
 
 24
 
- "price": 2000,
+"price": 2000,
 
 25
 
- "quantity": 1,
+"quantity": 1,
 
 26
 
- "image": null,
+"image": null,
 
 27
 
- "shippingCost": 0,
+"shippingCost": 0,
 
 28
 
- "trackingUrl": "https://www.example.com"
+"trackingUrl": "https://www.example.com"
 
 29
 
- }
+}
 
 30
 
- \],
+\],
 
 31
 
- "udf1": "null",
+"udf1": "null",
 
 32
 
- "udf2": "null",
+"udf2": "null",
 
 33
 
- "udf3": "null",
+"udf3": "null",
 
 34
 
- "udf4": "null",
+"udf4": "null",
 
 35
 
- "udf5": "null"
+"udf5": "null"
 
 36
 
@@ -548,6 +543,4 @@ xxxxxxxxxx
 
 Import from Gist
 
-\### Troubleshooting Let's take a look at what might have happened — this checklist might help to identify the problem: \* Is the refund amount higher than the original payment? \* Has the payment already been refunded? \* Did you send the Auth ID instead of the Payment ID? Still having problems? Contact our \[support team\](mailto:support@checkout.com) for help. 
-
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).
+\### Troubleshooting Let's take a look at what might have happened — this checklist might help to identify the problem: \* Is the refund amount higher than the original payment? \* Has the payment already been refunded? \* Did you send the Auth ID instead of the Payment ID? Still having problems? Contact our \[support team\](mailto:support@checkout.com) for help.

@@ -3,62 +3,56 @@ title: refund-a-paypal-payment
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-Please refer to our \[Refund a payment\](doc:refund) for more information on how to refund a payment. 
+Please refer to our \[Refund a payment\](doc:refund) for more information on how to refund a payment.
 
-Refunds can be made using this API endpoint. Once processed, it is \*\*not possible\*\* to cancel a refund. ## The request Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/charges/{chargeId}/refund</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/charges/{chargeId}/refund</p></pre> ### Header and path parameters 
+Refunds can be made using this API endpoint. Once processed, it is \*\*not possible\*\* to cancel a refund. ## The request Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/charges/{chargeId}/refund</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/charges/{chargeId}/refund</p></pre> ### Header and path parameters
 
- x     
-
-Add Row Add Col
-
-|  |  |
-| --- | --- |
-| 
-\`Authorization\` <span class="req-def">Required</span> 
-
- | 
-
-\`secret key\`\* 
-
- |
-| 
-
-\`Content-Type\` <span class="req-def">Required</span> 
-
- | 
-
-\`application/json\` 
-
- |
-
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`chargeId\` <span class="req-def">Required</span> 
 
- | 
+|
+\`Authorization\` <span class="req-def">Required</span>
 
-The charge ID, embedded within the URI, prefixed with \`charge\_\` or \`charge\_test\_\`. 
+|
 
- |
+\`secret key\`\*
 
-\### Request example 
+|
+|
+
+\`Content-Type\` <span class="req-def">Required</span>
+
+|
+
+\`application/json\`
+
+|
+
+\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
+
+x
+
+Add Row Add Col
+
+|     |     |
+| --- | --- |
+
+|
+\`chargeId\` <span class="req-def">Required</span>
+
+|
+
+The charge ID, embedded within the URI, prefixed with \`charge\_\` or \`charge_test\_\`.
+
+|
+
+\### Request example
 
 Shell Java
 
@@ -74,15 +68,15 @@ curl https://api2.checkout.com/v2/charges/charge\_30FDCABC175J76BD3E18/refund
 
 2
 
- \-H "Authorization: sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
 3
 
- \-H "Content-Type:application/json;charset=UTF-8"
+\-H "Content-Type:application/json;charset=UTF-8"
 
 4
 
- \-X POST
+\-X POST
 
 Import from Gist
 
@@ -96,7 +90,7 @@ xxxxxxxxxx
 
 2
 
-String chargeId \= "charge\_F2B8BA4C175P76BD3E07";
+String chargeId \= "charge_F2B8BA4C175P76BD3E07";
 
 3
 
@@ -116,7 +110,7 @@ refundPayload.trackId \= "TRK12345";
 
 7
 
-refundPayload.description \=  "Sample product";
+refundPayload.description \= "Sample product";
 
 8
 
@@ -180,23 +174,23 @@ refundPayload.products.add(product1);
 
 23
 
- try {
+try {
 
 24
 
- // Create APIClient instance with your secret key
+// Create APIClient instance with your secret key
 
 25
 
- APIClient ckoAPIClient\= new APIClient("sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 26
 
- // Submit your request and receive an apiResponse
+// Submit your request and receive an apiResponse
 
 27
 
- Response<Refund\> apiResponse \= ckoAPIClient.chargeService.refundRequest(chargeId,refundPayload);
+Response<Refund\> apiResponse \= ckoAPIClient.chargeService.refundRequest(chargeId,refundPayload);
 
 28
 
@@ -204,31 +198,31 @@ refundPayload.products.add(product1);
 
 29
 
- if(!apiResponse.hasError){
+if(!apiResponse.hasError){
 
 30
 
- // Access the response object retrieved from the api
+// Access the response object retrieved from the api
 
 31
 
- Refund refund \= apiResponse.model;
+Refund refund \= apiResponse.model;
 
 32
 
- } else {
+} else {
 
 33
 
- // Api has returned an error object. You can access the details in the error property of the apiResponse.
+// Api has returned an error object. You can access the details in the error property of the apiResponse.
 
 34
 
- // apiResponse.error
+// apiResponse.error
 
 35
 
- }
+}
 
 36
 
@@ -236,69 +230,70 @@ refundPayload.products.add(product1);
 
 Import from Gist
 
-\### Additional parameters 
+\### Additional parameters
 
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`description\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
 
- | 
+|
+\`description\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
-A description of the charge capture. 
+|
 
- |
-| 
+A description of the charge capture.
 
-\`metadata\` <span class="field-type">Hash</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`metadata\` <span class="field-type">Hash</span> <span class="optional-def">Optional</span>
 
-A hash of \`FieldName\` and value pairs e.g. \`{'keys1': 'Value1'}\`. <span class="table-info">Maximum length of key(s) and value(s) is 100 each. A max. of 10 KVP are allowed.</span> 
+|
 
- |
-| 
+A hash of \`FieldName\` and value pairs e.g. \`{'keys1': 'Value1'}\`. <span class="table-info">Maximum length of key(s) and value(s) is 100 each. A max. of 10 KVP are allowed.</span>
 
-\`products\` <span class="field-type">Array</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`products\` <span class="field-type">Array</span> <span class="optional-def">Optional</span>
 
-An array of Product information. <span class="table-info">\[Find out more\](doc:products-array)</span> 
+|
 
- |
-| 
+An array of Product information. <span class="table-info">\[Find out more\](doc:products-array)</span>
 
-\`trackId\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`trackId\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
-An order tracking ID generated by the merchant. <span class="table-info">Maximum length: 50 characters.</span> 
+|
 
- |
-| 
+An order tracking ID generated by the merchant. <span class="table-info">Maximum length: 50 characters.</span>
 
-\`udf1\` to \`udf5\` <span class="field-type">String</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`udf1\` to \`udf5\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
-User-defined fields 1 to 5. <span class="table-info">Maximum length: 100 characters.</span> 
+|
 
- |
-| 
+User-defined fields 1 to 5. <span class="table-info">Maximum length: 100 characters.</span>
 
-\`value\` <span class="field-type">Integer</span> <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`value\` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
 
-Positive integer (without decimal separator) representing the capture amount. <span class="table-info">Cannot exceed the authorized charge amount. Partial captures (amounts less than the authorized amount) are permitted. Only one partial capture is allowed per authorized charge. If not specified, the default is the authorization charge amount.</span> 
+|
 
- |
+Positive integer (without decimal separator) representing the capture amount. <span class="table-info">Cannot exceed the authorized charge amount. Partial captures (amounts less than the authorized amount) are permitted. Only one partial capture is allowed per authorized charge. If not specified, the default is the authorization charge amount.</span>
 
-\## The response A successful refund will return a refund charge response object. ### Response example 
+|
+
+\## The response A successful refund will return a refund charge response object. ### Response example
 
 rename · delete
 
@@ -314,136 +309,134 @@ xxxxxxxxxx
 
 2
 
- "id": "charge\_8108BA4C175O76BD3E06",
+"id": "charge_8108BA4C175O76BD3E06",
 
 3
 
- "originalId": "charge\_30FDCABC175J76BD3E18",
+"originalId": "charge_30FDCABC175J76BD3E18",
 
 4
 
- "liveMode": true,
+"liveMode": true,
 
 5
 
- "created": "2015-04-07T17:55:07Z",
+"created": "2015-04-07T17:55:07Z",
 
 6
 
- "value": 100,
+"value": 100,
 
 7
 
- "currency": "USD",
+"currency": "USD",
 
 8
 
- "trackId": "TRK12345",
+"trackId": "TRK12345",
 
 9
 
- "description": "Sample product",
+"description": "Sample product",
 
 10
 
- "responseMessage": "Approved",
+"responseMessage": "Approved",
 
 11
 
- "responseAdvancedInfo": "Approved",
+"responseAdvancedInfo": "Approved",
 
 12
 
- "responseCode": "10000",
+"responseCode": "10000",
 
 13
 
- "status": "Refunded",
+"status": "Refunded",
 
 14
 
- "metadata": {
+"metadata": {
 
 15
 
- "testKey": "value"
+"testKey": "value"
 
 16
 
- },
+},
 
 17
 
- "products": \[
+"products": \[
 
 18
 
- {
+{
 
 19
 
- "name": "T-Shirt Ladies",
+"name": "T-Shirt Ladies",
 
 20
 
- "description": "T-Shirt Ladies Medium",
+"description": "T-Shirt Ladies Medium",
 
 21
 
- "sku": "tee123",
+"sku": "tee123",
 
 22
 
- "price": 2000,
+"price": 2000,
 
 23
 
- "quantity": 1,
+"quantity": 1,
 
 24
 
- "image": null,
+"image": null,
 
 25
 
- "shippingCost": 0,
+"shippingCost": 0,
 
 26
 
- "trackingUrl": "https://www.example.com"
+"trackingUrl": "https://www.example.com"
 
 27
 
- }
+}
 
 28
 
- \],
+\],
 
 29
 
- "udf1": null,
+"udf1": null,
 
 30
 
- "udf2": null,
+"udf2": null,
 
 31
 
- "udf3": null,
+"udf3": null,
 
 32
 
- "udf4": null,
+"udf4": null,
 
 33
 
- "udf5": null
+"udf5": null
 
 34
 
 }
 
 Import from Gist
-
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

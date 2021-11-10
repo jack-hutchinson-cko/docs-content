@@ -3,62 +3,56 @@ title: get-card-list
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-View a list of cards associated with a particular customer with our \*\*get card list\*\* API endpoint. 
+View a list of cards associated with a particular customer with our \*\*get card list\*\* API endpoint.
 
-\## The request View a customer's cards by sending a \*\*GET\*\* API request to the URI below. In the URI, replace \*\*{customerId}\*\* with the customer's ID; remember to use the prefix \`cust\_\` to your customer ID. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/{customerId}/cards</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/customers/{customerId}/cards</p></pre> ### Header and path parameters 
+\## The request View a customer's cards by sending a \*\*GET\*\* API request to the URI below. In the URI, replace \*\*{customerId}\*\* with the customer's ID; remember to use the prefix \`cust\_\` to your customer ID. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/{customerId}/cards</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/customers/{customerId}/cards</p></pre> ### Header and path parameters
 
- x     
-
-Add Row Add Col
-
-|  |  |
-| --- | --- |
-| 
-\`Authorization\` <span class="req-def">Required</span> 
-
- | 
-
-\`secret key\`\* 
-
- |
-| 
-
-\`Content-Type\` <span class="req-def">Required</span> 
-
- | 
-
-\`application/json\` 
-
- |
-
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`customerId\` <span class="req-def">Required</span> 
 
- | 
+|
+\`Authorization\` <span class="req-def">Required</span>
 
-The customer's ID (prefixed with \`cust\_\`). 
+|
 
- |
+\`secret key\`\*
 
-\### Request example 
+|
+|
+
+\`Content-Type\` <span class="req-def">Required</span>
+
+|
+
+\`application/json\`
+
+|
+
+\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
+
+x
+
+Add Row Add Col
+
+|     |     |
+| --- | --- |
+
+|
+\`customerId\` <span class="req-def">Required</span>
+
+|
+
+The customer's ID (prefixed with \`cust\_\`).
+
+|
+
+\### Request example
 
 Shell Java
 
@@ -70,15 +64,15 @@ xxxxxxxxxx
 
 1
 
- curl https://api2.checkout.com/v2/customers/cust\_630C8170-8F53-406B-BCCA-92E4B8CE8643/cards
+curl https://api2.checkout.com/v2/customers/cust\_630C8170-8F53-406B-BCCA-92E4B8CE8643/cards
 
 2
 
- \-H "Authorization: sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
 3
 
- \-X GET
+\-X GET
 
 Import from Gist
 
@@ -92,7 +86,7 @@ xxxxxxxxxx
 
 2
 
- String customerId\="cust\_630C8170-8F53-406B-BCCA-92E4B8CE8643";
+String customerId\="cust_630C8170-8F53-406B-BCCA-92E4B8CE8643";
 
 3
 
@@ -100,23 +94,23 @@ xxxxxxxxxx
 
 4
 
- try {
+try {
 
 5
 
- // Create APIClient instance with your secret key
+// Create APIClient instance with your secret key
 
 6
 
- APIClient ckoAPIClient\= new APIClient("sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 7
 
- // Submit your request and receive an apiResponse
+// Submit your request and receive an apiResponse
 
 8
 
- Response<CardList\> apiResponse \= ckoAPIClient.cardService.getCardList(customerId);
+Response<CardList\> apiResponse \= ckoAPIClient.cardService.getCardList(customerId);
 
 9
 
@@ -124,39 +118,39 @@ xxxxxxxxxx
 
 10
 
- if(!apiResponse.hasError){
+if(!apiResponse.hasError){
 
 11
 
- // Access the response object retrieved from the api
+// Access the response object retrieved from the api
 
 12
 
- CardList cards \= apiResponse.model;
+CardList cards \= apiResponse.model;
 
 13
 
- } else {
+} else {
 
 14
 
- // Api has returned an error object. You can access the details in the error property of the apiResponse.
+// Api has returned an error object. You can access the details in the error property of the apiResponse.
 
 15
 
- // apiResponse.error
+// apiResponse.error
 
 16
 
- }
+}
 
 17
 
- } catch (Exception e) {}
+} catch (Exception e) {}
 
 Import from Gist
 
-\--- ## The response If a list of cards for the customer returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. ### Response example Take a look at the example response below. 
+\--- ## The response If a list of cards for the customer returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. ### Response example Take a look at the example response below.
 
 rename · delete
 
@@ -172,208 +166,206 @@ xxxxxxxxxx
 
 2
 
- "count": 2,
+"count": 2,
 
 3
 
- "data": \[
+"data": \[
 
 4
 
- {
+{
 
 5
 
- "customerId": "cust\_291262B9-FEF1-41AE-A593-311F481D3A85",
+"customerId": "cust_291262B9-FEF1-41AE-A593-311F481D3A85",
 
 6
 
- "expiryMonth": "06",
+"expiryMonth": "06",
 
 7
 
- "expiryYear": "2018",
+"expiryYear": "2018",
 
 8
 
- "billingDetails": {
+"billingDetails": {
 
 9
 
- "addressLine1": "27 Acacia Tree Street",
+"addressLine1": "27 Acacia Tree Street",
 
 10
 
- "addressLine2": "Apartment 15",
+"addressLine2": "Apartment 15",
 
 11
 
- "postcode": "01072",
+"postcode": "01072",
 
 12
 
- "country": "US",
+"country": "US",
 
 13
 
- "city": "Shutesbury",
+"city": "Shutesbury",
 
 14
 
- "state": "Massachusetts",
+"state": "Massachusetts",
 
 15
 
- "phone": {
+"phone": {
 
 16
 
- "countryCode": "1",
+"countryCode": "1",
 
 17
 
- "number": "111 222-333"
+"number": "111 222-333"
 
 18
 
- }
+}
 
 19
 
- },
+},
 
 20
 
- "id": "card\_99CB8B47-A2C3-4A35-8EDC-4498B60B0FE8",
+"id": "card_99CB8B47-A2C3-4A35-8EDC-4498B60B0FE8",
 
 21
 
- "last4": "5678",
+"last4": "5678",
 
 22
 
- "bin": "424242",
+"bin": "424242",
 
 23
 
- "paymentMethod": "Visa",
+"paymentMethod": "Visa",
 
 24
 
- "fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
+"fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
 
 25
 
- "name": "Sarah Mitchell",
+"name": "Sarah Mitchell",
 
 26
 
- "avsCheck": "AE7"
+"avsCheck": "AE7"
 
 27
 
- },
+},
 
 28
 
- {
+{
 
 29
 
- "customerId": "cust\_291262B9-FEF1-41AE-A593-311F481D3A85",
+"customerId": "cust_291262B9-FEF1-41AE-A593-311F481D3A85",
 
 30
 
- "expiryMonth": "6",
+"expiryMonth": "6",
 
 31
 
- "expiryYear": "2018",
+"expiryYear": "2018",
 
 32
 
- "billingDetails": {
+"billingDetails": {
 
 33
 
- "addressLine1": "27 Acacia Tree Street",
+"addressLine1": "27 Acacia Tree Street",
 
 34
 
- "addressLine2": "Apartment 15",
+"addressLine2": "Apartment 15",
 
 35
 
- "postcode": "01072",
+"postcode": "01072",
 
 36
 
- "country": "US",
+"country": "US",
 
 37
 
- "city": "Shutesbury",
+"city": "Shutesbury",
 
 38
 
- "state": "Massachusetts",
+"state": "Massachusetts",
 
 39
 
- "phone": {
+"phone": {
 
 40
 
- "countryCode": "1",
+"countryCode": "1",
 
 41
 
- "number": "111 222-333"
+"number": "111 222-333"
 
 42
 
- }
+}
 
 43
 
- },
+},
 
 44
 
- "id": "card\_0A7997B6-6B7C-4544-96B9-743AA446365C",
+"id": "card_0A7997B6-6B7C-4544-96B9-743AA446365C",
 
 45
 
- "last4": "1234",
+"last4": "1234",
 
 46
 
- "bin": "424242",
+"bin": "424242",
 
 47
 
- "paymentMethod": "Visa",
+"paymentMethod": "Visa",
 
 48
 
- "fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
+"fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
 
 49
 
- "name": "Sarah Mitchell"
+"name": "Sarah Mitchell"
 
 50
 
- }
+}
 
 51
 
- \]
+\]
 
 52
 
 }
 
 Import from Gist
-
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

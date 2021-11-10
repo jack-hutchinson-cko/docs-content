@@ -3,89 +3,83 @@ title: get-customer-list
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-Use this API endpoint to return a list of customers registered between two dates. 
+Use this API endpoint to return a list of customers registered between two dates.
 
-\## The request View the customer list by sending a \*\*GET\*\* API request to the URI below. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/?fromDate={fromDate}&toDate={toDate}&count={count}&offset={offset}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/?fromDate={fromDate}&toDate={toDate}&count={count}&offset={offset}</p></pre> ### Header and path parameters 
+\## The request View the customer list by sending a \*\*GET\*\* API request to the URI below. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/?fromDate={fromDate}&toDate={toDate}&count={count}&offset={offset}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/?fromDate={fromDate}&toDate={toDate}&count={count}&offset={offset}</p></pre> ### Header and path parameters
 
- x     
-
-Add Row Add Col
-
-|  |  |
-| --- | --- |
-| 
-\`Authorization\` <span class="req-def">Required</span> 
-
- | 
-
-\`secret key\`\* 
-
- |
-| 
-
-\`Content-Type\` <span class="req-def">Required</span> 
-
- | 
-
-\`application/json\` 
-
- |
-
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`fromDate\` <span class="optional-def">Optional</span> 
 
- | 
+|
+\`Authorization\` <span class="req-def">Required</span>
 
-Start date in UTC date and time (based on ISO 8601) (e.g., 2015-11-05T13:00:00Z or 2015-11-05T08:00:00-05:00) 
+|
 
- |
-| 
+\`secret key\`\*
 
-\`toDate\` <span class="optional-def">Optional</span> 
+|
+|
 
- | 
+\`Content-Type\` <span class="req-def">Required</span>
 
-End date in UTC date and time (based on ISO 8601) (e.g. 2015-11-05T13:10:30Z or 2015-11-05T08:10:30-05:00) 
+|
 
- |
-| 
+\`application/json\`
 
-\`count\` <span class="optional-def">Optional</span> 
+|
 
- | 
+\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
 
-The number of records to return back in response. 
+x
 
- |
-| 
+Add Row Add Col
 
-\`offset\` <span class="optional-def">Optional</span> 
+|     |     |
+| --- | --- |
 
- | 
+|
+\`fromDate\` <span class="optional-def">Optional</span>
 
-The number of records to skip before adding results to the response. 
+|
 
- |
+Start date in UTC date and time (based on ISO 8601) (e.g., 2015-11-05T13:00:00Z or 2015-11-05T08:00:00-05:00)
 
-\### Request example 
+|
+|
+
+\`toDate\` <span class="optional-def">Optional</span>
+
+|
+
+End date in UTC date and time (based on ISO 8601) (e.g. 2015-11-05T13:10:30Z or 2015-11-05T08:10:30-05:00)
+
+|
+|
+
+\`count\` <span class="optional-def">Optional</span>
+
+|
+
+The number of records to return back in response.
+
+|
+|
+
+\`offset\` <span class="optional-def">Optional</span>
+
+|
+
+The number of records to skip before adding results to the response.
+
+|
+
+\### Request example
 
 Shell Java
 
@@ -97,15 +91,15 @@ xxxxxxxxxx
 
 1
 
- curl https://api2.checkout.com/v2/customers/?fromDate\=2015\-04-07T14:00:00Z&toDate\=2015\-04-07T15:00:00Z&count\=1
+curl https://api2.checkout.com/v2/customers/?fromDate\=2015\-04-07T14:00:00Z&toDate\=2015\-04-07T15:00:00Z&count\=1
 
 2
 
- \-H "Authorization: sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
 3
 
- \-X GET
+\-X GET
 
 Import from Gist
 
@@ -163,19 +157,19 @@ try {
 
 13
 
- // Create APIClient instance with your secret key
+// Create APIClient instance with your secret key
 
 14
 
- APIClient ckoAPIClient\= new APIClient("sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 15
 
- // Submit your request and receive an apiResponse
+// Submit your request and receive an apiResponse
 
 16
 
- Response<CustomerList\> customerListResponse \= ckoAPIClient.customerService.getCustomerList(customerListRequest);
+Response<CustomerList\> customerListResponse \= ckoAPIClient.customerService.getCustomerList(customerListRequest);
 
 17
 
@@ -183,31 +177,31 @@ try {
 
 18
 
- if(!apiResponse.hasError){
+if(!apiResponse.hasError){
 
 19
 
- // Access the response object retrieved from the api
+// Access the response object retrieved from the api
 
 20
 
- CustomerList customers \= apiResponse.model;
+CustomerList customers \= apiResponse.model;
 
 21
 
- } else {
+} else {
 
 22
 
- // Api has returned an error object. You can access the details in the error property of the apiResponse.
+// Api has returned an error object. You can access the details in the error property of the apiResponse.
 
 23
 
- // apiResponse.error
+// apiResponse.error
 
 24
 
- }
+}
 
 25
 
@@ -215,7 +209,7 @@ try {
 
 Import from Gist
 
-\- -- ## The response If a customer list returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example 
+\- -- ## The response If a customer list returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example
 
 rename · delete
 
@@ -231,195 +225,195 @@ xxxxxxxxxx
 
 2
 
- "count": 1,
+"count": 1,
 
 3
 
- "data": \[
+"data": \[
 
 4
 
- {
+{
 
 5
 
- "id": "cust\_49F7E6F8-B990-4E4E-BC58-419A3B0556D0",
+"id": "cust_49F7E6F8-B990-4E4E-BC58-419A3B0556D0",
 
 6
 
- "name": "Sarah Mitchell",
+"name": "Sarah Mitchell",
 
 7
 
- "liveMode": true,
+"liveMode": true,
 
 8
 
- "created": "2015-04-07T14:52:57Z",
+"created": "2015-04-07T14:52:57Z",
 
 9
 
- "email": "sarah.mitchell@checkout.com",
+"email": "sarah.mitchell@checkout.com",
 
 10
 
- "description": "Description updated",
+"description": "Description updated",
 
 11
 
- "phone" : {
+"phone" : {
 
 12
 
- "countryCode" : "1",
+"countryCode" : "1",
 
 13
 
- "number" : "111 222-333"
+"number" : "111 222-333"
 
 14
 
- },
+},
 
 15
 
- "metadata": {
+"metadata": {
 
 16
 
- "key Added": "test value added"
+"key Added": "test value added"
 
 17
 
- },
+},
 
 18
 
- "cards": {
+"cards": {
 
 19
 
- "count": 1,
+"count": 1,
 
 20
 
- "data": \[
+"data": \[
 
 21
 
- { 
+{
 
 22
 
- "id": "card\_3F2740AC-771B-4198-ABEA-0FEF5191F1F9",
+"id": "card_3F2740AC-771B-4198-ABEA-0FEF5191F1F9",
 
 23
 
- "last4": "4242",
+"last4": "4242",
 
 24
 
- "paymentMethod": "Visa",
+"paymentMethod": "Visa",
 
 25
 
- "fingerprint": "61308D38-57D5-4DD3-8684-B50F72A5CF7F",
+"fingerprint": "61308D38-57D5-4DD3-8684-B50F72A5CF7F",
 
 26
 
- "customerId": "cust\_630C8170-8F53-406B-BCCA-92E4B8CE8643",
+"customerId": "cust_630C8170-8F53-406B-BCCA-92E4B8CE8643",
 
 27
 
- "name": "Sarah Mitchell",
+"name": "Sarah Mitchell",
 
 28
 
- "expiryMonth": "06",
+"expiryMonth": "06",
 
 29
 
- "expiryYear": "2018",
+"expiryYear": "2018",
 
 30
 
- "billingDetails": {
+"billingDetails": {
 
 31
 
- "addressLine1": "27 Acacia Tree Street",
+"addressLine1": "27 Acacia Tree Street",
 
 32
 
- "addressLine2": "Apartment 15",
+"addressLine2": "Apartment 15",
 
 33
 
- "postcode": "01072",
+"postcode": "01072",
 
 34
 
- "country": "US",
+"country": "US",
 
 35
 
- "city": "Shutesbury",
+"city": "Shutesbury",
 
 36
 
- "state": "Massachusetts",
+"state": "Massachusetts",
 
 37
 
- "phone": {
+"phone": {
 
 38
 
- "countryCode": "1",
+"countryCode": "1",
 
 39
 
- "number": "111 222-333"
+"number": "111 222-333"
 
 40
 
- }
+}
 
 41
 
- },
+},
 
 42
 
- "cvvCheck": null,
+"cvvCheck": null,
 
 43
 
- "avsCheck": null,
+"avsCheck": null,
 
 44
 
- "responseCode": null
+"responseCode": null
 
 45
 
- }
+}
 
 46
 
- \]
+\]
 
 47
 
- },
+},
 
 48
 
- "defaultCard": "card\_721F541E-EF01-4390-A017-7496BE5BFE54"
+"defaultCard": "card_721F541E-EF01-4390-A017-7496BE5BFE54"
 
 49
 
- }
+}
 
 50
 
@@ -430,5 +424,3 @@ xxxxxxxxxx
 }
 
 Import from Gist
-
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).

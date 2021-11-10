@@ -3,66 +3,60 @@ title: attempt-non-3d-secure-payment
 account: Archive
 ---
 
-*   Header
-*   Code Sample
-*   Callout
-*   Table
-*   Image
-*   Embed
-*   HTML/CSS
-
 View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
 
-\*In the event that a 3D Secure charge cannot be completed, attemptN3D downgrades the charge to Non-3-D Secure. By doing this, all payment details are preserved and we'll re-submit the request so you don't lose the transaction.\* The \`attemptN3D\` feature is currently supported by all payment flows except for \*recurring payments\*. ## AttemptN3D parameter 
+\*In the event that a 3D Secure charge cannot be completed, attemptN3D downgrades the charge to Non-3-D Secure. By doing this, all payment details are preserved and we'll re-submit the request so you don't lose the transaction.\* The \`attemptN3D\` feature is currently supported by all payment flows except for \*recurring payments\*. ## AttemptN3D parameter
 
- x     
-
-Add Row Add Col
-
-|  |  |
-| --- | --- |
-| 
-\`attemptN3D\` <span class="field-type">Boolean</span> <span class="optional-def">Optional</span> 
-
- | 
-
-Downgrades a payment to Non-3D Secure under specific circumstances. <span class="table-info">attemptN3D must be set to true in the request to enable Non-3D secure charges.</span> 
-
- |
-
-Once \`attemptN3D\` is enabled, our hybrid solution will handle the downgrade to non-3D Secure processing in the following cases: 1. The card used is not 3D Secure enabled or enrolled by the issuing bank. 2. Any system malfunctions (i.e. the issuing bank’s 3D Secure system is down). 
-
-The liability shift advantage of 3D Secure payments will not apply to downgraded (non-3D payments). This means that there will be no protection against potentially fraudulent transactions or chargebacks. 
-
-If \`attemptN3D\` is set to \`false\` (it's default setting), transactions that cannot be completed as 3D Secure will fail and one of the below response codes will be returned: \[20153\](doc:response-codes): 3D Secure system malfunction \[20150\](doc:response-codes): Card not 3-DS enabled Downgrading to Non-3-D Secure charges will be ignored in any of the following scenarios: 1. \`attemptN3D\` is omitted from the payment request body or is set to false. 2. The charge mode is not 3D-Secure. 3. The risk engine requires 3DS. The merchant can specify the success and fail redirect URLs using the parameters \`successUrl\` and \`failUrl\` in the payload request. If the parameters are not defined, the redirect URLs fallback to those set in the channel's \[business level administration\](doc:business-level-administration) in \[The Hub\](https://hub.checkout.com). 
-
-\## The request Requests are created using a POST request. Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/charges/card</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/charges/card</p></pre> ### Header parameters 
-
- x     
+x
 
 Add Row Add Col
 
-|  |  |
+|     |     |
 | --- | --- |
-| 
-\`Authorization\` <span class="req-def">Required</span> 
 
- | 
+|
+\`attemptN3D\` <span class="field-type">Boolean</span> <span class="optional-def">Optional</span>
 
-\`secret key\`\* 
+|
 
- |
-| 
+Downgrades a payment to Non-3D Secure under specific circumstances. <span class="table-info">attemptN3D must be set to true in the request to enable Non-3D secure charges.</span>
 
-\`Content-Type\` <span class="req-def">Required</span> 
+|
 
- | 
+Once \`attemptN3D\` is enabled, our hybrid solution will handle the downgrade to non-3D Secure processing in the following cases: 1. The card used is not 3D Secure enabled or enrolled by the issuing bank. 2. Any system malfunctions (i.e. the issuing bank’s 3D Secure system is down).
 
-\`application/json\` 
+The liability shift advantage of 3D Secure payments will not apply to downgraded (non-3D payments). This means that there will be no protection against potentially fraudulent transactions or chargebacks.
 
- |
+If \`attemptN3D\` is set to \`false\` (it's default setting), transactions that cannot be completed as 3D Secure will fail and one of the below response codes will be returned: \[20153\](doc:response-codes): 3D Secure system malfunction \[20150\](doc:response-codes): Card not 3-DS enabled Downgrading to Non-3-D Secure charges will be ignored in any of the following scenarios: 1. \`attemptN3D\` is omitted from the payment request body or is set to false. 2. The charge mode is not 3D-Secure. 3. The risk engine requires 3DS. The merchant can specify the success and fail redirect URLs using the parameters \`successUrl\` and \`failUrl\` in the payload request. If the parameters are not defined, the redirect URLs fallback to those set in the channel's \[business level administration\](doc:business-level-administration) in \[The Hub\](https://hub.checkout.com).
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). ### Request example 
+\## The request Requests are created using a POST request. Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/charges/card</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/charges/card</p></pre> ### Header parameters
+
+x
+
+Add Row Add Col
+
+|     |     |
+| --- | --- |
+
+|
+\`Authorization\` <span class="req-def">Required</span>
+
+|
+
+\`secret key\`\*
+
+|
+|
+
+\`Content-Type\` <span class="req-def">Required</span>
+
+|
+
+\`application/json\`
+
+|
+
+\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). ### Request example
 
 Shell
 
@@ -80,155 +74,155 @@ curl https://sandbox.checkout.com/api2/v2/charges/card
 
 2
 
- \-H "Authorization: sk\_test\_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
 3
 
- \-H "Content-Type:application/json;charset=UTF-8"
+\-H "Content-Type:application/json;charset=UTF-8"
 
 4
 
- \-X POST
+\-X POST
 
 5
 
- \-d '{
+\-d '{
 
 6
 
- "autoCapTime": "0",
+"autoCapTime": "0",
 
 7
 
- "autoCapture": "N",
+"autoCapture": "N",
 
 8
 
- "chargeMode": 2,
+"chargeMode": 2,
 
 9
 
- "attemptN3D": true,
+"attemptN3D": true,
 
 10
 
- "email": "sarah.mitchell@checkout.com",
+"email": "sarah.mitchell@checkout.com",
 
 11
 
- "description": "charge description",
+"description": "charge description",
 
 12
 
- "value": "2000",
+"value": "2000",
 
 13
 
- "currency": "usd",
+"currency": "usd",
 
 14
 
- "trackId": "TRK12345",
+"trackId": "TRK12345",
 
 15
 
- "transactionIndicator": "1",
+"transactionIndicator": "1",
 
 16
 
- "customerIp":"96.125.185.51",
+"customerIp":"96.125.185.51",
 
 17
 
- "card": {
+"card": {
 
 18
 
- "name": "Sarah Mitchell",
+"name": "Sarah Mitchell",
 
 19
 
- "number": "4242424242424242",
+"number": "4242424242424242",
 
 20
 
- "expiryMonth": "06",
+"expiryMonth": "06",
 
 21
 
- "expiryYear": "2018",
+"expiryYear": "2018",
 
 22
 
- "cvv": "100",
+"cvv": "100",
 
 23
 
- "billingDetails": {
+"billingDetails": {
 
 24
 
- "addressLine1": "27 Acacia Tree Street",
+"addressLine1": "27 Acacia Tree Street",
 
 25
 
- "addressLine2": "Apartment 15",
+"addressLine2": "Apartment 15",
 
 26
 
- "postcode": "01072",
+"postcode": "01072",
 
 27
 
- "country": "US",
+"country": "US",
 
 28
 
- "city": "Shutesbury",
+"city": "Shutesbury",
 
 29
 
- "state": "Massachusetts",
+"state": "Massachusetts",
 
 30
 
- "phone" : {
+"phone" : {
 
 31
 
- "countryCode" : "1",
+"countryCode" : "1",
 
 32
 
- "number" : "111 222-333"
+"number" : "111 222-333"
 
 33
 
- }
+}
 
 34
 
- }
+}
 
 35
 
- },
+},
 
 36
 
- "successUrl": "http://mycustomerurl.com/order?result=pass",
+"successUrl": "http://mycustomerurl.com/order?result=pass",
 
 37
 
- "failUrl": "http://mycustomerurl.com/order?result=fail"
+"failUrl": "http://mycustomerurl.com/order?result=fail"
 
 38
 
- }'
+}'
 
 Import from Gist
 
-\## The response That's it! If a non-3D Secure payment response returns, you just charged a card. 
+\## The response That's it! If a non-3D Secure payment response returns, you just charged a card.
 
 JSON
 
@@ -244,36 +238,34 @@ xxxxxxxxxx
 
 2
 
- "id": "pay\_tok\_c4724a77-ead6-4d61-8f07-d9e37be8ff9a",
+"id": "pay_tok_c4724a77-ead6-4d61-8f07-d9e37be8ff9a",
 
 3
 
- "liveMode": true,
+"liveMode": true,
 
 4
 
- "chargeMode": 1,
+"chargeMode": 1,
 
 5
 
- "responseCode": "10000",
+"responseCode": "10000",
 
 6
 
- "redirectUrl": "http://sandbox.checkout.com/success.html?cko-payment-token=pay\_tok\_c4724a77-ead6-4d61-8f07-d9e37be8ff9a",
+"redirectUrl": "http://sandbox.checkout.com/success.html?cko-payment-token=pay\_tok\_c4724a77-ead6-4d61-8f07-d9e37be8ff9a",
 
 7
 
- "trackId": "ResponseTrackId",
+"trackId": "ResponseTrackId",
 
 8
 
- "enrolled": "N"
+"enrolled": "N"
 
 9
 
 }
 
 Import from Gist
-
-Thanks for using Checkout.com. If you need any help or support, then message our support team at \[support@checkout.com\](mailto:support@checkout.com).
