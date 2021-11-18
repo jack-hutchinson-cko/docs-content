@@ -7,16 +7,12 @@ Start accepting PayPal payments and open your business to thousands of online sh
 
 To start accepting PayPal payments, please contact your Customer Success Manager.
 
-Overview
---------
+## Overview
 
 PayPal payments follow a two-step process:
+. [Request a PayPal payment](#PayPal-requestapayment) 2. [Redirect the customer](#PayPal-redirectthecustomer)
 
-1.  [Request a PayPal payment](#PayPal-requestapayment)
-2.  [Redirect the customer](#PayPal-redirectthecustomer)
-
-Request a payment 
-------------------
+## Request a payment 
 
 ### The POST request
 
@@ -24,8 +20,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-74a94673-b7db-42ab-aee7-dd38b45739d4-1)
-*   [**Sandbox**](#tabs-74a94673-b7db-42ab-aee7-dd38b45739d4-2)
+- [**Live**](#tabs-74a94673-b7db-42ab-aee7-dd38b45739d4-1)
+- [**Sandbox**](#tabs-74a94673-b7db-42ab-aee7-dd38b45739d4-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -174,13 +170,11 @@ If you receive a `202 Success` response containing a `status` field set to 
       }
     }
 
-Redirect the customer 
-----------------------
+## Redirect the customer 
 
 Redirect your customer to the `redirect` link’s href in the response. The customer will be redirected to a PayPal page where they can authorize the payment, before being transferred to your predefined success or failure URL.
 
-Get details about a payment
----------------------------
+## Get details about a payment
 
 You can use the `payment_id` found in the payment response, or the `cko-session-id` from the success/failure URL (e.g., https://www.checkout.com/order/succeeded?cko-session-id=**sid\_vii64oquze5u3h2x6hh4rurc4y**) to retrieve details about the payment.
 
@@ -192,8 +186,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-a59e2992-b9fd-46ee-8419-d8ba1b3af50d-1)
-*   [**Sandbox**](#tabs-a59e2992-b9fd-46ee-8419-d8ba1b3af50d-2)
+- [**Live**](#tabs-a59e2992-b9fd-46ee-8419-d8ba1b3af50d-1)
+- [**Sandbox**](#tabs-a59e2992-b9fd-46ee-8419-d8ba1b3af50d-2)
 
 GET`https://api.checkout.com/payments/{payment_id}`
 
@@ -271,16 +265,13 @@ The payment ID found in the response of the initial response
       }
     }
 
-Testing PayPal
---------------
+## Testing PayPal
 
 To start testing, you'll need to:
 
-*   [create a test account](https://www.checkout.com/get-test-account), and
-*   contact your Customer Success Manager or Integrations engineer to activate PayPal payments in the sandbox environment.
+- [create a test account](https://www.checkout.com/get-test-account), and
+- contact your Customer Success Manager or Integrations engineer to activate PayPal payments in the sandbox environment.
+  . Create a PayPal transaction as above, following the redirect link in the response to PayPal's website.
 
-1.  Create a PayPal transaction as above, following the redirect link in the response to PayPal's website.
 2.  Log in with your PayPal username and password.
 3.  Set the payment status – pending, paid, or refused – and then click **Confirm**. You should then be redirected to your predefined success URL.
-
-  

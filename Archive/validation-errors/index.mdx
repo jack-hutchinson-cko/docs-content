@@ -3,11 +3,7 @@ title: validation-errors
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
-If an error occurs while validating a request, the API responds with a \`400 HTTP\` response code, accompanied by a JSON response containing the error details. Find out more in the example below. The JSON response includes the following fields:
-
-x
+If an error occurs while validating a request, the API responds with a `400 HTTP` response code, accompanied by a JSON response containing the error details. Find out more in the example below. The JSON response includes the following fields:
 
 Add Row Add Col
 
@@ -15,7 +11,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`errorCode\`
+`errorCode`
 
 |
 
@@ -24,7 +20,7 @@ The code associated with the error.
 |
 |
 
-\`message\`
+`message`
 
 |
 
@@ -33,7 +29,7 @@ The message describing the error.
 |
 |
 
-\`errors\`
+`errors`
 
 |
 
@@ -42,7 +38,7 @@ An array of validation errors.
 |
 |
 
-\`errorMessageCodes\`
+`errorMessageCodes`
 
 |
 
@@ -51,7 +47,7 @@ The specific codes associated with the errors.
 |
 |
 
-\`eventId\`
+`eventId`
 
 |
 
@@ -59,123 +55,48 @@ The error event ID used by Checkout.com to trace what went wrong in the transact
 
 |
 
-​ #### Request example Using a JSON payload with the \`value\` and \`currency\` fields missing.
+​ #### Request example Using a JSON payload with the `value` and `currency` fields missing.
 
 cURL
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
-
 curl https://sandbox.checkout.com/api2/v2/charges/token
 
-2
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Content-Type:application/json;charset=UTF-8"
 
-3
+-X POST
 
-\-H "Content-Type:application/json;charset=UTF-8"
-
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "cardtoken" : "card_tok_cf16c4d0-af33-4a10-80fa-806839ae0179"
 
-7
-
 }'
 
-Import from Gist
-
-\#### Response example
+#### Response example
 
 JSON
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-15
-
-1
-
 {
-
-2
 
 "errorCode": "70000",
 
-3
-
 "message": "Validation error",
 
-4
-
-"errors": \[
-
-5
+"errors": [
 
 "Require either a 'customerId' or 'email' value",
-
-6
-
 "Field 'value' is required",
-
-7
-
 "Field 'currency' is required"
-
-8
-
-\],
-
-9
-
-"errorMessageCodes": \[
-
-10
-
+],
+"errorMessageCodes": [
 "70055",
-
-11
-
 "70049",
-
-12
-
 "70051"
-
-13
-
-\],
-
-14
-
+],
 "eventId": "1beadef0-458f-40ff-84fe-00e3d38e228c"
-
-15
-
 }
 
-Import from Gist
-
-If an error occurs while validating certain parts of the transaction details, the API responds with a \`400 HTTP\` response code, accompanied by a JSON response containing the error details. The JSON response contains the following fields:​
-
-x
+If an error occurs while validating certain parts of the transaction details, the API responds with a `400 HTTP` response code, accompanied by a JSON response containing the error details. The JSON response contains the following fields:​
 
 Add Row Add Col
 
@@ -183,7 +104,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`errorCode\`
+`errorCode`
 
 |
 
@@ -192,7 +113,7 @@ The code associated with the error
 |
 |
 
-\`message\`
+`message`
 
 |
 
@@ -201,7 +122,7 @@ The message describing the error
 |
 |
 
-\`eventId\`
+`eventId`
 
 |
 
@@ -209,96 +130,34 @@ The error event ID for Checkout.com to trace what went wrong in the transaction.
 
 |
 
-\#### Request example The example below shows a scenario where the request payload is valid, but the IP address is invalid on the gateway.
+#### Request example The example below shows a scenario where the request payload is valid, but the IP address is invalid on the gateway.
 
 cURL
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-12
-
-1
-
 curl https://sandbox.checkout.com/api2/v2/charges
 
-2
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Content-Type:application/json;charset=UTF-8"
 
-3
+-H "Accept:application/json"
 
-\-H "Content-Type:application/json;charset=UTF-8"
+-X POST
 
-4
-
-\-H "Accept:application/json"
-
-5
-
-\-X POST
-
-6
-
-\-d'{
-
-7
-
+-d'{
 "cardtoken" : "card_tok_C123C0A5-F850-453A-92DE-93607DD6A916",
-
-8
-
 "currency" : "USD",
-
-9
-
 "email" : "LanaSMartin@dayrep.com",
-
-10
-
 "value" : 100,
-
-11
-
 "customerIp": "abc"
-
-12
-
 }'
 
-Import from Gist
-
-\#### Response example
+#### Response example
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
-
 {
-
-2
-
 "errorCode": "82051",
-
-3
-
 "message": "Invalid Customer IP",
-
-4
-
 "eventId": "cf0acbed-5b46-4a8b-85db-9372b30dfca1"
-
-5
-
 }
-
-Import from Gist

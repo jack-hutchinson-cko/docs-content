@@ -7,15 +7,13 @@ Start accepting payments with Mada, Saudi Arabia's domestic payment network.
 
 Mada has partnerships with major card schemes like Visa and Mastercard, so the cards can be accepted both locally and globally.
 
-Accepting Mada cards outside Saudi Arabia
------------------------------------------
+## Accepting Mada cards outside Saudi Arabia
 
 When you process a Mada card outside Saudi Arabia, it behaves like any other debit card, so you can [process a card payment](/display/DOCS/Request+a+card+payment) without any need for specific configurations or extra parameters.
 
 However, we recommend that you process Mada cards using [3D Secure](/display/DOCS/3D+Secure) and the [card verification value (CVV) / card security code (CSC)](/display/DOCS/CVV+check).
 
-Accepting Mada cards within Saudi Arabia
-----------------------------------------
+## Accepting Mada cards within Saudi Arabia
 
 To process Mada cards within Saudi Arabia's debit card network, you will first need to obtain a merchant ID from a Saudi Arabian card acquirer.
 
@@ -26,96 +24,53 @@ Currently, you can only process purchases and refunds with Mada – authorizatio
 
 Once the customer submits the credit card form, the first six digits of their card – the bank identification number (BIN) – will be returned, and you'll need to compare this against the list of Mada BINs:
 
- Mada BINs
-
-588845
-
-440647
-
-440795
-
+Mada BINs
+88845
+4064740795
 446404
 
 457865
 
 968208
-
-588846
-
-493428
-
-539931
-
-558848
+88846
+93428
+3993158848
 
 557606
 
 968210
-
-636120
-
-417633
-
-468540
-
-468541
+36120
+176336854068541
 
 468542
 
 468543
 
 968201
-
-446393
-
-588847
-
-400861
-
-409201
-
+46393
+88847
+0086109201
 458456
 
 484783
 
-968205
-
-462220
-
+9682052220
 455708
-
-588848
-
-455036
+888485036
 
 968203
-
-486094
-
-486095
+8609486095
 
 486096
-
-504300
-
-440533
-
-489317
-
-489318
+04300
+405338931789318
 
 489319
 
 445564
 
 968211
-
-401757
-
-410685
-
-432328
-
+017571068532328
 428671
 
 428672
@@ -123,30 +78,16 @@ Once the customer submits the credit card form, the first six digits of their ca
 428673
 
 968206
-
-446672
-
-543357
-
-434107
-
+46672
+43357
+34107
 431361
-
-604906
-
-521076
-
+04906
+21076
 588850
 
 968202
-
-535825
-
-529415
-
-543085
-
-524130
+35825294154308524130
 
 554180
 
@@ -155,22 +96,7 @@ Once the customer submits the credit card form, the first six digits of their ca
 588849
 
 968209
-
-524514
-
-529741
-
-537767
-
-535989
-
-536023
-
-513213
-
-585265
-
-588983
+2451429741377673598936023132138526588983
 
 588982
 
@@ -185,65 +111,40 @@ Once the customer submits the credit card form, the first six digits of their ca
 532013
 
 588851
-
-605141
+05141
 
 968204
-
-422817
-
-422818
-
-422819
-
-428331
+22817228182281928331
 
 483010
 
 483011
 
 483012
-
-589206
+89206
 
 968207
-
-419593
-
-439954
-
+1959339954
 407197
 
 407395
-
-520058
-
-530060
+2005830060
 
 531196
-
-412565
-
-506968
-
-457997
-
+12565
+069687997
 406996
 
-\-
+-
 
 If the card's BIN matches one from the list above, you'll know it's a Mada card.
 
 Next, follow these steps:
+. Before you redirect the customer, send a hidden HTML field or another indication that the card type is Mada to your server. For instance: `<input name=”cardType” type=”hidden” value=”mada”>`. 2. In the backend code, check if the posted hidden variable `cardType` was a Mada card. If so, make sure you: 1. set `"3ds.enabled"` to `true` to process the payment with 3D Secure authentication,
 
-1.  Before you redirect the customer, send a hidden HTML field or another indication that the card type is Mada to your server. For instance: `<input name=”cardType” type=”hidden” value=”mada”>`.
-2.  In the backend code, check if the posted hidden variable `cardType` was a Mada card. If so, make sure you:
-    1.  set `"3ds.enabled"` to `true` to process the payment with 3D Secure authentication,
-        
     2.  set `"metadata.udf1"` to `"mada"`, and
-        
+
     3.  **do not** pass `"capture"` or `"capture_on"` in the request.
-        
 
 ### Processing payments with full card details
 

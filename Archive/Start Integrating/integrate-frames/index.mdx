@@ -3,55 +3,37 @@ title: integrate-frames
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+_When it comes to integrating Frames into your page, it requires a little bit of technical knowledge — for starters, you will need to customize your Pay Now button. If you're looking for a simpler solution, then take a look at [Checkout.js](doc:checkoutjs)._ On this page, we provide four variants for embedding Frames, each very similar but with their individual characteristics.
 
-\*When it comes to integrating Frames into your page, it requires a little bit of technical knowledge — for starters, you will need to customize your Pay Now button. If you're looking for a simpler solution, then take a look at \[Checkout.js\](doc:checkoutjs).\* On this page, we provide four variants for embedding Frames, each very similar but with their individual characteristics.
+The following examples are all the start of the payment process. They equip you with the tools to <<glossary:tokenize>> a customer's sensitive card information using Frames. From this point, you can [authorize a payment](doc:authorize-a-payment), [create a customer](doc:create-a-customer), or [save a card](doc:create-a-card) for later.
 
-The following examples are all the start of the payment process. They equip you with the tools to <<glossary:tokenize>> a customer's sensitive card information using Frames. From this point, you can \[authorize a payment\](doc:authorize-a-payment), \[create a customer\](doc:create-a-customer), or \[save a card\](doc:create-a-card) for later.
+In every example, replace the supplied `publicKey` with your own.
 
-In every example, replace the supplied \`publicKey\` with your own.
-
-\## Using submitCard promise This code excerpt uses a JavaScript Promise to tokenize a customer's payment details.
+## Using submitCard promise This code excerpt uses a JavaScript Promise to tokenize a customer's payment details.
 
 The card token will be posted via the URL specified in the form action attribute.
 
 HTML
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-41
-
 1
 
-<body\>
+<body>
 
 2
 
  <!-- add frames script -->
 
-3
+<script src="https://cdn.checkout.com/js/frames.js"></script>
 
- <script src\="https://cdn.checkout.com/js/frames.js"\></script\>
+ <form id="payment-form" method="POST" action="https://merchant.com/charge-card">
 
-4
-
- <form id\="payment-form" method\="POST" action\="https://merchant.com/charge-card"\>
-
-5
-
- <div class\="frames-container"\>
-
-6
+ <div class="frames-container">
 
  <!-- form will be added here -->
 
 7
 
- </div\>
+ </div>
 
 8
 
@@ -59,45 +41,32 @@ xxxxxxxxxx
 
 9
 
- <button id\="pay-now-button" type\="submit" disabled\>Pay now</button\>
+<button id="pay-now-button" type="submit" disabled>
+Pay now
 
-10
+</button>0
 
- </form\>
-
-11
-
-​
-
-12
-
- <script\>
-
-13
-
- var paymentForm \= document.getElementById('payment-form');
-
-14
-
- var payNowButton \= document.getElementById('pay-now-button');
-
-15
+ </form>
+1
 
 ​
+2
 
-16
+ <script>
+ var paymentForm = document.getElementById('payment-form');
+
+ var payNowButton = document.getElementById('pay-now-button');
+
+​
 
  Frames.init({
-
-17
+7
 
  publicKey: 'pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14',
-
-18
+8
 
  containerSelector: '.frames-container',
-
-19
+9
 
  cardValidationChanged: function() {
 
@@ -111,7 +80,7 @@ xxxxxxxxxx
 
 22
 
- payNowButton.disabled \= !Frames.isCardValid();
+ payNowButton.disabled = !Frames.isCardValid();
 
 23
 
@@ -123,7 +92,7 @@ xxxxxxxxxx
 
 25
 
- payNowButton.disabled \= true;
+ payNowButton.disabled = true;
 
 26
 
@@ -180,56 +149,37 @@ xxxxxxxxxx
 39
 
  });
+0
 
-40
-
- </script\>
-
-41
-
-</body\>
-
-Import from Gist
-
-\## Using cardTokenised handler The example here uses a cardTokenized handler to gain a payment token for your customers' card details. 
-
-HTML
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-42
+ </script>
 
 1
 
-<body\>
+</body>
+
+## Using cardTokenised handler The example here uses a cardTokenized handler to gain a payment token for your customers' card details.
+
+HTML
+
+2
+
+<body>
 
 2
 
  <!-- add frames script -->
 
-3
+<script src="https://cdn.checkout.com/js/frames.js"></script>
 
- <script src\="https://cdn.checkout.com/js/frames.js"\></script\>
+ <form id="payment-form" method="POST" action="https://merchant.com/charge-card">
 
-4
-
- <form id\="payment-form" method\="POST" action\="https://merchant.com/charge-card"\>
-
-5
-
- <div class\="frames-container"\>
-
-6
+ <div class="frames-container">
 
  <!-- form will be added here -->
 
 7
 
- </div\>
+ </div>
 
 8
 
@@ -237,45 +187,32 @@ xxxxxxxxxx
 
 9
 
- <button id\="pay-now-button" type\="submit" disabled\>Pay now</button\>
+<button id="pay-now-button" type="submit" disabled>
+Pay now
 
-10
+</button>0
 
- </form\>
-
-11
-
-​
-
-12
-
- <script\>
-
-13
-
- var paymentForm \= document.getElementById('payment-form');
-
-14
-
- var payNowButton \= document.getElementById('pay-now-button');
-
-15
+ </form>
+1
 
 ​
+2
 
-16
+ <script>
+ var paymentForm = document.getElementById('payment-form');
+
+ var payNowButton = document.getElementById('pay-now-button');
+
+​
 
  Frames.init({
-
-17
+7
 
  publicKey: 'pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14',
-
-18
+8
 
  containerSelector: '.frames-container',
-
-19
+9
 
  cardValidationChanged: function() {
 
@@ -289,7 +226,7 @@ xxxxxxxxxx
 
 22
 
- payNowButton.disabled \= !Frames.isCardValid();
+ payNowButton.disabled = !Frames.isCardValid();
 
 23
 
@@ -301,7 +238,7 @@ xxxxxxxxxx
 
 25
 
- payNowButton.disabled \= true;
+ payNowButton.disabled = true;
 
 26
 
@@ -317,7 +254,7 @@ xxxxxxxxxx
 
 29
 
- var cardToken \= event.data.cardToken;
+ var cardToken = event.data.cardToken;
 
 30
 
@@ -358,108 +295,78 @@ xxxxxxxxxx
 39
 
  Frames.submitCard();
-
-40
+0
 
  });
-
-41
-
- </script\>
-
-42
-
-</body\>
-
-Import from Gist
-
-\## Loading Frames asynchronously If you load Frames asynchronously, you can change the namespace to a name other than 'Frames'. The example below uses Checkout as the namespace. 
-
-Use \*\*window.CKOConfig\*\* to change the namespace, or to load Frames asynchronously. 
-
-HTML
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-44
-
 1
 
-<body\>
+ </script>
 
 2
 
- <form id\="payment-form" method\="POST" action\="https://merchant.com/charge-card"\>
+</body>
 
-3
+## Loading Frames asynchronously If you load Frames asynchronously, you can change the namespace to a name other than 'Frames'. The example below uses Checkout as the namespace.
 
- <div class\="frames-container"\>
+Use **window.CKOConfig** to change the namespace, or to load Frames asynchronously.
+
+HTML
 
 4
 
+<body>
+
+2
+
+ <form id="payment-form" method="POST" action="https://merchant.com/charge-card">
+
+ <div class="frames-container">
+
  <!-- form will be added here -->
 
-5
-
- </div\>
-
-6
+ </div>
 
  <!-- add submit button -->
 
 7
 
- <button id\="pay-now-button" type\="submit" disabled\>Pay now</button\>
+<button id="pay-now-button" type="submit" disabled>
+Pay now
+
+</button>
 
 8
 
- </form\>
+ </form>
 
 9
 
  <!-- add frames script with async attribute -->
 
-10
+0
 
- <script async src\="https://cdn.checkout.com/js/frames.js"\></script\>
+<script async src="https://cdn.checkout.com/js/frames.js"></script>
 
-11
+1
 
- <script\>
+ <script>
+2
 
-12
-
- var paymentForm \= document.getElementById('payment-form');
-
-13
-
- var payNowButton \= document.getElementById("pay-now-button");
-
-14
+ var paymentForm = document.getElementById('payment-form');
+ var payNowButton = document.getElementById("pay-now-button");
 
 ​
 
-15
-
- window.CKOConfig \= {
-
-16
+ window.CKOConfig = {
 
  publicKey: 'pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14',
-
-17
+7
 
  containerSelector: '.frames-container',
-
-18
+8
 
  // change the namespace to Checkout
-
-19
+9
 
  namespace: 'Checkout',
 
@@ -505,7 +412,7 @@ xxxxxxxxxx
 
 30
 
- payNowButton.disabled \= !Checkout.isCardValid();
+ payNowButton.disabled = !Checkout.isCardValid();
 
 31
 
@@ -517,7 +424,7 @@ xxxxxxxxxx
 
 33
 
- payNowButton.disabled \= true;
+ payNowButton.disabled = true;
 
 34
 
@@ -542,68 +449,46 @@ xxxxxxxxxx
 39
 
  // submit the form
-
-40
+0
 
  paymentForm.submit();
-
-41
+1
 
  }
-
-42
+2
 
  };
+3
 
-43
+ </script>
 
- </script\>
+4
 
-44
+</body>
 
-</body\>
-
-Import from Gist
-
-\## Including billing details Use the attribute \`billingDetails\` to send the customer's details. In the example, we have added the customer's billing details to a Frames form. 
+## Including billing details Use the attribute `billingDetails` to send the customer's details. In the example, we have added the customer's billing details to a Frames form.
 
 HTML
 
-rename · delete
+0
 
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-50
-
-1
-
-<body\>
+<body>
 
 2
 
  <!-- add frames script -->
 
-3
+<script src="https://cdn.checkout.com/js/frames.js"></script>
 
- <script src\="https://cdn.checkout.com/js/frames.js"\></script\>
+ <form id="payment-form" method="POST" action="https://merchant.com/charge-card">
 
-4
-
- <form id\="payment-form" method\="POST" action\="https://merchant.com/charge-card"\>
-
-5
-
- <div class\="frames-container"\>
-
-6
+ <div class="frames-container">
 
  <!-- form will be added here -->
 
 7
 
- </div\>
+ </div>
 
 8
 
@@ -611,45 +496,32 @@ xxxxxxxxxx
 
 9
 
- <button id\="pay-now-button" type\="submit" disabled\>Pay now</button\>
+<button id="pay-now-button" type="submit" disabled>
+Pay now
 
-10
+</button>0
 
- </form\>
-
-11
-
-​
-
-12
-
- <script\>
-
-13
-
- var paymentForm \= document.getElementById('payment-form');
-
-14
-
- var payNowButton \= document.getElementById('pay-now-button');
-
-15
+ </form>
+1
 
 ​
+2
 
-16
+ <script>
+ var paymentForm = document.getElementById('payment-form');
+
+ var payNowButton = document.getElementById('pay-now-button');
+
+​
 
  Frames.init({
-
-17
+7
 
  publicKey: 'pk\_test\_6ff46046-30af-41d9-bf58-929022d2cd14',
-
-18
+8
 
  containerSelector: '.frames-container',
-
-19
+9
 
  customerName: 'John Smith',
 
@@ -699,7 +571,7 @@ xxxxxxxxxx
 
 31
 
- payNowButton.disabled \= !Frames.isCardValid();
+ payNowButton.disabled = !Frames.isCardValid();
 
 32
 
@@ -711,7 +583,7 @@ xxxxxxxxxx
 
 34
 
- payNowButton.disabled \= true;
+ payNowButton.disabled = true;
 
 35
 
@@ -732,49 +604,35 @@ xxxxxxxxxx
 39
 
  event.preventDefault();
-
-40
+0
 
  Frames.submitCard()
-
-41
+1
 
  .then(function (data) {
-
-42
+2
 
  Frames.addCardToken(paymentForm, data.cardToken);
-
-43
+3
 
  paymentForm.submit();
-
-44
+4
 
  })
 
-45
-
  .catch(function (err) {
 
-46
-
  // catch the error
-
-47
-
- });
-
-48
+7
 
  });
+8
 
-49
+ });
+9
 
- </script\>
+ </script>
 
-50
+0
 
-</body\>
-
-Import from Gist
+</body>

@@ -3,13 +3,9 @@ title: transaction-query
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+_The transactions reporting endpoint allows you to search for a specific transaction or group of transactions._ Search for a customer’s transaction by a date range and then drill down using further filters. This will enable you to search for, and answer a customer's query regarding a transaction.
 
-\*The transactions reporting endpoint allows you to search for a specific transaction or group of transactions.\* Search for a customer’s transaction by a date range and then drill down using further filters. This will enable you to search for, and answer a customer's query regarding a transaction.
-
-Use this API to query the endpoint page by page by specifying \`pageNumber\` and \`pageSize.\` They can also use \`totalRecords\` to determine the number of pages. ## The request Requests are created using a POST request. Use the details below to set up your transaction query. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/reporting/transactions</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/reporting/transactions</p></pre> ### Header parameters
-
-x
+Use this API to query the endpoint page by page by specifying `pageNumber` and `pageSize.` They can also use `totalRecords` to determine the number of pages. ## The request Requests are created using a POST request. Use the details below to set up your transaction query. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/reporting/transactions</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/reporting/transactions</p></pre> ### Header parameters
 
 Add Row Add Col
 
@@ -17,35 +13,28 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type\` <span class="req-def">Required</span>
+`Content-Type` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). ### Request example This example demonstrates the body of a request, not all fields are required, so you can custom build your request based on the information you need. The table \[additional parameters\](/docs/transaction-query#section-additional-parameters) lists all optional parameters.
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/). ### Request example This example demonstrates the body of a request, not all fields are required, so you can custom build your request based on the information you need. The table [additional parameters](/docs/transaction-query#section-additional-parameters) lists all optional parameters.
 
 JSON XML
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-17
-
+7
 1
 
 {
@@ -54,19 +43,11 @@ xxxxxxxxxx
 
 "fromDate": "2015-01-01T20:00:00.000Z",
 
-3
-
 "toDate": "2015-12-31T19:59:59.000Z",
-
-4
 
 "pageSize": "10",
 
-5
-
 "sortColumn": "amount",
-
-6
 
 "sortOrder": "desc",
 
@@ -80,95 +61,62 @@ xxxxxxxxxx
 
 9
 
-"filters": \[
-
-10
+"filters": [
+0
 
 {
-
-11
+1
 
 "action":"include",
-
-12
+2
 
 "field":"email",
-
-13
-
 "operator":"contains",
-
-14
 
 "value":"test"
 
-15
-
 }
 
-16
-
-\]
-
-17
+]
+7
 
 }
-
-Import from Gist
-
-xxxxxxxxxx
-
-11
 
 1
+1
 
-<data\>
+<data>
 
 2
 
-<fromDate\>2015-11-04T01:00:00.000Z</fromDate\>
+<fromDate>2015-11-04T01:00:00.000Z</fromDate>
 
-3
+<toDate>2015-11-04T23:00:00.000Z</toDate>
 
-<toDate\>2015-11-04T23:00:00.000Z</toDate\>
+<pageSize>2</pageSize>,
 
-4
+<filters>
 
-<pageSize\>2</pageSize\>,
-
-5
-
-<filters\>
-
-6
-
-<action\>include</action\>
+<action>include</action>
 
 7
 
-<field\>status</field\>
+<field>status</field>
 
 8
 
-<operator\>equals</operator\>
+<operator>equals</operator>
 
 9
 
-<value\>Authorised</value\>
+<value>Authorised</value>0
 
-10
+</filters>
+1
 
-</filters\>
+</data>
 
-11
-
-</data\>
-
-Import from Gist
-
-\### Additional parameters
-
-x
+### Additional parameters
 
 Add Row Add Col
 
@@ -176,25 +124,25 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`fromDate\` <span class="field-type">Date</span> <span class="optional-def">Optional</span>
+`fromDate` <span class="field-type">Date</span> <span class="optional-def">Optional</span>
 
 |
 
-Start date in UTC date and time (based on ISO 8601 profile). Format: \`yyyy-MM-ddTHH:mm:ssZ\` (e.g., \`2015-11-05T13:00:00Z\` or \`2015-11-05T08:00:00-05:00\`).
-
-|
-|
-
-\`toDate\` <span class="field-type">Date</span> <span class="optional-def">Optional</span>
-
-|
-
-End date in UTC date and time (based on ISO 8601 profile). Format: \`yyyy-MM-ddTHH:mm:ssZ\` (e.g., \`2015-11-05T13:00:00Z\` or \`2015-11-05T08:00:00-05:00\`).
+Start date in UTC date and time (based on ISO 8601 profile). Format: `yyyy-MM-ddTHH:mm:ssZ` (e.g., `2015-11-05T13:00:00Z` or `2015-11-05T08:00:00-05:00`).
 
 |
 |
 
-\`pageSize\` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
+`toDate` <span class="field-type">Date</span> <span class="optional-def">Optional</span>
+
+|
+
+End date in UTC date and time (based on ISO 8601 profile). Format: `yyyy-MM-ddTHH:mm:ssZ` (e.g., `2015-11-05T13:00:00Z` or `2015-11-05T08:00:00-05:00`).
+
+|
+|
+
+`pageSize` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -203,7 +151,7 @@ The number of records to return. <span class="table-info">Must be between 10 (de
 |
 |
 
-\`pageNumber\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`pageNumber` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -212,54 +160,46 @@ The page number of the result set to return. <span class="table-info">The result
 |
 |
 
-\`sortColumn\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`sortColumn` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
-The column by which to order the result set. \*\*Valid Values:\*\* \* ID \* OriginId \* Date (default) \* Name \* Email \* Status \* Type \* Amount \* Scheme \* ResponseCode \* Currency \* LiveMode \* BusinessName \* ChannelName \* TrackId
-
-|
-|
-
-\`sortOrder\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
-
-|
-
-Choose if the sort order is ascending (ASC) or descending (DESC). \*\*Valid values:\*\* \* ASC (default) \* DESC (default if SORTCOLUMN is Date)
+The column by which to order the result set. **Valid Values:** _ ID _ OriginId _ Date (default) _ Name _ Email _ Status _ Type _ Amount _ Scheme _ ResponseCode _ Currency _ LiveMode _ BusinessName _ ChannelName \* TrackId
 
 |
 |
 
-\`search\` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
+`sortOrder` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
-The following fields will be checked for the specified search string: \* Transaction ID (Id) \* Original Transaction ID (OriginId) \* Charge ID \* Track ID \* Status \* Customer email \* Card number
+Choose if the sort order is ascending (ASC) or descending (DESC). **Valid values:** _ ASC (default) _ DESC (default if SORTCOLUMN is Date)
 
 |
 |
 
-\`filters\` <span class="field-type">Object</span> <span class="optional-def">Optional</span>
+`search` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
 
 |
 
-The filters field is a series of one or more objects used to filter the resultset. Each object contains the following fields: \* ACTION = Whether to include or exclude rows matching the filter. Valid values: \* INCLUDE (default) \* EXCLUDE \* FIELD = The field to which the filter applies. Omitting will invalidate the filter. Valid values: \* Status \* Email \* CardNumber \* ChargeID \* TrackID \* OPERATOR = The operator to use for matching purposes. Valid values: \* EQUALS (default) \* CONTAINS \* BEGINS \* ENDS \* VALUE = The comparison value for matching the filter. Omitting or leaving blank will invalidate the filter.
+The following fields will be checked for the specified search string: _ Transaction ID (Id) _ Original Transaction ID (OriginId) _ Charge ID _ Track ID _ Status _ Customer email \* Card number
+
+|
+|
+
+`filters` <span class="field-type">Object</span> <span class="optional-def">Optional</span>
 
 |
 
-\## The response If your transaction report returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. ### Response example Take a look at the example response below.
+The filters field is a series of one or more objects used to filter the resultset. Each object contains the following fields: _ ACTION = Whether to include or exclude rows matching the filter. Valid values: _ INCLUDE (default) _ EXCLUDE _ FIELD = The field to which the filter applies. Omitting will invalidate the filter. Valid values: _ Status _ Email _ CardNumber _ ChargeID _ TrackID _ OPERATOR = The operator to use for matching purposes. Valid values: _ EQUALS (default) _ CONTAINS _ BEGINS _ ENDS \* VALUE = The comparison value for matching the filter. Omitting or leaving blank will invalidate the filter.
+
+|
+
+## The response If your transaction report returns, then your request was successful. If you're having problems with this API, then ask our [support team](mailto:support@checkout.com) for help. ### Response example Take a look at the example response below.
 
 JSON XML
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-47
-
-1
+7
 
 {
 
@@ -267,19 +207,11 @@ xxxxxxxxxx
 
 "totalRecords": 2,
 
-3
-
 "pageNumber": 1,
-
-4
 
 "pageSize": 10,
 
-5
-
-"data": \[
-
-6
+"data": [
 
 {
 
@@ -294,44 +226,28 @@ xxxxxxxxxx
 9
 
 "date": "2015-11-23T10:22:03.337Z",
-
-10
+0
 
 "status": "Authorised",
 
-11
-
 "type": "Regular",
-
-12
+2
 
 "amount": 4298,
-
-13
-
 "scheme": "Visa",
-
-14
 
 "responseCode": "20020",
 
-15
-
 "currency": "USD",
 
-16
-
 "liveMode": false,
-
-17
+7
 
 "businessName": "DemoBusiness",
-
-18
+8
 
 "channelName": "Checkout.com",
-
-19
+9
 
 "trackId": "",
 
@@ -414,234 +330,169 @@ xxxxxxxxxx
 39
 
 "trackId": "",
-
-40
+0
 
 "customer": {
-
-41
-
-"id": 0,
-
-42
-
-"name": "Miss Matt Quigley",
-
-43
-
-"email": "LanaSMartin@dayrep.com"
-
-44
-
-}
-
-45
-
-}
-
-46
-
-\]
-
-47
-
-}
-
-Import from Gist
-
-xxxxxxxxxx
-
-46
-
 1
 
-<data
-
+"id": 0,
 2
 
-xmlns:json\="http://www.checkout.com/apis/json"&gt;
-
+"name": "Miss Matt Quigley",
 3
 
- <totalRecords>2</totalRecords\>
-
+"email": "LanaSMartin@dayrep.com"
 4
 
-<pageNumber\>1</pageNumber\>
+}
 
-5
+}
 
-<pageSize\>10</pageSize\>
+]
+7
 
-6
+}
 
-<data\>
+<data
+xmlns:json="http://www.checkout.com/apis/json"&gt;
+
+=
+
+<totalRecords>2</totalRecords>
+
+<pageNumber>1</pageNumber>
+
+<pageSize>10</pageSize>
+
+<data>
 
 7
 
-<id\>charge_test_C1AADACE560R76BD3E90</id\>
+<id>charge_test_C1AADACE560R76BD3E90</id>
 
 8
 
-<originId\>charge_test_C1AADACE560R76BD3E90</originId\>
+<originId>charge_test_C1AADACE560R76BD3E90</originId>
 
 9
 
-<date\>2015-11-23T10:22:03.337Z</date\>
+<date>2015-11-23T10:22:03.337Z</date>0
 
-10
+<status>Authorised</status>1
 
-<status\>Authorised</status\>
+<type>Regular</type>2
 
-11
+<amount>4298</amount>
+<scheme>Visa</scheme>
 
-<type\>Regular</type\>
+<responseCode>20020</responseCode>
 
-12
+<currency>USD</currency>
 
-<amount\>4298</amount\>
+<liveMode>false</liveMode>7
 
-13
+<businessName>DemoBusiness</businessName>8
 
-<scheme\>Visa</scheme\>
+<channelName>Checkout.com</channelName>9
 
-14
-
-<responseCode\>20020</responseCode\>
-
-15
-
-<currency\>USD</currency\>
-
-16
-
-<liveMode\>false</liveMode\>
-
-17
-
-<businessName\>DemoBusiness</businessName\>
-
-18
-
-<channelName\>Checkout.com</channelName\>
-
-19
-
-<trackId\></trackId\>
+<trackId></trackId>
 
 20
 
-<customer\>
+<customer>
 
 21
 
-<id\>0</id\>
+<id>0</id>
 
 22
 
-<name\>Miss Matt Quigley</name\>
+<name>Miss Matt Quigley</name>
 
 23
 
-<email\>LanaSMartin@dayrep.com</email\>
+<email>LanaSMartin@dayrep.com</email>
 
 24
 
-</customer\>
+</customer>
 
 25
 
-</data\>
+</data>
 
 26
 
-<data\>
+<data>
 
 27
 
-<id\>charge_test_A41ACACE560L76BD3E91</id\>
+<id>charge_test_A41ACACE560L76BD3E91</id>
 
 28
 
-<originId\>charge_test_A41ACACE560L76BD3E91</originId\>
+<originId>charge_test_A41ACACE560L76BD3E91</originId>
 
 29
 
-<date\>2015-11-23T10:23:58.543Z</date\>
+<date>2015-11-23T10:23:58.543Z</date>
 
 30
 
-<status\>Authorised</status\>
+<status>Authorised</status>
 
 31
 
-<type\>Regular</type\>
+<type>Regular</type>
 
 32
 
-<amount\>4298</amount\>
+<amount>4298</amount>
 
 33
 
-<scheme\>MasterCard</scheme\>
+<scheme>MasterCard</scheme>
 
 34
 
-<responseCode\>20020</responseCode\>
+<responseCode>20020</responseCode>
 
 35
 
-<currency\>USD</currency\>
+<currency>USD</currency>
 
 36
 
-<liveMode\>false</liveMode\>
+<liveMode>false</liveMode>
 
 37
 
-<businessName\>DemoBusiness</businessName\>
+<businessName>DemoBusiness</businessName>
 
 38
 
-<channelName\>Checkout.com</channelName\>
+<channelName>Checkout.com</channelName>
 
 39
 
-<trackId\></trackId\>
+<trackId></trackId>0
 
-40
+<customer>
+1
 
-<customer\>
+<id>0</id>2
 
-41
+<name>Miss Matt Quigley</name>3
 
-<id\>0</id\>
+<email>LanaSMartin@dayrep.com</email>4
 
-42
+</customer>
 
-<name\>Miss Matt Quigley</name\>
+</data>
 
-43
+</data>
 
-<email\>LanaSMartin@dayrep.com</email\>
-
-44
-
-</customer\>
-
-45
-
-</data\>
-
-46
-
-</data\>
-
-Import from Gist
-
-\### Understanding your transaction query The response fields and their definitions are as follows:
-
-x
+### Understanding your transaction query The response fields and their definitions are as follows:
 
 Add Row Add Col
 
@@ -649,7 +500,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`totalRecords\` <span class="field-type">Integer</span>
+`totalRecords` <span class="field-type">Integer</span>
 
 |
 
@@ -658,7 +509,7 @@ The total number of records returned in the response.
 |
 |
 
-\`pageNumber\` <span class="field-type">Integer</span>
+`pageNumber` <span class="field-type">Integer</span>
 
 |
 
@@ -667,7 +518,7 @@ The page number of the returned result set.
 |
 |
 
-\`pageSize\` <span class="field-type">Integer</span>
+`pageSize` <span class="field-type">Integer</span>
 
 |
 
@@ -676,17 +527,15 @@ The number of records returned per page.
 |
 |
 
-\`data\` <span class="field-type">Array</span>
+`data` <span class="field-type">Array</span>
 
 |
 
-An array of query objects. <span class="table-info">\[Learn about the data array.\](/docs/transaction-query#section-the-data-array)</span>
+An array of query objects. <span class="table-info">[Learn about the data array.](/docs/transaction-query#section-the-data-array)</span>
 
 |
 
-\#### The data array
-
-x
+#### The data array
 
 Add Row Add Col
 
@@ -694,25 +543,25 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`id\` <span class="field-type">String</span>
+`id` <span class="field-type">String</span>
 
 |
 
-The charge id prefixed with \`charge\_\` or \`chargetest\`.
-
-|
-|
-
-\`date\` <span class="field-type">String</span>
-
-|
-
-UTC date and time based on ISO 8601 profile e.g., \`2015-11-05T13:10:30Z\` or \`2015-11-05T08:10:30-05:00\`
+The charge id prefixed with `charge\_` or `chargetest`.
 
 |
 |
 
-\`status\` <span class="field-type">String</span>
+`date` <span class="field-type">String</span>
+
+|
+
+UTC date and time based on ISO 8601 profile e.g., `2015-11-05T13:10:30Z` or `2015-11-05T08:10:30-05:00`
+
+|
+|
+
+`status` <span class="field-type">String</span>
 
 |
 
@@ -721,7 +570,7 @@ Status of the charge (e.g, '10000' equivalent to approved).
 |
 |
 
-\`type\` <span class="field-type">String</span>
+`type` <span class="field-type">String</span>
 
 |
 
@@ -730,7 +579,7 @@ Transaction indicator. Regular, Recurring or MOTO.
 |
 |
 
-\`amount\` <span class="field-type">Integer</span>
+`amount` <span class="field-type">Integer</span>
 
 |
 
@@ -739,7 +588,7 @@ The charge amount.
 |
 |
 
-\`scheme\` <span class="field-type">String</span>
+`scheme` <span class="field-type">String</span>
 
 |
 
@@ -748,7 +597,7 @@ The card scheme. (Visa, MasterCard etc.)
 |
 |
 
-\`responseCode\` <span class="field-type">String</span>
+`responseCode` <span class="field-type">String</span>
 
 |
 
@@ -757,7 +606,7 @@ A response code indicating the status of the request.
 |
 |
 
-\`currency\` <span class="field-type">String</span>
+`currency` <span class="field-type">String</span>
 
 |
 
@@ -766,7 +615,7 @@ Three-letter ISO currency code the represents the currency in which the charge w
 |
 |
 
-\`liveMode\` <span class="field-type">Boolean</span>
+`liveMode` <span class="field-type">Boolean</span>
 
 |
 
@@ -775,7 +624,7 @@ Can be true or false stating whether this request was for live or test based on 
 |
 |
 
-\`businessName\` <span class="field-type">String</span>
+`businessName` <span class="field-type">String</span>
 
 |
 
@@ -784,10 +633,10 @@ Business name.
 |
 |
 
-\`customer\` <span class="field-type">Object</span>
+`customer` <span class="field-type">Object</span>
 
 |
 
-\* ID: Customer ID \* Name: Customer name \* Email: Customer email address
+- ID: Customer ID _ Name: Customer name _ Email: Customer email address
 
 |

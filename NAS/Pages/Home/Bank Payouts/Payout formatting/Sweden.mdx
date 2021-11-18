@@ -5,10 +5,8 @@ account: NAS
 
 #### Basic information
 
-*   [**Local**](#tabs-fb213120-6084-478d-9957-941cb011a38a-1)
-*   [**International**](#tabs-fb213120-6084-478d-9957-941cb011a38a-2)
-
-  
+- [**Local**](#tabs-fb213120-6084-478d-9957-941cb011a38a-1)
+- [**International**](#tabs-fb213120-6084-478d-9957-941cb011a38a-2)
 
 Country code
 
@@ -22,18 +20,16 @@ Scheme
 
 SEPA:
 
-*   **Minimum amount (local currency):** 0.01
-*   **Maximum amount (local currency):** no maximum
-*   **Cut-off time:** 11:30 GMT
-*   **Settlement:** T+1 next day
+- **Minimum amount (local currency):** 0.01
+- **Maximum amount (local currency):** no maximum
+- **Cut-off time:** 11:30 GMT
+- **Settlement:** T+1 next day
 
 #### Payment information
 
- Individual
+Individual
 
 #### Beneficiary information
-
-  
 
 Beneficiary type
 
@@ -64,14 +60,6 @@ STRING
 Beneficiary address
 
 The account holder's address.
-
-  
-
-  
-
-  
-
-  
 
 `account_holder.billing_address.address_line1`
 
@@ -107,8 +95,6 @@ This must be a [two-letter ISO code](/display/DOCS/Country+codes).
 
 #### Bank details
 
-  
-
 IBAN
 
 The account holder's IBAN.
@@ -127,13 +113,11 @@ The account holder's SWIFT BIC.
 
 REQUIRED
 
-STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+STRING, ^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$
 
- Corporate
+Corporate
 
 #### Beneficiary information
-
-  
 
 Beneficiary type
 
@@ -193,8 +177,6 @@ This must be a [two-letter ISO code](/display/DOCS/Country+codes).
 
 #### Bank details
 
-  
-
 IBAN
 
 The account holder's IBAN.
@@ -213,61 +195,61 @@ The account holder's SWIFT BIC.
 
 REQUIRED
 
-STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+STRING, ^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$
 
 #### Example
 
-*   [**Payment instrument request (EUR)**](#tabs-10e291fd-67cf-45a5-a2e6-0e94401f1a0d-1)
-*   [**Payout request (EUR)**](#tabs-10e291fd-67cf-45a5-a2e6-0e94401f1a0d-2)
+- [**Payment instrument request (EUR)**](#tabs-10e291fd-67cf-45a5-a2e6-0e94401f1a0d-1)
+- [**Payout request (EUR)**](#tabs-10e291fd-67cf-45a5-a2e6-0e94401f1a0d-2)
 
-    {
-      "type": "bank_account",
-      "iban": "SE4550000000058398257466",
-      "swift_bic": "NDEASESSXXX",
-      "currency": "EUR",
-      "country": "SE",
-      "account_holder": {
-        "first_name": "John",
-        "last_name": "Smith",
-        "address_line1": "99 Windsor Road",
-        "address_city": "Stockholm",
-        "country_code": "SE",
-        "billing_address": {
-          "address_line1": "99 Windsor Road",
-          "country_code": "SE",
-          "address_city": "Stockholm"
-        }
-      }
-    }
+  {
+  "type": "bank_account",
+  "iban": "SE4550000000058398257466",
+  "swift_bic": "NDEASESSXXX",
+  "currency": "EUR",
+  "country": "SE",
+  "account_holder": {
+  "first_name": "John",
+  "last_name": "Smith",
+  "address_line1": "99 Windsor Road",
+  "address_city": "Stockholm",
+  "country_code": "SE",
+  "billing_address": {
+  "address_line1": "99 Windsor Road",
+  "country_code": "SE",
+  "address_city": "Stockholm"
+  }
+  }
+  }
 
-    {
-      "currency": "EUR",
-      "source": {
-        "amount": 100,
-        "type": "currency_account",
-        "id": "ca_vrsqwv6tgtyufgi5xahfqmqq7a"
-      },
-      "reference": "CKO Test",
-      "destination": {
-        "type": "id",
-        "id": "src_6gtxe3cxns7uld5ytsemv6pdma"
-      },
-      "billing_descriptor": {
-        "reference": "CKO Test"
-      },
-      "sender": {
-        "type": "instrument",
-        "reference": "CKO Test",
-        "first_name": "John",
-        "last_name": "Smith",
-        "address_line1": "99 Windsor Road",
-        "address_city": "Stockholm",
-        "country_code": "SE"
-      },
-      "instruction": {
-        "purpose": "CKO Test EUR"
-      },
-      "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
-    }
+  {
+  "currency": "EUR",
+  "source": {
+  "amount": 100,
+  "type": "currency_account",
+  "id": "ca_vrsqwv6tgtyufgi5xahfqmqq7a"
+  },
+  "reference": "CKO Test",
+  "destination": {
+  "type": "id",
+  "id": "src_6gtxe3cxns7uld5ytsemv6pdma"
+  },
+  "billing_descriptor": {
+  "reference": "CKO Test"
+  },
+  "sender": {
+  "type": "instrument",
+  "reference": "CKO Test",
+  "first_name": "John",
+  "last_name": "Smith",
+  "address_line1": "99 Windsor Road",
+  "address_city": "Stockholm",
+  "country_code": "SE"
+  },
+  "instruction": {
+  "purpose": "CKO Test EUR"
+  },
+  "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
+  }
 
 Coming soon.

@@ -3,13 +3,9 @@ title: customer-object
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 These APIs can be used to create, retrieve, update, and delete information in a customer's card object.
 
 The customer object is an outline of all the information stored about a customer. It consists of the following fields:
-
-x
 
 Add Row Add Col
 
@@ -17,7 +13,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`id\` <span class="field-type">String</span>
+`id` <span class="field-type">String</span>
 
 |
 
@@ -26,16 +22,16 @@ A string of characters (prefixed with cust\_) that uniquely identifies the custo
 |
 |
 
-\`card\` <span class="field-type">Hash</span>
+`card` <span class="field-type">Hash</span>
 
 |
 
-A hash containing an array of \[cards\](doc:cards).
+A hash containing an array of [cards](doc:cards).
 
 |
 |
 
-\`count \` <span class="field-type">Integer</span>
+`count ` <span class="field-type">Integer</span>
 
 |
 
@@ -44,16 +40,16 @@ The number of card objects included in the array.
 |
 |
 
-\`created\` <span class="field-type">String</span>
+`created` <span class="field-type">String</span>
 
 |
 
-The UTC date and time expressed according to ISO 8601. (e.g., \*\*2015-11-05T13:10:30Z\*\* or \*\*2015-11-05T08:10:30-05:00\*\*)
+The UTC date and time expressed according to ISO 8601. (e.g., **2015-11-05T13:10:30Z** or **2015-11-05T08:10:30-05:00**)
 
 |
 |
 
-\`data\` <span class="field-type">Array</span>
+`data` <span class="field-type">Array</span>
 
 |
 
@@ -62,7 +58,7 @@ An array of card objects.
 |
 |
 
-\`defaultCard\` <span class="field-type">String</span>
+`defaultCard` <span class="field-type">String</span>
 
 |
 
@@ -71,7 +67,7 @@ The card ID of the customer's default card.
 |
 |
 
-\`description\` <span class="field-type">String</span>
+`description` <span class="field-type">String</span>
 
 |
 
@@ -80,7 +76,7 @@ The description specified in the request.
 |
 |
 
-\`email\` <span class="field-type">String</span>
+`email` <span class="field-type">String</span>
 
 |
 
@@ -89,16 +85,16 @@ The customer's email address.
 |
 |
 
-\`liveMode\` <span class="field-type">Boolean</span>
+`liveMode` <span class="field-type">Boolean</span>
 
 |
 
-Defined as: \* \`true\` if the live keys were used in the request. \* \`false\` if the test keys were used in the request.
+Defined as: _ `true` if the live keys were used in the request. _ `false` if the test keys were used in the request.
 
 |
 |
 
-\`name \` <span class="field-type">String</span>
+`name ` <span class="field-type">String</span>
 
 |
 
@@ -107,7 +103,7 @@ The customer's name.
 |
 |
 
-\`metadata\` <span class="field-type">Hash</span>
+`metadata` <span class="field-type">Hash</span>
 
 |
 
@@ -116,10 +112,10 @@ A hash of FieldName and value pairs (e.g., {"keys1": "Value1"}).
 |
 |
 
-\`phone\` <span class="field-type">Object</span>
+`phone` <span class="field-type">Object</span>
 
 |
 
-Phone number of the customer containing: \* \`countryCode\`: Valid country code for the phone number (e.g. 44 for the United Kingdom) \* \`number\`: Phone number.
+Phone number of the customer containing: _ `countryCode`: Valid country code for the phone number (e.g. 44 for the United Kingdom) _ `number`: Phone number.
 
 |

@@ -7,18 +7,14 @@ Start accepting OXXO payments, a popular offline cash payment voucher system in 
 
 If you want to use a gateway model for accepting OXXO payments, you will need to arrange an agreement with our provider, dLocal, and create merchant details (specifically, `x_login` and `x_trans_key`) and a secret key with them. Share these details with our Customer Support team and we'll get you up and running. If you have already been onboarded for one of our other dLocal payment methods, you can use the same credentials.
 
-Overview
---------
+## Overview
 
 OXXO can be used by either redirecting the customer to a statically hosted ticket (`redirect` integration method) or by rendering the complete ticket within your own checkout flow (`direct` integration method).
 
 Payments follow a two-step process:
+. [Request payment](#OXXO-requestpayment) 2. [Redirect the customer or render the ticket](#OXXO-redirectorrender)
 
-1.  [Request payment](#OXXO-requestpayment)
-2.  [Redirect the customer or render the ticket](#OXXO-redirectorrender)
-
-Step 1: Request payment 
-------------------------
+## Step 1: Request payment 
 
 ### The POST request
 
@@ -26,8 +22,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-921e42f8-a1a8-4c79-a07b-e92368d0fa2d-1)
-*   [**Sandbox**](#tabs-921e42f8-a1a8-4c79-a07b-e92368d0fa2d-2)
+- [**Live**](#tabs-921e42f8-a1a8-4c79-a07b-e92368d0fa2d-1)
+- [**Sandbox**](#tabs-921e42f8-a1a8-4c79-a07b-e92368d0fa2d-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -81,12 +77,10 @@ REQUIRED
 
 STRING
 
-  
-
 The type of integration. Either `direct` or `redirect`.
 
-*   `direct`: a ticket object is returned, which you can use to render a ticket to the customer. No redirect URL is returned.
-*   `redirect`: a redirect URL is returned. Redirect the customer to this URL to proceed with the payment.
+- `direct`: a ticket object is returned, which you can use to render a ticket to the customer. No redirect URL is returned.
+- `redirect`: a redirect URL is returned. Redirect the customer to this URL to proceed with the payment.
 
 `source.country`
 
@@ -111,8 +105,6 @@ REQUIRED
 STRING
 
 The customer's full name.
-
-  
 
 `source.payer.email`
 
@@ -156,38 +148,38 @@ The currency in which the payment is being made (three-letter ISO 4217 code). Se
 
 #### Request example
 
-*   [**Redirect**](#tabs-17ec800c-3aa5-40a7-85eb-35b1d69b92cc-1)
-*   [**Direct**](#tabs-17ec800c-3aa5-40a7-85eb-35b1d69b92cc-2)
+- [**Redirect**](#tabs-17ec800c-3aa5-40a7-85eb-35b1d69b92cc-1)
+- [**Direct**](#tabs-17ec800c-3aa5-40a7-85eb-35b1d69b92cc-2)
 
-    {
-      "source": {
-        "type": "oxxo",
-        "integration_type": "redirect",
-        "country": "MX",
-        "payer": {
-          "name": "Bruce Wayne",
-          "email": "bruce@wayne-enterprises.com"
-        },
-        "description": "simulate OXXO Demo Payment"
-      },
-      "amount": 100,
-      "currency": "MXN"
-    }
+  {
+  "source": {
+  "type": "oxxo",
+  "integration_type": "redirect",
+  "country": "MX",
+  "payer": {
+  "name": "Bruce Wayne",
+  "email": "bruce@wayne-enterprises.com"
+  },
+  "description": "simulate OXXO Demo Payment"
+  },
+  "amount": 100,
+  "currency": "MXN"
+  }
 
-    {
-      "source": {
-        "type": "oxxo",
-        "integration_type": "direct",
-        "country": "MX",
-        "payer": {
-          "name": "Bruce Wayne",
-          "email": "bruce@wayne-enterprises.com"
-        },
-        "description": "simulate OXXO Demo Payment"
-      },
-      "amount": 100,
-      "currency": "MXN"
-    }
+  {
+  "source": {
+  "type": "oxxo",
+  "integration_type": "direct",
+  "country": "MX",
+  "payer": {
+  "name": "Bruce Wayne",
+  "email": "bruce@wayne-enterprises.com"
+  },
+  "description": "simulate OXXO Demo Payment"
+  },
+  "amount": 100,
+  "currency": "MXN"
+  }
 
 ### The POST response
 
@@ -195,51 +187,50 @@ Whether you used the direct or redirect method, you should get a `202` respons
 
 #### Response example
 
-*   [**Redirect**](#tabs-649341b7-442e-44e4-8832-e06d82fc1442-1)
-*   [**Direct**](#tabs-649341b7-442e-44e4-8832-e06d82fc1442-2)
+- [**Redirect**](#tabs-649341b7-442e-44e4-8832-e06d82fc1442-1)
+- [**Direct**](#tabs-649341b7-442e-44e4-8832-e06d82fc1442-2)
 
-    {
-      "id": "pay_r2vanwtizkeedc5fesx7ydvdzu",
-      "status": "Pending",
-      "customer": {
-        "id": "cus_oxgvscbkycweplf4pvwhedyeg4"
-      },
-      "_links": {
-        "self": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_r2vanwtizkeedc5fesx7ydvdzu"
-        },
-        "redirect": {
-          "href": "https://sandbox.dlocal.com/collect/pay/pay/M-4e296cdd-5c0d-4a05-9ae5-850c85a822d6?xtid=CATH-ST-1587996829-1977060731"
-        },
-        "simulator:payment-succeed": {
-          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/oxxo/payments/pay_r2vanwtizkeedc5fesx7ydvdzu/succeed"
-        },
-        "simulator:payment-expire": {
-          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/oxxo/payments/pay_r2vanwtizkeedc5fesx7ydvdzu/expire"
-        }
-      }
-    }
+  {
+  "id": "pay_r2vanwtizkeedc5fesx7ydvdzu",
+  "status": "Pending",
+  "customer": {
+  "id": "cus_oxgvscbkycweplf4pvwhedyeg4"
+  },
+  "\_links": {
+  "self": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_r2vanwtizkeedc5fesx7ydvdzu"
+  },
+  "redirect": {
+  "href": "https://sandbox.dlocal.com/collect/pay/pay/M-4e296cdd-5c0d-4a05-9ae5-850c85a822d6?xtid=CATH-ST-1587996829-1977060731"
+  },
+  "simulator:payment-succeed": {
+  "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/oxxo/payments/pay_r2vanwtizkeedc5fesx7ydvdzu/succeed"
+  },
+  "simulator:payment-expire": {
+  "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/oxxo/payments/pay_r2vanwtizkeedc5fesx7ydvdzu/expire"
+  }
+  }
+  }
 
-    {
-      "id": "pay_gxw65fs6rijepgn4rb5tqqvp5u",
-      "status": "Pending",
-      "customer": {
-        "id": "cus_6unw4ulqvrlenduk4xiurlbiyq"
-      },
-      "_links": {
-        "self": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_gxw65fs6rijepgn4rb5tqqvp5u"
-        }
-      }
-    }
+  {
+  "id": "pay_gxw65fs6rijepgn4rb5tqqvp5u",
+  "status": "Pending",
+  "customer": {
+  "id": "cus_6unw4ulqvrlenduk4xiurlbiyq"
+  },
+  "\_links": {
+  "self": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_gxw65fs6rijepgn4rb5tqqvp5u"
+  }
+  }
+  }
 
-Step 2: Redirect the customer or render the ticket 
----------------------------------------------------
+## Step 2: Redirect the customer or render the ticket 
 
 To complete the payment, you need to provide the customer with a OXXO ticket by following one of two flows:
 
-*   If you used the `redirect` method, [redirect the customer](#OXXO-redirect).
-*   If you used the `direct` method, [render the ticket](#OXXO-render).
+- If you used the `redirect` method, [redirect the customer](#OXXO-redirect).
+- If you used the `direct` method, [render the ticket](#OXXO-render).
 
 ### Redirect the customer 
 
@@ -249,8 +240,8 @@ Using the redirection URL returned in the response above via `_links.redirect`,
 
 A button on the page will allow them to return to your shop:
 
-*   If the ticket is still valid, they will be redirected to your success URL.
-*   If the ticket has expired, they will be redirected to your failure URL.
+- If the ticket is still valid, they will be redirected to your success URL.
+- If the ticket has expired, they will be redirected to your failure URL.
 
 Your payment confirmation page should make it clear to the customer that their purchase has not yet been completed. Explain that it has been reserved and is pending payment before the order can be completed and the goods/services can be delivered.
 
@@ -264,22 +255,19 @@ To get the components necessary to render the ticket, use the ['get payment det
 
 Tips for displaying the ticket:
 
-*   Separate the **ticket number** into three groups, like this: four digits - five digits - five digits. It makes it easier for customers to dictate it to cashiers.
-*   Include the **currency** and **amount** on the ticket.
-*   Make sure the **expiry date** is clear and visible, and use the **dd/mm/yyyy** format.
-*   Include **payment instructions** to help customers unfamiliar with the payment process.
-*   A **store locator** is a helpful feature. Just link it to [google.com/maps/search/oxxo/](https://www.google.com/maps/search/oxxo).
-*   Include a **download button** so customers can easily save the ticket on their phone.
-*   Include a **print button** for customers who want to print their ticket.
+- Separate the **ticket number** into three groups, like this: four digits - five digits - five digits. It makes it easier for customers to dictate it to cashiers.
+- Include the **currency** and **amount** on the ticket.
+- Make sure the **expiry date** is clear and visible, and use the **dd/mm/yyyy** format.
+- Include **payment instructions** to help customers unfamiliar with the payment process.
+- A **store locator** is a helpful feature. Just link it to [google.com/maps/search/oxxo/](https://www.google.com/maps/search/oxxo).
+- Include a **download button** so customers can easily save the ticket on their phone.
+- Include a **print button** for customers who want to print their ticket.
 
 Here's an example:
 
 ![](/download/attachments/2785394/oxxo-ticket-render-example.png?version=1&modificationDate=1588778972982&api=v2)
 
-  
-
-Get details about a payment 
-----------------------------
+## Get details about a payment 
 
 Using the following endpoint, pass the payment `id` (for example, `pay_hcklpcd45ymepcr7thciirbdaa`) from the payment response to get details about the payment.
 
@@ -289,8 +277,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-d3d138b3-7b98-424e-b4d5-fc25e5a73c23-1)
-*   [**Sandbox**](#tabs-d3d138b3-7b98-424e-b4d5-fc25e5a73c23-2)
+- [**Live**](#tabs-d3d138b3-7b98-424e-b4d5-fc25e5a73c23-1)
+- [**Sandbox**](#tabs-d3d138b3-7b98-424e-b4d5-fc25e5a73c23-2)
 
 GET`https://api.checkout.com/payments/{payment_id}`
 
@@ -334,117 +322,115 @@ The response will differ depending on which `integration_type` (`redirect` or
 
 ##### Redirect
 
-*   [**Payment pending**](#tabs-cd14638b-1f9b-411d-920c-44eb834684d6-1)
-*   [**Payment captured**](#tabs-cd14638b-1f9b-411d-920c-44eb834684d6-2)
+- [**Payment pending**](#tabs-cd14638b-1f9b-411d-920c-44eb834684d6-1)
+- [**Payment captured**](#tabs-cd14638b-1f9b-411d-920c-44eb834684d6-2)
 
-    {
-      "id": "pay_r2vanwtizkeedc5fesx7ydvdzu",
-      "requested_on": "2020-04-27T14:13:49Z",
-      "source": {
-        "type": "oxxo",
-        "dlocal_order_id": "dd889cb7f3f1439a960ea165cb48b866",
-        "dlocal_payment_id": "D-30150-fdb35d63-f86a-4593-9e43-349d63c37110",
-        "integration_type": "redirect",
-        "description": "simulate OXXO Demo Payment"
-      },
-      "amount": 100,
-      "currency": "MXN",
-      "payment_type": "Regular",
-      "status": "Pending",
-      "risk": {
-        "flagged": false
-      },
-      "customer": {
-        "id": "cus_oxgvscbkycweplf4pvwhedyeg4"
-      },
-      "_links": {
-        "redirect": {
-          "href": "https://sandbox.dlocal.com/collect/pay/pay/M-4e296cdd-5c0d-4a05-9ae5-850c85a822d6?xtid=CATH-ST-1587996829-1977060731"
-        },
-        "simulator:payment-succeed": {
-          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/oxxo/payments/pay_r2vanwtizkeedc5fesx7ydvdzu/succeed"
-        },
-        "simulator:payment-expire": {
-          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/oxxo/payments/pay_r2vanwtizkeedc5fesx7ydvdzu/expire"
-        },
-        "self": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_r2vanwtizkeedc5fesx7ydvdzu"
-        }
-      }
-    }
+  {
+  "id": "pay_r2vanwtizkeedc5fesx7ydvdzu",
+  "requested_on": "2020-04-27T14:13:49Z",
+  "source": {
+  "type": "oxxo",
+  "dlocal_order_id": "dd889cb7f3f1439a960ea165cb48b866",
+  "dlocal_payment_id": "D-30150-fdb35d63-f86a-4593-9e43-349d63c37110",
+  "integration_type": "redirect",
+  "description": "simulate OXXO Demo Payment"
+  },
+  "amount": 100,
+  "currency": "MXN",
+  "payment_type": "Regular",
+  "status": "Pending",
+  "risk": {
+  "flagged": false
+  },
+  "customer": {
+  "id": "cus_oxgvscbkycweplf4pvwhedyeg4"
+  },
+  "\_links": {
+  "redirect": {
+  "href": "https://sandbox.dlocal.com/collect/pay/pay/M-4e296cdd-5c0d-4a05-9ae5-850c85a822d6?xtid=CATH-ST-1587996829-1977060731"
+  },
+  "simulator:payment-succeed": {
+  "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/oxxo/payments/pay_r2vanwtizkeedc5fesx7ydvdzu/succeed"
+  },
+  "simulator:payment-expire": {
+  "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/oxxo/payments/pay_r2vanwtizkeedc5fesx7ydvdzu/expire"
+  },
+  "self": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_r2vanwtizkeedc5fesx7ydvdzu"
+  }
+  }
+  }
 
-    {
-      "id": "pay_r2vanwtizkeedc5fesx7ydvdzu",
-      "requested_on": "2020-04-27T14:13:49Z",
-      "source": {
-        "type": "oxxo",
-        "dlocal_order_id": "dd889cb7f3f1439a960ea165cb48b866",
-        "dlocal_payment_id": "D-30150-fdb35d63-f86a-4593-9e43-349d63c37110",
-        "integration_type": "redirect",
-        "description": "simulate OXXO Demo Payment"
-      },
-      "amount": 100,
-      "currency": "MXN",
-      "payment_type": "Regular",
-      "status": "Captured",
-      "approved": true,
-      "risk": {
-        "flagged": false
-      },
-      "customer": {
-        "id": "cus_oxgvscbkycweplf4pvwhedyeg4"
-      },
-      "_links": {
-        "self": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_r2vanwtizkeedc5fesx7ydvdzu"
-        },
-        "actions": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_r2vanwtizkeedc5fesx7ydvdzu/actions"
-        },
-        "refund": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_r2vanwtizkeedc5fesx7ydvdzu/refunds"
-        }
-      }
-    }
+  {
+  "id": "pay_r2vanwtizkeedc5fesx7ydvdzu",
+  "requested_on": "2020-04-27T14:13:49Z",
+  "source": {
+  "type": "oxxo",
+  "dlocal_order_id": "dd889cb7f3f1439a960ea165cb48b866",
+  "dlocal_payment_id": "D-30150-fdb35d63-f86a-4593-9e43-349d63c37110",
+  "integration_type": "redirect",
+  "description": "simulate OXXO Demo Payment"
+  },
+  "amount": 100,
+  "currency": "MXN",
+  "payment_type": "Regular",
+  "status": "Captured",
+  "approved": true,
+  "risk": {
+  "flagged": false
+  },
+  "customer": {
+  "id": "cus_oxgvscbkycweplf4pvwhedyeg4"
+  },
+  "\_links": {
+  "self": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_r2vanwtizkeedc5fesx7ydvdzu"
+  },
+  "actions": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_r2vanwtizkeedc5fesx7ydvdzu/actions"
+  },
+  "refund": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_r2vanwtizkeedc5fesx7ydvdzu/refunds"
+  }
+  }
+  }
 
 ##### Direct
 
-*   [**Payment pending**](#tabs-6b385e6d-9bba-454d-80ff-032603f9d05b-1)
+- [**Payment pending**](#tabs-6b385e6d-9bba-454d-80ff-032603f9d05b-1)
 
-    {
-      "id": "pay_gxw65fs6rijepgn4rb5tqqvp5u",
-      "requested_on": "2020-03-17T09:14:17Z",
-      "source": {
-        "type": "boleto",
-        "dlocal_order_id": "c0e6cc2bf24c43c79fbbee55df293f5c",
-        "dlocal_payment_id": "D-30150-e59f330d-4b92-487c-a09a-3307be2184b7",
-        "ticket": {
-          "type": "REFERENCE_CODE",
-          "number": "9800-0004-8206-53",
-          "expiration_date": "2020-02-10T23:59:00.000+0000",
-          "image_url": "https://sandbox.dlocal.com/gmf/payments/M-cd028b60-4824-11ea-8d66-7fb82c3fe391"
-        }
-      },
-      "amount": 100,
-      "currency": "BRL",
-      "payment_type": "Regular",
-      "status": "Pending",
-      "risk": {
-        "flagged": false
-      },
-      "customer": {
-        "id": "cus_6unw4ulqvrlenduk4xiurlbiyq"
-      },
-      "_links": {
-        "self": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_gxw65fs6rijepgn4rb5tqqvp5u"
-        }
-      }
-    }
+  {
+  "id": "pay_gxw65fs6rijepgn4rb5tqqvp5u",
+  "requested_on": "2020-03-17T09:14:17Z",
+  "source": {
+  "type": "boleto",
+  "dlocal_order_id": "c0e6cc2bf24c43c79fbbee55df293f5c",
+  "dlocal_payment_id": "D-30150-e59f330d-4b92-487c-a09a-3307be2184b7",
+  "ticket": {
+  "type": "REFERENCE_CODE",
+  "number": "9800-0004-8206-53",
+  "expiration_date": "2020-02-10T23:59:00.000+0000",
+  "image_url": "https://sandbox.dlocal.com/gmf/payments/M-cd028b60-4824-11ea-8d66-7fb82c3fe391"
+  }
+  },
+  "amount": 100,
+  "currency": "BRL",
+  "payment_type": "Regular",
+  "status": "Pending",
+  "risk": {
+  "flagged": false
+  },
+  "customer": {
+  "id": "cus_6unw4ulqvrlenduk4xiurlbiyq"
+  },
+  "\_links": {
+  "self": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_gxw65fs6rijepgn4rb5tqqvp5u"
+  }
+  }
+  }
 
-  
-Refunds and chargebacks
---------------------------
+## Refunds and chargebacks
 
 ### Refund a payment
 
@@ -460,8 +446,7 @@ A refund processing fee may apply.
 
 There is no chargeback mechanism for OXXO.
 
-Webhooks
---------
+## Webhooks
 
 When using OXXO, you may receive the following webhooks.
 
@@ -503,13 +488,12 @@ Sent when a refund is declined.
 
 Learn more about [webhooks and how to subscribe to them](/display/DOCS/Webhooks).
 
-Testing OXXO
-------------
+## Testing OXXO
 
 To start testing, you'll need to:
 
-*   [create a test account](https://www.checkout.com/get-test-account), and
-*   contact your Customer Success Manager or Integrations engineer to activate OXXO payments in the sandbox environment.
+- [create a test account](https://www.checkout.com/get-test-account), and
+- contact your Customer Success Manager or Integrations engineer to activate OXXO payments in the sandbox environment.
 
 In your sandbox environment, you can test payment capture and expiration, as well as refund success and failure.
 

@@ -3,25 +3,22 @@ title: Card Payouts
 account: ABC
 ---
 
-
 Send money to a card in minutes. Using Visa Direct and Mastercard Moneysend, you can transfer funds directly to cards across over 180 countries.
 
 This feature is available for merchants incorporated in the United Kingdom, Gibraltar, the European Economic Area (EEA), and Singapore.
 
-Before you start
-----------------
+## Before you start
 
-*   [Verify the recipient's card](/display/DOCS/Card+verification) to make sure it is eligible to accept payouts and check whether it is enabled for Fast Funds.
-*   [Get a foreign exchange rate quote](/display/DOCS/FX+rates+endpoint) if you're paying out in a currency that's different from the currency of your account.
+- [Verify the recipient's card](/display/DOCS/Card+verification) to make sure it is eligible to accept payouts and check whether it is enabled for Fast Funds.
+- [Get a foreign exchange rate quote](/display/DOCS/FX+rates+endpoint) if you're paying out in a currency that's different from the currency of your account.
 
-Step 1: Make a payout request
------------------------------
+## Step 1: Make a payout request
 
 You can send a payout using either:
 
-*   a [token](#CardPayouts-token), 
-*   a [payment instrument](#CardPayouts-paymentinstrument), or 
-*   the [full card details](#CardPayouts-carddetails).
+- a [token](#CardPayouts-token),
+- a [payment instrument](#CardPayouts-paymentinstrument), or
+- the [full card details](#CardPayouts-carddetails).
 
 ### Transaction types
 
@@ -69,8 +66,8 @@ Tokens are single use and only have a 15-minute lifespan.
 
 #### Endpoints
 
-*   [**Live**](#tabs-713a4daf-5ab0-4a8d-bed0-42446080a601-1)
-*   [**Sandbox**](#tabs-713a4daf-5ab0-4a8d-bed0-42446080a601-2)
+- [**Live**](#tabs-713a4daf-5ab0-4a8d-bed0-42446080a601-1)
+- [**Sandbox**](#tabs-713a4daf-5ab0-4a8d-bed0-42446080a601-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -208,72 +205,72 @@ The information you need to provide depends on the card scheme and type of trans
 
 #### Request examples
 
-*   [**Direct funds disbursement**](#tabs-0fc5bbc4-17c7-4cb9-b1da-46375bd0c223-1)
-*   [**Money transfer**](#tabs-0fc5bbc4-17c7-4cb9-b1da-46375bd0c223-2)
-*   [**Third-party funds disbursement**](#tabs-0fc5bbc4-17c7-4cb9-b1da-46375bd0c223-3)
+- [**Direct funds disbursement**](#tabs-0fc5bbc4-17c7-4cb9-b1da-46375bd0c223-1)
+- [**Money transfer**](#tabs-0fc5bbc4-17c7-4cb9-b1da-46375bd0c223-2)
+- [**Third-party funds disbursement**](#tabs-0fc5bbc4-17c7-4cb9-b1da-46375bd0c223-3)
 
-    {
-      "destination": {
-        "type": "token",
-        "token": "tok_ihvkileifkzebkgnhkskbglyte",
-        "first_name" : "John",
-        "last_name" : "Smith"
-      },
-      "amount": 1000,
-      "currency": "GBP",
-      "fund_transfer_type": "FD",
-      "reference": "ORD-5023-4E89"
-    }
+  {
+  "destination": {
+  "type": "token",
+  "token": "tok_ihvkileifkzebkgnhkskbglyte",
+  "first_name" : "John",
+  "last_name" : "Smith"
+  },
+  "amount": 1000,
+  "currency": "GBP",
+  "fund_transfer_type": "FD",
+  "reference": "ORD-5023-4E89"
+  }
 
-    {
-      "destination": {
-        "type": "token",
-        "token": "tok_ihvkileifkzebkgnhkskbglyte",
-        "first_name" : "John",
-        "last_name" : "Smith"
-      },
-      "amount": 1000,
-      "currency": "GBP",
-      "fund_transfer_type": "AA",
-      "reference": "ORD-5023-4E89",
-      "processing": {
-        "senderInformation": {
-          "reference": "87654321",
-          "accountNumber": "12345678",
-          "firstName": "Haley",
-          "lastName": "Jones",
-          "address": "1 High Street",
-          "city": "London",
-          "country": "GB",
-          "sourceOfFunds": "Debit"
-        }
-      }  
-    }
+  {
+  "destination": {
+  "type": "token",
+  "token": "tok_ihvkileifkzebkgnhkskbglyte",
+  "first_name" : "John",
+  "last_name" : "Smith"
+  },
+  "amount": 1000,
+  "currency": "GBP",
+  "fund_transfer_type": "AA",
+  "reference": "ORD-5023-4E89",
+  "processing": {
+  "senderInformation": {
+  "reference": "87654321",
+  "accountNumber": "12345678",
+  "firstName": "Haley",
+  "lastName": "Jones",
+  "address": "1 High Street",
+  "city": "London",
+  "country": "GB",
+  "sourceOfFunds": "Debit"
+  }
+  }  
+  }
 
-    {
-      "destination": {
-        "type": "token",
-        "token": "tok_ihvkileifkzebkgnhkskbglyte",
-        "first_name" : "John",
-        "last_name" : "Smith"
-      },
-      "amount": 1000,
-      "currency": "GBP",
-      "fund_transfer_type": "FD",
-      "reference": "ORD-5023-4E89",
-      "processing": {
-        "senderInformation": {
-          "reference": "87654321",
-          "accountNumber": "12345678",
-          "firstName": "ABC",
-          "lastName": "International",
-          "address": "1 High Street",
-          "city": "London",
-          "country": "GB",
-          "sourceOfFunds": "DepositAccount"
-        }
-      }  
-    }
+  {
+  "destination": {
+  "type": "token",
+  "token": "tok_ihvkileifkzebkgnhkskbglyte",
+  "first_name" : "John",
+  "last_name" : "Smith"
+  },
+  "amount": 1000,
+  "currency": "GBP",
+  "fund_transfer_type": "FD",
+  "reference": "ORD-5023-4E89",
+  "processing": {
+  "senderInformation": {
+  "reference": "87654321",
+  "accountNumber": "12345678",
+  "firstName": "ABC",
+  "lastName": "International",
+  "address": "1 High Street",
+  "city": "London",
+  "country": "GB",
+  "sourceOfFunds": "DepositAccount"
+  }
+  }  
+  }
 
 ### Payout request using a payment instrument 
 
@@ -283,8 +280,8 @@ A payment instrument is a stored payment card, kept securely in our Vault. Each 
 
 #### Endpoints
 
-*   [**Live**](#tabs-7eb38f4e-ce30-4584-baa5-e47aa7df9c61-1)
-*   [**Sandbox**](#tabs-7eb38f4e-ce30-4584-baa5-e47aa7df9c61-2)
+- [**Live**](#tabs-7eb38f4e-ce30-4584-baa5-e47aa7df9c61-1)
+- [**Sandbox**](#tabs-7eb38f4e-ce30-4584-baa5-e47aa7df9c61-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -422,72 +419,72 @@ The information you need to provide depends on the card scheme and type of trans
 
 #### Request examples
 
-*   [**Direct funds disbursement**](#tabs-ba8c342f-6770-46e2-baf7-2e88636fb05d-1)
-*   [**Money transfer**](#tabs-ba8c342f-6770-46e2-baf7-2e88636fb05d-2)
-*   [**Third-party funds disbursement**](#tabs-ba8c342f-6770-46e2-baf7-2e88636fb05d-3)
+- [**Direct funds disbursement**](#tabs-ba8c342f-6770-46e2-baf7-2e88636fb05d-1)
+- [**Money transfer**](#tabs-ba8c342f-6770-46e2-baf7-2e88636fb05d-2)
+- [**Third-party funds disbursement**](#tabs-ba8c342f-6770-46e2-baf7-2e88636fb05d-3)
 
-    {
-      "destination": {
-        "type": "id",
-        "id": "src_nxc36gtdwjtuxfeg2vsy722m4e",
-        "first_name": "John",
-        "last_name": "Smith"
-      },
-      "amount": 100,
-      "currency": "GBP",
-      "fund_transfer_type": "FD",
-      "reference": "ORD-5023-4E89"
-    }
+  {
+  "destination": {
+  "type": "id",
+  "id": "src_nxc36gtdwjtuxfeg2vsy722m4e",
+  "first_name": "John",
+  "last_name": "Smith"
+  },
+  "amount": 100,
+  "currency": "GBP",
+  "fund_transfer_type": "FD",
+  "reference": "ORD-5023-4E89"
+  }
 
-    {
-      "destination": {
-        "type": "id",
-        "id": "src_nxc36gtdwjtuxfeg2vsy722m4e",
-        "first_name": "John",
-        "last_name": "Smith"
-      },
-      "amount": 100,
-      "currency": "GBP",
-      "fund_transfer_type": "AA",
-      "reference": "ORD-5023-4E89",
-      "processing": {
-        "senderInformation": {
-          "reference": "87654321",
-          "accountNumber": "12345678",
-          "firstName": "Haley",
-          "lastName": "Jones",
-          "address": "1 High Street",
-          "city": "London",
-          "country": "GB",
-          "sourceOfFunds": "Debit"
-        }
-      }
-    }
+  {
+  "destination": {
+  "type": "id",
+  "id": "src_nxc36gtdwjtuxfeg2vsy722m4e",
+  "first_name": "John",
+  "last_name": "Smith"
+  },
+  "amount": 100,
+  "currency": "GBP",
+  "fund_transfer_type": "AA",
+  "reference": "ORD-5023-4E89",
+  "processing": {
+  "senderInformation": {
+  "reference": "87654321",
+  "accountNumber": "12345678",
+  "firstName": "Haley",
+  "lastName": "Jones",
+  "address": "1 High Street",
+  "city": "London",
+  "country": "GB",
+  "sourceOfFunds": "Debit"
+  }
+  }
+  }
 
-    {
-      "destination": {
-        "type": "id",
-        "id": "src_nxc36gtdwjtuxfeg2vsy722m4e",
-        "first_name": "John",
-        "last_name": "Smith"
-      },
-      "amount": 100,
-      "currency": "GBP",
-      "fund_transfer_type": "FD",
-      "reference": "ORD-5023-4E89",
-      "processing": {
-        "senderInformation": {
-          "reference": "87654321",
-          "accountNumber": "12345678",
-          "firstName": "ABC",
-          "lastName": "International",
-          "address": "1 High Street",
-          "city": "London",
-          "country": "GB",
-          "sourceOfFunds": "DepositAccount"
-        }
-      }
-    }
+  {
+  "destination": {
+  "type": "id",
+  "id": "src_nxc36gtdwjtuxfeg2vsy722m4e",
+  "first_name": "John",
+  "last_name": "Smith"
+  },
+  "amount": 100,
+  "currency": "GBP",
+  "fund_transfer_type": "FD",
+  "reference": "ORD-5023-4E89",
+  "processing": {
+  "senderInformation": {
+  "reference": "87654321",
+  "accountNumber": "12345678",
+  "firstName": "ABC",
+  "lastName": "International",
+  "address": "1 High Street",
+  "city": "London",
+  "country": "GB",
+  "sourceOfFunds": "DepositAccount"
+  }
+  }
+  }
 
 ### Payout request using full card details 
 
@@ -499,8 +496,8 @@ Payouts using full card details are not available by default. To enable this fea
 
 #### Endpoints
 
-*   [**Live**](#tabs-9bfde11f-fac8-41f1-8a2a-68410ce28fa6-1)
-*   [**Sandbox**](#tabs-9bfde11f-fac8-41f1-8a2a-68410ce28fa6-2)
+- [**Live**](#tabs-9bfde11f-fac8-41f1-8a2a-68410ce28fa6-1)
+- [**Sandbox**](#tabs-9bfde11f-fac8-41f1-8a2a-68410ce28fa6-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -563,8 +560,6 @@ REQUIRED
 STRING
 
 The card number
-
-  
 
 `destination.expiry_month`
 
@@ -654,81 +649,80 @@ The information you need to provide depends on the card scheme and type of trans
 
 #### Request examples
 
-*   [**Direct funds disbursement**](#tabs-d312d151-b616-411e-8797-6b8c270677d5-1)
-*   [**Money transfer**](#tabs-d312d151-b616-411e-8797-6b8c270677d5-2)
-*   [**Third-party funds disbursement**](#tabs-d312d151-b616-411e-8797-6b8c270677d5-3)
+- [**Direct funds disbursement**](#tabs-d312d151-b616-411e-8797-6b8c270677d5-1)
+- [**Money transfer**](#tabs-d312d151-b616-411e-8797-6b8c270677d5-2)
+- [**Third-party funds disbursement**](#tabs-d312d151-b616-411e-8797-6b8c270677d5-3)
 
-    {
-      "destination": {
-        "type": "card",
-        "number": "4242424242424242",
-        "expiry_month": 12,
-        "expiry_year": 2025,
-        "first_name": "John",
-        "last_name": "Smith",
-      },
-      "amount": 100,
-      "currency": "GBP",
-      "fund_transfer_type": "FD",
-      "reference": "ORD-5023-4E89"
-    }
+  {
+  "destination": {
+  "type": "card",
+  "number": "4242424242424242",
+  "expiry_month": 12,
+  "expiry_year": 2025,
+  "first_name": "John",
+  "last_name": "Smith",
+  },
+  "amount": 100,
+  "currency": "GBP",
+  "fund_transfer_type": "FD",
+  "reference": "ORD-5023-4E89"
+  }
 
-    {
-      "destination": {
-        "type": "card",
-        "number": "4242424242424242",
-        "expiry_month": 12,
-        "expiry_year": 2025,
-        "first_name": "John",
-        "last_name": "Smith",
-      },
-      "amount": 100,
-      "currency": "GBP",
-      "fund_transfer_type": "AA",
-      "reference": "ORD-5023-4E89",
-      "processing": {
-        "senderInformation": {
-          "reference": "87654321",
-          "accountNumber": "12345678",
-          "firstName": "Haley",
-          "lastName": "Jones",
-          "address": "1 High Street",
-          "city": "London",
-          "country": "GB",
-          "sourceOfFunds": "Debit"
-        }
-      }
-    }
+  {
+  "destination": {
+  "type": "card",
+  "number": "4242424242424242",
+  "expiry_month": 12,
+  "expiry_year": 2025,
+  "first_name": "John",
+  "last_name": "Smith",
+  },
+  "amount": 100,
+  "currency": "GBP",
+  "fund_transfer_type": "AA",
+  "reference": "ORD-5023-4E89",
+  "processing": {
+  "senderInformation": {
+  "reference": "87654321",
+  "accountNumber": "12345678",
+  "firstName": "Haley",
+  "lastName": "Jones",
+  "address": "1 High Street",
+  "city": "London",
+  "country": "GB",
+  "sourceOfFunds": "Debit"
+  }
+  }
+  }
 
-    {
-      "destination": {
-        "type": "card",
-        "number": "4242424242424242",
-        "expiry_month": 12,
-        "expiry_year": 2025,
-        "first_name": "John",
-        "last_name": "Smith",
-      },
-      "amount": 100,
-      "currency": "GBP",
-      "fund_transfer_type": "FD",
-      "reference": "ORD-5023-4E89",
-      "processing": {
-        "senderInformation": {
-          "reference": "87654321",
-          "accountNumber": "12345678",
-          "firstName": "ABC",
-          "lastName": "International",
-          "address": "1 High Street",
-          "city": "London",
-          "country": "GB",
-          "sourceOfFunds": "DepositAccount"
-        }
-      }
-    }
+  {
+  "destination": {
+  "type": "card",
+  "number": "4242424242424242",
+  "expiry_month": 12,
+  "expiry_year": 2025,
+  "first_name": "John",
+  "last_name": "Smith",
+  },
+  "amount": 100,
+  "currency": "GBP",
+  "fund_transfer_type": "FD",
+  "reference": "ORD-5023-4E89",
+  "processing": {
+  "senderInformation": {
+  "reference": "87654321",
+  "accountNumber": "12345678",
+  "firstName": "ABC",
+  "lastName": "International",
+  "address": "1 High Street",
+  "city": "London",
+  "country": "GB",
+  "sourceOfFunds": "DepositAccount"
+  }
+  }
+  }
 
-Step 2: Handle the response
----------------------------
+## Step 2: Handle the response
 
 If your payout request was successful, you'll receive a `202 Payment asynchronous or further action required` response, and the status will be `Pending` while the transaction goes through compliance checks. A [webhook and response code](#CardPayouts-outcome) will tell you the final outcome of the payout.
 
@@ -736,33 +730,32 @@ If there was a problem with your request, you'll receive a `422 Invalid data se
 
 Card payouts cannot be canceled.
 
-*   [**202 Payment asynchronous or further action required**](#tabs-3f259305-ee93-43a6-8db0-31d95ea9da87-1)
-*   [**422 Invalid data was sent**](#tabs-3f259305-ee93-43a6-8db0-31d95ea9da87-2)
+- [**202 Payment asynchronous or further action required**](#tabs-3f259305-ee93-43a6-8db0-31d95ea9da87-1)
+- [**422 Invalid data was sent**](#tabs-3f259305-ee93-43a6-8db0-31d95ea9da87-2)
 
-    {
-      "id": "pay_wugo7nun52aetgpgnyzyzvghnu",
-      "status": "Pending",
-      "reference": "ORD-5023-4E89",
-      "customer": {
-        "id": "cus_37h52rohzyyerg74s7hd6yxsue"
-      },
-      "_links": {
-        "self": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_wugo7nun52aetgpgnyzyzvghnu"
-        }
-      }
-    }
+  {
+  "id": "pay_wugo7nun52aetgpgnyzyzvghnu",
+  "status": "Pending",
+  "reference": "ORD-5023-4E89",
+  "customer": {
+  "id": "cus_37h52rohzyyerg74s7hd6yxsue"
+  },
+  "\_links": {
+  "self": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_wugo7nun52aetgpgnyzyzvghnu"
+  }
+  }
+  }
 
-    {
-      "request_id": "071f5a37-ed7b-423b-98b7-8bff7cb5fce0",
-      "error_type": "processing_error",
-      "error_codes": [
-        "processing_error"
-      ]
-    }
+  {
+  "request_id": "071f5a37-ed7b-423b-98b7-8bff7cb5fce0",
+  "error_type": "processing_error",
+  "error_codes": [
+  "processing_error"
+  ]
+  }
 
-Step 3: Check the outcome 
---------------------------
+## Step 3: Check the outcome 
 
 If the payout was successful, you'll receive a `payment_paid` webhook. If it's unsuccessful, you'll get a `payment_declined` webhook. The included response code will provide more details.
 
@@ -772,125 +765,122 @@ The issuing bank has full discretion over how they respond to a card payout requ
 
 ### Webhook examples
 
-*   [**payment\_paid**](#tabs-0ae5465f-f3f0-4d42-8b7a-aa0eb62a6468-1)
-*   [**payment\_declined**](#tabs-0ae5465f-f3f0-4d42-8b7a-aa0eb62a6468-2)
+- [**payment_paid**](#tabs-0ae5465f-f3f0-4d42-8b7a-aa0eb62a6468-1)
+- [**payment_declined**](#tabs-0ae5465f-f3f0-4d42-8b7a-aa0eb62a6468-2)
 
-    {
-      "id": "evt_hbnxegj3dqyu5fsd4p2b4bxvpa",
-      "type": "payment_paid",
-      "created_on": "2019-12-11T08:59:39Z",
-      "data": {
-        "action_id": "act_fgmhgzodurievpxbdzgl3ftxce",
-        "auth_code": "924041",
-        "response_code": "10000",
-        "response_summary": "Approved",
-        "amount": 115,
-        "metadata": {},
-        "destination": {
-          "id": "src_cdfv47bowvmezfdhjt7ibqrdxy",
-          "type": "card",
-          "expiry_month": 12,
-          "expiry_year": 2020,
-          "name": "John Smith",
-          "scheme": "Visa",
-          "last_4": "4242",
-          "fingerprint": "436d1eb12c4b92b9eeb1e798dea93a718c78f5362c7fb5d84b51c72a869b6101",
-          "bin": "424242",
-          "card_type": "Credit",
-          "card_category": "Consumer",
-          "issuer": "JPMORGAN CHASE BANK NA",
-          "issuer_country": "US",
-          "product_id": "A",
-          "product_type": "Visa Traditional",
-          "avs_check": "S",
-          "cvv_check": "Y"
-        },
-        "customer": {
-          "id": "cus_bv2khjtcah5uzimoi2qvniwnsm"
-        },
-        "id": "pay_fk234x52k6i4rmjmqnzx474fqi",
-        "currency": "DKK",
-        "processed_on": "2019-12-11T08:59:40Z",
-        "reference": "example payout"
-      },
-      "_links": {
-        "self": {
-          "href": "https://api.sandbox.checkout.com/events/evt_hbnxegj3dqyu5fsd4p2b4bxvpa"
-        },
-        "payment": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_fk234x52k6i4rmjmqnzx474fqi"
-        }
-      }
-    }
-    
+  {
+  "id": "evt_hbnxegj3dqyu5fsd4p2b4bxvpa",
+  "type": "payment_paid",
+  "created_on": "2019-12-11T08:59:39Z",
+  "data": {
+  "action_id": "act_fgmhgzodurievpxbdzgl3ftxce",
+  "auth_code": "924041",
+  "response_code": "10000",
+  "response_summary": "Approved",
+  "amount": 115,
+  "metadata": {},
+  "destination": {
+  "id": "src_cdfv47bowvmezfdhjt7ibqrdxy",
+  "type": "card",
+  "expiry_month": 12,
+  "expiry_year": 2020,
+  "name": "John Smith",
+  "scheme": "Visa",
+  "last_4": "4242",
+  "fingerprint": "436d1eb12c4b92b9eeb1e798dea93a718c78f5362c7fb5d84b51c72a869b6101",
+  "bin": "424242",
+  "card_type": "Credit",
+  "card_category": "Consumer",
+  "issuer": "JPMORGAN CHASE BANK NA",
+  "issuer_country": "US",
+  "product_id": "A",
+  "product_type": "Visa Traditional",
+  "avs_check": "S",
+  "cvv_check": "Y"
+  },
+  "customer": {
+  "id": "cus_bv2khjtcah5uzimoi2qvniwnsm"
+  },
+  "id": "pay_fk234x52k6i4rmjmqnzx474fqi",
+  "currency": "DKK",
+  "processed_on": "2019-12-11T08:59:40Z",
+  "reference": "example payout"
+  },
+  "\_links": {
+  "self": {
+  "href": "https://api.sandbox.checkout.com/events/evt_hbnxegj3dqyu5fsd4p2b4bxvpa"
+  },
+  "payment": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_fk234x52k6i4rmjmqnzx474fqi"
+  }
+  }
+  }
 
-    {
-      "id": "evt_pktvel6mu4pe7ccp2fj2eptd5e",
-      "type": "payment_declined",
-      "created_on": "2019-12-11T09:00:10Z",
-      "data": {
-        "action_id": "act_kqknlhpwscaetbzyk2b773jiti",
-        "auth_code": "223252",
-        "response_code": "20005",
-        "response_summary": "Declined - Do Not Honour",
-        "amount": 20005,
-        "metadata": {},
-        "destination": {
-          "type": "card",
-          "expiry_month": 12,
-          "expiry_year": 2020,
-          "name": "John Smith",
-          "scheme": "Visa",
-          "last_4": "4242",
-          "fingerprint": "436d1eb12c4b92b9eeb1e798dea93a718c78f5362c7fb5d84b51c72a869b6101",
-          "bin": "424242",
-          "card_type": "Credit",
-          "card_category": "Consumer",
-          "issuer": "JPMORGAN CHASE BANK NA",
-          "issuer_country": "US",
-          "product_id": "A",
-          "product_type": "Visa Traditional",
-          "avs_check": "S",
-          "cvv_check": "Y"
-        },
-        "customer": {
-          "id": "cus_4dmcskkwjhwuxjel2cmi6ce5za"
-        },
-        "id": "pay_3tg7yzq34lmmpdn2exmgjm4fvm",
-        "currency": "DKK",
-        "processed_on": "2019-12-11T09:00:10Z",
-        "reference": "example payout"
-      },
-      "_links": {
-        "self": {
-          "href": "https://api.sandbox.checkout.com/events/evt_pktvel6mu4pe7ccp2fj2eptd5e"
-        },
-        "payment": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_3tg7yzq34lmmpdn2exmgjm4fvm"
-        }
-      }
-    }
-    
+  {
+  "id": "evt_pktvel6mu4pe7ccp2fj2eptd5e",
+  "type": "payment_declined",
+  "created_on": "2019-12-11T09:00:10Z",
+  "data": {
+  "action_id": "act_kqknlhpwscaetbzyk2b773jiti",
+  "auth_code": "223252",
+  "response_code": "20005",
+  "response_summary": "Declined - Do Not Honour",
+  "amount": 20005,
+  "metadata": {},
+  "destination": {
+  "type": "card",
+  "expiry_month": 12,
+  "expiry_year": 2020,
+  "name": "John Smith",
+  "scheme": "Visa",
+  "last_4": "4242",
+  "fingerprint": "436d1eb12c4b92b9eeb1e798dea93a718c78f5362c7fb5d84b51c72a869b6101",
+  "bin": "424242",
+  "card_type": "Credit",
+  "card_category": "Consumer",
+  "issuer": "JPMORGAN CHASE BANK NA",
+  "issuer_country": "US",
+  "product_id": "A",
+  "product_type": "Visa Traditional",
+  "avs_check": "S",
+  "cvv_check": "Y"
+  },
+  "customer": {
+  "id": "cus_4dmcskkwjhwuxjel2cmi6ce5za"
+  },
+  "id": "pay_3tg7yzq34lmmpdn2exmgjm4fvm",
+  "currency": "DKK",
+  "processed_on": "2019-12-11T09:00:10Z",
+  "reference": "example payout"
+  },
+  "\_links": {
+  "self": {
+  "href": "https://api.sandbox.checkout.com/events/evt_pktvel6mu4pe7ccp2fj2eptd5e"
+  },
+  "payment": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_3tg7yzq34lmmpdn2exmgjm4fvm"
+  }
+  }
+  }
 
 ### Response codes
 
 Below is a list of common response codes used for Card Payouts. See our [response code page](/display/DOCS/Response+codes) for the full list of response we support.
 
- Common payout-related response codes
+Common payout-related response codes
 
 **Code Type**
 
 **Response Code**
 
- **Description**
+**Description**
 
 **Retry**
 
 **Action**
 
 Approved
-
-10000
+0000
 
 Approved
 
@@ -1259,8 +1249,7 @@ No
 Contact the issuing bank for more details.
 
 Declined
-
-50002
+0002
 
 Sanctions Failed
 

@@ -3,54 +3,29 @@ title: webhooks
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
-\*A webhook (also known as a web callback) is an automated notification triggered by a specific event.\* Checkout.com has configured webhook notifications to trigger every time the status of a payment is updated. These webhooks are sent to a designated destination URL. Webhooks provide definitive confirmation of a status update and are used for a variety of purposes, such as fulfilling orders, sending automated status updates to customers, or even integrating with third-party application services.
+_A webhook (also known as a web callback) is an automated notification triggered by a specific event._ Checkout.com has configured webhook notifications to trigger every time the status of a payment is updated. These webhooks are sent to a designated destination URL. Webhooks provide definitive confirmation of a status update and are used for a variety of purposes, such as fulfilling orders, sending automated status updates to customers, or even integrating with third-party application services.
 
 You can set up your webhook destination URL in the System Administration section of The Hub.
 
-In the diagram below, a merchant using \[Checkout.js\](doc:checkoutjs) has configured a \[charge.captured\](doc:chargecaptured) webhook to trigger a notification to the merchant's server confirming the payment.
-
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
+In the diagram below, a merchant using [Checkout.js](doc:checkoutjs) has configured a [charge.captured](doc:chargecaptured) webhook to trigger a notification to the merchant's server confirming the payment.
 
 ---
 
-- **Options:**
-- Image Border
-
 ![](https://files.readme.io/693e8cc-checkout-webhook-flow.png)
-
-Upload an image...
 
 ![](https://files.readme.io/693e8cc-checkout-webhook-flow.png)**checkout-webhook-flow.png**
 
-change·remove
-
-Don't have one handy? Use our logo to start!
-
 It is highly recommended that you use charge.captured as the Webhook trigger since this is the final state of a processed charge.
 
-Checkout.com sends webhooks via an HTTP POST request in JSON or XML format. Each webhook contains an \`eventType\` and a \*\*message\*\*.
+Checkout.com sends webhooks via an HTTP POST request in JSON or XML format. Each webhook contains an `eventType` and a **message**.
 
-If \`autoCapture\` is enabled, the response is always returned in JSON regardless of the request format. Therefore, even if the request is sent in XML, expect the response to be in JSON.
+If `autoCapture` is enabled, the response is always returned in JSON regardless of the request format. Therefore, even if the request is sent in XML, expect the response to be in JSON.
 
-\## Example webhook for a voided charge
+## Example webhook for a voided charge
 
 Example webhook
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
 36
-
-1
 
 {
 
@@ -58,19 +33,11 @@ xxxxxxxxxx
 
 "eventType": "charge.voided",
 
-3
-
 "message": {
-
-4
 
 "id": "charge_test_A208EBAE674P64D9AEA5",
 
-5
-
 "originalId": "charge_test_22F8EBAE674N64D9AEA0",
-
-6
 
 "liveMode": false,
 
@@ -85,50 +52,34 @@ xxxxxxxxxx
 9
 
 "currency": "USD",
-
-10
+0
 
 "trackId": "TRK12345",
 
-11
-
 "description": "T-Shirt ladies medium",
-
-12
+2
 
 "chargeMode": 1,
-
-13
-
 "responseMessage": "Approved",
-
-14
 
 "responseAdvancedInfo": "Approved",
 
-15
-
 "responseCode": "10000",
 
-16
-
 "status": "Voided",
-
-17
+7
 
 "metadata": {
-
-18
+8
 
 "trackid": "value"
-
-19
+9
 
 },
 
 20
 
-"products": \[{
+"products": [{
 
 21
 
@@ -164,7 +115,7 @@ xxxxxxxxxx
 
 29
 
-}\],
+}],
 
 30
 
@@ -194,11 +145,7 @@ xxxxxxxxxx
 
 }
 
-Import from Gist
-
 Checkout.com sends webhooks for the following event types:
-
-x
 
 Add Row Add Col
 
@@ -214,7 +161,7 @@ Authorized
 
 |
 
-\[charge.succeeded\](doc:chargesucceeded)
+[charge.succeeded](doc:chargesucceeded)
 
 |
 |
@@ -227,7 +174,7 @@ Authorized (recurring transaction)
 
 |
 
-\[charge.succeeded\](doc:chargesucceeded)
+[charge.succeeded](doc:chargesucceeded)
 
 |
 |
@@ -240,7 +187,7 @@ Authorization failed
 
 |
 
-\[charge.failed\](doc:chargefailed)
+[charge.failed](doc:chargefailed)
 
 |
 |
@@ -253,7 +200,7 @@ Captured
 
 |
 
-\[charge.captured\](doc:chargecaptured)
+[charge.captured](doc:chargecaptured)
 
 |
 |
@@ -266,7 +213,7 @@ Capture failed
 
 |
 
-\[charge.captured.failed\](doc:chargecapturedfailed)
+[charge.captured.failed](doc:chargecapturedfailed)
 
 |
 |
@@ -279,7 +226,7 @@ Refunded
 
 |
 
-\[charge.refunded\](doc:chargerefunded)
+[charge.refunded](doc:chargerefunded)
 
 |
 |
@@ -292,7 +239,7 @@ Refund failed
 
 |
 
-\[charge.refunded.failed\](doc:chargerefundedfailed)
+[charge.refunded.failed](doc:chargerefundedfailed)
 
 |
 |
@@ -305,7 +252,7 @@ Voided
 
 |
 
-\[charge.voided\](doc:chargevoided)
+[charge.voided](doc:chargevoided)
 
 |
 |
@@ -318,7 +265,7 @@ Void failed
 
 |
 
-\[charge.voided.failed\](doc:chargevoidedfailed)
+[charge.voided.failed](doc:chargevoidedfailed)
 
 |
 |
@@ -331,7 +278,7 @@ Pending
 
 |
 
-\[charge.pending\](doc:chargepending)
+[charge.pending](doc:chargepending)
 
 |
 |
@@ -344,7 +291,7 @@ Expired
 
 |
 
-\[invoice.cancelled\](doc:invoicecancelled)
+[invoice.cancelled](doc:invoicecancelled)
 
 |
 |
@@ -357,7 +304,7 @@ Captured
 
 |
 
-\[charge.captured\](doc:chargecaptured)
+[charge.captured](doc:chargecaptured)
 
 |
 |
@@ -370,7 +317,7 @@ Deferred capture (Sofort only)
 
 |
 
-\[charge.captured.deferred\](doc:chargecaptureddeferred)
+[charge.captured.deferred](doc:chargecaptureddeferred)
 
 |
 |
@@ -383,7 +330,7 @@ Cancelled
 
 |
 
-\[charge.voided\](doc:chargevoided)
+[charge.voided](doc:chargevoided)
 
 |
 |
@@ -396,7 +343,7 @@ Refunded
 
 |
 
-\[charge.refunded\](doc:chargerefunded)
+[charge.refunded](doc:chargerefunded)
 
 |
 
@@ -404,15 +351,12 @@ Receiving a charge.captured notification via webhooks is the only way to confirm
 
 If a merchant account is configured to receive webhook notifications, callbacks will be sent from one of the following IP Addresses:
 
-x
-
 Add Row Add Col
 
 |     |     |
 | --- | --- |
 
-|
-52.31.105.56
+|2.31.105.56
 
 |
 
@@ -420,17 +364,7 @@ Live
 
 |
 |
-
-52.210.98.185
-
-|
-
-Live
-
-|
-|
-
-52.210.86.142
+2.210.98.185
 
 |
 
@@ -438,8 +372,15 @@ Live
 
 |
 |
+2.210.86.142
 
-52.56.73.133
+|
+
+Live
+
+|
+|
+2.56.73.133
 
 |
 
@@ -447,8 +388,7 @@ Sandbox
 
 |
 |
-
-52.56.70.215
+2.56.70.215
 
 |
 
@@ -456,7 +396,7 @@ Sandbox
 
 |
 
-When a webhook notification fails, retries are attempted up to a maximum of seven times. If none of the retries are successful, no further attempts are made. Retries take place across a total of eighteen hours at intervals of 5, 10, 15, 30, 60, 240, and 720 minutes. ou can view, and configure the webhook at any time in the \[Business level administration\](doc:business-level-administration) of \[The Hub\](https://hub.checkout.com/). As a way of ensuring at-least-once delivery, an endpoint may receive a webhook more than once if the message queuing service receives duplicate copies of a message. Although this is a rare occurrence, we recommend that endpoints process webhooks in a manner that anticipates duplicates and deals with them appropriately. To do this, save all original webhooks, and when a new webhook is received, disregard it if it already exists.
+When a webhook notification fails, retries are attempted up to a maximum of seven times. If none of the retries are successful, no further attempts are made. Retries take place across a total of eighteen hours at intervals of 5, 10, 15, 30, 60, 240, and 720 minutes. ou can view, and configure the webhook at any time in the [Business level administration](doc:business-level-administration) of [The Hub](https://hub.checkout.com/). As a way of ensuring at-least-once delivery, an endpoint may receive a webhook more than once if the message queuing service receives duplicate copies of a message. Although this is a rare occurrence, we recommend that endpoints process webhooks in a manner that anticipates duplicates and deals with them appropriately. To do this, save all original webhooks, and when a new webhook is received, disregard it if it already exists.
 
 Safely detect duplicate webhooks by only accepting a single webhook with the same eventType and message.id.
 

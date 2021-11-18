@@ -3,38 +3,19 @@ title: authorize-a-payment
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 Once you've successfully set up one of our integration methods, you're able to start receiving and <<glossary:tokenizing>> your customers' card details. After this tokenization process, you're ready to create a payment. To do this, you can use Checkout.com's API and your server-side code.
 
 This page covers the initial steps of creating a payment using a card token. For other methods of collecting payments, please see Payments with card ID or Payments with default card.
 
 The process for a payment authorization is detailed in the following diagram:
 
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
-
 ---
-
-- **Options:**
-- Image Border
 
 ![](https://files.readme.io/0085f57-auth.png)
 
-Upload an image...
-
 ![](https://files.readme.io/0085f57-auth.png)**auth.png**
 
-change·remove
-
-Don't have one handy? Use our logo to start!
-
-First, you need to create a new payment request using any of our \[Integration options\](doc:integration-methods). Then, on your server, collect the newly generated card token and use this authorizing a payment API to create a payment. Act fast, because card tokens are single use and only have a 15-minute lifespan. ## The request Requests are created using a POST request. Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/charges/token</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/charges/token</p></pre> ### Header parameters
-
-x
+First, you need to create a new payment request using any of our [Integration options](doc:integration-methods). Then, on your server, collect the newly generated card token and use this authorizing a payment API to create a payment. Act fast, because card tokens are single use and only have a 15-minute lifespan. ## The request Requests are created using a POST request. Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/charges/token</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/charges/token</p></pre> ### Header parameters
 
 Add Row Add Col
 
@@ -42,56 +23,37 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization:\` <span class="req-def">Required</span>
+`Authorization:` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type:\` <span class="req-def">Required</span>
+`Content-Type:` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). ### Request example This code snippet :fa-code: is an example of the request body, not all fields are required, so you can custom build your request based on the information you need. The table \[additional parameters\](doc:authorize-a-payment#section-additional-parameters) lists all required and optional parameters.
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/). ### Request example This code snippet :fa-code: is an example of the request body, not all fields are required, so you can custom build your request based on the information you need. The table [additional parameters](doc:authorize-a-payment#section-additional-parameters) lists all required and optional parameters.
 
 cURL Java
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-13
-
-1
-
 curl https://sandbox.checkout.com/api2/v2/charges/token
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
+-H "Content-Type:application/json;charset=UTF-8"
 
-\-H "Content-Type:application/json;charset=UTF-8"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "autoCapTime": "24",
 
@@ -106,120 +68,54 @@ curl https://sandbox.checkout.com/api2/v2/charges/token
 9
 
 "value": "2000",
-
-10
+0
 
 "currency": "USD",
 
-11
-
 "trackId": "TRK12345",
-
-12
+2
 
 "cardToken": "card_tok_9EDE49BB-306D-41FF-842D-3FF32A52CC25"
-
-13
-
 }'
-
-Import from Gist
-
-xxxxxxxxxx
 
 85
 
-1
-
 // Create payload
-
-2
-
-String cardToken \= "card_tok_CB9C10E3-24CC-4A82-B50A-4DEFDCB15580";
-
-3
+String cardToken = "card_tok_CB9C10E3-24CC-4A82-B50A-4DEFDCB15580";
 
 ​
 
-4
+CardTokenCharge cardTokenChargePayload = new CardTokenCharge();
 
-CardTokenCharge cardTokenChargePayload \= new CardTokenCharge();
+cardTokenChargePayload.autoCapTime=24;
 
-5
+cardTokenChargePayload.autoCapture="Y";
+cardTokenChargePayload.chargeMode=1;
+cardTokenChargePayload.email = "testuser@email.com";
+cardTokenChargePayload.description = "charge description";cardTokenChargePayload.value="4298";cardTokenChargePayload.currency="GBP";cardTokenChargePayload.trackId= "TRK12345";
+cardTokenChargePayload.transactionIndicator = "1";
 
-cardTokenChargePayload.autoCapTime\=24;
+cardTokenChargePayload.customerIp= "96.125.185.51";
 
-6
+cardTokenChargePayload.cardToken = cardToken;
 
-cardTokenChargePayload.autoCapture\="Y";
-
-7
-
-cardTokenChargePayload.chargeMode\=1;
-
-8
-
-cardTokenChargePayload.email \= "testuser@email.com";
-
-9
-
-cardTokenChargePayload.description \= "charge description";
-
-10
-
-cardTokenChargePayload.value\="4298";
-
-11
-
-cardTokenChargePayload.currency\="GBP";
-
-12
-
-cardTokenChargePayload.trackId\= "TRK12345";
-
-13
-
-cardTokenChargePayload.transactionIndicator \= "1";
-
-14
-
-cardTokenChargePayload.customerIp\= "96.125.185.51";
-
-15
-
-cardTokenChargePayload.cardToken \= cardToken;
-
-16
-
-​
-
-17
-
-cardTokenChargePayload.shippingDetails \= new Address();
-
-18
-
-cardTokenChargePayload.shippingDetails.addressLine1 \= "623 Slade Street";
-
-19
-
-cardTokenChargePayload.shippingDetails.addressLine2 \= "Flat 9";
+​cardTokenChargePayload.shippingDetails = new Address();cardTokenChargePayload.shippingDetails.addressLine1 = "623 Slade Street";cardTokenChargePayload.shippingDetails.addressLine2 = "Flat 9";
 
 20
 
-cardTokenChargePayload.shippingDetails.postcode \= "E149SR";
+cardTokenChargePayload.shippingDetails.postcode = "E149SR";
 
 21
 
-cardTokenChargePayload.shippingDetails.country \= "UK";
+cardTokenChargePayload.shippingDetails.country = "UK";
 
 22
 
-cardTokenChargePayload.shippingDetails.city \= "London";
+cardTokenChargePayload.shippingDetails.city = "London";
 
 23
 
-cardTokenChargePayload.shippingDetails.state \= "Greater London";
+cardTokenChargePayload.shippingDetails.state = "Greater London";
 
 24
 
@@ -227,15 +123,15 @@ cardTokenChargePayload.shippingDetails.state \= "Greater London";
 
 25
 
-cardTokenChargePayload.shippingDetails.phone \= new Phone();
+cardTokenChargePayload.shippingDetails.phone = new Phone();
 
 26
 
-cardTokenChargePayload.shippingDetails.phone.countryCode\="44";
+cardTokenChargePayload.shippingDetails.phone.countryCode="44";
 
 27
 
-cardTokenChargePayload.shippingDetails.phone.number \= "12345678";
+cardTokenChargePayload.shippingDetails.phone.number = "12345678";
 
 28
 
@@ -243,31 +139,31 @@ cardTokenChargePayload.shippingDetails.phone.number \= "12345678";
 
 29
 
-cardTokenChargePayload.billingDetails \= new Address();
+cardTokenChargePayload.billingDetails = new Address();
 
 30
 
-cardTokenChargePayload.billingDetails.addressLine1 \= "75-77 Margaret Street";
+cardTokenChargePayload.billingDetails.addressLine1 = "75-77 Margaret Street";
 
 31
 
-cardTokenChargePayload.billingDetails.addressLine2 \= null;
+cardTokenChargePayload.billingDetails.addressLine2 = null;
 
 32
 
-cardTokenChargePayload.billingDetails.postcode \= "W1W 8SY";
+cardTokenChargePayload.billingDetails.postcode = "W1W 8SY";
 
 33
 
-cardTokenChargePayload.billingDetails.country \= null;
+cardTokenChargePayload.billingDetails.country = null;
 
 34
 
-cardTokenChargePayload.billingDetails.city \= "London";
+cardTokenChargePayload.billingDetails.city = "London";
 
 35
 
-cardTokenChargePayload.billingDetails.state \= "null";
+cardTokenChargePayload.billingDetails.state = "null";
 
 36
 
@@ -275,139 +171,40 @@ cardTokenChargePayload.billingDetails.state \= "null";
 
 37
 
-cardTokenChargePayload.billingDetails.phone \= new Phone();
+cardTokenChargePayload.billingDetails.phone = new Phone();
 
 38
 
-cardTokenChargePayload.billingDetails.phone.countryCode\="44";
+cardTokenChargePayload.billingDetails.phone.countryCode="44";
 
 39
 
-cardTokenChargePayload.billingDetails.phone.number \= "999 999 9999";
+cardTokenChargePayload.billingDetails.phone.number = "999 999 9999";
+0
 
-40
+​cardTokenChargePayload.products = new ArrayList<Product>();Product product1 =new Product();product1.description= "Tablet 1 gold limited";product1.name="Tablet 1 gold limited";
 
-​
+product1.price=100.0;
 
-41
+product1.quantity=1;product1.shippingCost=10.0;product1.sku= "1aab2aa";product1.trackingUrl="https://www.tracker.com";
+0
 
-cardTokenChargePayload.products \= new ArrayList<Product\>();
+​Product product2 =new Product();product2.description= "Tablet 2 gold limited";product2.name="Tablet 2 gold limited";product1.price=200.0;product2.quantity=2;
 
-42
+product2.shippingCost=10.0;product2.sku= "1aab2aa";product2.trackingUrl="https://www.tracker.com";
+9
 
-Product product1 \=new Product();
+​cardTokenChargePayload.products.add(product1);cardTokenChargePayload.products.add(product2);
+2
 
-43
+​cardTokenChargePayload.metadata = new HashMap<String,String>();cardTokenChargePayload.metadata.put("key1", "value1");
+5
 
-product1.description\= "Tablet 1 gold limited";
-
-44
-
-product1.name\="Tablet 1 gold limited";
-
-45
-
-product1.price\=100.0;
-
-46
-
-product1.quantity\=1;
-
-47
-
-product1.shippingCost\=10.0;
-
-48
-
-product1.sku\= "1aab2aa";
-
-49
-
-product1.trackingUrl\="https://www.tracker.com";
-
-50
-
-​
-
-51
-
-Product product2 \=new Product();
-
-52
-
-product2.description\= "Tablet 2 gold limited";
-
-53
-
-product2.name\="Tablet 2 gold limited";
-
-54
-
-product1.price\=200.0;
-
-55
-
-product2.quantity\=2;
-
-56
-
-product2.shippingCost\=10.0;
-
-57
-
-product2.sku\= "1aab2aa";
-
-58
-
-product2.trackingUrl\="https://www.tracker.com";
-
-59
-
-​
-
-60
-
-cardTokenChargePayload.products.add(product1);
-
-61
-
-cardTokenChargePayload.products.add(product2);
-
-62
-
-​
-
-63
-
-cardTokenChargePayload.metadata \= new HashMap<String,String\>();
-
-64
-
-cardTokenChargePayload.metadata.put("key1", "value1");
-
-65
-
-​
-
-66
-
-cardTokenChargePayload.udf1\="udf 1 value";
-
-67
-
-cardTokenChargePayload.udf2\="udf 2 value";
-
-68
-
-cardTokenChargePayload.udf3\="udf 3 value";
-
-69
-
-cardTokenChargePayload.udf4\="udf 4 value";
+​cardTokenChargePayload.udf1="udf 1 value";cardTokenChargePayload.udf2="udf 2 value";cardTokenChargePayload.udf3="udf 3 value";cardTokenChargePayload.udf4="udf 4 value";
 
 70
 
-cardTokenChargePayload.udf5\="udf 5 value";
+cardTokenChargePayload.udf5="udf 5 value";
 
 71
 
@@ -423,7 +220,7 @@ try {
 
 74
 
-APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 75
 
@@ -431,7 +228,7 @@ APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc
 
 76
 
-Response<Charge\> apiResponse \= ckoAPIClient.chargeService.chargeWithCardToken(cardTokenChargePayload);
+Response<Charge> apiResponse = ckoAPIClient.chargeService.chargeWithCardToken(cardTokenChargePayload);
 
 77
 
@@ -447,7 +244,7 @@ if(!apiResponse.hasError){
 
 80
 
-Charge charge \= apiResponse.model;
+Charge charge = apiResponse.model;
 
 81
 
@@ -469,11 +266,7 @@ Charge charge \= apiResponse.model;
 
 } catch (Exception e) {}
 
-Import from Gist
-
-\### Additional parameters
-
-x
+### Additional parameters
 
 Add Row Add Col
 
@@ -481,16 +274,16 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`cardToken\` <span class="field-type">String</span> <span class="req-def">required</span>
+`cardToken` <span class="field-type">String</span> <span class="req-def">required</span>
 
 |
 
-A valid card token, with the prefix \`card_tok\_\`. <span class="table-info">A cardToken can only be used once and will expire after 15 minutes.</span>
+A valid card token, with the prefix `card_tok\_`. <span class="table-info">A cardToken can only be used once and will expire after 15 minutes.</span>
 
 |
 |
 
-\`currency\` <span class="field-type">String</span> <span class="req-def">required</span>
+`currency` <span class="field-type">String</span> <span class="req-def">required</span>
 
 |
 
@@ -499,7 +292,7 @@ Three-letter ISO currency code representing the currency of the payment.
 |
 |
 
-\`email\` <span class="def-text-ext">or</span> \`customerId\` <span class="field-type">String</span> <span class="req-def">required</span>
+`email` <span class="def-text-ext">or</span> `customerId` <span class="field-type">String</span> <span class="req-def">required</span>
 
 |
 
@@ -508,25 +301,25 @@ The email address or customer ID of the customer associated with the card ID. <s
 |
 |
 
-\`value\` <span class="field-type">Integer</span> <span class="req-def">required</span>
+`value` <span class="field-type">Integer</span> <span class="req-def">required</span>
 
 |
 
-The value of the payment as a non-zero positive integer (no decimals). <span class="table-info">\[Find out more\](doc:calculating-the-value)</span>
-
-|
-|
-
-\`autoCapture\` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">enabled by default.</span></span>
-
-|
-
-If enabled, it automatically captures the payment following the autoCapTime period. \`y\` = enable | \`n\` = disable <span class="table-info">Authorized payments automatically expire after seven days (168 hours).</span>
+The value of the payment as a non-zero positive integer (no decimals). <span class="table-info">[Find out more](doc:calculating-the-value)</span>
 
 |
 |
 
-\`autoCapTime\` <span class="field-type">Decimal</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">\*\*required\*\* if autoCapture is enabled.</span></span>
+`autoCapture` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">enabled by default.</span></span>
+
+|
+
+If enabled, it automatically captures the payment following the autoCapTime period. `y` = enable | `n` = disable <span class="table-info">Authorized payments automatically expire after seven days (168 hours).</span>
+
+|
+|
+
+`autoCapTime` <span class="field-type">Decimal</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">**required** if autoCapture is enabled.</span></span>
 
 |
 
@@ -535,25 +328,25 @@ Set the delayed capture time in hours. Use values 0 to 168 (0 to 7 days). <span 
 |
 |
 
-\`billingDetails\` <span class="field-type">Hash</span> <span class="optional-def">Optional</span>
+`billingDetails` <span class="field-type">Hash</span> <span class="optional-def">Optional</span>
 
 |
 
-Billing address information. <span class="table-info">\[Find out more\](doc:shipping-and-billing-details). If the billing details parameter is omitted from the request, it will be assumed that the billing address is the same as the shipping address.</span>
-
-|
-|
-
-\`chargeMode\` <span class="field-type">Integer</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is 1.</span>
-
-|
-
-Defines the Charge Mode. \`1\` = Non-3D | \`2\` = 3D
+Billing address information. <span class="table-info">[Find out more](doc:shipping-and-billing-details). If the billing details parameter is omitted from the request, it will be assumed that the billing address is the same as the shipping address.</span>
 
 |
 |
 
-\`customerIp\` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
+`chargeMode` <span class="field-type">Integer</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is 1.</span>
+
+|
+
+Defines the Charge Mode. `1` = Non-3D | `2` = 3D
+
+|
+|
+
+`customerIp` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
 
 |
 
@@ -562,7 +355,7 @@ Customer's IP address (e.g., 96.125.185.52) <span class="table-info">Only IPv4 a
 |
 |
 
-\`customerName\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`customerName` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -571,7 +364,7 @@ The name of the customer. Maximum characters: 100. <span class="table-info">Does
 |
 |
 
-\`description\` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
+`description` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
 
 |
 
@@ -580,7 +373,7 @@ A description of the payment.
 |
 |
 
-\`failUrl\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`failUrl` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -589,7 +382,7 @@ Specify the fail redirect URL
 |
 |
 
-\`metadata\` <span class="field-type">Hash</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is {} .</span>
+`metadata` <span class="field-type">Hash</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is {} .</span>
 
 |
 
@@ -598,43 +391,43 @@ A hash of FieldName and value pairs e.g. {'keys1': 'Value1'}. <span class="table
 |
 |
 
-\`products\` <span class="field-type">Array</span> <span class="optional-def">Optional</span>
+`products` <span class="field-type">Array</span> <span class="optional-def">Optional</span>
 
 |
 
-An array of Product information. <span class="table-info">\[Find out more\](doc:products-array)</span>
-
-|
-|
-
-\`recipientDetails\` <span class="field-type">Hash</span> <span class="optional-def">Optional</span>
-
-|
-
-Utilized only by financial institutions, this parameter enters the additional recipient details requested by Visa and Mastercard for domestic UK transactions. <span class="table-info"> \[Find out more\](doc:requirements-for-financial-institutions)</span>
+An array of Product information. <span class="table-info">[Find out more](doc:products-array)</span>
 
 |
 |
 
-\`riskCheck\` <span class="field-type">Boolean</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is true.</span>
+`recipientDetails` <span class="field-type">Hash</span> <span class="optional-def">Optional</span>
 
 |
 
-If set to \`false\`, it allows the merchant to bypass all risk checks configured on the system (including blacklist). <span class="table-info">The ability to set \*\*riskCheck\*\* is not available by default.</span>
-
-|
-|
-
-\`shippingDetails\` <span class="field-type">Hash</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
-
-|
-
-Shipping address information. <span class="table-info">\[Find out more\](doc:shipping-and-billing-details).</span>
+Utilized only by financial institutions, this parameter enters the additional recipient details requested by Visa and Mastercard for domestic UK transactions. <span class="table-info"> [Find out more](doc:requirements-for-financial-institutions)</span>
 
 |
 |
 
-\`successUrl\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`riskCheck` <span class="field-type">Boolean</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is true.</span>
+
+|
+
+If set to `false`, it allows the merchant to bypass all risk checks configured on the system (including blacklist). <span class="table-info">The ability to set **riskCheck** is not available by default.</span>
+
+|
+|
+
+`shippingDetails` <span class="field-type">Hash</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
+
+|
+
+Shipping address information. <span class="table-info">[Find out more](doc:shipping-and-billing-details).</span>
+
+|
+|
+
+`successUrl` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -643,7 +436,7 @@ Specify the success redirect URL.
 |
 |
 
-\`trackId\` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span> <div class="tooltip1">Recommended <span class="tooltiptext1">Make tracking easy; assign a unique track-id to your payments.</span> </div>
+`trackId` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span> <div class="tooltip1">Recommended <span class="tooltiptext1">Make tracking easy; assign a unique track-id to your payments.</span> </div>
 
 |
 
@@ -652,16 +445,16 @@ A unique ID set by the merchant. The track ID remains the same throughout the li
 |
 |
 
-\`transactionIndicator\` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is 1.</span>
+`transactionIndicator` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is 1.</span>
 
 |
 
-Type of transaction. \`1\` for regular \`2\` for recurring \`3\` for MOTO
+Type of transaction. `1` for regular `2` for recurring `3` for MOTO
 
 |
 |
 
-\`udf1\` to \`udf5\` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
+`udf1` to `udf5` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
 
 |
 
@@ -669,23 +462,15 @@ User-defined fields 1 to 5. Maximum characters: 100.
 
 |
 
-\## The response Done! If a payment response object returns, you just charged a card. If you received an error? Don’t fret! Let's try and figure out what went wrong in \[Understanding the response\](doc:authorize-a-payment#section-understanding-the-response).
+## The response Done! If a payment response object returns, you just charged a card. If you received an error? Don’t fret! Let's try and figure out what went wrong in [Understanding the response](doc:authorize-a-payment#section-understanding-the-response).
 
-Successful authorization requests will return a message with either a 10000 response code or a 10100 response code for \[flagged transactions\](doc:flags).
+Successful authorization requests will return a message with either a 10000 response code or a 10100 response code for [flagged transactions](doc:flags).
 
-\### Response example The possible values for the status field include \`Authorised\`, \`Captured\`, \`Declined\`, and \`Flagged\`.
+### Response example The possible values for the status field include `Authorised`, `Captured`, `Declined`, and `Flagged`.
 
 Response example
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-64
-
-1
+4
 
 {
 
@@ -693,19 +478,11 @@ xxxxxxxxxx
 
 "id": "charge_test_BE2F499E242J73BD0AB8",
 
-3
-
 "liveMode": false,
-
-4
 
 "created": "2018-03-22T17:53:34Z",
 
-5
-
 "value": 2000,
-
-6
 
 "currency": "USD",
 
@@ -720,44 +497,28 @@ xxxxxxxxxx
 9
 
 "email": "sarah.mitchell@checkout.com",
-
-10
+0
 
 "chargeMode": 1,
 
-11
-
 "transactionIndicator": 1,
-
-12
+2
 
 "customerIp": null,
-
-13
-
 "responseMessage": "Approved",
-
-14
 
 "responseAdvancedInfo": "Approved",
 
-15
-
 "responseCode": "10000",
 
-16
-
 "status": "Authorised",
-
-17
+7
 
 "authCode": "541977",
-
-18
+8
 
 "isCascaded": false,
-
-19
+9
 
 "autoCapture": "Y",
 
@@ -840,107 +601,74 @@ xxxxxxxxxx
 39
 
 "bin": "424242",
-
-40
+0
 
 "paymentMethod": "Visa",
 
-41
-
 "fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
-
-42
+2
 
 "name": "Sarah Mitchell",
-
-43
+3
 
 "cvvCheck": "Y",
-
-44
+4
 
 "avsCheck": "S"
 
-45
-
 },
 
-46
-
 "riskCheck": true,
-
-47
+7
 
 "customerPaymentPlans": null,
-
-48
+8
 
 "metadata": {},
-
-49
+9
 
 "shippingDetails": {
-
-50
+0
 
 "addressLine1": null,
 
-51
-
 "addressLine2": null,
-
-52
+2
 
 "postcode": null,
-
-53
+3
 
 "country": null,
-
-54
+4
 
 "city": null,
-
-55
+5
 
 "state": null,
 
-56
-
 "phone": {}
-
-57
+7
 
 },
+8
 
-58
-
-"products": \[\],
-
-59
+"products": [],
+9
 
 "udf1": null,
-
-60
+0
 
 "udf2": null,
 
-61
-
 "udf3": null,
-
-62
+2
 
 "udf4": null,
-
-63
+3
 
 "udf5": null
-
-64
+4
 
 }
 
-Import from Gist
-
-\### Understanding the response By looking at the \`status\`, \`responseMessage\` and \`responseCode\` fields in the payment response you can find out why the payment has not gone through. It's possible the payment has an invalid or expired card or a valid card with an insufficient available balance. The following pages can be used as references when understanding the response message: \* \[CVV codes and descriptions\](doc:cvv-codes) \* \[AVS codes\](doc:avs-codes) #### Notable elements in the response Whereas all information within the response is useful, there are some particular elements that are especially noteworthy. \* \`chargeId\` — use the charge ID to \[capture\](doc:capture_a_payment), \[refund\](doc:refund), and \[void\](doc:void) a payment. \* \`cardId\` — authorize subsequent payments \[using Card ID\](doc:card-id) \* \`customerId\` — with the customer ID, you can \*\*add\*\*, \*\*edit\*\*, and \*\*remove cards\*\* from a customer's account, \*\*view stored card information\*\*, and even \[authorize a payment with Card ID\](doc:card-id) .
+### Understanding the response By looking at the `status`, `responseMessage` and `responseCode` fields in the payment response you can find out why the payment has not gone through. It's possible the payment has an invalid or expired card or a valid card with an insufficient available balance. The following pages can be used as references when understanding the response message: _ [CVV codes and descriptions](doc:cvv-codes) _ [AVS codes](doc:avs-codes) #### Notable elements in the response Whereas all information within the response is useful, there are some particular elements that are especially noteworthy. _ `chargeId` — use the charge ID to [capture](doc:capture_a_payment), [refund](doc:refund), and [void](doc:void) a payment. _ `cardId` — authorize subsequent payments [using Card ID](doc:card-id) \* `customerId` — with the customer ID, you can **add**, **edit**, and **remove cards** from a customer's account, **view stored card information**, and even [authorize a payment with Card ID](doc:card-id) .

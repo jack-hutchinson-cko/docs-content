@@ -3,13 +3,9 @@ title: update-a-payment-token
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 Use this API endpoint to update the metadata or track ID of a payment token.
 
-\## The request Update a payment token by sending a \*\*PUT\*\* API request to the URI below. In the URL, replace {paymentToken} with the payment token's ID. ### Endpoint <pre class="api-header-long-url"><p class="api-header"><span class="put-tag">PUT</span>https://api2.checkout.com/v2/tokens/payment/pay\_tok\_{paymentToken}</p></pre> ### Header and patch parameters
-
-x
+## The request Update a payment token by sending a **PUT** API request to the URI below. In the URL, replace {paymentToken} with the payment token's ID. ### Endpoint <pre class="api-header-long-url"><p class="api-header"><span class="put-tag">PUT</span>https://api2.checkout.com/v2/tokens/payment/pay\_tok\_{paymentToken}</p></pre> ### Header and patch parameters
 
 Add Row Add Col
 
@@ -17,26 +13,24 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type:\` <span class="req-def">Required</span>
+`Content-Type:` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
-
-x
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/).
 
 Add Row Add Col
 
@@ -44,47 +38,28 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`id\` <span class="field-type">String</span> <span class="req-def">Required</span>
+`id` <span class="field-type">String</span> <span class="req-def">Required</span>
 
 |
 
-The token id, prefixed with \`pay_tok\_\`.
+The token id, prefixed with `pay_tok\_`.
 
 |
 
-\### Request example
+### Request example
 
 Shell
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-15
-
-1
-
 curl https://api2.checkout.com/v2/tokens/payment/pay\_tok\_1A7A358C-A76C-49FA-9436-0EBA5B7DBE19
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
+-H "Content-Type:application/json;charset=UTF-8"
 
-\-H "Content-Type:application/json;charset=UTF-8"
+-X PUT
 
-4
-
-\-X PUT
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "trackId" : "TRK12345",
 
@@ -99,36 +74,21 @@ curl https://api2.checkout.com/v2/tokens/payment/pay\_tok\_1A7A358C-A76C-49FA-94
 9
 
 },
-
-10
+0
 
 "udf1" : "test data 1",
 
-11
-
 "udf2" : "test data 2",
-
-12
+2
 
 "udf3" : "test data 3",
-
-13
-
 "udf4" : "test data 4",
-
-14
 
 "udf5" : "test data 5"
 
-15
-
 }'
 
-Import from Gist
-
-\### Additional parameters
-
-x
+### Additional parameters
 
 Add Row Add Col
 
@@ -136,7 +96,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`metadata\` <span class="field-type">Hash</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is {} .</span>
+`metadata` <span class="field-type">Hash</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is {} .</span>
 
 |
 
@@ -145,7 +105,7 @@ A hash of FieldName and value pairs e.g. {'keys1': 'Value1'}. <span class="table
 |
 |
 
-\`trackId\` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span> <div class="tooltip">Recommended <span class="tooltiptext">Make tracking easy; assign a unique track-id to your payments.</span> </div>
+`trackId` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span> <div class="tooltip">Recommended <span class="tooltiptext">Make tracking easy; assign a unique track-id to your payments.</span> </div>
 
 |
 
@@ -154,7 +114,7 @@ A unique ID set by the merchant. The track ID remains the same throughout the li
 |
 |
 
-\`udf1\` to \`udf5\` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
+`udf1` to `udf5` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
 
 |
 
@@ -162,15 +122,7 @@ User-defined fields 1 to 5. Maximum characters: 100.
 
 |
 
-\--- ## The response If a success OK message returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
+--- ## The response If a success OK message returns, then your request was successful. If you're having problems with this API, then ask our [support team](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example
 
 {
 
@@ -178,8 +130,4 @@ xxxxxxxxxx
 
 "message": "ok"
 
-3
-
 }
-
-Import from Gist

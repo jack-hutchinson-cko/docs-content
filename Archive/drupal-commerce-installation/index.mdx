@@ -3,66 +3,33 @@ title: drupal-commerce-installation
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+_Everything you need to know about integrating Checkout.com into your Drupal store. Make sure you already have a Drupal store installation, and, of course, an account with us._
 
-\*Everything you need to know about integrating Checkout.com into your Drupal store. Make sure you already have a Drupal store installation, and, of course, an account with us.\*
+- [x] Drupal Version: 7.x - [x] Commerce Version: 7.x
+      . Download the plugin from [GitHub](https://github.com/CKOTech/checkout-drupalcommerce-plugin). 2. **Install the plugin:** to do this, clone the extension and copy its contents to `[drupal directory]\\sites\\all\\modules\\`.
 
-\- \[x\] Drupal Version: 7.x - \[x\] Commerce Version: 7.x
+1. Visit your Drupal admin interface and navigate to `Modules > Commerce (contrib)`. 2. Click to enable **Checkout.com GW3**.
 
-1\. Download the plugin from \[GitHub\](https://github.com/CKOTech/checkout-drupalcommerce-plugin). 2. \*\*Install the plugin:\*\* to do this, clone the extension and copy its contents to \`\[drupal directory\]\\sites\\all\\modules\\\`.
-
-1\. Visit your Drupal admin interface and navigate to \`Modules > Commerce (contrib)\`. 2. Click to enable \*\*Checkout.com GW3\*\*.
-
-\#### Before you start 1. To configure the payment settings, enter your Drupal admin and navigate to \`Store > Configuration > Payment Methods\`.</li> 2. Find the section \*\*Enabled payment method rules\*\*, and click \*\*enable\*\* to enable the rules. To find the configuration form and start making changes: a. Click \*\*edit\*\*, b. on the resulting page, find the section \*\*Enable payment method: Credit / Debit cards (Checkout.com)\*\*, and click \*\*edit\*\* again. This then opens the \*\*Payment Settings\*\* form. #### The payment settings form 1. \*\*Enter your keys\*\*. In the related fields, enter your \*\*Private API Key\*\* and your \*\*Public API Key\*\*.
+#### Before you start 1. To configure the payment settings, enter your Drupal admin and navigate to `Store > Configuration > Payment Methods`.</li> 2. Find the section **Enabled payment method rules**, and click **enable** to enable the rules. To find the configuration form and start making changes: a. Click **edit**, b. on the resulting page, find the section **Enable payment method: Credit / Debit cards (Checkout.com)**, and click **edit** again. This then opens the **Payment Settings** form. #### The payment settings form 1. **Enter your keys**. In the related fields, enter your **Private API Key** and your **Public API Key**.
 
 your Checkout.com account manager can provide these to you.
 
-2\. \*\*Select a transaction method\*\*. \*Decide which option is best for your business.\* - \*\*Authorize Only \*\* Transactions will only authorize and must be captured manually. - \*\*Authorize and Capture\*\* Transactions are authorized and captured automatically. \*With authorize and capture, an auto-capture time can be set. Auto-capture time defines how long after an authorization that a capture will be made — the default time is 0.\* 3. \*\*Choose which card types to display\*\*. \* If you're a PCI Compliant merchant, select the card types you want to display on the front end. \* Select method type: a. \*\*Yes\*\* for fully PCI Compliant merchants b. \*\*No\*\* to enable Checkout.js.
+2. **Select a transaction method**. _Decide which option is best for your business._ - **Authorize Only ** Transactions will only authorize and must be captured manually. - **Authorize and Capture** Transactions are authorized and captured automatically. _With authorize and capture, an auto-capture time can be set. Auto-capture time defines how long after an authorization that a capture will be made — the default time is 0._ 3. **Choose which card types to display**. _ If you're a PCI Compliant merchant, select the card types you want to display on the front end. _ Select method type: a. **Yes** for fully PCI Compliant merchants b. **No** to enable Checkout.js.
 
-In this case, like the majority of our merchants, you are probably not fully PCI compliant and should choose \*\*No\*\* to enable Checkout.js.
+In this case, like the majority of our merchants, you are probably not fully PCI compliant and should choose **No** to enable Checkout.js.
 
-Checkout.js makes payments on Drupal simple. Once you've installed the plugin and configured your settings, you're good to go. From now on, when your customers check out and click '\*\*Continue to next step\*\*', the iFrame payment form pops up, like so:
-
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
+Checkout.js makes payments on Drupal simple. Once you've installed the plugin and configured your settings, you're good to go. From now on, when your customers check out and click '**Continue to next step**', the iFrame payment form pops up, like so:
 
 ---
-
-- **Options:**
-- Image Border
 
 ![](https://files.readme.io/32864ef-6d1ca2a-payment-lightbox.png)
 
-Upload an image...
-
 ![](https://files.readme.io/32864ef-6d1ca2a-payment-lightbox.png)**6d1ca2a-payment-lightbox.png**
 
-change·remove
-
-Don't have one handy? Use our logo to start!
-
-If payment is successful, your customers are redirected to the designated success URL — where a success message is displayed. In your Drupal Commerce admin interface, the status of a payment will change to \*\*Pending\*\*, after a successful authorization; and finally \*\*Captured\*\*, after an automatic or manual capture.
-
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
+If payment is successful, your customers are redirected to the designated success URL — where a success message is displayed. In your Drupal Commerce admin interface, the status of a payment will change to **Pending**, after a successful authorization; and finally **Captured**, after an automatic or manual capture.
 
 ---
 
-- **Options:**
-- Image Border
-
 ![](https://files.readme.io/3dac165-shopping-cart-drupal-commerce-admin.png)
 
-Upload an image...
-
 ![](https://files.readme.io/3dac165-shopping-cart-drupal-commerce-admin.png)**shopping-cart-drupal-commerce-admin.png**
-
-change·remove
-
-Don't have one handy? Use our logo to start!

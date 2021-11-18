@@ -7,21 +7,18 @@ Our disputes API helps you find out about and act on all of your open disputes w
 
 With our disputes API, you can:
 
-*   [View a list of disputes](#DisputesAPI-getlistofdisputes)
-*   [View information about a specific dispute](#DisputesAPI-getdetailsaboutdispute)
-*   [Provide evidence](#DisputesAPI-provideevidence)
-*   [Accept a dispute](#DisputesAPI-acceptdispute)
+- [View a list of disputes](#DisputesAPI-getlistofdisputes)
+- [View information about a specific dispute](#DisputesAPI-getdetailsaboutdispute)
+- [Provide evidence](#DisputesAPI-provideevidence)
+- [Accept a dispute](#DisputesAPI-acceptdispute)
 
-  
-Dispute reasons
-------------------
+## Dispute reasons
 
 Most of the time, customers dispute a payment because of fraudulent charges. However, there are many other possible reasons. You can tell why a dispute was raised by looking at the `category` field of the response.
 
 Learn more about the [reasons for disputes and the type of evidence we suggest submitting](/display/x/Disputes) when responding.
 
-Dispute statuses
-----------------
+## Dispute statuses
 
 Each dispute has an associated `status` that describes which stage of the dispute process it has reached.
 
@@ -153,8 +150,7 @@ Dispute evidence submitted
 
 Occurs once you have submitted evidence for a given dispute. No further action is required from you.
 
-View disputes and dispute details 
-----------------------------------
+## View disputes and dispute details 
 
 You can use our API to view a list of disputes or to retrieve information about a specific dispute.
 
@@ -164,8 +160,8 @@ Use the endpoint below to retrieve a list of disputes against your business. The
 
 #### Endpoints
 
-*   [**Live**](#tabs-1886b8f2-6a88-4bea-a7a1-60cdd23828c3-1)
-*   [**Sandbox**](#tabs-1886b8f2-6a88-4bea-a7a1-60cdd23828c3-2)
+- [**Live**](#tabs-1886b8f2-6a88-4bea-a7a1-60cdd23828c3-1)
+- [**Sandbox**](#tabs-1886b8f2-6a88-4bea-a7a1-60cdd23828c3-2)
 
 GET`https://api.checkout.com/disputes`
 
@@ -207,7 +203,7 @@ Description
 
 OPTIONAL
 
-INTEGER \[1..250\]
+INTEGER [1..250]
 
 The numbers of results to return. Defaults to 50.
 
@@ -243,13 +239,13 @@ The unique identifier of the dispute.
 
 OPTIONALSTRING
 
-One or more comma-separated entities. This works like a logical _OR_ operator.
+One or more comma-separated entities. This works like a logical *OR* operator.
 
 `sub_entity_ids`
 
 OPTIONALSTRING
 
-One or more comma-separated sub-entities. This works like a logical _OR_ operator.
+One or more comma-separated sub-entities. This works like a logical *OR* operator.
 
 `statuses`
 
@@ -289,16 +285,16 @@ The merchant category code (MCC) of the payment.
 
 #### Request example
 
-*   [**Node.js (Beta)**](#tabs-5123a8ee-36c7-4b8c-b3f6-de22934637a9-1)
+- [**Node.js (Beta)**](#tabs-5123a8ee-36c7-4b8c-b3f6-de22934637a9-1)
 
-    import { Checkout } from "checkout-node-sdk";
-    
-    const cko = new Checkout("sk_XXXX");
-    
-    const disputes = await cko.disputes.get({
-      limit: 5,
-      id: "dsp_bc94ebda8d275i461229",
-    });
+  import { Checkout } from "checkout-node-sdk";
+
+  const cko = new Checkout("sk_XXXX");
+
+  const disputes = await cko.disputes.get({
+  limit: 5,
+  id: "dsp_bc94ebda8d275i461229",
+  });
 
 #### Response example
 
@@ -349,8 +345,8 @@ Use the following endpoint to retrieve all the information relating to a specifi
 
 #### Endpoints
 
-*   [**Live**](#tabs-46126d8f-0e45-4219-ba5f-75e8760c5eff-1)
-*   [**Sandbox**](#tabs-46126d8f-0e45-4219-ba5f-75e8760c5eff-2)
+- [**Live**](#tabs-46126d8f-0e45-4219-ba5f-75e8760c5eff-1)
+- [**Sandbox**](#tabs-46126d8f-0e45-4219-ba5f-75e8760c5eff-2)
 
 GET`https://api.checkout.com/disputes/{dispute_id}`
 
@@ -378,19 +374,17 @@ REQUIRED
 
 `application/json`
 
-  
-
 #### Request example
 
-*   [**Node.js (Beta)**](#tabs-c711b355-48eb-4fef-86a0-2a85e0767d98-1)
+- [**Node.js (Beta)**](#tabs-c711b355-48eb-4fef-86a0-2a85e0767d98-1)
 
-    import { Checkout } from "checkout-node-sdk";
-    
-    const cko = new Checkout("sk_XXXX");
-    
-    const disputeDetails = await cko.disputes.getDetails(
-      "dsp_bc94ebda8d275i461229"
-    );
+  import { Checkout } from "checkout-node-sdk";
+
+  const cko = new Checkout("sk_XXXX");
+
+  const disputeDetails = await cko.disputes.getDetails(
+  "dsp_bc94ebda8d275i461229"
+  );
 
 #### Response example
 
@@ -436,8 +430,7 @@ REQUIRED
       }
     }
 
-Respond to a dispute
---------------------
+## Respond to a dispute
 
 In order to win a dispute, you will need to provide relevant evidence to your case. This could be the invoice, the proof of delivery, or even customer communication regarding the payment that was charged back. You can use our API to upload evidence, review this evidence, and submit it when you're ready.
 
@@ -451,14 +444,12 @@ If you wish to submit files as evidence, you will first need to upload them usin
 
 #### Endpoints
 
-*   [**Live**](#tabs-43812691-190d-447b-ad99-6b9489bdbd64-1)
-*   [**Sandbox**](#tabs-43812691-190d-447b-ad99-6b9489bdbd64-2)
+- [**Live**](#tabs-43812691-190d-447b-ad99-6b9489bdbd64-1)
+- [**Sandbox**](#tabs-43812691-190d-447b-ad99-6b9489bdbd64-2)
 
 PUT`https://api.checkout.com/disputes/{dispute_id}/evidence`
 
 PUT`https://api.sandbox.checkout.com/disputes/{dispute_id}/evidence`
-
-  
 
 If you run this request more than once, you will overwrite the previous request.
 
@@ -556,38 +547,38 @@ Additional evidence supporting your case that does not fall under the above cate
 
 #### Request example
 
-*   [**Payload**](#tabs-c2242949-97d0-4bc9-ac1a-3a395133b12b-1)
-*   [**Node.js (Beta)**](#tabs-c2242949-97d0-4bc9-ac1a-3a395133b12b-2)
+- [**Payload**](#tabs-c2242949-97d0-4bc9-ac1a-3a395133b12b-1)
+- [**Node.js (Beta)**](#tabs-c2242949-97d0-4bc9-ac1a-3a395133b12b-2)
 
-    {
-      "proof_of_delivery_or_service_file": "file_jmbfgkjromvcrn9t4qu4",
-      "proof_of_delivery_or_service_text": "http://checkout.com/document.pdf",
-      "invoice_or_receipt_file": "file_jmbfgkjromvcrn9t4qu4",
-      "invoice_or_receipt_text": "Copy of the invoice",
-      "invoice_showing_distinct_transactions_file": "file_jmbfgkjromvcrn9t4qu4",
-      "invoice_showing_distinct_transactions_text": "Copy of invoice #1244 showing two transactions",
-      "customer_communication_file": "file_jmbfgkjromvcrn9t4qu4",
-      "customer_communication_text": "Copy of an email exchange with the cardholder",
-      "refund_or_cancellation_policy_file": "file_jmbfgkjromvcrn9t4qu4",
-      "refund_or_cancellation_policy_text": "Copy of the refund policy",
-      "recurring_transaction_agreement_file": "file_jmbfgkjromvcrn9t4qu4",
-      "recurring_transaction_agreement_text": "Copy of the recurring transaction agreement",
-      "additional_evidence_file": "file_jmbfgkjromvcrn9t4qu4",
-      "additional_evidence_text": "Scanned document",
-      "proof_of_delivery_or_service_date_file": "file_jmbfgkjromvcrn9t4qu4",
-      "proof_of_delivery_or_service_date_text": "Copy of the customer receipt showing the merchandise was delivered on 2018-12-20"
-    }
+  {
+  "proof_of_delivery_or_service_file": "file_jmbfgkjromvcrn9t4qu4",
+  "proof_of_delivery_or_service_text": "http://checkout.com/document.pdf",
+  "invoice_or_receipt_file": "file_jmbfgkjromvcrn9t4qu4",
+  "invoice_or_receipt_text": "Copy of the invoice",
+  "invoice_showing_distinct_transactions_file": "file_jmbfgkjromvcrn9t4qu4",
+  "invoice_showing_distinct_transactions_text": "Copy of invoice #1244 showing two transactions",
+  "customer_communication_file": "file_jmbfgkjromvcrn9t4qu4",
+  "customer_communication_text": "Copy of an email exchange with the cardholder",
+  "refund_or_cancellation_policy_file": "file_jmbfgkjromvcrn9t4qu4",
+  "refund_or_cancellation_policy_text": "Copy of the refund policy",
+  "recurring_transaction_agreement_file": "file_jmbfgkjromvcrn9t4qu4",
+  "recurring_transaction_agreement_text": "Copy of the recurring transaction agreement",
+  "additional_evidence_file": "file_jmbfgkjromvcrn9t4qu4",
+  "additional_evidence_text": "Scanned document",
+  "proof_of_delivery_or_service_date_file": "file_jmbfgkjromvcrn9t4qu4",
+  "proof_of_delivery_or_service_date_text": "Copy of the customer receipt showing the merchandise was delivered on 2018-12-20"
+  }
 
-    import { Checkout } from "checkout-node-sdk";
-    
-    const cko = new Checkout("sk_XXXX");
-    
-    const evidence = await cko.disputes.provideEvidence(
-      "dsp_bc94ebda8d275i461229",
-      {
-        proof_of_delivery_or_service_text: "http://checkout.com/document.pdf",
-      }
-    );
+  import { Checkout } from "checkout-node-sdk";
+
+  const cko = new Checkout("sk_XXXX");
+
+  const evidence = await cko.disputes.provideEvidence(
+  "dsp_bc94ebda8d275i461229",
+  {
+  proof_of_delivery_or_service_text: "http://checkout.com/document.pdf",
+  }
+  );
 
 #### The response
 
@@ -595,16 +586,16 @@ If you receive a `2XX` response, then your dispute evidence was successfully p
 
 If you receive a `4XX` response, then something went wrong. Check the error codes below to find out why.
 
- Possible error codes
+Possible error codes
 
-*   `no_evidence_provided`
-*   `dispute_already_under_review`
-*   `dispute_already_resolved`
-*   `dispute_already_expired`
-*   `dispute_already_won`
-*   `dispute_already_lost`
-*   `dispute_already_canceled`
-*   `dispute_already_accepted`
+- `no_evidence_provided`
+- `dispute_already_under_review`
+- `dispute_already_resolved`
+- `dispute_already_expired`
+- `dispute_already_won`
+- `dispute_already_lost`
+- `dispute_already_canceled`
+- `dispute_already_accepted`
 
 ### Retrieve evidence
 
@@ -612,8 +603,8 @@ Use the following endpoint to view a list of the evidence you provided for a spe
 
 ### Endpoints
 
-*   [**Live**](#tabs-443fd054-9e8c-4143-ad21-837ed0caa5bb-1)
-*   [**Sandbox**](#tabs-443fd054-9e8c-4143-ad21-837ed0caa5bb-2)
+- [**Live**](#tabs-443fd054-9e8c-4143-ad21-837ed0caa5bb-1)
+- [**Sandbox**](#tabs-443fd054-9e8c-4143-ad21-837ed0caa5bb-2)
 
 GET`https://api.checkout.com/disputes/{dispute_id}/evidence`
 
@@ -643,13 +634,13 @@ REQUIRED
 
 #### Request example
 
-*   [**Node.js (Beta)**](#tabs-c1746eb3-f14b-4797-899a-909eb76c3f04-1)
+- [**Node.js (Beta)**](#tabs-c1746eb3-f14b-4797-899a-909eb76c3f04-1)
 
-    import { Checkout } from "checkout-node-sdk";
-    
-    const cko = new Checkout("sk_XXXX");
-    
-    const getEvidence = await cko.disputes.getEvidence("dsp_bc94ebda8d275i461229");
+  import { Checkout } from "checkout-node-sdk";
+
+  const cko = new Checkout("sk_XXXX");
+
+  const getEvidence = await cko.disputes.getEvidence("dsp_bc94ebda8d275i461229");
 
 #### Response example
 
@@ -667,8 +658,8 @@ You will not be able to amend your evidence once you have submitted it. Make sur
 
 #### Endpoints
 
-*   [**Live**](#tabs-e5e8f7ec-15f3-4a6d-a52c-1fd636f6df0b-1)
-*   [**Sandbox**](#tabs-e5e8f7ec-15f3-4a6d-a52c-1fd636f6df0b-2)
+- [**Live**](#tabs-e5e8f7ec-15f3-4a6d-a52c-1fd636f6df0b-1)
+- [**Sandbox**](#tabs-e5e8f7ec-15f3-4a6d-a52c-1fd636f6df0b-2)
 
 POST`https://api.checkout.com/disputes/{dispute_id}/evidence`
 
@@ -698,13 +689,13 @@ REQUIRED
 
 #### Request example
 
-*   [**Node.js (Beta)**](#tabs-fafdb84a-7820-4a1f-827c-00cb4982d93f-1)
+- [**Node.js (Beta)**](#tabs-fafdb84a-7820-4a1f-827c-00cb4982d93f-1)
 
-    import { Checkout } from "checkout-node-sdk";
-    
-    const cko = new Checkout("sk_XXXX");
-    
-    const submitEvidence = await cko.disputes.submit("dsp_bc94ebda8d275i461229");
+  import { Checkout } from "checkout-node-sdk";
+
+  const cko = new Checkout("sk_XXXX");
+
+  const submitEvidence = await cko.disputes.submit("dsp_bc94ebda8d275i461229");
 
 #### The response
 
@@ -712,16 +703,16 @@ If you receive a `2XX` response, then your dispute evidence was successfully s
 
 If you receive a `4XX` response, then something went wrong. Check the error codes below to find out why.
 
- Possible error codes
+Possible error codes
 
-*   `no_evidence_provided`
-*   `dispute_already_under_review`
-*   `dispute_already_resolved`
-*   `dispute_already_expired`
-*   `dispute_already_won`
-*   `dispute_already_lost`
-*   `dispute_already_canceled`
-*   `dispute_already_accepted`
+- `no_evidence_provided`
+- `dispute_already_under_review`
+- `dispute_already_resolved`
+- `dispute_already_expired`
+- `dispute_already_won`
+- `dispute_already_lost`
+- `dispute_already_canceled`
+- `dispute_already_accepted`
 
 ### Accept a dispute 
 
@@ -729,8 +720,8 @@ If a dispute is legitimate, you can use the following endpoint to accept it. Thi
 
 #### Endpoints
 
-*   [**Live**](#tabs-c071f0dd-905b-4b72-84b5-fa994a3c1cfe-1)
-*   [**Sandbox**](#tabs-c071f0dd-905b-4b72-84b5-fa994a3c1cfe-2)
+- [**Live**](#tabs-c071f0dd-905b-4b72-84b5-fa994a3c1cfe-1)
+- [**Sandbox**](#tabs-c071f0dd-905b-4b72-84b5-fa994a3c1cfe-2)
 
 POST`https://api.checkout.com/disputes/{dispute_id}/accept`
 
@@ -760,13 +751,13 @@ REQUIRED
 
 #### Request example
 
-*   [**Node.js (Beta)**](#tabs-6b093a9d-156e-43bf-b0d7-790cc9e888dd-1)
+- [**Node.js (Beta)**](#tabs-6b093a9d-156e-43bf-b0d7-790cc9e888dd-1)
 
-    import { Checkout } from "checkout-node-sdk";
-    
-    const cko = new Checkout("sk_XXXX");
-    
-    const accept = await cko.disputes.accept("dsp_bc94ebda8d275i461229");
+  import { Checkout } from "checkout-node-sdk";
+
+  const cko = new Checkout("sk_XXXX");
+
+  const accept = await cko.disputes.accept("dsp_bc94ebda8d275i461229");
 
 #### The response
 
@@ -774,12 +765,12 @@ If you receive a `2XX` response, then you successfully accepted the dispute.
 
 If you receive a `4XX` response, then something went wrong. Check the error codes below to find out why.
 
- Possible error codes
+Possible error codes
 
-*   `dispute_already_under_review`
-*   `dispute_already_resolved`
-*   `dispute_already_expired`
-*   `dispute_already_won`
-*   `dispute_already_lost`
-*   `dispute_already_canceled`
-*   `dispute_already_accepted`
+- `dispute_already_under_review`
+- `dispute_already_resolved`
+- `dispute_already_expired`
+- `dispute_already_won`
+- `dispute_already_lost`
+- `dispute_already_canceled`
+- `dispute_already_accepted`

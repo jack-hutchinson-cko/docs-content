@@ -3,13 +3,9 @@ title: get-card-list-1
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+Delete a card associated with a particular customer with our **delete card** API endpoint.
 
-Delete a card associated with a particular customer with our \*\*delete card\*\* API endpoint.
-
-\## The request Delete a card by sending a \*\*DELETE\*\* API request to the URI below. In the URI, replace \*\*{customerId}\*\* with the customer's ID and {cardId} with the card ID you wish to delete; remember to use the prefix \`cust\_\` to your customer ID and \`card\_\` for the card ID. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="delete-tag">DELETE</span>https://api2.checkout.com/v2/customers/{customerId}/cards/{cardId}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="delete-tag">DELETE</span>https://sandbox.checkout.com/api2/v2/customers/{customerId}/cards/{cardId}</p></pre> ### Header and path parameters
-
-x
+## The request Delete a card by sending a **DELETE** API request to the URI below. In the URI, replace **{customerId}** with the customer's ID and {cardId} with the card ID you wish to delete; remember to use the prefix `cust\_` to your customer ID and `card\_` for the card ID. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="delete-tag">DELETE</span>https://api2.checkout.com/v2/customers/{customerId}/cards/{cardId}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="delete-tag">DELETE</span>https://sandbox.checkout.com/api2/v2/customers/{customerId}/cards/{cardId}</p></pre> ### Header and path parameters
 
 Add Row Add Col
 
@@ -17,26 +13,24 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type:\` <span class="req-def">Required</span>
+`Content-Type:` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
-
-x
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/).
 
 Add Row Add Col
 
@@ -44,16 +38,16 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`customerId\` <span class="req-def">Required</span>
+`customerId` <span class="req-def">Required</span>
 
 |
 
-The customer's ID (prefixed with \`cust\_\`).
+The customer's ID (prefixed with `cust\_`).
 
 |
 |
 
-\`cardId\` <span class="req-def">Require
+`cardId` <span class="req-def">Require
 
 |
 
@@ -61,121 +55,60 @@ Card ID (prefixed with card\_) used to uniquely identify a card to its associate
 
 |
 
-\### Request example
+### Request example
 
 Shell Java
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
 
 curl https://api2.checkout.com/v2/customers/cust\_d65c0360-4bae-4389-bd23-4b17b4a65838/cards/card\_80b4185b-aae1-406e-bdf7-4abfb62febfe
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
+-H "Content-Type:application/json;charset=UTF-8"
 
-\-H "Content-Type:application/json;charset=UTF-8"
+-X DELETE
 
-4
-
-\-X DELETE
-
-Import from Gist
-
-xxxxxxxxxx
-
-18
-
+8
 1
 
 // Create payload
+String customerId="cust_d65c0360-4bae-4389-bd23-4b17b4a65838";
 
-2
-
-String customerId\="cust_d65c0360-4bae-4389-bd23-4b17b4a65838";
-
-3
-
-String cardId \= "card_80b4185b-aae1-406e-bdf7-4abfb62febfe";
-
-4
+String cardId = "card_80b4185b-aae1-406e-bdf7-4abfb62febfe";
 
 ​
 
-5
-
 try {
 
-6
-
 // Create APIClient instance with your secret key
-
-7
-
-APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 8
 
 // Submit your request and receive an apiResponse
+Response<OkResponse> apiResponse = ckoAPIClient.cardService.deleteCard(customerId, cardId);
+0
 
-9
-
-Response<OkResponse\> apiResponse \= ckoAPIClient.cardService.deleteCard(customerId, cardId);
-
-10
-
-​
-
-11
-
-if(!apiResponse.hasError){
-
-12
+​if(!apiResponse.hasError){
+2
 
 // Access the response object retrieved from the api
-
-13
-
-OkResponse deleteResponse \= apiResponse.model;
-
-14
+OkResponse deleteResponse = apiResponse.model;
 
 } else {
 
-15
-
 // Api has returned an error object. You can access the details in the error property of the apiResponse.
 
-16
-
 // apiResponse.error
-
-17
+7
 
 }
-
-18
+8
 
 } catch (Exception e) {}
 
-Import from Gist
-
-\--- ## The response If an OK object returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. ### Response example Take a look at the example response below.
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
+--- ## The response If an OK object returns, then your request was successful. If you're having problems with this API, then ask our [support team](mailto:support@checkout.com) for help. ### Response example Take a look at the example response below.
 
 {
 
@@ -183,8 +116,4 @@ xxxxxxxxxx
 
 "message": "ok"
 
-3
-
 }
-
-Import from Gist

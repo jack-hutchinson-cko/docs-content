@@ -3,41 +3,23 @@ title: products-array
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
-The products can be used to display the details of any products related to the transaction. The example below demonstrates the information for two fictional products: \*Tablet 1 gold limited\* and \*Tablet 2 gold limited\*. ## Example
+The products can be used to display the details of any products related to the transaction. The example below demonstrates the information for two fictional products: _Tablet 1 gold limited_ and _Tablet 2 gold limited_. ## Example
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
 22
 
-1
-
-"products": \[
+"products": [
 
 2
 
 {
 
-3
-
 "description": "Tablet 1 gold limited",
-
-4
 
 "image": null,
 
-5
-
 "name": "Tablet 1 gold limited",
-
-6
 
 "price": 100.0,
 
@@ -52,44 +34,29 @@ xxxxxxxxxx
 9
 
 "sku": "1aab2aa",
-
-10
+0
 
 "trackingUrl": "https://www.tracker.com"
-
-11
+1
 
 },
-
-12
+2
 
 {
-
-13
-
 "description": "Tablet 2 gold limited",
-
-14
 
 "image": null,
 
-15
-
 "name": "Tablet 2 gold limited",
 
-16
-
 "price": 200.0,
-
-17
+7
 
 "quantity": 2,
-
-18
+8
 
 "shippingCost": 10.0,
-
-19
+9
 
 "sku": "1aab2aa",
 
@@ -103,13 +70,9 @@ xxxxxxxxxx
 
 22
 
-\]
+]
 
-Import from Gist
-
-\## Product payload fields
-
-x
+## Product payload fields
 
 Add Row Add Col
 
@@ -117,7 +80,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`description\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`description` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -126,7 +89,7 @@ Description of the product. Maximum characters: 500.
 |
 |
 
-\`image\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`image` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -135,7 +98,7 @@ Link to the product image on the merchant's website. Maximum characters: 200.
 |
 |
 
-\`name\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`name` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -144,7 +107,7 @@ Name of product. Maximum characters: 200.
 |
 |
 
-\`price\` <span class="field-type">Decimal</span> <span class="optional-def">Optional</span>
+`price` <span class="field-type">Decimal</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -153,7 +116,7 @@ Product price per unit. Maximum digits: 6.
 |
 |
 
-\`quantity\` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
+`quantity` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -162,7 +125,7 @@ Units of the product to be shipped. Maximum digits: 3.
 |
 |
 
-\`shippingCost\` <span class="field-type">Decimal</span> <span class="optional-def">Optional</span>
+`shippingCost` <span class="field-type">Decimal</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -171,16 +134,16 @@ Shipping costs. Maximum digits: 6.
 |
 |
 
-\`sku\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`sku` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
-\*Stock Unit Identifier \*or \*unique product identifier\*. Maximum characters: 100.
+*Stock Unit Identifier *or _unique product identifier_. Maximum characters: 100.
 
 |
 |
 
-\`trackingUrl\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`trackingUrl` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 

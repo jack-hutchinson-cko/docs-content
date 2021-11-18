@@ -3,11 +3,7 @@ title: response-codes
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
-Response codes can tell you a lot about what happened during an API request. Checkout.com responds to API requests with: \* an HTTP status code \* a response object containing a \`responseCode\` that indicates the status of the request, or an error object containing an \`errorCode\`. # HTTP status codes
-
-x
+Response codes can tell you a lot about what happened during an API request. Checkout.com responds to API requests with: _ an HTTP status code _ a response object containing a `responseCode` that indicates the status of the request, or an error object containing an `errorCode`. # HTTP status codes
 
 Add Row Add Col
 
@@ -15,7 +11,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`200\`
+`200`
 
 |
 
@@ -24,7 +20,7 @@ OK - success
 |
 |
 
-\`400\`
+`400`
 
 |
 
@@ -33,7 +29,7 @@ Bad Request - The request could contain invalid data, the data structure is inva
 |
 |
 
-\`401\`
+`401`
 
 |
 
@@ -42,7 +38,7 @@ Unauthorized - your API key is invalid
 |
 |
 
-\`404\`
+`404`
 
 |
 
@@ -50,9 +46,7 @@ Resource not found
 
 |
 
-\# Response Codes A \`responseCode\` is a five-digit numeric code that indicates the status of the request. Additional information on the request status may be found in the \`responseMessage\`, \`responseAdvancedInfo\` and \`status\` fields.
-
-x
+# Response Codes A `responseCode` is a five-digit numeric code that indicates the status of the request. Additional information on the request status may be found in the `responseMessage`, `responseAdvancedInfo` and `status` fields.
 
 Add Row Add Col
 
@@ -63,8 +57,7 @@ Add Row Add Col
 APPROVED
 
 |
-
-10000
+0000
 
 |
 
@@ -114,8 +107,7 @@ The request was declined. Most hard declines require the Issuer or Cardholder to
 RISK RESPONSES
 
 |
-
-40000
+0000
 
 |
 
@@ -127,17 +119,14 @@ The request triggered a risk response. The status of the response (responseCode 
 
 |
 
-\## Approved (10\*)
-
-x
+## Approved (10\*)
 
 Add Row Add Col
 
 |     |     |
 | --- | --- |
 
-|
-10000
+|0000
 
 |
 
@@ -145,17 +134,15 @@ Approved
 
 |
 |
-
-10100
-
-|
-
-Approved, but risk \[Flagged\](doc:flags)
+0100
 
 |
-|
 
-10200
+Approved, but risk [Flagged](doc:flags)
+
+|
+|
+0200
 
 |
 
@@ -163,275 +150,88 @@ Deferred capture (for SOFORT only)
 
 |
 
-\### Example response: Approved (10000)
+### Example response: Approved (10000)
 
 Example: Approved
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-63
-
-1
-
 {
-
-2
-
 "id": "charge_test_513BC755BE5X7A9AFF0D",
-
-3
 
 "liveMode": false,
 
-4
-
 "created": "2016-05-17T16:43:05Z",
-
-5
 
 "value": 5555,
 
-6
-
 "currency": "USD",
-
-7
-
 "trackId": "TRK12345",
-
-8
-
 "description": null,
+"email": "LanaSMartin@dayrep.com","chargeMode": 1,
 
-9
-
-"email": "LanaSMartin@dayrep.com",
-
-10
-
-"chargeMode": 1,
-
-11
-
-"transactionIndicator": 1,
-
-12
-
-"customerIp": null,
-
-13
-
+"transactionIndicator": 1,"customerIp": null,
 "responseMessage": "Approved",
-
-14
 
 "responseAdvancedInfo": "Approved",
 
-15
-
 "responseCode": "10000",
 
-16
-
-"status": "Authorised",
-
-17
-
-"authCode": "572900",
-
-18
-
-"isCascaded": false,
-
-19
-
-"autoCapture": "N",
-
-20
+"status": "Authorised","authCode": "572900","isCascaded": false,"autoCapture": "N",
 
 "autoCapTime": 0,
 
-21
-
 "card": {
-
-22
 
 "customerId": "cust_9E07EFB6-32E0-4D6C-B5AD-6EE403BA3F97",
 
-23
-
 "expiryMonth": "06",
-
-24
 
 "expiryYear": "2018",
 
-25
-
 "billingDetails": {
-
-26
 
 "addressLine1": "72 Myrna Parkways",
 
-27
-
 "addressLine2": "Hoppe Fork",
-
-28
 
 "postcode": "aq81ct",
 
-29
-
 "country": "US",
-
-30
 
 "city": "Serenamouth",
 
-31
-
 "state": "Luzmouth",
-
-32
 
 "phone": {
 
-33
-
 "countryCode": "44",
-
-34
 
 "number": "12345678"
 
-35
-
 }
 
-36
-
 },
-
-37
 
 "id": "card_49E69E61-8E35-40E0-AA10-B0B15F198275",
 
-38
-
 "last4": "4242",
 
-39
+"paymentMethod": "Visa","fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
 
-"paymentMethod": "Visa",
-
-40
-
-"fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
-
-41
-
-"name": "Miss Matt Quigley",
-
-42
-
-"cvvCheck": "",
-
-43
-
-"avsCheck": "S"
-
-44
-
-},
-
-45
+"name": "Miss Matt Quigley","cvvCheck": "","avsCheck": "S"},
 
 "riskCheck": true,
 
-46
+"customerPaymentPlans": null,"metadata": {},"shippingDetails": {"addressLine1": null,"addressLine2": null,
 
-"customerPaymentPlans": null,
+"postcode": null,"country": null,"city": null,"state": null,"phone": {}
 
-47
+},"products": [],"udf1": null,"udf2": null,"udf3": null,
 
-"metadata": {},
-
-48
-
-"shippingDetails": {
-
-49
-
-"addressLine1": null,
-
-50
-
-"addressLine2": null,
-
-51
-
-"postcode": null,
-
-52
-
-"country": null,
-
-53
-
-"city": null,
-
-54
-
-"state": null,
-
-55
-
-"phone": {}
-
-56
-
-},
-
-57
-
-"products": \[\],
-
-58
-
-"udf1": null,
-
-59
-
-"udf2": null,
-
-60
-
-"udf3": null,
-
-61
-
-"udf4": null,
-
-62
-
-"udf5": null
-
-63
+"udf4": null,"udf5": null
+3
 
 }
 
-Import from Gist
-
-\## Soft decline (20\*)
-
-x
+## Soft decline (20\*)
 
 Add Row Add Col
 
@@ -470,7 +270,7 @@ Invalid Merchant or Merchant is not active
 
 |
 
-Declined - Do Not Honour <span class="table-info">\[Learn more.\](doc:declined-do-not-honour)</span>
+Declined - Do Not Honour <span class="table-info">[Learn more.](doc:declined-do-not-honour)</span>
 
 |
 |
@@ -1392,9 +1192,7 @@ Initial 3D transaction not completed within 15 minutes
 
 |
 
-\## Hard decline (30\*)
-
-x
+## Hard decline (30\*)
 
 Add Row Add Col
 
@@ -1500,17 +1298,14 @@ Stolen Card - Pick Up The customer’s issuing bank has prevented the transactio
 
 |
 
-\## Risk responses (40\*) Risk Responses are triggered by Risk Rules set in The Hub and will appear in the \`responseMessage\` of a payment response.
-
-x
+## Risk responses (40\*) Risk Responses are triggered by Risk Rules set in The Hub and will appear in the `responseMessage` of a payment response.
 
 Add Row Add Col
 
 |     |     |
 | --- | --- |
 
-|
-40101
+|0101
 
 |
 
@@ -1518,8 +1313,7 @@ Risk Blocked Transaction refused due to risk model Please log-in to your gateway
 
 |
 |
-
-40102
+0102
 
 |
 
@@ -1527,8 +1321,7 @@ Country not supported The merchant country is not supported. The country which t
 
 |
 |
-
-40103
+0103
 
 |
 
@@ -1536,8 +1329,7 @@ Gateway Reject - Blacklist Transaction cannot be processed - Payment attributes 
 
 |
 |
-
-40104
+0104
 
 |
 
@@ -1545,8 +1337,7 @@ Gateway Reject - CVV is missing or incorrect The merchant’s configuration requ
 
 |
 |
-
-40108
+0108
 
 |
 
@@ -1554,8 +1345,7 @@ Gateway Reject - Post code failed The card’s Post code failed validation. Retr
 
 |
 |
-
-40109
+0109
 
 |
 
@@ -1563,8 +1353,7 @@ Gateway Reject - Missing required data Please make sure all required data is sen
 
 |
 |
-
-40110
+0110
 
 |
 
@@ -1572,8 +1361,7 @@ Missing 3DSecure data or data is not correct
 
 |
 |
-
-40111
+0111
 
 |
 
@@ -1581,8 +1369,7 @@ Declined - AVS not matched The transaction was declined because of a merchant ri
 
 |
 |
-
-40131
+0131
 
 |
 
@@ -1590,8 +1377,7 @@ Mismatch - Shipping to Billing Shipping country does not match billing country.
 
 |
 |
-
-40132
+0132
 
 |
 
@@ -1599,8 +1385,7 @@ Mismatch - Shipping to BIN Shipping country does not match bin country.
 
 |
 |
-
-40133
+0133
 
 |
 
@@ -1608,8 +1393,7 @@ Mismatch - Shipping to IP Shipping country does not match IP country.
 
 |
 |
-
-40135
+0135
 
 |
 
@@ -1617,8 +1401,7 @@ Mismatch - Billing to BIN Billing country does not match bin country.
 
 |
 |
-
-40136
+0136
 
 |
 
@@ -1626,8 +1409,7 @@ Mismatch - Billing to IP Billing country does not match IP country.
 
 |
 |
-
-40138
+0138
 
 |
 
@@ -1635,8 +1417,7 @@ Mismatch - BIN to IP Bin country does not match IP country.
 
 |
 |
-
-40141 - 40149
+0141 - 40149
 
 |
 
@@ -1644,8 +1425,7 @@ Threshold Risk
 
 |
 |
-
-40150
+0150
 
 |
 
@@ -1653,8 +1433,7 @@ Card velocity - Daily - Approved only
 
 |
 |
-
-40151
+0151
 
 |
 
@@ -1662,8 +1441,7 @@ Card velocity - Daily - All transactions
 
 |
 |
-
-40152
+0152
 
 |
 
@@ -1671,8 +1449,7 @@ Card velocity - Weekly - Approved only
 
 |
 |
-
-40153
+0153
 
 |
 
@@ -1680,8 +1457,7 @@ Card velocity - Weekly - All transactions
 
 |
 |
-
-40154
+0154
 
 |
 
@@ -1689,8 +1465,7 @@ Card velocity - Monthly - Approved only
 
 |
 |
-
-40155
+0155
 
 |
 
@@ -1698,8 +1473,7 @@ Card velocity - Monthly - All transactions
 
 |
 |
-
-40160
+0160
 
 |
 
@@ -1707,8 +1481,7 @@ Email velocity - Daily - Approved only
 
 |
 |
-
-40161
+0161
 
 |
 
@@ -1716,8 +1489,7 @@ Email velocity - Daily - All transactions
 
 |
 |
-
-40162
+0162
 
 |
 
@@ -1725,8 +1497,7 @@ Email velocity - Weekly - Approved only
 
 |
 |
-
-40163
+0163
 
 |
 
@@ -1734,8 +1505,7 @@ Email velocity - Weekly - All transactions
 
 |
 |
-
-40164
+0164
 
 |
 
@@ -1743,8 +1513,7 @@ Email velocity - Monthly - Approved only
 
 |
 |
-
-40165
+0165
 
 |
 
@@ -1752,8 +1521,7 @@ Email velocity - Monthly - All transactions
 
 |
 |
-
-40170
+0170
 
 |
 
@@ -1761,8 +1529,7 @@ IP velocity - Daily - Approved only
 
 |
 |
-
-40171
+0171
 
 |
 
@@ -1770,8 +1537,7 @@ IP velocity - Daily - All transactions
 
 |
 |
-
-40181
+0181
 
 |
 
@@ -1779,8 +1545,7 @@ Verified Info - Email
 
 |
 |
-
-40182
+0182
 
 |
 
@@ -1788,8 +1553,7 @@ Verified Info - Address
 
 |
 |
-
-40183
+0183
 
 |
 
@@ -1797,8 +1561,7 @@ Verified Info - Proxy
 
 |
 |
-
-40201
+0201
 
 |
 
@@ -1806,8 +1569,7 @@ Gateway Reject - Card Number Blacklist
 
 |
 |
-
-40202
+0202
 
 |
 
@@ -1815,8 +1577,7 @@ Gateway Reject - IP Address Blacklist
 
 |
 |
-
-40203
+0203
 
 |
 
@@ -1824,8 +1585,7 @@ Gateway Reject - Email Blacklist
 
 |
 |
-
-40204
+0204
 
 |
 
@@ -1833,8 +1593,7 @@ Gateway Reject - Phone Number Blacklist
 
 |
 |
-
-40210
+0210
 
 |
 
@@ -1842,8 +1601,7 @@ Bin Velocity - Daily - Approved Only
 
 |
 |
-
-40211
+0211
 
 |
 
@@ -1851,8 +1609,7 @@ Bin Velocity - Daily - All transactions
 
 |
 |
-
-40212
+0212
 
 |
 
@@ -1860,8 +1617,7 @@ Bin Velocity - Weekly - Approved Only
 
 |
 |
-
-40213
+0213
 
 |
 
@@ -1869,8 +1625,7 @@ Bin Velocity - Weekly - All transactions
 
 |
 |
-
-40214
+0214
 
 |
 
@@ -1878,8 +1633,7 @@ Bin Velocity - Monthly - Approved Only
 
 |
 |
-
-40215
+0215
 
 |
 
@@ -1887,8 +1641,7 @@ Bin Velocity - Monthly - All transactions
 
 |
 |
-
-40216
+0216
 
 |
 
@@ -1896,8 +1649,7 @@ Billing Address Line 1 Velocity - Daily - Approved Only
 
 |
 |
-
-40217
+0217
 
 |
 
@@ -1905,8 +1657,7 @@ Billing Address Line 1 Velocity - Daily - All transactions
 
 |
 |
-
-40218
+0218
 
 |
 
@@ -1914,8 +1665,7 @@ Billing Address Line 1 Velocity - Weekly - Approved Only
 
 |
 |
-
-40219
+0219
 
 |
 
@@ -1923,8 +1673,7 @@ Billing Address Line 1 Velocity - Weekly - All transactions
 
 |
 |
-
-40220
+0220
 
 |
 
@@ -1932,8 +1681,7 @@ Billing Address Line 1 Velocity - Monthly - Approved Only
 
 |
 |
-
-40221
+0221
 
 |
 
@@ -1941,8 +1689,7 @@ Billing Address Line 1 Velocity - Monthly - All transactions
 
 |
 |
-
-40222
+0222
 
 |
 
@@ -1950,8 +1697,7 @@ Shipping Address Line 1 Velocity - Daily - Approved Only
 
 |
 |
-
-40223
+0223
 
 |
 
@@ -1959,8 +1705,7 @@ Shipping Address Line 1 Velocity - Daily - All transactions
 
 |
 |
-
-40224
+0224
 
 |
 
@@ -1968,8 +1713,7 @@ Shipping Address Line 1 Velocity - Weekly - Approved Only
 
 |
 |
-
-40225
+0225
 
 |
 
@@ -1977,8 +1721,7 @@ Shipping Address Line 1 Velocity - Weekly - All transactions
 
 |
 |
-
-40226
+0226
 
 |
 
@@ -1986,8 +1729,7 @@ Shipping Address Line 1 Velocity - Monthly - Approved Only
 
 |
 |
-
-40227
+0227
 
 |
 
@@ -1995,8 +1737,7 @@ Shipping Address Line 1 Velocity - Monthly - All transactions
 
 |
 |
-
-40228
+0228
 
 |
 
@@ -2004,8 +1745,7 @@ CardHolder Name Velocity - Daily - Approved Only
 
 |
 |
-
-40229
+0229
 
 |
 
@@ -2013,8 +1753,7 @@ CardHolder Name Velocity - Daily - All transactions
 
 |
 |
-
-40230
+0230
 
 |
 
@@ -2022,8 +1761,7 @@ CardHolder Name Velocity - Weekly - Approved Only
 
 |
 |
-
-40231
+0231
 
 |
 
@@ -2031,8 +1769,7 @@ CardHolder Name Velocity - Weekly - All transactions
 
 |
 |
-
-40232
+0232
 
 |
 
@@ -2040,8 +1777,7 @@ CardHolder Name Velocity - Monthly - Approved Only
 
 |
 |
-
-40233
+0233
 
 |
 
@@ -2049,8 +1785,7 @@ CardHolder Name Velocity - Monthly - All transactions
 
 |
 |
-
-40234
+0234
 
 |
 
@@ -2058,8 +1793,7 @@ UDF1 Velocity - Daily - Approved Only
 
 |
 |
-
-40235
+0235
 
 |
 
@@ -2067,8 +1801,7 @@ UDF1 Velocity - Daily - All transactions
 
 |
 |
-
-40236
+0236
 
 |
 
@@ -2076,8 +1809,7 @@ UDF1 Velocity - Weekly - Approved Only
 
 |
 |
-
-40237
+0237
 
 |
 
@@ -2085,8 +1817,7 @@ UDF1 Velocity - Weekly - All transactions
 
 |
 |
-
-40238
+0238
 
 |
 
@@ -2094,8 +1825,7 @@ UDF1 Velocity - Monthly - Approved Only
 
 |
 |
-
-40239
+0239
 
 |
 
@@ -2103,383 +1833,126 @@ UDF1 Velocity - Monthly - All transactions
 
 |
 
-\### Example response: Risk threshold triggered
+### Example response: Risk threshold triggered
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-90
-
-1
-
 {
-
-2
-
 "id": "charge_test_631C67059E8G7A7A8F19",
-
-3
 
 "liveMode": false,
 
-4
-
 "created": "2016-08-15T13:39:27Z",
-
-5
 
 "value": 93399,
 
-6
-
 "currency": "USD",
-
-7
-
 "trackId": "TRK12345",
-
-8
-
 "description": "charge description2",
+"email": "testuser@email.com","chargeMode": 1,
 
-9
-
-"email": "testuser@email.com",
-
-10
-
-"chargeMode": 1,
-
-11
-
-"transactionIndicator": 1,
-
-12
-
-"customerIp": "96.125.185.51",
-
-13
-
+"transactionIndicator": 1,"customerIp": "96.125.185.51",
 "responseMessage": "40142 - Threshold Risk",
-
-14
 
 "responseAdvancedInfo": "",
 
-15
-
 "responseCode": "10100",
 
-16
-
-"status": "Flagged",
-
-17
-
-"authCode": "387207",
-
-18
-
-"isCascaded": false,
-
-19
-
-"autoCapture": "Y",
-
-20
+"status": "Flagged","authCode": "387207","isCascaded": false,"autoCapture": "Y",
 
 "autoCapTime": 0,
 
-21
-
 "card": {
-
-22
 
 "customerId": "cust_291262B9-FEF1-41AE-A593-311F481D3A85",
 
-23
-
 "expiryMonth": "06",
-
-24
 
 "expiryYear": "2018",
 
-25
-
 "billingDetails": {
-
-26
 
 "addressLine1": "623 Slade Street",
 
-27
-
 "addressLine2": "Flat 9",
 
-28
-
 "postcode": "E149SR",
-
-29
 
 "country": null,
 
-30
-
 "city": "London",
-
-31
 
 "state": "Greater London",
 
-32
-
 "phone": {
-
-33
 
 "countryCode": "44",
 
-34
-
 "number": "12345678"
-
-35
 
 }
 
-36
-
 },
-
-37
 
 "id": "card_99CB8B47-A2C3-4A35-8EDC-4498B60B0FE8",
 
-38
-
 "last4": "4242",
 
-39
+"bin": "424242","paymentMethod": "Visa",
 
-"bin": "424242",
-
-40
-
-"paymentMethod": "Visa",
-
-41
-
-"fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622",
-
-42
-
-"name": "Seymour Duncan",
-
-43
-
-"cvvCheck": "Y",
-
-44
-
-"avsCheck": "S"
-
-45
+"fingerprint": "F639CAB2745BEE4140BF86DF6B6D6E255C5945AAC3788D923FA047EA4C208622","name": "Seymour Duncan","cvvCheck": "Y","avsCheck": "S"
 
 },
 
-46
+"riskCheck": true,"customerPaymentPlans": null,"metadata": {"key1": "value1"},
 
-"riskCheck": true,
+"shippingDetails": {"addressLine1": "623 Slade Street","addressLine2": "Flat 9","postcode": "E149SR","country": "UK",
 
-47
-
-"customerPaymentPlans": null,
-
-48
-
-"metadata": {
-
-49
-
-"key1": "value1"
-
-50
-
-},
-
-51
-
-"shippingDetails": {
-
-52
-
-"addressLine1": "623 Slade Street",
-
-53
-
-"addressLine2": "Flat 9",
-
-54
-
-"postcode": "E149SR",
-
-55
-
-"country": "UK",
-
-56
-
-"city": "London",
-
-57
-
-"state": "Greater London",
-
-58
-
-"phone": {
-
-59
-
-"countryCode": "44",
-
-60
-
-"number": "12345678"
-
-61
-
-}
-
-62
-
-},
-
-63
-
-"products": \[
-
-64
-
-{
-
-65
-
-"name": "Tablet 1 gold limited",
-
-66
-
-"description": "Tablet 1 gold limited",
-
-67
-
-"sku": "1aab2aa",
-
-68
-
-"price": 100,
-
-69
-
-"quantity": 1,
-
-70
+"city": "London","state": "Greater London","phone": {"countryCode": "44","number": "12345678"}},"products": [{"name": "Tablet 1 gold limited","description": "Tablet 1 gold limited","sku": "1aab2aa","price": 100,"quantity": 1,
 
 "image": "https://www.checkout.com/uploads/Logo.png",
 
-71
-
 "shippingCost": 10,
 
-72
-
 "trackingUrl": "https://www.tracker.com"
-
-73
 
 },
 
-74
-
 {
-
-75
 
 "name": "Tablet 2 gold limited",
 
-76
-
 "description": "Tablet 2 gold limited",
-
-77
 
 "sku": "1aab2aa",
 
-78
-
 "price": 200,
-
-79
 
 "quantity": 2,
 
-80
-
 "image": null,
-
-81
 
 "shippingCost": 10,
 
-82
-
 "trackingUrl": "https://www.tracker.com"
-
-83
 
 }
 
-84
-
-\],
-
-85
+],
 
 "udf1": "udf 1 value",
 
-86
-
 "udf2": "udf 2 value",
-
-87
 
 "udf3": "udf 3 value",
 
-88
-
 "udf4": "udf 4 value",
-
-89
 
 "udf5": "udf 5 value"
 
-90
-
 }
 
-Import from Gist
-
-\# Error codes An error code (\`errorCode\`) is a five-digit numeric code that indicates the type of error triggered by the request. Additional information about the error may be found in the fields \`message\`, \`errors\` and \`errorMessageCodes\`.
-
-x
+# Error codes An error code (`errorCode`) is a five-digit numeric code that indicates the type of error triggered by the request. Additional information about the error may be found in the fields `message`, `errors` and `errorMessageCodes`.
 
 Add Row Add Col
 
@@ -2495,11 +1968,11 @@ API VALIDATION
 
 |
 
-\`errorCode\` \`errorMessageCodes\`
+`errorCode` `errorMessageCodes`
 
 |
 
-The request failed API validation and was not successful due to the error indicated by the \`errorCode\` and/or \`errorMessageCodes\`.
+The request failed API validation and was not successful due to the error indicated by the `errorCode` and/or `errorMessageCodes`.
 
 |
 |
@@ -2512,11 +1985,11 @@ BUSINESS VALIDATION
 
 |
 
-\`errorCode\` \`errorMessageCodes\`
+`errorCode` `errorMessageCodes`
 
 |
 
-The request failed Business validation and was not successful due to the error indicated by the \`errorCode\` and/or \`errorMessageCodes\`.
+The request failed Business validation and was not successful due to the error indicated by the `errorCode` and/or `errorMessageCodes`.
 
 |
 |
@@ -2529,17 +2002,15 @@ AP VALIDATION
 
 |
 
-\`errorCode\` \`errorMessageCodes\`
+`errorCode` `errorMessageCodes`
 
 |
 
-The request failed Alternative Payments validation and was not successful due to the error indicated by the \`errorCode\` and/or \`errorMessageCodes\`.
+The request failed Alternative Payments validation and was not successful due to the error indicated by the `errorCode` and/or `errorMessageCodes`.
 
 |
 
-\## API validation (70\*)
-
-x
+## API validation (70\*)
 
 Add Row Add Col
 
@@ -2659,7 +2130,7 @@ Invalid value for 'paymentToken'
 
 |
 
-Field \`chargeMode\` is required
+Field `chargeMode` is required
 
 |
 |
@@ -2668,7 +2139,7 @@ Field \`chargeMode\` is required
 
 |
 
-Invalid value for \`chargeMode\`
+Invalid value for `chargeMode`
 
 |
 |
@@ -2695,7 +2166,7 @@ Invalid email address
 
 |
 
-Field \`email\` is required
+Field `email` is required
 
 |
 |
@@ -2704,7 +2175,7 @@ Field \`email\` is required
 
 |
 
-Invalid date value in \`created\`
+Invalid date value in `created`
 
 |
 |
@@ -2731,7 +2202,7 @@ Invalid phone number
 
 |
 
-Invalid length for \`phone number\`
+Invalid length for `phone number`
 
 |
 |
@@ -2740,7 +2211,7 @@ Invalid length for \`phone number\`
 
 |
 
-Field \`phone number\` is required
+Field `phone number` is required
 
 |
 |
@@ -2749,7 +2220,7 @@ Field \`phone number\` is required
 
 |
 
-Invalid value for \`provider id\`
+Invalid value for `provider id`
 
 |
 |
@@ -2758,7 +2229,7 @@ Invalid value for \`provider id\`
 
 |
 
-Invalid value for \`userData\`
+Invalid value for `userData`
 
 |
 |
@@ -2767,7 +2238,7 @@ Invalid value for \`userData\`
 
 |
 
-Field \`lppId\` is required
+Field `lppId` is required
 
 |
 |
@@ -2776,7 +2247,7 @@ Field \`lppId\` is required
 
 |
 
-Invalid value for \`lppId\`
+Invalid value for `lppId`
 
 |
 |
@@ -2785,7 +2256,7 @@ Invalid value for \`lppId\`
 
 |
 
-Field \`localPayment\` is required
+Field `localPayment` is required
 
 |
 |
@@ -2794,7 +2265,7 @@ Field \`localPayment\` is required
 
 |
 
-Invalid value for \`limit\`
+Invalid value for `limit`
 
 |
 |
@@ -2803,7 +2274,7 @@ Invalid value for \`limit\`
 
 |
 
-Invalid value for \`name\`
+Invalid value for `name`
 
 |
 |
@@ -2812,7 +2283,7 @@ Invalid value for \`name\`
 
 |
 
-Invalid value for \`region\`
+Invalid value for `region`
 
 |
 |
@@ -2821,7 +2292,7 @@ Invalid value for \`region\`
 
 |
 
-Field \`mpiTransactionResponseId\` is required
+Field `mpiTransactionResponseId` is required
 
 |
 |
@@ -2839,7 +2310,7 @@ Invalid value for 'mpiTransactionResponseId'
 
 |
 
-Field \`MD\` is required
+Field `MD` is required
 
 |
 |
@@ -2848,7 +2319,7 @@ Field \`MD\` is required
 
 |
 
-Invalid value for \`MD\`
+Invalid value for `MD`
 
 |
 |
@@ -2875,7 +2346,7 @@ Invalid charge id
 
 |
 
-Invalid value for \`offset\`
+Invalid value for `offset`
 
 |
 |
@@ -2884,7 +2355,7 @@ Invalid value for \`offset\`
 
 |
 
-Invalid value for \`customer\`
+Invalid value for `customer`
 
 |
 |
@@ -2893,7 +2364,7 @@ Invalid value for \`customer\`
 
 |
 
-Invalid value for \`count\`
+Invalid value for `count`
 
 |
 |
@@ -2920,7 +2391,7 @@ Invalid value for end date
 
 |
 
-Invalid value for \`ip\`
+Invalid value for `ip`
 
 |
 |
@@ -2929,7 +2400,7 @@ Invalid value for \`ip\`
 
 |
 
-Invalid value for \`country\`
+Invalid value for `country`
 
 |
 |
@@ -2938,7 +2409,7 @@ Invalid value for \`country\`
 
 |
 
-Invalid value for \`countryCode\`
+Invalid value for `countryCode`
 
 |
 |
@@ -2947,7 +2418,7 @@ Invalid value for \`countryCode\`
 
 |
 
-Invalid \`countryCode\` for phone
+Invalid `countryCode` for phone
 
 |
 |
@@ -2956,7 +2427,7 @@ Invalid \`countryCode\` for phone
 
 |
 
-Invalid \`countryCode\` length for phone.
+Invalid `countryCode` length for phone.
 
 |
 |
@@ -2965,7 +2436,7 @@ Invalid \`countryCode\` length for phone.
 
 |
 
-Invalid value for \`value\`
+Invalid value for `value`
 
 |
 |
@@ -2974,7 +2445,7 @@ Invalid value for \`value\`
 
 |
 
-Invalid value for \`autoCapture\`
+Invalid value for `autoCapture`
 
 |
 |
@@ -2983,7 +2454,7 @@ Invalid value for \`autoCapture\`
 
 |
 
-Invalid value for \`autoCapTime\`
+Invalid value for `autoCapTime`
 
 |
 |
@@ -2992,7 +2463,7 @@ Invalid value for \`autoCapTime\`
 
 |
 
-Field \`value\` is required
+Field `value` is required
 
 |
 |
@@ -3001,7 +2472,7 @@ Field \`value\` is required
 
 |
 
-Invalid value for \`currency\`
+Invalid value for `currency`
 
 |
 |
@@ -3019,7 +2490,7 @@ Field 'currency' is required
 
 |
 
-Require both \`autoCapture\` and \`autoCapTime\` values
+Require both `autoCapture` and `autoCapTime` values
 
 |
 |
@@ -3028,7 +2499,7 @@ Require both \`autoCapture\` and \`autoCapTime\` values
 
 |
 
-Require either a \`card\`, \`token\` value
+Require either a `card`, `token` value
 
 |
 |
@@ -3037,7 +2508,7 @@ Require either a \`card\`, \`token\` value
 
 |
 
-Require either a \`cardId\` or \`card\` values
+Require either a `cardId` or `card` values
 
 |
 |
@@ -3046,7 +2517,7 @@ Require either a \`cardId\` or \`card\` values
 
 |
 
-Require either a \`customerId\` or \`email\` value
+Require either a `customerId` or `email` value
 
 |
 |
@@ -3055,7 +2526,7 @@ Require either a \`customerId\` or \`email\` value
 
 |
 
-Cannot process request with both \`card\` and \`token\` values
+Cannot process request with both `card` and `token` values
 
 |
 |
@@ -3064,7 +2535,7 @@ Cannot process request with both \`card\` and \`token\` values
 
 |
 
-Cannot process request with both \`CustomerID\` and \`Email\` values
+Cannot process request with both `CustomerID` and `Email` values
 
 |
 |
@@ -3073,7 +2544,7 @@ Cannot process request with both \`CustomerID\` and \`Email\` values
 
 |
 
-Cannot process request where request has both \`cardid\` and card (\`name\`, \`number\`, \`expiryDay\` & \`expiryYear\`) values
+Cannot process request where request has both `cardid` and card (`name`, `number`, `expiryDay` & `expiryYear`) values
 
 |
 |
@@ -3082,7 +2553,7 @@ Cannot process request where request has both \`cardid\` and card (\`name\`, \`n
 
 |
 
-Field \`cvv\` number in \`card\` is required
+Field `cvv` number in `card` is required
 
 |
 |
@@ -3091,7 +2562,7 @@ Field \`cvv\` number in \`card\` is required
 
 |
 
-Invalid \`cvv\` number in \`card\`
+Invalid `cvv` number in `card`
 
 |
 |
@@ -3100,7 +2571,7 @@ Invalid \`cvv\` number in \`card\`
 
 |
 
-Invalid \`expiryDay\` in \`card\`
+Invalid `expiryDay` in `card`
 
 |
 |
@@ -3109,7 +2580,7 @@ Invalid \`expiryDay\` in \`card\`
 
 |
 
-Field \`expiryMonth\` in \`card\` is required
+Field `expiryMonth` in `card` is required
 
 |
 |
@@ -3118,7 +2589,7 @@ Field \`expiryMonth\` in \`card\` is required
 
 |
 
-Invalid \`expiryMonth\` in \`card\`
+Invalid `expiryMonth` in `card`
 
 |
 |
@@ -3127,7 +2598,7 @@ Invalid \`expiryMonth\` in \`card\`
 
 |
 
-Field \`expiryYear\` in \`card\` is required
+Field `expiryYear` in `card` is required
 
 |
 |
@@ -3136,7 +2607,7 @@ Field \`expiryYear\` in \`card\` is required
 
 |
 
-Invalid \`expiryYear\` in \`card\`
+Invalid `expiryYear` in `card`
 
 |
 |
@@ -3145,7 +2616,7 @@ Invalid \`expiryYear\` in \`card\`
 
 |
 
-Field \`number\` in \`card\` is required
+Field `number` in `card` is required
 
 |
 |
@@ -3154,7 +2625,7 @@ Field \`number\` in \`card\` is required
 
 |
 
-Invalid \`number\` in \`card\`
+Invalid `number` in `card`
 
 |
 |
@@ -3163,7 +2634,7 @@ Invalid \`number\` in \`card\`
 
 |
 
-Field \`name\` in \`card\` is required
+Field `name` in `card` is required
 
 |
 |
@@ -3172,7 +2643,7 @@ Field \`name\` in \`card\` is required
 
 |
 
-Invalid value for \`name\` in \`card\`
+Invalid value for `name` in `card`
 
 |
 |
@@ -3181,7 +2652,7 @@ Invalid value for \`name\` in \`card\`
 
 |
 
-Field \`token\` is required
+Field `token` is required
 
 |
 |
@@ -3190,7 +2661,7 @@ Field \`token\` is required
 
 |
 
-Field \`cardId\` is required
+Field `cardId` is required
 
 |
 |
@@ -3199,7 +2670,7 @@ Field \`cardId\` is required
 
 |
 
-Invalid value for \`transactionIndicator\`
+Invalid value for `transactionIndicator`
 
 |
 |
@@ -3208,7 +2679,7 @@ Invalid value for \`transactionIndicator\`
 
 |
 
-Field \`name\` in \`descriptor\` is required
+Field `name` in `descriptor` is required
 
 |
 |
@@ -3217,7 +2688,7 @@ Field \`name\` in \`descriptor\` is required
 
 |
 
-Field \`city\` in \`descriptor\` is required
+Field `city` in `descriptor` is required
 
 |
 |
@@ -3226,7 +2697,7 @@ Field \`city\` in \`descriptor\` is required
 
 |
 
-Invalid length for \`name\` in \`descriptor\`
+Invalid length for `name` in `descriptor`
 
 |
 |
@@ -3370,7 +2841,7 @@ Invalid start date for recurring plan
 
 |
 
-Field \`thirdPartyId\` is required
+Field `thirdPartyId` is required
 
 |
 |
@@ -3379,7 +2850,7 @@ Field \`thirdPartyId\` is required
 
 |
 
-Invalid value for \`thirdPartyId\`
+Invalid value for `thirdPartyId`
 
 |
 |
@@ -3406,7 +2877,7 @@ Invalid next recurring date
 
 |
 
-Invalid \`cvv\` length in \`card\`
+Invalid `cvv` length in `card`
 
 |
 |
@@ -3415,7 +2886,7 @@ Invalid \`cvv\` length in \`card\`
 
 |
 
-Invalid value for \`page number\`
+Invalid value for `page number`
 
 |
 |
@@ -3424,7 +2895,7 @@ Invalid value for \`page number\`
 
 |
 
-Invalid value for \`page size\`
+Invalid value for `page size`
 
 |
 |
@@ -3433,7 +2904,7 @@ Invalid value for \`page size\`
 
 |
 
-Invalid value for \`sort order\`
+Invalid value for `sort order`
 
 |
 |
@@ -3442,7 +2913,7 @@ Invalid value for \`sort order\`
 
 |
 
-Invalid value for \`sort column\`
+Invalid value for `sort column`
 
 |
 |
@@ -3451,7 +2922,7 @@ Invalid value for \`sort column\`
 
 |
 
-Invalid value for \`filters\`
+Invalid value for `filters`
 
 |
 |
@@ -3460,7 +2931,7 @@ Invalid value for \`filters\`
 
 |
 
-Invalid value for \`ReasonCode\`
+Invalid value for `ReasonCode`
 
 |
 |
@@ -3469,7 +2940,7 @@ Invalid value for \`ReasonCode\`
 
 |
 
-Invalid value for \`IssueDate\`
+Invalid value for `IssueDate`
 
 |
 |
@@ -3478,7 +2949,7 @@ Invalid value for \`IssueDate\`
 
 |
 
-Invalid value for \`RetrievalDate\`
+Invalid value for `RetrievalDate`
 
 |
 |
@@ -3496,7 +2967,7 @@ Invalid payment method or currency
 
 |
 
-Field \`destination\` required
+Field `destination` required
 
 |
 |
@@ -3505,7 +2976,7 @@ Field \`destination\` required
 
 |
 
-Field \`destination\` invalid
+Field `destination` invalid
 
 |
 |
@@ -3514,7 +2985,7 @@ Field \`destination\` invalid
 
 |
 
-Field \`firstName\` required
+Field `firstName` required
 
 |
 |
@@ -3523,7 +2994,7 @@ Field \`firstName\` required
 
 |
 
-Field \`lastName\` required
+Field `lastName` required
 
 |
 |
@@ -3532,7 +3003,7 @@ Field \`lastName\` required
 
 |
 
-Invalid value for \`BIN\`
+Invalid value for `BIN`
 
 |
 |
@@ -3541,71 +3012,32 @@ Invalid value for \`BIN\`
 
 |
 
-Invalid length for \`BIN\`
+Invalid length for `BIN`
 
 |
 
-\### Example response: Validation Error (70015)
+### Example response: Validation Error (70015)
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-11
-
+1
 1
 
 {
-
-2
-
 "errorCode": "70000",
-
-3
 
 "message": "Validation error",
 
-4
-
-"errors": \[
-
-5
+"errors": [
 
 "Field 'email' is required"
 
-6
-
-\],
-
-7
-
-"errorMessageCodes": \[
-
-8
-
+],
+"errorMessageCodes": [
 "70015"
+],"eventId": "ad5708d2-5bde-4bd2-a643-bc6484a28c20"}
 
-9
-
-\],
-
-10
-
-"eventId": "ad5708d2-5bde-4bd2-a643-bc6484a28c20"
-
-11
-
-}
-
-Import from Gist
-
-\## Business validation (8\*)
-
-x
+## Business validation (8\*)
 
 Add Row Add Col
 
@@ -3617,7 +3049,7 @@ Add Row Add Col
 
 |
 
-Invalid \`payment currency\`
+Invalid `payment currency`
 
 |
 |
@@ -3635,7 +3067,7 @@ Payment method and currency required
 
 |
 
-System malfunction. Please contact our support team at \[support@checkout.com\](mailto:support@checkout.com).
+System malfunction. Please contact our support team at [support@checkout.com](mailto:support@checkout.com).
 
 |
 |
@@ -3671,7 +3103,7 @@ Invalid parameter
 
 |
 
-Invalid \`cvv\`
+Invalid `cvv`
 
 |
 |
@@ -3680,7 +3112,7 @@ Invalid \`cvv\`
 
 |
 
-Invalid \`postal code\`
+Invalid `postal code`
 
 |
 |
@@ -3689,7 +3121,7 @@ Invalid \`postal code\`
 
 |
 
-Invalid \`address\`
+Invalid `address`
 
 |
 |
@@ -3698,7 +3130,7 @@ Invalid \`address\`
 
 |
 
-Invalid \`walletID\`
+Invalid `walletID`
 
 |
 |
@@ -3707,7 +3139,7 @@ Invalid \`walletID\`
 
 |
 
-Invalid \`ActionCode\`
+Invalid `ActionCode`
 
 |
 |
@@ -3716,7 +3148,7 @@ Invalid \`ActionCode\`
 
 |
 
-Invalid \`Customer Number\`
+Invalid `Customer Number`
 
 |
 |
@@ -3725,7 +3157,7 @@ Invalid \`Customer Number\`
 
 |
 
-Invalid \`Telephone Number\`
+Invalid `Telephone Number`
 
 |
 |
@@ -3734,7 +3166,7 @@ Invalid \`Telephone Number\`
 
 |
 
-Invalid \`Country\`
+Invalid `Country`
 
 |
 |
@@ -3743,7 +3175,7 @@ Invalid \`Country\`
 
 |
 
-Invalid \`City\`
+Invalid `City`
 
 |
 |
@@ -3752,7 +3184,7 @@ Invalid \`City\`
 
 |
 
-Invalid \`payment method\`
+Invalid `payment method`
 
 |
 |
@@ -3761,7 +3193,7 @@ Invalid \`payment method\`
 
 |
 
-Invalid \`currency code\`
+Invalid `currency code`
 
 |
 |
@@ -3770,7 +3202,7 @@ Invalid \`currency code\`
 
 |
 
-Invalid \`card holder\`
+Invalid `card holder`
 
 |
 |
@@ -3779,7 +3211,7 @@ Invalid \`card holder\`
 
 |
 
-Invalid \`Customer IP\`
+Invalid `Customer IP`
 
 |
 |
@@ -3788,7 +3220,7 @@ Invalid \`Customer IP\`
 
 |
 
-Invalid \`Email\`
+Invalid `Email`
 
 |
 |
@@ -3833,7 +3265,7 @@ Token already used
 
 |
 
-Manual capture not allowed when \`autoCapture\` is \`true\`
+Manual capture not allowed when `autoCapture` is `true`
 
 |
 |
@@ -3968,7 +3400,7 @@ Payment token currently in use
 
 |
 
-Invalid \`Customer Plan ID\`
+Invalid `Customer Plan ID`
 
 |
 |
@@ -3977,7 +3409,7 @@ Invalid \`Customer Plan ID\`
 
 |
 
-Invalid \`ID\`
+Invalid `ID`
 
 |
 |
@@ -3986,7 +3418,7 @@ Invalid \`ID\`
 
 |
 
-Invalid \`channel name\`
+Invalid `channel name`
 
 |
 |
@@ -3995,7 +3427,7 @@ Invalid \`channel name\`
 
 |
 
-Invalid \`Channel\` or \`token\` incorrect
+Invalid `Channel` or `token` incorrect
 
 |
 |
@@ -4004,7 +3436,7 @@ Invalid \`Channel\` or \`token\` incorrect
 
 |
 
-Invalid \`Charge Details\`
+Invalid `Charge Details`
 
 |
 |
@@ -4040,7 +3472,7 @@ Unsupported currency
 
 |
 
-Invalid \`Charge id\`
+Invalid `Charge id`
 
 |
 |
@@ -4049,7 +3481,7 @@ Invalid \`Charge id\`
 
 |
 
-Invalid \`Amount\`
+Invalid `Amount`
 
 |
 |
@@ -4058,7 +3490,7 @@ Invalid \`Amount\`
 
 |
 
-Invalid \`Card Number\`
+Invalid `Card Number`
 
 |
 |
@@ -4179,41 +3611,20 @@ Invalid create queue request
 
 |
 
-\### Example response: Validation Error (82051)
+### Example response: Validation Error (82051)
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
-
 {
-
-2
-
 "errorCode": "82051",
-
-3
 
 "message": "Invalid Customer IP",
 
-4
-
 "eventId": "afb144e7-7833-460c-a25e-5720ea2de9a3"
-
-5
 
 }
 
-Import from Gist
-
-\## AP validation (90\*)
-
-x
+## AP validation (90\*)
 
 Add Row Add Col
 

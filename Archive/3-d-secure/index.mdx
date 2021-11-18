@@ -3,47 +3,27 @@ title: 3-d-secure
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+**3D Secure** is a protocol that introduces an additional layer of verification to improve the security of internet payments. Several major credit card companies have adopted 3D Secure, including :fa-cc-visa: Visa ([Verified by Visa](https://www.visa.co.uk/products/protection-benefits/verified-by-visa/)), :fa-cc-mastercard: Mastercard ([Mastercard SecureCode](https://www.mastercard.co.uk/en-gb/consumers/features-benefits/securecode.html)) and :fa-cc-amex: American Express ([Safekey](https://network.americanexpress.com/globalnetwork/products-and-services/security/safekey/)).
 
-\*\*3D Secure\*\* is a protocol that introduces an additional layer of verification to improve the security of internet payments. Several major credit card companies have adopted 3D Secure, including :fa-cc-visa: Visa (\[Verified by Visa\](https://www.visa.co.uk/products/protection-benefits/verified-by-visa/)), :fa-cc-mastercard: Mastercard (\[Mastercard SecureCode\](https://www.mastercard.co.uk/en-gb/consumers/features-benefits/securecode.html)) and :fa-cc-amex: American Express (\[Safekey\](https://network.americanexpress.com/globalnetwork/products-and-services/security/safekey/)).
-
-\*\*Get ready for 3D Secure 2\*\* This page only covers the original version of the 3D Secure protocol. Learn about the new authentication standard – 3D Secure 2 – and how it helps you prepare for the Strong Customer Authentication requirements introduced by the revised Payment Services Directive.
+**Get ready for 3D Secure 2** This page only covers the original version of the 3D Secure protocol. Learn about the new authentication standard – 3D Secure 2 – and how it helps you prepare for the Strong Customer Authentication requirements introduced by the revised Payment Services Directive.
 
 3D Secure runs from the merchant’s website and interacts with both the cardholder and their card issuer. During the checkout process, a lookup is performed to determine whether the card used in the payment process is eligible for 3D Secure. If the lookup determines that the cardholder should authenticate using 3D Secure, then the card issuer will pass a webpage to Checkout.com. Checkout.com then displays the webpage to the cardholder as a pop-up window. The cardholder will be prompted to enter security details. If the security details are correct, the pop-up receives authorization that binds the cardholder to the transaction. The card issuer's bank then validates the code and provides the merchant with a means of achieving a fully verified transaction.
 
 Using 3D Secure adds an extra level of security to prevent fraudulent payments. The cardholder is required to complete an additional step in the checkout process to verify their identity. The card issuer defines this extra step, and as such acquires liability for the transaction. This liability shift protects the merchant against fraudulent payments. However, be aware that 3D Secure can impact the checkout experience for your customers. The extra step in the checkout process can influence sales. For example, if a customer does not know their 3D Secure password information, they might not finish the checkout process.
 
-Before starting to use 3D Secure, make sure you have correctly set up one of our \[Integration options\](doc:integration-options) into your page. <span class="step\_hl">Step 1:</span>\*\* Collect a card token\*\* First, the customer needs to enter their card details which are then exchanged for a card token. Card tokens are collected through our \[Integration options\](doc:integration-options), this process is called <<glossary:tokenization>>. <span class="step\_hl">Step 2:</span> \*\*Creating a card token payment request\*\* Card token payment requests are discussed in detail on the page \[authorize a payment\](doc:authorize-a-payment). The difference between a standard card token payment and 3D Secure is the \`chargeMode\` attribute. Set the \`chargeMode\` attribute to \`2\` — this defined the charge mode as 3D Secure. <span class="step\_hl">Step 3:</span> \*\*Display the redirect URL\*\* If the customer has enabled 3D Secure, then the request response will include a payment token and a \`redirectURL\`.
+Before starting to use 3D Secure, make sure you have correctly set up one of our [Integration options](doc:integration-options) into your page. <span class="step\_hl">Step 1:</span>** Collect a card token** First, the customer needs to enter their card details which are then exchanged for a card token. Card tokens are collected through our [Integration options](doc:integration-options), this process is called <<glossary:tokenization>>. <span class="step\_hl">Step 2:</span> **Creating a card token payment request** Card token payment requests are discussed in detail on the page [authorize a payment](doc:authorize-a-payment). The difference between a standard card token payment and 3D Secure is the `chargeMode` attribute. Set the `chargeMode` attribute to `2` — this defined the charge mode as 3D Secure. <span class="step\_hl">Step 3:</span> **Display the redirect URL** If the customer has enabled 3D Secure, then the request response will include a payment token and a `redirectURL`.
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
-
 {
-
-2
 
 "id": "pay_tok_45ce4182-4934-40bd-be5f-761ed81ebf9b",
 
-3
-
 "liveMode": false,
-
-4
 
 "chargeMode": 2,
 
-5
-
 "redirectUrl": "https://sandbox.checkout.com/api2/v2/3ds/acs/sid\_ift443fiqpxexdcoqu7i6h26yu",
-
-6
 
 "enrolled": "Y"
 
@@ -51,37 +31,21 @@ xxxxxxxxxx
 
 }
 
-Import from Gist
-
-Open the \`redirectURL\` in a pop-up window. The customer is then prompted to verify their identity — generally with a password.
-
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
+Open the `redirectURL` in a pop-up window. The customer is then prompted to verify their identity — generally with a password.
 
 ---
 
-- **Options:**
-- Image Border
-
 ![](https://files.readme.io/46ed48c-3d-secure-sim-greybg.png)
-
-Upload an image...
 
 ![](https://files.readme.io/46ed48c-3d-secure-sim-greybg.png)**3d-secure-sim-greybg.png**
 
-change·remove
-
-Don't have one handy? Use our logo to start!
-
-<span class="step\_hl">Step 4:</span> \*\*Verify the payment token\*\* After successfully
+<span class="step\_hl">Step 4:</span> **Verify the payment token** After successfully
 verifying the customer's security details, the issuing bank processes the payment.
 The customer is then redirected to the merchant's Payment Confirmation page. On your
-server, grab and verify the \[payment token\](doc:verify-a-3-d-secure-payment) in
-the redirect URL.{" "}
+server, grab and verify the [payment token](doc:verify-a-3-d-secure-payment) in the
+redirect URL.= You can configure redirection success, and redirection fail URL's
+from your Hub Dashboard. Please refer to [manage channel URLs](doc:business-level-administration#section-manage-channel-urls)
+section of The Hub's [business level administration guide](doc:business-level-administration)
+for more information.
 
-You can configure redirection success, and redirection fail URL's from your Hub Dashboard. Please refer to \[manage channel URLs\](doc:business-level-administration#section-manage-channel-urls) section of The Hub's \[business level administration guide\](doc:business-level-administration) for more information.
-
-\*\*Advantages for merchants\*\* \* Liability Shift: Helps reduce the cost of fraudulent transactions and chargebacks by shifting the liability for certain chargeback losses from the merchant to the issuing bank. \* Checkout.com's 3D Secure system handles the various 3D Secure ECI responses dynamically. This guarantees that any successfully authorized 3D Secure transaction will benefit from the liability shift. \* May improve profitability through reduced costs as a result of fewer transaction disputes. \* Increases cardholder confidence and may lead to increased sales. \* Provides a better payment guarantee for authenticated transactions. \*\*Advantages for customers\*\* \* Greater protection against unauthorized card usage for online purchases. \* Increased confidence and trust when shopping online. \* Comfortable online shopping — 3D Secure service fits neatly into the familiar online buying process. \* Easy to use — no special software required for PCs or browsers.
+**Advantages for merchants** _ Liability Shift: Helps reduce the cost of fraudulent transactions and chargebacks by shifting the liability for certain chargeback losses from the merchant to the issuing bank. _ Checkout.com's 3D Secure system handles the various 3D Secure ECI responses dynamically. This guarantees that any successfully authorized 3D Secure transaction will benefit from the liability shift. _ May improve profitability through reduced costs as a result of fewer transaction disputes. _ Increases cardholder confidence and may lead to increased sales. _ Provides a better payment guarantee for authenticated transactions. **Advantages for customers** _ Greater protection against unauthorized card usage for online purchases. _ Increased confidence and trust when shopping online. _ Comfortable online shopping — 3D Secure service fits neatly into the familiar online buying process. \* Easy to use — no special software required for PCs or browsers.

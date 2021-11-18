@@ -7,71 +7,42 @@ There are a number of ways you can extend your SAP Commerce Cloud integration so
 
 In this guide, you'll find how to:
 
-*   [Add more payment methods](#GofurtherwithSAPCommerceCloud-paymentmethods)
-*   [Enable 3D Secure payments](#GofurtherwithSAPCommerceCloud-3ds)
+- [Add more payment methods](#GofurtherwithSAPCommerceCloud-paymentmethods)
+- [Enable 3D Secure payments](#GofurtherwithSAPCommerceCloud-3ds)
 
-Add more payment methods 
--------------------------
+## Add more payment methods 
 
 Before you start
 
 In order to start accepting an alternative payment method, we first need to enable it on your account. Please contact your Customer Success manager or our [Sales team](https://checkout.com/contact-sales) to get started.
 
-  
-
 Check the individual payment method pages to see which ones you can support. It will depend on your location, as well the currency and billing address of your customer.
 
 Our SAP Commerce Connector currently supports the following payment methods:
 
-*   Apple Pay
-*   Google Pay
-*   Klarna
+- Apple Pay
+- Google Pay
+- Klarna
 
-*   [**Apple Pay**](#tabs-fbcb788a-e117-4ec2-b9d9-516294e8eaea-1)
-*   [**Google Pay**](#tabs-fbcb788a-e117-4ec2-b9d9-516294e8eaea-2)
-*   [**Klarna**](#tabs-fbcb788a-e117-4ec2-b9d9-516294e8eaea-3)
+- [**Apple Pay**](#tabs-fbcb788a-e117-4ec2-b9d9-516294e8eaea-1)
+- [**Google Pay**](#tabs-fbcb788a-e117-4ec2-b9d9-516294e8eaea-2)
+- [**Klarna**](#tabs-fbcb788a-e117-4ec2-b9d9-516294e8eaea-3)
 
 See our [Apple Pay documentation](/display/DOCS/Apple+Pay) for more information.
-
-1.  Go to Apple Pay Payments > ApplePay Configuration.
-2.  Enter your merchant name.
-3.  Enter your merchant ID. You can find this in your Apple Developer account.
-4.  Enter your two-letter country code.
-5.  Select which payment capabilities you want to support. Read the [Apple documentation](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/1916123-merchantcapabilities) for more information.
-6.  Select the payment networks you wish to support. Read the [Apple documentation](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/1916122-supportednetworks) for more information.
-7.  Enter your **private** key (the private key of your merchant identity certificate). To get this, find your key (a `.key` file) in your Apple Developer account and then copy and paste the file's contents into this field.
-8.  Enter your certificate (the public key of your merchant identity certificate). To get this, find your certificate (a `.pem` file) in your Apple Developer account and then copy and paste the file's contents into this field.
+. Go to Apple Pay Payments > ApplePay Configuration. 2. Enter your merchant name. 3. Enter your merchant ID. You can find this in your Apple Developer account. 4. Enter your two-letter country code. 5. Select which payment capabilities you want to support. Read the [Apple documentation](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/1916123-merchantcapabilities) for more information. 6. Select the payment networks you wish to support. Read the [Apple documentation](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/1916122-supportednetworks) for more information. 7. Enter your **private** key (the private key of your merchant identity certificate). To get this, find your key (a `.key` file) in your Apple Developer account and then copy and paste the file's contents into this field. 8. Enter your certificate (the public key of your merchant identity certificate). To get this, find your certificate (a `.pem` file) in your Apple Developer account and then copy and paste the file's contents into this field.
 
 See our [Google Pay documentation](/display/DOCS/Google+Pay) for more information.
+. Go to Google Pay Payments > GooglePay Configuration. 2. Select which card networks you want to support through Google Pay with the allowed card networks setting. See [Google's documentation](https://developers.google.com/pay/api/web/guides/tutorial#supported-card-networks) for more information. 3. Select which card authorization methods you want to support through Google Pay with the allowed card authentication methods setting. See [Google's documentation](https://developers.google.com/pay/api/web/guides/tutorial#supported-card-networks) for more information. 4. Select the environment used for processing payments – either **Test** or **Production**.
 
-1.  Go to Google Pay Payments > GooglePay Configuration.
-2.  Select which card networks you want to support through Google Pay with the allowed card networks setting. See [Google's documentation](https://developers.google.com/pay/api/web/guides/tutorial#supported-card-networks) for more information.
-3.  Select which card authorization methods you want to support through Google Pay with the allowed card authentication methods setting. See [Google's documentation](https://developers.google.com/pay/api/web/guides/tutorial#supported-card-networks) for more information.
-4.  Select the environment used for processing payments – either **Test** or **Production**. 
-    
     This is **not** the same as the Checkout.com environment setting.
-    
-5.  The payment gateway defines which gateway Google Pay uses. This should be left as **checkoutltd**.
-6.  Enter your gateway merchant ID. You can find this in your Hub account.
-7.  Enter your merchant name.
-8.  Enter your merchant identifier. You can find this in your Google payments profile.
-9.  **Type** defines the payment methods supported by Google Pay. Set this to **CARD**.
+
+. The payment gateway defines which gateway Google Pay uses. This should be left as **checkoutltd**. 6. Enter your gateway merchant ID. You can find this in your Hub account. 7. Enter your merchant name. 8. Enter your merchant identifier. You can find this in your Google payments profile. 9. **Type** defines the payment methods supported by Google Pay. Set this to **CARD**.
 
 See our [Klarna documentation](https://docs.checkout.com/payment-methods/invoice-and-pay-later/klarna) for more information.
+. [Create a session](https://docs.checkout.com/payment-methods/invoice-and-pay-later/klarna#Klarna-createsession). When the customer reaches your checkout page, create a session with Klarna. 2. [Display widget](https://docs.checkout.com/payment-methods/invoice-and-pay-later/klarna#Klarna-displaywidget). Initialize and load the Klarna widget to present your customer with the payment methods. 3. [Authorize](https://docs.checkout.com/payment-methods/invoice-and-pay-later/klarna#Klarna-authorize). When the customer presses the buy/review order button on your page, make an authorization request. Here you include the instance ID, which should be included for subsequent operations. 4. [Place the order](https://docs.checkout.com/payment-methods/invoice-and-pay-later/klarna#Klarna-placeorder). After the order has been authorized, place the order by using the authorization token generated in step three. 5. [Capture the payment](https://docs.checkout.com/payment-methods/invoice-and-pay-later/klarna#Klarna-capturepayment). Finally, once you've shipped the order or made it available to the customer, you can capture the payment.
 
-1.  [Create a session](https://docs.checkout.com/payment-methods/invoice-and-pay-later/klarna#Klarna-createsession). When the customer reaches your checkout page, create a session with Klarna.
-2.  [Display widget](https://docs.checkout.com/payment-methods/invoice-and-pay-later/klarna#Klarna-displaywidget). Initialize and load the Klarna widget to present your customer with the payment methods.
-3.  [Authorize](https://docs.checkout.com/payment-methods/invoice-and-pay-later/klarna#Klarna-authorize). When the customer presses the buy/review order button on your page, make an authorization request. Here you include the instance ID, which should be included for subsequent operations.
-4.  [Place the order](https://docs.checkout.com/payment-methods/invoice-and-pay-later/klarna#Klarna-placeorder). After the order has been authorized, place the order by using the authorization token generated in step three.
-5.  [Capture the payment](https://docs.checkout.com/payment-methods/invoice-and-pay-later/klarna#Klarna-capturepayment). Finally, once you've shipped the order or made it available to the customer, you can capture the payment.
+## Enable 3D Secure payments 
 
-Enable 3D Secure payments 
---------------------------
-
-1.  Go to card payments.
-2.  If you want to process all payments as 3D Secure payments, set **Use 3D Secure** to **True**.
-3.  Select whether you want to **Attempt non-3D Secure** transactions. If you select **True**, any cards that do not support 3DS will go through without a 3DS check. If you select **False**, cards that do no support 3DS will be blocked.
+. Go to card payments. 2. If you want to process all payments as 3D Secure payments, set **Use 3D Secure** to **True**. 3. Select whether you want to **Attempt non-3D Secure** transactions. If you select **True**, any cards that do not support 3DS will go through without a 3DS check. If you select **False**, cards that do no support 3DS will be blocked.
 
 This add-on is compliant with the 3DS 2.0 (PSD2) directive. In case of a non-frictionless interaction, where the user is required to enter additional information related to the Strong Customer Authentication (SCA), the user will be sent to our **hosted solution** page. Read our [3DS documentation](https://docs.checkout.com/risk-management/3d-secure) for more information.
-
-  

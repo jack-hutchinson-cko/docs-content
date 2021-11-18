@@ -3,20 +3,16 @@ title: magento-commerce-installation
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
-\*Start accepting payments on your Magento installation today. Get started by following this simple procedure.\*
+_Start accepting payments on your Magento installation today. Get started by following this simple procedure._
 
 Magento extensions can open issues that require significant experience with PHP to identify and solve. For this reason, we encourage users to apply Magento’s default theme unless working with a developer.
+. Download the extension from [GitHub](https://github.com/CKOTech/checkout-magento-plugin/releases). 2. Upload the contents of the extension to... `[Root Directory]/app/..` `[Root Directory]/lib/..`
 
-1\. Download the extension from \[GitHub\](https://github.com/CKOTech/checkout-magento-plugin/releases). 2. Upload the contents of the extension to... \`\[Root Directory\]/app/..\` \`\[Root Directory\]/lib/..\`
+1. **Activate the extension**. a. Login to your Magento backend and flush the Magento Cache. b. **Navigate to `System > Configuration > Payment Methods`. Checkout.com credit card (PCI Version and Non-PCI Version)** should be visible on the Payment List — select it. 2. **Select which version fits to your business:** a. If your server is **PCI compliant** — enable Checkout.com Credit Card (PCI version). b. If your server is **not PCI compliant** (most merchants) — enable Checkout.com Credit Card (Non-PCI version).
 
-1\. \*\*Activate the extension\*\*. a. Login to your Magento backend and flush the Magento Cache. b. \*\*Navigate to \`System > Configuration > Payment Methods\`. Checkout.com credit card (PCI Version and Non-PCI Version)\*\* should be visible on the Payment List — select it. 2. \*\*Select which version fits to your business:\*\* a. If your server is \*\*PCI compliant\*\* — enable Checkout.com Credit Card (PCI version). b. If your server is \*\*not PCI compliant\*\* (most merchants) — enable Checkout.com Credit Card (Non-PCI version).
+In this case, like the majority of our merchants, you are probably not fully PCI compliant and should choose **No** to enable Checkout.js.
 
-In this case, like the majority of our merchants, you are probably not fully PCI compliant and should choose \*\*No\*\* to enable Checkout.js.
-
-3\. \*\*Enter your public keys\*\*. a. Click \*Edit\* to edit the settings. b. Enter your \*\*Private API Key\*\* and your \*\*Public API Key\*\* in the related fields.
+3. **Enter your public keys**. a. Click _Edit_ to edit the settings. b. Enter your **Private API Key** and your **Public API Key** in the related fields.
 
 Your Checkout.com account manager can provide these to you.
-
-4\. \*\*Decide which transaction method is best for your business:\*\* a. \*\*Authorize Only\*\* Transactions will only authorize and must be captured manually. b. \*\*Authorize and Capture\*\* Transactions are authorized and captured automatically. With this setting, an auto-capture time can be set. \*Auto-capture time defines how long after an authorization that a capture will be made — the default time is 0.\* 5. \*\*Finally, click \*\*Save Config\*\* to save the configuration.\*\* \*\*Installation Complete\*\* Customers should now be able to pick Checkout.com as a payment method.
+. **Decide which transaction method is best for your business:** a. **Authorize Only** Transactions will only authorize and must be captured manually. b. **Authorize and Capture** Transactions are authorized and captured automatically. With this setting, an auto-capture time can be set. _Auto-capture time defines how long after an authorization that a capture will be made — the default time is 0._ 5. **Finally, click **Save Config** to save the configuration.** **Installation Complete** Customers should now be able to pick Checkout.com as a payment method.

@@ -2,14 +2,12 @@
 title: Go-live checklist
 account: NAS
 ---
-Test your integration
-=====================
+
+# Test your integration
 
 Our sandbox environment provides the necessary environment to make sure everything from your implementation is working perfectly. We recommend working your way through the steps listed below.
 
 When you've completed a step, you can click the checkbox to mark it as done. Note that this will get cleared if you refresh the page.
-
-  
 
 function toggleImage() { var img1 = "https://assets.checkout.com/docs/images/checkmark-blank.svg"; var img2 = "https://assets.checkout.com/docs/images/checkmark-green.svg"; var imgElement = document.getElementById('toggleImage'); imgElement.src = (imgElement.src === img1)? img2 : img1; }
 
@@ -35,36 +33,28 @@ Whitelist the Checkout IP addresses listed here. You'll need to do this to succe
 
 Test your webhooks and make sure you're getting all the event notifications you'd expect. For example, `Payment approve`, `Payment Refunded`, `Dispute Evidence Required`.
 
-Prepare for production
-======================
+# Prepare for production
 
-Contact our Implementation team
--------------------------------
+## Contact our Implementation team
 
-Now you've tested all your code in Sandbox, confirm your tests with this form \[form to be built by Sales Ops\] so our Implementation Team can validate your code before you deploy live.
+Now you've tested all your code in Sandbox, confirm your tests with this form [form to be built by Sales Ops] so our Implementation Team can validate your code before you deploy live.
 
-Update your API keys
---------------------
+## Update your API keys
 
 Once your account has been approved, and your sandbox testing has been validated by our Implementation team, replace your test keys with your live keys. Configure your live secret and public keys to test in production.
 
-Validate your risk management settings
---------------------------------------
+## Validate your risk management settings
 
 Validate Risk Settings with Checkout CSM and Risk Management
 
-Configure your webhooks for production
---------------------------------------
+## Configure your webhooks for production
 
 Configure Webhooks for Production Environment
 
-Complete your production tests
-------------------------------
+## Complete your production tests
 
-*   Perform a payment
-*   Perform a 3D Secure payment
-*   Refund a payment
-*   Test your webhooks. Check that you are receiving the notifications you have set up
-*   Monitor settlement of funds from Checkout with your bank
-
-  
+- Perform a payment
+- Perform a 3D Secure payment
+- Refund a payment
+- Test your webhooks. Check that you are receiving the notifications you have set up
+- Monitor settlement of funds from Checkout with your bank

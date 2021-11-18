@@ -3,354 +3,175 @@ title: api-quickstart
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+The Checkout.com API is constructed around a [RESTful](https://en.wikipedia.org/wiki/Representational_state_transfer) structure. By using familiar and predictable URLs, our API works with HTTP response codes to define and signal errors. HTTP methods (or verbs as they are commonly called) are used to determine the action of a request. API responses and errors return in [JSON](http://www.json.org/) or [XML](https://www.w3.org/XML/) format, and our API libraries can be used to convert responses to required language-specific objects.
 
-The Checkout.com API is constructed around a \[RESTful\](https://en.wikipedia.org/wiki/Representational\_state\_transfer) structure. By using familiar and predictable URLs, our API works with HTTP response codes to define and signal errors. HTTP methods (or verbs as they are commonly called) are used to determine the action of a request. API responses and errors return in \[JSON\](http://www.json.org/) or \[XML\](https://www.w3.org/XML/) format, and our API libraries can be used to convert responses to required language-specific objects.
-
-Our official API libraries are stored and maintained on \[GitHub\](https://github.com/) for various programming languages and platforms.
+Our official API libraries are stored and maintained on [GitHub](https://github.com/) for various programming languages and platforms.
 
 **Custom HTML / CSS** _JavaScript will stripped, CSS will be scoped_
 
-xxxxxxxxxx
+<div class="row api-library">
 
-45
-
-1
-
-<div class\="row api-library"\>
-
-2
-
-{" "}
+=
 
 <br />
 
-3
+ <div class="col-xs-12 col-sm-12 col-md-4 guide-margin">
 
- <div class\="col-xs-12 col-sm-12 col-md-4 guide-margin"\>
+ <a href="https://github.com/checkout/checkout-java-library">
 
-4
+ <div class="display-guides">
 
- <a href\="https://github.com/checkout/checkout-java-library"\>
+ <div class="col-sm-12 col-md-12 display-img-guides">
 
-5
+ <img src="https://files.readme.io/3069062-java1.png" width="100px">
 
- <div class\="display-guides"\>
+</div>
 
-6
+ <div class="col-sm-12 col-md-12 display-text">
 
- <div class\="col-sm-12 col-md-12 display-img-guides"\>
+<h3>
+  JAVA
+  <br />
+</h3>
 
-7
+=
 
- <img src\="https://files.readme.io/3069062-java1.png" width\="100px"\>
+<p class="display-p">JAVA API library on GitHub.</p>
 
-8
+</div>
+</div>
 
-</div\>
+</a>
 
-9
-
- <div class\="col-sm-12 col-md-12 display-text"\>
-
-10
-
-<h3\>JAVA<br/></h3\>
-
-11
-
- <p class\="display-p"\>JAVA API library on GitHub.</p\>
-
-12
-
-</div\>
-
-13
-
-</div\>
-
-14
-
-</a\>
-
-15
-
-</div\>
-
-16
+</div>
 
 ​
 
-17
+ <div class="col-xs-12 col-sm-12 col-md-4 guide-margin">
+ <a href="https://github.com/checkout/checkout-php-library">
+ <div class="display-guides">
 
- <div class\="col-xs-12 col-sm-12 col-md-4 guide-margin"\>
+ <div class="col-sm-12 col-md-12 display-img-guides">
 
-18
+ <img src="https://files.readme.io/af7d25e-php.png" width="100px">
 
- <a href\="https://github.com/checkout/checkout-php-library"\>
+</div>
 
-19
+ <div class="col-sm-12 col-md-12 display-text">
 
- <div class\="display-guides"\>
+<h3>PHP</h3>
 
-20
+=
 
- <div class\="col-sm-12 col-md-12 display-img-guides"\>
+<p class="display-p">PHP API library on GitHub.</p>
 
-21
+</div>
 
- <img src\="https://files.readme.io/af7d25e-php.png" width\="100px"\>
+</div>
 
-22
+</a>
 
-</div\>
+</div>
 
-23
+ <div class="col-xs-12 col-sm-12 col-md-4 guide-margin">
 
- <div class\="col-sm-12 col-md-12 display-text"\>
+ <a href="https://github.com/checkout/checkout-net-library">
 
-24
+ <div class="display-guides">
 
-<h3\>PHP</h3\>
+ <div class="col-sm-12 col-md-12 display-img-guides">
 
-25
+ <img src="https://files.readme.io/6e13b5a-NET.png" width="100px">
 
- <p class\="display-p"\>PHP API library on GitHub.</p\>
+</div>
 
-26
+ <div class="col-sm-12 col-md-12 display-text">
 
-</div\>
+<h3>
+  .NET
+  <br />
+</h3>
 
-27
+=
 
-</div\>
+<p class="display-p">.NET API library on GitHub.</p>
 
-28
+</div>
 
-</a\>
+</div>
 
-29
+</a>
 
-</div\>
+</div>
 
-30
+</div>
 
-31
-
- <div class\="col-xs-12 col-sm-12 col-md-4 guide-margin"\>
-
-32
-
- <a href\="https://github.com/checkout/checkout-net-library"\>
-
-33
-
- <div class\="display-guides"\>
-
-34
-
- <div class\="col-sm-12 col-md-12 display-img-guides"\>
-
-35
-
- <img src\="https://files.readme.io/6e13b5a-NET.png" width\="100px"\>
-
-36
-
-</div\>
-
-37
-
- <div class\="col-sm-12 col-md-12 display-text"\>
-
-38
-
-<h3\>.NET<br/></h3\>
-
-39
-
- <p class\="display-p"\>.NET API library on GitHub.</p\>
-
-40
-
-</div\>
-
-41
-
-</div\>
-
-42
-
-</a\>
-
-43
-
-</div\>
-
-44
-
-45
-
-</div\>
-
-\## Authentication To initiate a request to any of Checkout.com’s endpoints, the \`Authorization\` field of your HTTPS header must include either your public key or secret key. Use your secret key for server-to-server requests and your public key for requests initiated from the client side. We'll help you with this, as all examples in the documentation indicate which key to use.
+## Authentication To initiate a request to any of Checkout.com’s endpoints, the `Authorization` field of your HTTPS header must include either your public key or secret key. Use your secret key for server-to-server requests and your public key for requests initiated from the client side. We'll help you with this, as all examples in the documentation indicate which key to use.
 
 Use HTTPS for all API requests, HTTP requests will not be successful.
 
-\### Example header
+### Example header
 
 cURL
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
-
 curl "https://API_endpoint_here"
 
-2
+-H "Authorization: pk_test_6ff46046-30af-41d9-bf58-929022d2cd14"
 
-\-H "Authorization: pk_test_6ff46046-30af-41d9-bf58-929022d2cd14"
-
-Import from Gist
-
-You can use your API keys in either Sandbox or Live mode, but we require a different set of keys for each business channel. ## Request and response Checkout.com's Merchant API supports content negotiation; this means you can specify the format of your requests and responses as either JSON or XML. The examples below demonstrate how to send and receive requests and responses in the same format. However, it is also possible to send a JSON request and receive an XML response, or vice versa. ### JSON example To send a JSON payload to the server and receive a JSON response, set the header to \`Content-Type:application/json\` and \`Accept:application/json\`.
+You can use your API keys in either Sandbox or Live mode, but we require a different set of keys for each business channel. ## Request and response Checkout.com's Merchant API supports content negotiation; this means you can specify the format of your requests and responses as either JSON or XML. The examples below demonstrate how to send and receive requests and responses in the same format. However, it is also possible to send a JSON request and receive an XML response, or vice versa. ### JSON example To send a JSON payload to the server and receive a JSON response, set the header to `Content-Type:application/json` and `Accept:application/json`.
 
 Request Response
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
 
 curl https://api2.checkout.com/v2/tokens/payment
 
-2
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Content-Type:application/json;charset=UTF-8"
 
-3
+-H "Accept:application/json"
 
-\-H "Content-Type:application/json;charset=UTF-8"
+-X POST
 
-4
-
-\-H "Accept:application/json"
-
-5
-
-\-X POST
-
-6
-
-\-d '{"value":"2867", "currency":"USD", "chargeMode": "1"}'
-
-Import from Gist
-
-xxxxxxxxxx
-
-1
+-d '{"value":"2867", "currency":"USD", "chargeMode": "1"}'
 
 {
 
-2
-
 "id": "pay_tok_5a010daa-4a30-4171-a8e9-8ae0c6de1c68",
-
-3
 
 "liveMode": false
 
-4
-
 }
 
-Import from Gist
-
-\*Use the tabs to alternate between the request and the response.\* ### XML example To send an XML payload to the server and receive an XML response, set the header to \`Content-Type:application/xml\` and \`Accept:application/xml\`.
+_Use the tabs to alternate between the request and the response._ ### XML example To send an XML payload to the server and receive an XML response, set the header to `Content-Type:application/xml` and `Accept:application/xml`.
 
 Request Response
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-10
-
-1
-
 curl https://api2.checkout.com/v2/tokens/card
 
-2
+-H "Authorization: pk_test_6ff46046-30af-41d9-bf58-929022d2cd14"
 
-\-H "Authorization: pk_test_6ff46046-30af-41d9-bf58-929022d2cd14"
+-H "Content-Type:application/xml;charset=UTF-8"
 
-3
+-H "Accept:application/xml"
 
-\-H "Content-Type:application/xml;charset=UTF-8"
+-X POST
 
-4
-
-\-H "Accept:application/xml"
-
-5
-
-\-X POST
-
-6
-
-\-d '<data>
-
-7
-
-{" "}
+-d '<data>
 
 <value>2326</value>
 
-8
-
-{" "}
-
 <currency>USD</currency>
 
-9
+<chargeMode>1</chargeMode>0
 
-{" "}
+</data>
 
-<chargeMode>1</chargeMode>
+<data xmlns:json="http://www.checkout.com/apis/json">
 
-10
+<id>pay_tok_F445293C-CB60-4A9F-90ED-85374E164DEF</id>
 
- </data>'
+<liveMode>false</liveMode>
 
-Import from Gist
+</data>
 
-xxxxxxxxxx
-
-1
-
-<data xmlns:json\="http://www.checkout.com/apis/json"\>
-
-2
-
-<id\>pay_tok_F445293C-CB60-4A9F-90ED-85374E164DEF</id\>
-
-3
-
-<liveMode\>false</liveMode\>
-
-4
-
-</data\>
-
-Import from Gist
-
-\*Use the tabs to alternate between the request and the response.\*
+_Use the tabs to alternate between the request and the response._

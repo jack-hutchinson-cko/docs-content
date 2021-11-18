@@ -3,31 +3,14 @@ title: payments-quickstart
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 Once you have successfully installed one of our integration options, it's time to start working with payments. Our payments quickstart will get you started on the necessary actions associated with payments.
 
 This diagram below illustrates the steps required to return a card token and then use that token to process a payment.
 
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
-
 ---
-
-- **Options:**
-- Image Border
 
 ![](https://files.readme.io/7ccb1ee-checkout-payment-flow.png)
 
-Upload an image...
-
 ![](https://files.readme.io/7ccb1ee-checkout-payment-flow.png)**checkout-payment-flow.png**
 
-change·remove
-
-Don't have one handy? Use our logo to start!
-
-\### <span class="step\_hl">Step 1:</span> Authorize Pick a method for integrating — there's a couple of different ways you can do it —, then add the code to your page. You'll need to make a few edits here, and change the \`publicKey\` to your own. To help, we have added some comments to the code to guide you. \[Learn more\](authorize-a-payment "Authorize a payment") ### <span class="step\_hl">Step 2:</span> Actions \* \*\*Action 1:\*\* Capture <span class="table-info">\*If everything goes as planned, capture should be the final action in a transaction.\*</span> If the merchant is comfortable with the sale and can fulfill the customer's needs, then the merchant will capture the payment, thus finalizing the transaction, and the funds will transfer to the merchant. \[Learn more\](capture_a_payment "Capture a payment") \* \*\*Action 2:\*\* Void . <span class="table-info">\*Optional\*</span> If for whatever reason, the merchant is not able to fulfill the needs of the customer, then the merchant can void the transaction. This is the simplest way to cancel a payment. Voiding a payment removes the hold on the funds, and returns them to the customer. The payment is now canceled, and there are no further actions to take. \[Learn more\](void "Void a payment") ### <span class="step\_hl">Step 3:</span> Refund If a customer changes their mind, or something goes wrong, and the transaction needs to be canceled after capture: a refund is processed. A refund returns the funds to the customer and reverses the sale. \[Learn more\](refund "Refund a payment")
+### <span class="step\_hl">Step 1:</span> Authorize Pick a method for integrating — there's a couple of different ways you can do it —, then add the code to your page. You'll need to make a few edits here, and change the `publicKey` to your own. To help, we have added some comments to the code to guide you. [Learn more](authorize-a-payment "Authorize a payment") ### <span class="step\_hl">Step 2:</span> Actions * **Action 1:** Capture <span class="table-info">*If everything goes as planned, capture should be the final action in a transaction._</span> If the merchant is comfortable with the sale and can fulfill the customer's needs, then the merchant will capture the payment, thus finalizing the transaction, and the funds will transfer to the merchant. [Learn more](capture_a_payment "Capture a payment") _ **Action 2:** Void . <span class="table-info">_Optional_</span> If for whatever reason, the merchant is not able to fulfill the needs of the customer, then the merchant can void the transaction. This is the simplest way to cancel a payment. Voiding a payment removes the hold on the funds, and returns them to the customer. The payment is now canceled, and there are no further actions to take. [Learn more](void "Void a payment") ### <span class="step\_hl">Step 3:</span> Refund If a customer changes their mind, or something goes wrong, and the transaction needs to be canceled after capture: a refund is processed. A refund returns the funds to the customer and reverses the sale. [Learn more](refund "Refund a payment")

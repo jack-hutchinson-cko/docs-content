@@ -3,13 +3,9 @@ title: void
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+After authorizing a card payment, the actual transaction is not complete until it has been captured. Capture time depends on the merchant's settings,—but assuming it is not instant—then it is possible to void a transaction either in [The Hub](https://hub.checkout.com) or using the following API request. This endpoint voids an authorized, but not yet captured, card payment.
 
-After authorizing a card payment, the actual transaction is not complete until it has been captured. Capture time depends on the merchant's settings,—but assuming it is not instant—then it is possible to void a transaction either in \[The Hub\](https://hub.checkout.com) or using the following API request. This endpoint voids an authorized, but not yet captured, card payment.
-
-Our Void API request can be used on your server-side code to set up a payment request. New to our APIs? Read our \[API quickstart\](doc:api-quickstart) first! ## The request Requests are created using a POST request. Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/charges/{chargeId}/void</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/charges/{chargeId}/void</p></pre> ### Header and path parameters
-
-x
+Our Void API request can be used on your server-side code to set up a payment request. New to our APIs? Read our [API quickstart](doc:api-quickstart) first! ## The request Requests are created using a POST request. Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/charges/{chargeId}/void</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/charges/{chargeId}/void</p></pre> ### Header and path parameters
 
 Add Row Add Col
 
@@ -17,26 +13,24 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type:\` <span class="req-def">Required</span>
+`Content-Type:` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
-
-x
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/).
 
 Add Row Add Col
 
@@ -44,47 +38,31 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`chargeId\` <span class="req-def">Required</span>
+`chargeId` <span class="req-def">Required</span>
 
 |
 
-The charge Id, embedded within the URI, prefixed with \`charge\_\` or \`charge_test\_\`.
+The charge Id, embedded within the URI, prefixed with `charge\_` or `charge_test\_`.
 
 |
 
-\### API request example
+### API request example
 
 Shell Java
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
 25
-
-1
 
 curl https://api2.checkout.com/v2/charges/charge\_F2B8BA4C175P76BD3E07/void
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
+-H "Content-Type:application/json;charset=UTF-8"
 
-\-H "Content-Type:application/json;charset=UTF-8"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "trackId": "TRK12345",
 
@@ -94,51 +72,35 @@ curl https://api2.checkout.com/v2/charges/charge\_F2B8BA4C175P76BD3E07/void
 
 8
 
-"products": \[
+"products": [
 
 9
 
 {
-
-10
+0
 
 "description": "T-Shirt ladies medium",
 
-11
-
 "image": null,
-
-12
+2
 
 "name": "T-Shirt ladies",
-
-13
-
 "price": 2000,
-
-14
 
 "quantity": 1,
 
-15
-
 "shippingCost": 0,
 
-16
-
 "sku": "tee123",
-
-17
+7
 
 "trackingUrl": "https://www.example.com/"
-
-18
+8
 
 }
+9
 
-19
-
-\],
+],
 
 20
 
@@ -164,87 +126,34 @@ curl https://api2.checkout.com/v2/charges/charge\_F2B8BA4C175P76BD3E07/void
 
 }'
 
-Import from Gist
-
-xxxxxxxxxx
-
 35
 
-1
-
 // Create payload
-
-2
-
-String chargeId \= "charge_F2B8BA4C175P76BD3E07";
-
-3
+String chargeId = "charge_F2B8BA4C175P76BD3E07";
 
 ​
 
-4
+ChargeVoid chargeVoidPayload =new ChargeVoid();
 
-ChargeVoid chargeVoidPayload \=new ChargeVoid();
+chargeVoidPayload.trackId = "TRK12345";
 
-5
-
-chargeVoidPayload.trackId \= "TRK12345";
-
-6
-
-chargeVoidPayload.description \= "Sample product";
+chargeVoidPayload.description = "Sample product";
 
 7
 
 ​
-
-8
-
-chargeVoidPayload.metadata \= new HashMap<String,String\>();
-
-9
-
+chargeVoidPayload.metadata = new HashMap<String,String>();
 chargeVoidPayload.metadata.put("testKey", "value");
+0
 
-10
+​chargeVoidPayload.products = new ArrayList<Product>();Product product1 =new Product();
+product1.description= "Tablet 2 gold limited";
 
-​
+product1.name="Tablet 32gb cellular";
 
-11
+product1.price=90.0;
 
-chargeVoidPayload.products \= new ArrayList<Product\>();
-
-12
-
-Product product1 \=new Product();
-
-13
-
-product1.description\= "Tablet 2 gold limited";
-
-14
-
-product1.name\="Tablet 32gb cellular";
-
-15
-
-product1.price\=90.0;
-
-16
-
-product1.quantity\=1;
-
-17
-
-product1.shippingCost\=10.0;
-
-18
-
-product1.sku\= "1aab";
-
-19
-
-product1.trackingUrl\="https://www.tracker.com";
+product1.quantity=1;product1.shippingCost=10.0;product1.sku= "1aab";product1.trackingUrl="https://www.tracker.com";
 
 20
 
@@ -264,7 +173,7 @@ try {
 
 24
 
-APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 25
 
@@ -272,7 +181,7 @@ APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc
 
 26
 
-Response<Void\> apiResponse \= ckoAPIClient.chargeService.voidCharge(chargeId,chargeVoidPayload);
+Response<Void> apiResponse = ckoAPIClient.chargeService.voidCharge(chargeId,chargeVoidPayload);
 
 27
 
@@ -288,7 +197,7 @@ if(!apiResponse.hasError){
 
 30
 
-Void chargeVoid \= apiResponse.model;
+Void chargeVoid = apiResponse.model;
 
 31
 
@@ -310,11 +219,7 @@ Void chargeVoid \= apiResponse.model;
 
 } catch (Exception e) {}
 
-Import from Gist
-
-\### Additional parameters
-
-x
+### Additional parameters
 
 Add Row Add Col
 
@@ -322,7 +227,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`description\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`description` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -331,7 +236,7 @@ The description of the payment action.
 |
 |
 
-\`metadata\` <span class="field-type">Hash</span> <span class="optional-def">Optional</span>
+`metadata` <span class="field-type">Hash</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -340,16 +245,16 @@ A hash of FieldName and value pairs e.g. {'keys1': 'Value1'}. <span class="table
 |
 |
 
-\`products\` <span class="field-type">Array</span> <span class="optional-def">Optional</span>
+`products` <span class="field-type">Array</span> <span class="optional-def">Optional</span>
 
 |
 
-An array of Product information. <span class="table-info">\[Find out more\](doc:products-array)</span>.
+An array of Product information. <span class="table-info">[Find out more](doc:products-array)</span>.
 
 |
 |
 
-\`trackId\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`trackId` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -358,7 +263,7 @@ The order tracking ID generated by the merchant. <span class="table-info">Maximu
 |
 |
 
-\`udf1\` to \`udf5\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`udf1` to `udf5` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -366,23 +271,15 @@ User-defined fields 1 to 5, max. 100 characters.
 
 |
 
-\## The response You’re all done! Congrats! A successful void request returns a void payment response — we've provided an example of one below. Be sure to contact our \[support team\](mailto:support@checkout.com) if you run into any problems.
+## The response You’re all done! Congrats! A successful void request returns a void payment response — we've provided an example of one below. Be sure to contact our [support team](mailto:support@checkout.com) if you run into any problems.
 
-The \`id\` is the unique identifier of the transaction and the \`originalId\` is the id of the parent transaction (for example, in a captured transaction, the \`originalId\` will be the id of the original authorised transaction).
+The `id` is the unique identifier of the transaction and the `originalId` is the id of the parent transaction (for example, in a captured transaction, the `originalId` will be the id of the original authorised transaction).
 
-\### Response example
+### Response example
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
 33
-
-1
 
 {
 
@@ -390,19 +287,11 @@ xxxxxxxxxx
 
 "id": "charge_test_CC4A596E242G73BD0AF7",
 
-3
-
 "originalId": "charge_test_9F5A696E242S73BD0AF4",
-
-4
 
 "liveMode": false,
 
-5
-
 "created": "2018-03-22T18:02:12Z",
-
-6
 
 "value": 2000,
 
@@ -417,44 +306,28 @@ xxxxxxxxxx
 9
 
 "description": "The T-Shirt Store",
-
-10
+0
 
 "chargeMode": 1,
 
-11
-
 "responseMessage": "Approved",
-
-12
+2
 
 "responseAdvancedInfo": "Approved",
-
-13
-
 "responseCode": "10000",
-
-14
 
 "status": "Voided",
 
-15
-
 "metadata": null,
 
-16
-
-"products": \[
-
-17
+"products": [
+7
 
 {
-
-18
+8
 
 "name": "T-Shirt ladies",
-
-19
+9
 
 "description": "T-Shirt ladies medium",
 
@@ -488,7 +361,7 @@ xxxxxxxxxx
 
 27
 
-\],
+],
 
 28
 
@@ -513,5 +386,3 @@ xxxxxxxxxx
 33
 
 }
-
-Import from Gist

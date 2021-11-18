@@ -11,21 +11,17 @@ In order to use Frames for Android, you must be on at least version 5.0 (API 21)
 
 Frames for Android is released under the MIT license.
 
-How it works
-------------
+## How it works
 
-1.  You either embed our own customizable UI in your mobile app or, if you want full flexibility, you can build your own payment form and use Frames for Android in a headless mode.
-2.  Frames for Android is then used to take your customer's sensitive information and exchange them for a secure token. This process is called tokenization. Once you have the card token, you're ready to make the payment request.
+. You either embed our own customizable UI in your mobile app or, if you want full flexibility, you can build your own payment form and use Frames for Android in a headless mode. 2. Frames for Android is then used to take your customer's sensitive information and exchange them for a secure token. This process is called tokenization. Once you have the card token, you're ready to make the payment request.
 
 ![](/download/attachments/2785313/Frames%20for%20Android.png?version=5&modificationDate=1620730538611&api=v2)
 
-Demo (our pre-built UI)
------------------------
+## Demo (our pre-built UI)
 
 ![](/download/attachments/2785313/frames-android-demo.gif?version=1&modificationDate=1587028367338&api=v2)
 
-Integrate Frames for Android
-----------------------------
+## Integrate Frames for Android
 
 ### Before you start
 
@@ -56,11 +52,10 @@ Learn more about [gradle files](https://developer.android.com/studio/build).
 
 The usage guidelines vary slightly depending on your choice:
 
-*   [with the module's UI](#FramesforAndroid-with-UI)
-*   [without the module's UI](#FramesforAndroid-without-UI)
+- [with the module's UI](#FramesforAndroid-with-UI)
+- [without the module's UI](#FramesforAndroid-without-UI)
 
-Usage (with the module's UI)
-----------------------------
+## Usage (with the module's UI)
 
 #### Step 1: Add the module to your XML layout
 
@@ -79,7 +74,7 @@ Usage (with the module's UI)
     PaymentFormCallback mFormListener = new PaymentFormCallback() {
       @Override
       public void onFormSubmit() {
-        // form submit initiated; you can potentially display a loader 
+        // form submit initiated; you can potentially display a loader
       }
       @Override
       public void onTokenGenerated(CardTokenisationResponse response) {
@@ -103,15 +98,14 @@ Usage (with the module's UI)
 
 #### Step 4: Initialize the module
 
-    // initialise the payment from 
+    // initialise the payment from
       mPaymentForm = findViewById(R.id.checkout_card_form);
       mPaymentForm
         .setSubmitListener(mSubmitListener)    // set the callback
         .setEnvironment(Environment.SANDBOX)   // set the environemnt
-        .setKey("pk_xxx");                     // set your public key 
+        .setKey("pk_xxx");                     // set your public key
 
-Usage (without the module's UI)
--------------------------------
+## Usage (without the module's UI)
 
 #### Step 1: Include the module in your class
 
@@ -165,8 +159,7 @@ Usage (without the module's UI)
          )
        );
 
-Makes Frames for Android your own
----------------------------------
+## Makes Frames for Android your own
 
 #### Customization
 
@@ -176,7 +169,6 @@ Although we kept our demo simple, you have a lot of control over the appearance 
 
 You'll find a list of all the possible configuration options in our [Frames for Android reference](/display/DOCS/Frames+for+Android+reference).
 
-Next steps
-----------
+## Next steps
 
 Now that you've got your card token, you're ready to [request a card payment](/display/DOCS/Request+a+card+payment).

@@ -3,13 +3,9 @@ title: create-a-customer
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 Use this API endpoint to create a new customer and, if you want, add a new card at the same time.
 
-\## The request Create a customer by sending a \*\*POST\*\* API request to the URI below. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/customers</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/customers</p></pre> ### Header parameters
-
-x
+## The request Create a customer by sending a **POST** API request to the URI below. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/customers</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/customers</p></pre> ### Header parameters
 
 Add Row Add Col
 
@@ -17,56 +13,38 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type\` <span class="req-def">Required</span>
+`Content-Type` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). ### Request example
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/). ### Request example
 
 Shell Java
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-17
-
-1
-
-curl https://api2.checkout.com/v2/customers
+7curl https://api2.checkout.com/v2/customers
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
+-H "Content-Type:application/json;charset=UTF-8"
 
-\-H "Content-Type:application/json;charset=UTF-8"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "name": "Sarah Mitchell",
 
@@ -81,120 +59,48 @@ curl https://api2.checkout.com/v2/customers
 9
 
 "phone" : {
-
-10
+0
 
 "countryCode" : "1",
 
-11
-
 "number" : "111 222-333"
-
-12
+2
 
 },
-
-13
-
 "metadata" : {
-
-14
 
 "keyname" : "testvalue"
 
-15
-
 },
 
-16
-
 "cardToken" : "card_tok_0E9B1C1A-CD5E-431D-9507-0EDC3794AEAF"
-
-17
+7
 
 }'
 
-Import from Gist
-
-xxxxxxxxxx
-
-46
-
-1
-
 // Create payload
+CustomerCreate customerCreatePayload= new CustomerCreate();
 
-2
+customerCreatePayload.name= "John Smith";
 
-CustomerCreate customerCreatePayload\= new CustomerCreate();
+customerCreatePayload.description= "description";
 
-3
-
-customerCreatePayload.name\= "John Smith";
-
-4
-
-customerCreatePayload.description\= "description";
-
-5
-
-customerCreatePayload.email \= "john.smith@email.com";
-
-6
+customerCreatePayload.email = "john.smith@email.com";
 
 ​
+customerCreatePayload.phone = new Phone();
+customerCreatePayload.phone.countryCode="1";
+customerCreatePayload.phone.number = "(718)123-4567";
+0
 
-7
-
-customerCreatePayload.phone \= new Phone();
-
-8
-
-customerCreatePayload.phone.countryCode\="1";
-
-9
-
-customerCreatePayload.phone.number \= "(718)123-4567";
-
-10
-
+​customerCreatePayload.metadata = new HashMap<String,String>();customerCreatePayload.metadata.put("keyname", "testvalue");
 ​
 
-11
+customerCreatePayload.card= new CardCreate();
 
-customerCreatePayload.metadata \= new HashMap<String,String\>();
+customerCreatePayload.card.name = "Mr. John Smith";
 
-12
-
-customerCreatePayload.metadata.put("keyname", "testvalue");
-
-13
-
-​
-
-14
-
-customerCreatePayload.card\= new CardCreate();
-
-15
-
-customerCreatePayload.card.name \= "Mr. John Smith";
-
-16
-
-customerCreatePayload.card.number \= "4242424242424242";
-
-17
-
-customerCreatePayload.card.expiryMonth \= "06";
-
-18
-
-customerCreatePayload.card.expiryYear \= "2018";
-
-19
-
-customerCreatePayload.card.cvv \= "100";
+customerCreatePayload.card.number = "4242424242424242";customerCreatePayload.card.expiryMonth = "06";customerCreatePayload.card.expiryYear = "2018";customerCreatePayload.card.cvv = "100";
 
 20
 
@@ -202,31 +108,31 @@ customerCreatePayload.card.cvv \= "100";
 
 21
 
-customerCreatePayload.card.billingDetails \= new Address();
+customerCreatePayload.card.billingDetails = new Address();
 
 22
 
-customerCreatePayload.card.billingDetails.addressLine1 \= "100 Sesame Street";
+customerCreatePayload.card.billingDetails.addressLine1 = "100 Sesame Street";
 
 23
 
-customerCreatePayload.card.billingDetails.addressLine2 \= "Apartment 5";
+customerCreatePayload.card.billingDetails.addressLine2 = "Apartment 5";
 
 24
 
-customerCreatePayload.card.billingDetails.postcode \= "11201";
+customerCreatePayload.card.billingDetails.postcode = "11201";
 
 25
 
-customerCreatePayload.card.billingDetails.country \= "US";
+customerCreatePayload.card.billingDetails.country = "US";
 
 26
 
-customerCreatePayload.card.billingDetails.city \="New York";
+customerCreatePayload.card.billingDetails.city ="New York";
 
 27
 
-customerCreatePayload.card.billingDetails.state \= "New York";
+customerCreatePayload.card.billingDetails.state = "New York";
 
 28
 
@@ -234,15 +140,15 @@ customerCreatePayload.card.billingDetails.state \= "New York";
 
 29
 
-customerCreatePayload.card.billingDetails.phone \= new Phone();
+customerCreatePayload.card.billingDetails.phone = new Phone();
 
 30
 
-customerCreatePayload.phone.countryCode\="1";
+customerCreatePayload.phone.countryCode="1";
 
 31
 
-customerCreatePayload.phone.number \= "(718)123-4567";
+customerCreatePayload.phone.number = "(718)123-4567";
 
 32
 
@@ -258,7 +164,7 @@ try {
 
 35
 
-APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 36
 
@@ -266,7 +172,7 @@ APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc
 
 37
 
-Response<Customer\></Customer\> apiResponse \= ckoAPIClient.customerService.createCustomer(customerCreatePayload);
+Response<Customer></Customer> apiResponse = ckoAPIClient.customerService.createCustomer(customerCreatePayload);
 
 38
 
@@ -275,40 +181,24 @@ Response<Customer\></Customer\> apiResponse \= ckoAPIClient.customerService.crea
 39
 
 if(!apiResponse.hasError){
+0
 
-40
-
-// Access the response object retrieved from the api
-
-41
-
-Customer customer \= apiResponse.model;
-
-42
+// Access the response object retrieved from the apiCustomer customer = apiResponse.model;
+2
 
 } else {
-
-43
+3
 
 // Api has returned an error object. You can access the details in the error property of the apiResponse.
-
-44
+4
 
 // apiResponse.error
 
-45
-
 }
-
-46
 
 } catch (Exception e) {}
 
-Import from Gist
-
-\### Additional parameters
-
-x
+### Additional parameters
 
 Add Row Add Col
 
@@ -316,7 +206,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`description\` <span class="field-type">String</span> <span class="req-def">Required</span>
+`description` <span class="field-type">String</span> <span class="req-def">Required</span>
 
 |
 
@@ -325,7 +215,7 @@ Description of the request.
 |
 |
 
-\`email\` <span class="field-type">String</span> <span class="req-def">Required</span>
+`email` <span class="field-type">String</span> <span class="req-def">Required</span>
 
 |
 
@@ -334,7 +224,7 @@ The customer's email address.
 |
 |
 
-\`metadata\` <span class="field-type">Hash</span> <span class="req-def">Optional</span>
+`metadata` <span class="field-type">Hash</span> <span class="req-def">Optional</span>
 
 |
 
@@ -343,7 +233,7 @@ A hash of the Field name and value pairs (e.g., {"keyname": "Value1"}). <span cl
 |
 |
 
-\`name\` <span class="field-type">String</span> <span class="req-def">Optional</span>
+`name` <span class="field-type">String</span> <span class="req-def">Optional</span>
 
 |
 
@@ -352,25 +242,15 @@ Customer's name. Maximum characters: 100.
 |
 |
 
-\`phone\` <span class="field-type">Object</span> <span class="optional-def">Optional</span>
+`phone` <span class="field-type">Object</span> <span class="optional-def">Optional</span>
 
 |
 
-Phone number of the customer containing: \* \`countryCode\`: Valid country code for the phone number (e.g., 44 for the United Kingdom). \* \`number\`: Phone number. Permitted characters include: numbers, +, (,) ,/ and ' '. Must be between 6 and 25 characters. Example: "phone": {"countryCode": "44", "number": "12345678"} <span class="table-info">If countryCode is included, the number cannot be NULL.</span>
+Phone number of the customer containing: _ `countryCode`: Valid country code for the phone number (e.g., 44 for the United Kingdom). _ `number`: Phone number. Permitted characters include: numbers, +, (,) ,/ and ' '. Must be between 6 and 25 characters. Example: "phone": {"countryCode": "44", "number": "12345678"} <span class="table-info">If countryCode is included, the number cannot be NULL.</span>
 
 |
 
-\--- ## The response If a customer object returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-45
-
-1
+--- ## The response If a customer object returns, then your request was successful. If you're having problems with this API, then ask our [support team](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example
 
 {
 
@@ -378,19 +258,11 @@ xxxxxxxxxx
 
 "id": "cust_2B6C9D26-5C63-4B37-9348-160F3C3A47CB",
 
-3
-
 "name": "Sarah Mitchell",
-
-4
 
 "livemode": false,
 
-5
-
 "created": "2016-06-23T16:02:26Z",
-
-6
 
 "email": "sarah.mitchell@checkout.com",
 
@@ -405,44 +277,28 @@ xxxxxxxxxx
 9
 
 "number": "111 222-333"
-
-10
+0
 
 },
-
-11
 
 "description": "description",
-
-12
+2
 
 "metadata": {
-
-13
-
 "keyname": "testvalue"
 
-14
-
 },
-
-15
 
 "cards": {
 
-16
-
 "count": 1,
+7
 
-17
-
-"data": \[
-
-18
+"data": [
+8
 
 {
-
-19
+9
 
 "customerId": "cust_2B6C9D26-5C63-4B37-9348-160F3C3A47CB",
 
@@ -525,29 +381,20 @@ xxxxxxxxxx
 39
 
 "name": "Sarah Mitchell",
-
-40
+0
 
 "responseCode": "10000"
-
-41
+1
 
 }
+2
 
-42
-
-\]
-
-43
+]
+3
 
 },
-
-44
+4
 
 "defaultCard": "card_D45FB138-15BA-4116-ADCE-49354D89D6C0"
 
-45
-
 }
-
-Import from Gist

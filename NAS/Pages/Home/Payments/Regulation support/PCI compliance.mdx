@@ -3,27 +3,21 @@ title: PCI compliance
 account: NAS
 ---
 
-What is PCI and why is it important?
-------------------------------------
+## What is PCI and why is it important?
 
 Any organization involved with the processing, transmission, or storage of card data must comply with the [Payment Card Industry Data Security Standards](https://www.pcisecuritystandards.org/security_standards) (PCI DSS).
 
 Checkout Technology Ltd, a company within the Checkout.com group, is certified for PCI DSS as a **Level 1 Service Provider**, which is the highest standard set by the payment card industry to ensure that credit card data is processed, stored or transmitted in a secure environment.
 
-Who is responsible for PCI DSS compliance?
-------------------------------------------
+## Who is responsible for PCI DSS compliance?
 
 PCI compliance is a shared responsibility between your business and [Checkout.com](http://Checkout.com). So, when accepting payments, it is essential that you do so in a PCI-compliant manner. The complexity of this depends on your integration methods, but the simplest way is never to see or access your customers' card data. Here are our tips:
 
-*   Use one of our integration methods that allows you to accept payments without ever handling card data: [Frames](/display/DOCS/Frames) and [Checkout.js](/display/AR/Checkout.js).
-    
-*   Use Transport Layer Security (TLS) for all payment pages, so that they use HTTPS.
-    
-*   Review and validate your PCI compliance once a year. Most can do this with a [Self-Assessment Questionnaire](https://www.pcisecuritystandards.org/document_library?category=saqs#results) (SAQ), which is provided by the [PCI Security Standards Council](https://www.pcisecuritystandards.org/).
-    
+- Use one of our integration methods that allows you to accept payments without ever handling card data: [Frames](/display/DOCS/Frames) and [Checkout.js](/display/AR/Checkout.js).
+- Use Transport Layer Security (TLS) for all payment pages, so that they use HTTPS.
+- Review and validate your PCI compliance once a year. Most can do this with a [Self-Assessment Questionnaire](https://www.pcisecuritystandards.org/document_library?category=saqs#results) (SAQ), which is provided by the [PCI Security Standards Council](https://www.pcisecuritystandards.org/).
 
-What are the requirements?
---------------------------
+## What are the requirements?
 
 There are four levels of PCI compliance that merchants are organized under, based upon their card transaction count over a 12-month period. The PCI level in combination with the integration method will determine the compliance requirements for each merchant. If you have any question concerning your PCI obligations please feel free to send an email to [pci.operations@checkout.com](mailto:pci.operations@checkout.com).
 
@@ -33,42 +27,34 @@ Transactions processed / year
 
 Key requirements
 
-1
+- More than 6 million Visa, MasterCard (combined with Maestro) or Discover transactions.
+- More than 2.5 million American Express transactions.
+- More than 1 million JCB transactions.
+- Any merchant who has had a data incident.
+- Any merchant identified as Level one by one of the schemes.
 
-*   More than 6 million Visa, MasterCard (combined with Maestro) or Discover transactions.
-*   More than 2.5 million American Express transactions.
-*   More than 1 million JCB transactions.
-*   Any merchant who has had a data incident.
-*   Any merchant identified as Level one by one of the schemes.
-
-*   On-site assessment using the PCI DSS requirements and Security Assessment Procedures conducted by an approved [Quality Security Assessor](https://www.pcisecuritystandards.org/assessors_and_solutions/qualified_security_assessors) (QSA) or a qualified [Internal Security Assessor](https://www.pcisecuritystandards.org/program_training_and_qualification/internal_security_assessor_certification) (ISA).
-*   Quarterly network scan by an [Approved Scan Vendor](https://www.pcisecuritystandards.org/assessors_and_solutions/approved_scanning_vendors) (ASV).
+- On-site assessment using the PCI DSS requirements and Security Assessment Procedures conducted by an approved [Quality Security Assessor](https://www.pcisecuritystandards.org/assessors_and_solutions/qualified_security_assessors) (QSA) or a qualified [Internal Security Assessor](https://www.pcisecuritystandards.org/program_training_and_qualification/internal_security_assessor_certification) (ISA).
+- Quarterly network scan by an [Approved Scan Vendor](https://www.pcisecuritystandards.org/assessors_and_solutions/approved_scanning_vendors) (ASV).
 
 2
 
-*   1 to 6 million Visa, MasterCard (combined with Maestro) or Discover transactions.
-*   50,000 to 2.5 million American Express transactions.
+- 1 to 6 million Visa, MasterCard (combined with Maestro) or Discover transactions.
+- 50,000 to 2.5 million American Express transactions.
 
-*   Annual self-assessment using the applicable PCI DSS Self-Assessment Questionnaire (SAQ).
-*   Quarterly network scan by an [Approved Scan Vendor](https://www.pcisecuritystandards.org/assessors_and_solutions/approved_scanning_vendors) (ASV) where applicable.
+- Annual self-assessment using the applicable PCI DSS Self-Assessment Questionnaire (SAQ).
+- Quarterly network scan by an [Approved Scan Vendor](https://www.pcisecuritystandards.org/assessors_and_solutions/approved_scanning_vendors) (ASV) where applicable.
 
-3
+- 20,000 to 1 million Visa, MasterCard (combined with Maestro) or Discover transactions.
+- Less than 50,000 American Express transactions.
 
-*   20,000 to 1 million Visa, MasterCard (combined with Maestro) or Discover transactions.
-*   Less than 50,000 American Express transactions.
+- Less than 20,000 Visa e-commerce transactions and/or process up to 1 million transactions.
+- Every other merchant for MasterCard/Maestro, Diners and Discover, JCB.
 
-4
-
-*   Less than 20,000 Visa e-commerce transactions and/or process up to 1 million transactions.
-*   Every other merchant for MasterCard/Maestro, Diners and Discover, JCB.
-
-What happens if my level changes?
----------------------------------
+## What happens if my level changes?
 
 If you reach Level 1 (more than 6 million transactions), we will identify this and contact you to make sure you can provide the relevant documentation and stay compliant.
 
-What documentation do I need to provide to attest of my compliance level with PCI DSS requirements?
----------------------------------------------------------------------------------------------------
+## What documentation do I need to provide to attest of my compliance level with PCI DSS requirements?
 
 The PCI requirements for the different type of integration methods are as follows:
 

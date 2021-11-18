@@ -3,20 +3,18 @@ title: Postman guide
 account: ABC
 ---
 
-Learn how to create requests and receive responses from both the payments and statements endpoints of the Reconciliation API, using the Postman application. 
+Learn how to create requests and receive responses from both the payments and statements endpoints of the Reconciliation API, using the Postman application.
 
-Before you start
-----------------
+## Before you start
 
-*   Download and install the Postman application. You can find it here: [https://www.getpostman.com](https://www.getpostman.com/).
-*   Grab your secret key. You can find it in the [Hub](https://hub.checkout.com/v2) under _Settings > Channels_.
+- Download and install the Postman application. You can find it here: [https://www.getpostman.com](https://www.getpostman.com/).
+- Grab your secret key. You can find it in the [Hub](https://hub.checkout.com/v2) under *Settings > Channels*.
 
-Payments endpoint
------------------
+## Payments endpoint
 
 ### Step 1: Configure the endpoint
 
-In the _GET_ field, enter the following endpoint:
+In the *GET* field, enter the following endpoint:
 
     https://api.checkout.com/reporting/payments
 
@@ -26,9 +24,9 @@ In the _GET_ field, enter the following endpoint:
 
 To use this endpoint, you need to specify one of the 3 parameters below:
 
-*   date / time in [ISO format](https://www.w3.org/TR/NOTE-datetime) (`from` and `to`)
-*   payment ID (`paymentId`)
-*   reference (`reference`)
+- date / time in [ISO format](https://www.w3.org/TR/NOTE-datetime) (`from` and `to`)
+- payment ID (`paymentId`)
+- reference (`reference`)
 
 In the example below, we'll specify the date / time, i.e., the timeframe during which the payments occurred.
 
@@ -75,8 +73,7 @@ Click the down arrow to the right of the **Send** button, then select **Send and
 
 Once the download is complete, save the file to your preferred location. You can name it anything you like — just make sure your filename ends in `.csv`.
 
-Statements endpoint
--------------------
+## Statements endpoint
 
 ### Step 1: Configure the endpoint
 
@@ -130,7 +127,7 @@ For example:
 
     https://api.checkout.com/reporting/statements?from=2018-09-01&to=2018-09-19&include=payout_breakdown
 
-You can download a CSV copy by adding \`/download\` after \`statements\` in the URL, like this:
+You can download a CSV copy by adding `/download` after `statements` in the URL, like this:
 
     http://api.checkout.com/reporting/statements/download?from={start-date-time}&to={end-date-time}&include=payout_breakdown
 

@@ -3,43 +3,23 @@ title: process-alternative-payment-methods
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+_Learn to process a payment using one of our alternative payment methods._ With Checkout.com, you can accept direct API-to-API payments using our alternative payment methods. The great news is, many* of our alternative payment methods use a very similar workflow. *This guide outlines the workflow for processing alternative payments with Alipay, PayPal, Sofort, and TenPay. For iDEAL payments, see [Using iDEAL alternative payments](doc:using-ideal-alternative-payments).
 
-\*Learn to process a payment using one of our alternative payment methods.\* With Checkout.com, you can accept direct API-to-API payments using our alternative payment methods. The great news is, many\* of our alternative payment methods use a very similar workflow. \*This guide outlines the workflow for processing alternative payments with Alipay, PayPal, Sofort, and TenPay. For iDEAL payments, see \[Using iDEAL alternative payments\](doc:using-ideal-alternative-payments).
-
-\## <span class="step\_hl">Step 1:</span> \*\*Create a payment token\*\* First, you need to create a payment token. A payment token is a snapshot of the transaction information — it is uneditable at the browser end. Payment tokens expire after 15-minutes — so, be quick. To learn more about payment tokens, visit \[Payment tokens\](doc:payment-tokens). An example payment token request and response is listed below.
+## <span class="step\_hl">Step 1:</span> **Create a payment token** First, you need to create a payment token. A payment token is a snapshot of the transaction information — it is uneditable at the browser end. Payment tokens expire after 15-minutes — so, be quick. To learn more about payment tokens, visit [Payment tokens](doc:payment-tokens). An example payment token request and response is listed below.
 
 Request Response
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-11
-
-1
-
-curl https://sandbox.checkout.com/api2/v2/tokens/payment
+1curl https://sandbox.checkout.com/api2/v2/tokens/payment
 
 2
 
-\-H "Authorization: secret_key"
+-H "Authorization: secret_key"
 
-3
+-H "Content-Type: application/json"
 
-\-H "Content-Type: application/json"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "value": 1,
 
@@ -54,20 +34,12 @@ curl https://sandbox.checkout.com/api2/v2/tokens/payment
 9
 
 "successUrl": "http://mycustomerurl.com/order?result=pass",
-
-10
+0
 
 "failUrl": "http://mycustomerurl.com/order?result=fail"
-
-11
+1
 
 }'
-
-Import from Gist
-
-xxxxxxxxxx
-
-1
 
 {
 
@@ -75,21 +47,13 @@ xxxxxxxxxx
 
 "id": "pay_tok_76918102-264F-40DF-A6D4-987BAE5939B3",
 
-3
-
 "liveMode": true
-
-4
 
 }
 
-Import from Gist
+If creating a token for use with PayPal, you will need to add the mandatory `trackId` field to the body of your request. [Find out more](doc:authorize-a-paypal-payment).
 
-If creating a token for use with PayPal, you will need to add the mandatory \`trackId\` field to the body of your request. \[Find out more\](doc:authorize-a-paypal-payment).
-
-\## <span class="step\_hl">Step 2:</span>\*\* Process an alternative payment\*\* The following endpoint creates an alternative payment request. Use the \`paymentProviderId\` (Local Payment Provider ID) to specify which alternative payment method you are using. For example, \`lpp_14\` will process a payment with Sofort. The local payment provider codes, supported by this particular flow, are as follows:
-
-x
+## <span class="step\_hl">Step 2:</span>** Process an alternative payment** The following endpoint creates an alternative payment request. Use the `paymentProviderId` (Local Payment Provider ID) to specify which alternative payment method you are using. For example, `lpp_14` will process a payment with Sofort. The local payment provider codes, supported by this particular flow, are as follows:
 
 Add Row Add Col
 
@@ -101,16 +65,16 @@ Alipay
 
 |
 
-\`lpp_12\`
+`lpp_12`
 
 |
 |
 
-iDEAL <span class="table-info">The iDEAL payment flow is slightly different. \[Find out more here\](doc:using-ideal-alternative-payments).</span>
+iDEAL <span class="table-info">The iDEAL payment flow is slightly different. [Find out more here](doc:using-ideal-alternative-payments).</span>
 
 |
 
-\`lpp_9\`
+`lpp_9`
 
 |
 |
@@ -119,7 +83,7 @@ PayPal
 
 |
 
-\`lpp_19\`
+`lpp_19`
 
 |
 |
@@ -128,7 +92,7 @@ Sofort
 
 |
 
-\`lpp_14\`
+`lpp_14`
 
 |
 |
@@ -137,43 +101,25 @@ TenPay
 
 |
 
-\`lpp_11\`
+`lpp_11`
 
 |
 
-The code snippet below is an example of an alternative payment request using Sofort's local payment provider ID, \`lpp_14\`. To customize this for your request, just replace \`lpp_14\` with the local payment provider ID of your desired alternative payment method.
+The code snippet below is an example of an alternative payment request using Sofort's local payment provider ID, `lpp_14`. To customize this for your request, just replace `lpp_14` with the local payment provider ID of your desired alternative payment method.
 
 Example Alipay PayPal Sofort Tenpay
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-12
-
-1
-
-curl https://sandbox.checkout.com/api2/v2/charges/localpayment
+2curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 
 2
 
-\-H "Authorization: secret_key"
+-H "Authorization: secret_key"
 
-3
+-H "Content-Type: application/json"
 
-\-H "Content-Type: application/json"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "email" : "test@email.com",
 
@@ -188,46 +134,26 @@ curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 9
 
 "userData" : {}
-
-10
+0
 
 },
 
-11
-
 "paymentToken" : "pay_tok_76918102-264F-40DF-A6D4-987BAE5939B3"
-
-12
+2
 
 }'
 
-Import from Gist
-
-xxxxxxxxxx
-
-12
-
-1
-
-curl https://sandbox.checkout.com/api2/v2/charges/localpayment
+2curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 
 2
 
-\-H "Authorization: secret_key"
+-H "Authorization: secret_key"
 
-3
+-H "Content-Type: application/json"
 
-\-H "Content-Type: application/json"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "email" : "test@email.com",
 
@@ -242,46 +168,26 @@ curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 9
 
 "userData" : {}
-
-10
+0
 
 },
 
-11
-
 "paymentToken" : "pay_tok_76918102-264F-40DF-A6D4-987BAE5939B3"
-
-12
+2
 
 }'
 
-Import from Gist
-
-xxxxxxxxxx
-
-12
-
-1
-
-curl https://sandbox.checkout.com/api2/v2/charges/localpayment
+2curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 
 2
 
-\-H "Authorization: secret_key"
+-H "Authorization: secret_key"
 
-3
+-H "Content-Type: application/json"
 
-\-H "Content-Type: application/json"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "email" : "test@email.com",
 
@@ -296,46 +202,26 @@ curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 9
 
 "userData" : {}
-
-10
+0
 
 },
 
-11
-
 "paymentToken" : "pay_tok_76918102-264F-40DF-A6D4-987BAE5939B3"
-
-12
+2
 
 }'
 
-Import from Gist
-
-xxxxxxxxxx
-
-12
-
-1
-
-curl https://sandbox.checkout.com/api2/v2/charges/localpayment
+2curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 
 2
 
-\-H "Authorization: secret_key"
+-H "Authorization: secret_key"
 
-3
+-H "Content-Type: application/json"
 
-\-H "Content-Type: application/json"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "email" : "test@email.com",
 
@@ -350,46 +236,26 @@ curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 9
 
 "userData" : {}
-
-10
+0
 
 },
 
-11
-
 "paymentToken" : "pay_tok_76918102-264F-40DF-A6D4-987BAE5939B3"
-
-12
+2
 
 }'
 
-Import from Gist
-
-xxxxxxxxxx
-
-12
-
-1
-
-curl https://sandbox.checkout.com/api2/v2/charges/localpayment
+2curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 
 2
 
-\-H "Authorization: secret_key"
+-H "Authorization: secret_key"
 
-3
+-H "Content-Type: application/json"
 
-\-H "Content-Type: application/json"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "email" : "test@email.com",
 
@@ -404,32 +270,18 @@ curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 9
 
 "userData" : {}
-
-10
+0
 
 },
 
-11
-
 "paymentToken" : "pay_tok_76918102-264F-40DF-A6D4-987BAE5939B3"
-
-12
+2
 
 }'
 
-Import from Gist
-
-\## <span class="step\_hl">Step 3:</span> \*\*Handle the alternative payment response\*\* A successful response to an alternative payment charge request includes a \`responseCode\` of 10000, as well as a \`paymentUrl\`. You will need to redirect to the \`paymentUrl\` to allow the customer to complete the alternative payment.
+## <span class="step\_hl">Step 3:</span> **Handle the alternative payment response** A successful response to an alternative payment charge request includes a `responseCode` of 10000, as well as a `paymentUrl`. You will need to redirect to the `paymentUrl` to allow the customer to complete the alternative payment.
 
 JSON
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
 
 {
 
@@ -437,19 +289,11 @@ xxxxxxxxxx
 
 "id": "pay_tok_76918102-264f-40df-a6d4-987bae5939b3",
 
-3
-
 "liveMode": true,
-
-4
 
 "responseCode": "10000",
 
-5
-
 "chargeMode": 3,
-
-6
 
 "localPayment": {
 
@@ -465,58 +309,26 @@ xxxxxxxxxx
 
 }
 
-Import from Gist
-
-\## <span class="step\_hl">Step 4:</span> \*\* Customer completes alternative payment page\*\* A successful response to an alternative payment request will include a \`responseCode\` of 10000 and a \`paymentUrl\`. It is necessary to redirect the customer to the \`paymentUrl\` to allow them to complete the alternative payment. Once the customer is redirected to the \`paymentUrl\`, they are prompted to complete the alternative payment flow to finalize the transaction.
-
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
+## <span class="step\_hl">Step 4:</span> ** Customer completes alternative payment page** A successful response to an alternative payment request will include a `responseCode` of 10000 and a `paymentUrl`. It is necessary to redirect the customer to the `paymentUrl` to allow them to complete the alternative payment. Once the customer is redirected to the `paymentUrl`, they are prompted to complete the alternative payment flow to finalize the transaction.
 
 ---
-
-- **Options:**
-- Image Border
 
 ![](https://files.readme.io/c429ae9-sofort-2.png)
 
-Upload an image...
-
 ![](https://files.readme.io/c429ae9-sofort-2.png)**sofort-2.png**
-
-change·remove
-
-Don't have one handy? Use our logo to start!
 
 If the customer closes, abandons or otherwise does not complete the alternative payment page flow, the charge will be canceled.
 
-\## <span class="step\_hl">Step 5:</span> \*\* Checkout.com redirects to merchant's 'payment successful' page\*\* If the alternative payment is successful, the customer is redirected to the merchant's 'Payment Successful' page.
-
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
+## <span class="step\_hl">Step 5:</span> ** Checkout.com redirects to merchant's 'payment successful' page** If the alternative payment is successful, the customer is redirected to the merchant's 'Payment Successful' page.
 
 ---
 
-- **Options:**
-- Image Border
-
 ![](https://files.readme.io/ca217e0-payment-successful.jpg)
-
-Upload an image...
 
 ![](https://files.readme.io/ca217e0-payment-successful.jpg)**payment-successful.jpg**
 
-change·remove
-
-Don't have one handy? Use our logo to start!
-
-\## <span class="step\_hl">Step 6:</span> \*\*Verify the alternative payment charge\*\* At your server end, grab the payment token using the form variable \`cko-payment-token\` and use it to \[verify the alternative payment\](doc:verify-an-alternative-payment). ## <span class="step\_hl">Step 7:</span> \*\*Confirm the payment with webhooks\*\*
+## <span class="step\_hl">Step 6:</span> **Verify the alternative payment charge** At your server end, grab the payment token using the form variable `cko-payment-token` and use it to [verify the alternative payment](doc:verify-an-alternative-payment). ## <span class="step\_hl">Step 7:</span> **Confirm the payment with webhooks**
 
 Webhooks are the only way to confirm the successful completion of an alternative payment transaction.
 
-Checkout's merchant API uses webhooks to push information to a merchant's destination URL whenever there is a charge transaction. All the notifications are delivered via an \*\*\[HTTP POST\](https://en.wikipedia.org/wiki/POST\_(HTTP))\*\* request in \*\*\[JSON\](https://www.json.org/)\*\* or \*\*\[XML\](https://en.wikipedia.org/wiki/XML)\*\* format. Receiving a charge.captured notification via Webhooks is the only way to confirm whether an Alternative Payment charge has been completed successfully. All orders should be marked as pending until you receive a successful Webhook response (response code 10000). Only then should a transaction be marked as completed. Find out more about \[webhooks\](ref:webhooks-1).
+Checkout's merchant API uses webhooks to push information to a merchant's destination URL whenever there is a charge transaction. All the notifications are delivered via an **[HTTP POST](<https://en.wikipedia.org/wiki/POST_(HTTP)>)** request in **[JSON](https://www.json.org/)** or **[XML](https://en.wikipedia.org/wiki/XML)** format. Receiving a charge.captured notification via Webhooks is the only way to confirm whether an Alternative Payment charge has been completed successfully. All orders should be marked as pending until you receive a successful Webhook response (response code 10000). Only then should a transaction be marked as completed. Find out more about [webhooks](ref:webhooks-1).

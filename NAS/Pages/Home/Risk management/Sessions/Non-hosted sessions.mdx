@@ -7,21 +7,16 @@ For full control over your 3D Secure authentication flow, use non-hosted session
 
 Non-hosted sessions are suitable for authentications initiated for both **browsers and mobile apps**.
 
-  
+- [Request a session](#Non-hostedsessions-requestsession)
+- [Get session details](#Non-hostedsessions-getsessiondetails)
+- [Issuer fingerprint (browser only)](#Non-hostedsessions-issuerfingerprint)
+- [Collect channel data](#Non-hostedsessions-collectchanneldata)
+- Challenge (browser only)
+  - [3DS2 challenge](#Non-hostedsessions-3ds2)
+  - [3DS1 challenge (in case of downgrade)](#Non-hostedsessions-3ds1)
+- [Complete session (optional)](#DisputesAPI-completesession)
 
-*   [Request a session](#Non-hostedsessions-requestsession)
-*   [Get session details](#Non-hostedsessions-getsessiondetails)
-*   [Issuer fingerprint (browser only)](#Non-hostedsessions-issuerfingerprint)
-*   [Collect channel data](#Non-hostedsessions-collectchanneldata)
-*   Challenge (browser only)
-    *   [3DS2 challenge](#Non-hostedsessions-3ds2)
-    *   [3DS1 challenge (in case of downgrade)](#Non-hostedsessions-3ds1)
-*   [Complete session (optional)](#DisputesAPI-completesession)
-
-  
-
-Authenticating your requests
-----------------------------
+## Authenticating your requests
 
 #### Access tokens
 
@@ -31,14 +26,13 @@ Tokens must contain the scope `sessions:browser` for browser channel flows or�
 
 #### Session secret
 
-All endpoints following the request to create a new session will also accept the session secret; creating a session will return a `session_secret` property, which can be used in the Authorization header of subsequent requests for that session. 
+All endpoints following the request to create a new session will also accept the session secret; creating a session will return a `session_secret` property, which can be used in the Authorization header of subsequent requests for that session.
 
 The `session_secret` is short-lived randomly generated string that can only be used for actions taken on a specific session, reducing the chance of it being leaked. This way the frontend does not have to have access to the client secrets required to create JWT tokens (which, if exposed to the frontend, can risk being leaked to malicious third parties).
 
 Note that any endpoint accessible with `session_secret` can also be accessed with a valid JWT token. This can be useful if you intend to access the endpoints from your backend, for instance, because you proxy the requests instead of making them directly from the frontend.
 
-Step 1: Request a session 
---------------------------
+## Step 1: Request a session 
 
 This is the first step to starting a 3DS authentication flow with Sessions. Authenticate the call with an access token and perform it from your backend.
 
@@ -46,8 +40,8 @@ This is the first step to starting a 3DS authentication flow with Sessions. Auth
 
 #### Endpoints
 
-*   [**Live**](#tabs-05e8d7e7-54c4-4f02-ad50-8bd42f803f2a-1)
-*   [**Sandbox**](#tabs-05e8d7e7-54c4-4f02-ad50-8bd42f803f2a-2)
+- [**Live**](#tabs-05e8d7e7-54c4-4f02-ad50-8bd42f803f2a-1)
+- [**Sandbox**](#tabs-05e8d7e7-54c4-4f02-ad50-8bd42f803f2a-2)
 
 POST`https://api.checkout.com/sessions`
 
@@ -257,7 +251,7 @@ OBJECT
 
 The information gathered from the environment used to initiate the session.
 
-[See below](#Non-hostedsessions-channeldataparameters) for the parameters.  
+[See below](#Non-hostedsessions-channeldataparameters) for the parameters.
 
 Channel data
 
@@ -297,12 +291,9 @@ If you create a session with channel data, there is no need to update the channe
 
 You should receive a `202 - Accepted` response, with a `status` of `pending`. It will also contain:
 
-*   The session `id` (prefixed by `sid_`), which you'll use to get the session details in the next step. 
-    
-*   A `_links.fingerprint` URL, where the cardholder should be redirected to load the 3DS method.
-    
-*   A `next_actions` property, which will tell you what action(s) to take next.
-    
+- The session `id` (prefixed by `sid_`), which you'll use to get the session details in the next step.
+- A `_links.fingerprint` URL, where the cardholder should be redirected to load the 3DS method.
+- A `next_actions` property, which will tell you what action(s) to take next.
 
 Field name
 
@@ -350,7 +341,7 @@ Indicates the type of payment this session is for.
 
 `authentication_category`
 
-STRING  
+STRING
 
 Indicates the category of the authentication request.
 
@@ -360,7 +351,7 @@ STRING
 
 The status of the session. Should be `pending`.
 
-[See below for all possible statuses and their meanings](#Non-hostedsessions-statuses).  
+[See below for all possible statuses and their meanings](#Non-hostedsessions-statuses).
 
 `next_actions`
 
@@ -444,8 +435,7 @@ The URL of the issuer fingerprint (3DS Method).
       }
     }
 
-Step 2: Get session details 
-----------------------------
+## Step 2: Get session details 
 
 Next, you need to gather the device data (meaning the details of the browser or mobile app that initiated the session) in order to make an authentication request. To do so, get the current session details with the following request.
 
@@ -455,8 +445,8 @@ You can skip this step if your backend forwards the response of requesting a new
 
 #### Endpoints
 
-*   [**Live**](#tabs-46810887-9db0-47c2-8e72-8addfb6ee976-1)
-*   [**Sandbox**](#tabs-46810887-9db0-47c2-8e72-8addfb6ee976-2)
+- [**Live**](#tabs-46810887-9db0-47c2-8e72-8addfb6ee976-1)
+- [**Sandbox**](#tabs-46810887-9db0-47c2-8e72-8addfb6ee976-2)
 
 GET`https://api.checkout.com/sessions/{session_id}`
 
@@ -534,8 +524,7 @@ The status of the session. Should be `pending`.
 
 [See below for all possible statuses and their meanings](#Non-hostedsessions-statuses).
 
-Step 3: Issuer fingerprint (browser only) 
-------------------------------------------
+## Step 3: Issuer fingerprint (browser only) 
 
 If one of the next actions after creating the session was `issuer_fingerprint`, this step must be completed before proceeding with the session.
 
@@ -562,8 +551,8 @@ This will trigger a POST redirect to the `threeDSMethodNotificationURL` with a
 
 If you do not wish to handle the notification manually you can use our interceptor application to do it for you. To do so, set the `threeDSMethodNotificationURL` with the applicable endpoint:
 
-*   [**Live**](#tabs-b61f1942-d559-4e41-8da2-df95d09468d2-1)
-*   [**Sandbox**](#tabs-b61f1942-d559-4e41-8da2-df95d09468d2-2)
+- [**Live**](#tabs-b61f1942-d559-4e41-8da2-df95d09468d2-1)
+- [**Sandbox**](#tabs-b61f1942-d559-4e41-8da2-df95d09468d2-2)
 
 POST`https://3ds2.checkout.com/interceptor/3ds-method-notification`
 
@@ -595,8 +584,7 @@ If you don't receive the message within 10 seconds of initiating the flow, you c
 
 The issuer fingerprint part of the flow can be combined with collecting the channel data (see below). Specifically, if you have completed the fingerprint with the ACS, you can add the `three_ds_method_completion` status as detailed above to the payload of collect channel data which will perform both actions at once.
 
-Step 4: Collect channel data 
------------------------------
+## Step 4: Collect channel data 
 
 Once you've completed the relevant actions indicated by the `next_actions` property, you need to update the session with the collected device data to make the authentication request.
 
@@ -606,8 +594,8 @@ If you created the session with channel data, there is no need to complete this 
 
 #### Endpoints
 
-*   [**Live**](#tabs-a40a7dea-0d37-4229-891f-6fa2e0ce0acf-1)
-*   [**Sandbox**](#tabs-a40a7dea-0d37-4229-891f-6fa2e0ce0acf-2)
+- [**Live**](#tabs-a40a7dea-0d37-4229-891f-6fa2e0ce0acf-1)
+- [**Sandbox**](#tabs-a40a7dea-0d37-4229-891f-6fa2e0ce0acf-2)
 
 PUT`https://api.checkout.com/sessions/{session_id}/collect-data`
 
@@ -631,8 +619,6 @@ REQUIRED
 
 Use the secret key (starting `sek_`) you got in the [create session response](#Non-hostedsessions-createresponse).
 
-  
-
 Path
 
 Value
@@ -649,8 +635,8 @@ The session ID, prefixed by `sid_`.
 
 #### Body parameters 
 
-*   [**Browser authentication**](#tabs-5cb5de98-8788-47b8-99c2-82f000235d47-1)
-*   [**App authentication**](#tabs-5cb5de98-8788-47b8-99c2-82f000235d47-2)
+- [**Browser authentication**](#tabs-5cb5de98-8788-47b8-99c2-82f000235d47-1)
+- [**App authentication**](#tabs-5cb5de98-8788-47b8-99c2-82f000235d47-2)
 
 Field name
 
@@ -748,9 +734,9 @@ STRING
 
 Indicates whether the 3DS Method successfully completed.
 
-*   `Y`: successfully completed
-*   `N`: did not successfully complete
-*   `U`: Unavailable (3DS Method URL was not present in the preparation response message data for the card range associated with the cardholder's account number).
+- `Y`: successfully completed
+- `N`: did not successfully complete
+- `U`: Unavailable (3DS Method URL was not present in the preparation response message data for the card range associated with the cardholder's account number).
 
 Field name
 
@@ -765,8 +751,6 @@ STRING
 Indicates the interface (either `browser` or `app`) being used to initiate the transaction. Set this to `app`.
 
 `sdk_app_id`
-
-  
 
 STRING
 
@@ -850,8 +834,8 @@ ARRAY
 
 Specifies what action to take to complete the session.
 
-*   `challenge_cardholder`: the issuer is challenging the authentication and the cardholder will need to submit additional credentials.
-*   `complete`: no further actions need to be taken. You can complete the session.
+- `challenge_cardholder`: the issuer is challenging the authentication and the cardholder will need to submit additional credentials.
+- `complete`: no further actions need to be taken. You can complete the session.
 
 [See below for all possible actions and their meanings](#Non-hostedsessions-actions).
 
@@ -863,8 +847,7 @@ The status of the session. Should be `processing`. If `expired`, the authentic
 
 [See below for all possible statuses and their meanings](#Non-hostedsessions-actions).
 
-Step 5 a: 3DS2 (browser only) 
-------------------------------
+## Step 5 a: 3DS2 (browser only) 
 
 This is only relevant for browser-based authentications. Our mobile SDKs will handle the challenge flow for mobile app authentications.
 
@@ -872,7 +855,7 @@ If, after completing the issuer fingerprint and channel data steps, the authenti
 
 If not, the cardholder will now be challenged to provide additional information to authenticate the payment—the "challenge" flow.
 
- See an example of a session with a challenge
+See an example of a session with a challenge
 
     {
       "id": "sid_r5supjqo6kduppai4u56apandi",
@@ -922,8 +905,6 @@ The `next_actions` field will contain the `challenge_cardholder` action (see
       "challengeWindowSize": //the requested challenge size. See below for possible values
     }
 
-  
-
 Challenge window size value
 
 Size
@@ -941,18 +922,14 @@ Size
 390-400px
 
 03
-
-500-600px
+00-600px
 
 04
-
-600-400px
+00-400px
 
 05
 
 Full screen
-
-  
 
 The style of the challenge window style is dependent on the issuer, so the above sizes may not be exact. We recommend that you render the challenge inside a frame so you have full control over the final size on your page.
 
@@ -960,7 +937,7 @@ The style of the challenge window style is dependent on the issuer, so the above
 
 Once the CReq message is constructed, it needs to be base64 encoded and posted to the `acs.url` property of the session in a form field named `creq`. If successful, the response will be the HTML needed to render the challenge.
 
- See an example
+See an example
 
     <!DOCTYPE html>
     <html lang="en">
@@ -970,7 +947,7 @@ Once the CReq message is constructed, it needs to be base64 encoded and posted t
       <title>Checkout 3D Simulator</title>
       <link rel="stylesheet" type="text/css" href="/3ds2simulator/css/main.css" />
     </head>
-    
+
     <body>
       <div id="picture-less-loading-container">
         <div id="picture-less-loading">
@@ -996,9 +973,7 @@ Once the CReq message is constructed, it needs to be base64 encoded and posted t
     </body>
     </html>
 
-  
-
-The challenge is dependent on the card issuer, so the actual HTML may look different, but there should be a form for the cardholder to complete the challenge.  
+The challenge is dependent on the card issuer, so the actual HTML may look different, but there should be a form for the cardholder to complete the challenge.
 
 ### Notification of outcome
 
@@ -1055,23 +1030,18 @@ Once the challenge has been completed, the session should move to a final state,
 
 At this point the session should contain the `eci` and `cryptogram` (CAVV/AVV) properties needed for authorization, but these will only be returned when retrieving the session using a JWT token and not the `session_secret`. This is to protect them from leaking to the client side.
 
-  
-
 The challenge flow should be completed within 10 minutes of initiating the flow. If this is not the case, the status of the challenge can be set to `U`.
 
-Step 5 b: 3DS1 challenge (browser only)
----------------------------------------
+## Step 5 b: 3DS1 challenge (browser only)
 
 This is only relevant for browser-based authentications.
 
-If you have 3DS protocol 1.0.2 enabled for processing, there is a chance your session will be downgraded from 3DS2 to 3DS1. This can happen because the card or the issuer was not enrolled for 3DS2, your processor is only set up for 3DS1, or there was an issue while communicating with the 3DS2 Directory Server. 
+If you have 3DS protocol 1.0.2 enabled for processing, there is a chance your session will be downgraded from 3DS2 to 3DS1. This can happen because the card or the issuer was not enrolled for 3DS2, your processor is only set up for 3DS1, or there was an issue while communicating with the 3DS2 Directory Server.
 
 Depending on the specific scenario, this can happen:
 
-*   Immediately after creating the session
-    
-*   After collecting browser data and performing the issuer fingerprint, so essentially instead of a 3DS2 challenge described above.
-    
+- Immediately after creating the session
+- After collecting browser data and performing the issuer fingerprint, so essentially instead of a 3DS2 challenge described above.
 
 When this downgrade happens your session will typically look like this:
 
@@ -1133,8 +1103,6 @@ The URL for the handler that will receive the PaRes (Payer Authentication Respon
 
 The Payer Authentication Request (`session.pareq`). This is the base64 and URL-encoded payload to send to the ACS.
 
-  
-
 The above fields can be case-sensitive depending on the ACS, so please make sure to follow the casing shown.
 
 The result of this POST will be the challenge form. Once the cardholder completes this successfully, the `TermUrl` will receive the `PaRes` (Payer Authentication Response) and the outcome of that will be rendered in place of the challenge (see next section).
@@ -1149,22 +1117,14 @@ If you want to be notified about the completion of the challenge, you can regist
       console.log(event.data)
     }
 
-  
-
 `event.data` will contain the following object:
-
-  
 
     {
       "status": "approved",
       "transaction_id": "352455b7-b3b1-4696-a916-69e2e4274e6c"
     }
 
-  
-
 Where `transaction_id` is the transaction ID of the session and `status` is the final status of the session based on the outcome of the challenge.
-
-  
 
 If an unexpected error occurred during the validation of the PaRes, the event data will look like this instead:
 
@@ -1174,7 +1134,7 @@ If an unexpected error occurred during the validation of the PaRes, the event da
       "error_codes":["update_not_allowed_due_to_state"]
     }
 
-Similar to an error Sessions API would respond with.  
+Similar to an error Sessions API would respond with.
 
 ### Challenge completed
 
@@ -1182,12 +1142,9 @@ Once the 3DS1 challenge has been completed, the session should move to a final s
 
 At this point the session should contain the `eci`, `xid`, and `cryptogram` (CAVV/AVV) properties needed for authorization, but these will only be returned when retrieving the session using a JWT token and not the `session_secret`. This is to protect them from leaking to the client side.
 
-  
-
 The challenge flow should be completed within 10 minutes of initiating the flow. If this is not the case, the status of the session will be set to `challenge_abandoned`.
 
-Step 6: Complete session (optional)
------------------------------------
+## Step 6: Complete session (optional)
 
 This is an optional step providing an easy way for you to be notified about the completion of the authentication.
 
@@ -1199,8 +1156,8 @@ This triggers a POST to the `completion.callback_url` field of the session and
 
 #### Endpoints
 
-*   [**Live**](#tabs-1aa354d1-afe4-470a-b8d8-6e218ff06a4a-1)
-*   [**Sandbox**](#tabs-1aa354d1-afe4-470a-b8d8-6e218ff06a4a-2)
+- [**Live**](#tabs-1aa354d1-afe4-470a-b8d8-6e218ff06a4a-1)
+- [**Sandbox**](#tabs-1aa354d1-afe4-470a-b8d8-6e218ff06a4a-2)
 
 POST`https://api.checkout.com/sessions/{session_id}/complete`
 
@@ -1223,8 +1180,6 @@ REQUIRED
 `session_secret`
 
 Use the secret key (prefixed by `sek_`) you received in the [create session response](#Non-hostedsessions-createresponse).
-
-  
 
 Path
 
@@ -1265,8 +1220,6 @@ If the authentication is approved (`“response_code”: “Y”`) or attempted 
      "challenged": true
     }
 
-  
-
 Field name
 
 Description
@@ -1301,13 +1254,13 @@ Indicates the status of the session.
 
 One of:
 
-*   `challenge_abandoned`
-*   `expired`
-*   `approved`
-*   `attempted`
-*   `unavailable`
-*   `declined`
-*   `rejected`
+- `challenge_abandoned`
+- `expired`
+- `approved`
+- `attempted`
+- `unavailable`
+- `declined`
+- `rejected`
 
 `authentication_type`
 
@@ -1323,8 +1276,8 @@ Indicates the category of the authentication request.
 
 One of:
 
-*   `payment`
-*   `non-payment`
+- `payment`
+- `non-payment`
 
 `reference`
 
@@ -1352,14 +1305,14 @@ The response from the DS or ACS which indicates whether a transaction qualifies 
 
 One of:
 
-*   `Y`: authentication verification successful
-*   `N`: not authenticated / account not verified; transaction denied
-*   `U`: authentication/ account verification could not be performed; technical or other problem, as indicated in ARes or RReq
-*   `A`: attempts processing performed; not authenticated/verified, but a proof of attempted authentication/verification is provided
-*   `C`: challenge required; additional authentication is required using the CReq/CRes
-*   `D`: challenge required; decoupled authentication confirmed
-*   `R`: authentication / account verification rejected; issuer is rejecting authentication / verification and requests that the authorization not be attempted
-*   `I`: informational only; 3DS requestor challenge preference acknowledged
+- `Y`: authentication verification successful
+- `N`: not authenticated / account not verified; transaction denied
+- `U`: authentication/ account verification could not be performed; technical or other problem, as indicated in ARes or RReq
+- `A`: attempts processing performed; not authenticated/verified, but a proof of attempted authentication/verification is provided
+- `C`: challenge required; additional authentication is required using the CReq/CRes
+- `D`: challenge required; decoupled authentication confirmed
+- `R`: authentication / account verification rejected; issuer is rejecting authentication / verification and requests that the authorization not be attempted
+- `I`: informational only; 3DS requestor challenge preference acknowledged
 
 `response_reason`
 
@@ -1367,32 +1320,32 @@ STRING
 
 The response from the direct server (DS) or access control server (ACS) which provides information on why the `response_code` field has the specified value.
 
-*   `01`: card authentication failed
-*   `02`: unknown device
-*   `03`: unsupported device
-*   `04`: exceeds authentication frequency limit
-*   `05`: expired card
-*   `06`: invalid card number
-*   `07`: invalid transaction
-*   `08`: no card record
-*   `09`: security failure
-*   `10`: stolen card
-*   `11`: suspected fraud
-*   `12`: transaction not permitted to cardholder
-*   `13`: cardholder not enrolled in service
-*   `14`: transaction timed out at the ACS
-*   `15`: low confidence
-*   `16`: medium confidence
-*   `17`: high confidence
-*   `18`: very high confidence
-*   `19`: exceeds ACS maximum challenges
-*   `20`: non-payment transaction not supported
-*   `21`: 3RI transaction not supported
-*   `22`: ACS technical issue
-*   `23`: decoupled authentication required by ACS but not requested by 3DS requestor
-*   `24`: 3DS requestor decoupled max expiry time exceeded
-*   `25`: decoupled authentication was provided in insufficient time to authenticate the cardholder. ACS will not make attempt.
-*   `26`: authentication attempted but not performed by the cardholder
+- `01`: card authentication failed
+- `02`: unknown device
+- `03`: unsupported device
+- `04`: exceeds authentication frequency limit
+- `05`: expired card
+- `06`: invalid card number
+- `07`: invalid transaction
+- `08`: no card record
+- `09`: security failure
+- `10`: stolen card
+- `11`: suspected fraud
+- `12`: transaction not permitted to cardholder
+- `13`: cardholder not enrolled in service
+- `14`: transaction timed out at the ACS
+- `15`: low confidence
+- `16`: medium confidence
+- `17`: high confidence
+- `18`: very high confidence
+- `19`: exceeds ACS maximum challenges
+- `20`: non-payment transaction not supported
+- `21`: 3RI transaction not supported
+- `22`: ACS technical issue
+- `23`: decoupled authentication required by ACS but not requested by 3DS requestor
+- `24`: 3DS requestor decoupled max expiry time exceeded
+- `25`: decoupled authentication was provided in insufficient time to authenticate the cardholder. ACS will not make attempt.
+- `26`: authentication attempted but not performed by the cardholder
 
 `cryptogram`
 
@@ -1411,8 +1364,6 @@ The electronic commerce indicator (ECI).
 BOOLEAN
 
 Indicates whether this session involved a challenge.
-
-  
 
 ### Session properties
 
@@ -1508,8 +1459,7 @@ No further actions are required. You can complete the session.
 
 Browser and app
 
-Additional authentication data 
--------------------------------
+## Additional authentication data 
 
 When requesting a session, you can add additional data fields to increase the chances of a frictionless authentication. Below is a summary of the optional data you can add to your request.
 

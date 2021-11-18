@@ -7,15 +7,13 @@ Start seamlessly accepting credit card payments from your customers via Touch ID
 
 Apple Pay is automatically enabled on your account, unless you process payments in UAE or Saudi Arabia. If you operate in these regions, contact your Customer Success Manager to activate Apple Pay.
 
-Before you start
-----------------
+## Before you start
 
 Before you can accept Apple Pay payments, you need to [set up and configure Apple Pay](/display/DOCS/Set+up+Apple+Pay).
 
 If you plan to process Apple Pay payment through an entity outside the European Economic Area (EEA), please contact your Customer Success manager or Integration engineer.
 
-Make a payment
---------------
+## Make a payment
 
 Once you've set up and configured Apple Pay, you're ready to accept Apple Pay payments through our payment gateway.
 
@@ -35,8 +33,8 @@ Alternatively, if you want to decrypt the Apple Pay token yourself and process a
 
 #### Endpoints
 
-*   [**Live**](#tabs-d6948dce-4b20-4670-a8ac-798a0a4ede8f-1)
-*   [**Sandbox**](#tabs-d6948dce-4b20-4670-a8ac-798a0a4ede8f-2)
+- [**Live**](#tabs-d6948dce-4b20-4670-a8ac-798a0a4ede8f-1)
+- [**Sandbox**](#tabs-d6948dce-4b20-4670-a8ac-798a0a4ede8f-2)
 
 POST`https://api.checkout.com/tokens`
 
@@ -144,7 +142,7 @@ Additional version-dependent information used to decrypt and verify the payment.
 
 #### Response example
 
-    { 
+    {
       "type": 'applepay',
       "token": 'tok_ymu4qlccztkedmd6b7c3hcf6ae',
       "expires_on": '2019-10-21T10:48:35Z',
@@ -165,8 +163,7 @@ Supporting Mada cards
 
 If accepting [Mada cards](/display/DOCS/Mada) via Apple Pay, do not include the supportsEMV value in the `[merchantCapabilities](https://developer.apple.com/documentation/apple_pay_on_the_web/applepaypaymentrequest/1916123-merchantcapabilities)` array, otherwise it may cause a failure with a `20030` format error.
 
-**Step 2:** Request a payment
------------------------------
+## **Step 2:** Request a payment
 
 Using the token (`tok_...`) you got in the response above, make a standard payment request.
 
@@ -174,8 +171,8 @@ Using the token (`tok_...`) you got in the response above, make a standard payme
 
 #### Endpoints
 
-*   [**Live**](#tabs-576e8e3e-92c1-4c82-941f-86c14146d8df-1)
-*   [**Sandbox**](#tabs-576e8e3e-92c1-4c82-941f-86c14146d8df-2)
+- [**Live**](#tabs-576e8e3e-92c1-4c82-941f-86c14146d8df-1)
+- [**Sandbox**](#tabs-576e8e3e-92c1-4c82-941f-86c14146d8df-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -274,15 +271,14 @@ The currency in which the payment is being made (three-letter ISO 4217 code).
 
 If you get a `201 Success` response and the `approved` field is `true`, your payment was successful. If the transaction failed, it's likely that the payment request was made with an invalid/expired card, or a valid card with an insufficient available balance.
 
-Testing Apple Pay
------------------
+## Testing Apple Pay
 
 ### Before you start
 
 To test Apple Pay payments, you'll need the following:
 
-*   An [Apple Pay compatible device](https://support.apple.com/en-us/HT208531).
-*   A [sandbox Apple Pay wallet](https://developer.apple.com/apple-pay/sandbox-testing/). (You cannot use a real Apple Pay wallet with real cards to test in sandbox.)
+- An [Apple Pay compatible device](https://support.apple.com/en-us/HT208531).
+- A [sandbox Apple Pay wallet](https://developer.apple.com/apple-pay/sandbox-testing/). (You cannot use a real Apple Pay wallet with real cards to test in sandbox.)
 
 ### Apple Pay test cards
 
@@ -307,17 +303,13 @@ CVV
 Visa
 
 `4761 1200 1000 0492`
-
-11/2022
-
-533
+1/2022
+33
 
 Mastercard
 
 `5204 2477 5000 1471`
-
-11/2022
-
+1/2022
 111
 
 ### Troubleshooting
@@ -332,9 +324,9 @@ If you don't have a card in your Apple Pay wallet, or you have a card that is no
 
 When validating the Apple Pay Session, keep note of the following:
 
-*   Make sure you're using the correct merchant ID, and the correct `.key` and `.pem` certificates associated with it.
-*   If you process payments for more than one business with us, make sure you are using the correct merchant ID and keys for each business.
-*   The same goes for the environment; if you configured your merchant ID in sandbox, make sure you are using the sandbox environment.
+- Make sure you're using the correct merchant ID, and the correct `.key` and `.pem` certificates associated with it.
+- If you process payments for more than one business with us, make sure you are using the correct merchant ID and keys for each business.
+- The same goes for the environment; if you configured your merchant ID in sandbox, make sure you are using the sandbox environment.
 
 ### Making a payment
 

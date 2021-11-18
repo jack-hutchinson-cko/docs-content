@@ -3,173 +3,81 @@ title: customize-frames
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 One of our favorite things about Frames is its customizability. By following this styling guide, you can make changes to just about everything.
 
 To start, let's look at the payment form itself. Frames comes in two variants: standard and simple. ## Standard view The standard view is the default template for Frames. It is a shorter two-row layout with icons depicting each field.
 
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
-
 ---
-
-- **Options:**
-- Image Border
 
 ![](https://files.readme.io/20f5546-standard-theme-dimensions.png)
 
-Upload an image...
-
 ![](https://files.readme.io/20f5546-standard-theme-dimensions.png)**standard-theme-dimensions.png**
 
-change·remove
-
-Don't have one handy? Use our logo to start!
-
-Although not necessary (as it is default), to specify the \*\*standard theme\*\* use the \`theme\` attribute in your code. For example, \`theme: 'standard',\`. ## Simple view Use the theme attribute to change to the \*simple\* version of Frames. Simple view is a taller three-row layout with icons depicting each field.
-
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
+Although not necessary (as it is default), to specify the **standard theme** use the `theme` attribute in your code. For example, `theme: 'standard',`. ## Simple view Use the theme attribute to change to the _simple_ version of Frames. Simple view is a taller three-row layout with icons depicting each field.
 
 ---
 
-- **Options:**
-- Image Border
-
 ![](https://files.readme.io/80427d9-simple-theme-dimensions.png)
-
-Upload an image...
 
 ![](https://files.readme.io/80427d9-simple-theme-dimensions.png)**simple-theme-dimensions.png**
 
-change·remove
+To use the **simple view**, define the theme attribute in your code as `theme: 'simple',`.
 
-Don't have one handy? Use our logo to start!
-
-To use the \*\*simple view\*\*, define the theme attribute in your code as \`theme: 'simple',\`.
-
-Frames can be customized to fit seamlessly with your brand. By using a \`style\` variable within the Frames script itself, it's easy to start making changes. All customizations are achieved using \*\*selectors\*\*, \*\*properties\*\*, and \*\*values\*\* in a manner very familiar to developers. Use the tabs below to view an example of styling, and a reference of selectors to use when styling your version of Frames.
+Frames can be customized to fit seamlessly with your brand. By using a `style` variable within the Frames script itself, it's easy to start making changes. All customizations are achieved using **selectors**, **properties**, and **values** in a manner very familiar to developers. Use the tabs below to view an example of styling, and a reference of selectors to use when styling your version of Frames.
 
 Styling Selectors reference
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
-
 // custom style
-
-2
-
-var style \= {
-
-3
+var style = {
 
 '.embedded .card-form .input-group': {
 
-4
-
 borderRadius: '5px'
 
-5
-
 },
-
-6
 
 }
 
-Import from Gist
-
-xxxxxxxxxx
-
-64
-
-1
+4
 
 // custom style
-
-2
-
-var style \= {
-
-3
+var style = {
 
 '.embedded .card-form .input-group': {
 
-4
-
 borderRadius: '5px'
-
-5
 
 },
 
-6
-
-/\* focus \*/
+/_ focus _/
 
 7
 
 '.embedded .card-form .input-group.focus:not(.error)': {
-
-8
-
 border: '1px solid green'
 
 9
 
 },
+0
 
-10
+/_ icons _/
+1
 
-/\* icons \*/
-
-11
-
-'.embedded .card-form .input-group .icon': {
-
-12
-
-color: 'slategray'
-
-13
-
+'.embedded .card-form .input-group .icon': {color: 'slategray'
 },
 
-14
-
-/\* hint icon (CVV) \*/
-
-15
+/_ hint icon (CVV) _/
 
 '.embedded .card-form .input-group .hint-icon': {
 
-16
-
 color: 'slategray'
-
-17
+7
 
 },
+8
 
-18
-
-'.embedded .card-form .input-group .hint-icon:hover': {
-
-19
-
-color: 'darkslategray'
+'.embedded .card-form .input-group .hint-icon:hover': {color: 'darkslategray'
 
 20
 
@@ -177,7 +85,7 @@ color: 'darkslategray'
 
 21
 
-/\* error \*/
+/_ error _/
 
 22
 
@@ -193,11 +101,11 @@ border: '1px solid red'
 
 25
 
-'.embedded .card-form .input-group.error .hint.error-message': { /\* message container \*/
+'.embedded .card-form .input-group.error .hint.error-message': { /_ message container _/
 
 26
 
-background: 'lightgray', /\* make sure to match the pointer color (below) \*/
+background: 'lightgray', /_ make sure to match the pointer color (below) _/
 
 27
 
@@ -209,11 +117,11 @@ color: 'red'
 
 29
 
-'.embedded .card-form .input-group.error .hint.error-message .arrow': { /\* message container pointer \*/
+'.embedded .card-form .input-group.error .hint.error-message .arrow': { /_ message container pointer _/
 
 30
 
-borderBottomColor: 'lightgray' /\* matches message container background \*/
+borderBottomColor: 'lightgray' /_ matches message container background _/
 
 31
 
@@ -221,7 +129,7 @@ borderBottomColor: 'lightgray' /\* matches message container background \*/
 
 32
 
-'.embedded .card-form .input-group.error .hint-icon:hover': { /\* hint icon \*/
+'.embedded .card-form .input-group.error .hint-icon:hover': { /_ hint icon _/
 
 33
 
@@ -249,148 +157,73 @@ color: 'dimgray'
 
 39
 
-'.embedded .card-form .input-group.focus input': {
+'.embedded .card-form .input-group.focus input': {color: 'black'
+1
 
-40
+},
+2
 
-color: 'black'
-
-41
+'.embedded .card-form .input-group.error input': {color: 'red'
+4
 
 },
 
-42
-
-'.embedded .card-form .input-group.error input': {
-
-43
-
-color: 'red'
-
-44
-
-},
-
-45
-
-'.embedded .card-form .input-group input::-webkit-input-placeholder': { /\* Chrome/Opera/Safari \*/
-
-46
+'.embedded .card-form .input-group input::-webkit-input-placeholder': { /_ Chrome/Opera/Safari _/
 
 color: 'lightgray'
+7
 
-47
+},
+8
+
+'.embedded .card-form .input-group input::-moz-placeholder': { /_ Firefox 19+ _/color: 'lightgray'
+0
 
 },
 
-48
-
-'.embedded .card-form .input-group input::-moz-placeholder': { /\* Firefox 19+ \*/
-
-49
-
-color: 'lightgray'
-
-50
+'.embedded .card-form .input-group input:-ms-input-placeholder': { /_ IE 10+ _/color: 'lightgray'
+3
 
 },
+4
 
-51
-
-'.embedded .card-form .input-group input:-ms-input-placeholder': { /\* IE 10+ \*/
-
-52
-
-color: 'lightgray'
-
-53
+'.embedded .card-form .input-group input:-moz-placeholder': { /_ Firefox 18- _/color: 'lightgray'
 
 },
-
-54
-
-'.embedded .card-form .input-group input:-moz-placeholder': { /\* Firefox 18- \*/
-
-55
-
-color: 'lightgray'
-
-56
-
-},
-
-57
+7
 
 ​
+8
 
-58
-
-'.embedded .card-form .split-view .left': {
-
-59
-
-paddingRight: '3px'
-
-60
+'.embedded .card-form .split-view .left': {paddingRight: '3px'
+0
 
 },
 
-61
-
-'.embedded .card-form .split-view .right': {
-
-62
-
-paddingLeft: '3px'
-
-63
+'.embedded .card-form .split-view .right': {paddingLeft: '3px'
+3
 
 }
-
-64
+4
 
 }
-
-Import from Gist
 
 Due to stringent PCI compliance rules, Frames can only support Web-safe fonts.
 
-Make your customers feel at home by using our localization settings to change the language of your payment form. Use one of our pre-defined languages or create your own. ### Pre-defined localization If the language you would like to use appears in our pre-defined list, then just set the \`localisation\` parameter, for example \`localisation: 'FR-FR'\`. The pre-defined languages: English = \*\*EN-GB\*\* Dutch = \*\*NL-NL\*\* French = \*\*FR-FR\*\* German = \*\*DE-DE\*\* Italian = \*\*IT-IT\*\* Korean = \*\*KR-KR\*\* Spanish = \*\*ES-ES\*\* ### Custom localization You can customize the language of both the placeholders of the form's input fields and the card number error message. If you would like to use a language that is not a part of any of the pre-defined localization language sets, you can define your own localization fields. To define the language of your form, use the \`localisation\` variable with the following properties and custom values. The example below shows the localisation variable in action:
+Make your customers feel at home by using our localization settings to change the language of your payment form. Use one of our pre-defined languages or create your own. ### Pre-defined localization If the language you would like to use appears in our pre-defined list, then just set the `localisation` parameter, for example `localisation: 'FR-FR'`. The pre-defined languages: English = **EN-GB** Dutch = **NL-NL** French = **FR-FR** German = **DE-DE** Italian = **IT-IT** Korean = **KR-KR** Spanish = **ES-ES** ### Custom localization You can customize the language of both the placeholders of the form's input fields and the card number error message. If you would like to use a language that is not a part of any of the pre-defined localization language sets, you can define your own localization fields. To define the language of your form, use the `localisation` variable with the following properties and custom values. The example below shows the localisation variable in action:
 
 JavaScript
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
-
 // custom localisation
-
-2
-
-var localisation \= {
-
-3
+var localisation = {
 
 cardNumberPlaceholder: "Custom text",
 
-4
-
 expiryMonthPlaceholder: "Custom text",
-
-5
 
 expiryYearPlaceholder: "Custom text",
 
-6
-
 cvvPlaceholder: "Custom text",
-
-7
-
 cardNumberErrorMessage: "Custom text"
 
 8
@@ -401,49 +234,30 @@ cardNumberErrorMessage: "Custom text"
 
 ​
 
-Import from Gist
-
 The example above can be used in your own Frames localization, simply replace the text "Custom text" with your own translation or wording.
 
 Customizing Frames for the first time can be a little daunting. To make it easier for you, we have provided the code example below. The comments in the code are there to help you with customizing your own payment form. Notice how we fit the custom styling and localization within the same script. This means there is no need to rely on external files, making Frames more secure and PCI compliant.
 
 HTML
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-118
-
 1
 
-<body\>
+<body>
 
 2
 
  <!-- add frames script -->
 
-3
+<script src="https://cdn.checkout.com/js/frames.js"></script>
 
- <script src\="https://cdn.checkout.com/js/frames.js"\></script\>
+ <form id="payment-form" method="POST" action="https://merchant.com/charge-card">
 
-4
-
- <form id\="payment-form" method\="POST" action\="https://merchant.com/charge-card"\>
-
-5
-
- <div class\="frames-container"\>
-
-6
+ <div class="frames-container">
 
  <!-- form will be added here -->
 
 7
 
- </div\>
+ </div>
 
 8
 
@@ -451,45 +265,32 @@ xxxxxxxxxx
 
 9
 
- <button id\="pay-now-button" type\="submit" disabled\>Pay now</button\>
+<button id="pay-now-button" type="submit" disabled>
+Pay now
 
-10
+</button>0
 
- </form\>
+ </form>
+1
 
-11
+ <script>
+2
 
- <script\>
-
-12
-
- var paymentForm \= document.getElementById('payment-form');
-
-13
-
- var payNowButton \= document.getElementById("pay-now-button");
-
-14
+ var paymentForm = document.getElementById('payment-form');
+ var payNowButton = document.getElementById("pay-now-button");
 
 ​
 
-15
-
  // custom localisation
 
-16
-
- var localisation \= {
-
-17
+ var localisation = {
+7
 
  cardNumberPlaceholder: "card number placeholder",
-
-18
+8
 
  expiryMonthPlaceholder: "month placeholder",
-
-19
+9
 
  expiryYearPlaceholder: "year placeholder",
 
@@ -515,7 +316,7 @@ xxxxxxxxxx
 
 25
 
- var style \= {
+ var style = {
 
 26
 
@@ -531,7 +332,7 @@ xxxxxxxxxx
 
 29
 
- /\* focus \*/
+ /* focus */
 
 30
 
@@ -547,7 +348,7 @@ xxxxxxxxxx
 
 33
 
- /\* icons \*/
+ /* icons */
 
 34
 
@@ -563,7 +364,7 @@ xxxxxxxxxx
 
 37
 
- /\* hint icon (CVV) \*/
+ /* hint icon (CVV) */
 
 38
 
@@ -572,124 +373,90 @@ xxxxxxxxxx
 39
 
  color: 'slategray'
-
-40
+0
 
  },
-
-41
 
  '.embedded .card-form .input-group .hint-icon:hover': {
-
-42
+2
 
  color: 'darkslategray'
-
-43
+3
 
  },
+4
 
-44
-
- /\* error \*/
-
-45
+ /* error */
 
  '.embedded .card-form .input-group.error': {
 
-46
-
  border: '1px solid red'
-
-47
+7
 
  },
+8
 
-48
+ '.embedded .card-form .input-group.error .hint.error-message': { /* message container */
+9
 
- '.embedded .card-form .input-group.error .hint.error-message': { /\* message container \*/
-
-49
-
- background: 'lightgray', /\* make sure to match the pointer color (below) \*/
-
-50
+ background: 'lightgray', /* make sure to match the pointer color (below) */
+0
 
  color: 'red'
-
-51
-
- },
-
-52
-
- '.embedded .card-form .input-group.error .hint.error-message .arrow': { /\* message container pointer \*/
-
-53
-
- borderBottomColor: 'lightgray' /\* matches message container background \*/
-
-54
+1
 
  },
+2
 
-55
+ '.embedded .card-form .input-group.error .hint.error-message .arrow': { /* message container pointer */
+3
 
- '.embedded .card-form .input-group.error .hint-icon:hover': { /\* hint icon \*/
+ borderBottomColor: 'lightgray' /* matches message container background */
+4
 
-56
+ },
+5
+
+ '.embedded .card-form .input-group.error .hint-icon:hover': { /* hint icon */
 
  color: 'red'
-
-57
+7
 
  },
-
-58
+8
 
 ​
-
-59
+9
 
  '.embedded .card-form .input-group:not(.error) input': {
-
-60
+0
 
  color: 'dimgray'
-
-61
+1
 
  },
-
-62
+2
 
  '.embedded .card-form .input-group.focus input': {
-
-63
+3
 
  color: 'black'
-
-64
+4
 
  },
-
-65
+5
 
  '.embedded .card-form .input-group.error input': {
-
-66
+6
 
  color: 'red'
-
-67
+7
 
  },
+8
 
-68
-
- '.embedded .card-form .input-group input::-webkit-input-placeholder': { /\* Chrome/Opera/Safari \*/
-
-69
+ '.embedded .card-form .input-group input::-webkit-input-placeholder': { /* Chrome/Opera/Safari */
+9
 
  color: 'lightgray'
 
@@ -699,7 +466,7 @@ xxxxxxxxxx
 
 71
 
- '.embedded .card-form .input-group input::-moz-placeholder': { /\* Firefox 19+ \*/
+ '.embedded .card-form .input-group input::-moz-placeholder': { /* Firefox 19+ */
 
 72
 
@@ -711,7 +478,7 @@ xxxxxxxxxx
 
 74
 
- '.embedded .card-form .input-group input:-ms-input-placeholder': { /\* IE 10+ \*/
+ '.embedded .card-form .input-group input:-ms-input-placeholder': { /* IE 10+ */
 
 75
 
@@ -723,7 +490,7 @@ xxxxxxxxxx
 
 77
 
- '.embedded .card-form .input-group input:-moz-placeholder': { /\* Firefox 18- \*/
+ '.embedded .card-form .input-group input:-moz-placeholder': { /* Firefox 18- */
 
 78
 
@@ -811,82 +578,62 @@ xxxxxxxxxx
 
 99
 
- payNowButton.disabled \= !Frames.isCardValid();
-
-100
+ payNowButton.disabled = !Frames.isCardValid();
+00
 
  },
-
-101
+01
 
  cardSubmitted: function() {
+02
 
-102
-
- payNowButton.disabled \= true;
-
-103
+ payNowButton.disabled = true;
+03
 
  // display loader
-
-104
+04
 
  }
-
-105
+05
 
  });
-
-106
+06
 
  paymentForm.addEventListener('submit', function(event) {
-
-107
+07
 
  event.preventDefault();
-
-108
+08
 
  Frames.submitCard()
-
-109
+09
 
  .then(function(data) {
-
-110
+10
 
  Frames.addCardToken(paymentForm, data.cardToken);
-
-111
+11
 
  paymentForm.submit();
-
-112
+12
 
  })
-
-113
+13
 
  .catch(function(err) {
-
-114
+14
 
  // catch the error
-
-115
-
- });
-
-116
+15
 
  });
+16
 
-117
+ });
+17
 
- </script\>
+ </script>
 
-118
+18
 
-</body\>
-
-Import from Gist
+</body>

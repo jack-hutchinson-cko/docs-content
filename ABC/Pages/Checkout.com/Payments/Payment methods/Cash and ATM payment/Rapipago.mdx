@@ -7,23 +7,21 @@ Start accepting payment using Rapipago, a favorite payment method in Argentina.
 
 If you want to use a gateway model for accepting Rapipago payments, you will need to arrange an agreement with our provider, dLocal, and create merchant details (specifically, `x_login` and `x_trans_key`) and a secret key with them. Share these details with our Customer Support team and we'll get you up and running. If you have already been onboarded for one of our other dLocal payment methods, you can use the same credentials.
 
-Overview
---------
+## Overview
 
 Rapipago payments follow a two-step process:
 
-1.  [Request payment](#Rapipago-requestpayment)
-2.  [Redirect the customer](#Rapipago-redirect)
+1. [Request payment](#Rapipago-requestpayment)
+2. [Redirect the customer](#Rapipago-redirect)
 
-Step 1: Request payment 
-------------------------
+## Step 1: Request payment 
 
 ### The POST request
 
 #### Endpoints
 
-*   [**Live**](#tabs-35e21b1f-868d-4e2d-9b2a-c2782075cbdd-1)
-*   [**Sandbox**](#tabs-35e21b1f-868d-4e2d-9b2a-c2782075cbdd-2)
+- [**Live**](#tabs-35e21b1f-868d-4e2d-9b2a-c2782075cbdd-1)
+- [**Sandbox**](#tabs-35e21b1f-868d-4e2d-9b2a-c2782075cbdd-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -52,8 +50,6 @@ REQUIRED
 #### Body parameters
 
 The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
-
-  
 
 Field name
 
@@ -202,8 +198,8 @@ Make sure your customer is aware that they will be redirected to the ticket page
 
 A button on the page will allow them to return to your shop:
 
-*   If the ticket is still valid, they will be redirected to your success URL.
-*   If the ticket has expired, they will be redirected to your failure URL.
+- If the ticket is still valid, they will be redirected to your success URL.
+- If the ticket has expired, they will be redirected to your failure URL.
 
 Your payment confirmation page should make it clear to the customer that their purchase has not yet been completed. Explain that it has been reserved and is pending payment before the order can be completed and the goods/services can be delivered.
 
@@ -217,8 +213,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-ce74c628-a824-4083-8fdb-90556dfbc4a2-1)
-*   [**Sandbox**](#tabs-ce74c628-a824-4083-8fdb-90556dfbc4a2-2)
+- [**Live**](#tabs-ce74c628-a824-4083-8fdb-90556dfbc4a2-1)
+- [**Sandbox**](#tabs-ce74c628-a824-4083-8fdb-90556dfbc4a2-2)
 
 GET`https://api.checkout.com/payments/{payment_id}`
 
@@ -258,81 +254,80 @@ The payment ID found in the response of the initial response.
 
 #### Response examples
 
-*   [**Payment pending**](#tabs-91bc3ece-7946-440f-9c31-ee5e198e6071-1)
-*   [**Payment captured**](#tabs-91bc3ece-7946-440f-9c31-ee5e198e6071-2)
+- [**Payment pending**](#tabs-91bc3ece-7946-440f-9c31-ee5e198e6071-1)
+- [**Payment captured**](#tabs-91bc3ece-7946-440f-9c31-ee5e198e6071-2)
 
-    {
-      "id": "pay_274nqq3v2vqura6oirwlupvpuu",
-      "requested_on": "2020-04-27T15:26:15Z",
-      "source": {
-        "type": "rapipago",
-        "dlocal_order_id": "da95e7f4d26e4a14987b49a6a4710a13",
-        "dlocal_payment_id": "D-30150-cbbdc947-5291-4fe9-a114-5c17b3829f9b",
-        "integration_type": "redirect",
-        "description": "simulate Rapipago Demo Payment"
-      },
-      "amount": 100,
-      "currency": "ARS",
-      "payment_type": "Regular",
-      "status": "Pending",
-      "risk": {
-        "flagged": false
-      },
-      "customer": {
-        "id": "cus_2l5rigg64jqu5d76rmsa4jbuu4"
-      },
-      "_links": {
-        "redirect": {
-          "href": "https://sandbox.dlocal.com/collect/pay/pay/M-edadd4c6-18d4-4e59-873d-84c361a2d98c?xtid=CATH-ST-1588001175-803994443"
-        },
-        "simulator:payment-succeed": {
-          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/rapipago/payments/pay_274nqq3v2vqura6oirwlupvpuu/succeed"
-        },
-        "simulator:payment-expire": {
-          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/rapipago/payments/pay_274nqq3v2vqura6oirwlupvpuu/expire"
-        },
-        "self": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_274nqq3v2vqura6oirwlupvpuu"
-        }
-      }
-    }
+  {
+  "id": "pay_274nqq3v2vqura6oirwlupvpuu",
+  "requested_on": "2020-04-27T15:26:15Z",
+  "source": {
+  "type": "rapipago",
+  "dlocal_order_id": "da95e7f4d26e4a14987b49a6a4710a13",
+  "dlocal_payment_id": "D-30150-cbbdc947-5291-4fe9-a114-5c17b3829f9b",
+  "integration_type": "redirect",
+  "description": "simulate Rapipago Demo Payment"
+  },
+  "amount": 100,
+  "currency": "ARS",
+  "payment_type": "Regular",
+  "status": "Pending",
+  "risk": {
+  "flagged": false
+  },
+  "customer": {
+  "id": "cus_2l5rigg64jqu5d76rmsa4jbuu4"
+  },
+  "\_links": {
+  "redirect": {
+  "href": "https://sandbox.dlocal.com/collect/pay/pay/M-edadd4c6-18d4-4e59-873d-84c361a2d98c?xtid=CATH-ST-1588001175-803994443"
+  },
+  "simulator:payment-succeed": {
+  "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/rapipago/payments/pay_274nqq3v2vqura6oirwlupvpuu/succeed"
+  },
+  "simulator:payment-expire": {
+  "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/rapipago/payments/pay_274nqq3v2vqura6oirwlupvpuu/expire"
+  },
+  "self": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_274nqq3v2vqura6oirwlupvpuu"
+  }
+  }
+  }
 
-    {
-      "id": "pay_274nqq3v2vqura6oirwlupvpuu",
-      "requested_on": "2020-04-27T15:26:15Z",
-      "source": {
-        "type": "rapipago",
-        "dlocal_order_id": "da95e7f4d26e4a14987b49a6a4710a13",
-        "dlocal_payment_id": "D-30150-cbbdc947-5291-4fe9-a114-5c17b3829f9b",
-        "integration_type": "redirect",
-        "description": "simulate Rapipago Demo Payment"
-      },
-      "amount": 100,
-      "currency": "ARS",
-      "payment_type": "Regular",
-      "status": "Captured",
-      "approved": true,
-      "risk": {
-        "flagged": false
-      },
-      "customer": {
-        "id": "cus_2l5rigg64jqu5d76rmsa4jbuu4"
-      },
-      "_links": {
-        "self": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_274nqq3v2vqura6oirwlupvpuu"
-        },
-        "actions": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_274nqq3v2vqura6oirwlupvpuu/actions"
-        },
-        "refund": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_274nqq3v2vqura6oirwlupvpuu/refunds"
-        }
-      }
-    }
+  {
+  "id": "pay_274nqq3v2vqura6oirwlupvpuu",
+  "requested_on": "2020-04-27T15:26:15Z",
+  "source": {
+  "type": "rapipago",
+  "dlocal_order_id": "da95e7f4d26e4a14987b49a6a4710a13",
+  "dlocal_payment_id": "D-30150-cbbdc947-5291-4fe9-a114-5c17b3829f9b",
+  "integration_type": "redirect",
+  "description": "simulate Rapipago Demo Payment"
+  },
+  "amount": 100,
+  "currency": "ARS",
+  "payment_type": "Regular",
+  "status": "Captured",
+  "approved": true,
+  "risk": {
+  "flagged": false
+  },
+  "customer": {
+  "id": "cus_2l5rigg64jqu5d76rmsa4jbuu4"
+  },
+  "\_links": {
+  "self": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_274nqq3v2vqura6oirwlupvpuu"
+  },
+  "actions": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_274nqq3v2vqura6oirwlupvpuu/actions"
+  },
+  "refund": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_274nqq3v2vqura6oirwlupvpuu/refunds"
+  }
+  }
+  }
 
-Refunds and chargebacks
------------------------
+## Refunds and chargebacks
 
 ### Refund a payment
 
@@ -348,8 +343,7 @@ A refund processing fee may apply.
 
 There is no chargeback mechanism for Rapipago.
 
-Webhooks
---------
+## Webhooks
 
 Webhooks
 
@@ -389,13 +383,12 @@ Sent when a refund is declined.
 
 Learn more about [webhooks and how to subscribe to them](/display/DOCS/Webhooks).
 
-Testing
--------
+## Testing
 
 To start testing, you'll need to:
 
-*   [create a test account](https://www.checkout.com/get-test-account), and
-*   contact your Customer Success Manager or Integrations engineer to activate Rapipago payments in the sandbox environment.
+- [create a test account](https://www.checkout.com/get-test-account), and
+- contact your Customer Success Manager or Integrations engineer to activate Rapipago payments in the sandbox environment.
 
 In your sandbox environment, you can test payment capture and expiration, as well as refund success and failure.
 

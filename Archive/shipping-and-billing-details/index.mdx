@@ -3,20 +3,11 @@ title: shipping-and-billing-details
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
-The shipping and billing addresses are given using the \`shippingDetails\` and \`billingDetails\` parameters respectively. Both objects share the same properties. ### Examples Below you can view example snippets of both the \`shippingDetails\` and \`billingDetails\`.
+The shipping and billing addresses are given using the `shippingDetails` and `billingDetails` parameters respectively. Both objects share the same properties. ### Examples Below you can view example snippets of both the `shippingDetails` and `billingDetails`.
 
 Shipping details Billing details
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-12
-
+2
 1
 
 "shippingDetails": {
@@ -25,19 +16,11 @@ xxxxxxxxxx
 
 "addressLine1": "27 Acacia Tree Street",
 
-3
-
 "addressLine2": "Apartment 15",
-
-4
 
 "postcode": "01072",
 
-5
-
 "country": "US",
-
-6
 
 "city": "Shutesbury",
 
@@ -52,25 +35,17 @@ xxxxxxxxxx
 9
 
 "countryCode": "1",
-
-10
+0
 
 "number": "111 222-333"
+1
 
-11
+}
+2
 
 }
 
-12
-
-}
-
-Import from Gist
-
-xxxxxxxxxx
-
-12
-
+2
 1
 
 "billingDetails": {
@@ -79,19 +54,11 @@ xxxxxxxxxx
 
 "addressLine1": "333 Cormier Bypass",
 
-3
-
 "addressLine2": "Rolfson Alley",
-
-4
 
 "postcode": "ue0 2ou",
 
-5
-
 "country": "US",
-
-6
 
 "city": "Schmittchester",
 
@@ -106,24 +73,17 @@ xxxxxxxxxx
 9
 
 "countryCode": "44",
-
-10
+0
 
 "number": "12345678"
+1
 
-11
+}
+2
 
 }
 
-12
-
-}
-
-Import from Gist
-
-:fa-info-circle: \*Use the tabs above to select either shipping or billing details.\* ### Payload fields
-
-x
+:fa-info-circle: _Use the tabs above to select either shipping or billing details._ ### Payload fields
 
 Add Row Add Col
 
@@ -131,7 +91,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`addressLine1\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`addressLine1` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -140,7 +100,7 @@ Address field line 1 — maximum length: 200 characters.
 |
 |
 
-\`addressLine2\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`addressLine2` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -149,7 +109,7 @@ Address field line 2 — maximum length: 200 characters.
 |
 |
 
-\`city\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`city` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -158,7 +118,7 @@ The city — maximum length: 50 characters.
 |
 |
 
-\`country\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`country` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -167,16 +127,16 @@ The country — must be represented by an ISO2 country code (e.g. US).
 |
 |
 
-\`phone\` <span class="field-type">Object</span> <span class="optional-def">Optional</span>
+`phone` <span class="field-type">Object</span> <span class="optional-def">Optional</span>
 
 |
 
-Contact phone number for the cardholder. Must contain: \* \`countryCode\` — valid country code for the phone number (e.g. 44 for the United Kingdom). \* \`number\` — cardholder's contact phone number. \*Must be between 6 and 25 characters. \* <span class="table-info">Allowed characters are: numbers, +, (,) ,/ and ' '. If countryCode is included, the phone number must also be included and cannot be NULL. </span>
+Contact phone number for the cardholder. Must contain: _ `countryCode` — valid country code for the phone number (e.g. 44 for the United Kingdom). _ `number` — cardholder's contact phone number. _Must be between 6 and 25 characters. _ <span class="table-info">Allowed characters are: numbers, +, (,) ,/ and ' '. If countryCode is included, the phone number must also be included and cannot be NULL. </span>
 
 |
 |
 
-\`postcode\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`postcode` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -185,7 +145,7 @@ The postcode — maximum length: 50 characters.
 |
 |
 
-\`state\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`state` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 

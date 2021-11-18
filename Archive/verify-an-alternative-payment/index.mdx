@@ -3,13 +3,9 @@ title: verify-an-alternative-payment
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+Use this endpoint to query an alternative payment using either the `chargeId` or `paymentToken`. It assumes that a payment has already been authorized.
 
-Use this endpoint to query an alternative payment using either the \`chargeId\` or \`paymentToken\`. It assumes that a payment has already been authorized.
-
-\## The request Use the details below to set up your request. ### Endpoint <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/charges/{chargeId}</p></pre> ### Header and path parameters
-
-x
+## The request Use the details below to set up your request. ### Endpoint <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/charges/{chargeId}</p></pre> ### Header and path parameters
 
 Add Row Add Col
 
@@ -17,26 +13,24 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type\` <span class="req-def">Required</span>
+`Content-Type` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
-
-x
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/).
 
 Add Row Add Col
 
@@ -44,125 +38,67 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`chargeId\` or \`paymentToken\` <span class="req-def">Required</span>
+`chargeId` or `paymentToken` <span class="req-def">Required</span>
 
 |
 
-The charge ID or payment token ID. The following prefixes are embedded within the URI: \* charge ID = \`charge\_\` \* payment token = \`pay_tok\_\`
+The charge ID or payment token ID. The following prefixes are embedded within the URI: _ charge ID = `charge\_` _ payment token = `pay_tok\_`
 
 |
 
-\### Request example
+### Request example
 
 Shell Java
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
 
 curl https://api2.checkout.com/v2/charges/charge\_B41BEAAC175U76BD3EE1 or pay_tok_7a66140a-ffc9-48a7-80c3-6e1b70e8076d
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
+-X GET
 
-\-X GET
-
-Import from Gist
-
-xxxxxxxxxx
-
-17
-
+7
 1
 
 // Create payload
-
-2
-
-String paymentToken \= "pay_tok_7a66140a-ffc9-48a7-80c3-6e1b70e8076d";
-
-3
+String paymentToken = "pay_tok_7a66140a-ffc9-48a7-80c3-6e1b70e8076d";
 
 ​
 
-4
-
 try {
-
-5
 
 // Create APIClient instance with your secret key
 
-6
-
-APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 7
 
 // Submit your request and receive an apiResponse
-
-8
-
-Response<Charge\> apiResponse \= ckoAPIClient.chargeService.verifyCharge(paymentToken);
+Response<Charge> apiResponse = ckoAPIClient.chargeService.verifyCharge(paymentToken);
 
 9
 
-​
+​if(!apiResponse.hasError){
+1
 
-10
-
-if(!apiResponse.hasError){
-
-11
-
-// Access the response object retrieved from the api
-
-12
-
-Charge charge \= apiResponse.model;
-
-13
-
+// Access the response object retrieved from the apiCharge charge = apiResponse.model;
 } else {
-
-14
 
 // Api has returned an error object. You can access the details in the error property of the apiResponse.
 
-15
-
 // apiResponse.error
 
-16
-
 }
-
-17
+7
 
 } catch (Exception e) {}
 
-Import from Gist
-
-\## Response That's it! If a payment object returns, you just charged a card.
+## Response That's it! If a payment object returns, you just charged a card.
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
 94
-
-1
 
 {
 
@@ -170,19 +106,11 @@ xxxxxxxxxx
 
 "id": "charge_test_88D0DCBAFEE78R54701B",
 
-3
-
 "liveMode": false,
-
-4
 
 "created": "2017-09-28T13:44:14Z",
 
-5
-
 "value": 456,
-
-6
 
 "currency": "GBP",
 
@@ -197,44 +125,28 @@ xxxxxxxxxx
 9
 
 "email": "a@gmail.com",
-
-10
+0
 
 "chargeMode": 2,
 
-11
-
 "transactionIndicator": 1,
-
-12
+2
 
 "customerIp": "96.125.185.51",
-
-13
-
 "responseMessage": "Approved",
-
-14
 
 "responseAdvancedInfo": "Approved",
 
-15
-
 "responseCode": "10000",
 
-16
-
 "status": "Authorised",
-
-17
+7
 
 "authCode": "467377",
-
-18
+8
 
 "isCascaded": false,
-
-19
+9
 
 "autoCapture": "N",
 
@@ -317,124 +229,88 @@ xxxxxxxxxx
 39
 
 "bin": "519999",
-
-40
+0
 
 "paymentMethod": "MASTERCARD",
 
-41
-
 "fingerprint": "EF6107604AE20CB5EE03BE1FB3066234343D40DA23F0FCF1178C74383E55AB09",
-
-42
+2
 
 "name": "Seymour Duncan",
-
-43
+3
 
 "cvvCheck": "Y",
-
-44
+4
 
 "avsCheck": "S"
 
-45
-
 },
-
-46
 
 "metadata": {
-
-47
+7
 
 "key1": "value1"
-
-48
+8
 
 },
-
-49
+9
 
 "shippingDetails": {
-
-50
+0
 
 "addressLine1": "623 Slade Street",
 
-51
-
 "addressLine2": "Flat 9",
-
-52
+2
 
 "postcode": "E149SR",
-
-53
+3
 
 "country": "UK",
-
-54
+4
 
 "city": "London",
-
-55
+5
 
 "state": "Greater London",
 
-56
-
 "phone": {
-
-57
+7
 
 "countryCode": "44",
-
-58
+8
 
 "number": "11112222"
-
-59
+9
 
 }
-
-60
+0
 
 },
 
-61
-
-"products": \[
-
-62
+"products": [
+2
 
 {
-
-63
+3
 
 "name": "Tablet 1 gold limited",
-
-64
+4
 
 "description": "Tablet 1 gold limited",
-
-65
+5
 
 "sku": "1aab2aa",
-
-66
+6
 
 "price": 100,
-
-67
+7
 
 "quantity": 1,
-
-68
+8
 
 "image": null,
-
-69
+9
 
 "shippingCost": 10,
 
@@ -488,7 +364,7 @@ xxxxxxxxxx
 
 82
 
-\],
+],
 
 83
 
@@ -538,11 +414,7 @@ xxxxxxxxxx
 
 }
 
-Import from Gist
-
-\### Response parameters The information below pertains to the enrolment status of a card in 3-D Secure. Please refer to the \[Verify a 3-D Secure payment\](doc:verify-a-3-d-secure-payment) reference for more information.
-
-x
+### Response parameters The information below pertains to the enrolment status of a card in 3-D Secure. Please refer to the [Verify a 3-D Secure payment](doc:verify-a-3-d-secure-payment) reference for more information.
 
 Add Row Add Col
 
@@ -550,16 +422,16 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`enrolled\` <span class="field-type">String</span>
+`enrolled` <span class="field-type">String</span>
 
 |
 
-Shows whether a card is enrolled in 3-D Secure. Possible values: \`Y\` — Card enrolled in 3-D Secure. \`N\` — Card not enrolled in 3-D Secure. \`U\` — Unable to determine whether card is enrolled in 3-D Secure due to technical issue.
+Shows whether a card is enrolled in 3-D Secure. Possible values: `Y` — Card enrolled in 3-D Secure. `N` — Card not enrolled in 3-D Secure. `U` — Unable to determine whether card is enrolled in 3-D Secure due to technical issue.
 
 |
 |
 
-\`signatureValid\` <span class="field-type">String</span>
+`signatureValid` <span class="field-type">String</span>
 
 |
 
@@ -568,16 +440,16 @@ Verification to ensure the integrity of the response.
 |
 |
 
-\`authenticationResponse\` <span class="field-type">String</span>
+`authenticationResponse` <span class="field-type">String</span>
 
 |
 
-Checks whether or not the cardholder was authenticated and if not, why. Possible values: \`Y\` — Customer authenticated. \`N\` — Customer not authenticated. \`A\` — An authentication attempt occurred but could not be completed. \`U\` — Unable to perform authentication.
+Checks whether or not the cardholder was authenticated and if not, why. Possible values: `Y` — Customer authenticated. `N` — Customer not authenticated. `A` — An authentication attempt occurred but could not be completed. `U` — Unable to perform authentication.
 
 |
 |
 
-\`eci\` <span class="field-type">String</span>
+`eci` <span class="field-type">String</span>
 
 |
 
@@ -586,7 +458,7 @@ Defines the E-Commerce Indicator security level associated with the transaction.
 |
 |
 
-\`cavv\` <span class="field-type">Number</span>
+`cavv` <span class="field-type">Number</span>
 
 |
 
@@ -595,7 +467,7 @@ The cryptographic identifier used by the card schemes to validate the integrity 
 |
 |
 
-\`xid\` <span class="field-type">Number</span>
+`xid` <span class="field-type">Number</span>
 
 |
 

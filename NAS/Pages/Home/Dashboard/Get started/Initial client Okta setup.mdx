@@ -5,97 +5,76 @@ account: NAS
 
 This page describes the preliminary steps you need to take as an Okta administrator in order to enable SSO for Checkout.com.
 
-**Step 1:** Create a Checkout.com application in Okta
------------------------------------------------------
+## **Step 1:** Create a Checkout.com application in Okta
 
-1.  Log in to your Okta admin portal with Super Admin rights.
-2.  In the top left corner, select **Classic UI** to make sure all features are visible.
-3.  Click **Applications > Create New App > SAML 2.0 > Create**.
-4.  Fill the **App Name** field with `Checkout.com`.
-5.  Upload the following **App Logo** and click **Next**.  
-    ![](/download/thumbnails/8488060/checkout-okta-logo.png?version=1&modificationDate=1598006516648&api=v2)
+. Log in to your Okta admin portal with Super Admin rights. 2. In the top left corner, select **Classic UI** to make sure all features are visible. 3. Click **Applications > Create New App > SAML 2.0 > Create**. 4. Fill the **App Name** field with `Checkout.com`. 5. Upload the following **App Logo** and click **Next**.  
+ ![](/download/thumbnails/8488060/checkout-okta-logo.png?version=1&modificationDate=1598006516648&api=v2)
 
-**Step 2:** Configure the SAML settings
----------------------------------------
+## **Step 2:** Configure the SAML settings
 
-1.  Set **Single Sign On URL** to `http://localhost` as a placeholder. Use this for the **Recipient URL** and **Destination URL**.
-2.  Set **Audience URI** to `http://localhost` as a placeholder.
-3.  Set **Default Relay** state to:
-    *   `https://dashboard.checkout.com` for production  
-        
-    *   `https://dashboard.sandbox.checkout.com` for sandbox  
-        
-4.  Set **Name ID** to `Unspecified`.
-5.  Set **Application username** to your Okta username.
-6.  Set **Update application username on** to **Create and update**.
-7.  Leave the **Advanced SAML settings** on their default values.
-8.  Set the **Attribute statements** as detailed below. These are mandatory attributes for the SAML assertion.
-    
+. Set **Single Sign On URL** to `http://localhost` as a placeholder. Use this for the **Recipient URL** and **Destination URL**. 2. Set **Audience URI** to `http://localhost` as a placeholder. 3. Set **Default Relay** state to: \* `https://dashboard.checkout.com` for production
+
+    *   `https://dashboard.sandbox.checkout.com` for sandbox
+
+. Set **Name ID** to `Unspecified`. 5. Set **Application username** to your Okta username. 6. Set **Update application username on** to **Create and update**. 7. Leave the **Advanced SAML settings** on their default values. 8. Set the **Attribute statements** as detailed below. These are mandatory attributes for the SAML assertion.
+
     Name
-    
+
     Name format
-    
+
     Value
-    
+
     Name
-    
+
     Name format
-    
+
     Value
-    
+
     `firstName`
-    
+
     `Unspecified`
-    
+
     `user.firstName`
-    
+
     `lastName`
-    
+
     `Unspecified`
-    
+
     `user.lastName`
-    
+
     `email`
-    
+
     `Unspecified`
-    
+
     `user.email`
-    
+
 9.  Set the **Groups statements** required to propagate your IDP groups as part of the SAML assertion. This is needed to configure access rights by mapping your IDP groups to Checkout.com known roles. To propagate all groups:
-    
+
     Name
-    
+
     Name format
-    
+
     Filter
-    
+
     Name
-    
+
     Name format
-    
+
     Filter
-    
+
     `idpGroups`
-    
+
     `Unspecified`
-    
+
     `Matches Regex .*`
-    
-    You can use a more restrictive group regex filter if you'd like.
-    
-10.  Click on **Finish** then **Next** to complete the initial setup.  
-    
 
-**Step 3:** Extract the SSO configuration
------------------------------------------
+    You can use a more restrictive group regex filter if you'd like. 0. Click on **Finish** then **Next** to complete the initial setup.
 
-1.  Go back to the application’s **Sign-On** tab and click **View Setup Instructions**.
-2.  Copy the **Identity Provider Single Sign-On URL**.
-3.  Copy the **Identity Provider Issuer.**
-4.  Download the **Certificate**.
+## **Step 3:** Extract the SSO configuration
 
-**Step 4:** Define group access rights
---------------------------------------
+. Go back to the application’s **Sign-On** tab and click **View Setup Instructions**. 2. Copy the **Identity Provider Single Sign-On URL**. 3. Copy the **Identity Provider Issuer.** 4. Download the **Certificate**.
+
+## **Step 4:** Define group access rights
 
 Checkout.com currently supports two types of user roles: **Admin** and **Read Only** (more will follow).
 
@@ -170,20 +149,14 @@ Create a `.json` file that defines a mapping between the propagated groups to
       "ClientGroup4": "Read Only"
     }
 
-**Step 5:** Securely share your configuration with Checkout.com
----------------------------------------------------------------
+## **Step 5:** Securely share your configuration with Checkout.com
 
 You will be provided with a set of SFTP login credentials with which they will securely share the following configurations:
 
-*   **Identity Provider Single Sign-On URL**
-    
-*   **Identity Provider Issuer URL**
-    
-*   **Certificate** (`.crt` file)
-    
-*   **Mapping of IDP groups to roles** (`.json` file)
-    
-*   **Corporate email domain(s)** (e.g., `mycompany.com`, `mycompany.uk`)
-    
+- **Identity Provider Single Sign-On URL**
+- **Identity Provider Issuer URL**
+- **Certificate** (`.crt` file)
+- **Mapping of IDP groups to roles** (`.json` file)
+- **Corporate email domain(s)** (e.g., `mycompany.com`, `mycompany.uk`)
 
 Our Okta admin will then register your IDP with the above configuration and reach back to you to complete the setup.

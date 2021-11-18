@@ -3,7 +3,6 @@ title: Payment Links
 account: ABC
 ---
 
-
 Payment Links provides you with a way to easily integrate with our Unified Payments API without all the heavy lifting.
 
 You can accept payments through any channel or device – email, social media, live chat, or text message! Be flexible to your customers' payment preferences. All you need to do is send the payment link to the customer, and it will take them to a Checkout.com-hosted payment page for them to complete the payment.
@@ -12,8 +11,7 @@ To begin using Payment Links, contact your Solution Engineer or [integration@ch
 
 Payment Links now accepts [three more languages](/display/DOCS/Product+support) – French, Italian and Dutch.
 
-Who is Payment Links for?
--------------------------
+## Who is Payment Links for?
 
 Use Payment Links to start accepting payments:
 
@@ -27,47 +25,35 @@ We've also created a table that lists **[supported payment methods](/display/D
 
 Currently, you can only create payment links using our API. We're working on a user interface, so you can more easily create and manage your links.
 
-How it works
-------------
+## How it works
 
 Payment Links is completely hosted by Checkout.com. All you need to do is give us context of the payment, and we’ll generate a payment link for you to send to your customers
 
 Links can only be used to accept one-time payments, and expire after 24 hours by default.
+. Request a payment link and send us all the payment information, e.g. the amount, currency and customer's billing address. 2. Checkout.com generate a unique link you can share with your customer.
 
-1.  Request a payment link and send us all the payment information, e.g. the amount, currency and customer's billing address.
-2.  Checkout.com generate a unique link you can share with your customer.
-    
-3.  The customer clicks on the link. We'll check that it hasn't already been used or expired, and then load the payment page.
-4.  The customer fills in the required details, then we'll handle the authentication flow and process the payment.
-5.  After the payment's been processed, you'll be notified by a [webhook](/display/DOCS/Webhooks).
+3.  The customer clicks on the link. We'll check that it hasn't already been used or expired, and then load the payment page.. The customer fills in the required details, then we'll handle the authentication flow and process the payment.
+4.  After the payment's been processed, you'll be notified by a [webhook](/display/DOCS/Webhooks).
 
 ![](/download/attachments/8489332/Payment%20links.png?version=5&modificationDate=1619775231755&api=v2)
 
-Try it out
-----------
+## Try it out
 
 Preview the Payment Links flow with the demo below. You can try it with one of our test cards, or Sofort test details.
 
-*   [**Card**](#tabs-406e40e1-4ef9-4cbf-b01f-e1a3efe5507f-1)
-*   [**Sofort**](#tabs-406e40e1-4ef9-4cbf-b01f-e1a3efe5507f-2)
+- [**Card**](#tabs-406e40e1-4ef9-4cbf-b01f-e1a3efe5507f-1)
+- [**Sofort**](#tabs-406e40e1-4ef9-4cbf-b01f-e1a3efe5507f-2)
 
 Use one of our [test cards](/display/DOCS/Test+card+numbers) with any future expiry date, or use the details below:
 
-*   **Card number**: 4242 4242 4242 4242
-*   **Expiry date**: Any future date
-*   **CVV**: 100
+- **Card number**: 4242 4242 4242 4242
+- **Expiry date**: Any future date
+- **CVV**: 100
 
 Use the following details to test a Sofort payment flow:
+. In the _Bank name, BLZ, IBAN_ _or BIC_ field, enter `88888888`, and then click **Next**. 2. Enter `88888888` in the _Account number_ field, and `123456` in the _PIN_ field. Click **Next**. 3. Select any account, and then click **Next**. 4. Enter `12345` in the TAN field and click **Next**.
 
-1.  In the _Bank name, BLZ, IBAN_ _or BIC_ field, enter `88888888`, and then click **Next**.
-2.  Enter `88888888` in the _Account number_ field, and `123456` in the _PIN_ field. Click **Next**.
-3.  Select any account, and then click **Next**.
-4.  Enter `12345` in the TAN field and click **Next**.
-
-  
-
-Next steps
-----------
+## Next steps
 
 ### Product support
 

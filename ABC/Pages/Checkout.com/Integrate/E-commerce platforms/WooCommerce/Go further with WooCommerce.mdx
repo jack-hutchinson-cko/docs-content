@@ -3,51 +3,40 @@ title: Go further with WooCommerce
 account: ABC
 ---
 
-
 There are a number of ways you can extend your WooCommerce integration so that it suits all your business needs.
 
 In this guide, you'll find how to:
 
-*   [add more payment methods](#GofurtherwithWooCommerce-paymentmethods)
-*   [enable 3D Secure payments](#GofurtherwithWooCommerce-3dsecure)
-*   [capture payments manually](#GofurtherwithWooCommerce-capturepaymentsmanually)
-*   [accept recurring payments via the WooCommerce Subscriptions extension](#GofurtherwithWooCommerce-recurring-payments)
-    
+- [add more payment methods](#GofurtherwithWooCommerce-paymentmethods)
+- [enable 3D Secure payments](#GofurtherwithWooCommerce-3dsecure)
+- [capture payments manually](#GofurtherwithWooCommerce-capturepaymentsmanually)
+- [accept recurring payments via the WooCommerce Subscriptions extension](#GofurtherwithWooCommerce-recurring-payments)
 
-Add more payment methods 
--------------------------
+## Add more payment methods 
 
 In order to start accepting an alternative payment method, we first need to enable it on your account. Please contact your customer success manager or our [Sales team](https://checkout.com/contact-sales) to get started.
 
 We currently support the following payment methods on WooCommerce:
 
-*   [Alipay](/display/DOCS/Alipay)
-*   [Boleto Bancário](/pages/viewpage.action?pageId=2785387)
-*   [Giropay](/display/DOCS/Giropay)
-*   [iDEAL](/display/DRAFT/iDEAL)
-*   [Klarna](/display/DOCS/Klarna)
-*   [Poli](/display/DOCS/Poli)
-*   [SEPA Direct Debit](/display/DOCS/SEPA+Direct+Debit)
-*   [Sofort](/display/DRAFT/Sofort)
-*   [EPS](/display/DOCS/EPS)
-*   [Bancontact](/display/DOCS/Bancontact)
-*   [KNET](/display/DOCS/KNET)
-*   [Fawry](/display/DOCS/Fawry)
-*   [QPay](/display/DOCS/QPay)
-*   [Apple Pay](/display/DOCS/Apple+Pay)
-*   [Google Pay](/display/x/Google+Pay)
+- [Alipay](/display/DOCS/Alipay)
+- [Boleto Bancário](/pages/viewpage.action?pageId=2785387)
+- [Giropay](/display/DOCS/Giropay)
+- [iDEAL](/display/DRAFT/iDEAL)
+- [Klarna](/display/DOCS/Klarna)
+- [Poli](/display/DOCS/Poli)
+- [SEPA Direct Debit](/display/DOCS/SEPA+Direct+Debit)
+- [Sofort](/display/DRAFT/Sofort)
+- [EPS](/display/DOCS/EPS)
+- [Bancontact](/display/DOCS/Bancontact)
+- [KNET](/display/DOCS/KNET)
+- [Fawry](/display/DOCS/Fawry)
+- [QPay](/display/DOCS/QPay)
+- [Apple Pay](/display/DOCS/Apple+Pay)
+- [Google Pay](/display/x/Google+Pay)
 
 ### Enable alternative payments
 
-1.  Log in to WordPress as an administrator.
-2.  In the left menu, click **Plugins**.
-3.  Click **Settings** under _WooCommerce [Checkout.com](http://Checkout.com) Gateway_.
-4.  Click **Alternative Payments**.
-5.  Tick **Enable [Checkout.com](http://Checkout.com)**.
-6.  Enter a **Title**. This is what the customer will see on the Checkout page. For example, `Pay with Klarna` or `Use one of these methods`.
-7.  Click the empty box next to _Alternative Payment Methods_. A drop-down menu of all available methods appears.
-8.  Click on the method you want to add. If you want to add more, repeat this step.
-9.  Click **Save changes**.
+. Log in to WordPress as an administrator. 2. In the left menu, click **Plugins**. 3. Click **Settings** under *WooCommerce [Checkout.com](http://Checkout.com) Gateway*. 4. Click **Alternative Payments**. 5. Tick **Enable [Checkout.com](http://Checkout.com)**. 6. Enter a **Title**. This is what the customer will see on the Checkout page. For example, `Pay with Klarna` or `Use one of these methods`. 7. Click the empty box next to *Alternative Payment Methods*. A drop-down menu of all available methods appears. 8. Click on the method you want to add. If you want to add more, repeat this step. 9. Click **Save changes**.
 
 That's it! Your checkout page now includes the option to pay using your additional payment method(s).
 
@@ -65,17 +54,7 @@ Once this is done, you'll need to complete the certification process. Read our 
 
 #### Enable Apple Pay
 
-1.  Log in to WordPress as an administrator.
-2.  In the left menu, click **Plugins**.
-3.  Click **Settings** under _WooCommerce [Checkout.com](http://Checkout.com) Gateway_.
-4.  Click **Apple Pay**.
-5.  Tick **Enable [Checkout.com](http://Checkout.com)**.
-6.  Choose a title and description. These will be displayed to customers on your checkout page.
-7.  Enter your merchant identifier. You can find it in the [Apple Development Center](https://developer.apple.com/account/).
-8.  Enter the absolute path to your merchant certificate and merchant certificate key.
-9.  Select a button type and button theme. You can see what these will look like in the [official Apple Pay demo](https://applepaydemo.apple.com/).
-10.  Set the button language using a two-digit ISO 639-1 code (e.g., use `en` for English).
-11.  Click **Save changes**.
+. Log in to WordPress as an administrator. 2. In the left menu, click **Plugins**. 3. Click **Settings** under *WooCommerce [Checkout.com](http://Checkout.com) Gateway*. 4. Click **Apple Pay**. 5. Tick **Enable [Checkout.com](http://Checkout.com)**. 6. Choose a title and description. These will be displayed to customers on your checkout page. 7. Enter your merchant identifier. You can find it in the [Apple Development Center](https://developer.apple.com/account/). 8. Enter the absolute path to your merchant certificate and merchant certificate key. 9. Select a button type and button theme. You can see what these will look like in the [official Apple Pay demo](https://applepaydemo.apple.com/).0. Set the button language using a two-digit ISO 639-1 code (e.g., use `en` for English).1. Click **Save changes**.
 
 That's it! Your checkout page now includes the option to pay using Apple Pay. In order to test it, you'll need to use one of our [Apple test cards](/display/DOCS/Apple+Pay).
 
@@ -89,74 +68,42 @@ To get started with Google Pay payments, you must first [register with Google P
 
 #### Enable Google Pay
 
-1.  Log in to WordPress as an administrator.
-2.  In the left menu, click **Plugins**.
-3.  Click **Settings** under _WooCommerce [Checkout.com](http://Checkout.com) Gateway_.
-4.  Click **Google Pay**.
-5.  Tick **Enable [Checkout.com](http://Checkout.com)**.
-6.  Choose a title and description. These will be displayed to customers on your checkout page.
-7.  Leave the merchant identifier set to `01234567890123456789`. This is for testing purposes.
-8.  Select a button style.
-9.  Click **Save changes**.
+. Log in to WordPress as an administrator. 2. In the left menu, click **Plugins**. 3. Click **Settings** under *WooCommerce [Checkout.com](http://Checkout.com) Gateway*. 4. Click **Google Pay**. 5. Tick **Enable [Checkout.com](http://Checkout.com)**. 6. Choose a title and description. These will be displayed to customers on your checkout page. 7. Leave the merchant identifier set to `01234567890123456789`. This is for testing purposes. 8. Select a button style. 9. Click **Save changes**.
 
 That's it! Your checkout page now includes the option to pay using Google Pay.
 
-Enable 3D Secure payments 
---------------------------
+## Enable 3D Secure payments
 
-1.  Log in to WordPress as an administrator.
-2.  In the left menu, click **Plugins**.
-3.  Click **Settings** under _WooCommerce [Checkout.com](http://Checkout.com) Gateway_.
-4.  Click **Card Settings**.
-5.  Set _Use 3D Secure_ to **Yes**.
-6.  Click **Save changes**.
+. Log in to WordPress as an administrator. 2. In the left menu, click **Plugins**. 3. Click **Settings** under *WooCommerce [Checkout.com](http://Checkout.com) Gateway*. 4. Click **Card Settings**. 5. Set *Use 3D Secure* to **Yes**. 6. Click **Save changes**.
 
 3D Secure payments are now enabled on your account.
 
-Capture payments manually 
---------------------------
+## Capture payments manually 
 
 ### Enable manual captures
 
-1.  Log in to WordPress as an administrator.
-2.  In the left menu, click **Plugins**.
-3.  Click **Settings** under _WooCommerce [Checkout.com](http://Checkout.com) Gateway_.
-4.  Click **Card Settings**.
-5.  Set _Payment Action_ to **Authorize Only**.
-6.  Click **Save changes**.
-
-  
+. Log in to WordPress as an administrator. 2. In the left menu, click **Plugins**. 3. Click **Settings** under *WooCommerce [Checkout.com](http://Checkout.com) Gateway*. 4. Click **Card Settings**. 5. Set *Payment Action* to **Authorize Only**. 6. Click **Save changes**.
 
 Any payments that come through will only be authorized. You then have seven days to manually capture them, or they will automatically be voided.
 
 ### Capture a payment
 
-1.  In the [Hub sandbox](https://sandbox.checkout.com/), click **Payments**.
-2.  Click on the test payment. The _Customer details_ pane opens.
-3.  Click **Capture** in the top right.
-4.  Click **Capture payment**. The payment's _Action_ column is updated to say `CAPTURE`. The totals on your dashboard are also updated.
-5.  Log in to Wordpress as an administrator.
-6.  Click **WooCommerce** in the left menu.
-7.  Click on your test order to display the order details. You should see something like this:  
-    ![](/download/attachments/5931109/woocommerce_order_details.png?version=1&modificationDate=1587478172619&api=v2)
-    
+. In the [Hub sandbox](https://sandbox.checkout.com/), click **Payments**. 2. Click on the test payment. The *Customer details* pane opens. 3. Click **Capture** in the top right. 4. Click **Capture payment**. The payment's *Action* column is updated to say `CAPTURE`. The totals on your dashboard are also updated. 5. Log in to Wordpress as an administrator. 6. Click **WooCommerce** in the left menu. 7. Click on your test order to display the order details. You should see something like this:  
+ ![](/download/attachments/5931109/woocommerce_order_details.png?version=1&modificationDate=1587478172619&api=v2)
 
 The order note confirms that your payment has been successfully captured.
 
-Accept recurring payments via the WooCommerce Subscriptions extension
----------------------------------------------------------------------
+## Accept recurring payments via the WooCommerce Subscriptions extension
 
 Recurring payments allows you to enable shopper interactions for scheduled payments like subscription payments.
 
 To be able to use this feature, you must be using WooCommerce Subscriptions to manage subscriptions within WooCommerce. See [WooCommerce Subscriptions Store Manager Guide](https://docs.woocommerce.com/document/subscriptions/store-manager-guide/#section-1).
 
-The [Checkout.com](http://Checkout.com) WooCommerce plugin registers with payment events triggered by [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/?quid=5e8af87e904d140455ce35c27943f7ce) to support the following actions: 
+The [Checkout.com](http://Checkout.com) WooCommerce plugin registers with payment events triggered by [WooCommerce Subscriptions](https://woocommerce.com/products/woocommerce-subscriptions/?quid=5e8af87e904d140455ce35c27943f7ce) to support the following actions:
 
-*   Cancellation of a subscription
-*   Suspension of a subscription
-*   Re-activation of a subscription
-*   Change of amount for a subscription
-*   Change of date for a subscription
-*   Management of multiple subscriptions
-
-  
+- Cancellation of a subscription
+- Suspension of a subscription
+- Re-activation of a subscription
+- Change of amount for a subscription
+- Change of date for a subscription
+- Management of multiple subscriptions

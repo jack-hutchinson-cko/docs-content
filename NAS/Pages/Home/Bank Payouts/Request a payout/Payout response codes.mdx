@@ -5,239 +5,185 @@ account: NAS
 
 After you've sent your payout request and got a successful response, you will receive a webhook notification that will tell you the status of your payout and include a response code and summary:
 
-*   If your payout is [successful](#Payoutresponsecodes-paid), you will receive a `payment_paid` webhook, with a `10000` response code and the `Approved` summary.
-*   If your payout is [declined](#Payoutresponsecodes-declined), you will receive a `payment_declined` webhook with a `50001-50399` response code and a summary explaining the reason for the decline.
-*   If your payout is [returned](#Payoutresponsecodes-returned), you will receive a `payment_returned` webhook with `50401-50599` response code and a summary explaining the reason for the return.
+- If your payout is [successful](#Payoutresponsecodes-paid), you will receive a `payment_paid` webhook, with a `10000` response code and the `Approved` summary.
+- If your payout is [declined](#Payoutresponsecodes-declined), you will receive a `payment_declined` webhook with a `50001-50399` response code and a summary explaining the reason for the decline.
+- If your payout is [returned](#Payoutresponsecodes-returned), you will receive a `payment_returned` webhook with `50401-50599` response code and a summary explaining the reason for the return.
 
 Below, you'll find all the response codes you could receive and their summaries.
 
-Payment paid 
--------------
+## Payment paid 
 
 Code
 
 Summary
 
 **Approval response**
-
-10000
+0000
 
 Approved
 
-Payment declined 
------------------
+## Payment declined 
 
 Code
 
 Summary
 
 **Decline responses**
-
-50001
+0001
 
 **Compliance error**
-
-50002
+0002
 
 Sanctions screening rejected error
-
-50020
+0020
 
 **Recipient error**
-
-50021
+0021
 
 Invalid recipient error
-
-50022
+0022
 
 Unsupported recipient error
-
-50023
+0023
 
 Recipient limit error
-
-50070
+0070
 
 **Sender error**
-
-50100
+0100
 
 **Instruction error**
-
-50101
+0101
 
 Instruction amount limit error
-
-50102
+0102
 
 Instruction amount limit sender error
-
-50103
+0103
 
 Instruction amount limit recipient error
-
-50104
+0104
 
 Velocity limit
-
-50105
+0105
 
 Velocity limit sender error
-
-50106
+0106
 
 Velocity limit recipient limit error
-
-50150
+0150
 
 **Processing error**
-
-50180
+0180
 
 **Validation error**
-
-50200
+0200
 
 **Configuration error**
-
-50240
+0240
 
 Cancellation error
-
-50260
+0260
 
 **Returned error**
-
-50399
+0399
 
 **Unmapped response**
 
-Payment returned 
------------------
+## Payment returned 
 
 Code
 
 Summary
 
 **Return responses**
-
-50401
+0401
 
 **Bank details invalid**
-
-50402
+0402
 
 Account not found
-
-50403
+0403
 
 Account inactive
-
-50404
+0404
 
 Account dormant
-
-50405
+0405
 
 Account number invalid
-
-50406
+0406
 
 Branch not found
-
-50407
+0407
 
 Branch code invalid
-
-50408
+0408
 
 Branch code required
-
-50409
+0409
 
 Bank code invalid
-
-50410
+0410
 
 Bank code required
-
-50441
+0441
 
 **Account type required**
-
-50451
+0451
 
 **Account holder details invalid**
-
-50452
+0452
 
 Account holder identification number required
-
-50453
+0453
 
 Account holder type not supported
-
-50454
+0454
 
 Account holder type not allowed
-
-50466
+0466
 
 **Account closed**
-
-50471
+0471
 
 **Account blocked**
-
-50481
+0481
 
 **Invalid debtor account type**
-
-50491
+0491
 
 **Account holder billing address details incorrect**
-
-50492
+0492
 
 Account holder billing address details required
-
-50494
+0494
 
 Account holder billing address can not be PO box
-
-50501
+0501
 
 **Unsupported characters**
-
-50511
+0511
 
 **Invalid amount**
-
-50512
+0512
 
 Minimum amount not met
-
-50513
+0513
 
 Exceeded transaction value
-
-50514
+0514
 
 Exceeded daily limit
-
-50515
+0515
 
 Exceeded weekly limit
-
-50517
+0517
 
 Exceeded monthly limit
-
-50531
+0531
 
 **Recalled**
-
-50599
+0599
 
 **Unknown reason**

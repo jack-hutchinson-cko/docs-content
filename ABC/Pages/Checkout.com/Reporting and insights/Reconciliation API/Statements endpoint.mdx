@@ -11,8 +11,7 @@ If you're not familiar with creating API requests, you might want to take a look
 
 No payments before February 7th, 2019 at 00.00.00 UTC will appear using the statements endpoint. To view payments before this time, please use the [Classic API's transactions endpoint](https://archive.docs.checkout.com/docs/reconciliation-api).
 
-Request a statement
--------------------
+## Request a statement
 
 ### The GET request
 
@@ -20,7 +19,7 @@ Use the details below to set up your request. To set the timeframe of your reque
 
 #### Endpoint
 
-*   [**Live**](#tabs-8c26813f-a812-45d2-854a-f90449f0a6ec-1)
+- [**Live**](#tabs-8c26813f-a812-45d2-854a-f90449f0a6ec-1)
 
 GET`https://api.checkout.com/reporting/statements?from={start-date}&to={end-date}`
 
@@ -46,12 +45,11 @@ Use the valid secret key of your Checkout.com account. You can find this in 
 
 `application/json`
 
-The GET response
-----------------
+## The GET response
 
 If your summary is returned, the request was successful.
 
-    {  
+    {
       "count": 1,
       "data": [
         {
@@ -74,22 +72,22 @@ If your summary is returned, the request was successful.
               "_links": {
                 "payments": {
                   "href": "http://api.checkout.com/reporting/statements/190110B107654/payments?payout_id=ABCDEFGH"
-                } 
-              } 
-            } 
+                }
+              }
+            }
           ],
-          "_links": { 
+          "_links": {
             "payments": {
               "href":  "http://api.checkout.com/reporting/statements/190110B107654/payments"
-            } 
-          } 
-        } 
+            }
+          }
+        }
       ],
       "_links": {
         "next": {
-          "href": "http://api.checkout.com/reporting/statements?from=01%2F01%2F2019%2000%3A00%3A00&to=01%2F11%2F2019%2000%3A00%3A00&limit=1&skip=1" 
+          "href": "http://api.checkout.com/reporting/statements?from=01%2F01%2F2019%2000%3A00%3A00&to=01%2F11%2F2019%2000%3A00%3A00&limit=1&skip=1"
         },
-        "self": { 
+        "self": {
           "href": "http://api.checkout.com/reporting/statements?from=01%2F01%2F2019%2000%3A00%3A00&to=01%2F11%2F2019%2000%3A00%3A00&limit=1" }
         }
       }
@@ -99,7 +97,7 @@ If your summary is returned, the request was successful.
 
 The response is designed to present your information as clearly as possible.
 
-#### 1\. Statements 
+#### 1. Statements 
 
 Listed in chronological order (descending), this is a record of all your statements within the selected timeframe. The table below outlines the information included and its meaning.
 
@@ -131,7 +129,7 @@ The date the statement was generated.
 
 The summary is a breakdown of your statement, ordered by the payout currency and its associated payout ID.
 
-#### 2\. Payouts
+#### 2. Payouts
 
 Grouped by payout currency, this section details all payouts to your bank account within the chosen date range. The table below describes this data and its purpose.
 
@@ -165,7 +163,7 @@ The date the payout was completed.
 
 `id`
 
-Identifies the associated payment (e.g., PO\_123).
+Identifies the associated payment (e.g., PO_123).
 
 `status`
 
@@ -179,21 +177,21 @@ Did you know?
 
 You can work out your net amount by calculating the sum of the carried forward amount, current period amount and payout fee.
 
-#### 3\. Links
+#### 3. Links
 
 #### Next
 
-This link allows you to move to the next page of results in the response. Responses are paginated at the payout level. 
+This link allows you to move to the next page of results in the response. Responses are paginated at the payout level.
 
     "_links": {
       "next": {
-        "href": "http://api.checkout.com/reporting/statements?from=01%2F01%2F2019%2000%3A00%3A00&to=01%2F11%2F2019%2000%3A00%3A00&limit=1&skip=1" 
+        "href": "http://api.checkout.com/reporting/statements?from=01%2F01%2F2019%2000%3A00%3A00&to=01%2F11%2F2019%2000%3A00%3A00&limit=1&skip=1"
       }
     }
 
 #### Self
 
-This is a direct link to the response associated with the submitted request. 
+This is a direct link to the response associated with the submitted request.
 
     "_links": {
       "self": {
@@ -201,18 +199,17 @@ This is a direct link to the response associated with the submitted request. 
       }
     }
 
-Extensions
-----------
+## Extensions
 
-### 1\. Payout breakdown
+### 1. Payout breakdown
 
-You can break down the detail even further by using the `payout_breakdown` field. This will provide all totals from each section of the statement. 
+You can break down the detail even further by using the `payout_breakdown` field. This will provide all totals from each section of the statement.
 
 #### The GET request
 
-Set up your request as described above, then simply add `&include=payout_breakdown` at the end of the URL.  For example: 
+Set up your request as described above, then simply add `&include=payout_breakdown` at the end of the URL.  For example:
 
-*   [**Live**](#tabs-a76bc855-c777-4b0a-827b-e761bcd5b7c1-1)
+- [**Live**](#tabs-a76bc855-c777-4b0a-827b-e761bcd5b7c1-1)
 
 GET`https://api.checkout.com/reporting/statements?from=2018-09-01&to=2018-09-19&include=payout_breakdown`
 
@@ -220,68 +217,68 @@ GET`https://api.checkout.com/reporting/statements?from=2018-09-01&to=2018-09-19&
 
 The initial structure of your response will be the same as described above. However, you will also get the following additional fields on your payouts in the `current_period_breakdown` and `processing_fees_breakdown` sections of your response:
 
-*   `processed_amount`
-*   `refund_amount`
-*   `chargeback_amount`
-*   `payouts_to_card_amount`
-*   `processing_fees`
-*   `interchange_fees`
-*   `scheme_and_other_network_fees`
-*   `premium_and_apm_fees`
-*   `chargeback_fees`
-*   `payout_to_card_fees`
-*   `payment_gateway_fees`
-*   `rolling_reserve_amount`
-*   `tax`
-*   `admin_fees`
-*   `general_adjustments`
+- `processed_amount`
+- `refund_amount`
+- `chargeback_amount`
+- `payouts_to_card_amount`
+- `processing_fees`
+- `interchange_fees`
+- `scheme_and_other_network_fees`
+- `premium_and_apm_fees`
+- `chargeback_fees`
+- `payout_to_card_fees`
+- `payment_gateway_fees`
+- `rolling_reserve_amount`
+- `tax`
+- `admin_fees`
+- `general_adjustments`
 
-    {
-      "count": 1,
-      "data": [
-        {
-          "id": "270903C203347",
-          "period_start": "2019-06-20T00:00:00.000",
-          "period_end": "2019-06-23T23:59:59.000",
-          "date": "2019-06-28T00:00:00.000",
-          "payouts": [
-            {
-              "currency": "GBP",
-              "carried_forward_amount": -28242.06,
-              "current_period_amount": -10925.15,
-              "net_amount": -39167.21,
-              "date": "2019-06-28T00:00:00.000",
-              "period_start": "2019-06-20T00:00:00.000",
-              "period_end": "2019-06-23T23:59:59.000",
-              "id": "FSTBC82N7",
-              "status": "Carried Forward",
-              "payout_fee": 0,
-              "current_period_breakdown": {
-                "processed_amount": 44364.87,
-                "refund_amount": -2686.95,
-                "chargeback_amount": 0,
-                "payouts_to_card_amount": -52367.29,
-                "processing_fees": -235.78,
-                "processing_fees_breakdown": {
-                  "interchange_fees": -102.18,
-                  "scheme_and_other_network_fees": -24.31,
-                  "premium_and_apm_fees": -44.37,
-                  "chargeback_fees": 0,
-                  "payout_to_card_fees": -52.36,
-                  "payment_gateway_fees": -12.56
-                },
-                "rolling_reserve_amount": 0,
-                "tax": 0,
-                "admin_fees": 0,
-                "general_adjustments": 0
-              }
-            }
-          ]
-        }
-      ]
-    }
+  {
+  "count": 1,
+  "data": [
+  {
+  "id": "270903C203347",
+  "period_start": "2019-06-20T00:00:00.000",
+  "period_end": "2019-06-23T23:59:59.000",
+  "date": "2019-06-28T00:00:00.000",
+  "payouts": [
+  {
+  "currency": "GBP",
+  "carried_forward_amount": -28242.06,
+  "current_period_amount": -10925.15,
+  "net_amount": -39167.21,
+  "date": "2019-06-28T00:00:00.000",
+  "period_start": "2019-06-20T00:00:00.000",
+  "period_end": "2019-06-23T23:59:59.000",
+  "id": "FSTBC82N7",
+  "status": "Carried Forward",
+  "payout_fee": 0,
+  "current_period_breakdown": {
+  "processed_amount": 44364.87,
+  "refund_amount": -2686.95,
+  "chargeback_amount": 0,
+  "payouts_to_card_amount": -52367.29,
+  "processing_fees": -235.78,
+  "processing_fees_breakdown": {
+  "interchange_fees": -102.18,
+  "scheme_and_other_network_fees": -24.31,
+  "premium_and_apm_fees": -44.37,
+  "chargeback_fees": 0,
+  "payout_to_card_fees": -52.36,
+  "payment_gateway_fees": -12.56
+  },
+  "rolling_reserve_amount": 0,
+  "tax": 0,
+  "admin_fees": 0,
+  "general_adjustments": 0
+  }
+  }
+  ]
+  }
+  ]
+  }
 
-### 2\. Statement ID / Payments 
+### 2. Statement ID / Payments 
 
 This extension allows you to link payments to statements and payouts. You can retrieve the list of payments and associated fees included in a given statement or payout that has been deposited into your bank account, or tied to a specific payout currency.
 
@@ -313,8 +310,7 @@ Payout currency
 
 The payout currency must be given in the 3-letter ISO format (e.g., GBP).
 
-CSV download 
--------------
+## CSV download 
 
 In addition to the JSON format described above, you can download a CSV report containing data from the statements endpoint.
 

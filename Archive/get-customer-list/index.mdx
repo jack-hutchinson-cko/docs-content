@@ -3,13 +3,9 @@ title: get-customer-list
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 Use this API endpoint to return a list of customers registered between two dates.
 
-\## The request View the customer list by sending a \*\*GET\*\* API request to the URI below. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/?fromDate={fromDate}&toDate={toDate}&count={count}&offset={offset}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/?fromDate={fromDate}&toDate={toDate}&count={count}&offset={offset}</p></pre> ### Header and path parameters
-
-x
+## The request View the customer list by sending a **GET** API request to the URI below. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/?fromDate={fromDate}&toDate={toDate}&count={count}&offset={offset}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/?fromDate={fromDate}&toDate={toDate}&count={count}&offset={offset}</p></pre> ### Header and path parameters
 
 Add Row Add Col
 
@@ -17,26 +13,24 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type\` <span class="req-def">Required</span>
+`Content-Type` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
-
-x
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/).
 
 Add Row Add Col
 
@@ -44,7 +38,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`fromDate\` <span class="optional-def">Optional</span>
+`fromDate` <span class="optional-def">Optional</span>
 
 |
 
@@ -53,7 +47,7 @@ Start date in UTC date and time (based on ISO 8601) (e.g., 2015-11-05T13:00:00Z 
 |
 |
 
-\`toDate\` <span class="optional-def">Optional</span>
+`toDate` <span class="optional-def">Optional</span>
 
 |
 
@@ -62,7 +56,7 @@ End date in UTC date and time (based on ISO 8601) (e.g. 2015-11-05T13:10:30Z or 
 |
 |
 
-\`count\` <span class="optional-def">Optional</span>
+`count` <span class="optional-def">Optional</span>
 
 |
 
@@ -71,7 +65,7 @@ The number of records to return back in response.
 |
 |
 
-\`offset\` <span class="optional-def">Optional</span>
+`offset` <span class="optional-def">Optional</span>
 
 |
 
@@ -79,113 +73,53 @@ The number of records to skip before adding results to the response.
 
 |
 
-\### Request example
+### Request example
 
 Shell Java
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
-
-curl https://api2.checkout.com/v2/customers/?fromDate\=2015\-04-07T14:00:00Z&toDate\=2015\-04-07T15:00:00Z&count\=1
+curl https://api2.checkout.com/v2/customers/?fromDate=2015-04-07T14:00:00Z&toDate=2015-04-07T15:00:00Z&count=1
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
-
-\-X GET
-
-Import from Gist
-
-xxxxxxxxxx
+-X GET
 
 25
 
-1
-
 // Create payload
-
-2
-
-Calendar cal \= Calendar.getInstance();
-
-3
+Calendar cal = Calendar.getInstance();
 
 cal.setTime(new Date());
 
-4
-
-cal.add(Calendar.HOUR, \-1); // To get customers created in the past hour
-
-5
+cal.add(Calendar.HOUR, -1); // To get customers created in the past hour
 
 ​
 
-6
+CustomerListGet customerListRequest = new CustomerListGet();
+customerListRequest.count = 2;
+customerListRequest.offset = 1;
+customerListRequest.fromDate = cal.getTime();customerListRequest.toDate = new Date();
+1
 
-CustomerListGet customerListRequest \= new CustomerListGet();
-
-7
-
-customerListRequest.count \= 2;
-
-8
-
-customerListRequest.offset \= 1;
-
-9
-
-customerListRequest.fromDate \= cal.getTime();
-
-10
-
-customerListRequest.toDate \= new Date();
-
-11
-
-​
-
-12
-
-try {
-
-13
-
+​try {
 // Create APIClient instance with your secret key
 
-14
-
-APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
-
-15
+APIClient ckoAPIClient= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 // Submit your request and receive an apiResponse
 
-16
+Response<CustomerList> customerListResponse = ckoAPIClient.customerService.getCustomerList(customerListRequest);
+7
 
-Response<CustomerList\> customerListResponse \= ckoAPIClient.customerService.getCustomerList(customerListRequest);
-
-17
-
-​
-
-18
-
-if(!apiResponse.hasError){
-
-19
+​if(!apiResponse.hasError){
+9
 
 // Access the response object retrieved from the api
 
 20
 
-CustomerList customers \= apiResponse.model;
+CustomerList customers = apiResponse.model;
 
 21
 
@@ -207,17 +141,7 @@ CustomerList customers \= apiResponse.model;
 
 } catch (Exception e) {}
 
-Import from Gist
-
-\- -- ## The response If a customer list returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-51
+- -- ## The response If a customer list returns, then your request was successful. If you're having problems with this API, then ask our [support team](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example
 
 1
 
@@ -227,19 +151,11 @@ xxxxxxxxxx
 
 "count": 1,
 
-3
-
-"data": \[
-
-4
+"data": [
 
 {
 
-5
-
 "id": "cust_49F7E6F8-B990-4E4E-BC58-419A3B0556D0",
-
-6
 
 "name": "Sarah Mitchell",
 
@@ -254,50 +170,34 @@ xxxxxxxxxx
 9
 
 "email": "sarah.mitchell@checkout.com",
-
-10
+0
 
 "description": "Description updated",
 
-11
-
 "phone" : {
-
-12
+2
 
 "countryCode" : "1",
-
-13
-
 "number" : "111 222-333"
 
-14
-
 },
-
-15
 
 "metadata": {
 
-16
-
 "key Added": "test value added"
-
-17
+7
 
 },
-
-18
+8
 
 "cards": {
-
-19
+9
 
 "count": 1,
 
 20
 
-"data": \[
+"data": [
 
 21
 
@@ -374,53 +274,37 @@ xxxxxxxxxx
 39
 
 "number": "111 222-333"
-
-40
+0
 
 }
-
-41
+1
 
 },
-
-42
+2
 
 "cvvCheck": null,
-
-43
+3
 
 "avsCheck": null,
-
-44
+4
 
 "responseCode": null
 
-45
-
 }
 
-46
-
-\]
-
-47
+]
+7
 
 },
-
-48
+8
 
 "defaultCard": "card_721F541E-EF01-4390-A017-7496BE5BFE54"
-
-49
-
-}
-
-50
-
-\]
-
-51
+9
 
 }
+0
 
-Import from Gist
+]
+1
+
+}

@@ -3,13 +3,9 @@ title: frames-reference
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 Our Frames reference is here to help you find those hard to find bits of information all in one place. Use the navigation on the right to find your way around the page.
 
 Here's a complete list of Frames configuration options. ## Required You can only create charges in currencies that have been enabled for your account. Please contact your relationship manager if you need to process in additional currencies.
-
-x
 
 Add Row Add Col
 
@@ -17,17 +13,15 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`publicKey\`
+`publicKey`
 
 |
 
-Your public key — find it in \[The Hub\](https://hub.checkout.com/)
+Your public key — find it in [The Hub](https://hub.checkout.com/)
 
 |
 
 ## Optional
-
-x
 
 Add Row Add Col
 
@@ -35,11 +29,11 @@ Add Row Add Col
 | --- | --- | --- |
 
 |
-\`theme\`
+`theme`
 
 |
 
-Choose the \[theme\](doc:customize-frames#section-the-payment-form) of your payment form.
+Choose the [theme](doc:customize-frames#section-the-payment-form) of your payment form.
 
 |
 
@@ -48,11 +42,11 @@ standard
 |
 |
 
-\`themeOverride\`
+`themeOverride`
 
 |
 
-Use this to load your \[custom stylesheet\](doc:customize-frames#section-using-a-custom-stylesheet).
+Use this to load your [custom stylesheet](doc:customize-frames#section-using-a-custom-stylesheet).
 
 |
 
@@ -61,11 +55,11 @@ none
 |
 |
 
-\`debugMode\`
+`debugMode`
 
 |
 
-Set to \`true\` to view console messages.
+Set to `true` to view console messages.
 
 |
 
@@ -74,7 +68,7 @@ false
 |
 |
 
-\`namespace\`
+`namespace`
 
 |
 
@@ -87,7 +81,7 @@ Frames
 |
 |
 
-\`containerSelector\`
+`containerSelector`
 
 |
 
@@ -99,11 +93,9 @@ none
 
 |
 
-\## Customer details
+## Customer details
 
-\`billingDetails\` is the only way to send customer details when using Frames.
-
-x
+`billingDetails` is the only way to send customer details when using Frames.
 
 Add Row Add Col
 
@@ -111,7 +103,7 @@ Add Row Add Col
 | --- | --- | --- |
 
 |
-\`customerName\`
+`customerName`
 
 |
 
@@ -124,7 +116,7 @@ none
 |
 |
 
-\`billingDetails\`
+`billingDetails`
 
 |
 
@@ -136,9 +128,7 @@ none
 
 |
 
-\## Localization options
-
-x
+## Localization options
 
 Add Row Add Col
 
@@ -146,11 +136,11 @@ Add Row Add Col
 | --- | --- | --- |
 
 |
-\`localisation\`
+`localisation`
 
 |
 
-Sets the \[language\](doc:customize-frames#section-localization) of the text used. Available options are: \* EN-GB (English) \* ES-ES (Spanish) \* DE-DE (German) \* KR-KR (Korean) \* FR-FR (French) \* IT-IT (Italian) \* NL-NL (Dutch)
+Sets the [language](doc:customize-frames#section-localization) of the text used. Available options are: _ EN-GB (English) _ ES-ES (Spanish) _ DE-DE (German) _ KR-KR (Korean) _ FR-FR (French) _ IT-IT (Italian) \* NL-NL (Dutch)
 
 |
 
@@ -162,19 +152,17 @@ Frames dispatches events which can be handled for various purposes. The table be
 
 Event constants on the JavaScript API are accessible via Frames.Events.
 
-x
-
 Add Row Add Col
 
 |     |     |     |
 | --- | --- | --- |
 
 |
-\`ready\`
+`ready`
 
 |
 
-\`READY\`
+`READY`
 
 |
 
@@ -183,11 +171,11 @@ Triggered when Frames is registered on the global namespace and safe to use.
 |
 |
 
-\`frameActivated\`
+`frameActivated`
 
 |
 
-\`FRAME_ACTIVATED\`
+`FRAME_ACTIVATED`
 
 |
 
@@ -196,24 +184,24 @@ Triggered when the form is rendered.
 |
 |
 
-\`cardValidationChanged\`
+`cardValidationChanged`
 
 |
 
-\`CARD_VALIDATION_CHANGED\`
+`CARD_VALIDATION_CHANGED`
 
 |
 
-Triggered when the state of the card form validation changes. This will return: \`isValid: true / false\`
+Triggered when the state of the card form validation changes. This will return: `isValid: true / false`
 
 |
 |
 
-\`cardSubmitted\`
+`cardSubmitted`
 
 |
 
-\`CARD_SUBMITTED\`
+`CARD_SUBMITTED`
 
 |
 
@@ -222,11 +210,11 @@ Triggered when the card form has been submitted.
 |
 |
 
-\`cardTokenised\`
+`cardTokenised`
 
 |
 
-\`CARD_TOKENISED\`
+`CARD_TOKENISED`
 
 |
 
@@ -235,11 +223,11 @@ Triggered after a card is tokenised. Returns an object containing the card token
 |
 |
 
-\`cardTokenisationFailed\`
+`cardTokenisationFailed`
 
 |
 
-\`CARD_TOKENISATION_FAILED\`
+`CARD_TOKENISATION_FAILED`
 
 |
 
@@ -247,9 +235,7 @@ Triggered if card tokenisation fails.
 
 |
 
-\## Localisation event
-
-x
+## Localisation event
 
 Add Row Add Col
 
@@ -257,11 +243,11 @@ Add Row Add Col
 | --- | --- | --- |
 
 |
-\`invalidLocalisation \`
+`invalidLocalisation `
 
 |
 
-\`INVALID_LOCALISATION\`
+`INVALID_LOCALISATION`
 
 |
 
@@ -269,37 +255,18 @@ Triggered when failing to load the requested language.
 
 |
 
-\## Adding an event handler There are two ways to add an event handler; the standard approach or configuration options. <span class="method\_hl">Method 1:</span> The standard approach \`Frames.addEventHandler(Frames.Events.<EVENT_CONSTANT>, handler);\` <span class="method\_hl">Method 2:</span> Configuration options
+## Adding an event handler There are two ways to add an event handler; the standard approach or configuration options. <span class="method\_hl">Method 1:</span> The standard approach `Frames.addEventHandler(Frames.Events.<EVENT_CONSTANT>, handler);` <span class="method\_hl">Method 2:</span> Configuration options
 
 Config options
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
-
 Frames.init({
-
-2
-
 publicKey: 'pk_test_6ff46046-30af-41d9-bf58-929022d2cd14',
 
-3
-
-<eventName\>: handler
-
-4
+<eventName>: handler
 
 });
 
-Import from Gist
-
-\*\*Synchronous\*\*
-
-x
+**Synchronous**
 
 Add Row Add Col
 
@@ -307,7 +274,7 @@ Add Row Add Col
 | --- | --- | --- | --- |
 
 |
-\`init(object)\`
+`init(object)`
 
 |
 
@@ -319,12 +286,12 @@ Initialises Frames
 
 |
 
-\-
+-
 
 |
 |
 
-\`isCardValid()\`
+`isCardValid()`
 
 |
 
@@ -341,7 +308,7 @@ boolean
 |
 |
 
-\`submitCard()\`
+`submitCard()`
 
 |
 
@@ -353,12 +320,12 @@ Frames.submitCard()
 
 |
 
-\-
+-
 
 |
 |
 
-\`addEventHandler(event, handler)\`
+`addEventHandler(event, handler)`
 
 |
 
@@ -370,12 +337,12 @@ event: Events.CARD_TOKENISED handler: function(event){}
 
 |
 
-\-
+-
 
 |
 |
 
-\`removeEventHandler(event, handler)\`
+`removeEventHandler(event, handler)`
 
 |
 
@@ -392,7 +359,7 @@ boolean
 |
 |
 
-\`removeAllEventHandlers(event)\`
+`removeAllEventHandlers(event)`
 
 |
 
@@ -408,9 +375,7 @@ boolean
 
 |
 
-\*\*Getters / Setters\*\*
-
-x
+**Getters / Setters**
 
 Add Row Add Col
 
@@ -418,20 +383,20 @@ Add Row Add Col
 | --- | --- | --- |
 
 |
-\`getPublicKey()\`
+`getPublicKey()`
 
 |
 
-\`setPublicKey(value)\`
+`setPublicKey(value)`
 
 |
 
-Your public key — find it in \[The Hub\](https://hub.checkout.com/)
+Your public key — find it in [The Hub](https://hub.checkout.com/)
 
 |
 |
 
-\`getDebugMode()\`
+`getDebugMode()`
 
 |
 
@@ -444,7 +409,7 @@ Returns true if in debug mode
 |
 |
 
-\`getNamespace()\`
+`getNamespace()`
 
 |
 
@@ -457,7 +422,7 @@ Returns Frames or a custom namespace
 |
 |
 
-\`getVersion()\`
+`getVersion()`
 
 |
 
@@ -470,11 +435,11 @@ Returns Frames version
 |
 |
 
-\`getCustomerName()\`
+`getCustomerName()`
 
 |
 
-\`setCustomerName(value)\`
+`setCustomerName(value)`
 
 |
 
@@ -483,11 +448,11 @@ Customer name
 |
 |
 
-\`getBillingDetails()\`
+`getBillingDetails()`
 
 |
 
-\`setBillingDetails(value)\`
+`setBillingDetails(value)`
 
 |
 
@@ -496,7 +461,7 @@ Transaction billing details
 |
 |
 
-\`getLocalisation()\`
+`getLocalisation()`
 
 |
 
@@ -509,7 +474,7 @@ Returns the selected language or the path to the localisation file
 |
 |
 
-\`getConfig()\`
+`getConfig()`
 
 |
 

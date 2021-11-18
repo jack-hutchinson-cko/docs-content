@@ -3,13 +3,9 @@ title: refund-an-alternative-payment
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 Use this API endpoint to refund an alternative payment. The method for refunding alternative payments is the same no matter which payment type you used.
 
-\## The request Capture a payment by sending a \*\*POST\*\* API request to the URI below. In the URI, replace \*\*{chargeId}\*\* with the \`chargeId\` of the \*\*authorized transaction\*\*, however, first \*\*add the prefix\*\* \`charge\_\` or \`charge_test\_\` to your Id. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/charges/charge\_{chargeId}/refund</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/charges/charge\_{chargeId}/refund</p></pre> ### Header and path parameters
-
-x
+## The request Capture a payment by sending a **POST** API request to the URI below. In the URI, replace **{chargeId}** with the `chargeId` of the **authorized transaction**, however, first **add the prefix** `charge\_` or `charge_test\_` to your Id. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/charges/charge\_{chargeId}/refund</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/charges/charge\_{chargeId}/refund</p></pre> ### Header and path parameters
 
 Add Row Add Col
 
@@ -17,26 +13,24 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type\` <span class="req-def">Required</span>
+`Content-Type` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
-
-x
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/).
 
 Add Row Add Col
 
@@ -44,55 +38,33 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`chargeId\` <span class="req-def">Required</span>
+`chargeId` <span class="req-def">Required</span>
 
 |
 
-The charge Id, embedded within the URI, prefixed with \`charge\_\` or \`charge_test\_\`.
+The charge Id, embedded within the URI, prefixed with `charge\_` or `charge_test\_`.
 
 |
 
-\### Request example
+### Request example
 
 Shell
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
 
 curl https://api2.checkout.com/v2/charges/charge\_30FDCABC175J76BD3E18/refund
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
+-H "Content-Type:application/json;charset=UTF-8"
 
-\-H "Content-Type:application/json;charset=UTF-8"
+-X POST
 
-4
-
-\-X POST
-
-Import from Gist
-
-\## The response If the refund was successful, the status of the of the payment should show in the response as \*Refunded\*. The \`id\` listed in the first line of the response is a unique ID linked to the latest status change of the charge. The \`originalId\` listed in the second line of the response is the unique ID of the previous status change. If you're having problems using this API, contact our \[support team\](mailto:support@checkout.com) for help.
+## The response If the refund was successful, the status of the of the payment should show in the response as _Refunded_. The `id` listed in the first line of the response is a unique ID linked to the latest status change of the charge. The `originalId` listed in the second line of the response is the unique ID of the previous status change. If you're having problems using this API, contact our [support team](mailto:support@checkout.com) for help.
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
 34
-
-1
 
 {
 
@@ -100,19 +72,11 @@ xxxxxxxxxx
 
 "id": "charge_8108BA4C175O76BD3E06",
 
-3
-
 "originalId": "charge_30FDCABC175J76BD3E18",
-
-4
 
 "liveMode": true,
 
-5
-
 "created": "2015-04-07T17:55:07Z",
-
-6
 
 "value": 100,
 
@@ -127,44 +91,28 @@ xxxxxxxxxx
 9
 
 "description": "Sample product",
-
-10
+0
 
 "responseMessage": "Approved",
 
-11
-
 "responseAdvancedInfo": "Approved",
-
-12
+2
 
 "responseCode": "10000",
-
-13
-
 "status": "Refunded",
-
-14
 
 "metadata": {
 
-15
-
 "testKey": "value"
 
-16
-
 },
+7
 
-17
-
-"products": \[
-
-18
+"products": [
+8
 
 {
-
-19
+9
 
 "name": "Tablet 32gb cellular",
 
@@ -202,7 +150,7 @@ xxxxxxxxxx
 
 28
 
-\],
+],
 
 29
 
@@ -228,6 +176,4 @@ xxxxxxxxxx
 
 }
 
-Import from Gist
-
-\## Webhook notification Once the charge is successfully refunded, Checkout.com will send a \`charge.refunded\` webhook.
+## Webhook notification Once the charge is successfully refunded, Checkout.com will send a `charge.refunded` webhook.

@@ -7,23 +7,19 @@ Start accepting payments using Bancontact, a favorite payment method in Belgium.
 
 To start accepting Bancontact payments, please contact your Customer Success Manager.
 
-Overview
---------
+## Overview
 
 Bancontact payments follow a two-step process:
+. [Request a Bancontact payment](#Bancontact-requestapayment) 2. [Redirect the customer](#Bancontact-redirectthecustomer)
 
-1.  [Request a Bancontact payment](#Bancontact-requestapayment)
-2.  [Redirect the customer](#Bancontact-redirectthecustomer)
-
-Request a payment
------------------
+## Request a payment
 
 ### The POST request
 
 #### Endpoints
 
-*   [**Live**](#tabs-4a8821d0-66b4-4b5c-8696-be1d70ad6900-1)
-*   [**Sandbox**](#tabs-4a8821d0-66b4-4b5c-8696-be1d70ad6900-2)
+- [**Live**](#tabs-4a8821d0-66b4-4b5c-8696-be1d70ad6900-1)
+- [**Sandbox**](#tabs-4a8821d0-66b4-4b5c-8696-be1d70ad6900-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -133,7 +129,6 @@ Typically, the trading name of your company or the name of your service.
         "billing_descriptor": "CKO Demo - bancontact"
       }
     }
-    
 
 ### The POST response
 
@@ -159,17 +154,14 @@ If you receive a `202 Success` response, with a `status` field set to `Pending`,
         }
       }
     }
-    
 
-Redirect the customer
----------------------
+## Redirect the customer
 
 Redirect your customer to the `redirect` link’s href in the response. This will allow the customer to authorize the payment, before they are transferred to your predefined success or failure URL.
 
 Alternatively, use the bancontact:mobile redirection link in the response to take them to the Bancontact mobile app. This mobile redirection link, however, is only provided in the live environment and only when the `amount` is less than or equal to `50000` (500 EUR).
 
-Get details about a payment
----------------------------
+## Get details about a payment
 
 You can retrieve details about an existing Bancontact payment with the following endpoint.
 
@@ -179,8 +171,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-0881a2e6-ff4e-4308-8d06-ed9b97ee475e-1)
-*   [**Sandbox**](#tabs-0881a2e6-ff4e-4308-8d06-ed9b97ee475e-2)
+- [**Live**](#tabs-0881a2e6-ff4e-4308-8d06-ed9b97ee475e-1)
+- [**Sandbox**](#tabs-0881a2e6-ff4e-4308-8d06-ed9b97ee475e-2)
 
 GET`https://api.checkout.com/payments/{payment_id}`
 
@@ -258,26 +250,23 @@ The payment ID found in the response of the initial payment.
       }
     }
 
-Refund a payment
-----------------
+## Refund a payment
 
 Bancontact supports both partial and full refunds. You can refund a payment through the [Hub](https://hub.checkout.com/v2) or by using the [refund API](/display/DOCS/Refund+a+payment).
 
-Cancel a payment
-----------------
+## Cancel a payment
 
 If the customer fails to complete their payment, we will automatically void the payment and send a `payment_expired` webhook.
 
 If the customer cancels their payment, we will send a `payment_canceled` webhook.
 
-Testing Bancontact
-------------------
+## Testing Bancontact
 
 To start testing, you'll need to:
 
-*   [create a test account](https://www.checkout.com/get-test-account), and
-*   contact your Customer Success Manager or Integrations engineer to activate Bancontact payments in the sandbox environment.
+- [create a test account](https://www.checkout.com/get-test-account), and
+- contact your Customer Success Manager or Integrations engineer to activate Bancontact payments in the sandbox environment.
+  . Create a Bancontact transaction as above, following the redirect link in the response to Bancontact's website.
 
-1.  Create a Bancontact transaction as above, following the redirect link in the response to Bancontact's website.
 2.  Set the payment response and payment delay as necessary.
 3.  Click **Submit**. You should then be redirected to your predefined success URL.

@@ -3,27 +3,24 @@ title: Make a payout
 account: NAS
 ---
 
-
 Full account types can make on-demand payouts directly to the sub-entity's local bank account.
 
 Once you've successfully processed a payment on behalf of the sub-entity, you will have funds that need to be paid out to them. You will also want to collect your platform fees.
 
 On this page, we will walk through the how to pay out to a sub-entity:
 
-*   Retrieve currency account balance
-*   Store sub-entity bank account details
-*   Make a payout
-*   Collect platform fees
+- Retrieve currency account balance
+- Store sub-entity bank account details
+- Make a payout
+- Collect platform fees
 
-Retrieve currency account balance
----------------------------------
+## Retrieve currency account balance
 
 We are currently working on exposing real-time currency account balances through an API, and hope to offer this functionality soon.
 
 In the meantime, you can process [balance reports](https://docs.checkout.com/four/reporting/reconciliation-reports/balance-reports "https://docs.checkout.com/four/reporting/reconciliation-reports/balance-reports") to retrieve the closing available balance of your currency account(s) on a daily basis. If you’d like to reconcile transactions for each sub-entity, you can process daily [financial actions](https://docs.checkout.com/four/reporting/reconciliation-reports/financial-actions-reports "https://docs.checkout.com/four/reporting/reconciliation-reports/financial-actions-reports") reports to retrieve this breakdown.
 
-Create sub-entity payment instrument
-------------------------------------
+## Create sub-entity payment instrument
 
 A payment instrument is a set of bank account details securely stored in our vault. Creating an instrument is more secure because it means you don't need to keep entering bank details every time you make a payout.
 
@@ -31,7 +28,7 @@ You need to create a payment instrument so that it can be used as a destination 
 
 There are different requirements to include in your request depending on the currency of the bank account. At the moment, you can just send money from the **UK**, but you can make a payout to UK bank accounts and European bank accounts.
 
-You can see the full explanation of the optional fields in our [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Instruments). For a UK bank, you **must** include: 
+You can see the full explanation of the optional fields in our [API reference](https://api-reference.checkout.com/preview/crusoe/#tag/Instruments). For a UK bank, you **must** include:
 
 Field name
 
@@ -61,12 +58,11 @@ The two-letter ISO country code of where the account is based.
 
 See [country codes](https://docs.checkout.com/four/resources/codes/country-codes).
 
-  
 Select the applicable option below to see the additional fields that are required depending on the currency.
 
 Where are you sending the money to?
 
-\--- Faster payments (GBP) SEPA (EUR)
+--- Faster payments (GBP) SEPA (EUR)
 
 Field name
 
@@ -104,8 +100,8 @@ Eight or 11 character code that identified the bank or bank branch.
 
 Sandbox is a testing area, so you can practise API calls. [Request a test account](https://www.checkout.com/get-test-account).
 
-*   [**Live**](#tabs-90fd28a5-94da-4c95-a20e-fb7e2ec44397-1)
-*   [**Sandbox**](#tabs-90fd28a5-94da-4c95-a20e-fb7e2ec44397-2)
+- [**Live**](#tabs-90fd28a5-94da-4c95-a20e-fb7e2ec44397-1)
+- [**Sandbox**](#tabs-90fd28a5-94da-4c95-a20e-fb7e2ec44397-2)
 
 POST`https://api.checkout.com/marketplace/entities/{id}/instruments`
 
@@ -133,12 +129,11 @@ To get a detailed view of all required and optional fields, see our [API refere
         }
       }
     }
-    
 
 #### Response examples
 
-*   [**202 - Instrument creation request accepted**](#tabs-17eb0e89-0d3d-4d9c-9c1d-eb9cf6df05d1-1)
-*   [**422 - Invalid data was sent**](#tabs-17eb0e89-0d3d-4d9c-9c1d-eb9cf6df05d1-2)
+- [**202 - Instrument creation request accepted**](#tabs-17eb0e89-0d3d-4d9c-9c1d-eb9cf6df05d1-1)
+- [**422 - Invalid data was sent**](#tabs-17eb0e89-0d3d-4d9c-9c1d-eb9cf6df05d1-2)
 
 If your request is accepted, we will attempt to create a payment instrument asynchronously (behind the scenes) and inform you of the outcome via webhook notification
 
@@ -156,53 +151,52 @@ We've described the different webhook notifications on our [webhook event type p
 
 #### **Payment** instrument **notification examples**
 
-*   [**Created**](#tabs-5870b2bd-b6f6-4db7-a9bd-59c95409143a-1)
-*   [**Error**](#tabs-5870b2bd-b6f6-4db7-a9bd-59c95409143a-2)
+- [**Created**](#tabs-5870b2bd-b6f6-4db7-a9bd-59c95409143a-1)
+- [**Error**](#tabs-5870b2bd-b6f6-4db7-a9bd-59c95409143a-2)
 
-    {
-      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
-      "type": "payment_instrument_created",
-      "version": "1.0.0",
-      "created_on": "2020-08-20T15:24:13.8431084Z",
-      "data": {
-        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
-        "reference": "123456789101112",
-        "legal_name": "The Cake Shop Inc.",
-        "payment_instrument": {
-          "id": "src_h5qk7lfsp3ludfjxba256lduju",
-          "label": "The Cake Shop Barclays"
-        }
-      },
-      "_links": {
-        "self": {
-          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
-        }
-      }
-    }
-      
+  {
+  "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+  "type": "payment_instrument_created",
+  "version": "1.0.0",
+  "created_on": "2020-08-20T15:24:13.8431084Z",
+  "data": {
+  "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+  "reference": "123456789101112",
+  "legal_name": "The Cake Shop Inc.",
+  "payment_instrument": {
+  "id": "src_h5qk7lfsp3ludfjxba256lduju",
+  "label": "The Cake Shop Barclays"
+  }
+  },
+  "\_links": {
+  "self": {
+  "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+  }
+  }
+  }
 
-    {
-      "id": "evt_htielsmgcwgejgqaunl4yb2pou",
-      "type": "payment_instrument_error",
-      "version": "1.0.0",
-      "created_on": "2020-08-20T15:24:13.8431084Z",
-      "data": {
-        "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
-        "reference": "123456789101112",
-        "legal_name": "The Cake Shop Inc.",
-        "payment_instrument": {
-          "label": "The Cake Shop Barclays"
-        },
-        "reason_codes": [
-          "payment_source_required"
-        ]
-      },
-      "_links": {
-        "self": {
-          "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
-        }
-      }
-    }
+  {
+  "id": "evt_htielsmgcwgejgqaunl4yb2pou",
+  "type": "payment_instrument_error",
+  "version": "1.0.0",
+  "created_on": "2020-08-20T15:24:13.8431084Z",
+  "data": {
+  "sub_entity_id": "ent_wxglze3wwywujg4nna5fb7ldli",
+  "reference": "123456789101112",
+  "legal_name": "The Cake Shop Inc.",
+  "payment_instrument": {
+  "label": "The Cake Shop Barclays"
+  },
+  "reason_codes": [
+  "payment_source_required"
+  ]
+  },
+  "\_links": {
+  "self": {
+  "href": "https://api.sandbox.checkout.com/workflows/events/evt_htielsmgcwgejgqaunl4yb2pou"
+  }
+  }
+  }
 
 If successful, we will automatically make the association between this payment instrument and its sub-entity. You can see this association and alternatively retrieve the payment instrument ID by using GET`/marketplace/entities/{id}`:
 
@@ -216,10 +210,8 @@ If successful, we will automatically make the association between this payment i
         }
       ],
       ...,
-    
 
-Make sub-entity payouts
------------------------
+## Make sub-entity payouts
 
 Our Unified Payments API already enables you to make payouts to a sub-entity using the payments endpoint.
 
@@ -241,17 +233,17 @@ OBJECT
 
 Inside of this object include:
 
-*   `type:` Enter `currency_account`.
-*   `id`: Enter the ID representing your currency account.
+- `type:` Enter `currency_account`.
+- `id`: Enter the ID representing your currency account.
 
 `destination`
 
-OBJECT  
+OBJECT
 
 Inside of this object include:
 
-*   `type:` Enter `id`.
-*   `id`: Enter the instrument ID representing your sub-entity's bank account. This is returned when you retrieve the sub-entity.
+- `type:` Enter `id`.
+- `id`: Enter the instrument ID representing your sub-entity's bank account. This is returned when you retrieve the sub-entity.
 
 `amount`
 
@@ -298,30 +290,29 @@ The processing channel identifier.
       },
       "processing_channel_id":"pc_v6oaskquunqufj2t7e7wf3e6am"
     }
-    
 
 #### Response examples
 
 The payout will be attempted asynchronously (behind the scenes). You will be informed of updates to its status through webhook notifications.
 
-*   [**202 - Payment asynchronous**](#tabs-6f65b7ff-4854-4740-9bc9-090d5815b498-1)
-*   [**422 - Invalid data was sent**](#tabs-6f65b7ff-4854-4740-9bc9-090d5815b498-2)
+- [**202 - Payment asynchronous**](#tabs-6f65b7ff-4854-4740-9bc9-090d5815b498-1)
+- [**422 - Invalid data was sent**](#tabs-6f65b7ff-4854-4740-9bc9-090d5815b498-2)
 
-    {
-      "id":"pay_xvyvcgxx7hmu3iw2kdfunegh3m",
-      "status":"Pending",
-      "instruction":{
-        "value_date":"2021-03-31T01:39:57.0909438Z"
-      },
-      "_links":{
-        "self":{
-          "href":"https://api.sandbox.checkout.com/payments/pay_xvyvcgxx7hmu3iw2kdfunegh3m"
-        },
-        "actions":{
-          "href":"https://api.sandbox.checkout.com/payments/pay_xvyvcgxx7hmu3iw2kdfunegh3m/actions"
-        }
-      }
-    }
+  {
+  "id":"pay_xvyvcgxx7hmu3iw2kdfunegh3m",
+  "status":"Pending",
+  "instruction":{
+  "value_date":"2021-03-31T01:39:57.0909438Z"
+  },
+  "\_links":{
+  "self":{
+  "href":"https://api.sandbox.checkout.com/payments/pay_xvyvcgxx7hmu3iw2kdfunegh3m"
+  },
+  "actions":{
+  "href":"https://api.sandbox.checkout.com/payments/pay_xvyvcgxx7hmu3iw2kdfunegh3m/actions"
+  }
+  }
+  }
 
 If your payout request is unsuccessful, you will receive an error object in the response containing one or several error codes. Use the drop-down to see a list of possible error codes.
 
@@ -333,7 +324,7 @@ If your payout request is unsuccessful, you will receive an error object in the 
       ]
     }
 
- Possible error codes
+Possible error codes
 
 Error code
 
@@ -351,12 +342,11 @@ The specified field is required, but has not been provided.
 
 There were not enough funds to make the payout.
 
- Why is there a 'pay to bank not configured' error when attempting a payout?
+Why is there a 'pay to bank not configured' error when attempting a payout?
 
 This means the processing channel you are using is not configured for pay to bank. Please use another one or get in touch to have it enabled on the one you’re using.
 
-Collect platform fees
----------------------
+## Collect platform fees
 
 You collect your platform fees through the same method as making payouts to your sub-entities. The only difference is the `destination.id` field should be your Platform's payment instrument ID. This will have been provided to you during your onboarding with [Checkout.com](https://www.checkout.com).
 
@@ -378,10 +368,8 @@ You collect your platform fees through the same method as making payouts to your
       },
       "processing_channel_id": "pc_q4dbxom5jbgudnjzjpz7j2z6uq",
     }
-    
 
-Find out more
--------------
+## Find out more
 
 ### Understand your account structure
 

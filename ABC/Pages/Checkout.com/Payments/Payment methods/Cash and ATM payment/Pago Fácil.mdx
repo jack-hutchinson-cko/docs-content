@@ -5,29 +5,23 @@ account: ABC
 
 Start accepting payment using Pago Fácil, a favorite payment method in Argentina.
 
-  
-
 If you want to use a gateway model for accepting Pago Fácil payments, you will need to arrange an agreement with our provider, dLocal, and create merchant details (specifically, `x_login` and `x_trans_key`) and a secret key with them. Share these details with our Customer Support team and we'll get you up and running. If you have already been onboarded for one of our other dLocal payment methods, you can use the same credentials.
 
-Overview
---------
+## Overview
 
 Pago Fácil can be used by either redirecting the customer to a statically hosted ticket (`redirect` integration method) or by rendering the complete ticket within your own checkout flow (`direct` integration method).
 
 Payments follow a two-step process:
+. [Request payment](#PagoFácil-requestpayment) 2. [Redirect the customer or render the ticket](#PagoFácil-redirectorrender)
 
-1.  [Request payment](#PagoFácil-requestpayment)
-2.  [Redirect the customer or render the ticket](#PagoFácil-redirectorrender)
-
-Step 1: Request payment 
-------------------------
+## Step 1: Request payment 
 
 ### The POST request
 
 #### Endpoints
 
-*   [**Live**](#tabs-48d1e4eb-9f64-4c31-98e6-7032dd54ddf9-1)
-*   [**Sandbox**](#tabs-48d1e4eb-9f64-4c31-98e6-7032dd54ddf9-2)
+- [**Live**](#tabs-48d1e4eb-9f64-4c31-98e6-7032dd54ddf9-1)
+- [**Sandbox**](#tabs-48d1e4eb-9f64-4c31-98e6-7032dd54ddf9-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -61,8 +55,6 @@ REQUIRED
 
 The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
 
-  
-
 Field name
 
 Description
@@ -95,8 +87,8 @@ STRING
 
 The type of integration. Either `direct` or `redirect`.
 
-*   `direct`: a ticket object is returned, which you can use to render a ticket to the customer. No redirect URL is returned.
-*   `redirect`: a redirect URL is returned. Redirect the customer to this URL to proceed with the payment.
+- `direct`: a ticket object is returned, which you can use to render a ticket to the customer. No redirect URL is returned.
+- `redirect`: a redirect URL is returned. Redirect the customer to this URL to proceed with the payment.
 
 `source.country`
 
@@ -164,38 +156,38 @@ The three-letter currency code (ISO 4217). Set this to `ARS`.
 
 #### Request examples
 
-*   [**Redirect**](#tabs-dce9658d-c754-4c21-ab28-ca142bc1a80f-1)
-*   [**Direct**](#tabs-dce9658d-c754-4c21-ab28-ca142bc1a80f-2)
+- [**Redirect**](#tabs-dce9658d-c754-4c21-ab28-ca142bc1a80f-1)
+- [**Direct**](#tabs-dce9658d-c754-4c21-ab28-ca142bc1a80f-2)
 
-    {
-      "source": {
-        "type": "pagofacil",
-        "integration_type": "redirect",
-        "country": "AR",
-        "payer": {
-          "name": "Bruce Wayne",
-          "email": "bruce@wayne-enterprises.com"
-        },
-        "description": "simulate Pago Fácil Demo Payment"
-      },
-      "amount": 100,
-      "currency": "ARS"
-    }
+  {
+  "source": {
+  "type": "pagofacil",
+  "integration_type": "redirect",
+  "country": "AR",
+  "payer": {
+  "name": "Bruce Wayne",
+  "email": "bruce@wayne-enterprises.com"
+  },
+  "description": "simulate Pago Fácil Demo Payment"
+  },
+  "amount": 100,
+  "currency": "ARS"
+  }
 
-    {
-      "source": {
-        "type": "pagofacil",
-        "integration_type": "direct",
-        "country": "AR",
-        "payer": {
-          "name": "Bruce Wayne",
-          "email": "bruce@wayne-enterprises.com"
-        },
-        "description": "simulate Pago Fácil Demo Payment"
-      },
-      "amount": 100,
-      "currency": "ARS"
-    }
+  {
+  "source": {
+  "type": "pagofacil",
+  "integration_type": "direct",
+  "country": "AR",
+  "payer": {
+  "name": "Bruce Wayne",
+  "email": "bruce@wayne-enterprises.com"
+  },
+  "description": "simulate Pago Fácil Demo Payment"
+  },
+  "amount": 100,
+  "currency": "ARS"
+  }
 
 ### The POST response
 
@@ -203,57 +195,56 @@ Whether you used the direct or redirect `integration_type`, you should get a `
 
 #### Response examples
 
-*   [**Redirect**](#tabs-b52bef00-36ec-4ec9-a91a-7f2dfb500f8c-1)
-*   [**Direct**](#tabs-b52bef00-36ec-4ec9-a91a-7f2dfb500f8c-2)
+- [**Redirect**](#tabs-b52bef00-36ec-4ec9-a91a-7f2dfb500f8c-1)
+- [**Direct**](#tabs-b52bef00-36ec-4ec9-a91a-7f2dfb500f8c-2)
 
-    {
-      "id": "pay_edov5e5m4zreda7hs4mnzgusze",
-      "status": "Pending",
-      "customer": {
-        "id": "cus_gghyd2m6wkgebnxvkndfwxeaji"
-      },
-      "_links": {
-        "self": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_edov5e5m4zreda7hs4mnzgusze"
-        },
-        "redirect": {
-          "href": "https://sandbox.dlocal.com/collect/pay/pay/M-b91e48a5-92e2-4726-8847-055f0ed793f1?xtid=CATH-ST-1587999296-88241435"
-        },
-        "simulator:payment-succeed": {
-          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_edov5e5m4zreda7hs4mnzgusze/succeed"
-        },
-        "simulator:payment-expire": {
-          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_edov5e5m4zreda7hs4mnzgusze/expire"
-        }
-      }
-    }
+  {
+  "id": "pay_edov5e5m4zreda7hs4mnzgusze",
+  "status": "Pending",
+  "customer": {
+  "id": "cus_gghyd2m6wkgebnxvkndfwxeaji"
+  },
+  "\_links": {
+  "self": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_edov5e5m4zreda7hs4mnzgusze"
+  },
+  "redirect": {
+  "href": "https://sandbox.dlocal.com/collect/pay/pay/M-b91e48a5-92e2-4726-8847-055f0ed793f1?xtid=CATH-ST-1587999296-88241435"
+  },
+  "simulator:payment-succeed": {
+  "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_edov5e5m4zreda7hs4mnzgusze/succeed"
+  },
+  "simulator:payment-expire": {
+  "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_edov5e5m4zreda7hs4mnzgusze/expire"
+  }
+  }
+  }
 
-    {
-      "id": "pay_mnayvzqceh7e3oriqgtiuwdfpa",
-      "status": "Pending",
-      "customer": {
-        "id": "cus_r3t4ok4e64uerf67kv5wly3lfa"
-      },
-      "_links": {
-        "self": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_mnayvzqceh7e3oriqgtiuwdfpa"
-        },
-        "simulator:payment-succeed": {
-          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_mnayvzqceh7e3oriqgtiuwdfpa/succeed"
-        },
-        "simulator:payment-expire": {
-          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_mnayvzqceh7e3oriqgtiuwdfpa/expire"
-        }
-      }
-    }
+  {
+  "id": "pay_mnayvzqceh7e3oriqgtiuwdfpa",
+  "status": "Pending",
+  "customer": {
+  "id": "cus_r3t4ok4e64uerf67kv5wly3lfa"
+  },
+  "\_links": {
+  "self": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_mnayvzqceh7e3oriqgtiuwdfpa"
+  },
+  "simulator:payment-succeed": {
+  "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_mnayvzqceh7e3oriqgtiuwdfpa/succeed"
+  },
+  "simulator:payment-expire": {
+  "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_mnayvzqceh7e3oriqgtiuwdfpa/expire"
+  }
+  }
+  }
 
-Step 2: Redirect the customer or render the ticket 
----------------------------------------------------
+## Step 2: Redirect the customer or render the ticket 
 
 To capture and complete the payment, you need to provide the customer with a Pago Fácil ticket by following one of two flows:
 
-*   If you used the `redirect` method, [redirect the customer](#PagoFácil-redirect).
-*   If you used the `direct` method, [render the ticket](#PagoFácil-render).
+- If you used the `redirect` method, [redirect the customer](#PagoFácil-redirect).
+- If you used the `direct` method, [render the ticket](#PagoFácil-render).
 
 ### Redirect the customer 
 
@@ -263,8 +254,8 @@ Using the redirection URL returned in the response above via `_links.redirect`,
 
 A button on the page will allow them to return to your shop:
 
-*   If the ticket is still valid, they will be redirected to your success URL.
-*   If the ticket has expired, they will be redirected to your failure URL.
+- If the ticket is still valid, they will be redirected to your success URL.
+- If the ticket has expired, they will be redirected to your failure URL.
 
 Your payment confirmation page should make it clear to the customer that their purchase has not yet been completed. Explain that it has been reserved and is pending payment before the order can be completed and the goods/services can be delivered.
 
@@ -278,22 +269,21 @@ To get the components necessary to render the ticket, use the ['get payment det
 
 Tips for displaying the ticket
 
-*   Separate the _ticket number_ into two groups of four digits (for example: `1234 - 1234`). It makes it easier for customers to dictate it to cashiers.
-*   Include the _currency_ and _amount_ on the ticket.
-*   Make sure the _expiry date_ is clear and visible, and use the `dd/mm/yyyy` format.
-*   Make it clear to the customer that _their payment will be credited immediately_.
-*   Include _payment instructions_ to help customers unfamiliar with the payment process.
-*   A _store locator_ is a helpful feature. Just link it to [google.com/maps/search/pagofacil/](https://www.google.com/maps/search/pagofacil).
-*   Include a _save button_ so customers can easily save the ticket on their phone.
-*   Include a _print button_ for customers who want to print their ticket.
-*   As a fallback, the `ticket` object should also contain the URL to the static, hosted Pago Fácil ticket.
+- Separate the *ticket number* into two groups of four digits (for example: `1234 - 1234`). It makes it easier for customers to dictate it to cashiers.
+- Include the *currency* and *amount* on the ticket.
+- Make sure the *expiry date* is clear and visible, and use the `dd/mm/yyyy` format.
+- Make it clear to the customer that _their payment will be credited immediately_.
+- Include *payment instructions* to help customers unfamiliar with the payment process.
+- A *store locator* is a helpful feature. Just link it to [google.com/maps/search/pagofacil/](https://www.google.com/maps/search/pagofacil).
+- Include a *save button* so customers can easily save the ticket on their phone.
+- Include a *print button* for customers who want to print their ticket.
+- As a fallback, the `ticket` object should also contain the URL to the static, hosted Pago Fácil ticket.
 
 Here's an example:
 
 ![](/download/attachments/5931466/pago_facil_ticket_example.png?version=1&modificationDate=1588759012620&api=v2)
 
-Get details about a payment 
-----------------------------
+## Get details about a payment 
 
 Using the following endpoint, pass the payment `id` (for example, `pay_hcklpcd45ymepcr7thciirbdaa`) from the payment response to get details about the payment.
 
@@ -303,8 +293,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-848933cd-defe-4f28-a154-fcfb89192d9a-1)
-*   [**Sandbox**](#tabs-848933cd-defe-4f28-a154-fcfb89192d9a-2)
+- [**Live**](#tabs-848933cd-defe-4f28-a154-fcfb89192d9a-1)
+- [**Sandbox**](#tabs-848933cd-defe-4f28-a154-fcfb89192d9a-2)
 
 GET`https://api.checkout.com/payments/{payment_id}`
 
@@ -354,90 +344,89 @@ The response will differ depending on which `integration_type` (`redirect` or
 
 #### Response examples
 
-*   [**Redirect**](#tabs-9f04f677-1951-4c2e-bd3b-e9b59f29d54d-1)
-*   [**Direct**](#tabs-9f04f677-1951-4c2e-bd3b-e9b59f29d54d-2)
+- [**Redirect**](#tabs-9f04f677-1951-4c2e-bd3b-e9b59f29d54d-1)
+- [**Direct**](#tabs-9f04f677-1951-4c2e-bd3b-e9b59f29d54d-2)
 
-    {
-      "id": "pay_edov5e5m4zreda7hs4mnzgusze",
-      "requested_on": "2020-04-27T14:54:56Z",
-      "source": {
-        "type": "pagofacil",
-        "dlocal_order_id": "9aa40b2e9f834a84ab4147d8f7b3f305",
-        "dlocal_payment_id": "D-30150-9b3ce372-6b57-4141-ba39-86b8e8aa6de6",
-        "integration_type": "redirect",
-        "description": "simulate Pago Fácil Demo Payment"
-      },
-      "amount": 100,
-      "currency": "ARS",
-      "payment_type": "Regular",
-      "status": "Pending",
-      "risk": {
-        "flagged": false
-      },
-      "customer": {
-        "id": "cus_gghyd2m6wkgebnxvkndfwxeaji"
-      },
-      "_links": {
-        "redirect": {
-          "href": "https://sandbox.dlocal.com/collect/pay/pay/M-b91e48a5-92e2-4726-8847-055f0ed793f1?xtid=CATH-ST-1587999296-88241435"
-        },
-        "simulator:payment-succeed": {
-          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_edov5e5m4zreda7hs4mnzgusze/succeed"
-        },
-        "simulator:payment-expire": {
-          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_edov5e5m4zreda7hs4mnzgusze/expire"
-        },
-        "self": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_edov5e5m4zreda7hs4mnzgusze"
-        }
-      }
-    }
+  {
+  "id": "pay_edov5e5m4zreda7hs4mnzgusze",
+  "requested_on": "2020-04-27T14:54:56Z",
+  "source": {
+  "type": "pagofacil",
+  "dlocal_order_id": "9aa40b2e9f834a84ab4147d8f7b3f305",
+  "dlocal_payment_id": "D-30150-9b3ce372-6b57-4141-ba39-86b8e8aa6de6",
+  "integration_type": "redirect",
+  "description": "simulate Pago Fácil Demo Payment"
+  },
+  "amount": 100,
+  "currency": "ARS",
+  "payment_type": "Regular",
+  "status": "Pending",
+  "risk": {
+  "flagged": false
+  },
+  "customer": {
+  "id": "cus_gghyd2m6wkgebnxvkndfwxeaji"
+  },
+  "\_links": {
+  "redirect": {
+  "href": "https://sandbox.dlocal.com/collect/pay/pay/M-b91e48a5-92e2-4726-8847-055f0ed793f1?xtid=CATH-ST-1587999296-88241435"
+  },
+  "simulator:payment-succeed": {
+  "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_edov5e5m4zreda7hs4mnzgusze/succeed"
+  },
+  "simulator:payment-expire": {
+  "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_edov5e5m4zreda7hs4mnzgusze/expire"
+  },
+  "self": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_edov5e5m4zreda7hs4mnzgusze"
+  }
+  }
+  }
 
-    {
-      "id": "pay_mnayvzqceh7e3oriqgtiuwdfpa",
-      "requested_on": "2020-04-27T14:57:08Z",
-      "source": {
-        "type": "pagofacil",
-        "dlocal_order_id": "dbbc7c685345466cbbc240c885292c12",
-        "dlocal_payment_id": "D-30150-2879065b-f8b2-4faa-a4af-aa0945473cff",
-        "integration_type": "direct",
-        "description": "simulate Pago Fácil Demo Payment",
-        "ticket": {
-          "type": "custom",
-          "number": "792945",
-          "barcode": "214100000100201240000000079294500000000036",
-          "id": "214100000100201240000000079294500000000036",
-          "expiration_date": "2020-05-04T02:59:00Z",
-          "provider_name": "pagofacil",
-          "provider_logo_url": "https://pay.dlocal.com/views/2.0/images/payments/PF.png",
-          "ticket_url": "https://sandbox.dlocal.com/gmf/payments/M-c9d35d6a-2922-4fdf-a4be-721b19e1b732"
-        }
-      },
-      "amount": 100,
-      "currency": "ARS",
-      "payment_type": "Regular",
-      "status": "Pending",
-      "risk": {
-        "flagged": false
-      },
-      "customer": {
-        "id": "cus_r3t4ok4e64uerf67kv5wly3lfa"
-      },
-      "_links": {
-        "simulator:payment-succeed": {
-          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_mnayvzqceh7e3oriqgtiuwdfpa/succeed"
-        },
-        "simulator:payment-expire": {
-          "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_mnayvzqceh7e3oriqgtiuwdfpa/expire"
-        },
-        "self": {
-          "href": "https://api.sandbox.checkout.com/payments/pay_mnayvzqceh7e3oriqgtiuwdfpa"
-        }
-      }
-    }
+  {
+  "id": "pay_mnayvzqceh7e3oriqgtiuwdfpa",
+  "requested_on": "2020-04-27T14:57:08Z",
+  "source": {
+  "type": "pagofacil",
+  "dlocal_order_id": "dbbc7c685345466cbbc240c885292c12",
+  "dlocal_payment_id": "D-30150-2879065b-f8b2-4faa-a4af-aa0945473cff",
+  "integration_type": "direct",
+  "description": "simulate Pago Fácil Demo Payment",
+  "ticket": {
+  "type": "custom",
+  "number": "792945",
+  "barcode": "214100000100201240000000079294500000000036",
+  "id": "214100000100201240000000079294500000000036",
+  "expiration_date": "2020-05-04T02:59:00Z",
+  "provider_name": "pagofacil",
+  "provider_logo_url": "https://pay.dlocal.com/views/2.0/images/payments/PF.png",
+  "ticket_url": "https://sandbox.dlocal.com/gmf/payments/M-c9d35d6a-2922-4fdf-a4be-721b19e1b732"
+  }
+  },
+  "amount": 100,
+  "currency": "ARS",
+  "payment_type": "Regular",
+  "status": "Pending",
+  "risk": {
+  "flagged": false
+  },
+  "customer": {
+  "id": "cus_r3t4ok4e64uerf67kv5wly3lfa"
+  },
+  "\_links": {
+  "simulator:payment-succeed": {
+  "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_mnayvzqceh7e3oriqgtiuwdfpa/succeed"
+  },
+  "simulator:payment-expire": {
+  "href": "http://sb-gateway-internal.cko.lon/dlocal-internal/pagofacil/payments/pay_mnayvzqceh7e3oriqgtiuwdfpa/expire"
+  },
+  "self": {
+  "href": "https://api.sandbox.checkout.com/payments/pay_mnayvzqceh7e3oriqgtiuwdfpa"
+  }
+  }
+  }
 
-Refunds and chargebacks
------------------------
+## Refunds and chargebacks
 
 ### Refund a payment
 
@@ -453,8 +442,7 @@ A refund processing fee may apply.
 
 There is no chargeback mechanism for Pago Fácil.
 
-Webhooks
---------
+## Webhooks
 
 Webhooks
 
@@ -498,13 +486,12 @@ Sent when a refund is declined.
 
 Learn more about [webhooks and how to subscribe to them](/display/DOCS/Webhooks).
 
-Testing
--------
+## Testing
 
 To start testing, you'll need to:
 
-*   [create a test account](https://www.checkout.com/get-test-account), and
-*   contact your Customer Success Manager or Integrations engineer to activate Pago Fácil payments in the sandbox environment.
+- [create a test account](https://www.checkout.com/get-test-account), and
+- contact your Customer Success Manager or Integrations engineer to activate Pago Fácil payments in the sandbox environment.
 
 In your sandbox environment, you can test payment capture and expiration, as well as refund success and failure.
 

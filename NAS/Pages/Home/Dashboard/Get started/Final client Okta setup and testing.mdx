@@ -5,34 +5,22 @@ account: NAS
 
 This page describes the final steps you need to take as an Okta administrator in order to configure SSO for Checkout.com.
 
-**Step 1:** Finalize the SAML settings
---------------------------------------
+## **Step 1:** Finalize the SAML settings
 
-1.  Go to the Checkout.com SAML application you previously created.
-2.  Click **General > SAML Settings > Edit > Next**.
-3.  Replace the placeholder values for the **Single Sign-On URL** and the **Audience URI** with the parameters we previously shared with you.
-4.  Click **Next**, then **Finish**.
+. Go to the Checkout.com SAML application you previously created. 2. Click **General > SAML Settings > Edit > Next**. 3. Replace the placeholder values for the **Single Sign-On URL** and the **Audience URI** with the parameters we previously shared with you. 4. Click **Next**, then **Finish**.
 
-**Step 2:** Assign the Checkout.com application to users
---------------------------------------------------------
+## **Step 2:** Assign the Checkout.com application to users
 
-1.  Go back to the Checkout.com application and click **Assignments > Assign to Groups**.
-2.  Assign the groups defined in the previous steps to the application.
+. Go back to the Checkout.com application and click **Assignments > Assign to Groups**. 2. Assign the groups defined in the previous steps to the application.
 
-**Step 3:** Test the two types of login
----------------------------------------
+## **Step 3:** Test the two types of login
 
-To test the Okta end-user dashboard (IDP-initiated login):
-----------------------------------------------------------
+## To test the Okta end-user dashboard (IDP-initiated login):
 
-1.  While logged in as a permitted user, check that a Checkout.com application is visible on the corporate Okta dashboard.
-2.  Click on the application. If everything is working correctly, it should authenticate you and redirect you to Checkout.com.
+. While logged in as a permitted user, check that a Checkout.com application is visible on the corporate Okta dashboard. 2. Click on the application. If everything is working correctly, it should authenticate you and redirect you to Checkout.com.
 
-To test the Checkout.com login page (SP-initiated login):
----------------------------------------------------------
+## To test the Checkout.com login page (SP-initiated login):
 
-1.  Go to either:  
-    *   [https://dashboard.checkout.com](https://dashboard.checkout.com/) (production)
-    *   [https://dashboard.sandbox.checkout.com](https://dashboard.sandbox.checkout.com/) (sandbox)
-2.  Complete the **Email address** field, then click **Next**. A **Single-Sign On** button is displayed.
-3.  Click on it. If everything is working correctly, it should redirect to Checkout.com.
+. Go to either:  
+ _ [https://dashboard.checkout.com](https://dashboard.checkout.com/) (production)
+_ [https://dashboard.sandbox.checkout.com](https://dashboard.sandbox.checkout.com/) (sandbox) 2. Complete the **Email address** field, then click **Next**. A **Single-Sign On** button is displayed. 3. Click on it. If everything is working correctly, it should redirect to Checkout.com.

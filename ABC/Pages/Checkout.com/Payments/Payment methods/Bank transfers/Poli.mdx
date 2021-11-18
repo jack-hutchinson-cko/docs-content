@@ -7,23 +7,19 @@ Start accepting payments using Poli, a favorite payment method in Australia and 
 
 To start accepting Poli payments, please contact your Customer Success Manager.
 
-Overview
---------
+## Overview
 
 Poli payments follow a two-step process:
+. [Request a payment](#Poli-requestapayment) 2. [Redirect the customer](#Poli-redirectthecustomer)
 
-1.  [Request a payment](#Poli-requestapayment)
-2.  [Redirect the customer](#Poli-redirectthecustomer)
-
-Request a payment 
-------------------
+## Request a payment 
 
 ### The POST request
 
 #### Endpoints
 
-*   [**Live**](#tabs-35887174-e0ab-4e42-a7c0-08b4f2335d44-1)
-*   [**Sandbox**](#tabs-35887174-e0ab-4e42-a7c0-08b4f2335d44-2)
+- [**Live**](#tabs-35887174-e0ab-4e42-a7c0-08b4f2335d44-1)
+- [**Sandbox**](#tabs-35887174-e0ab-4e42-a7c0-08b4f2335d44-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -131,15 +127,13 @@ If a payment `id` is returned, then your request was successful.
       }
     }
 
-Redirect the customer 
-----------------------
+## Redirect the customer 
 
 Redirect your customer to the `redirect` link’s href in the above response. The redirect transfers the customer to their bank's website where they are required to enter their authorization details; if successful, the payment can be approved.
 
-Once completed, the customer is transferred to your predefined success or failure URL. Confirmation of a Poli payment is **communicated only through webhooks**. When you receive a `payment_captured` webhook notification, the transaction has been completed successfully. Until the `payment_captured` webhook is received (response code `10000`), all payments are labeled as _Pending_.
+Once completed, the customer is transferred to your predefined success or failure URL. Confirmation of a Poli payment is **communicated only through webhooks**. When you receive a `payment_captured` webhook notification, the transaction has been completed successfully. Until the `payment_captured` webhook is received (response code `10000`), all payments are labeled as *Pending*.
 
-Get details about a payment
----------------------------
+## Get details about a payment
 
 You can retrieve details about an existing Poli payment with the following endpoint.
 
@@ -147,8 +141,8 @@ You can retrieve details about an existing Poli payment with the following endpo
 
 #### Endpoints
 
-*   [**Live**](#tabs-6f54ba41-993e-43cc-b1c8-0fd9310afb24-1)
-*   [**Sandbox**](#tabs-6f54ba41-993e-43cc-b1c8-0fd9310afb24-2)
+- [**Live**](#tabs-6f54ba41-993e-43cc-b1c8-0fd9310afb24-1)
+- [**Sandbox**](#tabs-6f54ba41-993e-43cc-b1c8-0fd9310afb24-2)
 
 GET`https://api.checkout.com/payments/{payment_id}`
 
@@ -219,23 +213,20 @@ The payment ID found in the response of the initial payment.
       }
     }
 
-Cancel a payment
-----------------
+## Cancel a payment
 
 If the customer cancels or fails to complete the transaction at any point after the payment is created, it will automatically be voided, and we'll send you a `payment_voided` webhook.
 
-Testing Poli
-------------
+## Testing Poli
 
 To start testing, you'll need to:
 
-*   [create a test account](https://www.checkout.com/get-test-account), and
-*   contact your Customer Success Manager or Integrations engineer to activate Poli payments in the sandbox environment.
+- [create a test account](https://www.checkout.com/get-test-account), and
+- contact your Customer Success Manager or Integrations engineer to activate Poli payments in the sandbox environment.
+  . Create a Poli transaction as above, following the redirect link in the response to Poli's website.
 
-1.  Create a Poli transaction as above, following the redirect link in the response to Poli's website.
 2.  Select **iBank AU 01** from the dropdown menu and click **Continue**.
 3.  Log in with the following details:
-    *   **Username**: `DemoShopper`
-    *   **Password**: `DemoShopper`
-4.  Select **Savings (123456) 98742364** from the dropdown menu and click **Continue**.
-5.  Click **Confirm** to complete the payment. You should then be redirected to your predefined success page.
+    - **Username**: `DemoShopper`
+    - **Password**: `DemoShopper`. Select **Savings (123456) 98742364** from the dropdown menu and click **Continue**.
+4.  Click **Confirm** to complete the payment. You should then be redirected to your predefined success page.

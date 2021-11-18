@@ -3,31 +3,12 @@ title: payment-tokens
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 A payment token can only be created using a secret key. It is a snapshot of payment information that securely isolates the transaction value and currency of a payment. Payment tokens expire after 15 minutes. If a payment is not completed in that time, its Payment Token will no longer be available to use. We advise adding optional custom metadata (e.g. order number) to a payment token, which can be later used to verify the authenticity of a transaction further.
-
-x
 
 Add Row Add Col
 
 |     |     |
 | --- | --- |
 
-|
-\`id\` <span class="field-type">String</span>
-
-|
-
-The unique identifier of a payment token (prefixed with pay_tok\_).
-
-|
-|
-
-\`livemode\` <span class="field-type">Boolean</span>
-
-|
-
-\* \`true\` if live keys were used in the request. \* \`false\` if test keys were used in the request.
-
-|
+| `id` <span class="field-type">String</span> | The unique identifier of a payment token (prefixed with pay*tok*). |
+| `livemode` <span class="field-type">Boolean</span> | - `true` if live keys were used in the request. \* `false` if test keys were used in the request. |

@@ -3,23 +3,13 @@ title: requirements-for-financial-institutions
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+Due to requirements implemented by :fa-cc-visa: Visa and :fa-cc-mastercard: Mastercard Europe, any business categorized as a financial institution (MCC 6012) must provide additional information when processing any** domestic UK transaction** (transactions for customers based in the UK) through their account. The scope for these changes varies slightly between Visa and Mastercard: _ **Visa** Applies to all merchants categorized as MCC 6012 on all payments. _ **Mastercard**: Applies only to merchants categorized as MCC 6012 for domestic UK debit card payments being used to pay off a credit- or prepaid card.
 
-Due to requirements implemented by :fa-cc-visa: Visa and :fa-cc-mastercard: Mastercard Europe, any business categorized as a financial institution (MCC 6012) must provide additional information when processing any\*\* domestic UK transaction\*\* (transactions for customers based in the UK) through their account. The scope for these changes varies slightly between Visa and Mastercard: \* \*\*Visa\*\* Applies to all merchants categorized as MCC 6012 on all payments. \* \*\*Mastercard\*\*: Applies only to merchants categorized as MCC 6012 for domestic UK debit card payments being used to pay off a credit- or prepaid card.
+For **Mastercard payments** or payments involving **a full card number,** merchants categorized as a financial institution must be fully PCI compliant (SAQ D PCI).
 
-For \*\*Mastercard payments\*\* or payments involving \*\*a full card number,\*\* merchants categorized as a financial institution must be fully PCI compliant (SAQ D PCI).
-
-\## What is a financial institution? The term financial institution encapsulates businesses that, for example, issue payday loans, handle mortgage repayments, or facilitate the paying off of credit card balances. These are businesses that fall under the Merchant Category Code 6012. If your business falls into this area, you will be \*\*required\*\* to submit additional information with all your UK transactions. ## What do I need to do? If your company is a financial institution, you \*\*must provide further information\*\*, when processing a \*\*domestic UK transaction\*\* with us, about the primary recipient of the funds. Additional fields needed for financial institutions: The primary recipient's... \* Date of Birth \* Account number \* Postcode \* Surname ## Example request
+## What is a financial institution? The term financial institution encapsulates businesses that, for example, issue payday loans, handle mortgage repayments, or facilitate the paying off of credit card balances. These are businesses that fall under the Merchant Category Code 6012. If your business falls into this area, you will be **required** to submit additional information with all your UK transactions. ## What do I need to do? If your company is a financial institution, you **must provide further information**, when processing a **domestic UK transaction** with us, about the primary recipient of the funds. Additional fields needed for financial institutions: The primary recipient's... _ Date of Birth _ Account number _ Postcode _ Surname ## Example request
 
 JSON
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
 
 "recipientDetails": {
 
@@ -27,27 +17,15 @@ xxxxxxxxxx
 
 "dob" : "19911230",
 
-3
-
 "accountNumber" : "8573498821",
-
-4
 
 "partialPostcode" : "W1T",
 
-5
-
 "surname" : "Smith"
-
-6
 
 }
 
-Import from Gist
-
-\## Field parameters
-
-x
+## Field parameters
 
 Add Row Add Col
 
@@ -55,7 +33,7 @@ Add Row Add Col
 | --- | --- | --- | --- |
 
 |
-\`accountNumber\` <span class="field-type">String</span> <span class="req-def">Required</span>
+`accountNumber` <span class="field-type">String</span> <span class="req-def">Required</span>
 
 |
 
@@ -72,15 +50,14 @@ Add Row Add Col
 |
 |
 
-\`dob\` <span class="field-type">String</span> <span class="req-def">Required</span>
+`dob` <span class="field-type">String</span> <span class="req-def">Required</span>
 
 |
 
-The date of birth of the primary recipient in the following format: \`yyyymmdd\`
+The date of birth of the primary recipient in the following format: `yyyymmdd`
 
 |
-
-19911230
+9911230
 
 |
 
@@ -89,7 +66,7 @@ The date of birth of the primary recipient in the following format: \`yyyymmdd\`
 |
 |
 
-\`partialPostcode\` <span class="field-type">String</span> <span class="req-def">Required</span>
+`partialPostcode` <span class="field-type">String</span> <span class="req-def">Required</span>
 
 |
 
@@ -101,12 +78,10 @@ W1T
 
 |
 
-6
-
 |
 |
 
-\`surname\` <span class="field-type">String</span> <span class="req-def">Required</span>
+`surname` <span class="field-type">String</span> <span class="req-def">Required</span>
 
 |
 
@@ -117,7 +92,5 @@ The first six characters of the primary recipient’s surname. Only alphabetic c
 Smith
 
 |
-
-6
 
 |

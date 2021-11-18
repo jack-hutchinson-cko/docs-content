@@ -9,8 +9,7 @@ This guide explains how to get started with our plugin.
 
 This guide assumes you have SAP Commerce Cloud 19.05 and the SAP B2C Accelerator installed.
 
-Before you start
-----------------
+## Before you start
 
 ### Create a test account
 
@@ -19,22 +18,15 @@ If you haven't already, [create a test Checkout.com account](https://www.checko
 ### Get your API keys
 
 To set up the SAP Commerce Connector, you'll need three API keys: a secret one, a public one, and a private shared one. The first two are generated automatically when you create your account. The last one is generated when you create a webhook for your business.
+. Log in to your test account on the [Hub sandbox](https://sandbox.checkout.com/). 2. In the left menu, go to *Settings > Channels*, and make a note of your secret and public API keys.![](/download/attachments/8486988/channel_settings.png?version=1&modificationDate=1591353688884&api=v2) 3. Scroll down to the *Webhooks* section of the page and click **New webhook**. 4. Enter the following URL, replacing `[example.com](http://example.com)` with the URL of your shop: `[example.com/checkout_com/webhook/callback](http://example.com/checkout_com/webhook/callback)`. (A webhook URL specific to your installation is available in the *Account Settings* section of the plugin configuration panel.)
 
-1.  Log in to your test account on the [Hub sandbox](https://sandbox.checkout.com/).
-2.  In the left menu, go to _Settings > Channels_, and make a note of your secret and public API keys.![](/download/attachments/8486988/channel_settings.png?version=1&modificationDate=1591353688884&api=v2)
-3.  Scroll down to the _Webhooks_ section of the page and click **New webhook**.
-4.  Enter the following URL, replacing `[example.com](http://example.com)` with the URL of your shop: `[example.com/checkout_com/webhook/callback](http://example.com/checkout_com/webhook/callback)`. (A webhook URL specific to your installation is available in the _Account Settings_ section of the plugin configuration panel.)
-    
     Correctly configuring your webhooks is important; if they're incorrectly formatted, the plugin will not work.
-    
-5.  Select **API - v2.0**.
-6.  Tick **Select all**, then click **Create webhook**.  
-    ![](/download/attachments/8486988/create_webhook-magento-2.png?version=1&modificationDate=1591353689003&api=v2)
-7.  Click on the webhook you just created, and make a note of the private shared API key.  
-    ![](/download/attachments/8486988/webhook%E2%80%93magento-2.png?version=1&modificationDate=1591353689032&api=v2)
 
-Payment method configuration
-----------------------------
+. Select **API - v2.0**. 6. Tick **Select all**, then click **Create webhook**.  
+ ![](/download/attachments/8486988/create_webhook-magento-2.png?version=1&modificationDate=1591353689003&api=v2) 7. Click on the webhook you just created, and make a note of the private shared API key.  
+ ![](/download/attachments/8486988/webhook%E2%80%93magento-2.png?version=1&modificationDate=1591353689032&api=v2)
+
+## Payment method configuration
 
 As summarised by the table below, the visibility (availability) of the payment methods in SAP Commerce Cloud is defined by three attributes:
 
@@ -60,9 +52,7 @@ Currency
 
 Apart from card payments (available for all countries), other payment methods can be configured to have currency restrictions applied. If the list is empty, there is no restriction at all. Otherwise, the payment method will be available for customers whose shopping cart currency is included in the list.
 
-  
-
- Payment type breakdown
+Payment type breakdown
 
 **Payment Type**
 
@@ -84,8 +74,6 @@ N/A
 
 YES
 
-  
-
 NO
 
 N/A
@@ -104,8 +92,6 @@ YES
 
 YES
 
-  
-
 YES
 
 NO
@@ -113,8 +99,6 @@ NO
 YES
 
 NO
-
-  
 
 YES
 
@@ -124,8 +108,6 @@ NO
 
 NO
 
-  
-
 YES
 
 NO
@@ -133,8 +115,6 @@ NO
 NO
 
 NO
-
-  
 
 NO
 
@@ -154,8 +134,6 @@ N/A
 
 Decided by Apple Pay
 
-  
-
 NO
 
 N/A
@@ -174,8 +152,6 @@ N/A
 
 Decided by Google Pay
 
-  
-
 NO
 
 N/A
@@ -184,23 +160,13 @@ N/A
 
 NO
 
-Install the plugin
-------------------
+## Install the plugin
 
-1.  [Download the latest Checkout.com SAP Commerce Connector](https://store.sap.com/dcp/en/product/display-0000059364_live_v1/Checkout.com%20Payments%20for%20SAP%20Commerce%20Cloud). This contains the installer recipes and connector extensions.
-2.  Unzip the Connector .zip file.
-3.  Copy the extracted folders to the `HYBRIS_ROOT` of your Hybris installation.
-4.  Remove the SAP Commerce fulfilment extension `yacceleratorfulfilmentprocess` from `localextensions.xml`, as the connector will handle the fulfilment using the `checkoutfulfilmentprocess` extension.
-5.  Run the `ant clean` command from within your Hybris `bin/platform` directory.
-6.  Edit your `localextensions.xml` and add the following: 
+. [Download the latest Checkout.com SAP Commerce Connector](https://store.sap.com/dcp/en/product/display-0000059364_live_v1/Checkout.com%20Payments%20for%20SAP%20Commerce%20Cloud). This contains the installer recipes and connector extensions. 2. Unzip the Connector .zip file. 3. Copy the extracted folders to the `HYBRIS_ROOT` of your Hybris installation. 4. Remove the SAP Commerce fulfilment extension `yacceleratorfulfilmentprocess` from `localextensions.xml`, as the connector will handle the fulfilment using the `checkoutfulfilmentprocess` extension. 5. Run the `ant clean` command from within your Hybris `bin/platform` directory. 6. Edit your `localextensions.xml` and add the following:
 
     <path autoload="true" dir="${HYBRIS_BIN_DIR}/modules/checkoutcom"/>
 
-  
-
 The extensions do not rely on any absolute paths, so you can place the extensions in a different location (such as `${HYBRIS_BIN_DIR}/custom`).
-
-  
 
 7.  Run the following commands to install the add-ons to the yaccelatorstorefront (you can replace yaccelatorstorefront with your custom storefront).
 
@@ -209,17 +175,15 @@ The extensions do not rely on any absolute paths, so you can place the extension
 ### Add Checkout sample data add-on (optional)
 
 The Checkout sample data add-on is optional and allows you to add fields to the checkout page, which can be used to gather information from your customers, upsell services and products, and much more. To install:
-
-1.  Run the following code:
+. Run the following code:
 
     ant addoninstall -Daddonnames="checkoutsampledataaddon"
     -DaddonStorefront.yacceleratorstorefront="yacceleratorstorefront"
 
-3.  Run the `ant clean all` command from within your Hybris bin/platform directory.
-4.  Run the `hybrisserver.sh` command to start up the Hybris server.
-5.  Update your running system using `ant updatesystem`.
+3.  Run the `ant clean all` command from within your Hybris bin/platform directory.. Run the `hybrisserver.sh` command to start up the Hybris server.
+4.  Update your running system using `ant updatesystem`.
 
-After setting up the hosts file, the connector will work initially without any external setup needed, because the Checkout sample data add-on will provide all the required data for the accelerator’s electronics and apparel stores. 
+After setting up the hosts file, the connector will work initially without any external setup needed, because the Checkout sample data add-on will provide all the required data for the accelerator’s electronics and apparel stores.
 
 The add-ons are independent and can be installed on separate server instances.
 
@@ -233,30 +197,20 @@ In order to install the add-on using one of the recipes detailed in that folder,
 
     # This will create a solution from the accelerator templates, and install the addons.
     HYBRIS_HOME/installer$ ./install.sh -r [RECIPE_NAME] setup
-    
+
     # This will build and initialize the platform
     HYBRIS_HOME/installer$ ./install.sh -r [RECIPE_NAME] initialize
-    
+
     # This will start a commerce suite instance
     HYBRIS_HOME/installer$ ./install.sh -r [RECIPE_NAME] start
 
-Configure the global settings of the plugin
--------------------------------------------
+## Configure the global settings of the plugin
 
 Our SAP Commerce Connector plugin supports multiple Checkout.com channels, where a different website is connected to each channel. So, if you have multiple websites running on SAP Commerce Cloud, you can have a different configuration for each one and keep the payment transaction separate.
+. In the 'Secret keys' tab, enter your public key, secret key, and private shared key. 2. In the 'Global Settings' tab, set the environment to **Test,** so you can start testing payments. (You will need to change this to **Production** when you're ready to go live.) 3. Still in the 'Global Settings' tab, select the payment action you want.  1. \***\*Authorize\*\*** will only authorize the charge; you have to manually capture the payment yourself.  2. **Authorize and Capture** means that the charge is authorized and captured (i.e., the money due from the customer's account is moved into your account) at the same time. If you're unsure, **Authorize and Capture** is probably the right choice.
+. In the same tab, there are three more fields you can fill in: - Review transactions at risk: If true, payment events coming from Checkout.com that have risk flag set to true will be created with transaction status **REVIEW**. Otherwise, the payment status will be **ACCEPTED**. - Authorization amount validation threshold: This is used to determine whether the authorization amount reflects the value of the order. This is the allowed difference of the amounts that may exist due to the way the amounts are calculated. Increase it if you observe false positives in your integration. - Billing descriptor: If set to true, the payment requests made will contain the billing descriptor name and city you have specified. If false, no billing descriptor will be sent.
 
-1.  In the 'Secret keys' tab, enter your public key, secret key, and private shared key.
-2.  In the 'Global Settings' tab, set the environment to **Test,** so you can start testing payments. (You will need to change this to **Production** when you're ready to go live.)
-3.  Still in the 'Global Settings' tab, select the payment action you want. 
-    1.  ****Authorize**** will only authorize the charge; you have to manually capture the payment yourself. 
-    2.  **Authorize and Capture** means that the charge is authorized and captured (i.e., the money due from the customer's account is moved into your account) at the same time. If you're unsure, **Authorize and Capture** is probably the right choice.  
-        
-4.  In the same tab, there are three more fields you can fill in:
-    *   Review transactions at risk: If true, payment events coming from Checkout.com that have risk flag set to true will be created with transaction status **REVIEW**. Otherwise, the payment status will be **ACCEPTED**.
-    *   Authorization amount validation threshold: This is used to determine whether the authorization amount reflects the value of the order. This is the allowed difference of the amounts that may exist due to the way the amounts are calculated. Increase it if you observe false positives in your integration.
-    *   Billing descriptor: If set to true, the payment requests made will contain the billing descriptor name and city you have specified. If false, no billing descriptor will be sent.
-
-That's it! You're ready to start testing card payments.  
+That's it! You're ready to start testing card payments.
 
 ### Set up webhooks
 
@@ -264,23 +218,21 @@ We will send payment events for all the webhooks configured in the Hub. There sh
 
 The connector **requires** the following events to be sent:
 
-*   `payment_approved`
-*   `payment_pending`
-*   `payment_declined`
-*   `payment_expired`
-*   `payment_canceled`
-*   `payment_voided`
-*   `payment_void_declined`
-*   `payment_captured`
-*   `payment_capture_declined`
-*   `payment_refunded`
-*   `payment_refund_declined`
+- `payment_approved`
+- `payment_pending`
+- `payment_declined`
+- `payment_expired`
+- `payment_canceled`
+- `payment_voided`
+- `payment_void_declined`
+- `payment_captured`
+- `payment_capture_declined`
+- `payment_refunded`
+- `payment_refund_declined`
 
 This is reflecting your `checkoutComPaymentEventTypes` configuration property. If the webhook in the Hub sends more events, they will be ignored by the event receiver.
 
-  
-Next steps
--------------
+## Next steps
 
 #### [Extend your configuration](/display/DOCS/Go+further+with+SAP+Commerce+Cloud)
 

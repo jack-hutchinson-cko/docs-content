@@ -7,23 +7,19 @@ Start accepting payments using QPay, a favorite payment method in Qatar.
 
 To start accepting QPay payments, please contact your Customer Success Manager.
 
-Overview
---------
+## Overview
 
 QPay payments follow a two-step process:
+. [Request a QPay payment](#QPay-requestapayment) 2. [Redirect the customer](https://docs.checkout.com/payment-methods/cards/qpay#QPay-Redirectthecustomerredirectthecustomer)
 
-1.  [Request a QPay payment](#QPay-requestapayment)
-2.  [Redirect the customer](https://docs.checkout.com/payment-methods/cards/qpay#QPay-Redirectthecustomerredirectthecustomer)
-
-Request a payment
------------------
+## Request a payment
 
 ### The POST request
 
 #### Endpoints
 
-*   [**Live**](#tabs-f73f24bb-725a-4bfd-9320-b2a2b93216f8-1)
-*   [**Sandbox**](#tabs-f73f24bb-725a-4bfd-9320-b2a2b93216f8-2)
+- [**Live**](#tabs-f73f24bb-725a-4bfd-9320-b2a2b93216f8-1)
+- [**Sandbox**](#tabs-f73f24bb-725a-4bfd-9320-b2a2b93216f8-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -150,7 +146,6 @@ Maximum of 32 characters.
         "national_id": "070AYY010BU234M"
       }
     }
-    
 
 ### The POST response
 
@@ -173,15 +168,12 @@ If you receive a `202 Success` response with a `status` field set to `Pendi
         }
       }
     }
-    
 
-Redirect the customer
----------------------
+## Redirect the customer
 
 Redirect your customer to the `redirect` link’s href in the response. This will allow the customer to authorize the payment, before they are transferred to your predefined success or failure URL.
 
-Get details about a payment
----------------------------
+## Get details about a payment
 
 You can use the `payment_id` found in the payment response, or the `cko-session-id` from the success/failure URL (e.g., `https://www.checkout.com/order/succeeded?cko-session-id=**sid_vii64oquze5u3h2x6hh4rurc4y**`) to retrieve details about the payment.
 
@@ -193,8 +185,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-330de095-3ef7-47b5-9740-b1b5c78c686c-1)
-*   [**Sandbox**](#tabs-330de095-3ef7-47b5-9740-b1b5c78c686c-2)
+- [**Live**](#tabs-330de095-3ef7-47b5-9740-b1b5c78c686c-1)
+- [**Sandbox**](#tabs-330de095-3ef7-47b5-9740-b1b5c78c686c-2)
 
 GET`https://api.checkout.com/payments/{payment_id}`
 
@@ -277,52 +269,48 @@ The payment ID found in the response of the initial response.
       }
     }
 
-Refund a payment
-----------------
+## Refund a payment
 
 QPay supports both partial and full refunds. You can refund a payment through the [Hub](https://hub.checkout.com/v2) or by using the [refund API](/display/DOCS/Refund+a+payment).
 
-Cancel a payment
-----------------
+## Cancel a payment
 
 If the customer fails to complete their payment, we will automatically void the payment and send a `payment_expired` webhook.
 
 If the customer cancels their payment, we will send a `payment_canceled` webhook.
 
-Testing QPay
-------------
+## Testing QPay
 
 To start testing, you'll need to:
 
-*   [create a test account](https://www.checkout.com/get-test-account), and
-*   contact your Customer Success Manager or Integrations engineer to activate QPay payments in the sandbox environment.
+- [create a test account](https://www.checkout.com/get-test-account), and
+- contact your Customer Success Manager or Integrations engineer to activate QPay payments in the sandbox environment.
+  . Create a QPay transaction as above, following the redirect link in the response to QPay's website.
 
-1.  Create a QPay transaction as above, following the redirect link in the response to QPay's website.
 2.  Enter the details of one of our test cards:
-    
+
     Card number
-    
+
     Expiry date
-    
+
     PIN
-    
+
     Card number
-    
+
     Expiry date
-    
+
     PIN
-    
+
     `4166 3904 1957 0368`
-    
+
     `06/2022`
-    
+
     (any PIN)
-    
+
     `4215 3755 0088 3243`
-    
+
     (any future date)
-    
+
     `123456`
-    
-3.  Click **Pay**. You should then be redirected to your predefined success URL.  
-    
+
+3.  Click **Pay**. You should then be redirected to your predefined success URL.

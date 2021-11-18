@@ -5,10 +5,8 @@ account: NAS
 
 #### Basic information
 
-*   [**Local**](#tabs-b3b4dff3-60e6-4384-97ac-0280c3825607-1)
-*   [**International**](#tabs-b3b4dff3-60e6-4384-97ac-0280c3825607-2)
-
-  
+- [**Local**](#tabs-b3b4dff3-60e6-4384-97ac-0280c3825607-1)
+- [**International**](#tabs-b3b4dff3-60e6-4384-97ac-0280c3825607-2)
 
 Country code
 
@@ -22,17 +20,15 @@ Scheme
 
 Local:
 
-*   **Minimum amount (local currency):** 17
-*   **Maximum amount (local currency):** 8,800
-*   **Settlement:** T+1 next day
+- **Minimum amount (local currency):** 17
+- **Maximum amount (local currency):** 8,800
+- **Settlement:** T+1 next day
 
 #### Payment information
 
- Individual
+Individual
 
 #### Beneficiary information
-
-  
 
 Beneficiary type
 
@@ -64,14 +60,6 @@ Beneficiary address
 
 The account holder's address.
 
-  
-
-  
-
-  
-
-  
-
 `account_holder.billing_address.address_line1`
 
 REQUIRED
@@ -106,8 +94,6 @@ This must be a [two-letter ISO code](/display/DOCS/Country+codes).
 
 #### Bank details
 
-  
-
 Account number
 
 The account holder's account number (Código de Cuenta Interbancario, or CCI).
@@ -116,7 +102,7 @@ The account holder's account number (Código de Cuenta Interbancario, or CCI).
 
 REQUIRED
 
-STRING, ^\[0-9\]{20,20}$
+STRING, ^[0-9]{20,20}$
 
 SWIFT BIC
 
@@ -126,13 +112,11 @@ The account holder's SWIFT BIC.
 
 REQUIRED
 
-STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+STRING, ^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$
 
- Corporate
+Corporate
 
 #### Beneficiary information
-
-  
 
 Beneficiary type
 
@@ -158,14 +142,6 @@ Beneficiary address
 
 The account holder's address.
 
-  
-
-  
-
-  
-
-  
-
 `account_holder.billing_address.address_line1`
 
 REQUIRED
@@ -200,8 +176,6 @@ This must be a [two-letter ISO code](/display/DOCS/Country+codes).
 
 #### Bank details
 
-  
-
 Account number
 
 The account holder's account number (Código de Cuenta Interbancario, or CCI).
@@ -224,58 +198,56 @@ STRING, 8 OR 11 CHARACTERS
 
 #### Example
 
-*   [**Payment instrument request (PEN)**](#tabs-510ba8e2-e2b7-41a7-a84e-2b2ae32466f4-1)
-*   [**Payout request (PEN)**](#tabs-510ba8e2-e2b7-41a7-a84e-2b2ae32466f4-2)
+- [**Payment instrument request (PEN)**](#tabs-510ba8e2-e2b7-41a7-a84e-2b2ae32466f4-1)
+- [**Payout request (PEN)**](#tabs-510ba8e2-e2b7-41a7-a84e-2b2ae32466f4-2)
 
-    {
-      "type": "bank_account",
-      "account_type": "current",
-      "account_number": "00219412966239701592",
-      "swift_bic": "BCPLPEP1L",
-      "currency": "PEN",
-      "country": "PE",
-      "account_holder": {
-        "type": "individual",
-        "first_name": "John",
-        "last_name": "Smith",
-        "address_line1": "Avenida Ayacucho 1113",
-        "address_city": "Lima",
-        "country_code": "PE",
-        "billing_address": {
-          "address_line1": "Avenida Ayacucho 1113",
-          "country": "PE",
-          "city": "Lima"
-        }
-      }
-    }
-    
+  {
+  "type": "bank_account",
+  "account_type": "current",
+  "account_number": "00219412966239701592",
+  "swift_bic": "BCPLPEP1L",
+  "currency": "PEN",
+  "country": "PE",
+  "account_holder": {
+  "type": "individual",
+  "first_name": "John",
+  "last_name": "Smith",
+  "address_line1": "Avenida Ayacucho 1113",
+  "address_city": "Lima",
+  "country_code": "PE",
+  "billing_address": {
+  "address_line1": "Avenida Ayacucho 1113",
+  "country": "PE",
+  "city": "Lima"
+  }
+  }
+  }
 
-    {
-      "currency": "PEN",
-      "source": {
-        "amount": 1801,
-        "type": "currency_account",
-        "id": "ca_5cu5s2vaxfnefon7x7tp5e4xwy"
-      },
-      "reference": "CKO Test",
-      "destination": {
-        "type": "id",
-        "id": "src_ooopstjow7gebkwne6iqr6nahu"
-      },
-      "billing_descriptor": {
-        "reference": "CKO Test"
-      },
-      "sender": {
-        "type": "instrument",
-        "reference": "123",
-        "first_name": "John",
-        "last_name": "Smith"        
-      },
-      "instruction": {
-        "purpose": "CKO Test PE/PEN"
-      },
-      "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
-    }
-    
+  {
+  "currency": "PEN",
+  "source": {
+  "amount": 1801,
+  "type": "currency_account",
+  "id": "ca_5cu5s2vaxfnefon7x7tp5e4xwy"
+  },
+  "reference": "CKO Test",
+  "destination": {
+  "type": "id",
+  "id": "src_ooopstjow7gebkwne6iqr6nahu"
+  },
+  "billing_descriptor": {
+  "reference": "CKO Test"
+  },
+  "sender": {
+  "type": "instrument",
+  "reference": "123",
+  "first_name": "John",
+  "last_name": "Smith"  
+   },
+  "instruction": {
+  "purpose": "CKO Test PE/PEN"
+  },
+  "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
+  }
 
 Coming soon.

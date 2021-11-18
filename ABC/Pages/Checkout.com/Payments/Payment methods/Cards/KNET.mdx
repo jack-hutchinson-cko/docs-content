@@ -7,23 +7,19 @@ Start accepting payments using KNET debit cards, the leading payment method in K
 
 To start accepting KNET payments, please contact your Customer Success Manager.
 
-Overview
---------
+## Overview
 
 KNET payments follow a two-step process:
+. [Request a KNET payment](#KNET-requestapayment) 2. [Redirect the customer](#KNET-redirectthecustomer)
 
-1.  [Request a KNET payment](#KNET-requestapayment)
-2.  [Redirect the customer](#KNET-redirectthecustomer)
-
-Request a payment
------------------
+## Request a payment
 
 ### The POST request
 
 #### Endpoints
 
-*   [**Live**](#tabs-ce9ac0a2-85ba-45e4-9820-60b8854e3a69-1)
-*   [**Sandbox**](#tabs-ce9ac0a2-85ba-45e4-9820-60b8854e3a69-2)
+- [**Live**](#tabs-ce9ac0a2-85ba-45e4-9820-60b8854e3a69-1)
+- [**Sandbox**](#tabs-ce9ac0a2-85ba-45e4-9820-60b8854e3a69-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -131,9 +127,7 @@ OPTIONAL
 
 STRING
 
-  
-
-You can use this to pass and store any additional transaction data you wish to archive with the transaction and make available as searching criteria. 
+You can use this to pass and store any additional transaction data you wish to archive with the transaction and make available as searching criteria.
 
 Omit this field if you include `source.card_token` in your request, because the latter is passed to the KNET gateway as `udf3`.
 
@@ -164,8 +158,6 @@ You can use this to pass and store any additional transaction data you wish to a
 OPTIONAL
 
 STRING
-
-  
 
 You can use this to pass and store any additional transaction data you wish to archive with the transaction and make available as searching criteria.
 
@@ -200,7 +192,6 @@ When sending a payment request that includes `source.card_token`, the option to 
         "ptlf": "96033587c7b5"
       }
     }
-    
 
 ### The POST response
 
@@ -223,15 +214,12 @@ If you receive a `202 Success` response containing a `status` field set to `Pend
         }
       }
     }
-    
 
-Redirect the customer
----------------------
+## Redirect the customer
 
 Redirect your customer to the `redirect` link’s href in the response. This will allow the customer to authorize the payment, before they are transferred to your predefined success or failure URL.
 
-Get details about a payment
----------------------------
+## Get details about a payment
 
 You can retrieve details about an existing KNET payment with the following endpoint.
 
@@ -241,8 +229,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-5f20cb70-1ca6-4ad7-8046-dd2326238aed-1)
-*   [**Sandbox**](#tabs-5f20cb70-1ca6-4ad7-8046-dd2326238aed-2)
+- [**Live**](#tabs-5f20cb70-1ca6-4ad7-8046-dd2326238aed-1)
+- [**Sandbox**](#tabs-5f20cb70-1ca6-4ad7-8046-dd2326238aed-2)
 
 GET`https://api.checkout.com/payments/{payment_id}`
 
@@ -330,31 +318,28 @@ The payment ID found in the response of the initial response.
       }
     }
 
-Refund a payment
-----------------
+## Refund a payment
 
 KNET supports full, partial and multiple partial refunds. Refund a payment through the [Hub](https://hub.checkout.com/v2) or by using our [refund API](/display/DOCS/Refund+a+payment).
 
 Before you can refund KNET payments, you need to contact your bank and ask them to enable refunds. Your bank will then send a request to KNET to activate the refund API.
 
-Cancel a payment
-----------------
+## Cancel a payment
 
 If, after landing on the KNET payment page, the customer attempts to complete the payment after seven minutes, we will automatically void the payment and send a `payment_expired` webhook.
 
 If the customer cancels their payment, we will send a `payment_canceled` webhook.
 
-Testing KNET
-------------
+## Testing KNET
 
 To start testing, you'll need to:
 
-*   [create a test account](https://www.checkout.com/get-test-account), and
-*   contact your Customer Success Manager or Integrations engineer to activate KNET payments in the sandbox environment.
+- [create a test account](https://www.checkout.com/get-test-account), and
+- contact your Customer Success Manager or Integrations engineer to activate KNET payments in the sandbox environment.
+  . Create a KNET transaction as above, following the redirect link in the response to KNET's website.
 
-1.  Create a KNET transaction as above, following the redirect link in the response to KNET's website.
 2.  Enter the following details:
-    1.  **Select your bank**: Knet Test Card \[KNET1\]
+    1.  **Select your bank**: Knet Test Card [KNET1]
     2.  **Card number**:  `888888 000 000 000 1`
     3.  **Expiration date**: `09 | 2021`
     4.  **PIN**: `1234`

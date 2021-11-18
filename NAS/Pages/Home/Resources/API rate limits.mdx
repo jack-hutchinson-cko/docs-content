@@ -5,8 +5,7 @@ account: NAS
 
 To ensure high levels of service for all users of the Checkout.com platform we apply usage limits to our APIs. Unless otherwise stated, limits are applied at an account level, irrespective of the authentication credentials used. We may occasionally adjust limits to prevent system abuse.
 
-Concurrent rate limits
-----------------------
+## Concurrent rate limits
 
 Concurrent rate limits restrict the maximum number of simultaneous requests-per-second (RPS) you can make to our APIs. Our standard limits are as follows:
 
@@ -29,33 +28,29 @@ Example operations
 Read
 
 HTTP GET operations used to retrieve data/resources
+00
 
-100
-
-*   Get payment details
-*   Get disputes
+- Get payment details
+- Get disputes
 
 Write
 
 HTTP POST/PUT/DELETE operations used to create or update data/resources
+00
 
-100
-
-*   Authorize payment
-*   Refund payment
-*   Submit dispute evidence
+- Authorize payment
+- Refund payment
+- Submit dispute evidence
 
 Rate limits are calculated across all APIs. For example, when sending 50 write operations per second to our payments API, a further 50 write operations per second can be used on any API.
 
 When you hit a rate limit you will receive a HTTP 429 response. The request can then be safely retried. To avoid frequently hitting the rate limit we recommend retrying using an incremental backoff with jitter.
 
-Increasing rate limits
-----------------------
+## Increasing rate limits
 
 If our standard limits are not sufficient for your needs, please contact your Customer Success manager to discuss your requirements.
 
-Load testing
-------------
+## Load testing
 
 We understand that our customers may want to load test their systems to cover increased throughput scenarios such as key sales events. Our Sandbox environments are provided to test the functional aspects of your integration and we generally discourage load testing as we apply lower rate limits.
 

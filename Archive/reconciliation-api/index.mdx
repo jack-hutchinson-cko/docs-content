@@ -3,17 +3,13 @@ title: reconciliation-api
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+_Our reconciliation API allows you to view core information about your transactions, such as **payouts** and **payments**._ With the reconciliation API, you can quickly find all fees associated with each of your transactions. In short, we're enabling you to concentrate on the important stuff while completely streamlining your financial reporting. ### **Two endpoints for very different needs** We've developed two endpoints for the purpose of reconciliation, giving you the freedom to access your transaction information. Each API has been meticulously designed and built with you in mind. Let's take a look at what they do: **[Statements and payouts summary](doc:reconciliation-api#section-1-statements-and-payouts-summary) ** The statement and payouts summary reveals all the statements and payouts that have occurred within a set timeframe. **[Transactions summary ](reconciliation-api#section-2-transactions-summary)** The transactions summary displays all transactions and fees that have taken place within a defined time period. This report includes all associated statement and payments IDs—making searching and referencing easy.
 
-\*Our reconciliation API allows you to view core information about your transactions, such as \*\*payouts\*\* and \*\*payments\*\*.\* With the reconciliation API, you can quickly find all fees associated with each of your transactions. In short, we're enabling you to concentrate on the important stuff while completely streamlining your financial reporting. ### \*\*Two endpoints for very different needs\*\* We've developed two endpoints for the purpose of reconciliation, giving you the freedom to access your transaction information. Each API has been meticulously designed and built with you in mind. Let's take a look at what they do: \*\*\[Statements and payouts summary\](doc:reconciliation-api#section-1-statements-and-payouts-summary) \*\* The statement and payouts summary reveals all the statements and payouts that have occurred within a set timeframe. \*\*\[Transactions summary \](reconciliation-api#section-2-transactions-summary)\*\* The transactions summary displays all transactions and fees that have taken place within a defined time period. This report includes all associated statement and payments IDs—making searching and referencing easy.
+Use this API to view the information for all your statements and payouts within a time-frame chosen by you. ### Request your statements and payouts summary Requests are made using a GET read request. To correctly compose your request, you will need the following three components: _ **secret key** — find yours in [The Hub](https://hub.checkout.com/) _ **start-date** (ISO format) \* **end-date** (ISO format)
 
-Use this API to view the information for all your statements and payouts within a time-frame chosen by you. ### Request your statements and payouts summary Requests are made using a GET read request. To correctly compose your request, you will need the following three components: \* \*\*secret key\*\* — find yours in \[The Hub\](https://hub.checkout.com/) \* \*\*start-date\*\* (ISO format) \* \*\*end-date\*\* (ISO format)
+It's possible to skip and limit your reports. Learn more about this [later](doc:reconciliation-api#section-skip-and-limit-results).
 
-It's possible to skip and limit your reports. Learn more about this \[later\](doc:reconciliation-api#section-skip-and-limit-results).
-
-\## The request Use the details below to set up your request. To set the timeframe of your request, replace \`{start-date}\` and \`{end-date}\` with your desired start and end dates in UTC format. ### Endpoint <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api.checkout.com/reconciliation/statements?from={start-date}&to={end-date}</p></pre> ### Header parameters
-
-x
+## The request Use the details below to set up your request. To set the timeframe of your request, replace `{start-date}` and `{end-date}` with your desired start and end dates in UTC format. ### Endpoint <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api.checkout.com/reconciliation/statements?from={start-date}&to={end-date}</p></pre> ### Header parameters
 
 Add Row Add Col
 
@@ -21,308 +17,126 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\` <span class="table-info">For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).</span>
+`secret key` <span class="table-info">For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/).</span>
 
 |
 |
 
-\`Content-Type\` <span class="req-def">Required</span>
+`Content-Type` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
 Our reconciliation API is only accessible in the live environment.
 
-\## The response If your summary is returned, the request was successful.
+## The response If your summary is returned, the request was successful.
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-30
-
-1
-
 {
-
 2
 
-"data":\[
-
-3
-
+"data":[
 {
-
-4
-
 "id":"180328B202487",
-
-5
-
 "period_start":"2018-03-26T00:00:00",
-
-6
-
 "period_end":"2018-03-26T23:59:59",
-
 7
 
 "date":"2018-03-28T00:00:00",
-
 8
 
-"payouts":\[
+"payouts":[
 
 9
 
-{
+{0
 
-10
+"currency":"USD",1
 
-"currency":"USD",
+"carried_forward_amount":0,2
 
-11
-
-"carried_forward_amount":0,
-
-12
-
-"current_period_amount":534.28,
-
-13
-
-"net_amount":528.61,
-
-14
-
+"current_period_amount":534.28,"net_amount":528.61,
 "date":"2018-03-28T00:00:00",
-
-15
-
 "id":"FQBNJMXI5",
+"status":"Remitted",7
 
-16
-
-"status":"Remitted",
-
-17
-
-"payout_fee": \-5.67
-
-18
-
+"payout_fee": -5.8
 }
-
-19
-
-\]
-
-20
-
+9
+]
 }
-
-21
-
-\],
-
-22
-
+],
 "\_links":{
-
-23
-
 "self":{
-
-24
-
 "href":"https://api.checkout.com/reconciliation/statements?from=2017-11-01&to=2017-11-07&limit=10"
-
-25
-
 },
-
-26
-
 "next":{
-
-27
-
 "href":"https://api.checkout.com/reconciliation/statements?from=2017-11-01&to=2017-11-07&limit=10&skip=10"
-
-28
-
+}
+}
 }
 
-29
-
-}
-
-30
-
-}
-
-Import from Gist
-
-\## Payment breakdown You can break down the detail even further by using the \`payout_breakdown\` field. This will provide all totals from each section of the statement. Set up your request as above, then simply add \`&include=payout_breakdown\` at the end of the URL. For example: \`https://api.checkout.com/reconciliation/statements?from=2018-09-01&to=2018-09-19&include=payout\_breakdown\` If your request is successful, the response should look something like this:
+## Payment breakdown You can break down the detail even further by using the `payout_breakdown` field. This will provide all totals from each section of the statement. Set up your request as above, then simply add `&include=payout_breakdown` at the end of the URL. For example: `https://api.checkout.com/reconciliation/statements?from=2018-09-01&to=2018-09-19&include=payout\_breakdown` If your request is successful, the response should look something like this:
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-33
-
-1
-
 {
-
 2
 
-"data": \[
-
-3
-
+"data": [
 {
-
-4
-
 "id": "270903C203347",
-
-5
-
 "period_start": "2018-08-31T00:00:00",
-
-6
-
 "period_end": "2018-09-02T23:59:59",
-
 7
 
 "date": "2018-09-03T00:00:00",
-
 8
 
-"payouts": \[
+"payouts": [
 
 9
 
-{
+{0
 
-10
+"currency": "GBP",1
 
-"currency": "GBP",
+"carried_forward_amount": 0,2
 
-11
-
-"carried_forward_amount": 0,
-
-12
-
-"current_period_amount": 225.43,
-
-13
-
-"net_amount": 216.38,
-
-14
-
+"current_period_amount": 225.43,"net_amount": 216.38,
 "date": "2018-09-03T00:00:00",
-
-15
-
 "period_start": "2018-08-31T00:00:00",
+"period_end": "2018-09-02T23:59:59",7
 
-16
+"id": "FSTBC82N7",8
 
-"period_end": "2018-09-02T23:59:59",
+"status": "Remitted",9
 
-17
-
-"id": "FSTBC82N7",
-
-18
-
-"status": "Remitted",
-
-19
-
-"payout_fee": \-9.05,
-
-20
-
+"payout_fee": -9.05,
 "current_period_breakdown": {
-
-21
-
 "processed_amount": 239.75,
-
-22
-
 "refund_amount": 0,
-
-23
-
 "chargeback_amount": 0,
-
-24
-
-"processing_fees": \-14.32,
-
-25
-
+"processing_fees": -14.32,
 "rolling_reserve_amount": 0,
-
-26
-
 "tax": 0,
-
-27
-
 "admin_fees": 0,
-
-28
-
 "general_adjustments": 0
-
-29
-
 }
-
-30
-
 }
-
-31
-
-\]
-
-32
-
+]
 }
+]
 
-33
-
-\]
-
-Import from Gist
-
-Received an error? Don’t worry! First, check your original request and try again. If you're still having problems, ask our support team for help. ### Understanding your statements and payouts summary The response is designed to present your information as clearly as possible. That’s why your statements and payouts summary consists of just two simple sections: <span class="number\_hl">1.</span> \*\*Statements\*\* Listed in chronological order, this is a record of all your statements within the selected time-frame. The table below outlines the information included and its meaning.
-
-x
+Received an error? Don’t worry! First, check your original request and try again. If you're still having problems, ask our support team for help. ### Understanding your statements and payouts summary The response is designed to present your information as clearly as possible. That’s why your statements and payouts summary consists of just two simple sections: <span class="number\_hl">1.</span> **Statements** Listed in chronological order, this is a record of all your statements within the selected time-frame. The table below outlines the information included and its meaning.
 
 Add Row Add Col
 
@@ -330,7 +144,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`id\`
+`id`
 
 |
 
@@ -339,7 +153,7 @@ The ID of the generated statement.
 |
 |
 
-\`period_start\`
+`period_start`
 
 |
 
@@ -348,7 +162,7 @@ The start date of all transactions and amounts that are encompassed within the s
 |
 |
 
-\`period_end\`
+`period_end`
 
 |
 
@@ -357,7 +171,7 @@ The end date of all transactions and amounts that are encompassed within the sta
 |
 |
 
-\`date\`
+`date`
 
 |
 
@@ -366,7 +180,7 @@ Date the statement was generated.
 |
 |
 
-\`payouts\`
+`payouts`
 
 |
 
@@ -374,11 +188,9 @@ The summary is a breakdown of your statement, ordered by the payout currency and
 
 |
 
-<span class="number\_hl">2.</span> \*\*Payouts\*\* Grouped by payout currency, this
-section details all payouts to your bank account within the chosen date range. The
-table below describes this data and its purpose.{" "}
-
-x
+<span class="number\_hl">2.</span> **Payouts** Grouped by payout currency, this section
+details all payouts to your bank account within the chosen date range. The table
+below describes this data and its purpose.= x
 
 Add Row Add Col
 
@@ -386,7 +198,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`currency\`
+`currency`
 
 |
 
@@ -395,7 +207,7 @@ The currency of the payout.
 |
 |
 
-\`carried_forward_amount\`
+`carried_forward_amount`
 
 |
 
@@ -404,7 +216,7 @@ Amount carried forward before the statement period.
 |
 |
 
-\`current_period_amount\`
+`current_period_amount`
 
 |
 
@@ -413,7 +225,7 @@ The total amount of transactions during the statement period.
 |
 |
 
-\`net_amount\`
+`net_amount`
 
 |
 
@@ -422,7 +234,7 @@ The total amount paid out to your bank account.
 |
 |
 
-\`date\`
+`date`
 
 |
 
@@ -431,25 +243,25 @@ Date the payout was completed.
 |
 |
 
-\`id\`
+`id`
 
 |
 
-Identifies the associated payment (for example, \`PO_123\`).
-
-|
-|
-
-\`status\`
-
-|
-
-The status of the payout (for example, \`Carry Forward\`, \`Pending\`, \`Paid\`...)
+Identifies the associated payment (for example, `PO_123`).
 
 |
 |
 
-\`payout_fee\`
+`status`
+
+|
+
+The status of the payout (for example, `Carry Forward`, `Pending`, `Paid`...)
+
+|
+|
+
+`payout_fee`
 
 |
 
@@ -459,9 +271,7 @@ The total fee charged for the payout.
 
 You can work out your net amount by calculating the sum of the carried forward amount, current period amount, and payout fee.
 
-\## Skip and limit results Reports are rather large, as such, there are occasions when we need to filter our results. Let's go through the process together. The table below shows all the filterable parameters and their descriptions.
-
-x
+## Skip and limit results Reports are rather large, as such, there are occasions when we need to filter our results. Let's go through the process together. The table below shows all the filterable parameters and their descriptions.
 
 Add Row Add Col
 
@@ -469,7 +279,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`skip\`
+`skip`
 
 |
 
@@ -478,7 +288,7 @@ The number of results to skip. Defaults to 0 if not included.
 |
 |
 
-\`limit\`
+`limit`
 
 |
 
@@ -486,19 +296,17 @@ The limit to the number of transactions to return in a single call.
 
 |
 
-This is an example URI for a statements and payouts summary: \`https://api.checkout.com/reconcilliation/statements?from=2017-09-01&to=2017-09-07\` The above URI allows you to view all your transactions, but let's try limiting the results. Here is the standard URL format: \`https://api.checkout.com/reconciliation/statements?from={start-date}&to={end-date}&{filter-parameter}={filter-parameter-type}\` Fill in the \`{start-date}\`, \`{end-date}\`, \`{filter-parameter}\` (\`limit\`) and \`{filter-parameter-type}\`—in this instance, we will request (limit) twenty results. Your filterable URI should now look like this: \`https://api.checkout.com/reconciliation/statements?from=2017-11-01&to=2017-11-07&limit=20\`
+This is an example URI for a statements and payouts summary: `https://api.checkout.com/reconcilliation/statements?from=2017-09-01&to=2017-09-07` The above URI allows you to view all your transactions, but let's try limiting the results. Here is the standard URL format: `https://api.checkout.com/reconciliation/statements?from={start-date}&to={end-date}&{filter-parameter}={filter-parameter-type}` Fill in the `{start-date}`, `{end-date}`, `{filter-parameter}` (`limit`) and `{filter-parameter-type}`—in this instance, we will request (limit) twenty results. Your filterable URI should now look like this: `https://api.checkout.com/reconciliation/statements?from=2017-11-01&to=2017-11-07&limit=20`
 
 Use this API to view all the transactions that have taken place within a timeframe chosen by you. This report includes all associated statement and payment IDs—it makes searching and referencing easy.
 
 The transaction API has been designed purely for reconciliation purposes. As a result, it only provides transactions with a corresponding statement ID.
 
-\### Request your transactions summary Requests are made using a GET read request. To correctly compose your request, you will need the following three components: \* \*\*secret key\*\* — find yours in \[The Hub\](https://hub.checkout.com/login) \* \*\*start-date\*\* (ISO format) \* \*\*end-date\*\* (ISO format) \*Please note: no transactions before August 1, 2017 will appear using this API.\*
+### Request your transactions summary Requests are made using a GET read request. To correctly compose your request, you will need the following three components: _ **secret key** — find yours in [The Hub](https://hub.checkout.com/login) _ **start-date** (ISO format) * **end-date** (ISO format) *Please note: no transactions before August 1, 2017 will appear using this API.\*
 
-It's possible to filter your transactions. Reports are filterable by payout currency, statement ID, payout ID, and transaction ID. You can also skip and limit results — but, \[more on this later\](doc:reconciliation-api#section-skip-and-limit-results).
+It's possible to filter your transactions. Reports are filterable by payout currency, statement ID, payout ID, and transaction ID. You can also skip and limit results — but, [more on this later](doc:reconciliation-api#section-skip-and-limit-results).
 
-\## The request Use the details below to set up your request. To set time span of your request, replace \`{start-date}\` and \`{end-date}\` with your desired start and end dates in UTC format. ### Endpoint <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api.checkout.com/reconciliation/transactions?from={start-date}&to={end-date}</p></pre> ### Header parameters
-
-x
+## The request Use the details below to set up your request. To set time span of your request, replace `{start-date}` and `{end-date}` with your desired start and end dates in UTC format. ### Endpoint <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api.checkout.com/reconciliation/transactions?from={start-date}&to={end-date}</p></pre> ### Header parameters
 
 Add Row Add Col
 
@@ -506,546 +314,137 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\` <span class="table-info">For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).</span>
+`secret key` <span class="table-info">For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/).</span>
 
 |
 |
 
-\`Content-Type\` <span class="req-def">Required</span>
+`Content-Type` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
 Our reconciliation API is only accessible in the live environment.
 
-\## The response If your summary returns, the request was successful. Keep reading to \[Understanding your transactions summary\](doc:statement-reporting-api#section-understanding-your-transactions-summary). Received an error? Don’t worry! First, check your original request and try again. If you're still having problems, ask our support team for help. ### Example transactions summary Below is an example of a successful response. It demonstrates the layout and structure of the report.
+## The response If your summary returns, the request was successful. Keep reading to [Understanding your transactions summary](doc:statement-reporting-api#section-understanding-your-transactions-summary). Received an error? Don’t worry! First, check your original request and try again. If you're still having problems, ask our support team for help. ### Example transactions summary Below is an example of a successful response. It demonstrates the layout and structure of the report.
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-126
-
-1
-
-{
-
-2
-
-"data": \[
-
-3
-
-{
-
-4
-
-"id": "0D12GYT34W1P123C5E4C",
-
-5
-
-"processing_currency": "USD",
-
-6
-
-"payout_currency": "USD",
-
-7
-
-"requested_on": "2018-03-20T20:30:00.000",
-
-8
-
-"channel_name": "example.com",
-
-9
-
-"reference": "c5014721020251",
-
-10
-
-"payment_method": "VISA",
-
-11
-
-"card_type": "DEBIT",
-
-12
-
-"card_category": "Consumer",
-
-13
-
-"issuer_country": "US",
-
-14
-
+{"data": [
+{"id": "0D12GYT34W1P123C5E4C","processing_currency": "USD","payout_currency": "USD","requested_on": "2018-03-20T20:30:00.000","channel_name": "example.com","reference": "c5014721020251","payment_method": "VISA","card_type": "DEBIT","card_category": "Consumer","issuer_country": "US",
 "merchant_country": "US",
-
-15
-
-"actions": \[
-
-16
-
+"actions": [
 {
-
-17
-
-"type": "Authorization",
-
-18
-
-"id": "0D12GYT34W1P123C5E4C",
-
-19
-
-"processed_on": "2018-03-20T20:30:00.00",
-
-20
-
+"type": "Authorization","id": "0D12GYT34W1P123C5E4C","processed_on": "2018-03-20T20:30:00.00",
 "response_code": "10000",
-
-21
-
 "response_description": "Approved",
-
-22
-
-"breakdown": \[
-
-23
-
+"breakdown": [
 {
-
-24
-
 "type": "Authorization Fee",
-
-25
-
 "date": "2018-03-20T20:30:00.00",
-
-26
-
 "statement_id": "180320B202485",
-
-27
-
 "payout_id": "PR3ERTYB0",
-
-28
-
-"processing_currency_amount": \-0.05,
-
-29
-
-"payout_currency_amount": \-0.05
-
-30
-
-}
-
-31
-
-\]
-
-32
-
+"processing_currency_amount": -0.05,
+"payout_currency_amount": -0.05,}
+]
 },
-
-33
-
 {
-
-34
-
 "type": "Capture",
-
-35
-
 "id": "1D23FEE45R6E789C5E42",
-
-36
-
 "processed_on": "2018-03-20T20:30:00.00",
-
-37
-
 "response_code": "10000",
-
-38
-
 "response_description": "Approved",
-
-39
-
-"breakdown": \[
-
-40
-
+"breakdown": [
 {
-
-41
-
 "type": "Scheme Fixed Fee",
-
-42
-
 "date": "2018-03-20T20:30:00.00",
-
-43
-
 "statement_id": "180320B202485",
-
-44
-
 "payout_id": "PR3ERTYB0",
-
-45
-
-"processing_currency_amount": \-0.102,
-
-46
-
-"payout_currency_amount": \-0.102
-
-47
-
-},
-
-48
-
+"processing_currency_amount": -0.102,
+"payout_currency_amount": -0.17},
 {
-
-49
-
 "type": "Captured",
-
-50
-
 "date": "2018-03-20T20:30:00.00",
-
-51
-
 "statement_id": "180320B202485",
-
-52
-
 "payout_id": "PR3ERTYB0",
-
-53
-
 "processing_currency_amount": 27.5,
-
-54
-
-"payout_currency_amount": 27.5
-
-55
-
-}
-
-56
-
-\]
-
-57
-
-},
-
-58
-
+"payout_currency_amount": 27.5}]},
 {
-
-59
-
 "type": "Refund",
-
-60
-
 "id": "5D82FEE45R6E784C5E42",
-
-61
-
 "date": "2018-04-01T23:58:31.64",
-
-62
-
 "response_code": "10000",
-
-63
-
 "response_description": "Approved",
-
-64
-
-"breakdown": \[
-
-65
-
+"breakdown": [
 {
-
-66
-
 "type": "Refund Fee",
-
-67
-
 "date": "2018-04-01T23:58:31.64",
-
-68
-
 "statement_id": "180402B202485",
-
-69
-
 "payout_id": "CEJJ3ECMH",
-
-70
-
-"processing_currency_amount": \-0.15,
-
-71
-
-"payout_currency_amount": \-0.15
-
-72
-
+"processing_currency_amount": -0.15,
+"payout_currency_amount": -0.
 },
-
-73
-
 {
-
-74
-
 "type": "Refunded",
-
-75
-
 "date": "2018-04-01T23:58:31.64",
-
-76
-
 "statement_id": "180402B202485",
-
-77
-
 "payout_id": "CEJJ3ECMH",
-
-78
-
-"processing_currency_amount": \-20.01,
-
-79
-
-"payout_currency_amount": \-20.01
-
-80
-
+"processing_currency_amount": -20.01,
+"payout_currency_amount": -20.01,}
+]
 }
-
-81
-
-\]
-
-82
-
-}
-
-83
-
-\]
-
-84
-
+]
 },
-
-85
-
 {
-
-86
-
 "id": "BD79FEE72I1E580C5E8C",
-
-87
-
 "processing_currency": "USD",
-
-88
-
 "payout_currency": "USD",
-
-89
-
 "requested_on": "2018-04-02T13:58:03.00",
-
-90
-
 "channel_name": "example.com",
-
-91
-
 "reference": "c4994781020261",
-
-92
-
 "payment_method": "DISCOVER",
-
-93
-
 "card_type": "CREDIT",
-
-94
-
 "card_category": "Consumer",
-
-95
-
 "issuer_country": "US",
-
-96
-
 "merchant_country": "US",
-
-97
-
-"actions": \[
-
-98
-
+"actions": [
 {
-
-99
-
 "type": "Authorization",
-
-100
-
 "id": "BD79FEE72I1E580C5E8C",
-
-101
-
 "processed_on": "2018-04-02T13:58:03.00",
-
-102
-
 "response_code": "10000",
-
-103
-
 "response_description": "Approved",
-
-104
-
-"breakdown": \[
-
-105
-
+"breakdown": [
 {
-
-106
-
 "type": "Authorization Fee",
-
-107
-
 "date": "2018-04-02T13:58:03.00",
-
-108
-
 "statement_id": "180330B202487",
-
-109
-
 "payout_id": "CEJJ3ECMH",
-
-110
-
-"processing_currency_amount": \-0.05,
-
-111
-
-"payout_currency_amount": \-0.05
-
-112
-
+"processing_currency_amount": -0.05,
+"payout_currency_amount": -0.05,}
+]
 }
-
-113
-
-\]
-
-114
-
+]
 }
-
-115
-
-\]
-
-116
-
-}
-
-117
-
-\],
-
-118
-
+],
 "\_links": {
-
-119
-
 "self": {
-
-120
-
 "href": "https://api.checkout.com/reconciliation/transactions?from=2018-03-28&to=2018-03-28&skip=0&limit=7"
-
-121
-
 },
-
-122
-
 "next": {
-
-123
-
 "href": "https://api.checkout.com/reconciliation/transactions?from=2018-03-28&to=2018-03-28&skip=7&limit=7"
-
-124
-
+}
+}
 }
 
-125
-
-}
-
-126
-
-}
-
-Import from Gist
-
-\## Understanding your transactions summary The summary is designed to present your information as clearly as possible. The response to this is likely to be large —that's good! You’ve been processing a lot of payments— but, if we break it down, it’s simple to understand. Three sections represent the transactions summary: <span class="number\_hl">1:</span> \*\*Transactions\*\* This section displays all transaction information between the selected time-frame. The table below shows the full list of the parameters used, and how to decipher them.
-
-x
+## Understanding your transactions summary The summary is designed to present your information as clearly as possible. The response to this is likely to be large —that's good! You’ve been processing a lot of payments— but, if we break it down, it’s simple to understand. Three sections represent the transactions summary: <span class="number\_hl">1:</span> **Transactions** This section displays all transaction information between the selected time-frame. The table below shows the full list of the parameters used, and how to decipher them.
 
 Add Row Add Col
 
@@ -1053,16 +452,16 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`id\`
+`id`
 
 |
 
-The ID of the transaction. <span class="table-info">Previously, this was \`transaction_id\`.</span>
+The ID of the transaction. <span class="table-info">Previously, this was `transaction_id`.</span>
 
 |
 |
 
-\`processing_currency\`
+`processing_currency`
 
 |
 
@@ -1071,7 +470,7 @@ The currency of the transaction when processed by the cardholder.
 |
 |
 
-\`payout_currency\`
+`payout_currency`
 
 |
 
@@ -1080,7 +479,7 @@ The currency of the transaction when paid-out (payout) to the merchant.
 |
 |
 
-\`requested_on\`
+`requested_on`
 
 |
 
@@ -1089,7 +488,7 @@ The date the transaction was initiated.
 |
 |
 
-\`channel_name\`
+`channel_name`
 
 |
 
@@ -1098,16 +497,16 @@ The name of the channel where the transaction was initiated.
 |
 |
 
-\`reference\`
+`reference`
 
 |
 
-An optional ID used for tracking transactions. <span class="table-info">Previously, this was called \`track_id\`.</span>
+An optional ID used for tracking transactions. <span class="table-info">Previously, this was called `track_id`.</span>
 
 |
 |
 
-\`payment_method\`
+`payment_method`
 
 |
 
@@ -1116,7 +515,7 @@ The payment method, for example, Visa or Mastercard.
 |
 |
 
-\`card_type\`
+`card_type`
 
 |
 
@@ -1125,7 +524,7 @@ The card type, for example, credit or debit card.
 |
 |
 
-\`card_category\`
+`card_category`
 
 |
 
@@ -1134,7 +533,7 @@ The card category, for example, consumer or commercial.
 |
 |
 
-\`issuer_country\`
+`issuer_country`
 
 |
 
@@ -1143,7 +542,7 @@ The country of the issuing bank.
 |
 |
 
-\`merchant_country\`
+`merchant_country`
 
 |
 
@@ -1152,7 +551,7 @@ The country of the merchant bank.
 |
 |
 
-\`actions\`
+`actions`
 
 |
 
@@ -1160,12 +559,9 @@ A breakdown of all actions (for example, authorization, charge, refund) applied 
 
 |
 
-<span class="number\_hl">2:</span> \*\*Actions\*\* This section outlines all the
-actions—authorization, void, capture, refund, retrieval, and chargeback—which have
-been administered to a transaction. The table below outlines and explains the parameters
-of the report.{" "}
-
-x
+<span class="number\_hl">2:</span> **Actions** This section outlines all the actions—authorization,void,
+capture, refund, retrieval, and chargeback—which have been administered to a transaction.
+The table below outlines and explains the parameters of the report.=
 
 Add Row Add Col
 
@@ -1173,7 +569,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`type\`
+`type`
 
 |
 
@@ -1182,7 +578,7 @@ The type of action, for example, authorization, capture, refund, chargeback, cha
 |
 |
 
-\`id\`
+`id`
 
 |
 
@@ -1191,7 +587,7 @@ The unique ID associated with an action (referred to as a charge ID in the Hub).
 |
 |
 
-\`processed_on\`
+`processed_on`
 
 |
 
@@ -1200,7 +596,7 @@ Date the action occurred.
 |
 |
 
-\`response_code\`
+`response_code`
 
 |
 
@@ -1209,7 +605,7 @@ The response code of the action (transaction request).
 |
 |
 
-\`response_description\`
+`response_description`
 
 |
 
@@ -1218,7 +614,7 @@ Further information on the response code.
 |
 |
 
-\`breakdown\`
+`breakdown`
 
 |
 
@@ -1226,11 +622,9 @@ Breakdown of amounts associated with the particular action.
 
 |
 
-<span class="number\_hl">3:</span> \*\*Breakdown\*\* The amounts summary shows the
-amounts correlated with a particular action. The table below shows the full list
-of these parameters and their explanations.{" "}
-
-x
+<span class="number\_hl">3:</span> **Breakdown** The amounts summary shows the amounts
+correlated with a particular action. The table below shows the full list of these
+parameters and their explanations.= x
 
 Add Row Add Col
 
@@ -1238,7 +632,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`type\`
+`type`
 
 |
 
@@ -1247,7 +641,7 @@ Describes an associated amount to an action. For example, a gateway fee, capture
 |
 |
 
-\`date\`
+`date`
 
 |
 
@@ -1256,7 +650,7 @@ Specifies an associated date to a specific amount (some external fees are return
 |
 |
 
-\`statement_id\`
+`statement_id`
 
 |
 
@@ -1265,7 +659,7 @@ This is to reference the correct statement associated with the (above) original 
 |
 |
 
-\`payout_id\`
+`payout_id`
 
 |
 
@@ -1274,7 +668,7 @@ This is to reference the correct payout associated with the (above) original tra
 |
 |
 
-\`processing_currency_amount\`
+`processing_currency_amount`
 
 |
 
@@ -1283,7 +677,7 @@ The associated amount in the processing currency (if applicable).
 |
 |
 
-\`payout_currency_amount\`
+`payout_currency_amount`
 
 |
 
@@ -1293,11 +687,9 @@ The associated amount in the payout currency.
 
 If you're looking for the outcome of a particular chargeback, please allow up to 60 days from the date the evidence was provided.
 
-\## Action and amount types explained The following table demonstrates a list of action types and their \*\*possible\*\* associated amount and fee types.
+## Action and amount types explained The following table demonstrates a list of action types and their **possible** associated amount and fee types.
 
 You should not expect to see all of the results below in a response.
-
-x
 
 Add Row Add Col
 
@@ -1309,7 +701,7 @@ Authorization
 
 |
 
-\* Gateway fee \* Authorization fee \* Scheme fixed fee \* Scheme variable fee \* Blended fee
+- Gateway fee _ Authorization fee _ Scheme fixed fee _ Scheme variable fee _ Blended fee
 
 |
 |
@@ -1318,7 +710,7 @@ Void
 
 |
 
-\* Gateway fee \* Void fee \* Scheme variable fee \* Scheme fixed fee
+- Gateway fee _ Void fee _ Scheme variable fee \* Scheme fixed fee
 
 |
 |
@@ -1327,7 +719,7 @@ Capture
 
 |
 
-\* Gateway fee \* Captured \* Capture fee \* Rolling reserve \* Scheme fixed fee \* Scheme variable fee \* Premium fee \* Scheme IC fee \* Reconciliation fee \* Blended fee
+- Gateway fee _ Captured _ Capture fee _ Rolling reserve _ Scheme fixed fee _ Scheme variable fee _ Premium fee _ Scheme IC fee _ Reconciliation fee \* Blended fee
 
 |
 |
@@ -1336,7 +728,7 @@ Refund
 
 |
 
-\* Gateway fee \* Refunded \* Scheme fixed fee \* Scheme variable fee \* Refund fee
+- Gateway fee _ Refunded _ Scheme fixed fee _ Scheme variable fee _ Refund fee
 
 |
 |
@@ -1345,7 +737,7 @@ Retrieval
 
 |
 
-\* Retrieval fee
+- Retrieval fee
 
 |
 |
@@ -1354,13 +746,11 @@ Chargeback
 
 |
 
-\* Chargeback (ADJM) \* Chargeback fee \* Scheme chargeback variable fee \* Scheme chargeback fixed fee \* Chargeback (RPCB) \* Representment fee \* Chargeback (CBRV) \* Chargeback (AUTO) \* Chargeback (PARB)
+- Chargeback (ADJM) _ Chargeback fee _ Scheme chargeback variable fee _ Scheme chargeback fixed fee _ Chargeback (RPCB) _ Representment fee _ Chargeback (CBRV) _ Chargeback (AUTO) _ Chargeback (PARB)
 
 |
 
-\## Filtering results Transaction reports are rather large, as such, there are occasions when we need to filter our results. Let's go through the process together. The table below shows all the filterable parameters and their descriptions.
-
-x
+## Filtering results Transaction reports are rather large, as such, there are occasions when we need to filter our results. Let's go through the process together. The table below shows all the filterable parameters and their descriptions.
 
 Add Row Add Col
 
@@ -1368,7 +758,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`payout_currency\`
+`payout_currency`
 
 |
 
@@ -1377,7 +767,7 @@ The three letter ISO string representing the payout currency on which to filter 
 |
 |
 
-\`statement_id\`
+`statement_id`
 
 |
 
@@ -1386,7 +776,7 @@ The statement ID on which to filter the results.
 |
 |
 
-\`payout_id\`
+`payout_id`
 
 |
 
@@ -1395,7 +785,7 @@ The payout ID on which to filter the results.
 |
 |
 
-\`transaction_id\`
+`transaction_id`
 
 |
 
@@ -1404,7 +794,7 @@ The transaction ID on which to filter the results.
 |
 |
 
-\`skip\`
+`skip`
 
 |
 
@@ -1413,82 +803,38 @@ The number of results to skip. Defaults to 0 if not included.
 |
 |
 
-\`limit\`
+`limit`
 
 |
 
-The limit to the number of amounts and fees to return in a single call. The maximum limit is 200 amounts and fees, which is the restriction per page of results. <span class="table-info">\*Please note:\* this is not the number of transactions.</span>
+The limit to the number of amounts and fees to return in a single call. The maximum limit is 200 amounts and fees, which is the restriction per page of results. <span class="table-info">_Please note:_ this is not the number of transactions.</span>
 
 |
 
-This is an example URI for a transaction summary: \`https://api.checkout.com/reconciliation/transactions?from=2017-09-01&to=2017-09-07\` The above URI allows you to view all your transactions, but now try filtering them by the payout currency (payout_currency). Here is the standard URL format: \`https://api.checkout.com/reconciliation/transactions?from={start-date}&to={end-date}&{filter-parameter}={filter-parameter-type}\` Fill in the \`start-date\`, \`end-date\`, \`filter-parameter\` (\`payout_currency\`) and \`filter-parameter-type\`—in this instance, we will use British Pounds (\`GBP\`). Your filterable URI should now look like this: \`https://api.checkout.com/reconciliation/transactions?from=2017-11-01&to=2017-11-07&payout\_currency=GBP\`
+This is an example URI for a transaction summary: `https://api.checkout.com/reconciliation/transactions?from=2017-09-01&to=2017-09-07` The above URI allows you to view all your transactions, but now try filtering them by the payout currency (payout_currency). Here is the standard URL format: `https://api.checkout.com/reconciliation/transactions?from={start-date}&to={end-date}&{filter-parameter}={filter-parameter-type}` Fill in the `start-date`, `end-date`, `filter-parameter` (`payout_currency`) and `filter-parameter-type`—in this instance, we will use British Pounds (`GBP`). Your filterable URI should now look like this: `https://api.checkout.com/reconciliation/transactions?from=2017-11-01&to=2017-11-07&payout\_currency=GBP`
 
 **Custom HTML / CSS** _JavaScript will stripped, CSS will be scoped_
 
-xxxxxxxxxx
-
-16
-
 1
 
-<style\>
+<style>
 
 2
 
 #content-head h1::after {
-
-3
-
 content: "Beta";
-
-4
 
 color: #fff;
 
-5
-
 padding: 6px;
 
-6
-
 border-radius: 3px;
-
-7
-
 background-color: #35ad88;
-
-8
-
 margin-left: 15px;
-
-9
-
-font-size: 14px;
-
-10
-
-text-transform: uppercase;
-
-11
-
-display: inline-block;
-
-12
-
-line-height: 1em;
-
-13
-
-top: \-8px;
-
-14
+font-size: 14px;text-transform: uppercase;display: inline-block;line-height: 1em;
+top: -8px;
 
 position: relative;
-
-15
-
 }
 
-16
-
-</style\>
+</style>

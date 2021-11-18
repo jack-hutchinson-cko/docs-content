@@ -9,8 +9,7 @@ The Dashboard allows you to monitor and respond to disputes quickly and easily.
 
 This page explains how to manage disputes in the Dashboard, but you can also use our [Disputes API](/display/x/Disputes+API).
 
-About the dispute lifecycle and dispute statuses 
--------------------------------------------------
+## About the dispute lifecycle and dispute statuses 
 
 ![](/download/attachments/8488055/Disputes%20flow.png?version=2&modificationDate=1621854355344&api=v2)
 
@@ -25,8 +24,6 @@ Step
 Status
 
 Description
-
-1
 
 Payment disputed
 
@@ -67,14 +64,12 @@ You have accepted the dispute. There is no further implication or action require
 Canceled
 
 The dispute is canceled by the issuing bank and your account is credited back the amount of the dispute. You don’t need to take any further action.
-
-4a
+a
 
 Lost
 
 The issuing bank has rejected your evidence and you have lost the dispute. There are no further financial implications.
-
-4b
+b
 
 Won
 
@@ -82,36 +77,35 @@ The issuing bank has accepted your evidence and you have won the dispute. Your a
 
 View disputes
 
-### In the _Disputes_ screen
+### In the *Disputes* screen
 
-The _Disputes_ screen contains two tabs:
+The *Disputes* screen contains two tabs:
 
-*   **Unanswered:** this tab contains all disputed payments for which an action is required.
-*   **All disputes:** this tab contains all payments that have been disputed, including unanswered ones.
+- **Unanswered:** this tab contains all disputed payments for which an action is required.
+- **All disputes:** this tab contains all payments that have been disputed, including unanswered ones.
 
 ![](/download/attachments/8488055/dashboard_disputes_screen.png?version=1&modificationDate=1598006767522&api=v2)
 
 Each tab shows the following information:
 
-*   Disputed amount
-*   Currency (as a 3-letter ISO code)
-*   Status ([see above](#Managedisputes-lifecycleandstatuses) for more information)
-*   Reason for the dispute
-*   Payment ID
-*   Reference
-*   Initiated on
-*   Expiry date (in the _Unanswered_ tab)
-*   Date last updated (in the _All disputes_ tab)
-    
-    In the _All disputes_ tab, you can:
-    
-    *   filter by date range based on the **Updated on** date
-    *   filter by **Payment ID**, **Dispute ID**, **Sub-entity ID**, **ARN**, **Reference** (exact match)
-    
+- Disputed amount
+- Currency (as a 3-letter ISO code)
+- Status ([see above](#Managedisputes-lifecycleandstatuses) for more information)
+- Reason for the dispute
+- Payment ID
+- Reference
+- Initiated on
+- Expiry date (in the *Unanswered* tab)
+- Date last updated (in the *All disputes* tab)
 
-### In the _Payments_ screen
+  In the _All disputes_ tab, you can:
 
-In the _Status_ column, disputed payments have a `DISPUTED` label as well as the dispute's current status (for example, `DISPUTED EVIDENCE REQUIRED`).
+  - filter by date range based on the **Updated on** date
+  - filter by **Payment ID**, **Dispute ID**, **Sub-entity ID**, **ARN**, **Reference** (exact match)
+
+### In the *Payments* screen
+
+In the *Status* column, disputed payments have a `DISPUTED` label as well as the dispute's current status (for example, `DISPUTED EVIDENCE REQUIRED`).
 
 ![](/download/attachments/8488055/dashboard_disputes_payments_screen.png?version=1&modificationDate=1598006767542&api=v2)
 
@@ -123,26 +117,24 @@ If you have a payment with a retrieval request against it, you can contact our D
 
 You can search for a dispute using its payment ID, dispute ID, or any other filter relevant in the page, such as a reference or the customer's email.
 
-View payment details
---------------------
+## View payment details
 
-Click on any disputed payment in the _Disputes_ or _Payments_ screens to bring up the payment details. You can view the dispute details, as well as the latest status of the payment.
+Click on any disputed payment in the *Disputes* or *Payments* screens to bring up the payment details. You can view the dispute details, as well as the latest status of the payment.
 
 ![](/download/attachments/8488055/dashboard_dispute_payment_details.png?version=1&modificationDate=1598006767562&api=v2)
 
-Respond to a dispute
---------------------
+## Respond to a dispute
 
-If a dispute has the status `EVIDENCE REQUIRED`, you can respond by either accepting it or challenging it and submitting evidence. You can see how long you've got left to respond to any dispute by looking under the _Expires in_ column in the _Unanswered_ tab.
+If a dispute has the status `EVIDENCE REQUIRED`, you can respond by either accepting it or challenging it and submitting evidence. You can see how long you've got left to respond to any dispute by looking under the *Expires in* column in the *Unanswered* tab.
 
 ![](/download/attachments/8488055/disputes_unanswered_tab.png?version=1&modificationDate=1602250454223&api=v2)
 
 ### Accept or challenge a dispute
 
-In the _Disputes_ screen, click on a disputed payment to see the payment details. 
+In the *Disputes* screen, click on a disputed payment to see the payment details.
 
-*   **Accept**: If you think the dispute is legitimate, because, for example, you know the transaction is fraudulent, click **Accept dispute**. You don’t have to do anything else; the funds will already have been debited from your account.
-*   **Challenge**: If you want to defend against the dispute, because you have evidence that the transaction is valid, click **Submit evidence**. This will take you to the [disputes form where you can upload your evidence](#Managedisputes-submitevidence).
+- **Accept**: If you think the dispute is legitimate, because, for example, you know the transaction is fraudulent, click **Accept dispute**. You don’t have to do anything else; the funds will already have been debited from your account.
+- **Challenge**: If you want to defend against the dispute, because you have evidence that the transaction is valid, click **Submit evidence**. This will take you to the [disputes form where you can upload your evidence](#Managedisputes-submitevidence).
 
 ![](/download/attachments/8488055/dispute_details.png?version=1&modificationDate=1602250495057&api=v2)
 
@@ -155,14 +147,10 @@ The evidence you submit should be relevant to the reason for the dispute. To hel
 ![](/download/attachments/8488055/submit_evidence_form.png?version=1&modificationDate=1602250523453&api=v2)
 
 To submit your evidence:
-
-1.  Upload your files (JPEG, PDF or PNG).
-2.  For each file you upload, select what type of evidence it is.
-3.  If at any point you want to save your progress and come back to the form later, click **Save and continue later**. You, or another user, can then pick up where you left off. The dispute status will remain `EVIDENCE REQUIRED`.
-4.  If you’ve uploaded all the evidence you want to, click **Submit evidence**.
+. Upload your files (JPEG, PDF or PNG). 2. For each file you upload, select what type of evidence it is. 3. If at any point you want to save your progress and come back to the form later, click **Save and continue later**. You, or another user, can then pick up where you left off. The dispute status will remain `EVIDENCE REQUIRED`. 4. If you’ve uploaded all the evidence you want to, click **Submit evidence**.
 
 You can only upload **one file per type of evidence**, but you don’t have to submit every evidence type to complete the form.
 
-Once you’ve submitted your evidence, the form will be sent for review and the dispute’s status will change to `EVIDENCE UNDER REVIEW`. You can track its status in the _All disputes_ tab of the _Disputes_ page.
+Once you’ve submitted your evidence, the form will be sent for review and the dispute’s status will change to `EVIDENCE UNDER REVIEW`. You can track its status in the *All disputes* tab of the *Disputes* page.
 
 ![](/download/attachments/8488055/all_disputes_tab.png?version=1&modificationDate=1602250561528&api=v2)

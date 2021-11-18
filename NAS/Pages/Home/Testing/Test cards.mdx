@@ -5,8 +5,7 @@ account: NAS
 
 Genuine card numbers will produce an error in your test environment. To simulate payments, use any of the test card details provided in the tables below. You can use any valid CVV and any expiry date (`mm/yy`) as long as it's in the future.
 
-Estimated/final authorization response
---------------------------------------
+## Estimated/final authorization response
 
 Card number
 
@@ -19,32 +18,24 @@ Card number
 Scheme
 
 Response code
-
-4242424242424242
+242424242424242
 
 Visa
-
-10000
-
-5436031030606378
+0000
+436031030606378
 
 Mastercard
-
-10000
+0000
 
 345678901234564
 
 Amex
-
-10000
-
-4539467987109256
+000039467987109256
 
 Visa
 
 20005
-
-5585076576791786
+585076576791786
 
 Mastercard
 
@@ -55,35 +46,29 @@ Mastercard
 Amex
 
 20005
-
-4273149019799094
+273149019799094
 
 With this card, Capture and Void actions are declined.
 
 Visa
-
-10000
-
-4916301720257093
+0000
+916301720257093
 
 Visa
 
 20020
-
-4095254802642505
+095254802642505
 
 Visa
 
 20068
-
-4199350000000002
+199350000000002
 
 Visa
 
 200R1
 
-Incremental authorization
--------------------------
+## Incremental authorization
 
 Card number
 
@@ -99,33 +84,27 @@ Scheme
 
 Response code
 
-Error code
-
-4659959652550685
+Error code59959652550685
 
 Visa
 
 N/A
 
-incremental\_authorization\_unsupported
-
-4446900535698356
+incremental_authorization_unsupported
+446900535698356
 
 Visa
 
 N/A
 
-incremental\_authorization\_restricted\_for\_mcc 
-
-4140253846048187
+incremental_authorization_restricted_for_mcc
+140253846048187
 
 Visa
 
 20005
 
-N/A
-
-4556447238607884
+N/A56447238607884
 
 Visa
 
@@ -133,17 +112,14 @@ Visa
 
 N/A
 
-Commercial cards
-----------------
+## Commercial cards
 
-You can use these cards to trigger a fallback to 3DS1. A fallback occurs when the cardholder or issuer is not using 3DS2. 
+You can use these cards to trigger a fallback to 3DS1. A fallback occurs when the cardholder or issuer is not using 3DS2.
 
 Using these cards in a [Sessions](/display/x/Sessions) direct integration and in combination with the ‘magic amount’ (123321) will trigger a very specific scenario.
 
 A fallback to 3DS1 will be triggered after the merchant initiated a 3DS2 that failed during the first authentication call (e.g. for the reasons of technical issue or a timeout on the side of the ACS).
 
-  
-
 Number
 
 Scheme
@@ -155,29 +131,24 @@ Number
 Scheme
 
 3D Secure version supported
-
-4484070000035519
+484070000035519
 
 Visa
 
 3DS1
-
-5352151570003404
+352151570003404
 
 Mastercard
 
 3DS1
 
-Non-3DS enabled cards
----------------------
+## Non-3DS enabled cards
 
-To simulate a non-3DS enabled card payment, select the drop-down that applies to you.  
+To simulate a non-3DS enabled card payment, select the drop-down that applies to you.
 
 If you want to test a card payment **without** 3D Secure authentication, use one of the following cards with a transaction value of `5000` or `5029`.
 
-  
-
- 3DS1 and 3DS2 enabled
+3DS1 and 3DS2 enabled
 
 Card type
 
@@ -187,21 +158,17 @@ CVV
 
 Visa
 
-`4532432452900131  
-`
+`4532432452900131 `
 
 `257`
 
 Mastercard
 
-`5133078872660100  
-`
+`5133078872660100 `
 
 `100`
 
-  
-
- 3DS2 only
+3DS2 only
 
 Card type
 
@@ -221,14 +188,10 @@ Mastercard
 
 `100`
 
-AVS match
----------
+## AVS match
 
 Providing any valid value in the `source.billing_address.address_line1` will result in an AVS match A (Street Match).
 
-CVV check code
---------------
+## CVV check code
 
 Providing any valid CVV will result in a `Y` CVV check code.
-
-  

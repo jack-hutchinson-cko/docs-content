@@ -3,16 +3,14 @@ title: cvv-check
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
-\*The CVV number ("card verification value") appears on credit card and debit cards. It is a three-digit number on Visa, MasterCard and Discover branded cards and a four-digit number on American Express cards. Running a CVV check adds an additional layer of fraud protection to your transactions. \* As standard, Checkout.com’s payment gateway requires merchants to include the payment card's CVV when sending a payment with either full card details or a card token. The CVV is not required when sending a payment with card ID or a default card, but you still have the option of adding the CVV if you wish. However, when you include the CVV in a request, it is subject to verification, if it does not match, the request will fail.
+_The CVV number ("card verification value") appears on credit card and debit cards. It is a three-digit number on Visa, MasterCard and Discover branded cards and a four-digit number on American Express cards. Running a CVV check adds an additional layer of fraud protection to your transactions. _ As standard, Checkout.com’s payment gateway requires merchants to include the payment card's CVV when sending a payment with either full card details or a card token. The CVV is not required when sending a payment with card ID or a default card, but you still have the option of adding the CVV if you wish. However, when you include the CVV in a request, it is subject to verification, if it does not match, the request will fail.
 
 No problem! Your account manager can arrange this for you.
 
-There are two possible configurations for using the CVV check in your transactions: \[CVV required\](doc:cvv-check#section-cvv-required) and \[CVV optional\](doc:cvv-check#section-cvv-optional). ## CVV required If the CVV is required, you must include it for all payment request types except for payments using a card ID. If the payment contains incorrect or missing CVV information, the request will fail.
+There are two possible configurations for using the CVV check in your transactions: [CVV required](doc:cvv-check#section-cvv-required) and [CVV optional](doc:cvv-check#section-cvv-optional). ## CVV required If the CVV is required, you must include it for all payment request types except for payments using a card ID. If the payment contains incorrect or missing CVV information, the request will fail.
 
-You are required to include the CVV. \*If you don't include these, you will receive an 'invalid CVV' response. \*
+You are required to include the CVV. _If you don't include these, you will receive an 'invalid CVV' response._
 
-\## CVV optional For CVV optional, you can send any type of payment request with or without the CVV. However, if you include the CVV in a payment request, it will be subject to verification. If it is incorrect, the charge will not be successful.
+## CVV optional For CVV optional, you can send any type of payment request with or without the CVV. However, if you include the CVV in a payment request, it will be subject to verification. If it is incorrect, the charge will not be successful.
 
-You are not required to include the CVV. \*If you \*\*do\*\* include it, it will be subject to verification checks.\*
+You are not required to include the CVV. _If you **do** include it, it will be subject to verification checks._

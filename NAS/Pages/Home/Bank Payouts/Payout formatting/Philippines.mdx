@@ -5,8 +5,8 @@ account: NAS
 
 #### Basic information
 
-*   [**Local**](#tabs-1cb73997-377d-4117-ae43-d2ef324f9d7f-1)
-*   [**International**](#tabs-1cb73997-377d-4117-ae43-d2ef324f9d7f-2)
+- [**Local**](#tabs-1cb73997-377d-4117-ae43-d2ef324f9d7f-1)
+- [**International**](#tabs-1cb73997-377d-4117-ae43-d2ef324f9d7f-2)
 
 Country code
 
@@ -20,13 +20,13 @@ Scheme
 
 Local:
 
-*   **Minimum amount (local currency):** 50
-*   **Maximum amount (local currency):** 10,000,000
-*   **Settlement:** T+0 same day (T+1 for payments greater than 50,000)
+- **Minimum amount (local currency):** 50
+- **Maximum amount (local currency):** 10,000,000
+- **Settlement:** T+0 same day (T+1 for payments greater than 50,000)
 
 #### Payment information
 
- Individual
+Individual
 
 #### Beneficiary information
 
@@ -60,14 +60,6 @@ Beneficiary address
 
 The account holder's address.
 
-  
-
-  
-
-  
-
-  
-
 `account_holder.billing_address.address_line1`
 
 REQUIRED
@@ -110,7 +102,7 @@ The account holder's account number.
 
 REQUIRED
 
-STRING, ^\[0-9\]{10,16}$
+STRING, ^[0-9]{10,16}$
 
 SWIFT BIC
 
@@ -120,9 +112,9 @@ The account holder's SWIFT BIC.
 
 REQUIRED
 
-STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+STRING, ^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$
 
- Corporate
+Corporate
 
 #### Beneficiary information
 
@@ -150,14 +142,6 @@ Beneficiary address
 
 The account holder's address.
 
-  
-
-  
-
-  
-
-  
-
 `account_holder.billing_address.address_line1`
 
 REQUIRED
@@ -200,7 +184,7 @@ The account holder's account number.
 
 REQUIRED
 
-STRING, ^\[0-9\]{10,16}$
+STRING, ^[0-9]{10,16}$
 
 SWIFT BIC
 
@@ -210,62 +194,62 @@ The account holder's SWIFT BIC.
 
 REQUIRED
 
-STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+STRING, ^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$
 
 #### Example
 
-*   [**Payment instrument request (PHP)**](#tabs-0f10103e-7f52-4135-b6c6-1c0c5b48cd32-1)
-*   [**Payout request (PHP)**](#tabs-0f10103e-7f52-4135-b6c6-1c0c5b48cd32-2)
+- [**Payment instrument request (PHP)**](#tabs-0f10103e-7f52-4135-b6c6-1c0c5b48cd32-1)
+- [**Payout request (PHP)**](#tabs-0f10103e-7f52-4135-b6c6-1c0c5b48cd32-2)
 
-    {
-      "type": "bank_account",
-      "account_type": "current",
-      "account_number": "2759024802",
-      "swift_bic": "BOPIPHMM",
-      "currency": "PHP",
-      "country": "PH",
-      "account_holder": {
-        "type": "individual",
-        "first_name": "John",
-        "last_name": "Smith",
-        "address_line1": "1746 Rizal Avenue",
-        "address_city": "Manila",
-        "country_code": "PH",
-        "zip": "1550",
-        "billing_address": {
-          "address_line1": "1746 Rizal Avenue‬",                    
-          "country": "PH",
-          "city": "Manila",
-          "zip": "1550"
-        }
-      }
-    }
+  {
+  "type": "bank_account",
+  "account_type": "current",
+  "account_number": "2759024802",
+  "swift_bic": "BOPIPHMM",
+  "currency": "PHP",
+  "country": "PH",
+  "account_holder": {
+  "type": "individual",
+  "first_name": "John",
+  "last_name": "Smith",
+  "address_line1": "1746 Rizal Avenue",
+  "address_city": "Manila",
+  "country_code": "PH",
+  "zip": "1550",
+  "billing_address": {
+  "address_line1": "1746 Rizal Avenue‬",  
+   "country": "PH",
+  "city": "Manila",
+  "zip": "1550"
+  }
+  }
+  }
 
-    {
-      "currency": "PHP",
-      "source": {
-        "amount": 5701,
-        "type": "currency_account",
-        "id": "ca_vrsqwv6tgtyufgi5xahfqmqq7a"
-      },
-      "reference": "CKO Test",
-      "destination": {
-        "type": "id",
-        "id": "src_6gtxe3cxns7uld5ytsemv6pdma"
-      },
-      "billing_descriptor": {
-        "reference": "CKO Test"
-      },
-      "sender": {
-        "type": "instrument",
-        "reference": "CKO Test",
-        "first_name": "John",
-        "last_name": "Smith"
-      },
-      "instruction": {
-        "purpose": "CKO Test PHP"
-      },
-      "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
-    }
+  {
+  "currency": "PHP",
+  "source": {
+  "amount": 5701,
+  "type": "currency_account",
+  "id": "ca_vrsqwv6tgtyufgi5xahfqmqq7a"
+  },
+  "reference": "CKO Test",
+  "destination": {
+  "type": "id",
+  "id": "src_6gtxe3cxns7uld5ytsemv6pdma"
+  },
+  "billing_descriptor": {
+  "reference": "CKO Test"
+  },
+  "sender": {
+  "type": "instrument",
+  "reference": "CKO Test",
+  "first_name": "John",
+  "last_name": "Smith"
+  },
+  "instruction": {
+  "purpose": "CKO Test PHP"
+  },
+  "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
+  }
 
 Coming soon.

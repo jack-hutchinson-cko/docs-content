@@ -3,32 +3,27 @@ title: iDEAL
 account: NAS
 ---
 
-
 Start accepting payments using [iDEAL](https://www.checkout.com/payment-methods/accept/ideal), a favorite online payment method in The Netherlands.
 
-iDEAL payments are made through direct online transfer from the customer's bank account to your merchant bank account. Customers can use their mobile banking app or online banking environment. As soon as a payment is made, iDEAL sends you an online payment guarantee so you can deliver goods and services right away. 
+iDEAL payments are made through direct online transfer from the customer's bank account to your merchant bank account. Customers can use their mobile banking app or online banking environment. As soon as a payment is made, iDEAL sends you an online payment guarantee so you can deliver goods and services right away.
 
 To start accepting iDEAL payments, please contact your Customer Success Manager.
 
-Overview
---------
+## Overview
 
 iDEAL payments follow a two-step process:
+. [Request a payment](#iDEAL-requestapayment) 2. [Redirect the customer](#iDEAL-redirectthecustomer)
 
-1.  [Request a payment](#iDEAL-requestapayment)
-2.  [Redirect the customer](#iDEAL-redirectthecustomer)
+## Request a payment 
 
-Request a payment 
-------------------
-
-The POST request 
+The POST request
 
 Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-a909ce91-c830-4244-9023-791c0e063ddc-1)
-*   [**Sandbox**](#tabs-a909ce91-c830-4244-9023-791c0e063ddc-2)
+- [**Live**](#tabs-a909ce91-c830-4244-9023-791c0e063ddc-1)
+- [**Sandbox**](#tabs-a909ce91-c830-4244-9023-791c0e063ddc-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -56,8 +51,6 @@ REQUIRED
 
 The table below describes the minimum recommended fields. You can find the full list, as well as complete request and response examples, in our [API reference](https://api-reference.checkout.com/#tag/Payments/paths/~1payments/post).
 
-  
-
 Field name
 
 Description
@@ -67,8 +60,6 @@ Description
 REQUIRED
 
 OBJECT
-
-  
 
 Details about the payment source.
 
@@ -163,19 +154,15 @@ If you receive a `202 Success` response with a payment `id` and a `status` fie
       }
     }
 
-  
-
-Redirect the customer 
-----------------------
+## Redirect the customer 
 
 Redirect your customer to the `redirect` link’s href in the above response. The redirect transfers the customer to their bank's website where they are required to enter their authorization details; if successful, the payment can be approved.
 
 For security reasons, iDEAL forbids using custom-made in-app browsers for redirection. We recommend that you open the device’s default browser to display the redirect. If you do want to use an in-app web view, you must use [SFSafariViewController](https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller) for iOS or [Chrome Custom Tabs](https://developer.chrome.com/multidevice/android/customtabs) for Android.
 
-Once completed, the customer is transferred to your predefined success or failure URL. Confirmation of an iDEAL payment is **communicated only through webhooks**. When you receive a `payment_captured` webhook notification, the transaction has been completed successfully. Until the `payment_captured` webhook is received (response code `10000`), all payments are labeled as _Pending_.
+Once completed, the customer is transferred to your predefined success or failure URL. Confirmation of an iDEAL payment is **communicated only through webhooks**. When you receive a `payment_captured` webhook notification, the transaction has been completed successfully. Until the `payment_captured` webhook is received (response code `10000`), all payments are labeled as *Pending*.
 
-Get details about a payment
----------------------------
+## Get details about a payment
 
 You can use the `payment_id` found in the payment response, or the `cko-session-id` from the success/failure URL (e.g., `[https://www.checkout.com/order/succeeded?cko-session-id=](https://www.checkout.com/order/succeeded?cko-session-id=)**sid_vii64oquze5u3h2x6hh4rurc4y**`) to retrieve details about the payment.
 
@@ -185,8 +172,8 @@ The `cko-session-id` expires 15 minutes after being created.
 
 #### Endpoints
 
-*   [**Live**](#tabs-0ab7b099-9da5-47cb-89e3-3384dcced013-1)
-*   [**Sandbox**](#tabs-0ab7b099-9da5-47cb-89e3-3384dcced013-2)
+- [**Live**](#tabs-0ab7b099-9da5-47cb-89e3-3384dcced013-1)
+- [**Sandbox**](#tabs-0ab7b099-9da5-47cb-89e3-3384dcced013-2)
 
 GET`https://api.checkout.com/payments/{payment_id}`
 
@@ -209,8 +196,6 @@ REQUIRED
 REQUIRED
 
 `application/json`
-
-  
 
 Path
 
@@ -260,20 +245,17 @@ The payment ID found in the response of the initial response.
       }
     }
 
-Refund a payment
-----------------
+## Refund a payment
 
 iDEAL supports both partial and full refunds. You can refund a payment through the [Hub](https://hub.checkout.com/v2) or using the [refund endpoint](https://api-reference.checkout.com/#operation/refundAPayment) of the Unified Payments API.
 
-Cancel a payment
-----------------
+## Cancel a payment
 
 If the customer fails to complete their payment, we will automatically void the payment in 10 minutes and send a `payment_expired` webhook.
 
 If the customer cancels their payment, we will send a `payment_canceled` webhook.
 
-Webhooks
---------
+## Webhooks
 
 When using iDEAL, you may receive the following webhooks.
 
@@ -317,8 +299,7 @@ Occurs when a refund is successful.
 
 Occurs when a refund is declined.
 
-Get a list of supported issuers
--------------------------------
+## Get a list of supported issuers
 
 Use the following request to get an up-to-date list of all issuers supporting iDEAL payments.
 
@@ -326,8 +307,8 @@ Use the following request to get an up-to-date list of all issuers supporting iD
 
 #### Endpoints
 
-*   [**Live**](#tabs-f97c93fc-71b8-4e51-8e91-81c031d1bc35-1)
-*   [**Sandbox**](#tabs-f97c93fc-71b8-4e51-8e91-81c031d1bc35-2)
+- [**Live**](#tabs-f97c93fc-71b8-4e51-8e91-81c031d1bc35-1)
+- [**Sandbox**](#tabs-f97c93fc-71b8-4e51-8e91-81c031d1bc35-2)
 
 GET`https://api.checkout.com/ideal-external/issuers`
 
@@ -357,7 +338,7 @@ REQUIRED
 
     {
       "countries": [
-        {  
+        {
           "name": "Nederland",
           "issuers": [
             {
@@ -378,23 +359,20 @@ REQUIRED
         }
     }
 
-Testing iDEAL
--------------
+## Testing iDEAL
 
 To start testing, you'll need to:
 
-*   [create a test account](https://www.checkout.com/get-test-account), and
-*   contact your Customer Success Manager or integrations engineer to activate iDEAL payments in the sandbox environment.
+- [create a test account](https://www.checkout.com/get-test-account), and
+- contact your Customer Success Manager or integrations engineer to activate iDEAL payments in the sandbox environment.
 
 ### Test a payment request
 
-1.  Create an iDEAL transaction as above, following the redirect link in the response to the bank's website.
-2.  Click **Confirm transaction**. You should then be redirected to your predefined success URL.
+. Create an iDEAL transaction as above, following the redirect link in the response to the bank's website. 2. Click **Confirm transaction**. You should then be redirected to your predefined success URL.
 
 When you test a payment refund, the transaction is likely to remain in a deferred refund state. Contact us at [integration@checkout.com](mailto:integration@checkout.com) to request triggering a simulation batch job that ensures the completion of the refund.
 
-Simulate payment states
------------------------
+## Simulate payment states
 
 In the sandbox environment, you can test different payment states by entering one of the following values in the `amount` field of your payment request.
 
@@ -409,12 +387,10 @@ Canceled
 300
 
 Expired
-
-400
+00
 
 Pending
-
-500
+00
 
 Failure on the iDEAL test environment
 

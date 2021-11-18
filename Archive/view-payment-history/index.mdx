@@ -3,11 +3,7 @@ title: view-payment-history
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
-\*Find out all you need to know about the status and history of a payment by using our payment history API. \* The payment history API provides a quick way to view the status of a payment without the need to search through webhooks. This is a great way to quickly find out if a payment has been successfully \[captured\](ref:post_payments-id-captures), \[refunded\](doc:refund), \[voided\](doc:void) or more. ## The request Payment history is retrieved by sending a \*\*GET\*\* API request to the URI below. In the URI, replace \*\*{chargeId}\*\* with the \`chargeId\` of the \*\*transaction\*\*, however, first \*\*add the prefix\*\* \`charge\_\` or \`charge_test\_\` to your Id. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span> https://api2.checkout.com/v2/charges/{chargeId}/history </p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span> https://sandbox.checkout.com/api2/v2/charges/{chargeId}/history </p></pre> ### Header and path parameters
-
-x
+_Find out all you need to know about the status and history of a payment by using our payment history API. _ The payment history API provides a quick way to view the status of a payment without the need to search through webhooks. This is a great way to quickly find out if a payment has been successfully [captured](ref:post_payments-id-captures), [refunded](doc:refund), [voided](doc:void) or more. ## The request Payment history is retrieved by sending a **GET** API request to the URI below. In the URI, replace **{chargeId}** with the `chargeId` of the **transaction**, however, first **add the prefix** `charge\_` or `charge_test\_` to your Id. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span> https://api2.checkout.com/v2/charges/{chargeId}/history </p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span> https://sandbox.checkout.com/api2/v2/charges/{chargeId}/history </p></pre> ### Header and path parameters
 
 Add Row Add Col
 
@@ -15,26 +11,24 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type\` <span class="req-def">Required</span>
+`Content-Type` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
-
-x
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/).
 
 Add Row Add Col
 
@@ -42,145 +36,79 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`chargeId\` <span class="req-def">Required</span>
+`chargeId` <span class="req-def">Required</span>
 
 |
 
-The charge ID, embedded within the URI, prefixed with \`charge\_\` or \`charge_test\_\`.
+The charge ID, embedded within the URI, prefixed with `charge\_` or `charge_test\_`.
 
 |
 
-\### Request example
+### Request example
 
 Shell Java
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
 
 curl https://api2.checkout.com/v2/charges/charge\_E1E8BA9DE63I76F85999/history
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
+-X GET
 
-\-X GET
-
-Import from Gist
-
-xxxxxxxxxx
-
-17
-
+7
 1
 
 // Create payload
-
-2
-
-String chargeId \= "charge_B41BEAAC175U76BD3EE1";
-
-3
+String chargeId = "charge_B41BEAAC175U76BD3EE1";
 
 ​
 
-4
-
 try {
-
-5
 
 // Create APIClient instance with your secret key
 
-6
-
-APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 7
 
 // Submit your request and receive an apiResponse
-
-8
-
-Response<Charge\> apiResponse \= ckoAPIClient.chargeService.getCharge(chargeId);
+Response<Charge> apiResponse = ckoAPIClient.chargeService.getCharge(chargeId);
 
 9
 
-​
+​if(!apiResponse.hasError){
+1
 
-10
-
-if(!apiResponse.hasError){
-
-11
-
-// Access the response object retrieved from the api
-
-12
-
-Charge charge \= apiResponse.model;
-
-13
-
+// Access the response object retrieved from the apiCharge charge = apiResponse.model;
 } else {
-
-14
 
 // Api has returned an error object. You can access the details in the error property of the apiResponse.
 
-15
-
 // apiResponse.error
 
-16
-
 }
-
-17
+7
 
 } catch (Exception e) {}
 
-Import from Gist
-
-\## Response If all went to plan, your request should return a list of data relating to the charge. Read the full list of parameters returned, and their descriptions, in the response parameters table. If you're having difficulties with the payment history API, then speak to our \[support team\](mailto:support@checkout.com) for help.
+## Response If all went to plan, your request should return a list of data relating to the charge. Read the full list of parameters returned, and their descriptions, in the response parameters table. If you're having difficulties with the payment history API, then speak to our [support team](mailto:support@checkout.com) for help.
 
 Response example
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
 28
-
-1
 
 {
 
 2
 
-"charges":\[
-
-3
+"charges":[
 
 {
 
-4
-
 "id":"charge_E1E8BA9DE63I76F85999",
 
-5
-
 "chargeMode":1,
-
-6
 
 "created":"2015-12-18T15:04:07Z",
 
@@ -195,44 +123,28 @@ xxxxxxxxxx
 9
 
 "status":"Voided",
-
-10
+0
 
 "trackId":"TRK12345",
 
-11
-
 "value":2000,
-
-12
+2
 
 "currency": "USD",
-
-13
-
 "responseCode":"10000"
-
-14
 
 },
 
-15
-
 {
 
-16
-
 "id":"charge_34A8CA9DE63Z76F85997",
-
-17
+7
 
 "chargeMode":1,
-
-18
+8
 
 "created":"2015-12-18T15:03:53Z",
-
-19
+9
 
 "email":"sarah.mitchell@checkout.com",
 
@@ -266,17 +178,13 @@ xxxxxxxxxx
 
 27
 
-\]
+]
 
 28
 
 }
 
-Import from Gist
-
-\### Response parameters Find out what all the different fields in your response mean.
-
-x
+### Response parameters Find out what all the different fields in your response mean.
 
 Add Row Add Col
 
@@ -284,25 +192,25 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`chargeMode\` <span class="field-type">integer</span>
+`chargeMode` <span class="field-type">integer</span>
 
 |
 
-The type of charge mode used for the transaction: \`1\` = Non 3-D secure payment \`2\` = 3D secure payment \`3\` = Local payment.
-
-|
-|
-
-\`created\` <span class="field-type">String</span>
-
-|
-
-The UTC date and time based on ISO 8601 profile (e.g., \`2015-11-05T13:10:30Z\` or \`2015-11-05T08:10:30-05:00\`)
+The type of charge mode used for the transaction: `1` = Non 3-D secure payment `2` = 3D secure payment `3` = Local payment.
 
 |
 |
 
-\`currency\` <span class="field-type">String</span>
+`created` <span class="field-type">String</span>
+
+|
+
+The UTC date and time based on ISO 8601 profile (e.g., `2015-11-05T13:10:30Z` or `2015-11-05T08:10:30-05:00`)
+
+|
+|
+
+`currency` <span class="field-type">String</span>
 
 |
 
@@ -311,7 +219,7 @@ Indicates the currency of the payment.
 |
 |
 
-\`email\` <span class="field-type">String</span>
+`email` <span class="field-type">String</span>
 
 |
 
@@ -320,43 +228,43 @@ The email address of the customer.
 |
 |
 
-\`ID\` <span class="field-type">String</span>
+`ID` <span class="field-type">String</span>
 
 |
 
-The payment's id prefixed with \`charge\_\` or \`charge_test\_\`.
-
-|
-|
-
-\`liveMode\` <span class="field-type">Boolean</span>
-
-|
-
-States if the request was for live or test based: \`true\` = live \`false\`= test
+The payment's id prefixed with `charge\_` or `charge_test\_`.
 
 |
 |
 
-\`responseCode\` <span class="field-type">String</span>
+`liveMode` <span class="field-type">Boolean</span>
 
 |
 
-A response code to indicate the status of the request. (e.g., \`10000\` = approved) <span class="table-info">\[Find out more\](doc:response-codes#section-response-codes).</span>
-
-|
-|
-
-\`status\` <span class="field-type">String</span>
-
-|
-
-Status of the payment. <span class="table-info">\[Find out more\](doc:view-payment-history#section-payment-history-statuses)</span>
+States if the request was for live or test based: `true` = live `false`= test
 
 |
 |
 
-\`trackId\` <span class="field-type">String</span>
+`responseCode` <span class="field-type">String</span>
+
+|
+
+A response code to indicate the status of the request. (e.g., `10000` = approved) <span class="table-info">[Find out more](doc:response-codes#section-response-codes).</span>
+
+|
+|
+
+`status` <span class="field-type">String</span>
+
+|
+
+Status of the payment. <span class="table-info">[Find out more](doc:view-payment-history#section-payment-history-statuses)</span>
+
+|
+|
+
+`trackId` <span class="field-type">String</span>
 
 |
 
@@ -365,17 +273,15 @@ An ID created by the merchant and assigned to a transaction. Maximum characters:
 |
 |
 
-\`value\` <span class="field-type">String</span>
+`value` <span class="field-type">String</span>
 
 |
 
-The total value of the transaction. <span class="table-info">\[Find out more\](doc:calculating-the-value).</span>
+The total value of the transaction. <span class="table-info">[Find out more](doc:calculating-the-value).</span>
 
 |
 
-\### Payment history statuses There are many different stages of a payment. The table below outlines the different status levels and their meanings.
-
-x
+### Payment history statuses There are many different stages of a payment. The table below outlines the different status levels and their meanings.
 
 Add Row Add Col
 
@@ -383,7 +289,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorised \`
+`Authorised `
 
 |
 
@@ -392,7 +298,7 @@ The payment request was sent successfully.
 |
 |
 
-\`Authorised 3-D\`
+`Authorised 3-D`
 
 |
 
@@ -401,7 +307,7 @@ The payment was authorized by 3-D secure.
 |
 |
 
-\`Cancelled\`
+`Cancelled`
 
 |
 
@@ -410,7 +316,7 @@ The transaction was canceled.
 |
 |
 
-\`Captured\`
+`Captured`
 
 |
 
@@ -419,7 +325,7 @@ The authorized payment was captured.
 |
 |
 
-\`Chargeback\`
+`Chargeback`
 
 |
 
@@ -428,7 +334,7 @@ A fee is charged back to the merchant if Checkout.com performs a refund.
 |
 |
 
-\`Declined \`
+`Declined `
 
 |
 
@@ -437,7 +343,7 @@ The transaction was declined.
 |
 |
 
-\`Deferred Refund\`
+`Deferred Refund`
 
 |
 
@@ -446,7 +352,7 @@ A transaction refund request submitted but not yet processed. <span class="table
 |
 |
 
-\`Expired\`
+`Expired`
 
 |
 
@@ -455,7 +361,7 @@ The transaction expired, (for example, it wasn't captured in time or it was inco
 |
 |
 
-\`Pending\`
+`Pending`
 
 |
 
@@ -464,7 +370,7 @@ The transaction is still being processed.
 |
 |
 
-\`Refunded \`
+`Refunded `
 
 |
 
@@ -473,7 +379,7 @@ The captured amount was refunded
 |
 |
 
-\`Timeout\`
+`Timeout`
 
 |
 
@@ -482,7 +388,7 @@ The transaction timed out.
 |
 |
 
-\`Voided\`
+`Voided`
 
 |
 

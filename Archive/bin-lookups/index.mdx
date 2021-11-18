@@ -3,13 +3,34 @@ title: bin-lookups
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 These API endpoints allow you retrieve information about the issuing country of a card based on the Bank Identification Number (BIN) or card token.
 
 This endpoint enables a merchant to obtain BIN details for a tokenized card, prior to a payment taking place. ## The request Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/tokens/{cardToken}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/tokens/{cardToken} </p></pre> ### Header and path parameters
 
-x
+Add Row Add Col
+
+|     |     |
+| --- | --- |
+
+|
+`Authorization` <span class="req-def">Required</span>
+
+|
+
+`secret key`\*
+
+|
+|
+
+`Content-Type` <span class="req-def">Required</span>
+
+|
+
+`application/json`
+
+|
+
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/).
 
 Add Row Add Col
 
@@ -17,34 +38,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
-
-|
-
-\`secret key\`\*
-
-|
-|
-
-\`Content-Type\` <span class="req-def">Required</span>
-
-|
-
-\`application/json\`
-
-|
-
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
-
-x
-
-Add Row Add Col
-
-|     |     |
-| --- | --- |
-
-|
-\`cardToken\` <span class="req-def">Required</span>
+`cardToken` <span class="req-def">Required</span>
 
 |
 
@@ -52,99 +46,33 @@ The card token identifier.
 
 |
 
-\### Request example
+### Request example
 
 Shell
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
-
 curl "https://api2.checkout.com/v2/tokens/card\_tok\_AF377225-9A51-4A33-B9F8-B75F9D14D709"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "accept: application/json"
+-X GET
 
-2
-
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
-
-3
-
-\-H "accept: application/json"
-
-4
-
-\-X GET
-
-Import from Gist
-
-\## The response A successful response returns the BIN data for the tokenized​ card. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help.
+## The response A successful response returns the BIN data for the tokenized​ card. If you're having problems with this API, then ask our [support team](mailto:support@checkout.com) for help.
 
 JSON
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-12
-
-1
-
 {
 
-2
-
 "token": "card_tok_AF377225-9A51-4A33-B9F8-B75F9D14D709",
-
-3
-
 "bin": "549486",
-
-4
-
 "issuer": "ALANDSBANKEN ABP",
-
-5
-
 "issuerCountry": "Finland",
-
-6
-
 "issuerCountryIso2": "FI",
-
-7
-
 "scheme": "Visa",
-
-8
-
 "type": "Credit",
-
-9
-
 "category": "Consumer",
-
-10
-
 "productId": "F",
-
-11
-
 "productType": "CLASSIC"
-
-12
-
 }
 
-Import from Gist
-
-\### Response fields
-
-x
+### Response fields
 
 Add Row Add Col
 
@@ -152,7 +80,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`bin\` <span class="field-type">String</span>
+`bin` <span class="field-type">String</span>
 
 |
 
@@ -161,7 +89,7 @@ The card issuing Bank Identification Number.
 |
 |
 
-\`category\` <span class="field-type">String</span>
+`category` <span class="field-type">String</span>
 
 |
 
@@ -170,7 +98,7 @@ The type of card used for the transaction (i.e.​ consumer or commercial).
 |
 |
 
-\`issuer\` <span class="field-type">String</span>
+`issuer` <span class="field-type">String</span>
 
 |
 
@@ -179,7 +107,7 @@ The card issuer name (based on third-party BIN data).
 |
 |
 
-\`issuerCountry\` <span class="field-type">String</span>
+`issuerCountry` <span class="field-type">String</span>
 
 |
 
@@ -188,7 +116,7 @@ The name of the country in which the issuer resides.
 |
 |
 
-\`issuerCountryISO2\` <span class="field-type">String</span>
+`issuerCountryISO2` <span class="field-type">String</span>
 
 |
 
@@ -197,7 +125,7 @@ The two-letter ISO country code of the issuer.
 |
 |
 
-\`productId\` <span class="field-type">String</span>
+`productId` <span class="field-type">String</span>
 
 |
 
@@ -206,7 +134,7 @@ The product id.
 |
 |
 
-\`productType\` <span class="field-type">String</span>
+`productType` <span class="field-type">String</span>
 
 |
 
@@ -215,7 +143,7 @@ The product type.
 |
 |
 
-\`scheme\` <span class="field-type">String</span>
+`scheme` <span class="field-type">String</span>
 
 |
 
@@ -224,7 +152,7 @@ The card scheme.
 |
 |
 
-\`token\` <span class="field-type">String</span>
+`token` <span class="field-type">String</span>
 
 |
 
@@ -233,7 +161,7 @@ The card token identifier.
 |
 |
 
-\`type\` <span class="field-type">String</span>
+`type` <span class="field-type">String</span>
 
 |
 
@@ -241,13 +169,11 @@ The type of card.
 
 |
 
-This endpoint retrieves the issuing country of a card based on the card's 4 or 6 digit BIN. If the request does not return any country information, the service will return \`NULL\` along with HTTP status code \`404\`.
+This endpoint retrieves the issuing country of a card based on the card's 4 or 6 digit BIN. If the request does not return any country information, the service will return `NULL` along with HTTP status code `404`.
 
-While this endpoint can be used to obtain general BIN information, we cannot guarantee this will be correct due to the full card number being needed in some cases. We recommend either using the \[BIN lookup with card token\](bin-lookups#section-api-bin-lookup-with-card-token) method described above or performing a \[card verification\](doc:zero-dollar-authorization) .
+While this endpoint can be used to obtain general BIN information, we cannot guarantee this will be correct due to the full card number being needed in some cases. We recommend either using the [BIN lookup with card token](bin-lookups#section-api-bin-lookup-with-card-token) method described above or performing a [card verification](doc:zero-dollar-authorization) .
 
-\## The request Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/lookups/bins/{bin}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/lookups/bins/{bin} </p></pre> ### Header and path parameters
-
-x
+## The request Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/lookups/bins/{bin}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/lookups/bins/{bin} </p></pre> ### Header and path parameters
 
 Add Row Add Col
 
@@ -255,26 +181,24 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type\` <span class="req-def">Required</span>
+`Content-Type` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
-
-x
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/).
 
 Add Row Add Col
 
@@ -282,7 +206,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`bin\` <span class="req-def">Required</span>
+`bin` <span class="req-def">Required</span>
 
 |
 
@@ -290,139 +214,43 @@ First 4-6 digits of the card number. <span class="table-info">The exact number o
 
 |
 
-\### Request example
+### Request example
 
 Example request: Visa Example request: Mastercard
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
-
 curl https://api2.checkout.com/v2/lookups/bins/400010
-
-2
-
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
-
-3
-
-\-X GET
-
-Import from Gist
-
-xxxxxxxxxx
-
-1
-
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-X GET
 curl https://api2.checkout.com/v2/lookups/bins/549486
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-X GET
 
-2
-
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
-
-3
-
-\-X GET
-
-Import from Gist
-
-\## The response A successful request returns the BIN information. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help.
+## The response A successful request returns the BIN information. If you're having problems with this API, then ask our [support team](mailto:support@checkout.com) for help.
 
 Example response: Visa Example response: Mastercard
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
-
 {
-
-2
-
 "bin": "454347",
-
-3
-
 "issuerCountryISO2": "MU",
-
-4
-
 "countryName": "Mauritius",
-
-5
-
 "bankName": "STATE BANK OF MAURITIUS, LTD.",
-
-6
-
 "cardScheme": "Visa",
-
-7
-
 "cardType": "Credit",
-
-8
-
 "cardCategory": "Consumer"
-
-9
-
 }
-
-Import from Gist
-
-xxxxxxxxxx
-
-1
-
 {
-
-2
-
 "bin": "606378",
-
-3
-
 "issuerCountryISO2": "FI",
-
-4
-
 "countryName": "Finland",
-
-5
-
 "bankName": "ALANDSBANKEN ABP",
-
-6
-
 "cardScheme": "MasterCard",
-
-7
-
 "cardType": "Credit",
-
-8
-
 "cardCategory": "Consumer"
-
-9
-
 }
 
-Import from Gist
+A successful response returns the `issuerCountryISO2`. All other response fields are only returned when available.
 
-A successful response returns the \`issuerCountryISO2\`. All other response fields are only returned when available.
-
-\### Response fields
-
-x
+### Response fields
 
 Add Row Add Col
 
@@ -430,7 +258,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`issuerCountryISO2\` <span class="field-type">String</span>
+`issuerCountryISO2` <span class="field-type">String</span>
 
 |
 
@@ -439,7 +267,7 @@ ISO 2 country code.
 |
 |
 
-\`countryName\` <span class="field-type">String</span>
+`countryName` <span class="field-type">String</span>
 
 |
 
@@ -448,7 +276,7 @@ Name of the country.
 |
 |
 
-\`bankName\` <span class="field-type">String</span>
+`bankName` <span class="field-type">String</span>
 
 |
 
@@ -457,7 +285,7 @@ Name of the bank.
 |
 |
 
-\`cardType \` <span class="field-type">String</span>
+`cardType ` <span class="field-type">String</span>
 
 |
 

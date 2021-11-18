@@ -9,22 +9,12 @@ This decline response means that the issuing bank has provided no further detail
 
 Sometimes the payment may have been declined owing to failed CVV or AVS checks, so it's worth checking these fields are correct before trying anything else.
 
-Trigger scenarios
------------------
+## Trigger scenarios
 
 There are several possible scenarios that can trigger the `20005 (Declined - Do not honour)` response code:
+. The bank's fraud rules (which consider various factors that are not made public) have been triggered. 2. The bank may have placed a temporary hold on the customer's card. 3. The purchase session may have been locked due to multiple declined payments. 4. The seller is located in a country different from that of the card issuing bank.
 
-1.  The bank's fraud rules (which consider various factors that are not made public) have been triggered.
-2.  The bank may have placed a temporary hold on the customer's card.
-3.  The purchase session may have been locked due to multiple declined payments.
-4.  The seller is located in a country different from that of the card issuing bank.  
-    
-
-How to resolve
---------------
+## How to resolve
 
 To resolve a `20005 (Declined - Do not honour)` response, try the following:
-
-1.  Ask the customer to contact their bank, explaining that they are trying to process a payment. The customer can ask the bank to allow the payment.
-2.  Ask the customer to try again at a later time. The issuing bank may have only placed a temporary hold on the card.
-3.  Ask the customer to use an alternative credit card.
+. Ask the customer to contact their bank, explaining that they are trying to process a payment. The customer can ask the bank to allow the payment. 2. Ask the customer to try again at a later time. The issuing bank may have only placed a temporary hold on the card. 3. Ask the customer to use an alternative credit card.

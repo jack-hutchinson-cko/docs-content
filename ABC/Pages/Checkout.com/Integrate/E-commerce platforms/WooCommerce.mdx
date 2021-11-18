@@ -7,8 +7,7 @@ From downloading the plugin to requesting your first test payment, learn how to 
 
 This guide assumes that you have already [set up WooCommerce on your WordPress instance](https://docs.woocommerce.com/document/installing-uninstalling-woocommerce/).
 
-Before you start
-----------------
+## Before you start
 
 ### Create a test account
 
@@ -19,94 +18,54 @@ If you haven't already, [create a test Checkout.com account](https://www.checko
 In order to set up WooCommerce, you'll need three API keys: a secret one, a public one, and a private shared one. The first two are generated automatically upon account creation. The last one is generated when you configure a webhook for your business.
 
 You do not need your private shared key if using v4.2.0+ of our WooCommerce plugin.
+. Log in to your test account on the [Hub sandbox](https://sandbox.checkout.com/). 2. In the left menu, go to *Settings > Channels*, and make a note of your secret and public API keys.  
+ ![](/download/attachments/8487181/channel_settings.png?version=1&modificationDate=1592390923646&api=v2) 3. Scroll down to the *Webhooks* section of the page and click **New webhook**. 4. Enter the following endpoint URL, replacing `example.com` with the URL of your shop: `example.com/?wc-api=wc_checkoutcom_webhook`. **Note**: correctly configuring your webhooks is important; if they're incorrectly formatted, the plugin will not work. 5. Select  **API - v2.0**. 6. Tick  **Select all**, then click  **Create webhook**.  
+ ![](/download/attachments/5931102/Screenshot%202021-03-01%20at%2016.07.05.png?version=1&modificationDate=1614614988427&api=v2) 7. Click on the webhook you just created, and make a note of the private shared API key.
 
-1.  Log in to your test account on the [Hub sandbox](https://sandbox.checkout.com/).
-2.  In the left menu, go to _Settings > Channels_, and make a note of your secret and public API keys.  
-    ![](/download/attachments/8487181/channel_settings.png?version=1&modificationDate=1592390923646&api=v2)
-3.  Scroll down to the _Webhooks_ section of the page and click **New webhook**.
-4.  Enter the following endpoint URL, replacing `example.com` with the URL of your shop: `example.com/?wc-api=wc_checkoutcom_webhook`. **Note**: correctly configuring your webhooks is important; if they're incorrectly formatted, the plugin will not work.
-5.  Select  **API - v2.0**.
-6.  Tick  **Select all**, then click  **Create webhook**.  
-    ![](/download/attachments/5931102/Screenshot%202021-03-01%20at%2016.07.05.png?version=1&modificationDate=1614614988427&api=v2)
-7.  Click on the webhook you just created, and make a note of the private shared API key.  
-      
-    ![](/download/attachments/5931102/webhook_woocommerce.png?version=1&modificationDate=1587470589749&api=v2)  
-    
+    ![](/download/attachments/5931102/webhook_woocommerce.png?version=1&modificationDate=1587470589749&api=v2)
 
 Webhooks are notifications that we send when an event occurs on your account. For example, when a payment is captured. These are used by the WooCommerce plugin to update the status of an order. [Read more about webhooks](/display/DOCS/Webhooks).
 
 ### Check you have no previous version of the plugin
 
-1.  Log in to WordPress as an administrator.
-2.  In the left menu, click **Plugins**.
-3.  Look for any plugins that have Checkout.com in the name. If you find one, click **Delete**, or click **Deactivate** and then **Delete**.  
-      
-    ![](/download/attachments/5931102/woocommerce_deactivate_plugin.png?version=1&modificationDate=1587470715895&api=v2)  
-    
+. Log in to WordPress as an administrator. 2. In the left menu, click **Plugins**. 3. Look for any plugins that have Checkout.com in the name. If you find one, click **Delete**, or click **Deactivate** and then **Delete**.
 
-Install the plugin
-------------------
+    ![](/download/attachments/5931102/woocommerce_deactivate_plugin.png?version=1&modificationDate=1587470715895&api=v2)
+
+## Install the plugin
 
 There are two ways to install the plugin:
 
-*   [using the WordPress Plugin Directory](#WooCommerce-wordpressplugindirectory)
-*   [using a .zip file](#WooCommerce-zipfile)
+- [using the WordPress Plugin Directory](#WooCommerce-wordpressplugindirectory)
+- [using a .zip file](#WooCommerce-zipfile)
 
 ### Using the WordPress Plugin Directory 
 
-1.  Log in to WordPress as an administrator.
-2.  In the left menu, click **Plugins > Add New**.
-3.  In the search bar in the top right, type `Checkout.com` then press the Enter key.
-4.  Click **Install Now**.
-5.  Click **Activate**.
+. Log in to WordPress as an administrator. 2. In the left menu, click **Plugins > Add New**. 3. In the search bar in the top right, type `Checkout.com` then press the Enter key. 4. Click **Install Now**. 5. Click **Activate**.
 
-After the plugin is activated, you are taken to the _Installed Plugins_ screen. You can now configure WooCommerce.
+After the plugin is activated, you are taken to the *Installed Plugins* screen. You can now configure WooCommerce.
 
-### Using a .zip file 
+### Using a .zip file
 
-1.  [Download the plugin from Github](https://github.com/CKOTech/checkout-woocommerce-plugin).
-2.  Unzip the file.
-3.  Zip the `woocommerce-gateway-checkout-com` folder.
-4.  Log in to WordPress as an administrator.
-5.  In the left menu, click **Plugins > Add New**.
-6.  Click **Upload Plugin**.
-7.  Click **Choose File**, select the `.zip` then click **Install Now**. A success message is displayed when the plugin installation has finished.
-8.  Click **Activate Plugin**.
+. [Download the plugin from Github](https://github.com/CKOTech/checkout-woocommerce-plugin). 2. Unzip the file. 3. Zip the `woocommerce-gateway-checkout-com` folder. 4. Log in to WordPress as an administrator. 5. In the left menu, click **Plugins > Add New**. 6. Click **Upload Plugin**. 7. Click **Choose File**, select the `.zip` then click **Install Now**. A success message is displayed when the plugin installation has finished. 8. Click **Activate Plugin**.
 
-After the plugin is activated, you are taken to the _Installed Plugins_ screen. You can now configure WooCommerce.
+After the plugin is activated, you are taken to the *Installed Plugins* screen. You can now configure WooCommerce.
 
-Configure the plugin
---------------------
+## Configure the plugin
 
-1.  Log in to WordPress as an administrator.
-2.  In the left menu, click **Plugins**.
-3.  Find the Checkout.com plugin and click on **Settings** below it.  
-      
+. Log in to WordPress as an administrator. 2. In the left menu, click **Plugins**. 3. Find the Checkout.com plugin and click on **Settings** below it.
+
     ![](/download/attachments/5931102/woocommerce_plugin_settings.png?version=1&modificationDate=1587471104154&api=v2)
-4.  Tick **Enable Checkout.com card payment**s.
-5.  Set the environment to **Sandbox**.
-6.  Choose a payment option title. This will be displayed to customers on your checkout page.
-7.  Enter your secret key, public key, and private shared key.
-8.  Click **Save changes**.
-9.  Click the _Card Settings_ tab, then click **Save changes**. Do the same for the _Order Settings_. This will activate our default configuration.
+
+. Tick **Enable Checkout.com card payment**s. 5. Set the environment to **Sandbox**. 6. Choose a payment option title. This will be displayed to customers on your checkout page. 7. Enter your secret key, public key, and private shared key. 8. Click **Save changes**. 9. Click the *Card Settings* tab, then click **Save changes**. Do the same for the *Order Settings*. This will activate our default configuration.
 
 That's it! You're ready to start testing.
 
-Test your integration
----------------------
+## Test your integration
 
-1.  Go to your shop's public URL and add a product to your cart.
-2.  Go to your cart then proceed to the checkout.
-3.  Enter the required billing details. You can put anything here, though we recommend using a real email address so that you can receive the order confirmation.
-4.  Select the **Checkout.com payment method**.
-5.  Enter the following card details:  
-    *   Number: `4242 4242 4242 4242`
-    *   Expiry date: `12/25`
-    *   CVV: `100`
-6.  Tick the terms and conditions box.
-7.  Click **Place order**. You will be redirected to the order confirmation page. If you entered a real email address in the billing details, you'll also receive an order confirmation email.
-8.  Log in to your Wordpress account as an administrator.
-9.  Click **WooCommerce** in the left menu. Your test order is displayed and has a status of `Processing`. This indicates that the payment has been successfully captured and that your webhooks are set up correctly.
+. Go to your shop's public URL and add a product to your cart. 2. Go to your cart then proceed to the checkout. 3. Enter the required billing details. You can put anything here, though we recommend using a real email address so that you can receive the order confirmation. 4. Select the **Checkout.com payment method**. 5. Enter the following card details:  
+ _ Number: `4242 4242 4242 4242`
+_ Expiry date: `12/25` \* CVV: `100` 6. Tick the terms and conditions box. 7. Click **Place order**. You will be redirected to the order confirmation page. If you entered a real email address in the billing details, you'll also receive an order confirmation email. 8. Log in to your Wordpress account as an administrator. 9. Click **WooCommerce** in the left menu. Your test order is displayed and has a status of `Processing`. This indicates that the payment has been successfully captured and that your webhooks are set up correctly.
 
 You can now either [go live](#WooCommerce-golive) as-is or [extend your configuration](#WooCommerce-extend).
 
@@ -114,12 +73,10 @@ Further testing
 
 You'll find more test cards and a range of scenarios to trigger in our [testing guide](/display/DOCS/Testing).
 
-Go live 
---------
+## Go live 
 
 If you're happy with the outcome of your testing and want to start taking payments right away, please [contact our Sales team](https://checkout.com/contact-sales) in order to move to a live account.
 
-Extend your configuration 
---------------------------
+## Extend your configuration 
 
 You can extend your configuration to [add more payment methods](/display/DOCS/Go+further+with+WooCommerce#GofurtherwithWooCommerce-paymentmethods) or [use 3DS](/display/DOCS/Go+further+with+WooCommerce#GofurtherwithWooCommerce-3dsecure).

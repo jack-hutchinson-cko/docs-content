@@ -3,13 +3,9 @@ title: view-payment-information
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+This endpoint enables you to fetch and view relevant information and parameters related to a payment. To use this endpoint, make sure you have the `chargeId` of the payment in question.
 
-This endpoint enables you to fetch and view relevant information and parameters related to a payment. To use this endpoint, make sure you have the \`chargeId\` of the payment in question.
-
-\## The request Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/charges/{chargeId}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/charges/{chargeId}</p></pre> ### Header and path parameters
-
-x
+## The request Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/charges/{chargeId}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/charges/{chargeId}</p></pre> ### Header and path parameters
 
 Add Row Add Col
 
@@ -17,26 +13,24 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type\` <span class="req-def">Required</span>
+`Content-Type` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
-
-x
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/).
 
 Add Row Add Col
 
@@ -44,115 +38,58 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`chargeId\` <span class="req-def">Required</span>
+`chargeId` <span class="req-def">Required</span>
 
 |
 
-The charge ID, embedded within the URI, prefixed with \`charge\_\` or \`charge_test\_\`.
+The charge ID, embedded within the URI, prefixed with `charge\_` or `charge_test\_`.
 
 |
 
-\### Request example
+### Request example
 
 Shell Java
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
 
 curl https://sandbox.checkout.com/api2/v2/charges/charge\_B41BEAAC175U76BD3EE1
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
-
-\-X GET
-
-Import from Gist
-
-xxxxxxxxxx
+-X GET
 
 23
 
-1
-
 // Create payload
-
-2
-
-String chargeId \= "charge_94EAEA4D772Z76BD3FA8";
-
-3
+String chargeId = "charge_94EAEA4D772Z76BD3FA8";
 
 ​
 
-4
+ChargeUpdate chargeUpdatePayload =new ChargeUpdate();
 
-ChargeUpdate chargeUpdatePayload \=new ChargeUpdate();
-
-5
-
-chargeUpdate.description\= "update the charge description here";
-
-6
+chargeUpdate.description= "update the charge description here";
 
 ​
-
-7
-
-chargeUpdatePayload.metadata \= new HashMap<String,String\>();
-
-8
-
+chargeUpdatePayload.metadata = new HashMap<String,String>();
 chargeUpdatePayload.metadata.put("code key","update the meta data here");
 
 9
 
-​
+​try {
+1
 
-10
-
-try {
-
-11
-
-// Create APIClient instance with your secret key
-
-12
-
-APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
-
-13
-
+// Create APIClient instance with your secret keyAPIClient ckoAPIClient= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 // Submit your request and receive an apiResponse
 
-14
-
-Response<OkResponse\> apiResponse \= ckoAPIClient.chargeService.updateCharge(chargeId,refundPayload);
-
-15
+Response<OkResponse> apiResponse = ckoAPIClient.chargeService.updateCharge(chargeId,refundPayload);
 
 ​
 
-16
-
 if(!apiResponse.hasError){
+7
 
-17
-
-// Access the response object retrieved from the api
-
-18
-
-OkResponse chargeUpdateResponse \= apiResponse.model;
-
-19
+// Access the response object retrieved from the apiOkResponse chargeUpdateResponse = apiResponse.model;
+9
 
 } else {
 
@@ -172,17 +109,13 @@ OkResponse chargeUpdateResponse \= apiResponse.model;
 
 } catch (Exception e) {}
 
-Import from Gist
-
-x
-
 Add Row Add Col
 
 |     |     |
 | --- | --- |
 
 |
-\`description\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`description` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -191,16 +124,16 @@ A description string of the payment capture.
 |
 |
 
-\`metadata\` <span class="field-type">Hash</span> <span class="optional-def">Optional</span>
+`metadata` <span class="field-type">Hash</span> <span class="optional-def">Optional</span>
 
 |
 
-A hash of \`FieldName\` and value pairs e.g. {'keys1': 'Value1'}. <span class="table-info">Max length of key(s) and value(s) is 100 each. A max. of 10 KVP are allowed.</span>
+A hash of `FieldName` and value pairs e.g. {'keys1': 'Value1'}. <span class="table-info">Max length of key(s) and value(s) is 100 each. A max. of 10 KVP are allowed.</span>
 
 |
 |
 
-\`trackId\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`trackId` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -209,7 +142,7 @@ An order tracking ID string generated by the merchant. <span class="table-info">
 |
 |
 
-\`udf1\` to \`udf5\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`udf1` to `udf5` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -217,19 +150,11 @@ User defined fields 1 to 5, max. 100 characters.
 
 |
 
-\## The response A successful request returns information about the payment.
+## The response A successful request returns information about the payment.
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
 79
-
-1
 
 {
 
@@ -237,19 +162,11 @@ xxxxxxxxxx
 
 "id": "charge_B41BEAAC175U76BD3EE1",
 
-3
-
 "liveMode": true,
-
-4
 
 "created": "2015-04-07T16:31:58Z",
 
-5
-
 "value": 2000,
-
-6
 
 "currency": "usd",
 
@@ -264,44 +181,28 @@ xxxxxxxxxx
 9
 
 "email": "sarah.mitchell@checkout.com",
-
-10
+0
 
 "chargeMode": 1,
 
-11
-
 "transactionIndicator": 1,
-
-12
+2
 
 "customerIp": "96.125.365.51",
-
-13
-
 "responseMessage": "Approved",
-
-14
 
 "responseAdvancedInfo": "Approved",
 
-15
-
 "responseCode": "10000",
 
-16
-
 "status": "Authorised",
-
-17
+7
 
 "authCode": "634622",
-
-18
+8
 
 "isCascaded": false,
-
-19
+9
 
 "autoCapture": "N",
 
@@ -384,124 +285,91 @@ xxxxxxxxxx
 39
 
 "countryCode": "1",
-
-40
+0
 
 "number": "111 222-333"
-
-41
+1
 
 }
-
-42
+2
 
 },
-
-43
+3
 
 "cvvCheck": "Y",
-
-44
+4
 
 "avsCheck": "S",
 
-45
-
 "responseCode": null
 
-46
-
 },
-
-47
+7
 
 "metadata": {
-
-48
+8
 
 "key1": "value1"
-
-49
+9
 
 },
-
-50
+0
 
 "shippingDetails": {
-
-51
+1
 
 "addressLine1": "27 Acacia Tree Street",
-
-52
+2
 
 "addressLine2": "Apartment 15",
-
-53
+3
 
 "postcode": "01072",
-
-54
+4
 
 "country": "US",
-
-55
+5
 
 "city": "Shutesbury",
 
-56
-
 "state": "Massachusetts",
-
-57
+7
 
 "phone": {
-
-58
+8
 
 "countryCode": "1",
-
-59
+9
 
 "number": "111 222-333"
-
-60
+0
 
 }
-
-61
+1
 
 },
+2
 
-62
-
-"products": \[
-
-63
+"products": [
+3
 
 {
-
-64
+4
 
 "description": "T-Shirt ladies medium",
-
-65
+5
 
 "image": null,
-
-66
+6
 
 "name": "T-Shirt ladies",
-
-67
+7
 
 "price": 2000,
-
-68
+8
 
 "quantity": 1,
-
-69
+9
 
 "shippingCost": 0,
 
@@ -519,7 +387,7 @@ xxxxxxxxxx
 
 73
 
-\],
+],
 
 74
 
@@ -544,5 +412,3 @@ xxxxxxxxxx
 79
 
 }
-
-Import from Gist

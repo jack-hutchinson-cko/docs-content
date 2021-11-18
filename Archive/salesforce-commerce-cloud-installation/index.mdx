@@ -3,92 +3,40 @@ title: salesforce-commerce-cloud-installation
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 With our Salesforce Commerce Cloud installation, you can quickly start accepting payments on the Checkout.com payment gateway.
 
 In order to use this extension, you need to be using Salesforce Commerce Cloud 16.2 or above.
 
-Click \[here\](https://www.salesforce.com/products/commerce-cloud/partner-marketplace/partners/checkout-com/) to download the \`int_checkoutcom\` cartridge from the LINK Marketplace. You will be prompted to enter your Salesforce credentials.
+Click [here](https://www.salesforce.com/products/commerce-cloud/partner-marketplace/partners/checkout-com/) to download the `int_checkoutcom` cartridge from the LINK Marketplace. You will be prompted to enter your Salesforce credentials.
 
-Upload \`int_checkoutcom\` to your server, using a tool like UX Studio or Webdav. Apply the standard flow used to upload cartridges to your environment.
-
-1\. In the \*Business Manager\*, go to \*\*Administration > Sites > Manage Sites\*\*. 2. In your target site’s settings, add \`int_checkoutcom\` to the cartridge path like in the following example:
-
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
+Upload `int_checkoutcom` to your server, using a tool like UX Studio or Webdav. Apply the standard flow used to upload cartridges to your environment.
+. In the _Business Manager_, go to **Administration > Sites > Manage Sites**. 2. In your target site’s settings, add `int_checkoutcom` to the cartridge path like in the following example:
 
 ---
-
-- **Options:**
-- Image Border
 
 ![](https://files.readme.io/79c2efe-Picture1.png)
 
-Upload an image...
-
 ![](https://files.readme.io/79c2efe-Picture1.png)**Picture1.png**
+. Open a file browser (e.g. Windows Explorer) and locate the cartridge's `metadata` folder. 2. Step down the folder hierarchy until you are in the `sites` subfolder. 3. Rename the `SiteGenesisGlobal` folder to the name of the site for which you want to import `int_checkoutcom`’s settings, payment methods and services. 4. Navigate back to the project’s root folder and zip the metadata folder. Make sure to name the zip `metadata.zip`.
 
-change·remove
-
-Don't have one handy? Use our logo to start!
-
-1\. Open a file browser (e.g. Windows Explorer) and locate the cartridge's \`metadata\` folder. 2. Step down the folder hierarchy until you are in the \`sites\` subfolder. 3. Rename the \`SiteGenesisGlobal\` folder to the name of the site for which you want to import \`int_checkoutcom\`’s settings, payment methods and services. 4. Navigate back to the project’s root folder and zip the metadata folder. Make sure to name the zip \`metadata.zip\`.
-
-1\. In the \*Business Manager\*, go to \*\*Administration > Site Development > Site Import & Export\*\*. 2. Under \*Upload Archive\*, select \*\*Local\*\* then click \*\*Browse\*\*. 3. Select \`metadata.zip\`, click \*\*Open\*\* and then \*\*Upload\*\*.
-
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
+1. In the _Business Manager_, go to **Administration > Site Development > Site Import & Export**. 2. Under _Upload Archive_, select **Local** then click **Browse**. 3. Select `metadata.zip`, click **Open** and then **Upload**.
 
 ---
-
-- **Options:**
-- Image Border
 
 ![](https://files.readme.io/30723b2-Picture2.png)
 
-Upload an image...
-
 ![](https://files.readme.io/30723b2-Picture2.png)**Picture2.png**
+. Check the import status in the _Status_ section. After the import has been completed successfully, all required Checkout.com data will be available globally and for the selected sites.
 
-change·remove
-
-Don't have one handy? Use our logo to start!
-
-4\. Check the import status in the \*Status\* section. After the import has been completed successfully, all required Checkout.com data will be available globally and for the selected sites.
-
-Go to \*\*Merchant Tools > Site Preferences > Custom Preferences\*\*. You will find two groups of configuration screens: Checkout.com Account and Checkout.com Global. ## Checkout.com Account On this screen, you will have to provide a public key, a private key, and a private shared key. These elements are necessary, regardless of whether you are in live mode or in test mode. You can find these in \[The Hub\](https://hub.checkout.com).
-
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
+Go to **Merchant Tools > Site Preferences > Custom Preferences**. You will find two groups of configuration screens: Checkout.com Account and Checkout.com Global. ## Checkout.com Account On this screen, you will have to provide a public key, a private key, and a private shared key. These elements are necessary, regardless of whether you are in live mode or in test mode. You can find these in [The Hub](https://hub.checkout.com).
 
 ---
 
-- **Options:**
-- Image Border
-
 ![](https://files.readme.io/fc824b6-Picture3.png)
-
-Upload an image...
 
 ![](https://files.readme.io/fc824b6-Picture3.png)**Picture3.png**
 
-change·remove
-
-Don't have one handy? Use our logo to start!
-
-\## Checkout.com Global This screen contains the other configuration parameters for your Checkout.com payment integration. The following parameters are mandatory and should be double-checked:
-
-x
+## Checkout.com Global This screen contains the other configuration parameters for your Checkout.com payment integration. The following parameters are mandatory and should be double-checked:
 
 Add Row Add Col
 
@@ -167,136 +115,72 @@ An integer or decimal number specifying how long after the authorization the tra
 
 |
 
-You're almost done! In order to show the Checkout.com payment option on the billing page, you just need to edit the payment methods template. You can find it in this folder: \`/app_storefront_core/cartridge/templates/default/checkout/billing\` Add the following code snippet to the \`paymentmethods.isml\` template file:
+You're almost done! In order to show the Checkout.com payment option on the billing page, you just need to edit the payment methods template. You can find it in this folder: `/app_storefront_core/cartridge/templates/default/checkout/billing` Add the following code snippet to the `paymentmethods.isml` template file:
 
 ISML
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-18
-
+8
 1
 
-<iscomment\>
-
-2
-
+<iscomment>
 Checkout.com - Integration example
-
-3
 
 Add this code to your paymentmethods.isml file
 
-4
-
 ---
 
-5
+</iscomment>
 
-</iscomment\>
-
-6
-
-<isif condition\="${(dw.system.Site.getCurrent().getCustomPreferenceValue("ckoEnabled"))}"\>
+<isif condition="${(dw.system.Site.getCurrent().getCustomPreferenceValue("ckoEnabled"))}">
 
 7
 
- <div class\="payment-method <isif condition="${!empty(pdict.selectedPaymentID) && pdict.selectedPaymentID\=\='CHECKOUTCOM\_CREDIT'}">payment-method-expanded</isif>" data-method\="CHECKOUTCOM\_CREDIT"\>
+ <div class="payment-method <isif condition="${!empty(pdict.selectedPaymentID) && pdict.selectedPaymentID=='CHECKOUTCOM\_CREDIT'}">payment-method-expanded</isif>" data-method="CHECKOUTCOM\_CREDIT">
 
 8
 
- <div class\="form-row form-caption cko-form"\>
+ <div class="form-row form-caption cko-form">
 
 9
 
- <isinclude template\="custom/credit/request/form" />
+<isinclude template="custom/credit/request/form" />0
 
-10
+</div>
+1
 
-</div\>
+</div>
+2
 
-11
-
-</div\>
-
-12
-
-<iselse\>
-
-13
-
-<iscomment\>
-
-14
+<iselse>
+<iscomment>
 
 Site Genesis - Default Credit card block
 
-15
-
 Add the default Site Genesis credit card form code here.
-
-16
 
 ---
 
-17
+7
 
-</iscomment\>
+</iscomment>
+8
 
-18
+</isif>
 
-</isif\>
-
-Import from Gist
-
-If your site is also using the default Site Genesis credit card form, please place the code of the form (found in the core \`paymentmethods.isml\` template file) after the \`<iselse>\` block in the snippet shown above.
+If your site is also using the default Site Genesis credit card form, please place the code of the form (found in the core `paymentmethods.isml` template file) after the `<iselse>` block in the snippet shown above.
 
 This will display the Checkout.com credit card form if enabled in the custom preferences, and display the default Site Genesis credit card form if not.
 
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
-
 ---
-
-- **Options:**
-- Image Border
 
 ![](https://files.readme.io/e43dce0-Picture4.png)
 
-Upload an image...
-
 ![](https://files.readme.io/e43dce0-Picture4.png)**Picture4.png**
 
-change·remove
-
-Don't have one handy? Use our logo to start!
-
-After having provided their card details, the customer can proceed to the order review page. When they click \*\*Place Order\*\*, a charge request is sent to our payment processing server — without them being redirected. If the payment is successful, the customer is redirected to the order confirmation page.
-
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
+After having provided their card details, the customer can proceed to the order review page. When they click **Place Order**, a charge request is sent to our payment processing server — without them being redirected. If the payment is successful, the customer is redirected to the order confirmation page.
 
 ---
 
-- **Options:**
-- Image Border
-
 ![](https://files.readme.io/cdca866-Picture5.png)
 
-Upload an image...
-
 ![](https://files.readme.io/cdca866-Picture5.png)**Picture5.png**
-
-change·remove
-
-Don't have one handy? Use our logo to start!

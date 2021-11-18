@@ -5,23 +5,16 @@ account: ABC
 
 Start accepting payments using Klarna, a favorite payment method in Europe.
 
-We offer Klarna's _Pay later_ and _Slice it_ payment methods, allowing your customers to either pay up to 30 days later via an invoice, or split the payment into three equal installments.
+We offer Klarna's *Pay later* and *Slice it* payment methods, allowing your customers to either pay up to 30 days later via an invoice, or split the payment into three equal installments.
 
 To start accepting Klarna payments, please contact your Customer Success Manager.
 
-Overview
---------
+## Overview
 
 To integrate Klarna into your checkout process and start accepting payments, follow these five steps:
+. **[Create a session](#Klarna-createsession)**. When the customer reaches your checkout page, create a session with Klarna. 2. **[Display widget](#Klarna-displaywidget)**. Initialize and load the Klarna widget to present your customer with the payment methods. 3. **[Authorize](#Klarna-authorize)**. When the customer presses the buy/review order button on your page, make an authorization request. 4. **[Place the order](#Klarna-placeorder)**. After the order has been authorized, place the order by using the authorization token generated in step three. 5. **[Capture the payment](#Klarna-capturepayment)**. Finally, once you've shipped the order or made it available to the customer, you can capture the payment.
 
-1.  **[Create a session](#Klarna-createsession)**. When the customer reaches your checkout page, create a session with Klarna.
-2.  **[Display widget](#Klarna-displaywidget)**. Initialize and load the Klarna widget to present your customer with the payment methods.
-3.  **[Authorize](#Klarna-authorize)**. When the customer presses the buy/review order button on your page, make an authorization request.
-4.  **[Place the order](#Klarna-placeorder)**. After the order has been authorized, place the order by using the authorization token generated in step three.
-5.  **[Capture the payment](#Klarna-capturepayment)**. Finally, once you've shipped the order or made it available to the customer, you can capture the payment.
-
-Create a session 
------------------
+## Create a session 
 
 First, you need to create a Klarna session for your customer.
 
@@ -33,8 +26,8 @@ When you create a session, you will receive the available `payment_method_categ
 
 #### Endpoints
 
-*   [**Live**](#tabs-652df023-67dc-4b7f-bfea-5618df754c4f-1)
-*   [**Sandbox**](#tabs-652df023-67dc-4b7f-bfea-5618df754c4f-2)
+- [**Live**](#tabs-652df023-67dc-4b7f-bfea-5618df754c4f-1)
+- [**Sandbox**](#tabs-652df023-67dc-4b7f-bfea-5618df754c4f-2)
 
 POST`https://api.checkout.com/klarna/credit-sessions`
 
@@ -122,7 +115,7 @@ ARRAY
 
 The order details.
 
-This object is passed directly to Klarna as order\_lines. See [Klarna's documentation](https://developers.klarna.com/api/) for more information.
+This object is passed directly to Klarna as order_lines. See [Klarna's documentation](https://developers.klarna.com/api/) for more information.
 
 `purchase_country` and `locale` will affect the Klarna widget's validation rules. For example, when your customer is prompted for their address, the widget's postal code field will validate against available post codes in the country specified in `purchase_country`.
 
@@ -148,49 +141,48 @@ This object is passed directly to Klarna as order\_lines. See [Klarna's docume
 
 #### Response examples
 
-*   [**201 Successfully created Klarna session**](#tabs-fe0a05d3-43c8-488c-ac46-8aa75c0a6c2f-1)
-*   [**422 Request could not be accepted**](#tabs-fe0a05d3-43c8-488c-ac46-8aa75c0a6c2f-2)
+- [**201 Successfully created Klarna session**](#tabs-fe0a05d3-43c8-488c-ac46-8aa75c0a6c2f-1)
+- [**422 Request could not be accepted**](#tabs-fe0a05d3-43c8-488c-ac46-8aa75c0a6c2f-2)
 
-    {
-      "session_id": "kcs_55xomnyd3ftujckeoyuvtkx2ue",
-      "client_token": "eyJhbGciOiJub25lIn0.ewogICJzZXNzaW9uX2lkIiA6ICI1MGEzYTNiOS02NGE5LTYwNjMtODNmNC1hMzRlM2Q4MjRiNGIiLAogICJiYXNlX3VybCIgOiAiaHR0cHM6Ly9rbGFybmEtcGF5bWVudHMtZXUucGxheWdyb3VuZC5rbGFybmEuY29tIiwKICAiZGVzaWduIiA6ICJrbGFybmEiLAogICJsYW5ndWFnZSIgOiAiZW4iLAogICJwdXJjaGFzZV9jb3VudHJ5IiA6ICJHQiIsCiAgImFuYWx5dGljc19wcm9wZXJ0eV9pZCIgOiAiVUEtMzYwNTMxMzctMTEiLAogICJ0cmFjZV9mbG93IiA6IGZhbHNlLAogICJlbnZpcm9ubWVudCIgOiAicGxheWdyb3VuZCIsCiAgIm1lcmNoYW50X25hbWUiIDogIlBsYXlncm91bmQgRGVtbyBNZXJjaGFudCIsCiAgInNlc3Npb25fdHlwZSIgOiAiUEFZTUVOVFMiLAogICJjbGllbnRfZXZlbnRfYmFzZV91cmwiIDogImh0dHBzOi8vZXZ0LnBsYXlncm91bmQua2xhcm5hLmNvbSIKfQ.",
-      "payment_method_categories": [
-        {
-          "asset_urls": {
-            "descriptive": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/slice_it/descriptive/pink.svg",
-            "standard": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/slice_it/standard/pink.svg"
-          },
-          "identifier": "pay_over_time",
-          "name": "Slice it."
-        },
-        {
-          "asset_urls": {
-            "descriptive": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/pay_later/descriptive/pink.svg",
-            "standard": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/pay_later/standard/pink.svg"
-          },
-          "identifier": "pay_later",
-          "name": "Pay later."
-        }
-      ],
-      "_links": {
-        "self": {
-          "href": "http://localhost:5100/credit-sessions/kcs_55xomnyd3ftujckeoyuvtkx2ue"
-        }
-      }
-    }
+  {
+  "session_id": "kcs_55xomnyd3ftujckeoyuvtkx2ue",
+  "client_token": "eyJhbGciOiJub25lIn0.ewogICJzZXNzaW9uX2lkIiA6ICI1MGEzYTNiOS02NGE5LTYwNjMtODNmNC1hMzRlM2Q4MjRiNGIiLAogICJiYXNlX3VybCIgOiAiaHR0cHM6Ly9rbGFybmEtcGF5bWVudHMtZXUucGxheWdyb3VuZC5rbGFybmEuY29tIiwKICAiZGVzaWduIiA6ICJrbGFybmEiLAogICJsYW5ndWFnZSIgOiAiZW4iLAogICJwdXJjaGFzZV9jb3VudHJ5IiA6ICJHQiIsCiAgImFuYWx5dGljc19wcm9wZXJ0eV9pZCIgOiAiVUEtMzYwNTMxMzctMTEiLAogICJ0cmFjZV9mbG93IiA6IGZhbHNlLAogICJlbnZpcm9ubWVudCIgOiAicGxheWdyb3VuZCIsCiAgIm1lcmNoYW50X25hbWUiIDogIlBsYXlncm91bmQgRGVtbyBNZXJjaGFudCIsCiAgInNlc3Npb25fdHlwZSIgOiAiUEFZTUVOVFMiLAogICJjbGllbnRfZXZlbnRfYmFzZV91cmwiIDogImh0dHBzOi8vZXZ0LnBsYXlncm91bmQua2xhcm5hLmNvbSIKfQ.",
+  "payment_method_categories": [
+  {
+  "asset_urls": {
+  "descriptive": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/slice_it/descriptive/pink.svg",
+  "standard": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/slice_it/standard/pink.svg"
+  },
+  "identifier": "pay_over_time",
+  "name": "Slice it."
+  },
+  {
+  "asset_urls": {
+  "descriptive": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/pay_later/descriptive/pink.svg",
+  "standard": "https://cdn.klarna.com/1.0/shared/image/generic/badge/en_gb/pay_later/standard/pink.svg"
+  },
+  "identifier": "pay_later",
+  "name": "Pay later."
+  }
+  ],
+  "\_links": {
+  "self": {
+  "href": "http://localhost:5100/credit-sessions/kcs_55xomnyd3ftujckeoyuvtkx2ue"
+  }
+  }
+  }
 
-    {
-      "request_id": "0HLK56US9BH1E:0000005B",
-      "error_type": "request_invalid",
-      "error_codes": [
-        "purchase_country_required"
-      ]
-    }
+  {
+  "request_id": "0HLK56US9BH1E:0000005B",
+  "error_type": "request_invalid",
+  "error_codes": [
+  "purchase_country_required"
+  ]
+  }
 
 If something goes wrong, you may get a `400 Bad request` or `401 Unauthorized to access this resource` error.
 
-Display widget 
----------------
+## Display widget 
 
 Next, load the widget on your page so your customer can choose one of the Klarna payment methods.
 
@@ -198,16 +190,13 @@ Next, load the widget on your page so your customer can choose one of the Klarna
 
 To do so, you first need to insert the below code into your page to load the Klarna Payments Library in your client.
 
-    
       window.klarnaAsyncCallback = function () {
-     
+
         // This is where you start calling Klarna's JS SDK functions
         //
         // Klarna.Payments.init({ ... })
-     
+
       };
-    
-    
 
 #### Initialize the SDK
 
@@ -233,7 +222,7 @@ The Klarna Payments iframe requires a minimum width of 280px.
 
 ### Display available payment methods
 
-To show your customer the Klarna payment options open to them (i.e. _Pay later_ and _Slice it_), use the following `payment_method_categories` array, which you'll find in the response you received when you created the session in step one.
+To show your customer the Klarna payment options open to them (i.e. *Pay later* and *Slice it*), use the following `payment_method_categories` array, which you'll find in the response you received when you created the session in step one.
 
     {
       // ...
@@ -473,27 +462,26 @@ We recommend passing the `data` object with every call to `load`, to ensure t
 
 #### Response examples
 
-*   [**Positive response: Klarna offered**](#tabs-f1743ae1-a790-4be9-ae63-b6db5edc4bea-1)
-*   [**Adjust and try again**](#tabs-f1743ae1-a790-4be9-ae63-b6db5edc4bea-2)
-*   [**Klarna not offered**](#tabs-f1743ae1-a790-4be9-ae63-b6db5edc4bea-3)
+- [**Positive response: Klarna offered**](#tabs-f1743ae1-a790-4be9-ae63-b6db5edc4bea-1)
+- [**Adjust and try again**](#tabs-f1743ae1-a790-4be9-ae63-b6db5edc4bea-2)
+- [**Klarna not offered**](#tabs-f1743ae1-a790-4be9-ae63-b6db5edc4bea-3)
 
-    {
-      show_form: true
-    }
+  {
+  show_form: true
+  }
 
-    {
-      show_form: true,
-      error: {
-        invalid_fields: ["billing_address.email"]
-      }
-    }
+  {
+  show_form: true,
+  error: {
+  invalid_fields: ["billing_address.email"]
+  }
+  }
 
-    {
-      show_form: false
-    }
+  {
+  show_form: false
+  }
 
-Authorize the order 
---------------------
+## Authorize the order 
 
 When your customer presses the **buy now** button, you can authorize the order. In return, you'll receive an authorization token, which you'll then use to complete the payment.
 
@@ -567,31 +555,30 @@ Catches the response from `Klarna.Payments.authorize()` for further processing
 
 #### Response examples
 
-*   [**Successful**](#tabs-8432ba75-7aba-4e2f-ad9e-7f6b598086c2-1)
-*   [**Rejected with solvable errors**](#tabs-8432ba75-7aba-4e2f-ad9e-7f6b598086c2-2)
-*   [**Rejected**](#tabs-8432ba75-7aba-4e2f-ad9e-7f6b598086c2-3)
+- [**Successful**](#tabs-8432ba75-7aba-4e2f-ad9e-7f6b598086c2-1)
+- [**Rejected with solvable errors**](#tabs-8432ba75-7aba-4e2f-ad9e-7f6b598086c2-2)
+- [**Rejected**](#tabs-8432ba75-7aba-4e2f-ad9e-7f6b598086c2-3)
 
-    {
-      authorization_token: "b4bd3423-24e3",
-      approved: true,
-      show_form: true
-    }
+  {
+  authorization_token: "b4bd3423-24e3",
+  approved: true,
+  show_form: true
+  }
 
-    {
-      approved: false,
-      show_form: true,
-      error: {
-        invalid_fields: ["billing_address.email"]
-      }
-    }
+  {
+  approved: false,
+  show_form: true,
+  error: {
+  invalid_fields: ["billing_address.email"]
+  }
+  }
 
-    {
-        approved: false,
-        show_form: false
-    }
+  {
+  approved: false,
+  show_form: false
+  }
 
-Place the order 
-----------------
+## Place the order 
 
 If the authorization was successful, you will have received an `authorization_token`, which you can now use to place the customer's order.
 
@@ -601,8 +588,8 @@ When you're processing a transaction via Klarna, you must **only capture the pa
 
 #### Endpoints
 
-*   [**Live**](#tabs-fc7ff0ab-ec3d-42c1-95cf-e78462d9ae73-1)
-*   [**Sandbox**](#tabs-fc7ff0ab-ec3d-42c1-95cf-e78462d9ae73-2)
+- [**Live**](#tabs-fc7ff0ab-ec3d-42c1-95cf-e78462d9ae73-1)
+- [**Sandbox**](#tabs-fc7ff0ab-ec3d-42c1-95cf-e78462d9ae73-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -891,8 +878,7 @@ Unlike the other payment method supports, Klarna is always synchronous. The redi
 
 The 202 response with an `approved: true` flag confirms that Klarna will process your payout as soon as you capture the payment in the next step.
 
-Capture the payment 
---------------------
+## Capture the payment 
 
 Once you've shipped your goods to the customer, you can capture the payment. If, however, you provide the customer with immediate access to your product (e.g., you provide them with an online service), you can capture the payment as soon as the order is placed.
 
@@ -900,8 +886,8 @@ If you're shipping goods, it's a good idea to include the `shipping_info` for 
 
 #### Endpoints
 
-*   [**Live**](#tabs-12a893fb-4218-49a3-8ad2-8c9fad953ecd-1)
-*   [**Sandbox**](#tabs-12a893fb-4218-49a3-8ad2-8c9fad953ecd-2)
+- [**Live**](#tabs-12a893fb-4218-49a3-8ad2-8c9fad953ecd-1)
+- [**Sandbox**](#tabs-12a893fb-4218-49a3-8ad2-8c9fad953ecd-2)
 
 POST`https://api.checkout.com/klarna/orders/{payment_id}/captures`
 
@@ -1013,7 +999,7 @@ ARRAY
 
 The order details.
 
-This object is passed directly to Klarna as order\_lines. See [Klarna's documentation](https://developers.klarna.com/api/) for more information.
+This object is passed directly to Klarna as order_lines. See [Klarna's documentation](https://developers.klarna.com/api/) for more information.
 
 `klarna.shipping_info`
 
@@ -1049,7 +1035,7 @@ If you want to submit a value greater than 0, this needs to be enabled in your a
             "unit_price": 1000,
             "tax_rate": 0,
             "total_amount": 1000,
-            "total_tax_amount": 0         
+            "total_tax_amount": 0
           }
         ],
         "shipping_info": [
@@ -1069,21 +1055,21 @@ If you want to submit a value greater than 0, this needs to be enabled in your a
 
 #### Response examples
 
-*   [**202 Capture accepted**](#tabs-be80c946-595a-4154-91dd-70345f8bcb96-1)
-*   [**422 Invalid data was sent**](#tabs-be80c946-595a-4154-91dd-70345f8bcb96-2)
+- [**202 Capture accepted**](#tabs-be80c946-595a-4154-91dd-70345f8bcb96-1)
+- [**422 Invalid data was sent**](#tabs-be80c946-595a-4154-91dd-70345f8bcb96-2)
 
-    {
-      "action_id": "act_4sz4seltcrzuvcgaetumnlamq4"
-    }
+  {
+  "action_id": "act_4sz4seltcrzuvcgaetumnlamq4"
+  }
 
-    {
-      "request_id": "beug8y83h978yh",
-      "error_type": "request_invalid",
-      "error_codes": [
-        "customer_id_required",
-        "given_name_exceed_length"
-      ]
-    }
+  {
+  "request_id": "beug8y83h978yh",
+  "error_type": "request_invalid",
+  "error_codes": [
+  "customer_id_required",
+  "given_name_exceed_length"
+  ]
+  }
 
 If unsuccessful, you may receive a `403 Capture not allowed` or `404 Payment not found` error.
 
@@ -1095,8 +1081,8 @@ Klarna supports both partial and full refunds. You can refund a payment through 
 
 #### Endpoints
 
-*   [**Live**](#tabs-db1e74e4-c901-4e3b-b46f-57eba37e190e-1)
-*   [**Sandbox**](#tabs-db1e74e4-c901-4e3b-b46f-57eba37e190e-2)
+- [**Live**](#tabs-db1e74e4-c901-4e3b-b46f-57eba37e190e-1)
+- [**Sandbox**](#tabs-db1e74e4-c901-4e3b-b46f-57eba37e190e-2)
 
 POST`https://api.checkout.com/klarna/orders/{payment_id}/voids`
 
@@ -1175,19 +1161,19 @@ A set of key-value pairs that you can attach to a payment. You can use this to s
 
 #### Response examples
 
-*   [**202 Void accepted**](#tabs-c77069eb-0d02-407d-abbf-31c1c493e277-1)
-*   [**422 Invalid data was sent**](#tabs-c77069eb-0d02-407d-abbf-31c1c493e277-2)
+- [**202 Void accepted**](#tabs-c77069eb-0d02-407d-abbf-31c1c493e277-1)
+- [**422 Invalid data was sent**](#tabs-c77069eb-0d02-407d-abbf-31c1c493e277-2)
 
-    {
-      "action_id": "act_v6572a7elpuupbaljmoi4tk3ma"
-    }
+  {
+  "action_id": "act_v6572a7elpuupbaljmoi4tk3ma"
+  }
 
-    {
-      "request_id": "0HL80RJLS76I7",
-      "error_type": "request_invalid",
-      "error_codes": [
-        "payment_source_required"
-      ]
-    }
+  {
+  "request_id": "0HL80RJLS76I7",
+  "error_type": "request_invalid",
+  "error_codes": [
+  "payment_source_required"
+  ]
+  }
 
 If unsuccessful, you may get a `403 Void not allowed` or `404 Payment not found` error.

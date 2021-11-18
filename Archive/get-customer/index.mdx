@@ -3,13 +3,9 @@ title: get-customer
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 Use this API endpoint to return a customer's information.
 
-\## The request Update a customer's information by sending a \*\*GET\*\* API request to the URI below. In the URI, replace \*\*{customerId}\*\* with the customer's ID. Remember to use the prefix \`cust\_\` to your customer ID. If you don't have the customer's ID, you can use their registered email address instead. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/{customerId|email}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/customers/{customerId|email}</p></pre> ### Header and path parameters
-
-x
+## The request Update a customer's information by sending a **GET** API request to the URI below. In the URI, replace **{customerId}** with the customer's ID. Remember to use the prefix `cust\_` to your customer ID. If you don't have the customer's ID, you can use their registered email address instead. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/customers/{customerId|email}</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/customers/{customerId|email}</p></pre> ### Header and path parameters
 
 Add Row Add Col
 
@@ -17,26 +13,24 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type\` <span class="req-def">Required</span>
+`Content-Type` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
-
-x
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/).
 
 Add Row Add Col
 
@@ -44,132 +38,72 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`customerId\` <span class="req-def">Required</span>
+`customerId` <span class="req-def">Required</span>
 
 |
 
-The customer's ID (prefixed with \`cust\_\`).
+The customer's ID (prefixed with `cust\_`).
 
 |
 |
 
-\`email\` <span class="req-def">Required</span>
+`email` <span class="req-def">Required</span>
 
 |
 
-The customer's email. <span class="table-info">If the email contains a + character, it would need to be entered in the following way: \`/customers?email=elizabeth+seymore@domain.com\`</span>
+The customer's email. <span class="table-info">If the email contains a + character, it would need to be entered in the following way: `/customers?email=elizabeth+seymore@domain.com`</span>
 
 |
 
-\### Request example
+### Request example
 
 Shell Java
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
 
 curl https://api2.checkout.com/v2/customers/cust\_49F7E6F8-B990-4E4E-BC58-419A3B0556D0
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
+-X GET
 
-\-X GET
-
-Import from Gist
-
-xxxxxxxxxx
-
-17
-
+7
 1
 
 // Create payload
-
-2
-
-String customerId\="cust_49F7E6F8-B990-4E4E-BC58-419A3B0556D0";
-
-3
+String customerId="cust_49F7E6F8-B990-4E4E-BC58-419A3B0556D0";
 
 ​
 
-4
-
 try {
-
-5
 
 // Create APIClient instance with your secret key
 
-6
-
-APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 7
 
 // Submit your request and receive an apiResponse
-
-8
-
-Response<Customer\> apiResponse \= ckoAPIClient.customerService.getCustomer(customerId);
+Response<Customer> apiResponse = ckoAPIClient.customerService.getCustomer(customerId);
 
 9
 
-​
+​if(!apiResponse.hasError){
+1
 
-10
-
-if(!apiResponse.hasError){
-
-11
-
-// Access the response object retrieved from the api
-
-12
-
-Customer customer \= apiResponse.model;
-
-13
-
+// Access the response object retrieved from the apiCustomer customer = apiResponse.model;
 } else {
-
-14
 
 // Api has returned an error object. You can access the details in the error property of the apiResponse.
 
-15
-
 // apiResponse.error
 
-16
-
 }
-
-17
+7
 
 } catch (Exception e) {}
 
-Import from Gist
-
-\- -- ## The response If a customer object returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-45
-
-1
+- -- ## The response If a customer object returns, then your request was successful. If you're having problems with this API, then ask our [support team](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example
 
 {
 
@@ -177,19 +111,11 @@ xxxxxxxxxx
 
 "id": "cust_7C997D0D-1996-4236-9579-2FE6970D5695",
 
-3
-
 "name": "Sarah Mitchell",
-
-4
 
 "livemode": false,
 
-5
-
 "created": "2017-06-20T08:41:13Z",
-
-6
 
 "email": "sarah.mitchell@checkout.com",
 
@@ -204,44 +130,28 @@ xxxxxxxxxx
 9
 
 "number": "12345678"
-
-10
+0
 
 },
 
-11
-
 "description": null,
-
-12
+2
 
 "metadata": {},
-
-13
-
 "cards": {
-
-14
 
 "count": 1,
 
-15
-
-"data": \[
-
-16
+"data": [
 
 {
-
-17
+7
 
 "customerId": "cust_7C997D0D-1996-4236-9579-2FE6970D5695",
-
-18
+8
 
 "expiryMonth": "06",
-
-19
+9
 
 "expiryYear": "2018",
 
@@ -324,29 +234,20 @@ xxxxxxxxxx
 39
 
 "cvvCheck": "Y",
-
-40
+0
 
 "avsCheck": "S"
-
-41
+1
 
 }
+2
 
-42
-
-\]
-
-43
+]
+3
 
 },
-
-44
+4
 
 "defaultCard": "card_6EDA2451-3F67-4B43-B9EA-EDD36F1559B2"
 
-45
-
 }
-
-Import from Gist

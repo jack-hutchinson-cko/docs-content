@@ -7,29 +7,27 @@ Due to requirements implemented by Visa and Mastercard Europe, any business cate
 
 The scope for these changes varies slightly between Visa and Mastercard:
 
-*   **Visa**: applies to all merchants categorized as MCC 6012 on all payments.
-*   **Mastercard**: applies only to merchants categorized as MCC 6012 for domestic UK debit card payments being used to pay off a credit or prepaid card.
+- **Visa**: applies to all merchants categorized as MCC 6012 on all payments.
+- **Mastercard**: applies only to merchants categorized as MCC 6012 for domestic UK debit card payments being used to pay off a credit or prepaid card.
 
 For **Mastercard payments** or **payments involving** **a full card number**, merchants categorized as a financial institution must be fully PCI compliant (SAQ D PCI).
 
-What is a financial institution?
---------------------------------
+## What is a financial institution?
 
 The term financial institution encapsulates businesses that, for example, issue payday loans, handle mortgage repayments, or facilitate the paying off of credit card balances. These are businesses that fall under the Merchant Category Code 6012.
 
 If your business falls into this area, you will be **required** to submit additional information with all your UK transactions.
 
-What do I need to do?
----------------------
+## What do I need to do?
 
 If your company is a financial institution, you must provide further information, when processing a domestic UK transaction with us, about the primary recipient of the funds. Additional fields needed for financial institutions:
 
 The primary recipient's...
 
-*   Date of birth
-*   Account number
-*   Postcode
-*   Surname
+- Date of birth
+- Account number
+- Postcode
+- Surname
 
 #### Example request
 
@@ -64,13 +62,13 @@ REQUIRED
 
 STRING
 
-*   **Visa**: If the payment is being made with a VISA card, then provide the first six digits and the last four digits of the primary recipient’s card, without any spaces. Or, the first 10 digits of the primary recipient’s account number.
-*   **Mastercard**: If the payment is being made with a Mastercard card, then provide the primary recipient's full card number.
+- **Visa**: If the payment is being made with a VISA card, then provide the first six digits and the last four digits of the primary recipient’s card, without any spaces. Or, the first 10 digits of the primary recipient’s account number.
+- **Mastercard**: If the payment is being made with a Mastercard card, then provide the primary recipient's full card number.
 
 `8573498821`
 
-*   **Visa**: 10
-*   **Mastercard**: Full
+- **Visa**: 10
+- **Mastercard**: Full
 
 `dob`
 
@@ -94,8 +92,6 @@ The first part of the UK postcode. For example, W1T 4TJ would be `W1T`.
 
 `W1T`
 
-6
-
 `last_name`
 
 REQUIRED
@@ -105,5 +101,3 @@ STRING
 The first six characters of the primary recipient’s surname. Only alphabetic characters are allowed.
 
 `Smith`
-
-6

@@ -5,16 +5,13 @@ account: NAS
 
 Use the sample requests on this page to test a number of Bank Payouts scenarios.
 
-Payment instruments
--------------------
+## Payment instruments
 
 ### Successful creation
 
 A successful attempt means that the bank account payment instrument was created and stored in the Vault.
 
 You can trigger this by including one of the following bank codes, IBANs, or SWIFT BICs in your request to create a payment instrument:
-
-  
 
 Type
 
@@ -26,39 +23,39 @@ Country
 
 `050389`
 
-\-
+-
 
 `160008`
 
-\-
+-
 
 `200407`
 
-\-
+-
 
 `250631`
 
-\-
+-
 
 `504044`
 
-\-
+-
 
 `211170318`
 
-\-
+-
 
 `271972572`
 
-\-
+-
 
 `107006444`
 
-\-
+-
 
 `061000104`
 
-\-
+-
 
 `iban`
 
@@ -128,13 +125,11 @@ Israel
 
 #### Endpoint
 
-*   [**Sandbox**](#tabs-f403a90d-fbc4-42b6-b87f-075ff531e65b-1)
+- [**Sandbox**](#tabs-f403a90d-fbc4-42b6-b87f-075ff531e65b-1)
 
 POST`https://api.sandbox.checkout.com/instruments`
 
 #### Header parameters
-
-  
 
 Header
 
@@ -158,94 +153,93 @@ REQUIRED
 
 #### Request examples
 
-*   [**United Kingdom**](#tabs-fa4bfd32-2163-4810-aa3b-d13b5da9f88b-1)
-*   [**United States**](#tabs-fa4bfd32-2163-4810-aa3b-d13b5da9f88b-2)
-*   [**Philippines**](#tabs-fa4bfd32-2163-4810-aa3b-d13b5da9f88b-3)
-*   [**Israel**](#tabs-fa4bfd32-2163-4810-aa3b-d13b5da9f88b-4)
+- [**United Kingdom**](#tabs-fa4bfd32-2163-4810-aa3b-d13b5da9f88b-1)
+- [**United States**](#tabs-fa4bfd32-2163-4810-aa3b-d13b5da9f88b-2)
+- [**Philippines**](#tabs-fa4bfd32-2163-4810-aa3b-d13b5da9f88b-3)
+- [**Israel**](#tabs-fa4bfd32-2163-4810-aa3b-d13b5da9f88b-4)
 
-    {
-      "type": "bank_account",
-      "account_number": "13654567",
-      "bank_code": "160008",
-      "currency": "GBP",
-      "country": "GB",
-      "account_holder": {
-        "first_name": "Jack",
-        "last_name": "Napier",
-        "billing_address": {
-          "address_line1": "90 Tottenham Court Road",
-          "city": "London",
-          "state": "London",
-          "zip": "W1T 4TJ",
-          "country": "GB"
-        }
-      }
-    }
+  {
+  "type": "bank_account",
+  "account_number": "13654567",
+  "bank_code": "160008",
+  "currency": "GBP",
+  "country": "GB",
+  "account_holder": {
+  "first_name": "Jack",
+  "last_name": "Napier",
+  "billing_address": {
+  "address_line1": "90 Tottenham Court Road",
+  "city": "London",
+  "state": "London",
+  "zip": "W1T 4TJ",
+  "country": "GB"
+  }
+  }
+  }
 
-    "recipient": {
-      "account_holder": {
-        "first_name": "Grace",
-        "last_name": "Smith",
-        "billing_address": {
-          "address_line1": "742 Evergreen Terrace",
-          "city": "Seattle",
-          "state": "WA",
-          "zip": "90210",
-          "country": "US"
-        }
-      },
-      "account_type": "savings",
-      "account_number": "12345678",
-      "bank_code": "211170318",
-      "fingerprint": "fingerprint",
-      "reference": "FXP Test"
-    }
+  "recipient": {
+  "account_holder": {
+  "first_name": "Grace",
+  "last_name": "Smith",
+  "billing_address": {
+  "address_line1": "742 Evergreen Terrace",
+  "city": "Seattle",
+  "state": "WA",
+  "zip": "90210",
+  "country": "US"
+  }
+  },
+  "account_type": "savings",
+  "account_number": "12345678",
+  "bank_code": "211170318",
+  "fingerprint": "fingerprint",
+  "reference": "FXP Test"
+  }
 
-    "recipient": {
-      "account_holder": {
-        "first_name": "John",
-    	"last_name": "Smith",
-    	"billing_address": {
-    	  "address_line1": "221B Baker St",
-    	  "city": "Manila",
-    	  "country": "PH",
-          "zip": "123"
-        }
-      },
-      "account_number": "1234567890",
-      "swift_bic": "BOPIPHMMXXX"
-    }
+  "recipient": {
+  "account_holder": {
+  "first_name": "John",
+  "last_name": "Smith",
+  "billing_address": {
+  "address_line1": "221B Baker St",
+  "city": "Manila",
+  "country": "PH",
+  "zip": "123"
+  }
+  },
+  "account_number": "1234567890",
+  "swift_bic": "BOPIPHMMXXX"
+  }
 
-    "recipient": {
-      "iban": "IL620108000000099999999",
-      "swift_bic": "LUMIILITXXX",
-      "fingerprint": "fingerprint",
-      "reference": "FXP Test",
-      "account_holder": {
-        "first_name": "Richard",
-        "last_name": "Strauss",
-        "billing_address": {
-          "address_line1": "1 Long St",
-          "city": "Tel Aviv",
-          "country": "IL"
-        }
-      }
-    }
+  "recipient": {
+  "iban": "IL620108000000099999999",
+  "swift_bic": "LUMIILITXXX",
+  "fingerprint": "fingerprint",
+  "reference": "FXP Test",
+  "account_holder": {
+  "first_name": "Richard",
+  "last_name": "Strauss",
+  "billing_address": {
+  "address_line1": "1 Long St",
+  "city": "Tel Aviv",
+  "country": "IL"
+  }
+  }
+  }
 
 ### The response
 
 #### Response example
 
-*   [**201 – Created**](#tabs-dd20cbad-f890-49b5-a42f-45f2d01fb0a8-1)
+- [**201 – Created**](#tabs-dd20cbad-f890-49b5-a42f-45f2d01fb0a8-1)
 
-    {
-      "type": "bank_account",
-      "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q",
-      "id": "src_wmlfc3zyhqzehihu7giusaaawu"
-    }
+  {
+  "type": "bank_account",
+  "fingerprint": "vnsdrvikkvre3dtrjjvlm5du4q",
+  "id": "src_wmlfc3zyhqzehihu7giusaaawu"
+  }
 
-Successful creation with enriched data
---------------------------------------
+## Successful creation with enriched data
 
 Sometimes we're able to get more information about the bank account you're trying to store in the Vault, meaning you can store additional fields in the payment instrument, such as the bank name and branch.
 
@@ -259,8 +253,6 @@ POST`https://api.sandbox.checkout.com/instruments`
 
 #### **Header parameters**
 
-  
-
 Header
 
 Value
@@ -273,10 +265,7 @@ Value
 
 REQUIRED
 
-`OAuth Bearer access_token  
-`
-
-  
+`OAuth Bearer access_token `
 
 `Content-Type`
 
@@ -308,30 +297,29 @@ REQUIRED
 
 #### **Response example**
 
-*   [**201 - Created**](#tabs-d27ba600-15e5-463e-b563-909b78f32298-1)
+- [**201 - Created**](#tabs-d27ba600-15e5-463e-b563-909b78f32298-1)
 
-    {
-      "type": "bank_account",
-      "fingerprint": "mucw7ytsz6gulnl7jllv4xbgzq",
-      "id": "src_qaen3zb3f5fejbqseafxigaopm"
-      "iban": "GB29NWBK60161331926819",
-      "swift_bic": "NWBKGB2LXXX",
-      "bank": {
-        "name": "National Westminster Bank PLC",
-        "branch": "Premier Place",
-        "address": {
-          "address_line1": "Premier Place",
-          "address_line2": "Devonshire Square",
-          "city": "London",
-          "state": "London",
-          "zip": "EC2M 4XB",
-          "country": "England"
-        }
-      }
-    }
+  {
+  "type": "bank_account",
+  "fingerprint": "mucw7ytsz6gulnl7jllv4xbgzq",
+  "id": "src_qaen3zb3f5fejbqseafxigaopm"
+  "iban": "GB29NWBK60161331926819",
+  "swift_bic": "NWBKGB2LXXX",
+  "bank": {
+  "name": "National Westminster Bank PLC",
+  "branch": "Premier Place",
+  "address": {
+  "address_line1": "Premier Place",
+  "address_line2": "Devonshire Square",
+  "city": "London",
+  "state": "London",
+  "zip": "EC2M 4XB",
+  "country": "England"
+  }
+  }
+  }
 
-Successful creation with corrected data
----------------------------------------
+## Successful creation with corrected data
 
 Sometimes we're able to correct some of the bank account fields in your payment instrument when you create it.
 
@@ -345,8 +333,6 @@ POST`https://api.sandbox.checkout.com/instruments`
 
 #### **Header parameters**
 
-  
-
 Header
 
 Value
@@ -359,10 +345,7 @@ Value
 
 REQUIRED
 
-`OAuth Bearer access_token  
-`
-
-  
+`OAuth Bearer access_token `
 
 `Content-Type`
 
@@ -397,40 +380,37 @@ In the response, you'll notice that the `swift_bic` value has been corrected fro
 
 #### **Response example**
 
-*   [**201 - Created**](#tabs-c96134bf-12df-48b8-9751-988a6cba2914-1)
+- [**201 - Created**](#tabs-c96134bf-12df-48b8-9751-988a6cba2914-1)
 
-    {
-      "type": "bank_account",
-      "fingerprint": "mucw7ytsz6gulnl7jllv4xbgzq",
-      "id": "src_p3ogzppc6upernp3sbjxkyo3my",
-      "iban": "GB29NWBK60161331926819",
-      "swift_bic": "NWBKGB2LXXX",
-      "bank": {
-        "name": "National Westminster Bank PLC",
-        "branch": "Premier Place",
-        "address": {
-          "address_line1": "Premier Place",
-          "address_line2": "Devonshire Square",
-          "city": "London",
-          "state": "London",
-          "zip": "EC2M 4XB",
-          "country": "England"
-        }
-      }
-    }
+  {
+  "type": "bank_account",
+  "fingerprint": "mucw7ytsz6gulnl7jllv4xbgzq",
+  "id": "src_p3ogzppc6upernp3sbjxkyo3my",
+  "iban": "GB29NWBK60161331926819",
+  "swift_bic": "NWBKGB2LXXX",
+  "bank": {
+  "name": "National Westminster Bank PLC",
+  "branch": "Premier Place",
+  "address": {
+  "address_line1": "Premier Place",
+  "address_line2": "Devonshire Square",
+  "city": "London",
+  "state": "London",
+  "zip": "EC2M 4XB",
+  "country": "England"
+  }
+  }
+  }
 
-Failed attempt
---------------
+## Failed attempt
 
 A failed attempt means that the bank account payment instrument was not created, owing to some error.
 
 You can trigger this error by including one of the following bank codes, IBANs, or SWIFT BICs in your request when creating a payment instrument:
 
-*   `bank_code: 507013, 000000000, 123456789, or 928934723`
-    
-*   `iban: GB33BUZB50701355555552`
-    
-*   `swift_bic: NWBKGB2L, NWBKGB2LXXX, or ABCDPHEF`
+- `bank_code: 507013, 000000000, 123456789, or 928934723`
+- `iban: GB33BUZB50701355555552`
+- `swift_bic: NWBKGB2L, NWBKGB2LXXX, or ABCDPHEF`
 
 ### The request
 
@@ -439,8 +419,6 @@ You can trigger this error by including one of the following bank codes, IBANs, 
 POST`https://api.sandbox.checkout.com/instruments`
 
 #### Header parameters
-
-  
 
 Header
 
@@ -456,8 +434,6 @@ REQUIRED
 
 `OAuth Bearer access_token`
 
-  
-
 `Content-Type`
 
 REQUIRED
@@ -466,98 +442,95 @@ REQUIRED
 
 #### Request examples
 
-*   [**United Kingdom**](#tabs-fa924a96-26b0-46f4-a747-3e4d1b6d348a-1)
-*   [**United States**](#tabs-fa924a96-26b0-46f4-a747-3e4d1b6d348a-2)
-*   [**Philippines**](#tabs-fa924a96-26b0-46f4-a747-3e4d1b6d348a-3)
+- [**United Kingdom**](#tabs-fa924a96-26b0-46f4-a747-3e4d1b6d348a-1)
+- [**United States**](#tabs-fa924a96-26b0-46f4-a747-3e4d1b6d348a-2)
+- [**Philippines**](#tabs-fa924a96-26b0-46f4-a747-3e4d1b6d348a-3)
 
-    {
-      "type": "bank_account",
-      "account_number": "13654567",
-      "bank_code": "507013",
-      "currency": "GBP",
-      "country": "GB",
-      "account_holder": {
-        "first_name": "Jack",
-        "last_name": "Napier",
-        "billing_address": {
-          "address_line1": "90 Tottenham Court Road",
-          "city": "London",
-          "state": "London",
-          "zip": "W1T 4TJ",
-          "country": "GB"
-        }
-      }
-    }
+  {
+  "type": "bank_account",
+  "account_number": "13654567",
+  "bank_code": "507013",
+  "currency": "GBP",
+  "country": "GB",
+  "account_holder": {
+  "first_name": "Jack",
+  "last_name": "Napier",
+  "billing_address": {
+  "address_line1": "90 Tottenham Court Road",
+  "city": "London",
+  "state": "London",
+  "zip": "W1T 4TJ",
+  "country": "GB"
+  }
+  }
+  }
 
-    "recipient": {
-      "account_holder": {
-        "first_name": "Grace",
-        "last_name": "Smith",
-        "billing_address": {
-          "address_line1": "742 Evergreen Terrace",
-          "city": "Seattle",
-          "state": "WA",
-          "zip": "90210",
-          "country": "US"
-        }
-      },
-      "account_type": "savings",
-      "account_number": "12345678",
-      "bank_code": "123456789",
-      "fingerprint": "fingerprint",
-      "reference": "FXP Test"
-    }
+  "recipient": {
+  "account_holder": {
+  "first_name": "Grace",
+  "last_name": "Smith",
+  "billing_address": {
+  "address_line1": "742 Evergreen Terrace",
+  "city": "Seattle",
+  "state": "WA",
+  "zip": "90210",
+  "country": "US"
+  }
+  },
+  "account_type": "savings",
+  "account_number": "12345678",
+  "bank_code": "123456789",
+  "fingerprint": "fingerprint",
+  "reference": "FXP Test"
+  }
 
-    "recipient": {
-      "account_holder": {
-        "first_name": "John",
-    	"last_name": "Smith",
-    	"billing_address": {
-    	  "address_line1": "221B Baker St",
-    	  "city": "Manila",
-    	  "country": "PH",
-          "zip": "123"
-        }
-      },
-      "account_number": "1234567890",
-      "swift_bic": "NWBKGB2LXXX"
-    }
+  "recipient": {
+  "account_holder": {
+  "first_name": "John",
+  "last_name": "Smith",
+  "billing_address": {
+  "address_line1": "221B Baker St",
+  "city": "Manila",
+  "country": "PH",
+  "zip": "123"
+  }
+  },
+  "account_number": "1234567890",
+  "swift_bic": "NWBKGB2LXXX"
+  }
 
 ### The response
 
 #### Response example
 
-*   [**422 – Unprocessable Entity**](#tabs-22ad4b17-13bd-4eba-9600-85112cf8b5a7-1)
+- [**422 – Unprocessable Entity**](#tabs-22ad4b17-13bd-4eba-9600-85112cf8b5a7-1)
 
-    {
-      "request_id": "71ccac67-5018-4917-9446-f2f6f2b8270e",
-      "error_type": "request_invalid",
-      "error_codes": [
-        "bank_code_invalid"
-      ]
-    }
+  {
+  "request_id": "71ccac67-5018-4917-9446-f2f6f2b8270e",
+  "error_type": "request_invalid",
+  "error_codes": [
+  "bank_code_invalid"
+  ]
+  }
 
-Payout requests
----------------
+## Payout requests
 
 ### Quote expiry when requesting a payout
 
 A quote expiry error indicates that your FX quote has expired and cannot be used to make a payout. You can trigger this by including one of the following bank codes or IBANs in your request to create a payment instrument:
 
-*   `bank_code`: `160008`, `200407`, `250631`, or `504044`.
-*   `iban`: `IE64IRCE92050112345678`, `CH5604835012345678009`, `IE70AIBK93006732013730`, or `CH5104835048708081000`.
+- `bank_code`: `160008`, `200407`, `250631`, or `504044`.
+- `iban`: `IE64IRCE92050112345678`, `CH5604835012345678009`, `IE70AIBK93006732013730`, or `CH5104835048708081000`.
 
 ### Step 1: Create a payment instrument in the Vault
 
 #### Endpoint
 
-*   [**Sandbox**](#tabs-18e1c676-cabd-4f43-b7eb-3c79de8f6cf8-1)
+- [**Sandbox**](#tabs-18e1c676-cabd-4f43-b7eb-3c79de8f6cf8-1)
 
 POST`https://api.sandbox.checkout.com/instruments`
 
 #### Header parameters
-
-  
 
 Header
 
@@ -614,13 +587,11 @@ Include the following `quote_id` in your request to trigger the error: `qte_m
 
 #### Endpoint
 
-*   [**Sandbox**](#tabs-9eb3c4cb-2205-4fe5-9fce-36e485cbb360-1)
+- [**Sandbox**](#tabs-9eb3c4cb-2205-4fe5-9fce-36e485cbb360-1)
 
 POST`https://api.sandbox.checkout.com/payments`
 
 #### Header parameters
-
-  
 
 Header
 
@@ -679,25 +650,22 @@ REQUIRED
       ]
     }
 
-Payout with 'Declined' status
------------------------------
+## Payout with 'Declined' status
 
 The declined status indicates that the payout has failed. You can trigger this by including one of the following in your request to create a payment instrument:
 
-*   `bank_code`: `250631`
-*   `iban`: `IE70AIBK93006732013730`
+- `bank_code`: `250631`
+- `iban`: `IE70AIBK93006732013730`
 
 ### Step 1: Create a payment instrument in the Vault
 
 #### Endpoint
 
-*   [**Sandbox**](#tabs-8c20c0b6-3852-4649-a420-cce9464888fa-1)
+- [**Sandbox**](#tabs-8c20c0b6-3852-4649-a420-cce9464888fa-1)
 
 POST`https://api.sandbox.checkout.com/instruments`
 
 #### Header parameters
-
-  
 
 Header
 
@@ -752,13 +720,11 @@ REQUIRED
 
 #### Endpoint
 
-*   [**Sandbox**](#tabs-19f0c345-1ef7-48ee-82c0-caed7c3cd1ef-1)
+- [**Sandbox**](#tabs-19f0c345-1ef7-48ee-82c0-caed7c3cd1ef-1)
 
 POST`https://api.sandbox.checkout.com/payments`
 
 #### Header parameters
-
-  
 
 Header
 
@@ -864,26 +830,22 @@ In response, you will receive the following `payment_declined` webhook.
       }
     }
 
-Payout with 'Paid' status
--------------------------
+## Payout with 'Paid' status
 
 The paid status indicates that the payout was successful. You can trigger this by including one of the following in your request to create a payment instrument:
 
-*   `bank_code`: `200407`
-    
-*   `iban`: `CH5604835012345678009`
+- `bank_code`: `200407`
+- `iban`: `CH5604835012345678009`
 
 ### Step 1: Create a payment instrument in the Vault
 
 #### Endpoint
 
-*   [**Sandbox**](#tabs-706819e1-a3d7-4a3a-af24-c3e11d013322-1)
+- [**Sandbox**](#tabs-706819e1-a3d7-4a3a-af24-c3e11d013322-1)
 
 POST`https://api.sandbox.checkout.com/instruments`
 
 #### Header parameters
-
-  
 
 Header
 
@@ -938,13 +900,11 @@ REQUIRED
 
 #### Endpoint
 
-*   [**Sandbox**](#tabs-ae09491f-8404-4e58-a750-2a373d315515-1)
+- [**Sandbox**](#tabs-ae09491f-8404-4e58-a750-2a373d315515-1)
 
 POST`https://api.sandbox.checkout.com/payments`
 
 #### Header parameters
-
-  
 
 Header
 
@@ -1054,25 +1014,22 @@ In response, you will receive the following `payment_paid` webhook.
       }
     }
 
-Payout with 'Returned' status
------------------------------
+## Payout with 'Returned' status
 
 The returned status indicates that the payout failed and has been returned. You can trigger this by including one of the following in your request to create a payment instrument:
 
-*   `bank_code`: `504044`
-*   `iban`: `CH5104835048708081000`
+- `bank_code`: `504044`
+- `iban`: `CH5104835048708081000`
 
 ### Step 1: Create a payment instrument in the Vault
 
 #### Endpoint
 
-*   [**Sandbox**](#tabs-ee87129e-335d-4095-ba23-305891bc55e2-1)
+- [**Sandbox**](#tabs-ee87129e-335d-4095-ba23-305891bc55e2-1)
 
 POST`https://api.sandbox.checkout.com/instruments`
 
 #### Header parameters
-
-  
 
 Header
 
@@ -1127,13 +1084,11 @@ REQUIRED
 
 #### Endpoint
 
-*   [**Sandbox**](#tabs-a13f4bf4-7632-4f33-a540-8f9d6b212fb7-1)
+- [**Sandbox**](#tabs-a13f4bf4-7632-4f33-a540-8f9d6b212fb7-1)
 
 POST`https://api.sandbox.checkout.com/payments`
 
 #### Header parameters
-
-  
 
 Header
 

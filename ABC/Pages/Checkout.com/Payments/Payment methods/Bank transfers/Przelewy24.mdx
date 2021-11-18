@@ -7,16 +7,12 @@ Accept payments using Przelewy24, the most popular payment method in Poland.
 
 To start accepting Przelewy24 payments, please contact your Customer Success Manager.
 
-Overview
---------
+## Overview
 
 Przelewy24 payments follow a two-step process:
+. [Request a payment](#Przelewy24-requestapayment) 2. [Redirect the customer](#Przelewy24-redirectthecustomer)
 
-1.  [Request a payment](#Przelewy24-requestapayment)
-2.  [Redirect the customer](#Przelewy24-redirectthecustomer)
-
-Request a payment 
-------------------
+## Request a payment 
 
 ### The POST request
 
@@ -24,8 +20,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-1d820ee2-8772-4159-8cab-af4db52e333b-1)
-*   [**Sandbox**](#tabs-1d820ee2-8772-4159-8cab-af4db52e333b-2)
+- [**Live**](#tabs-1d820ee2-8772-4159-8cab-af4db52e333b-1)
+- [**Sandbox**](#tabs-1d820ee2-8772-4159-8cab-af4db52e333b-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -167,13 +163,11 @@ If you receive a `202 Success` response with a `status` field set to `Pendi
       }
     }
 
-Redirect the customer 
-----------------------
+## Redirect the customer 
 
 Redirect your customer to the `redirect` link’s href in the response. The customer will be redirected to a Przelewy24 page where they can authorize the payment, before being transferred to your predefined success or failure URL.
 
-Get details about a payment
----------------------------
+## Get details about a payment
 
 You can use the `payment_id` found in the payment response, or the `cko-session-id` from the success/failure URL (e.g., `https://www.checkout.com/order/succeeded?cko-session-id=**sid_vii64oquze5u3h2x6hh4rurc4y**`) to retrieve details about the payment.
 
@@ -183,8 +177,8 @@ The `cko-session-id` expires 15 minutes after being created.
 
 #### Endpoints
 
-*   [**Live**](#tabs-6cc07dcf-6ba5-43a0-90f0-891cf8fb1bab-1)
-*   [**Sandbox**](#tabs-6cc07dcf-6ba5-43a0-90f0-891cf8fb1bab-2)
+- [**Live**](#tabs-6cc07dcf-6ba5-43a0-90f0-891cf8fb1bab-1)
+- [**Sandbox**](#tabs-6cc07dcf-6ba5-43a0-90f0-891cf8fb1bab-2)
 
 GET`https://api.checkout.com/payments/{payment_id}`
 
@@ -263,21 +257,18 @@ The payment ID found in the response of the initial payment.
       }
     }
 
-Refund a payment
-----------------
+## Refund a payment
 
 Przelewy24 supports both partial and full refunds. You can refund a payment through the [Hub](https://hub.checkout.com/v2) or using the [refund API](/display/DOCS/Refund+a+payment).
 
-Testing Przelewy24
-------------------
+## Testing Przelewy24
 
 To start testing, you'll need to:
 
-*   [create a test account](https://www.checkout.com/get-test-account), and
-*   contact your Customer Success Manager or Integrations engineer to activate Przelewy24 payments in the sandbox environment.
+- [create a test account](https://www.checkout.com/get-test-account), and
+- contact your Customer Success Manager or Integrations engineer to activate Przelewy24 payments in the sandbox environment.
+  . Create a Przelewy24 transaction as above, following the redirect link in the response to Przelewy24's website.
 
-1.  Create a Przelewy24 transaction as above, following the redirect link in the response to Przelewy24's website.
 2.  Leave the **Bank name or BIC** field blank and click **Next**.
-3.  Leave the **Account Number** and **PIN** fields blank and then click **Login**.
-4.  Leave the **TAN** field blank and click **Make Payment**.
-5.  Click **Back to where you came from** to be redirected to your predefined success URL.
+3.  Leave the **Account Number** and **PIN** fields blank and then click **Login**.. Leave the **TAN** field blank and click **Make Payment**.
+4.  Click **Back to where you came from** to be redirected to your predefined success URL.

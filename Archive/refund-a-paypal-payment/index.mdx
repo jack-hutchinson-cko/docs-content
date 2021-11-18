@@ -3,13 +3,9 @@ title: refund-a-paypal-payment
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+Please refer to our [Refund a payment](doc:refund) for more information on how to refund a payment.
 
-Please refer to our \[Refund a payment\](doc:refund) for more information on how to refund a payment.
-
-Refunds can be made using this API endpoint. Once processed, it is \*\*not possible\*\* to cancel a refund. ## The request Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/charges/{chargeId}/refund</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/charges/{chargeId}/refund</p></pre> ### Header and path parameters
-
-x
+Refunds can be made using this API endpoint. Once processed, it is **not possible** to cancel a refund. ## The request Use the details below to set up your request. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/charges/{chargeId}/refund</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/charges/{chargeId}/refund</p></pre> ### Header and path parameters
 
 Add Row Add Col
 
@@ -17,26 +13,24 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type\` <span class="req-def">Required</span>
+`Content-Type` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/).
-
-x
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/).
 
 Add Row Add Col
 
@@ -44,125 +38,60 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`chargeId\` <span class="req-def">Required</span>
+`chargeId` <span class="req-def">Required</span>
 
 |
 
-The charge ID, embedded within the URI, prefixed with \`charge\_\` or \`charge_test\_\`.
+The charge ID, embedded within the URI, prefixed with `charge\_` or `charge_test\_`.
 
 |
 
-\### Request example
+### Request example
 
 Shell Java
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
 
 curl https://api2.checkout.com/v2/charges/charge\_30FDCABC175J76BD3E18/refund
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
+-H "Content-Type:application/json;charset=UTF-8"
 
-\-H "Content-Type:application/json;charset=UTF-8"
-
-4
-
-\-X POST
-
-Import from Gist
-
-xxxxxxxxxx
+-X POST
 
 36
 
-1
-
 // Create payload
-
-2
-
-String chargeId \= "charge_F2B8BA4C175P76BD3E07";
-
-3
+String chargeId = "charge_F2B8BA4C175P76BD3E07";
 
 ​
 
-4
+ChargeRefund refundPayload =new ChargeRefund();
 
-ChargeRefund refundPayload \=new ChargeRefund();
+refundPayload.value = "100";
 
-5
-
-refundPayload.value \= "100";
-
-6
-
-refundPayload.trackId \= "TRK12345";
-
-7
-
-refundPayload.description \= "Sample product";
+refundPayload.trackId = "TRK12345";
+refundPayload.description = "Sample product";
 
 8
 
 ​
+refundPayload.metadata = new HashMap<String,String>();refundPayload.metadata.put("testKey", "value");
+1
 
-9
+​refundPayload.products = new ArrayList<Product>();
+Product product1 =new Product();
 
-refundPayload.metadata \= new HashMap<String,String\>();
+product1.description= "Tablet 2 gold limited";
 
-10
+product1.name="Tablet 32gb cellular";
 
-refundPayload.metadata.put("testKey", "value");
-
-11
-
-​
-
-12
-
-refundPayload.products \= new ArrayList<Product\>();
-
-13
-
-Product product1 \=new Product();
-
-14
-
-product1.description\= "Tablet 2 gold limited";
-
-15
-
-product1.name\="Tablet 32gb cellular";
-
-16
-
-product1.price\=90.0;
-
-17
-
-product1.quantity\=1;
-
-18
-
-product1.shippingCost\=10.0;
-
-19
-
-product1.sku\= "1aab";
+product1.price=90.0;product1.quantity=1;product1.shippingCost=10.0;product1.sku= "1aab";
 
 20
 
-product1.trackingUrl\="https://www.tracker.com";
+product1.trackingUrl="https://www.tracker.com";
 
 21
 
@@ -182,7 +111,7 @@ try {
 
 25
 
-APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
+APIClient ckoAPIClient= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 26
 
@@ -190,7 +119,7 @@ APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc
 
 27
 
-Response<Refund\> apiResponse \= ckoAPIClient.chargeService.refundRequest(chargeId,refundPayload);
+Response<Refund> apiResponse = ckoAPIClient.chargeService.refundRequest(chargeId,refundPayload);
 
 28
 
@@ -206,7 +135,7 @@ if(!apiResponse.hasError){
 
 31
 
-Refund refund \= apiResponse.model;
+Refund refund = apiResponse.model;
 
 32
 
@@ -228,11 +157,7 @@ Refund refund \= apiResponse.model;
 
 } catch (Exception e) {}
 
-Import from Gist
-
-\### Additional parameters
-
-x
+### Additional parameters
 
 Add Row Add Col
 
@@ -240,7 +165,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`description\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`description` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -249,25 +174,25 @@ A description of the charge capture.
 |
 |
 
-\`metadata\` <span class="field-type">Hash</span> <span class="optional-def">Optional</span>
+`metadata` <span class="field-type">Hash</span> <span class="optional-def">Optional</span>
 
 |
 
-A hash of \`FieldName\` and value pairs e.g. \`{'keys1': 'Value1'}\`. <span class="table-info">Maximum length of key(s) and value(s) is 100 each. A max. of 10 KVP are allowed.</span>
-
-|
-|
-
-\`products\` <span class="field-type">Array</span> <span class="optional-def">Optional</span>
-
-|
-
-An array of Product information. <span class="table-info">\[Find out more\](doc:products-array)</span>
+A hash of `FieldName` and value pairs e.g. `{'keys1': 'Value1'}`. <span class="table-info">Maximum length of key(s) and value(s) is 100 each. A max. of 10 KVP are allowed.</span>
 
 |
 |
 
-\`trackId\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`products` <span class="field-type">Array</span> <span class="optional-def">Optional</span>
+
+|
+
+An array of Product information. <span class="table-info">[Find out more](doc:products-array)</span>
+
+|
+|
+
+`trackId` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -276,7 +201,7 @@ An order tracking ID generated by the merchant. <span class="table-info">Maximum
 |
 |
 
-\`udf1\` to \`udf5\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`udf1` to `udf5` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -285,7 +210,7 @@ User-defined fields 1 to 5. <span class="table-info">Maximum length: 100 charact
 |
 |
 
-\`value\` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
+`value` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -293,17 +218,9 @@ Positive integer (without decimal separator) representing the capture amount. <s
 
 |
 
-\## The response A successful refund will return a refund charge response object. ### Response example
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
+## The response A successful refund will return a refund charge response object. ### Response example
 
 34
-
-1
 
 {
 
@@ -311,19 +228,11 @@ xxxxxxxxxx
 
 "id": "charge_8108BA4C175O76BD3E06",
 
-3
-
 "originalId": "charge_30FDCABC175J76BD3E18",
-
-4
 
 "liveMode": true,
 
-5
-
 "created": "2015-04-07T17:55:07Z",
-
-6
 
 "value": 100,
 
@@ -338,44 +247,28 @@ xxxxxxxxxx
 9
 
 "description": "Sample product",
-
-10
+0
 
 "responseMessage": "Approved",
 
-11
-
 "responseAdvancedInfo": "Approved",
-
-12
+2
 
 "responseCode": "10000",
-
-13
-
 "status": "Refunded",
-
-14
 
 "metadata": {
 
-15
-
 "testKey": "value"
 
-16
-
 },
+7
 
-17
-
-"products": \[
-
-18
+"products": [
+8
 
 {
-
-19
+9
 
 "name": "T-Shirt Ladies",
 
@@ -413,7 +306,7 @@ xxxxxxxxxx
 
 28
 
-\],
+],
 
 29
 
@@ -438,5 +331,3 @@ xxxxxxxxxx
 34
 
 }
-
-Import from Gist

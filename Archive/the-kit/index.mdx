@@ -3,54 +3,28 @@ title: the-kit
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
+By using The Kit, developers have complete control over the user-flow when accepting payments. Payments are processed using a card token, where the merchant will capture and send credit card details to Checkout.com's API server using a [The Kit](doc:the-kit#section-card-payment-form) .
 
-By using The Kit, developers have complete control over the user-flow when accepting payments. Payments are processed using a card token, where the merchant will capture and send credit card details to Checkout.com's API server using a \[The Kit\](doc:the-kit#section-card-payment-form) .
+Using The Kit requires stringent PCI compliance; if you're unsure whether it's for you, then speak to a member of our [integration team](mailto:support@checkout.com). We advise you to check out our more straightforward [integration options](doc:integration-options) first.
 
-Using The Kit requires stringent PCI compliance; if you're unsure whether it's for you, then speak to a member of our \[integration team\](mailto:support@checkout.com). We advise you to check out our more straightforward \[integration options\](doc:integration-options) first.
-
-\*\*The Kit\*\* enables you to monitor a payment form \`<form>\` and control the process of tokenizing card details and submitting only the card token back to your server. By configuring the \`<form>\` with \`data-checkout\` attributes and a valid submit button, The Kit will automatically send the correct card data to Checkout.com's API servers and obtain a card token. If the card tokenization or card payment process is successful, the \`<form>\` is submitted to the success URL defined in \[The Hub\](https://hub.checkout.com/). Take a look at the payment form example below:
+**The Kit** enables you to monitor a payment form `<form>` and control the process of tokenizing card details and submitting only the card token back to your server. By configuring the `<form>` with `data-checkout` attributes and a valid submit button, The Kit will automatically send the correct card data to Checkout.com's API servers and obtain a card token. If the card tokenization or card payment process is successful, the `<form>` is submitted to the success URL defined in [The Hub](https://hub.checkout.com/). Take a look at the payment form example below:
 
 HTML
 
-rename · delete
+<form class="card-form" method="POST" action="/cards/charge">
 
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
+ <input data-checkout="card-number" type="text" placeholder="Credit card number">
 
-xxxxxxxxxx
+ <input data-checkout="card-name" type="text" placeholder="Name on card">
 
-1
+ <input data-checkout="expiry-month" type="text" placeholder="MM">
 
-<form class\="card-form" method\="POST" action\="/cards/charge"\>
+ <input data-checkout="expiry-year" type="text" placeholder="YY">
 
-2
+ <input data-checkout="cvv" type="text" placeholder="CVV">
 
- <input data-checkout\="card-number" type\="text" placeholder\="Credit card number"\>
+ <input type="submit" value="Pay Now">
 
-3
+</form>
 
- <input data-checkout\="card-name" type\="text" placeholder\="Name on card"\>
-
-4
-
- <input data-checkout\="expiry-month" type\="text" placeholder\="MM"\>
-
-5
-
- <input data-checkout\="expiry-year" type\="text" placeholder\="YY"\>
-
-6
-
- <input data-checkout\="cvv" type\="text" placeholder\="CVV"\>
-
-7
-
- <input type\="submit" value\="Pay Now"\>
-
-8
-
-</form\>
-
-Import from Gist
-
-Do not give name attributes to the \`<input>\` boxes as this will prevent the card details submitting to your server.
+Do not give name attributes to the `<input>` boxes as this will prevent the card details submitting to your server.

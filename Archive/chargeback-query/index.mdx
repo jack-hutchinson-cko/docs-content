@@ -3,13 +3,9 @@ title: chargeback-query
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 The chargeback query endpoint allows you to search for a specific chargeback or group of chargebacks based on a number of different filters.
 
 Use this API to query a chargeback or group of chargebacks. ## The request Use the details below to set up your chargeback query. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://api2.checkout.com/v2/reporting/chargebacks</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span>https://sandbox.checkout.com/api2/v2/reporting/chargebacks</p></pre> ### Header parameters
-
-x
 
 Add Row Add Col
 
@@ -17,35 +13,28 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type\` <span class="req-def">Required</span>
+`Content-Type` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). ### Request example This example demonstrates the body of a request — not all fields are required, so you can custom build your request based on the information you need. The table \[additional parameters\](/docs/chargeback-query#section-additional-parameters) lists all optional parameters.
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/). ### Request example This example demonstrates the body of a request — not all fields are required, so you can custom build your request based on the information you need. The table [additional parameters](/docs/chargeback-query#section-additional-parameters) lists all optional parameters.
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-17
-
+7
 1
 
 {
@@ -54,19 +43,11 @@ xxxxxxxxxx
 
 "fromDate": "2015-01-01T20:00:00.000Z",
 
-3
-
 "toDate": "2015-12-31T19:59:59.000Z",
-
-4
 
 "pageSize": "10",
 
-5
-
 "sortColumn": "amount",
-
-6
 
 "sortOrder": "desc",
 
@@ -80,45 +61,28 @@ xxxxxxxxxx
 
 9
 
-"filters": \[
-
-10
+"filters": [
+0
 
 {
-
-11
+1
 
 "action":"include",
-
-12
+2
 
 "field":"email",
-
-13
-
 "operator":"contains",
-
-14
 
 "value":"jd@test.cb"
 
-15
+}
+
+]
+7
 
 }
 
-16
-
-\]
-
-17
-
-}
-
-Import from Gist
-
-\### Additional parameters
-
-x
+### Additional parameters
 
 Add Row Add Col
 
@@ -126,25 +90,25 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`fromDate\` <span class="field-type">Date</span> <span class="optional-def">Optional</span>
+`fromDate` <span class="field-type">Date</span> <span class="optional-def">Optional</span>
 
 |
 
-Start date in UTC date and time (based on ISO 8601 profile). Format: \`yyyy-MM-ddTHH:mm:ssZ\` (e.g., \`2015-11-05T13:00:00Z\` or \`2015-11-05T08:00:00-05:00\`).
-
-|
-|
-
-\`toDate\` <span class="field-type">Date</span> <span class="optional-def">Optional</span>
-
-|
-
-End date in UTC date and time (based on ISO 8601 profile). Format: \`yyyy-MM-ddTHH:mm:ssZ\` (e.g., \`2015-11-05T13:00:00Z\` or \`2015-11-05T08:00:00-05:00\`).
+Start date in UTC date and time (based on ISO 8601 profile). Format: `yyyy-MM-ddTHH:mm:ssZ` (e.g., `2015-11-05T13:00:00Z` or `2015-11-05T08:00:00-05:00`).
 
 |
 |
 
-\`pageSize\` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
+`toDate` <span class="field-type">Date</span> <span class="optional-def">Optional</span>
+
+|
+
+End date in UTC date and time (based on ISO 8601 profile). Format: `yyyy-MM-ddTHH:mm:ssZ` (e.g., `2015-11-05T13:00:00Z` or `2015-11-05T08:00:00-05:00`).
+
+|
+|
+
+`pageSize` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -153,7 +117,7 @@ The number of records to return. <span class="table-info">Must be between 10 (de
 |
 |
 
-\`pageNumber\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`pageNumber` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -162,34 +126,34 @@ The page number of the result set to return. <span class="table-info">The result
 |
 |
 
-\`sortColumn\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`sortColumn` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
-The column by which to order the result set. Valid values: - \`id\` - \`originId\` - \`date\` (default) - \`name\` - \`email\` - \`status\` - \`type\` - \`amount\` - \`scheme\` - \`responseCode\` - \`currency\` - \`liveMode\` - \`businessName\` - \`channelName\` - \`trackId\`
-
-|
-|
-
-\`sortOrder\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
-
-|
-
-Choose whether the sort order is ascending or descending. Valid values: - \`asc\` (default) - \`desc\` (default if \`sortColumn\` is \`date\`)
+The column by which to order the result set. Valid values: - `id` - `originId` - `date` (default) - `name` - `email` - `status` - `type` - `amount` - `scheme` - `responseCode` - `currency` - `liveMode` - `businessName` - `channelName` - `trackId`
 
 |
 |
 
-\`search\` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
+`sortOrder` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
-The following fields will be checked for the specified search string: - \`id\` (transaction ID) - \`originId\` (original transaction ID) - \`chargeId\` - \`trackId\` - \`status\` - \`email\` - \`cardNumber\`
+Choose whether the sort order is ascending or descending. Valid values: - `asc` (default) - `desc` (default if `sortColumn` is `date`)
 
 |
 |
 
-\`filters\` <span class="field-type">Object</span> <span class="optional-def">Optional</span>
+`search` <span class="field-type">Integer</span> <span class="optional-def">Optional</span>
+
+|
+
+The following fields will be checked for the specified search string: - `id` (transaction ID) - `originId` (original transaction ID) - `chargeId` - `trackId` - `status` - `email` - `cardNumber`
+
+|
+|
+
+`filters` <span class="field-type">Object</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -198,54 +162,46 @@ The filters field is a series of one or more objects used to filter the result s
 |
 |
 
-\`filters.action\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`filters.action` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
-Whether to include or exclude rows matching the filter. Valid values: - \`include\` (default) - \`exclude\`
-
-|
-|
-
-\`filters.field\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
-
-|
-
-The field to which the filter applies. Omitting will invalidate the filter. Valid values: - \`id\` - \`chargeId\` - \`trackId\` - \`indicator\` - \`email\` - \`cardNumber\`
+Whether to include or exclude rows matching the filter. Valid values: - `include` (default) - `exclude`
 
 |
 |
 
-\`filters.operator\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`filters.field` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
-The operator to use for matching purposes. Valid values: - \`equals\` (default) - \`contains\` - \`begins\` - \`ends\`
+The field to which the filter applies. Omitting will invalidate the filter. Valid values: - `id` - `chargeId` - `trackId` - `indicator` - `email` - `cardNumber`
 
 |
 |
 
-\`filters.value\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`filters.operator` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
-The comparison value for matching the filter. Omitting or leaving blank will invalidate the filter. If \`field\` is \`id\` or \`chargeId\`, any prefix will be ignored.
+The operator to use for matching purposes. Valid values: - `equals` (default) - `contains` - `begins` - `ends`
+
+|
+|
+
+`filters.value` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
-\## The response If your chargeback report returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. ### Response example Take a look at the example response below.
+The comparison value for matching the filter. Omitting or leaving blank will invalidate the filter. If `field` is `id` or `chargeId`, any prefix will be ignored.
+
+|
+
+## The response If your chargeback report returns, then your request was successful. If you're having problems with this API, then ask our [support team](mailto:support@checkout.com) for help. ### Response example Take a look at the example response below.
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
 26
-
-1
 
 {
 
@@ -253,19 +209,11 @@ xxxxxxxxxx
 
 "totalRecords": 1,
 
-3
-
 "pageNumber": 1,
-
-4
 
 "pageSize": 10,
 
-5
-
-"data": \[
-
-6
+"data": [
 
 {
 
@@ -280,44 +228,28 @@ xxxxxxxxxx
 9
 
 "scheme": "MasterCard",
-
-10
+0
 
 "amount": 62712,
 
-11
-
 "value": 62712,
-
-12
+2
 
 "currency": "USD",
-
-13
-
 "trackId": "98547833",
-
-14
 
 "issueDate": "2018-08-09T11:18:02Z",
 
-15
-
-"cardNumber": "524844\*\*\*\*\*\*8090",
-
-16
+"cardNumber": "524844**\*\***8090",
 
 "indicator": "ADJM",
-
-17
+7
 
 "reasonCode": "4837",
-
-18
+8
 
 "createdDate": "2018-08-10T04:00:24Z",
-
-19
+9
 
 "arn": "5589654100005276504016",
 
@@ -343,17 +275,13 @@ xxxxxxxxxx
 
 25
 
-\]
+]
 
 26
 
 }
 
-Import from Gist
-
-\### Understanding your chargeback query The response fields and their definitions are as follows:
-
-x
+### Understanding your chargeback query The response fields and their definitions are as follows:
 
 Add Row Add Col
 
@@ -361,7 +289,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`totalRecords\` <span class="field-type">Integer</span>
+`totalRecords` <span class="field-type">Integer</span>
 
 |
 
@@ -370,7 +298,7 @@ The total number of records returned in the response.
 |
 |
 
-\`pageNumber\` <span class="field-type">Integer</span>
+`pageNumber` <span class="field-type">Integer</span>
 
 |
 
@@ -379,7 +307,7 @@ The page number of the returned result set.
 |
 |
 
-\`pageSize\` <span class="field-type">Integer</span>
+`pageSize` <span class="field-type">Integer</span>
 
 |
 
@@ -388,17 +316,15 @@ The number of records returned per page.
 |
 |
 
-\`data\` <span class="field-type">Array</span>
+`data` <span class="field-type">Array</span>
 
 |
 
-An array of query objects. <span class="table-info">\[Learn about the data array.\](/docs/chargeback-query#section-the-data-array)</span>
+An array of query objects. <span class="table-info">[Learn about the data array.](/docs/chargeback-query#section-the-data-array)</span>
 
 |
 
-\#### The data array
-
-x
+#### The data array
 
 Add Row Add Col
 
@@ -406,7 +332,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`id\` <span class="field-type">String</span>
+`id` <span class="field-type">String</span>
 
 |
 
@@ -415,7 +341,7 @@ The chargeback ID.
 |
 |
 
-\`chargeId\` <span class="field-type">String</span>
+`chargeId` <span class="field-type">String</span>
 
 |
 
@@ -424,7 +350,7 @@ The ID of the charge that the chargeback refers to.
 |
 |
 
-\`scheme\` <span class="field-type">String</span>
+`scheme` <span class="field-type">String</span>
 
 |
 
@@ -433,7 +359,7 @@ The card scheme (Visa, MasterCard etc.)
 |
 |
 
-\`amount\` <span class="field-type">String</span>
+`amount` <span class="field-type">String</span>
 
 |
 
@@ -442,7 +368,7 @@ The charge amount.
 |
 |
 
-\`value\` <span class="field-type">String</span>
+`value` <span class="field-type">String</span>
 
 |
 
@@ -451,32 +377,32 @@ The charge value.
 |
 |
 
-\`currency\` <span class="field-type">String</span>
+`currency` <span class="field-type">String</span>
 
 |
 
-Three-letter ISO currency code that represents the currency in which the charge was made. <span class="table-info">Click \[here\](doc:currency-codes) to find out more about currency codes.</span>.
-
-|
-|
-
-\`trackId\` <span class="field-type">String</span>
-
-|
+Three-letter ISO currency code that represents the currency in which the charge was made. <span class="table-info">Click [here](doc:currency-codes) to find out more about currency codes.</span>.
 
 |
 |
 
-\`issueDate\` <span class="field-type">String</span>
+`trackId` <span class="field-type">String</span>
 
 |
-
-UTC date and time based on ISO 8601 profile e.g., \`2015-11-05T13:10:30Z\` or \`2015-11-05T08:10:30-05:00\`
 
 |
 |
 
-\`cardNumber\` <span class="field-type">String</span>
+`issueDate` <span class="field-type">String</span>
+
+|
+
+UTC date and time based on ISO 8601 profile e.g., `2015-11-05T13:10:30Z` or `2015-11-05T08:10:30-05:00`
+
+|
+|
+
+`cardNumber` <span class="field-type">String</span>
 
 |
 
@@ -485,37 +411,37 @@ The card number.
 |
 |
 
-\`indicator\` <span class="field-type">String</span>
+`indicator` <span class="field-type">String</span>
 
 |
 
-The chargeback indicator. <span class="table-info">Click \[here\](doc:chargeback-codes) to find out more about chargeback indicators.</span>.
-
-|
-|
-
-\`reasonCode\` <span class="field-type">String</span>
-
-|
+The chargeback indicator. <span class="table-info">Click [here](doc:chargeback-codes) to find out more about chargeback indicators.</span>.
 
 |
 |
 
-\`createdDate\` <span class="field-type">String</span>
+`reasonCode` <span class="field-type">String</span>
 
 |
 
 |
 |
 
-\`arn\` <span class="field-type">String</span>
+`createdDate` <span class="field-type">String</span>
 
 |
 
 |
 |
 
-\`customer\` <span class="field-type">Object</span>
+`arn` <span class="field-type">String</span>
+
+|
+
+|
+|
+
+`customer` <span class="field-type">Object</span>
 
 |
 

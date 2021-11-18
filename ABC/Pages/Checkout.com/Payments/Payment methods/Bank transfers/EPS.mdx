@@ -9,16 +9,12 @@ EPS allows your customers to make purchases online through quick and easy bank t
 
 To start accepting EPS payments, please contact your Customer Success Manager.
 
-Overview
---------
+## Overview
 
 EPS payments follow a two-step process:
+. [Request a payment](#EPS-requestapayment) 2. [Redirect the customer](#EPS-redirectthecustomer)
 
-1.  [Request a payment](#EPS-requestapayment)
-2.  [Redirect the customer](#EPS-redirectthecustomer)
-
-Request a payment 
-------------------
+## Request a payment 
 
 ### The POST request
 
@@ -26,8 +22,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-c1a541c5-e978-4c1a-a552-7fa96a6de32d-1)
-*   [**Sandbox**](#tabs-c1a541c5-e978-4c1a-a552-7fa96a6de32d-2)
+- [**Live**](#tabs-c1a541c5-e978-4c1a-a552-7fa96a6de32d-1)
+- [**Sandbox**](#tabs-c1a541c5-e978-4c1a-a552-7fa96a6de32d-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -133,7 +129,7 @@ For redirect payment methods, overrides the default failure redirect URL configu
       "source": {
         "type": "eps",
         "purpose":"Mens black t-shirt L"
-      },  
+      },
      "amount": 1914,
      "currency": "EUR",
      "success_url": "http://example.com/payments/success",
@@ -164,15 +160,13 @@ If you receive a `202 Success` response containing a `status` field set to 
       }
     }
 
-Redirect the customer 
-----------------------
+## Redirect the customer 
 
 Redirect your customer to the `redirect` link’s href in the response. This will send them to an EPS bank selection page where they will select their bank before being transferred to that bank's page to enter their authorization details. If successful, the payment can be approved.
 
-Once they've completed this step, the customer is transferred to your predefined success or failure URL. Confirmation of an EPS payment is communicated **only through webhooks**. When you receive a `payment_captured` webhook notification, the transaction has been completed successfully. Until the `payment_captured` webhook is received (response code `10000`), all payments are labeled as _Pending_.
+Once they've completed this step, the customer is transferred to your predefined success or failure URL. Confirmation of an EPS payment is communicated **only through webhooks**. When you receive a `payment_captured` webhook notification, the transaction has been completed successfully. Until the `payment_captured` webhook is received (response code `10000`), all payments are labeled as *Pending*.
 
-Get details about a payment
----------------------------
+## Get details about a payment
 
 You can retrieve details about an existing EPS payment with the following endpoint.
 
@@ -180,8 +174,8 @@ You can retrieve details about an existing EPS payment with the following endpoi
 
 #### Endpoints
 
-*   [**Live**](#tabs-568152bc-83c4-4a67-b3b1-3f51b1f279bc-1)
-*   [**Sandbox**](#tabs-568152bc-83c4-4a67-b3b1-3f51b1f279bc-2)
+- [**Live**](#tabs-568152bc-83c4-4a67-b3b1-3f51b1f279bc-1)
+- [**Sandbox**](#tabs-568152bc-83c4-4a67-b3b1-3f51b1f279bc-2)
 
 GET`https://api.checkout.com/payments/{payment_id}`
 
@@ -251,36 +245,30 @@ The payment ID found in the response of the initial response.
       }
     }
 
-Refund a payment
-----------------
+## Refund a payment
 
 EPS supports both partial and full refunds. You can refund a payment through the [Hub](https://hub.checkout.com/v2) or using the [refund API](/display/DOCS/Refund+a+payment).
 
-Cancel a payment
-----------------
+## Cancel a payment
 
 If the customer fails to complete their payment, we will automatically void the payment and send a `payment_expired` webhook.
 
 If the customer cancels their payment, we will send a `payment_canceled` webhook.
 
-Testing EPS
------------
+## Testing EPS
 
 To start testing, you'll need to:
 
-*   [create a test account](https://www.checkout.com/get-test-account), and
-*   contact your Customer Success Manager or Integrations engineer to activate EPS payments in the sandbox environment.
+- [create a test account](https://www.checkout.com/get-test-account), and
+- contact your Customer Success Manager or Integrations engineer to activate EPS payments in the sandbox environment.
+  . Create an EPS transaction as above, following the redirect link in the response to EPS's bank selection page.
 
-1.  Create an EPS transaction as above, following the redirect link in the response to EPS's bank selection page.
 2.  Select the bank:
-    *   **BIC**: HYPTAT22XXX
-    *   **Name**: HYPO TIROL BANK AG
-3.  Confirm your selection and await redirection to the bank's page.
-4.  Log in with the following details:
-    *   **Verfügernummer** (user number): `123456`
-    *   **Verfügername** (username): \[leave empty\]
-    *   **PIN**: \[leave empty\]
-5.  Click **Auftrag absenden** to continue.
-6.  Leave the radio selection on **mobileTAN** and click **sammeln und zeichnen** to continue.
-7.  In the _mobileTAN-Eingabe_ field, enter `123456` and confirm by clicking **OK**.
-8.  Click **zurück**. You should then be redirected to your predefined success URL.
+    - **BIC**: HYPTAT22XXX
+    - **Name**: HYPO TIROL BANK AG
+3.  Confirm your selection and await redirection to the bank's page.. Log in with the following details:
+    - **Verfügernummer** (user number): `123456`
+    - **Verfügername** (username): [leave empty]
+    - **PIN**: [leave empty]
+4.  Click **Auftrag absenden** to continue.. Leave the radio selection on **mobileTAN** and click **sammeln und zeichnen** to continue.
+5.  In the _mobileTAN-Eingabe_ field, enter `123456` and confirm by clicking **OK**.. Click **zurück**. You should then be redirected to your predefined success URL.

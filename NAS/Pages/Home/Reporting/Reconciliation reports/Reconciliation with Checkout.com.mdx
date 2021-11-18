@@ -3,8 +3,7 @@ title: Reconciliation with Checkout.com
 account: NAS
 ---
 
-Reconciling between your bank account and settlements
------------------------------------------------------
+## Reconciling between your bank account and settlements
 
 Understanding the exact payout amounts settled to you is a crucial part of your business's bookkeeping process. Checkout.com’s payout reports provide you with the confidence that you have been settled the correct amounts.
 
@@ -14,8 +13,7 @@ Look up the **Payout Amount** field within the corresponding payouts report fo
 
 If Checkout.com has paid out the correct amounts to you, then the two values will reconcile.
 
-Reconciling financial actions making up settlements
----------------------------------------------------
+## Reconciling financial actions making up settlements
 
 Using the payouts report and the financial actions by payout ID report together will allow you to reconcile between a specific payout and the financial actions that make up the payout amount.
 
@@ -51,15 +49,11 @@ To reconcile between a fee category on your payouts report and the financial act
 
 For example, to reconcile between **Card Payment Scheme Fees** for a given payout on your payouts report and the associated financial actions on the financial actions by payout id report:
 
-*   First, using your financial actions report, filter by **Action Type** to include only **authentication**, **authorization**, **capture,** and **void** actions.
-    
-*   Then filter on **Breakdown Type** filtered to include only **Scheme Fixed Fees** and **Scheme Variable Fees.**
-    
-*   The sum of the **Holding Currency** column will reconcile with the **Card Payment Scheme Fees** displayed on your payouts report.
-    
+- First, using your financial actions report, filter by **Action Type** to include only **authentication**, **authorization**, **capture,** and **void** actions.
+- Then filter on **Breakdown Type** filtered to include only **Scheme Fixed Fees** and **Scheme Variable Fees.**
+- The sum of the **Holding Currency** column will reconcile with the **Card Payment Scheme Fees** displayed on your payouts report.
 
-Reconciling financial actions against changes to your currency account available balances
------------------------------------------------------------------------------------------
+## Reconciling financial actions against changes to your currency account available balances
 
 Using the balance report and the financial actions by date range report together will allow you to reconcile all monetary inflows and outflows for a given currency account.
 
@@ -88,12 +82,7 @@ Information on the mapping between Action Type, Breakdown Type, and the fee cate
 To reconcile between a fee category on your balance report and the financial actions comprising it. First, filter the financial actions report by the **Currency Account ID**, **Action Type**, **Breakdown Type** and **Payment Method** (if applicable) related to the amount you are trying to reconcile on your balance report. The sum of the **Holding Currency Amount** column will then reconcile with the amount shown on the balance report.
 
 For example, to reconcile between **Card Payment Scheme Fees** for **Payment Method: Visa** for a given currency account on your balance report and the associated financial actions on the financial actions report over the same period.
+. First, using the financial actions report, filter by the **Currency Account ID**.
 
-1.  First, using the financial actions report, filter by the **Currency Account ID**.
-    
 2.  Then filter by the **Payment Method** if applicable.
-    
-3.  Then filter by **Action Type** to include only **authentication**, **authorization**, **capture,** and **void** actions.
-    
-4.  Then filter on **Breakdown Type** filtered to include only **Scheme Fixed Fees** and **Scheme Variable Fees**. The sum of the **Holding Currency** column will reconcile with the **Card Payment Scheme Fees** displayed on your payouts report.
-    
+3.  Then filter by **Action Type** to include only **authentication**, **authorization**, **capture,** and **void** actions.. Then filter on **Breakdown Type** filtered to include only **Scheme Fixed Fees** and **Scheme Variable Fees**. The sum of the **Holding Currency** column will reconcile with the **Card Payment Scheme Fees** displayed on your payouts report.

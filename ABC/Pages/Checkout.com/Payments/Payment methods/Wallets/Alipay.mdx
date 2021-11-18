@@ -9,23 +9,19 @@ Alipay provides a method to make purchases online through quick and easy bank tr
 
 To start accepting Alipay payments, please contact your Customer Success Manager.
 
-Overview
---------
+## Overview
 
 Alipay payments follow a two-step process:
+. [Request an Alipay payment](#Alipay-requestapayment) 2. [Redirect the customer](#Alipay-redirectthecustomer)
 
-1.  [Request an Alipay payment](#Alipay-requestapayment)
-2.  [Redirect the customer](#Alipay-redirectthecustomer)
-
-Request a payment 
-------------------
+## Request a payment 
 
 ### The POST request
 
 #### Endpoints
 
-*   [**Live**](#tabs-e1ce3245-5b27-413a-a7ab-2015b3981c65-1)
-*   [**Sandbox**](#tabs-e1ce3245-5b27-413a-a7ab-2015b3981c65-2)
+- [**Live**](#tabs-e1ce3245-5b27-413a-a7ab-2015b3981c65-1)
+- [**Sandbox**](#tabs-e1ce3245-5b27-413a-a7ab-2015b3981c65-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -102,7 +98,6 @@ Currently, we only support USD.
      "amount": 2000,
      "currency": "USD"
     }
-    
 
 If a customer ID or email is not provided in the request, then we automatically create a customer profile and return the customer `id` in the response.
 
@@ -132,10 +127,9 @@ If a payment `id` is returned, then your request was successful.
 
 Redirect your customer to the `redirect` link’s href in the response. The redirect transfers the customer to their bank's website where they are required to enter their authorization details; if successful, the payment can be approved.
 
-Once completed, the customer is transferred to your predefined success or failure URL. Confirmation of an Alipay payment is communicated only through webhooks. When you receive a `payment_captured` webhook notification, the transaction has been completed successfully. Until the `payment_captured` webhook is received (response code `10000`), all payments are labeled as _Pending_.
+Once completed, the customer is transferred to your predefined success or failure URL. Confirmation of an Alipay payment is communicated only through webhooks. When you receive a `payment_captured` webhook notification, the transaction has been completed successfully. Until the `payment_captured` webhook is received (response code `10000`), all payments are labeled as *Pending*.
 
-Get details about a payment
----------------------------
+## Get details about a payment
 
 You can retrieve details about an existing Alipay payment.
 
@@ -145,8 +139,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-133b7029-9aff-4627-817a-29d373d968b4-1)
-*   [**Sandbox**](#tabs-133b7029-9aff-4627-817a-29d373d968b4-2)
+- [**Live**](#tabs-133b7029-9aff-4627-817a-29d373d968b4-1)
+- [**Sandbox**](#tabs-133b7029-9aff-4627-817a-29d373d968b4-2)
 
 GET`https://api.checkout.com/payments/{payment_id}`
 
@@ -209,27 +203,23 @@ The payment ID found in the response of the initial response.
       }
     }
 
-Refund a payment
-----------------
+## Refund a payment
 
 Alipay supports both partial and full refunds. You can refund a payment through the [Hub](https://hub.checkout.com/v2) or using the [refund API](/display/DOCS/Refund+a+payment).
 
-Cancel a payment
-----------------
+## Cancel a payment
 
 If the customer cancels or fails to complete the transaction at any point after the payment is created, it will automatically be voided, and we'll send you a `payment_voided` webhook.
 
-Testing Alipay
---------------
+## Testing Alipay
 
 To start testing, you'll need to:
 
-*   [create a test account](https://www.checkout.com/get-test-account), and
-*   contact your Customer Success Manager or Integrations engineer to activate Alipay payments in the sandbox environment.
+- [create a test account](https://www.checkout.com/get-test-account), and
+- contact your Customer Success Manager or Integrations engineer to activate Alipay payments in the sandbox environment.
+  . Create an Alipay transaction as above, following the redirect link in the response to Alipay's website.
 
-1.  Create an Alipay transaction as above, following the redirect link in the response to Alipay's website.
 2.  Click the button on the right and log in with the following details:
-    *   **Username**: `alipaytest20091@gmail.com`
-    *   **Password**: `111111`
-3.  Solve the captcha and then click the blue button at the bottom of the form to continue.
-4.  Enter `111111` into the box and then click the blue button to complete the payment. You should then be redirected to your predefined success URL.
+    - **Username**: `alipaytest20091@gmail.com`
+    - **Password**: `111111`
+3.  Solve the captcha and then click the blue button at the bottom of the form to continue.. Enter `111111` into the box and then click the blue button to complete the payment. You should then be redirected to your predefined success URL.

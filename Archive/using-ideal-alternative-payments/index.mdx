@@ -3,43 +3,23 @@ title: using-ideal-alternative-payments
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 Learn to process a payment using an iDEAL alternative payment method. With Checkout.com, you can accept direct API-to-API payments using our alternative payment methods. This guide outlines the workflow for processing alternative payments with iDEAL.
 
-\## <span class="step\_hl">Step 1:</span> \*\*Create a payment token\*\* First, you need to create a payment token. A payment token is a snapshot of the transaction information — it is uneditable at the browser end. Payment tokens expire after 15-minutes — so, be quick. To learn more about payment tokens, visit \[payment tokens\](doc:payment-tokens). An example payment token request and response is listed below.
+## <span class="step\_hl">Step 1:</span> **Create a payment token** First, you need to create a payment token. A payment token is a snapshot of the transaction information — it is uneditable at the browser end. Payment tokens expire after 15-minutes — so, be quick. To learn more about payment tokens, visit [payment tokens](doc:payment-tokens). An example payment token request and response is listed below.
 
 Request Response
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-11
-
-1
-
-curl https://sandbox.checkout.com/api2/v2/tokens/payment
+1curl https://sandbox.checkout.com/api2/v2/tokens/payment
 
 2
 
-\-H "Authorization: secret_key"
+-H "Authorization: secret_key"
 
-3
+-H "Content-Type: application/json"
 
-\-H "Content-Type: application/json"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "value": 1,
 
@@ -54,20 +34,12 @@ curl https://sandbox.checkout.com/api2/v2/tokens/payment
 9
 
 "successUrl": "http://mycustomerurl.com/order?result=pass",
-
-10
+0
 
 "failUrl": "http://mycustomerurl.com/order?result=fail"
-
-11
+1
 
 }'
-
-Import from Gist
-
-xxxxxxxxxx
-
-1
 
 {
 
@@ -75,47 +47,25 @@ xxxxxxxxxx
 
 "id": "pay_tok_76918102-264F-40DF-A6D4-987BAE5939B3",
 
-3
-
 "liveMode": true
-
-4
 
 }
 
-Import from Gist
-
-\## <span class="step\_hl">Step 2:</span>\*\* Retrieve alternative payment information\*\* iDEAL allows customers to make online purchases with their bank account. Use the following endpoint to retrieve the list of issuers supported by iDEAL. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/lookups/localpayments/lpp\_9/tags/issuerid</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/lookups/localpayments/lpp\_9/tags/issuerid</p></pre>
+## <span class="step\_hl">Step 2:</span>** Retrieve alternative payment information** iDEAL allows customers to make online purchases with their bank account. Use the following endpoint to retrieve the list of issuers supported by iDEAL. ### Endpoint live <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://api2.checkout.com/v2/lookups/localpayments/lpp\_9/tags/issuerid</p></pre> ### Endpoint sandbox <pre class="api-header-long-url"><p class="api-header"><span class="get-tag">GET</span>https://sandbox.checkout.com/api2/v2/lookups/localpayments/lpp\_9/tags/issuerid</p></pre>
 
 cURL
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
 
 curl https://sandbox.checkout.com/api2/v2/lookups/localpayments/lpp\_9/tags/issuerid
 
 2
 
-\-H "Authorization: secret_key"
+-H "Authorization: secret_key"
 
-3
+-H "Content-Type: application/json"
 
-\-H "Content-Type: application/json"
-
-4
-
-\-X GET
-
-Import from Gist
+-X GET
 
 A successful request will return an array of licensed issuing banks.
-
-x
 
 Add Row Add Col
 
@@ -203,39 +153,24 @@ TRIONL2U
 
 |
 
-\### Example response
+### Example response
 
 JSON
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-17
-
+7
 1
 
 {
 
 2
 
-"lookupDetails": \[
-
-3
+"lookupDetails": [
 
 {
 
-4
-
 "tagName": "issuerId",
 
-5
-
-"values": \[
-
-6
+"values": [
 
 {
 
@@ -250,74 +185,40 @@ xxxxxxxxxx
 9
 
 },
-
-10
+0
 
 {
-
-11
-
-"key": "Issuer Simulation V3 - RABO",
-
-12
-
-"value": "RABONL2U"
-
-13
-
-}
-
-14
-
-\]
-
-15
-
-}
-
-16
-
-\]
-
-17
-
-}
-
-Import from Gist
-
-\## <span class="step\_hl">Step 3:</span>\*\* Process an alternative payment\*\* Use the following endpoint to create an alternative payment request. Include iDEAL's paymentProviderId (\`lpp_9\`), the \`issuerId\` obtained in \[Step 2\](doc:using-ideal-alternative-payments#section--span-style-color-5476fb-step-2-span-retrieve-alternative-payment-information-) and the \`paymentToken\` obtained from \[Step 1\](doc:using-ideal-alternative-payments#section--span-style-color-5476fb-step-1-span-create-a-payment-token-) in the request.
-
-cURL Alipay PayPal Sofort Tenpay
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-14
-
 1
 
+"key": "Issuer Simulation V3 - RABO",
+2
+
+"value": "RABONL2U"
+}
+
+]
+
+}
+
+]
+7
+
+}
+
+## <span class="step\_hl">Step 3:</span>** Process an alternative payment** Use the following endpoint to create an alternative payment request. Include iDEAL's paymentProviderId (`lpp_9`), the `issuerId` obtained in [Step 2](doc:using-ideal-alternative-payments#section--span-style-color-5476fb-step-2-span-retrieve-alternative-payment-information-) and the `paymentToken` obtained from [Step 1](doc:using-ideal-alternative-payments#section--span-style-color-5476fb-step-1-span-create-a-payment-token-) in the request.
+
+cURL Alipay PayPal Sofort Tenpay
 curl https://api2.checkout.com/v2/charges/localpayment
 
 2
 
-\-H "Authorization: secret_key"
+-H "Authorization: secret_key"
 
-3
+-H "Content-Type: application/json"
 
-\-H "Content-Type: application/json"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "email" : "test@email.com",
 
@@ -332,54 +233,30 @@ curl https://api2.checkout.com/v2/charges/localpayment
 9
 
 "userData" : {
-
-10
+0
 
 "issuerId" : "INGBNL2A"
-
-11
+1
 
 }
-
-12
+2
 
 },
-
-13
-
 "paymentToken" : "pay_tok_76918102-264F-40DF-A6D4-987BAE5939B3"
-
-14
 
 }'
 
-Import from Gist
-
-xxxxxxxxxx
-
-12
-
-1
-
-curl https://sandbox.checkout.com/api2/v2/charges/localpayment
+2curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 
 2
 
-\-H "Authorization: secret_key"
+-H "Authorization: secret_key"
 
-3
+-H "Content-Type: application/json"
 
-\-H "Content-Type: application/json"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "email" : "test@email.com",
 
@@ -394,46 +271,26 @@ curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 9
 
 "userData" : {}
-
-10
+0
 
 },
 
-11
-
 "paymentToken" : "pay_tok_76918102-264F-40DF-A6D4-987BAE5939B3"
-
-12
+2
 
 }'
 
-Import from Gist
-
-xxxxxxxxxx
-
-12
-
-1
-
-curl https://sandbox.checkout.com/api2/v2/charges/localpayment
+2curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 
 2
 
-\-H "Authorization: secret_key"
+-H "Authorization: secret_key"
 
-3
+-H "Content-Type: application/json"
 
-\-H "Content-Type: application/json"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "email" : "test@email.com",
 
@@ -448,46 +305,26 @@ curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 9
 
 "userData" : {}
-
-10
+0
 
 },
 
-11
-
 "paymentToken" : "pay_tok_76918102-264F-40DF-A6D4-987BAE5939B3"
-
-12
+2
 
 }'
 
-Import from Gist
-
-xxxxxxxxxx
-
-12
-
-1
-
-curl https://sandbox.checkout.com/api2/v2/charges/localpayment
+2curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 
 2
 
-\-H "Authorization: secret_key"
+-H "Authorization: secret_key"
 
-3
+-H "Content-Type: application/json"
 
-\-H "Content-Type: application/json"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "email" : "test@email.com",
 
@@ -502,46 +339,26 @@ curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 9
 
 "userData" : {}
-
-10
+0
 
 },
 
-11
-
 "paymentToken" : "pay_tok_76918102-264F-40DF-A6D4-987BAE5939B3"
-
-12
+2
 
 }'
 
-Import from Gist
-
-xxxxxxxxxx
-
-12
-
-1
-
-curl https://sandbox.checkout.com/api2/v2/charges/localpayment
+2curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 
 2
 
-\-H "Authorization: secret_key"
+-H "Authorization: secret_key"
 
-3
+-H "Content-Type: application/json"
 
-\-H "Content-Type: application/json"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "email" : "test@email.com",
 
@@ -556,32 +373,18 @@ curl https://sandbox.checkout.com/api2/v2/charges/localpayment
 9
 
 "userData" : {}
-
-10
+0
 
 },
 
-11
-
 "paymentToken" : "pay_tok_76918102-264F-40DF-A6D4-987BAE5939B3"
-
-12
+2
 
 }'
 
-Import from Gist
-
-\## <span class="step\_hl">Step 4:</span> \*\*Handle the alternative payment response\*\* A successful response to an alternative payment charge request includes a \`responseCode\` of 10000, as well as a \`paymentUrl\`. You will need to redirect to the \`paymentUrl\` to allow the customer to complete the alternative payment.
+## <span class="step\_hl">Step 4:</span> **Handle the alternative payment response** A successful response to an alternative payment charge request includes a `responseCode` of 10000, as well as a `paymentUrl`. You will need to redirect to the `paymentUrl` to allow the customer to complete the alternative payment.
 
 JSON
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
 
 {
 
@@ -589,19 +392,11 @@ xxxxxxxxxx
 
 "id": "pay_tok_76918102-264f-40df-a6d4-987bae5939b3",
 
-3
-
 "liveMode": true,
-
-4
 
 "responseCode": "10000",
 
-5
-
 "chargeMode": 3,
-
-6
 
 "localPayment": {
 
@@ -617,58 +412,26 @@ xxxxxxxxxx
 
 }
 
-Import from Gist
-
-\## <span class="step\_hl">Step 5:</span> \*\* Customer completes alternative payment page\*\* A successful response to an alternative payment request will include a \`responseCode\` of 10000 and a \`paymentUrl\`. It is necessary to redirect the customer to the \`paymentUrl\` to allow them to complete the alternative payment. Once the customer is redirected to the \`paymentUrl\`, they are prompted to complete the alternative payment flow to finalize the transaction.
-
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
+## <span class="step\_hl">Step 5:</span> ** Customer completes alternative payment page** A successful response to an alternative payment request will include a `responseCode` of 10000 and a `paymentUrl`. It is necessary to redirect the customer to the `paymentUrl` to allow them to complete the alternative payment. Once the customer is redirected to the `paymentUrl`, they are prompted to complete the alternative payment flow to finalize the transaction.
 
 ---
-
-- **Options:**
-- Image Border
 
 ![](https://files.readme.io/90c6a4f-ideal-payment-screenshot.png)
 
-Upload an image...
-
 ![](https://files.readme.io/90c6a4f-ideal-payment-screenshot.png)**ideal-payment-screenshot.png**
-
-change·remove
-
-Don't have one handy? Use our logo to start!
 
 If the customer closes, abandons or otherwise does not complete the alternative payment page flow, the charge will be canceled.
 
-\## <span class="step\_hl">Step 6:</span> \*\* Checkout.com redirects to merchant's 'payment successful' page\*\* If the alternative payment is successful, the customer is redirected to the merchant's 'Payment Successful' page.
-
-- **Image Sizing:**
-- Smart Fit
-- 100% Width
-- 80% Width
-- Original Size
+## <span class="step\_hl">Step 6:</span> ** Checkout.com redirects to merchant's 'payment successful' page** If the alternative payment is successful, the customer is redirected to the merchant's 'Payment Successful' page.
 
 ---
 
-- **Options:**
-- Image Border
-
 ![](https://files.readme.io/ca217e0-payment-successful.jpg)
-
-Upload an image...
 
 ![](https://files.readme.io/ca217e0-payment-successful.jpg)**payment-successful.jpg**
 
-change·remove
-
-Don't have one handy? Use our logo to start!
-
-\## <span class="step\_hl">Step 7:</span> \*\*Verify the alternative payment charge\*\* At your server end, grab the payment token using the form variable \`cko-payment-token\` and use it to \[verify the alternative payment\](doc:verify-an-alternative-payment). ## <span class="step\_hl">Step 8:</span> \*\*Confirm the payment with webhooks\*\*
+## <span class="step\_hl">Step 7:</span> **Verify the alternative payment charge** At your server end, grab the payment token using the form variable `cko-payment-token` and use it to [verify the alternative payment](doc:verify-an-alternative-payment). ## <span class="step\_hl">Step 8:</span> **Confirm the payment with webhooks**
 
 Webhooks are the only way to confirm the successful completion of an alternative payment transaction.
 
-Checkout's merchant API uses webhooks to push information to a merchant's destination URL whenever there is a charge transaction. All the notifications are delivered via an \*\*\[HTTP POST\](https://en.wikipedia.org/wiki/POST\_(HTTP))\*\* request in \*\*\[JSON\](https://www.json.org/)\*\* or \*\*\[XML\](https://en.wikipedia.org/wiki/XML)\*\* format. Receiving a charge.captured notification via Webhooks is the only way to confirm whether an Alternative Payment charge has been completed successfully. All orders should be marked as pending until you receive a successful Webhook response (response code 10000). Only then should a transaction be marked as completed. Find out more about \[webhooks\](ref:webhooks-1).
+Checkout's merchant API uses webhooks to push information to a merchant's destination URL whenever there is a charge transaction. All the notifications are delivered via an **[HTTP POST](<https://en.wikipedia.org/wiki/POST_(HTTP)>)** request in **[JSON](https://www.json.org/)** or **[XML](https://en.wikipedia.org/wiki/XML)** format. Receiving a charge.captured notification via Webhooks is the only way to confirm whether an Alternative Payment charge has been completed successfully. All orders should be marked as pending until you receive a successful Webhook response (response code 10000). Only then should a transaction be marked as completed. Find out more about [webhooks](ref:webhooks-1).

@@ -7,16 +7,12 @@ Accept payments using Multibanco, a popular payment method in Portugal.
 
 To start accepting Multibanco payments, please contact your Customer Success Manager.
 
-Overview
---------
+## Overview
 
 Multibanco payments follow a two-step process:
+. [Request a Multibanco payment](#Multibanco-requestapayment) 2. [Redirect the customer](#Multibanco-redirectthecustomer)
 
-1.  [Request a Multibanco payment](#Multibanco-requestapayment)
-2.  [Redirect the customer](#Multibanco-redirectthecustomer)
-
-Request a payment 
-------------------
+## Request a payment 
 
 ### The POST request
 
@@ -24,8 +20,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-f44f1ba9-f976-4dbe-b5c7-104a98975c4d-1)
-*   [**Sandbox**](#tabs-f44f1ba9-f976-4dbe-b5c7-104a98975c4d-2)
+- [**Live**](#tabs-f44f1ba9-f976-4dbe-b5c7-104a98975c4d-1)
+- [**Sandbox**](#tabs-f44f1ba9-f976-4dbe-b5c7-104a98975c4d-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -150,13 +146,11 @@ If you receive a `202 Success` response with a `status` field set to `Pendi
       }
     }
 
-Redirect the customer 
-----------------------
+## Redirect the customer 
 
 Redirect your customer to the `multibanco:static-reference-page` link’s href in the response. The customer will be redirected to a Multibanco page where they can authorize the payment, before being transferred to your predefined success or failure URL.
 
-Get details about a payment
----------------------------
+## Get details about a payment
 
 You can use the `payment_id` found in the payment response, or the `cko-session-id` from the success/failure URL (e.g., `https://www.checkout.com/order/succeeded?cko-session-id=**sid_vii64oquze5u3h2x6hh4rurc4y**`) to retrieve details about the payment.
 
@@ -168,8 +162,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-a83b3bc6-7b9d-470b-897a-72938d339b3b-1)
-*   [**Sandbox**](#tabs-a83b3bc6-7b9d-470b-897a-72938d339b3b-2)
+- [**Live**](#tabs-a83b3bc6-7b9d-470b-897a-72938d339b3b-1)
+- [**Sandbox**](#tabs-a83b3bc6-7b9d-470b-897a-72938d339b3b-2)
 
 GET`https://api.checkout.com/payments/{payment_id}`
 
@@ -249,21 +243,14 @@ The payment ID found in the response of the initial response.
       }
     }
 
-Testing Multibanco
-------------------
+## Testing Multibanco
 
 To start testing, you'll need to:
 
-*   [create a test account](https://www.checkout.com/get-test-account), and
-*   contact your Customer Success Manager or Integrations engineer to activate Multibanco payments in the sandbox environment.
+- [create a test account](https://www.checkout.com/get-test-account), and
+- contact your Customer Success Manager or Integrations engineer to activate Multibanco payments in the sandbox environment.
+  . Create a Multibanco transaction as above, following the redirect link in the response to Multibanco's website.
 
-1.  Create a Multibanco transaction as above, following the redirect link in the response to Multibanco's website.
-    
 2.  Select **Multibanco**.
-    
-3.  Click **Pay now**. You will be redirected to the Multibanco Simulator.
-    
-4.  Leave the _Pin_ field blank and click **Make Payment**.
-    
-5.  Click **Back to where you came from** to be redirected to your predefined success URL.
-    
+3.  Click **Pay now**. You will be redirected to the Multibanco Simulator.. Leave the *Pin* field blank and click **Make Payment**.
+4.  Click **Back to where you came from** to be redirected to your predefined success URL.

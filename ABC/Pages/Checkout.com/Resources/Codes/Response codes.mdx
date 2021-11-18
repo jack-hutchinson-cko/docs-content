@@ -5,36 +5,34 @@ account: ABC
 
 Response codes can tell you a lot about what happened during an API request. Checkout.com responds to API requests with:
 
-*   an HTTP status code
-*   a response object containing a `response_code` that indicates the status of the request, or an error object containing one or several `error_codes`
+- an HTTP status code
+- a response object containing a `response_code` that indicates the status of the request, or an error object containing one or several `error_codes`
 
 This page describes the response codes you might receive.
 
-Overview
---------
+## Overview
 
 A `response_code` is a five-digit numeric code that indicates the status of the request. Additional information on the request status may be found in the `response_summary` and `status` fields.
 
-| Code type | Code range | Location in response | Description |
-| --- | --- | --- | --- |
-| APPROVED | 10000 | `response_code` `response_summary` | The request was successful |
-| SOFT DECLINE | 20000 | `response_code``response_summary` | The request was declined, though subsequent attempts may be successful |
-| HARD DECLINE | 30000 | `response_code` `response_summary` | The request was declined. Most hard declines require the issuer or cardholder to rectify the outstanding issue(s) before a subsequent attempt can be made |
-| RISK RESPONSES | 40000 | `response_code` `response_summary` | The request triggered a risk response. The status of the response (`response_code` and `status`) will depend on the action specified in your risk settings |
+| Code type      | Code range | Location in response                | Description                                                                                                                                                |
+| -------------- | ---------- | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| APPROVED       | 10000      | `response_code` `response_summary`  | The request was successful                                                                                                                                 |
+| SOFT DECLINE   | 20000      | ` response_code``response_summary ` | The request was declined, though subsequent attempts may be successful                                                                                     |
+| HARD DECLINE   | 30000      | `response_code` `response_summary`  | The request was declined. Most hard declines require the issuer or cardholder to rectify the outstanding issue(s) before a subsequent attempt can be made  |
+| RISK RESPONSES | 40000      | `response_code` `response_summary`  | The request triggered a risk response. The status of the response (`response_code` and `status`) will depend on the action specified in your risk settings |
 
-Approved (10\*)
----------------
+## Approved (10\*)
 
-| Code | Description |
-| --- | --- |
-| 10000 | Approved |
-| 10008 | Approved - Honor with ID (Debit Cards) |
-| 10011 | Approved - VIP (not used) |
-| 10076 | Approved (Country Club) |
-| 10077 | Approved (Local Banks) |
-| 10081 | Approved (Approved Commercial) |
+| Code  | Description                                |
+| ----- | ------------------------------------------ |
+| 10000 | Approved                                   |
+| 10008 | Approved - Honor with ID (Debit Cards)     |
+| 10011 | Approved - VIP (not used)                  |
+| 10076 | Approved (Country Club)                    |
+| 10077 | Approved (Local Banks)                     |
+| 10081 | Approved (Approved Commercial)             |
 | 10100 | Flagged as a potentially risky transaction |
-| 10200 | Deferred capture |
+| 10200 | Deferred capture                           |
 
 ### Example response: 10000 – Approved
 
@@ -96,162 +94,159 @@ Approved (10\*)
         }
       }
     }
-    
 
-Soft decline (20\*)
--------------------
+## Soft decline (20\*)
 
-| Code | Text | Description |
-| --- | --- | --- |
-| 20001 | Refer to card issuer | - |
-| 20002 | Refer to card issuer - special conditions | - |
-| 20003 | Invalid merchant or merchant is not active | - |
-| 20005 | Declined - Do Not Honour | [Learn more](/display/DOCS/Declined+-+Do+not+honour). |
-| 20006 | Error / Invalid request parameters | - |
-| 20009 | Request in progress | - |
-| 20010 | Partial value approved | - |   
-| 20012 | Invalid transaction | The issuer has declined the transaction because it is invalid. Usually this is owing to some incorrect/invalid format or field. The cardholder should contact their issuing bank. |
-| 20013 | Invalid value/amount | Invalid amount (currency conversion field overflow) or amount exceeds maximum for card program. |
-| 20014 | Invalid card number |   |
-| 20017 | Customer cancellation |   |
-| 20018 | Customer dispute |   |
-| 20019 | Re-enter transaction or transaction has expired |   |
-| 20020 | Invalid response |   |
-| 20021 | No action taken |   |
-| 20022 | Suspected malfunction |   |
-| 20023 | Unacceptable transaction fee |   |
-| 20024 | File Update not supported by the receiver |   |
-| 20025 | Unable to Locate Record on File |   |
-| 20026 | Duplicate file update record |   |
-| 20027 | File update field edit error |   |
-| 20028 | File update file locked out |   |
-| 20029 | File update not successful |   |
-| 20030 | Format error |   |
-| 20031 | Bank not supported by Switch |   |
-| 20032 | Completed partially |   |
-| 20038 | Allowable PIN tries exceeded |   |
-| 20039 | No CREDIT Account |   |
-| 20040 | Requested function not supported |   |
-| 20042 | No universal value/amount |   |
-| 20044 | No investment account |   |
-| 20046 | Bank decline |   |
-| 20051 | Insufficient funds |   |
-| 20052 | No cheque account |   |
-| 20053 | No savings account |   |
-| 20054 | Expired card |   |
-| 20055 | Incorrect PIN (invalid Amex CVV) |   |
-| 20056 | No card record |   |
-| 20057 | Transaction not permitted to cardholder | Issuer has declined the transaction because the card cannot be used for this sort of transaction. |
-| 20058 | Transaction not permitted to terminal |   |
-| 20059 | Suspected fraud |   |
-| 20060 | Card acceptor contact acquirer |   |
-| 20061 | Exceeds withdrawal value/amount limits | Occurs if the defined amount is exceeded for the account or card. |
-| 20062 | Restricted card | A restriction is placed on the card at the cardholder (account) level and not at the BIN (product) level. For example, due to the card's country. |
-| 20063 | Security violation |   |
-| 20064 | Transaction does not fulfil AML requirement | Occurs if any of the following are missing: Sender Reference Number, Sender Account Number, Sender Name, Sender Address, etc. |
-| 20065 | Exceeds Withdrawal Frequency Limit | Occurs if the defined withdrawal frequency limit has been exceeded. |
-| 20066 | Card acceptor call acquirer security |   |
-| 20067 | Hard capture - pick up card at ATM |   |
-| 20068 | Response received too Late / Timeout |   |
-| 20075 | Allowable PIN tries exceeded |   |
-| 20078 | Blocked card. First-time card usage. | Occurs if the transaction was from a new cardholder and the card is blocked. The cardholder needs to unblock their card before retrying the payment. |
-| 20082 | No security model |   |
-| 20083 | No accounts |   |
-| 20084 | No PBF |   |
-| 20085 | PBF update error |   |
-| 20086 | ATM malfunction / Invalid authorisation type |   |
-| 20087 | Bad track data (invalid CVV and/or expiry date) |   |
-| 20088 | Unable to dispense/process |   |
-| 20089 | Administration error |   |
-| 20090 | Cut-off in progress |   |
-| 20091 | Issuer or Switch is inoperative | |
-| 20092 | Financial institution not found |   |
-| 20093 | Transaction cannot be completed; violation of law | Due to government, central bank or financial institution agreement, laws or regulations, these types of transactions cannot be authorized. |
-| 20094 | Duplicate transmission/invoice |   |
-| 20095 | Reconcile error |   |
-| 20096 | System malfunction | Transaction does not pass Issuer system checks on fields. |
-| 20097 | Reconciliation Totals Reset |   |
-| 20098 | MAC error |   |
-| 20099 | Other / Unidentified responses |   |
-| 2006P | Cardholder ID verification failed | Cardholder could not be identified from their ID documentation as part of Know Your Customer (KYC) checks. The cardholder should contact their issuing bank to resolve. |
-| 200N0 | Unable to authorize |   |
-| 200N7 | Decline for CVV2 failure |   |
-| 200O5 | Pin required |   |
-| 200P1 | Over daily limit |   |
-| 200P9 | Limit exceeded. Enter a lesser value. |   |
-| 200R1 | Issuer initiated a stop payment (revocation order) for the Authorization |   |
-| 200R3 | Issuer initiated a stop payment (revocation order) for all Authorizations |   |
-| 200S4 | PTLF Full |   |
-| 200T2 | Invalid transaction date |   |
-| 200T3 | Card not supported |   |
-| 200T5 | CAF status = 0 or 9 |   |
-| 20100 | Invalid expiry date format |   |
-| 20101 | No account / No customer (token incorrect or invalid) |   |
-| 20102 | Invalid merchant/Wallet ID |   |
-| 20103 | Card type/Payment method not supported |   |
-| 20104 | Gateway reject - invalid transaction |   |
-| 20105 | Gateway reject - violation |   |
-| 20106 | Unsupported currency |   |
-| 20107 | Billing address is missing |   |
-| 20108 | Declined - Updated cardholder available |   |
-| 20109 | Authorization already reversed (voided) or capture is larger than initial authorised value |   |
-| 20110 | Authorization completed |   |
-| 20111 | Transaction already reversed |   |
-| 20112 | Merchant not Mastercard SecureCode enabled |   |
-| 20113 | Invalid property |   |
-| 20114 | Invalid channel or token is incorrect |   |
-| 20115 | Missing/Invalid lifetime |   |
-| 20116 | Invalid encoding |   |
-| 20117 | Invalid API version |   |
-| 20118 | Transaction pending |   |
-| 20119 | Invalid batch data and/or batch data is missing |   |
-| 20120 | Invalid customer/user |   |
-| 20121 | Transaction limit for merchant/terminal exceeded |   |
-| 20123 | MISSING BASIC DATA: zip, addr, member |   |
-| 20150 | Card not 3D Secure (3DS) enabled |   |
-| 20151 | Cardholder failed 3DS authentication |   |
-| 20152 | Initial 3DS transaction not completed within 15 minutes |   |
-| 20153 | 3DS system malfunction |   |
-| 20154 | 3DS authentication required | Issuer requests a non-3DS payment be resubmitted with 3DS authentication. |
+| Code  | Text                                                                                       | Description                                                                                                                                                                       |
+| ----- | ------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 20001 | Refer to card issuer                                                                       | -                                                                                                                                                                                 |
+| 20002 | Refer to card issuer - special conditions                                                  | -                                                                                                                                                                                 |
+| 20003 | Invalid merchant or merchant is not active                                                 | -                                                                                                                                                                                 |
+| 20005 | Declined - Do Not Honour                                                                   | [Learn more](/display/DOCS/Declined+-+Do+not+honour).                                                                                                                             |
+| 20006 | Error / Invalid request parameters                                                         | -                                                                                                                                                                                 |
+| 20009 | Request in progress                                                                        | -                                                                                                                                                                                 |
+| 20010 | Partial value approved                                                                     | -                                                                                                                                                                                 |
+| 20012 | Invalid transaction                                                                        | The issuer has declined the transaction because it is invalid. Usually this is owing to some incorrect/invalid format or field. The cardholder should contact their issuing bank. |
+| 20013 | Invalid value/amount                                                                       | Invalid amount (currency conversion field overflow) or amount exceeds maximum for card program.                                                                                   |
+| 20014 | Invalid card number                                                                        |                                                                                                                                                                                   |
+| 20017 | Customer cancellation                                                                      |                                                                                                                                                                                   |
+| 20018 | Customer dispute                                                                           |                                                                                                                                                                                   |
+| 20019 | Re-enter transaction or transaction has expired                                            |                                                                                                                                                                                   |
+| 20020 | Invalid response                                                                           |                                                                                                                                                                                   |
+| 20021 | No action taken                                                                            |                                                                                                                                                                                   |
+| 20022 | Suspected malfunction                                                                      |                                                                                                                                                                                   |
+| 20023 | Unacceptable transaction fee                                                               |                                                                                                                                                                                   |
+| 20024 | File Update not supported by the receiver                                                  |                                                                                                                                                                                   |
+| 20025 | Unable to Locate Record on File                                                            |                                                                                                                                                                                   |
+| 20026 | Duplicate file update record                                                               |                                                                                                                                                                                   |
+| 20027 | File update field edit error                                                               |                                                                                                                                                                                   |
+| 20028 | File update file locked out                                                                |                                                                                                                                                                                   |
+| 20029 | File update not successful                                                                 |                                                                                                                                                                                   |
+| 20030 | Format error                                                                               |                                                                                                                                                                                   |
+| 20031 | Bank not supported by Switch                                                               |                                                                                                                                                                                   |
+| 20032 | Completed partially                                                                        |                                                                                                                                                                                   |
+| 20038 | Allowable PIN tries exceeded                                                               |                                                                                                                                                                                   |
+| 20039 | No CREDIT Account                                                                          |                                                                                                                                                                                   |
+| 20040 | Requested function not supported                                                           |                                                                                                                                                                                   |
+| 20042 | No universal value/amount                                                                  |                                                                                                                                                                                   |
+| 20044 | No investment account                                                                      |                                                                                                                                                                                   |
+| 20046 | Bank decline                                                                               |                                                                                                                                                                                   |
+| 20051 | Insufficient funds                                                                         |                                                                                                                                                                                   |
+| 20052 | No cheque account                                                                          |                                                                                                                                                                                   |
+| 20053 | No savings account                                                                         |                                                                                                                                                                                   |
+| 20054 | Expired card                                                                               |                                                                                                                                                                                   |
+| 20055 | Incorrect PIN (invalid Amex CVV)                                                           |                                                                                                                                                                                   |
+| 20056 | No card record                                                                             |                                                                                                                                                                                   |
+| 20057 | Transaction not permitted to cardholder                                                    | Issuer has declined the transaction because the card cannot be used for this sort of transaction.                                                                                 |
+| 20058 | Transaction not permitted to terminal                                                      |                                                                                                                                                                                   |
+| 20059 | Suspected fraud                                                                            |                                                                                                                                                                                   |
+| 20060 | Card acceptor contact acquirer                                                             |                                                                                                                                                                                   |
+| 20061 | Exceeds withdrawal value/amount limits                                                     | Occurs if the defined amount is exceeded for the account or card.                                                                                                                 |
+| 20062 | Restricted card                                                                            | A restriction is placed on the card at the cardholder (account) level and not at the BIN (product) level. For example, due to the card's country.                                 |
+| 20063 | Security violation                                                                         |                                                                                                                                                                                   |
+| 20064 | Transaction does not fulfil AML requirement                                                | Occurs if any of the following are missing: Sender Reference Number, Sender Account Number, Sender Name, Sender Address, etc.                                                     |
+| 20065 | Exceeds Withdrawal Frequency Limit                                                         | Occurs if the defined withdrawal frequency limit has been exceeded.                                                                                                               |
+| 20066 | Card acceptor call acquirer security                                                       |                                                                                                                                                                                   |
+| 20067 | Hard capture - pick up card at ATM                                                         |                                                                                                                                                                                   |
+| 20068 | Response received too Late / Timeout                                                       |                                                                                                                                                                                   |
+| 20075 | Allowable PIN tries exceeded                                                               |                                                                                                                                                                                   |
+| 20078 | Blocked card. First-time card usage.                                                       | Occurs if the transaction was from a new cardholder and the card is blocked. The cardholder needs to unblock their card before retrying the payment.                              |
+| 20082 | No security model                                                                          |                                                                                                                                                                                   |
+| 20083 | No accounts                                                                                |                                                                                                                                                                                   |
+| 20084 | No PBF                                                                                     |                                                                                                                                                                                   |
+| 20085 | PBF update error                                                                           |                                                                                                                                                                                   |
+| 20086 | ATM malfunction / Invalid authorisation type                                               |                                                                                                                                                                                   |
+| 20087 | Bad track data (invalid CVV and/or expiry date)                                            |                                                                                                                                                                                   |
+| 20088 | Unable to dispense/process                                                                 |                                                                                                                                                                                   |
+| 20089 | Administration error                                                                       |                                                                                                                                                                                   |
+| 20090 | Cut-off in progress                                                                        |                                                                                                                                                                                   |
+| 20091 | Issuer or Switch is inoperative                                                            |                                                                                                                                                                                   |
+| 20092 | Financial institution not found                                                            |                                                                                                                                                                                   |
+| 20093 | Transaction cannot be completed; violation of law                                          | Due to government, central bank or financial institution agreement, laws or regulations, these types of transactions cannot be authorized.                                        |
+| 20094 | Duplicate transmission/invoice                                                             |                                                                                                                                                                                   |
+| 20095 | Reconcile error                                                                            |                                                                                                                                                                                   |
+| 20096 | System malfunction                                                                         | Transaction does not pass Issuer system checks on fields.                                                                                                                         |
+| 20097 | Reconciliation Totals Reset                                                                |                                                                                                                                                                                   |
+| 20098 | MAC error                                                                                  |                                                                                                                                                                                   |
+| 20099 | Other / Unidentified responses                                                             |                                                                                                                                                                                   |
+| 2006P | Cardholder ID verification failed                                                          | Cardholder could not be identified from their ID documentation as part of Know Your Customer (KYC) checks. The cardholder should contact their issuing bank to resolve.           |
+| 200N0 | Unable to authorize                                                                        |                                                                                                                                                                                   |
+| 200N7 | Decline for CVV2 failure                                                                   |                                                                                                                                                                                   |
+| 200O5 | Pin required                                                                               |                                                                                                                                                                                   |
+| 200P1 | Over daily limit                                                                           |                                                                                                                                                                                   |
+| 200P9 | Limit exceeded. Enter a lesser value.                                                      |                                                                                                                                                                                   |
+| 200R1 | Issuer initiated a stop payment (revocation order) for the Authorization                   |                                                                                                                                                                                   |
+| 200R3 | Issuer initiated a stop payment (revocation order) for all Authorizations                  |                                                                                                                                                                                   |
+| 200S4 | PTLF Full                                                                                  |                                                                                                                                                                                   |
+| 200T2 | Invalid transaction date                                                                   |                                                                                                                                                                                   |
+| 200T3 | Card not supported                                                                         |                                                                                                                                                                                   |
+| 200T5 | CAF status = 0 or 9                                                                        |                                                                                                                                                                                   |
+| 20100 | Invalid expiry date format                                                                 |                                                                                                                                                                                   |
+| 20101 | No account / No customer (token incorrect or invalid)                                      |                                                                                                                                                                                   |
+| 20102 | Invalid merchant/Wallet ID                                                                 |                                                                                                                                                                                   |
+| 20103 | Card type/Payment method not supported                                                     |                                                                                                                                                                                   |
+| 20104 | Gateway reject - invalid transaction                                                       |                                                                                                                                                                                   |
+| 20105 | Gateway reject - violation                                                                 |                                                                                                                                                                                   |
+| 20106 | Unsupported currency                                                                       |                                                                                                                                                                                   |
+| 20107 | Billing address is missing                                                                 |                                                                                                                                                                                   |
+| 20108 | Declined - Updated cardholder available                                                    |                                                                                                                                                                                   |
+| 20109 | Authorization already reversed (voided) or capture is larger than initial authorised value |                                                                                                                                                                                   |
+| 20110 | Authorization completed                                                                    |                                                                                                                                                                                   |
+| 20111 | Transaction already reversed                                                               |                                                                                                                                                                                   |
+| 20112 | Merchant not Mastercard SecureCode enabled                                                 |                                                                                                                                                                                   |
+| 20113 | Invalid property                                                                           |                                                                                                                                                                                   |
+| 20114 | Invalid channel or token is incorrect                                                      |                                                                                                                                                                                   |
+| 20115 | Missing/Invalid lifetime                                                                   |                                                                                                                                                                                   |
+| 20116 | Invalid encoding                                                                           |                                                                                                                                                                                   |
+| 20117 | Invalid API version                                                                        |                                                                                                                                                                                   |
+| 20118 | Transaction pending                                                                        |                                                                                                                                                                                   |
+| 20119 | Invalid batch data and/or batch data is missing                                            |                                                                                                                                                                                   |
+| 20120 | Invalid customer/user                                                                      |                                                                                                                                                                                   |
+| 20121 | Transaction limit for merchant/terminal exceeded                                           |                                                                                                                                                                                   |
+| 20123 | MISSING BASIC DATA: zip, addr, member                                                      |                                                                                                                                                                                   |
+| 20150 | Card not 3D Secure (3DS) enabled                                                           |                                                                                                                                                                                   |
+| 20151 | Cardholder failed 3DS authentication                                                       |                                                                                                                                                                                   |
+| 20152 | Initial 3DS transaction not completed within 15 minutes                                    |                                                                                                                                                                                   |
+| 20153 | 3DS system malfunction                                                                     |                                                                                                                                                                                   |
+| 20154 | 3DS authentication required                                                                | Issuer requests a non-3DS payment be resubmitted with 3DS authentication.                                                                                                         |
 
-Hard decline (30\*)
--------------------
+## Hard decline (30\*)
 
-| Code | Text | Description |
-| --- | --- | --- |
-| 30004 | Pick up card (no fraud) | The cardholder’s bank has declined the payment. The customer should call their issuing bank and ask why the transaction was declined. Once the issuing bank confirms that they will approve future attempts, try the transaction again. |
-| 30007 | Pick up card, special conditions | The cardholder’s bank has declined the payment because they have detected fraudulent activity on the account.
-  *   For a one-off transaction, do not attempt the transaction again, and, if possible, do not provide goods or services to the person attempting the transaction.
-  *   For a recurring or scheduled transaction, it is possible that the card was flagged after the last successfully processed payment (or after the authorization for the scheduled payment). In that case, contact your customer for a new credit card number, or ask for a different form of payment. Replace the old account number on the schedule with the new account number.
-|
-| 30015 | No such issuer | The card number entered is invalid because it does not start with a `3` (Amex), `4` (Visa), `5` (Mastercard) or `6` (Discover). Double-check the credit card number and try the transaction again with the correct number. We will usually flag this type of error before an authorization is attempted, but, in some rare cases (typically when there is an error with a payment import), this type of failure may occur. |
-| 30016 | Issuer does not allow online gambling payout | Issuer does not allow online gambling payout. |
-| 30017 | Issuer does not allow original credit transaction |  Issuer does not allow original credit transactions (OCTs) over Visa SMS. Only applies to OCTs. |
-| 30018 | Issuer does not allow money transfer payout | Issuer does not allow money transfer original credit transactions (OCTs). Only applies to OCTs. |
-| 30019 | Issuer does not allow non-money transfer payout | Issuer does not allow non-money transfer original credit transactions (OCTs). Only applies to OCTs. |
-| 30020 | Invalid amount | Invalid amount. |
-| 30021 | Total amount limit reached | Volume limit reached on the account. |
-| 30022 | Total transaction count limit reached | Transaction count limit reached on the account. |
-| 30033 | Expired card - pick up | The cardholder's bank has declined the payment because the card has expired. |
-| 30034 | Suspected fraud - pick up | The cardholder's bank has declined the payment because it suspects fraudulent activity on the account. |
-| 30035 | Contact acquirer - pick up | The cardholder’s bank has declined the payment. |
-| 30036 | Restricted card - pick up | The cardholder's bank has declined the payment because the card is restricted. |
-| 30037 | Call acquirer security - pick up | The cardholder’s bank has declined the payment. |
-| 30038 | Allowable PIN tries exceeded - pick up | The cardholder has exceeded the number of PIN entry attempts allowed by their bank. |
-| 30041 | Lost card - pick up | The cardholder’s bank has declined the payment because the card has been reported lost.
-  *   For a one-off transaction, do not attempt the transaction again, and if possible do not provide goods or services to the person attempting the transaction.
-  *   For a recurring or scheduled transaction, it is possible that the card was lost after the last successfully processed payment (or after the authorization for the scheduled payment). In that case, contact your customer for a new credit card number, or ask for a different form of payment. Replace the lost account number on the schedule with the new account number
-|
-| 30043 | Stolen card - pick up | The cardholder’s bank has declined the payment because the card has been reported stolen.
-  *   For a one-off transaction, do not attempt the transaction again, and if possible do not provide goods or services to the person attempting the transaction.
-  *   For a recurring or scheduled transaction, it is possible that the card was lost after the last successfully processed payment (or after the authorization for the scheduled payment). In that case, contact your customer for a new credit card number, or ask for a different form of payment. Replace the lost account number on the schedule with the new account number.
-|
-| 30044 | Transaction rejected - AMLD5 | Transaction was initiated from an anonymous, non-reloadable prepaid card and for an amount greater than 50 EUR. Due to the AMLD5 directive, it cannot be fulfilled. |
-| 30045 | Invalid payout fund transfer type | If the fund transfer type is not among the list that was configured for allowed fund transfer types, the transaction would fail. |
-| 30046 | Closed account | The destination account is closed, and the transaction will never be approved, so do not reattempt the transaction. The cardholder must contact their issuing bank. |
+| Code  | Text                             | Description                                                                                                                                                                                                                             |
+| ----- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 30004 | Pick up card (no fraud)          | The cardholder’s bank has declined the payment. The customer should call their issuing bank and ask why the transaction was declined. Once the issuing bank confirms that they will approve future attempts, try the transaction again. |
+| 30007 | Pick up card, special conditions | The cardholder’s bank has declined the payment because they have detected fraudulent activity on the account.                                                                                                                           |
 
-Risk responses (40\*)
----------------------
+- For a one-off transaction, do not attempt the transaction again, and, if possible, do not provide goods or services to the person attempting the transaction.
+- For a recurring or scheduled transaction, it is possible that the card was flagged after the last successfully processed payment (or after the authorization for the scheduled payment). In that case, contact your customer for a new credit card number, or ask for a different form of payment. Replace the old account number on the schedule with the new account number.
+  |
+  | 30015 | No such issuer | The card number entered is invalid because it does not start with a `3` (Amex), `4` (Visa), `5` (Mastercard) or `6` (Discover). Double-check the credit card number and try the transaction again with the correct number. We will usually flag this type of error before an authorization is attempted, but, in some rare cases (typically when there is an error with a payment import), this type of failure may occur. |
+  | 30016 | Issuer does not allow online gambling payout | Issuer does not allow online gambling payout. |
+  | 30017 | Issuer does not allow original credit transaction | Issuer does not allow original credit transactions (OCTs) over Visa SMS. Only applies to OCTs. |
+  | 30018 | Issuer does not allow money transfer payout | Issuer does not allow money transfer original credit transactions (OCTs). Only applies to OCTs. |
+  | 30019 | Issuer does not allow non-money transfer payout | Issuer does not allow non-money transfer original credit transactions (OCTs). Only applies to OCTs. |
+  | 30020 | Invalid amount | Invalid amount. |
+  | 30021 | Total amount limit reached | Volume limit reached on the account. |
+  | 30022 | Total transaction count limit reached | Transaction count limit reached on the account. |
+  | 30033 | Expired card - pick up | The cardholder's bank has declined the payment because the card has expired. |
+  | 30034 | Suspected fraud - pick up | The cardholder's bank has declined the payment because it suspects fraudulent activity on the account. |
+  | 30035 | Contact acquirer - pick up | The cardholder’s bank has declined the payment. |
+  | 30036 | Restricted card - pick up | The cardholder's bank has declined the payment because the card is restricted. |
+  | 30037 | Call acquirer security - pick up | The cardholder’s bank has declined the payment. |
+  | 30038 | Allowable PIN tries exceeded - pick up | The cardholder has exceeded the number of PIN entry attempts allowed by their bank. |
+  | 30041 | Lost card - pick up | The cardholder’s bank has declined the payment because the card has been reported lost.
+- For a one-off transaction, do not attempt the transaction again, and if possible do not provide goods or services to the person attempting the transaction.
+- For a recurring or scheduled transaction, it is possible that the card was lost after the last successfully processed payment (or after the authorization for the scheduled payment). In that case, contact your customer for a new credit card number, or ask for a different form of payment. Replace the lost account number on the schedule with the new account number
+  |
+  | 30043 | Stolen card - pick up | The cardholder’s bank has declined the payment because the card has been reported stolen.
+- For a one-off transaction, do not attempt the transaction again, and if possible do not provide goods or services to the person attempting the transaction.
+- For a recurring or scheduled transaction, it is possible that the card was lost after the last successfully processed payment (or after the authorization for the scheduled payment). In that case, contact your customer for a new credit card number, or ask for a different form of payment. Replace the lost account number on the schedule with the new account number.
+  |
+  | 30044 | Transaction rejected - AMLD5 | Transaction was initiated from an anonymous, non-reloadable prepaid card and for an amount greater than 50 EUR. Due to the AMLD5 directive, it cannot be fulfilled. |
+  | 30045 | Invalid payout fund transfer type | If the fund transfer type is not among the list that was configured for allowed fund transfer types, the transaction would fail. |
+  | 30046 | Closed account | The destination account is closed, and the transaction will never be approved, so do not reattempt the transaction. The cardholder must contact their issuing bank. |
+
+## Risk responses (40\*)
 
 Risk responses are triggered by our risk engine and will appear in the `response_code` of a payment response.
 
@@ -259,81 +254,81 @@ Configuring your risk settings
 
 If you want to change your [risk settings](/display/DOCS/Risk+engine+settings), please get in touch with our Risk team at [risk@checkout.com](mailto:risk@checkout.com).
 
-| Code | Text | Description |
-| --- | --- | --- |
-| 40101 | Risk blocked transaction | The request was blocked by your risk settings. |
-| 40102 | Country not supported | The country in which the shopper is located is restricted by your risk settings. |
-| 40103 | Gateway reject - blacklist transaction cannot be processed - payment attributes in blacklist | One or more of the payment attributes has been blacklisted by your settings or our international blacklist database. |
-| 40104 | Gateway Reject - CVV is missing or incorrect | Payment was voided after authorization because your configuration requires a CVV to be entered, but no CVV was provided with this payment, or the CVV was incorrect. |
-| 40108 | Gateway Reject - Post code failed | The card’s ZIP or postcode failed validation. |
-| 40109 | Gateway Reject - Missing required data | The request is missing required data. |
-| 40110 | Missing 3DS data, or data is not correct | The request is either missing 3DS data or contains incorrect data. |
-| 40111 | Voided - AVS not matched | The payment was voided after authorization by an Address Verification Service (AVS) risk filter which voids payments when the AVS returns a no match (`AVS = N`). The `response_code` will show 10000, but the `response_summary` will show 40111. [See example](#Responsecodes-40111). |
-| 40131 | Mismatch - Shipping to billing shipping country does not match billing country | The payment was declined because the shipping country does not match the billing country.. |
-| 40132 | Mismatch - Shipping to BIN shipping country does not match BIN country | The payment was declined because the shipping country does not match the bank identification number (BIN) country. |
-| 40133 | Mismatch - Shipping to IP Shipping country does not match IP country | The payment was declined because the cardholder's IP address does not match the shipping country. |
-| 40134 | Mismatch - Shipping country to phone (country) |   |
-| 40135 | Mismatch - Billing to BIN Billing country does not match BIN country | The payment was declined because the BIN country does not match the billing country. |
-| 40136 | Mismatch - Billing to IP billing country does not match IP country | The payment was declined because the cardholder's IP address does not match the billing country. |
-| 40138 | Mismatch - BIN to IP Bin country does not match IP country | The payment was declined because the cardholder's IP address does not match the BIN country. |
-| 40139 | Mismatch - BIN country to phone (country) |   |
-| 40141 - 40149 | Threshold Risk |   |
-| 40150 | Card velocity - Daily - Approved only |   |
-| 40151 | Card velocity - Daily - All transactions |   |
-| 40152 | Card velocity - Weekly - Approved only |   |
-| 40153 | Card velocity - Weekly - All transactions |   |
-| 40154 | Card velocity - Monthly - Approved only |   |
-| 40155 | Card velocity - Monthly - All transactions |   |
-| 40160 | Email velocity - Daily - Approved only |   |
-| 40161 | Email velocity - Daily - All transactions |   |
-| 40162 | Email velocity - Weekly - Approved only |   |
-| 40163 | Email velocity - Weekly - All transactions |   |
-| 40164 | Email velocity - Monthly - Approved only |   |
-| 40165 | Email velocity - Monthly - All transactions |   |
-| 40170 | IP velocity - Daily - Approved only |   |
-| 40171 | IP velocity - Daily - All transactions |   |
-| 40181 | Verified Info - Email |   |
-| 40182 | Verified Info - Address |   |
-| 40183 | Verified Info - Proxy |   |
-| 40184 | Verified Info - IP country in high risk country |   |
-| 40185 | Verified info - shipping country in high risk country |   |
-| 40186 | Verified Info - Billing country in high risk country |   |
-| 40187 | Verified Info - BIN country in high risk country |   |
-| 40201 | Gateway reject - card number blacklist |   |
-| 40202 | Gateway reject - IP address blacklist |   |
-| 40203 | Gateway reject - email blacklist |   |
-| 40204 | Gateway reject - phone number blacklist |   |
-| 40205 | Gateway Reject - BIN number blacklist |   |
-| 40210 | Bin Velocity - Daily - Approved Only |   |
-| 40211 | Bin Velocity - Daily - All transactions |   |
-| 40212 | Bin Velocity - Weekly - Approved Only |   |
-| 40213 | Bin Velocity - Weekly - All transactions |   |
-| 40214 | Bin Velocity - Monthly - Approved Only |   |
-| 40215 | Bin Velocity - Monthly - All transactions |   |
-| 40216 | Billing Address Line 1 Velocity - Daily - Approved Only |   |
-| 40217 | Billing Address Line 1 Velocity - Daily - All transactions |   |
-| 40218 | Billing Address Line 1 Velocity - Weekly - Approved Only |   |
-| 40219 | Billing Address Line 1 Velocity - Weekly - All transactions |   |
-| 40220 | Billing Address Line 1 Velocity - Monthly - Approved Only |   |
-| 40221 | Billing Address Line 1 Velocity - Monthly - All transactions |   |
-| 40222 | Shipping Address Line 1 Velocity - Daily - Approved Only |   |
-| 40223 | Shipping Address Line 1 Velocity - Daily - All transactions |   |
-| 40224 | Shipping Address Line 1 Velocity - Weekly - Approved Only |   |
-| 40225 | Shipping Address Line 1 Velocity - Weekly - All transactions |   |
-| 40226 | Shipping Address Line 1 Velocity - Monthly - Approved Only |   |
-| 40227 | Shipping Address Line 1 Velocity - Monthly - All transactions |   |
-| 40228 | CardHolder Name Velocity - Daily - Approved Only |   |
-| 40229 | CardHolder Name Velocity - Daily - All transactions |   |
-| 40230 | CardHolder Name Velocity - Weekly - Approved Only |   |
-| 40231 | CardHolder Name Velocity - Weekly - All transactions |   |
-| 40232 | CardHolder Name Velocity - Monthly - Approved Only |   |
-| 40233 | CardHolder Name Velocity - Monthly - All transactions |   |
-| 40234 | UDF1 Velocity - Daily - Approved Only |   |
-| 40235 | UDF1 Velocity - Daily - All transactions |   |
-| 40236 | UDF1 Velocity - Weekly - Approved Only |   |
-| 40237 | UDF1 Velocity - Weekly - All transactions |   |
-| 40238 | UDF1 Velocity - Monthly - Approved Only |   |
-| 40239 | UDF1 Velocity - Monthly - All transactions |   |
+| Code          | Text                                                                                         | Description                                                                                                                                                                                                                                                                             |
+| ------------- | -------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 40101         | Risk blocked transaction                                                                     | The request was blocked by your risk settings.                                                                                                                                                                                                                                          |
+| 40102         | Country not supported                                                                        | The country in which the shopper is located is restricted by your risk settings.                                                                                                                                                                                                        |
+| 40103         | Gateway reject - blacklist transaction cannot be processed - payment attributes in blacklist | One or more of the payment attributes has been blacklisted by your settings or our international blacklist database.                                                                                                                                                                    |
+| 40104         | Gateway Reject - CVV is missing or incorrect                                                 | Payment was voided after authorization because your configuration requires a CVV to be entered, but no CVV was provided with this payment, or the CVV was incorrect.                                                                                                                    |
+| 40108         | Gateway Reject - Post code failed                                                            | The card’s ZIP or postcode failed validation.                                                                                                                                                                                                                                           |
+| 40109         | Gateway Reject - Missing required data                                                       | The request is missing required data.                                                                                                                                                                                                                                                   |
+| 40110         | Missing 3DS data, or data is not correct                                                     | The request is either missing 3DS data or contains incorrect data.                                                                                                                                                                                                                      |
+| 40111         | Voided - AVS not matched                                                                     | The payment was voided after authorization by an Address Verification Service (AVS) risk filter which voids payments when the AVS returns a no match (`AVS = N`). The `response_code` will show 10000, but the `response_summary` will show 40111. [See example](#Responsecodes-40111). |
+| 40131         | Mismatch - Shipping to billing shipping country does not match billing country               | The payment was declined because the shipping country does not match the billing country..                                                                                                                                                                                              |
+| 40132         | Mismatch - Shipping to BIN shipping country does not match BIN country                       | The payment was declined because the shipping country does not match the bank identification number (BIN) country.                                                                                                                                                                      |
+| 40133         | Mismatch - Shipping to IP Shipping country does not match IP country                         | The payment was declined because the cardholder's IP address does not match the shipping country.                                                                                                                                                                                       |
+| 40134         | Mismatch - Shipping country to phone (country)                                               |                                                                                                                                                                                                                                                                                         |
+| 40135         | Mismatch - Billing to BIN Billing country does not match BIN country                         | The payment was declined because the BIN country does not match the billing country.                                                                                                                                                                                                    |
+| 40136         | Mismatch - Billing to IP billing country does not match IP country                           | The payment was declined because the cardholder's IP address does not match the billing country.                                                                                                                                                                                        |
+| 40138         | Mismatch - BIN to IP Bin country does not match IP country                                   | The payment was declined because the cardholder's IP address does not match the BIN country.                                                                                                                                                                                            |
+| 40139         | Mismatch - BIN country to phone (country)                                                    |                                                                                                                                                                                                                                                                                         |
+| 40141 - 40149 | Threshold Risk                                                                               |                                                                                                                                                                                                                                                                                         |
+| 40150         | Card velocity - Daily - Approved only                                                        |                                                                                                                                                                                                                                                                                         |
+| 40151         | Card velocity - Daily - All transactions                                                     |                                                                                                                                                                                                                                                                                         |
+| 40152         | Card velocity - Weekly - Approved only                                                       |                                                                                                                                                                                                                                                                                         |
+| 40153         | Card velocity - Weekly - All transactions                                                    |                                                                                                                                                                                                                                                                                         |
+| 40154         | Card velocity - Monthly - Approved only                                                      |                                                                                                                                                                                                                                                                                         |
+| 40155         | Card velocity - Monthly - All transactions                                                   |                                                                                                                                                                                                                                                                                         |
+| 40160         | Email velocity - Daily - Approved only                                                       |                                                                                                                                                                                                                                                                                         |
+| 40161         | Email velocity - Daily - All transactions                                                    |                                                                                                                                                                                                                                                                                         |
+| 40162         | Email velocity - Weekly - Approved only                                                      |                                                                                                                                                                                                                                                                                         |
+| 40163         | Email velocity - Weekly - All transactions                                                   |                                                                                                                                                                                                                                                                                         |
+| 40164         | Email velocity - Monthly - Approved only                                                     |                                                                                                                                                                                                                                                                                         |
+| 40165         | Email velocity - Monthly - All transactions                                                  |                                                                                                                                                                                                                                                                                         |
+| 40170         | IP velocity - Daily - Approved only                                                          |                                                                                                                                                                                                                                                                                         |
+| 40171         | IP velocity - Daily - All transactions                                                       |                                                                                                                                                                                                                                                                                         |
+| 40181         | Verified Info - Email                                                                        |                                                                                                                                                                                                                                                                                         |
+| 40182         | Verified Info - Address                                                                      |                                                                                                                                                                                                                                                                                         |
+| 40183         | Verified Info - Proxy                                                                        |                                                                                                                                                                                                                                                                                         |
+| 40184         | Verified Info - IP country in high risk country                                              |                                                                                                                                                                                                                                                                                         |
+| 40185         | Verified info - shipping country in high risk country                                        |                                                                                                                                                                                                                                                                                         |
+| 40186         | Verified Info - Billing country in high risk country                                         |                                                                                                                                                                                                                                                                                         |
+| 40187         | Verified Info - BIN country in high risk country                                             |                                                                                                                                                                                                                                                                                         |
+| 40201         | Gateway reject - card number blacklist                                                       |                                                                                                                                                                                                                                                                                         |
+| 40202         | Gateway reject - IP address blacklist                                                        |                                                                                                                                                                                                                                                                                         |
+| 40203         | Gateway reject - email blacklist                                                             |                                                                                                                                                                                                                                                                                         |
+| 40204         | Gateway reject - phone number blacklist                                                      |                                                                                                                                                                                                                                                                                         |
+| 40205         | Gateway Reject - BIN number blacklist                                                        |                                                                                                                                                                                                                                                                                         |
+| 40210         | Bin Velocity - Daily - Approved Only                                                         |                                                                                                                                                                                                                                                                                         |
+| 40211         | Bin Velocity - Daily - All transactions                                                      |                                                                                                                                                                                                                                                                                         |
+| 40212         | Bin Velocity - Weekly - Approved Only                                                        |                                                                                                                                                                                                                                                                                         |
+| 40213         | Bin Velocity - Weekly - All transactions                                                     |                                                                                                                                                                                                                                                                                         |
+| 40214         | Bin Velocity - Monthly - Approved Only                                                       |                                                                                                                                                                                                                                                                                         |
+| 40215         | Bin Velocity - Monthly - All transactions                                                    |                                                                                                                                                                                                                                                                                         |
+| 40216         | Billing Address Line 1 Velocity - Daily - Approved Only                                      |                                                                                                                                                                                                                                                                                         |
+| 40217         | Billing Address Line 1 Velocity - Daily - All transactions                                   |                                                                                                                                                                                                                                                                                         |
+| 40218         | Billing Address Line 1 Velocity - Weekly - Approved Only                                     |                                                                                                                                                                                                                                                                                         |
+| 40219         | Billing Address Line 1 Velocity - Weekly - All transactions                                  |                                                                                                                                                                                                                                                                                         |
+| 40220         | Billing Address Line 1 Velocity - Monthly - Approved Only                                    |                                                                                                                                                                                                                                                                                         |
+| 40221         | Billing Address Line 1 Velocity - Monthly - All transactions                                 |                                                                                                                                                                                                                                                                                         |
+| 40222         | Shipping Address Line 1 Velocity - Daily - Approved Only                                     |                                                                                                                                                                                                                                                                                         |
+| 40223         | Shipping Address Line 1 Velocity - Daily - All transactions                                  |                                                                                                                                                                                                                                                                                         |
+| 40224         | Shipping Address Line 1 Velocity - Weekly - Approved Only                                    |                                                                                                                                                                                                                                                                                         |
+| 40225         | Shipping Address Line 1 Velocity - Weekly - All transactions                                 |                                                                                                                                                                                                                                                                                         |
+| 40226         | Shipping Address Line 1 Velocity - Monthly - Approved Only                                   |                                                                                                                                                                                                                                                                                         |
+| 40227         | Shipping Address Line 1 Velocity - Monthly - All transactions                                |                                                                                                                                                                                                                                                                                         |
+| 40228         | CardHolder Name Velocity - Daily - Approved Only                                             |                                                                                                                                                                                                                                                                                         |
+| 40229         | CardHolder Name Velocity - Daily - All transactions                                          |                                                                                                                                                                                                                                                                                         |
+| 40230         | CardHolder Name Velocity - Weekly - Approved Only                                            |                                                                                                                                                                                                                                                                                         |
+| 40231         | CardHolder Name Velocity - Weekly - All transactions                                         |                                                                                                                                                                                                                                                                                         |
+| 40232         | CardHolder Name Velocity - Monthly - Approved Only                                           |                                                                                                                                                                                                                                                                                         |
+| 40233         | CardHolder Name Velocity - Monthly - All transactions                                        |                                                                                                                                                                                                                                                                                         |
+| 40234         | UDF1 Velocity - Daily - Approved Only                                                        |                                                                                                                                                                                                                                                                                         |
+| 40235         | UDF1 Velocity - Daily - All transactions                                                     |                                                                                                                                                                                                                                                                                         |
+| 40236         | UDF1 Velocity - Weekly - Approved Only                                                       |                                                                                                                                                                                                                                                                                         |
+| 40237         | UDF1 Velocity - Weekly - All transactions                                                    |                                                                                                                                                                                                                                                                                         |
+| 40238         | UDF1 Velocity - Monthly - Approved Only                                                      |                                                                                                                                                                                                                                                                                         |
+| 40239         | UDF1 Velocity - Monthly - All transactions                                                   |                                                                                                                                                                                                                                                                                         |
 
 ### Example response: 40111 – No AVS Match 
 

@@ -5,10 +5,8 @@ account: NAS
 
 #### Basic information
 
-*   [**Local**](#tabs-e383f3bb-5e47-4322-a21c-e0b225a10e44-1)
-*   [**International**](#tabs-e383f3bb-5e47-4322-a21c-e0b225a10e44-2)
-
-  
+- [**Local**](#tabs-e383f3bb-5e47-4322-a21c-e0b225a10e44-1)
+- [**International**](#tabs-e383f3bb-5e47-4322-a21c-e0b225a10e44-2)
 
 Country code
 
@@ -20,18 +18,16 @@ EUR
 
 Scheme
 
-*   **Minimum amount (local currency):** 0.01
-*   **Maximum amount (local currency):** no maximum
-*   **Cut-off time:** 11:30 GMT
-*   **Settlement:** T+1 next day
+- **Minimum amount (local currency):** 0.01
+- **Maximum amount (local currency):** no maximum
+- **Cut-off time:** 11:30 GMT
+- **Settlement:** T+1 next day
 
 #### Payment information
 
- Individual
+Individual
 
 #### Beneficiary information
-
-  
 
 Beneficiary type
 
@@ -62,14 +58,6 @@ STRING
 Beneficiary address
 
 The account holder's address.
-
-  
-
-  
-
-  
-
-  
 
 `account_holder.billing_address.address_line1`
 
@@ -105,8 +93,6 @@ This must be a [two-letter ISO code](/display/DOCS/Country+codes).
 
 #### Bank details
 
-  
-
 IBAN
 
 The account holder's IBAN.
@@ -125,13 +111,11 @@ The account holder's SWIFT BIC.
 
 REQUIRED
 
-STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+STRING, ^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$
 
- Corporate
+Corporate
 
 #### Beneficiary information
-
-  
 
 Beneficiary type
 
@@ -191,8 +175,6 @@ This must be a [two-letter ISO code](/display/DOCS/Country+codes).
 
 #### Bank details
 
-  
-
 IBAN
 
 The account holder's IBAN.
@@ -211,61 +193,61 @@ The account holder's SWIFT BIC.
 
 REQUIRED
 
-STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+STRING, ^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$
 
 #### Example
 
-*   [**Payment instrument request (EUR)**](#tabs-1c096190-00d1-4b0e-8e95-077c07ff07e6-1)
-*   [**Payout request (EUR)**](#tabs-1c096190-00d1-4b0e-8e95-077c07ff07e6-2)
+- [**Payment instrument request (EUR)**](#tabs-1c096190-00d1-4b0e-8e95-077c07ff07e6-1)
+- [**Payout request (EUR)**](#tabs-1c096190-00d1-4b0e-8e95-077c07ff07e6-2)
 
-    {
-      "type": "bank_account",
-      "iban": "SM86U0322509800000000270100",
-      "swift_bic": "MAOISMSMXXX",
-      "currency": "EUR",
-      "country": "SM",
-      "account_holder": {
-        "first_name": "John",
-        "last_name": "Smith",
-        "address_line1": "99 Windsor Road",
-        "address_city": "San Marino",
-        "country_code": "SM",
-        "billing_address": {
-          "address_line1": "99 Windsor Road",
-          "country_code": "SM",
-          "address_city": "San Marino"
-        }
-      }
-    }
+  {
+  "type": "bank_account",
+  "iban": "SM86U0322509800000000270100",
+  "swift_bic": "MAOISMSMXXX",
+  "currency": "EUR",
+  "country": "SM",
+  "account_holder": {
+  "first_name": "John",
+  "last_name": "Smith",
+  "address_line1": "99 Windsor Road",
+  "address_city": "San Marino",
+  "country_code": "SM",
+  "billing_address": {
+  "address_line1": "99 Windsor Road",
+  "country_code": "SM",
+  "address_city": "San Marino"
+  }
+  }
+  }
 
-    {
-      "currency": "EUR",
-      "source": {
-        "amount": 100,
-        "type": "currency_account",
-        "id": "ca_vrsqwv6tgtyufgi5xahfqmqq7a"
-      },
-      "reference": "CKO Test",
-      "destination": {
-        "type": "id",
-        "id": "src_6gtxe3cxns7uld5ytsemv6pdma"
-      },
-      "billing_descriptor": {
-        "reference": "CKO Test"
-      },
-      "sender": {
-        "type": "instrument",
-        "reference": "CKO Test",
-        "first_name": "John",
-        "last_name": "Smith",
-        "address_line1": "99 Windsor Road",
-        "address_city": "San Marino",
-        "country_code": "SM"
-      },
-      "instruction": {
-        "purpose": "CKO Test EUR"
-      },
-      "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
-    }
+  {
+  "currency": "EUR",
+  "source": {
+  "amount": 100,
+  "type": "currency_account",
+  "id": "ca_vrsqwv6tgtyufgi5xahfqmqq7a"
+  },
+  "reference": "CKO Test",
+  "destination": {
+  "type": "id",
+  "id": "src_6gtxe3cxns7uld5ytsemv6pdma"
+  },
+  "billing_descriptor": {
+  "reference": "CKO Test"
+  },
+  "sender": {
+  "type": "instrument",
+  "reference": "CKO Test",
+  "first_name": "John",
+  "last_name": "Smith",
+  "address_line1": "99 Windsor Road",
+  "address_city": "San Marino",
+  "country_code": "SM"
+  },
+  "instruction": {
+  "purpose": "CKO Test EUR"
+  },
+  "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
+  }
 
 Coming soon.

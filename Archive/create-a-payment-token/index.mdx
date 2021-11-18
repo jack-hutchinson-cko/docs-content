@@ -3,13 +3,9 @@ title: create-a-payment-token
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
 Use this API endpoint to create a payment token using amount and currency fields.
 
-\## The request Create a payment token by sending a \*\*POST\*\* API request to the URI below. ### Endpoint <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span> https://api2.checkout.com/v2/tokens/payment</p></pre> ### Header parameters
-
-x
+## The request Create a payment token by sending a **POST** API request to the URI below. ### Endpoint <pre class="api-header-long-url"><p class="api-header"><span class="post-tag">POST</span> https://api2.checkout.com/v2/tokens/payment</p></pre> ### Header parameters
 
 Add Row Add Col
 
@@ -17,426 +13,191 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`Authorization\` <span class="req-def">Required</span>
+`Authorization` <span class="req-def">Required</span>
 
 |
 
-\`secret key\`\*
+`secret key`\*
 
 |
 |
 
-\`Content-Type:\` <span class="req-def">Required</span>
+`Content-Type:` <span class="req-def">Required</span>
 
 |
 
-\`application/json\`
+`application/json`
 
 |
 
-\*For authorization, use the valid \`secret key\` of your Checkout.com account. You can find this in \[The Hub\](https://hub.checkout.com/). ### Request example
+\*For authorization, use the valid `secret key` of your Checkout.com account. You can find this in [The Hub](https://hub.checkout.com/). ### Request example
 
 Shell Java
 
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-49
-
-1
-
 curl https://api2.checkout.com/v2/tokens/payment
 
-2
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Content-Type:application/json;charset=UTF-8"
 
-3
+-X POST
 
-\-H "Content-Type:application/json;charset=UTF-8"
-
-4
-
-\-X POST
-
-5
-
-\-d '{
-
-6
+-d '{
 
 "autoCapTime" : 0,
 
-7
-
 "autoCapture" : "Y",
-
-8
 
 "chargeMode" : "3",
 
-9
-
 "currency" : "USD",
-
-10
-
 "value" : "3000",
-
-11
-
 "customerIp" : "88.215.3.113",
-
-12
-
 "description" : "Payment token",
-
-13
-
 "metadata" : {
-
-14
 
 "keyName" : "value"
 
-15
-
 },
 
-16
-
-"products" : \[
-
-17
-
+"products" : [
 {
-
-18
-
 "description" : "Tablet 2 gold limited",
-
-19
-
 "image" : null,
-
-20
 
 "name" : "Tablet 32gb cellular",
 
-21
-
 "price" : 200.0,
-
-22
 
 "quantity" : 1,
 
-23
-
 "shippingCost" : 90.0,
-
-24
 
 "sku" : "1aab",
 
-25
-
 "trackingUrl" : "https://www.tracker.com"
-
-26
 
 }
 
-27
-
-\],
-
-28
+],
 
 "shippingDetails" : {
 
-29
-
 "addressLine1" : "31 Rohan Well",
-
-30
 
 "addressLine2" : "Feeney Mountain",
 
-31
-
 "city" : "New Imeldaside",
-
-32
 
 "country" : "US",
 
-33
-
 "phone" : {
-
-34
 
 "countryCode" : "44",
 
-35
-
 "number" : "12345678"
 
-36
-
 },
-
-37
 
 "postcode" : "wF1 7T0",
 
-38
-
 "state" : "Watershaven"
 
-39
-
 },
-
-40
-
 "trackId" : "TRK12345",
-
-41
-
 "transactionIndicator" : "1",
-
-42
-
 "successUrl": "http://mycustomerurl.com/order?result=pass",
-
-43
-
 "failUrl": "http://mycustomerurl.com/order?result=fail",
-
-44
-
 "udf1" : "test data 1",
-
-45
 
 "udf2" : "test data 2",
 
-46
-
 "udf3" : "test data 3",
-
-47
-
 "udf4" : "test data 4",
-
-48
-
 "udf5" : "test data 5"
-
-49
-
 }'
-
-Import from Gist
-
-xxxxxxxxxx
-
-46
-
-1
 
 // Create payload
 
-2
-
-PaymentTokenCreate tokenPayload \= new PaymentTokenCreate();
-
-3
+PaymentTokenCreate tokenPayload = new PaymentTokenCreate();
 
 ​
 
-4
+tokenPayload.value = "100";
 
-tokenPayload.value \= "100";
+tokenPayload.currency = "GBP";
 
-5
+tokenPayload.autoCapture = "N";
 
-tokenPayload.currency \= "GBP";
+tokenPayload.customerIp = "88.216.3.135";
 
-6
-
-tokenPayload.autoCapture \= "N";
-
-7
-
-tokenPayload.customerIp \= "88.216.3.135";
-
-8
-
-tokenPayload.description \= "test";
-
-9
+tokenPayload.description = "test";
 
 ​
-
-10
-
-tokenPayload.metadata \= new HashMap<String,String\>();
-
-11
-
+tokenPayload.metadata = new HashMap<String,String>();
 tokenPayload.metadata.put("key1", "test value");
-
-12
-
 ​
+tokenPayload.products = new ArrayList<Product>();
 
-13
+Product product1 = new Product();
 
-tokenPayload.products \= new ArrayList<Product\>();
+product1.description = "A4 office paper";
 
-14
+product1.name = "a4 white copy paper";
+product1.quantity = 1;
+product1.shippingCost = 10;
+product1.sku = "ABC123";
 
-Product product1 \= new Product();
-
-15
-
-product1.description \= "A4 office paper";
-
-16
-
-product1.name \= "a4 white copy paper";
-
-17
-
-product1.quantity \= 1;
-
-18
-
-product1.shippingCost \= 10;
-
-19
-
-product1.sku \= "ABC123";
-
-20
-
-product1.trackingUrl \= "http://www.tracker.com";
-
-21
+product1.trackingUrl = "http://www.tracker.com";
 
 tokenPayload.products.add(product1);
 
-22
+​
+
+tokenPayload.shippingDetails = new Address();
+
+tokenPayload.shippingDetails.addressLine1 = "1 Glading Fields";
+
+tokenPayload.shippingDetails.postcode = "N16 2BR";
+
+tokenPayload.shippingDetails.country = "GB";
+
+tokenPayload.shippingDetails.city = "London";
 
 ​
 
-23
+tokenPayload.shippingDetails.phone = new Phone();
 
-tokenPayload.shippingDetails \= new Address();
+tokenPayload.shippingDetails.phone.countryCode = "44"; //Phone country code
 
-24
-
-tokenPayload.shippingDetails.addressLine1 \= "1 Glading Fields";
-
-25
-
-tokenPayload.shippingDetails.postcode \= "N16 2BR";
-
-26
-
-tokenPayload.shippingDetails.country \= "GB";
-
-27
-
-tokenPayload.shippingDetails.city \= "London";
-
-28
+tokenPayload.shippingDetails.phone.number = "203 583 44 55";
 
 ​
-
-29
-
-tokenPayload.shippingDetails.phone \= new Phone();
-
-30
-
-tokenPayload.shippingDetails.phone.countryCode \= "44"; //Phone country code
-
-31
-
-tokenPayload.shippingDetails.phone.number \= "203 583 44 55";
-
-32
-
-​
-
-33
 
 try {
 
-34
-
 // Create APIClient instance with your secret key
 
-35
-
-APIClient ckoAPIClient\= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
-
-36
+APIClient ckoAPIClient= new APIClient("sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31",Environment.LIVE);
 
 // Submit your request and receive an apiResponse
 
-37
-
-Response<PaymentToken\> apiResponse \= ckoAPIClient.tokenService.createPaymentToken(tokenPayload);
-
-38
+Response<PaymentToken> apiResponse = ckoAPIClient.tokenService.createPaymentToken(tokenPayload);
 
 ​
 
-39
-
 if(!apiResponse.hasError){
-
-40
-
 // Access the response object retrieved from the api
-
-41
-
-PaymentToken paymentToken \= apiResponse.model;
-
-42
-
+PaymentToken paymentToken = apiResponse.model;
 } else {
-
-43
-
 // Api has returned an error object. You can access the details in the error property of the apiResponse.
-
-44
-
 // apiResponse.error
-
-45
 
 }
 
-46
-
 } catch (Exception e) {å}
 
-Import from Gist
-
-\### Additional parameters
-
-x
+### Additional parameters
 
 Add Row Add Col
 
@@ -444,7 +205,7 @@ Add Row Add Col
 | --- | --- |
 
 |
-\`chargeMode\` <span class="field-type">Integer</span> <span class="req-def">Required</span>
+`chargeMode` <span class="field-type">Integer</span> <span class="req-def">Required</span>
 
 |
 
@@ -453,34 +214,34 @@ Defines the Charge Mode. \* Set to 3 for Local payments.
 |
 |
 
-\`currency\` <span class="field-type">String</span> <span class="req-def">Required</span>
+`currency` <span class="field-type">String</span> <span class="req-def">Required</span>
 
 |
 
-\[Three-letter ISO currency code\](doc:currency-codes) e representing the currency of the charge.
-
-|
-|
-
-\`value\` <span class="field-type">Integer</span> <span class="req-def">Optional</span>
-
-|
-
-A non-zero positive integer (i.e., decimal figures not accepted). <span class="table-info">For most currencies, divide into 100 units (e.g. "value = 100" is equivalent to 1 US Dollar). \[Find out more\](doc:calculating-the-value) </span>
+[Three-letter ISO currency code](doc:currency-codes) e representing the currency of the charge.
 
 |
 |
 
-\`autoCapture\` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">enabled by default.</span></span>
+`value` <span class="field-type">Integer</span> <span class="req-def">Optional</span>
 
 |
 
-If enabled, it automatically captures the payment following the autoCapTime period. \`y\` = enable | \`n\` = disable <span class="table-info">Authorized payments automatically expire after seven days (168 hours).</span>
+A non-zero positive integer (i.e., decimal figures not accepted). <span class="table-info">For most currencies, divide into 100 units (e.g. "value = 100" is equivalent to 1 US Dollar). [Find out more](doc:calculating-the-value) </span>
 
 |
 |
 
-\`autoCapTime\` <span class="field-type">Decimal</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">\*\*required\*\* if autoCapture is enabled.</span></span>
+`autoCapture` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">enabled by default.</span></span>
+
+|
+
+If enabled, it automatically captures the payment following the autoCapTime period. `y` = enable | `n` = disable <span class="table-info">Authorized payments automatically expire after seven days (168 hours).</span>
+
+|
+|
+
+`autoCapTime` <span class="field-type">Decimal</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">**required** if autoCapture is enabled.</span></span>
 
 |
 
@@ -489,7 +250,7 @@ Set the delayed capture time in hours. Use values 0 to 168 (0 to 7 days). <span 
 |
 |
 
-\`customerIp\` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
+`customerIp` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
 
 |
 
@@ -498,7 +259,7 @@ Customer's IP address (e.g., 96.125.185.52)
 |
 |
 
-\`description\` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
+`description` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
 
 |
 
@@ -507,7 +268,7 @@ A description of the payment.
 |
 |
 
-\`failUrl\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`failUrl` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -516,7 +277,7 @@ Specify the fail redirect URL
 |
 |
 
-\`metadata\` <span class="field-type">Hash</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is {} .</span>
+`metadata` <span class="field-type">Hash</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is {} .</span>
 
 |
 
@@ -525,25 +286,25 @@ A hash of FieldName and value pairs e.g. {'keys1': 'Value1'}. <span class="table
 |
 |
 
-\`products\` <span class="field-type">Array</span> <span class="optional-def">Optional</span>
+`products` <span class="field-type">Array</span> <span class="optional-def">Optional</span>
 
 |
 
-An array of Product information. <span class="table-info">\[Learn more\](doc:products-array)</span>
-
-|
-|
-
-\`shippingDetails\` <span class="field-type">Hash</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
-
-|
-
-Shipping address information. \[Click here\](doc:shipping-and-billing-details) for more details.
+An array of Product information. <span class="table-info">[Learn more](doc:products-array)</span>
 
 |
 |
 
-\`successUrl\` <span class="field-type">String</span> <span class="optional-def">Optional</span>
+`shippingDetails` <span class="field-type">Hash</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
+
+|
+
+Shipping address information. [Click here](doc:shipping-and-billing-details) for more details.
+
+|
+|
+
+`successUrl` <span class="field-type">String</span> <span class="optional-def">Optional</span>
 
 |
 
@@ -552,7 +313,7 @@ Specify the success redirect URL.
 |
 |
 
-\`trackId\` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span> <div class="tooltip">Recommended <span class="tooltiptext">Make tracking easy; assign a unique track-id to your payments.</span> </div>
+`trackId` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span> <div class="tooltip">Recommended <span class="tooltiptext">Make tracking easy; assign a unique track-id to your payments.</span> </div>
 
 |
 
@@ -561,16 +322,16 @@ A unique ID set by the merchant. The track ID remains the same throughout the li
 |
 |
 
-\`transactionIndicator\` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is 1.</span>
+`transactionIndicator` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is 1.</span>
 
 |
 
-Type of transaction. \`1\` for regular \`2\` for recurring \`3\` for MOTO
+Type of transaction. `1` for regular `2` for recurring `3` for MOTO
 
 |
 |
 
-\`udf1\` to \`udf5\` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
+`udf1` to `udf5` <span class="field-type">String</span> <span class="optional-def">Optional, <span style="color:#464f60; text-transform: lowercase">default value is null.</span>
 
 |
 
@@ -578,28 +339,12 @@ User-defined fields 1 to 5. Maximum characters: 100.
 
 |
 
-\--- ## The response If a payment token returns, then your request was successful. If you're having problems with this API, then ask our \[support team\](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-1
+--- ## The response If a payment token returns, then your request was successful. If you're having problems with this API, then ask our [support team](mailto:support@checkout.com) for help. Take a look at the example response below. ### Response example
 
 {
 
-2
-
 "id": "pay_tok_5a010daa-4a30-4171-a8e9-8ae0c6de1c68",
-
-3
 
 "liveMode": true
 
-4
-
 }
-
-Import from Gist

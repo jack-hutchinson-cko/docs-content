@@ -3,39 +3,32 @@ title: Filter payments
 account: NAS
 ---
 
-How to search and filter your payments
---------------------------------------
+## How to search and filter your payments
 
-1.  Click the search bar to get started.  
-    ![](/download/attachments/8488064/dashboard_search_bar.png?version=1&modificationDate=1598006716156&api=v2)  
-      
-    
+. Click the search bar to get started.  
+ ![](/download/attachments/8488064/dashboard_search_bar.png?version=1&modificationDate=1598006716156&api=v2)
+
 2.  Select a filter, and then add the value you want to filter by. Some filters have pre-defined values. For instance, selecting `status:` will suggest a list of statuses with which you can filter the results.   
-    ![](/download/attachments/8488064/dashboard_search_status_filter.png?version=1&modificationDate=1598006716179&api=v2)  
-      
+    ![](/download/attachments/8488064/dashboard_search_status_filter.png?version=1&modificationDate=1598006716179&api=v2)
     If your search term includes a space, you must wrap it in quotation marks. For example, `"John Doe"`.  
-    ![](/download/attachments/8488064/dashboard_search_string.png?version=1&modificationDate=1598006716198&api=v2)  
-      
-    
-3.  You can add extra search terms to further narrow your results. These should be separated by spaces, `AND`, or `OR`—placing the `OR` operator between two search terms will return results for one or the other. For example: 
-    *   Entering `status:declined AND response_code:20005` will return all payments that were unauthorized because of the Declined - Do Not Honour - 20005 soft decline. (`status:declined response_code:20005` will return the exact same list of payments.) 
-    *   Searching `payment_method:VISA OR payment_method:Mastercard` will return all payments processed via Visa or Mastercard.
-4.  Press Enter or click **See all results** to apply your filter. The _Payments_ screen will be updated to show your results.
-5.  If you want to undo your search, click the cross in the search bar.
+    ![](/download/attachments/8488064/dashboard_search_string.png?version=1&modificationDate=1598006716198&api=v2)
+3.  You can add extra search terms to further narrow your results. These should be separated by spaces, `AND`, or `OR`—placing the `OR` operator between two search terms will return results for one or the other. For example:
+    - Entering `status:declined AND response_code:20005` will return all payments that were unauthorized because of the Declined - Do Not Honour - 20005 soft decline. (`status:declined response_code:20005` will return the exact same list of payments.)
+    - Searching `payment_method:VISA OR payment_method:Mastercard` will return all payments processed via Visa or Mastercard.. Press Enter or click **See all results** to apply your filter. The *Payments* screen will be updated to show your results.
+4.  If you want to undo your search, click the cross in the search bar.
 
 You do not need to use a filter to search by identifier (payment ID, action ID, customer ID, dispute ID), or email address. These will be recognized immediately as you type them in the search bar.
 
-Available filters
------------------
+## Available filters
 
 The following table describes the available filter criteria, as well as the different search terms you can enter to use them.
 
 You can use the following operators in your searches:
 
-*   Equal to: `:`
-*   Between: `..`
-*   Greater than: `>`
-*   Less than: `<`
+- Equal to: `:`
+- Between: `..`
+- Greater than: `>`
+- Less than: `<`
 
 You cannot combine the status and action filters in the same search.
 
@@ -143,8 +136,6 @@ When one of the search terms is an action, the results displayed in the list wi
 
 `action:refund`
 
-  
-
 Date
 
 `date`
@@ -153,18 +144,18 @@ The date, or date range, the payment request was made. If combined with an actio
 
 Date:
 
-*   `date:2019-10-31`
-*   `date:20191031`
+- `date:2019-10-31`
+- `date:20191031`
 
 Date range:
 
-*   `date:2019-12-01..2019-12-31`
-*   `date:20191201..20191231`
+- `date:2019-12-01..2019-12-31`
+- `date:20191201..20191231`
 
 Before or after date:
 
-*   `date<20190303`
-*   `date>20190303`
+- `date<20190303`
+- `date>20190303`
 
 IDs (payment, action or customer)
 

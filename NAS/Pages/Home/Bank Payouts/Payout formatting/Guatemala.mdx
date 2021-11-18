@@ -3,14 +3,10 @@ title: Guatemala
 account: NAS
 ---
 
+- [**Local**](#tabs-bd5d235a-e760-4015-99b2-7d6398ed09ce-1)
+- [**International**](#tabs-bd5d235a-e760-4015-99b2-7d6398ed09ce-2)
 
-*   [**Local**](#tabs-bd5d235a-e760-4015-99b2-7d6398ed09ce-1)
-*   [**International**](#tabs-bd5d235a-e760-4015-99b2-7d6398ed09ce-2)
-
-Basic information
------------------
-
-  
+## Basic information
 
 Country code
 
@@ -24,17 +20,16 @@ Scheme
 
 Local:
 
-*   **Minimum amount (USD):** 10
-*   **Maximum amount (USD):**
-    *   **Banco Industrial**: 10,000 (per transaction, and for a single user per day or month)
-    *   **Banrural**: 5,000 (per transaction, and for a single user per month)
-*   **Cut-off time:** n/a
-*   **Settlement:** T+0 same day
+- **Minimum amount (USD):** 10
+- **Maximum amount (USD):**
+  - **Banco Industrial**: 10,000 (per transaction, and for a single user per day or month)
+  - **Banrural**: 5,000 (per transaction, and for a single user per month)
+- **Cut-off time:** n/a
+- **Settlement:** T+0 same day
 
-Payment information
--------------------
+## Payment information
 
- Individual
+Individual
 
 ### Beneficiary information
 
@@ -68,22 +63,6 @@ Beneficiary address
 
 The account holder's address.
 
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
 `account_holder.billing_address.address_line1`
 
 REQUIRED
@@ -116,11 +95,9 @@ ENUM, 2 CHARACTERS
 
 This must be a [two-letter ISO code](/display/DOCS/Country+codes).
 
-Identification  
-  
+Identification
 
-The account holder's ID.  
-  
+The account holder's ID.
 
 `account_holder.identification.type`
 
@@ -148,8 +125,6 @@ This must be a [two-letter ISO code](/display/DOCS/Country+codes).
 
 ### Bank details
 
-  
-
 Account number
 
 The account holder's account number.
@@ -158,7 +133,7 @@ The account holder's account number.
 
 REQUIRED
 
-STRING, ^\[0-9\]{16,16}$
+STRING, ^[0-9]{16,16}$
 
 SWIFT BIC
 
@@ -168,70 +143,70 @@ The account holder's SWIFT BIC.
 
 REQUIRED
 
-STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+STRING, ^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$
 
 ### Example
 
-*   [**Payment instrument request (GTQ)**](#tabs-4b658280-10b4-4960-b9d1-0b3a4759c9ea-1)
-*   [**Payout request (GTQ)**](#tabs-4b658280-10b4-4960-b9d1-0b3a4759c9ea-2)
+- [**Payment instrument request (GTQ)**](#tabs-4b658280-10b4-4960-b9d1-0b3a4759c9ea-1)
+- [**Payout request (GTQ)**](#tabs-4b658280-10b4-4960-b9d1-0b3a4759c9ea-2)
 
-    {
-      "type": "bank_account",
-      "account_number": "GT12345678912345",
-      "swift_bic": "INDLGTGCXXX",
-      "currency": "GTQ",
-      "country": "GT",
-      "account_holder": {
-        "first_name": "John",
-        "last_name": "Smith",
-    	"identification": {
-          "type": "national_id",
-          "number": "1234567891234",
-          "issuing_country": "GT"
-        }
-        "billing_address": {
-          "address_line1": "2 Calle",
-          "city": "Cabulco",
-          "country": "GT"
-        }
-      }
-    }
+  {
+  "type": "bank_account",
+  "account_number": "GT12345678912345",
+  "swift_bic": "INDLGTGCXXX",
+  "currency": "GTQ",
+  "country": "GT",
+  "account_holder": {
+  "first_name": "John",
+  "last_name": "Smith",
+  "identification": {
+  "type": "national_id",
+  "number": "1234567891234",
+  "issuing_country": "GT"
+  }
+  "billing_address": {
+  "address_line1": "2 Calle",
+  "city": "Cabulco",
+  "country": "GT"
+  }
+  }
+  }
 
-    {
-      "currency": "GTQ",
-      "source": {
-        "amount": 100,
-        "type": "currency_account",
-        "id": "ca_vrsqwv6tgtyufgi5xahfqxxx1y"
-      },
-      "reference": "CKO Test",
-      "destination": {
-        "type": "id",
-        "id": "src_6gtxe3cxns7uld5ytsemv1xxxy"
-      },
-      "billing_descriptor": {
-        "reference": "CKO Test"
-      },
-      "sender": {
-        "type": "individual",
-        "first_name": "John",
-        "last_name": "Smith",
-        "address": {
-          "address_line1": "2 Calle",
-          "city": "Cabulco",
-          "country": "GT"
-        },
-        "reference": "CKO Test",
-        "identification": {
-          "type": "national_id",
-          "number": "987654321987",
-          "issuing_country": "GT"
-        }
-      },
-      "instruction": {
-        "purpose": "CKO Test GTQ"
-      },
-      "processing_channel_id": "pc_hpswyyx23geezflc2ocz3xxx1y"
-    }
+  {
+  "currency": "GTQ",
+  "source": {
+  "amount": 100,
+  "type": "currency_account",
+  "id": "ca_vrsqwv6tgtyufgi5xahfqxxx1y"
+  },
+  "reference": "CKO Test",
+  "destination": {
+  "type": "id",
+  "id": "src_6gtxe3cxns7uld5ytsemv1xxxy"
+  },
+  "billing_descriptor": {
+  "reference": "CKO Test"
+  },
+  "sender": {
+  "type": "individual",
+  "first_name": "John",
+  "last_name": "Smith",
+  "address": {
+  "address_line1": "2 Calle",
+  "city": "Cabulco",
+  "country": "GT"
+  },
+  "reference": "CKO Test",
+  "identification": {
+  "type": "national_id",
+  "number": "987654321987",
+  "issuing_country": "GT"
+  }
+  },
+  "instruction": {
+  "purpose": "CKO Test GTQ"
+  },
+  "processing_channel_id": "pc_hpswyyx23geezflc2ocz3xxx1y"
+  }
 
 Coming soon.

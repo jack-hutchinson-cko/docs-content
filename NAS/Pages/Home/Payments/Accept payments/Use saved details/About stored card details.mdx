@@ -11,8 +11,7 @@ Easily transfer recurring payments to Checkout.com
 
 If you're considering us as your payment service provider but your subscriptions and other recurring payments are currently processed by another acquirer—no problem! You can use the scheme transaction ID from a payment processed by your current acquirer as your `previous_payment_id` to start processing those payments with us, with no need to take the customer's details again.
 
-Additional attributes for your saved card payment requests
-----------------------------------------------------------
+## Additional attributes for your saved card payment requests
 
 Below is a summary of the attributes you need to add to payment requests that use stored card details. These additional details help fulfill Strong Customer Authentication (SCA) requirements, and give the issuing bank what they need to approve such payments.
 
@@ -20,24 +19,19 @@ See the sections on  [cardholder-initiated transactions](#Aboutstoredcarddetail
 
 ### Cardholder-initiated and merchant-initiated transactions
 
-*   If you use our full card API, storing customers' full card details on your server, you need to flag that you are using previously stored card details by including `source.stored: true` in the request.
+- If you use our full card API, storing customers' full card details on your server, you need to flag that you are using previously stored card details by including `source.stored: true` in the request.
 
 ### Merchant-initiated transactions only
 
-*   For both [scheduled](#Aboutstoredcarddetails-scheduled) and [unscheduled](#Aboutstoredcarddetails-unscheduled) MITs, you must include the `merchant_initiated: true` flag to mark the payment as merchant-initiated, and reference either the [original cardholder-initiated payment or the previous payment](#Aboutstoredcarddetails-previouspaymentid) in the series of transactions using the `previous_payment_id` attribute.
-    
+- For both [scheduled](#Aboutstoredcarddetails-scheduled) and [unscheduled](#Aboutstoredcarddetails-unscheduled) MITs, you must include the `merchant_initiated: true` flag to mark the payment as merchant-initiated, and reference either the [original cardholder-initiated payment or the previous payment](#Aboutstoredcarddetails-previouspaymentid) in the series of transactions using the `previous_payment_id` attribute.
 
-*   The initial cardholder-initiated transaction of a scheduled recurring series should **not** be marked as `"Recurring"` (unless it is a Visa card, in which case it **must** be marked as `"Recurring"`) and it should have `merchant_initiated` set to `false`. All subsequent payments in the series should include `payment_type: "Recurring"`, `merchant_initiated: true` and the `previous_payment_id`.
-    
+- The initial cardholder-initiated transaction of a scheduled recurring series should **not** be marked as `"Recurring"` (unless it is a Visa card, in which case it **must** be marked as `"Recurring"`) and it should have `merchant_initiated` set to `false`. All subsequent payments in the series should include `payment_type: "Recurring"`, `merchant_initiated: true` and the `previous_payment_id`.
 
-Cardholder-initiated transactions 
-----------------------------------
+## Cardholder-initiated transactions 
 
 In cardholder-initiated transactions (CITs), the cardholder initiates the payment and authorizes the use of their stored card details. For example, a cardholder ordering takeaway food and using a card previously stored with the merchant.
 
 ### Required attributes for CITs
-
-  
 
 Payment source
 
@@ -55,7 +49,7 @@ Full card API
 
 n/a
 
-*   `source.stored: true`
+- `source.stored: true`
 
 Source ID
 
@@ -63,8 +57,7 @@ n/a
 
 n/a
 
-Merchant-initiated transactions 
---------------------------------
+## Merchant-initiated transactions 
 
 Merchant-initiated transactions (MITs) are payments you trigger, where the cardholder has previously consented to you carrying out such payments. These may be [scheduled](#Aboutstoredcarddetails-scheduled) (such as recurring payments and installments) or [unscheduled](#Aboutstoredcarddetails-unscheduled) (like account top-ups triggered by balance thresholds and no-show charges).
 
@@ -78,10 +71,8 @@ Add a card for scheduled MITs
 
 If you're [adding a Visa card for later scheduled billing without taking a payment](/display/x/Card+verification), you need to include `payment_type: "Recurring"` in your request.
 
-*   [**Visa**](#tabs-1cdcf8a7-9567-43aa-ad37-30921a58df39-1)
-*   [**Other card schemes**](#tabs-1cdcf8a7-9567-43aa-ad37-30921a58df39-2)
-
-  
+- [**Visa**](#tabs-1cdcf8a7-9567-43aa-ad37-30921a58df39-1)
+- [**Other card schemes**](#tabs-1cdcf8a7-9567-43aa-ad37-30921a58df39-2)
 
 Payment source
 
@@ -97,26 +88,22 @@ Second payment attributes
 
 Full card API
 
-*   `payment_type: "Recurring"`
-*   `merchant_initiated: false  
-    `
+- `payment_type: "Recurring"`
+- `merchant_initiated: false `
 
-*   `merchant_initiated: true`
-*   `source.stored: true`
-*   `payment_type: "Recurring"`
-*   `previous_payment_id: "payment_id"`
+- `merchant_initiated: true`
+- `source.stored: true`
+- `payment_type: "Recurring"`
+- `previous_payment_id: "payment_id"`
 
 Source ID
 
-*   `payment_type: "Recurring"`
-*   `merchant_initiated: false  
-    `
+- `payment_type: "Recurring"`
+- `merchant_initiated: false `
 
-*   `merchant_initiated: true`
-*   `payment_type: "Recurring"`
-*   `previous_payment_id: "payment_id"`
-
-  
+- `merchant_initiated: true`
+- `payment_type: "Recurring"`
+- `previous_payment_id: "payment_id"`
 
 Payment source
 
@@ -126,20 +113,20 @@ Second payment attributes
 
 Full card API
 
-*   `merchant_initiated: false`
+- `merchant_initiated: false`
 
-*   `merchant_initiated: true`
-*   `source.stored: true`
-*   `payment_type: "Recurring"`
-*   `previous_payment_id: "payment_id"`
+- `merchant_initiated: true`
+- `source.stored: true`
+- `payment_type: "Recurring"`
+- `previous_payment_id: "payment_id"`
 
 Source ID
 
-*   `merchant_initiated: false`
+- `merchant_initiated: false`
 
-*   `merchant_initiated: true`
-*   `payment_type: "Recurring"`
-*   `previous_payment_id: "payment_id"`
+- `merchant_initiated: true`
+- `payment_type: "Recurring"`
+- `previous_payment_id: "payment_id"`
 
 ### Unscheduled  
 
@@ -147,8 +134,6 @@ These are payments using stored card details that do not occur on a regular sche
 
 #### Required attributes for unscheduled MITs
 
-  
-
 Payment source
 
 First payment attributes
@@ -163,27 +148,24 @@ Second payment attributes
 
 Full card API
 
-*   `merchant_initiated: false`
+- `merchant_initiated: false`
 
-*   `merchant_initiated: true`
-*   `source.stored: true`
-*   `previous_payment_id: "payment_id"`
+- `merchant_initiated: true`
+- `source.stored: true`
+- `previous_payment_id: "payment_id"`
 
 Source ID
 
-*   `merchant_initiated: false`
+- `merchant_initiated: false`
 
-*   `merchant_initiated: true`
-*   `previous_payment_id: "payment_id"`
+- `merchant_initiated: true`
+- `previous_payment_id: "payment_id"`
 
-Digital wallets
----------------
+## Digital wallets
 
 For Visa payments with Google Pay or Apple Pay, the attribute `previous_payment_id` must be used.
 
 ### Visa required attributes for digital wallets
-
-  
 
 Payment method
 
@@ -201,10 +183,9 @@ Alternative payments and wallets
 
 n/a
 
-*   `previous_payment_id: "payment_id"`
+- `previous_payment_id: "payment_id"`
 
-Previous payment ID explained 
-------------------------------
+## Previous payment ID explained 
 
 Use the attribute `previous_payment_id` to reference either the previous transaction or the opening transaction of the payment series. The `previous_payment_id` is the `payment_id` issued after the authorization of the relevant payment.
 
@@ -214,8 +195,6 @@ Your previous payment ID will contain the prefix `pay_`, for example, `pay_fou
 
 Scheduled and unscheduled MITs can begin in two ways: a card verification or a payment. In the example below, you could reference the `previous_payment_id` as either row one or row four.
 
-  
-
 Series with card verification
 
 Standard payment series
@@ -223,14 +202,12 @@ Standard payment series
 Series with card verification
 
 Standard payment series
-
-1: Card verification
+: Card verification
 
 Can be used for previous payment ID.
+: Payment #1
 
-1: Payment #1
-
-Can be used for previous payment ID.  
+Can be used for previous payment ID.
 
 2: Payment #1
 
@@ -239,32 +216,25 @@ Can be used for previous payment ID.
 3: Payment #2
 
 3: Payment #3
+: Payment#3
 
-4: Payment#3
+Can be used for previous payment ID.
+: Payment #4
 
 Can be used for previous payment ID.
 
-4: Payment #4
+## FAQs
 
-Can be used for previous payment ID.
-
-FAQs
-----
-
- What do I do if a subscription flow involves both scheduled and unscheduled payments?
+What do I do if a subscription flow involves both scheduled and unscheduled payments?
 
 Card schemes handle scheduled (recurring) and unscheduled (not recurring) payments differently, so it's important that you include the proper identifiers in your payment requests to distinguish between these two types of merchant-initiated transactions (MITs). See above for the attributes required for [scheduled](#Aboutstoredcarddetails-scheduled) and [unscheduled](#Aboutstoredcarddetails-unscheduled) MITs.
 
-  
-
- If I save card details after a payment, should I include the previous\_payment\_id in following payments made with that saved card?
+If I save card details after a payment, should I include the previous_payment_id in following payments made with that saved card?
 
 If _you_ are initiating payments with saved card details—a merchant-initiated transaction (MIT)—then, yes, you must submit the `previous_payment_id` with your payment requests. This links the subsequent MITs with the initial transaction made by the cardholder.
 
 If the _cardholder_ is making further transactions with their saved card—a cardholder-initiated transaction (CIT)—then you don't need to include the `previous_payment_id`. But you should include `"source.stored": true` in the request, to flag that the payment is being made with a saved card.
 
-  
-
- Do I need to add the merchant\_initiated field for installments?
+Do I need to add the merchant_initiated field for installments?
 
 For the first customer-initiated transaction in the installment plan, you should add `"merchant_initiated": false` to your request. For all following installments you initiate, you must include `"merchant_initiated": true`. See the [attributes required for scheduled merchant-initiated transactions above](#Aboutstoredcarddetails-scheduled).

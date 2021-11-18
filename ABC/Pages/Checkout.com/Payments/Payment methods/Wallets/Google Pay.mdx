@@ -7,23 +7,18 @@ By integrating Google Pay into your website or Android application, your custome
 
 To enable Google Pay in the UAE or Saudi Arabia, please request activation from your Customer Success Manager.
 
-Overview
---------
+## Overview
 
 To start processing Google Pay payments, you must first integrate directly with Google. Once integration is complete, you can add the Google Pay button to your checkout page and start requesting your customers' encrypted payment information.
 
 Google Pay integration and payments can be simplified into a three-step method:
-
-1.  [Integrate with Google Pay](#GooglePay-integratewithgooglepay)
-2.  [Tokenize the Google Pay payment data](#GooglePay-tokenizegooglepaypaymentdata)
-3.  [Request the payment](#GooglePay-requestapayment)
+. [Integrate with Google Pay](#GooglePay-integratewithgooglepay) 2. [Tokenize the Google Pay payment data](#GooglePay-tokenizegooglepaypaymentdata) 3. [Request the payment](#GooglePay-requestapayment)
 
 There is no liability shift!
 
-Unlike with some other wallets, payments made via Google Pay do _not_ benefit from any liability shift. You will be subject to the same liability rules and chargeback policies as with regular credit and debit card payments, as described [here](https://support.google.com/pay/merchants/answer/6288992?hl=en-GB). In order to minimize the risk of fraud and chargebacks, you may want to restrict the type of payment cards you accept. For more information, see [this section](https://developers.google.com/pay/api/web/reference/object) of the Google Pay API documentation.
+Unlike with some other wallets, payments made via Google Pay do *not* benefit from any liability shift. You will be subject to the same liability rules and chargeback policies as with regular credit and debit card payments, as described [here](https://support.google.com/pay/merchants/answer/6288992?hl=en-GB). In order to minimize the risk of fraud and chargebacks, you may want to restrict the type of payment cards you accept. For more information, see [this section](https://developers.google.com/pay/api/web/reference/object) of the Google Pay API documentation.
 
-**Step 1**: Integrate with Google Pay 
---------------------------------------
+## **Step 1**: Integrate with Google Pay 
 
 Before going live, you are required to [register with Google Pay](https://services.google.com/fb/forms/googlepayAPIenable/) and select Checkout.com as your payment processor. You will also need to [whitelist your domain here](https://payments.developers.google.com/signup). Note that you must be logged in as a Google Developer to do this. If not, you will be redirected to Google Pay's support page.
 
@@ -31,59 +26,56 @@ For information on integrating with Google Pay, first, refer to the [Google Pay
 
 When you submit a payment data request to the Google API, be sure to include the following parameters:
 
-*   `'gateway': 'checkoutltd'`
-*   `'gatewayMerchantId': '<your public key>'`
+- `'gateway': 'checkoutltd'`
+- `'gatewayMerchantId': '<your public key>'`
 
 ### Examples
 
-*   [**Google Pay API request (web)**](#tabs-ffd20002-51ec-4636-8328-c4aa02499188-1)
-*   [**Google Pay API request (Android)**](#tabs-ffd20002-51ec-4636-8328-c4aa02499188-2)
+- [**Google Pay API request (web)**](#tabs-ffd20002-51ec-4636-8328-c4aa02499188-1)
+- [**Google Pay API request (Android)**](#tabs-ffd20002-51ec-4636-8328-c4aa02499188-2)
 
-    'allowedPaymentMethods': ['CARD','TOKENIZED_CARD'],
-    'paymentMethodTokenizationParameters': {
-       'tokenizationType': 'PAYMENT_GATEWAY',
-       'parameters': {
-         'gateway': 'checkoutltd'
-         'gatewayMerchantId': ''
-       }
-    }
+  'allowedPaymentMethods': ['CARD','TOKENIZED_CARD'],
+  'paymentMethodTokenizationParameters': {
+  'tokenizationType': 'PAYMENT_GATEWAY',
+  'parameters': {
+  'gateway': 'checkoutltd'
+  'gatewayMerchantId': ''
+  }
+  }
 
-    
-    private PaymentDataRequest createPaymentDataRequest() {
-      PaymentDataRequest.Builder request =
-        PaymentDataRequest.newBuilder()
-          .setTransactionInfo(
-            TransactionInfo.newBuilder()
-              .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
-                .setTotalPrice("10.00")
-                .setCurrencyCode("USD")
-                .build())
-          .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_CARD)                     .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_TOKENIZED_CARD)
-          .setCardRequirements(
-            CardRequirements.newBuilder()
-              .addAllowedCardNetworks(
-                Arrays.asList(
-                  WalletConstants.CARD_NETWORK_VISA,
-                  WalletConstants.CARD_NETWORK_MASTERCARD))
-              .build());
-      
-      PaymentMethodTokenizationParameters params =
-        PaymentMethodTokenizationParameters.newBuilder()
-          .setPaymentMethodTokenizationType(
-            WalletConstants.PAYMENT_METHOD_TOKENIZATION_TYPE_PAYMENT_GATEWAY)
-          .addParameter("gateway", "checkoutltd")
-          .addParameter("gatewayMerchantId", "")
-          .build();
-    
-      request.setPaymentMethodTokenizationParameters(params);
-      return request.build();
-    }
-    
+  private PaymentDataRequest createPaymentDataRequest() {
+  PaymentDataRequest.Builder request =
+  PaymentDataRequest.newBuilder()
+  .setTransactionInfo(
+  TransactionInfo.newBuilder()
+  .setTotalPriceStatus(WalletConstants.TOTAL_PRICE_STATUS_FINAL)
+  .setTotalPrice("10.00")
+  .setCurrencyCode("USD")
+  .build())
+  .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_CARD) .addAllowedPaymentMethod(WalletConstants.PAYMENT_METHOD_TOKENIZED_CARD)
+  .setCardRequirements(
+  CardRequirements.newBuilder()
+  .addAllowedCardNetworks(
+  Arrays.asList(
+  WalletConstants.CARD_NETWORK_VISA,
+  WalletConstants.CARD_NETWORK_MASTERCARD))
+  .build());
+
+  PaymentMethodTokenizationParameters params =
+  PaymentMethodTokenizationParameters.newBuilder()
+  .setPaymentMethodTokenizationType(
+  WalletConstants.PAYMENT_METHOD_TOKENIZATION_TYPE_PAYMENT_GATEWAY)
+  .addParameter("gateway", "checkoutltd")
+  .addParameter("gatewayMerchantId", "")
+  .build();
+
+  request.setPaymentMethodTokenizationParameters(params);
+  return request.build();
+  }
 
 You will need to specify which card types and card schemes to support in your payment data request. Checkout.com and Google Pay support the use of both Visa and Mastercard.
 
-**Step 2**: Tokenize the Google Pay payment data 
--------------------------------------------------
+## **Step 2**: Tokenize the Google Pay payment data 
 
 Once you have received the payment data from Google, you then need to call Checkout.com’s endpoint for tokenizing the encrypted payment data; you can find this payment data in the `paymentMethodToken` property of the Google Pay payment data request's response.
 
@@ -97,14 +89,15 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-85a1e628-f0a9-4725-a83c-9d6ee6c6214a-1)
-*   [**Sandbox**](#tabs-85a1e628-f0a9-4725-a83c-9d6ee6c6214a-2)
+- [**Live**](#tabs-85a1e628-f0a9-4725-a83c-9d6ee6c6214a-1)
+- [**Sandbox**](#tabs-85a1e628-f0a9-4725-a83c-9d6ee6c6214a-2)
 
 POST`https://api.checkout.com/tokens`
 
 POST`https://api.sandbox.checkout.com/tokens`
 
-####   
+####
+
 Header parameters
 
 Header
@@ -200,13 +193,11 @@ A serialized JSON string containing the `encryptedMessage`, `ephemeralPublicKey
       "expires_on": "2018-10-22T15:44:03Z"
     }
 
-**Step 3**: Request a payment using Google Pay 
------------------------------------------------
+## **Step 3**: Request a payment using Google Pay 
 
 Now you have the token, it's time to authorize the payment. Take the token, and use it in the body of a card token [payment request](/display/DOCS/Request+a+card+payment) from your application or website's backend server.
 
-Test Google Pay
----------------
+## Test Google Pay
 
 To start testing, you need to [create a test account](https://www.checkout.com/get-test-account). Google may ask to see your implementation in the sandbox environment before giving you a merchant ID for production.
 

@@ -3,17 +3,13 @@ title: calculating-the-value
 account: Archive
 ---
 
-View page on sitePage history[Suggested Edits 0](/project/checkoutdocs-legacy/v1.9/suggested)
-
-\*Checkout.com's payment gateway determines the charge amount by assessing the value and the currency contained in the charge request.\* The value field in a charge request must be a non-zero positive integer — no decimals. Depending on the currency of the payment, there are three options for calculating the value amount: <span class="method\_hl">Option 1:</span> \[\*\*The full value\*\*\](doc:calculating-the-value#section-full-value) <span class="method\_hl">Option 2:</span> \[\*\*The value divided by 1000\*\*\](doc:calculating-the-value#section-value-divided-by-1000) <span class="method\_hl">Option 3:</span> \[\*\*The value divided by 100\*\*\](doc:calculating-the-value#section-value-divided-by-100)
+_Checkout.com's payment gateway determines the charge amount by assessing the value and the currency contained in the charge request._ The value field in a charge request must be a non-zero positive integer — no decimals. Depending on the currency of the payment, there are three options for calculating the value amount: <span class="method\_hl">Option 1:</span> [**The full value**](doc:calculating-the-value#section-full-value) <span class="method\_hl">Option 2:</span> [**The value divided by 1000**](doc:calculating-the-value#section-value-divided-by-1000) <span class="method\_hl">Option 3:</span> [**The value divided by 100**](doc:calculating-the-value#section-value-divided-by-100)
 
 The amount field accepts a minimum of one and a maximum of nine digits; this is true for all currencies.
 
-\---
+---
 
-\## <span class="method\_hl">Option 1:</span> The full value For the following currencies, the value is the same as the full charge amount; for example, \`value=100\` is equal to 100 Japanese Yen.
-
-x
+## <span class="method\_hl">Option 1:</span> The full value For the following currencies, the value is the same as the full charge amount; for example, `value=100` is equal to 100 Japanese Yen.
 
 Add Row Add Col
 
@@ -167,36 +163,17 @@ West African CFA franc
 Below is an example payment request for 5000 Japanese Yen.
 
 cURL
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-13
-
-1
-
 curl https://sandbox.checkout.com/api2/v2/charges/card
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
+-H "Content-Type:application/json;charset=UTF-8"
 
-\-H "Content-Type:application/json;charset=UTF-8"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d {
-
-6
+-d {
 
 "autoCapTime": "24",
 
@@ -211,30 +188,19 @@ curl https://sandbox.checkout.com/api2/v2/charges/card
 9
 
 "value": "5000",
-
-10
+0
 
 "currency": "JPY",
 
-11
-
 "trackId": "TRK12345",
-
-12
+2
 
 "cardId": "card_49E69E61-8E35-40E0-AA10-B0B15F198275"
-
-13
-
 }
 
-Import from Gist
-
-\--- ## <span class="method\_hl">Option 2:</span> The value divided by 1000 With the below currencies, divide the value by 1000 to work out the value amount; for example, \`value=1000\` is the same as 1 Bahraini Dinar.
+--- ## <span class="method\_hl">Option 2:</span> The value divided by 1000 With the below currencies, divide the value by 1000 to work out the value amount; for example, `value=1000` is the same as 1 Bahraini Dinar.
 
 The last digit must always be a 0. For example, a value of 1310 would be processed whereas 1312 will fail.
-
-x
 
 Add Row Add Col
 
@@ -298,36 +264,17 @@ Tunisian Dinar
 The example below shows a payment request for 50 Bahraini Dinars.
 
 cURL
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-13
-
-1
-
 curl https://sandbox.checkout.com/api2/v2/charges/card
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
+-H "Content-Type:application/json;charset=UTF-8"
 
-\-H "Content-Type:application/json;charset=UTF-8"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d {
-
-6
+-d {
 
 "autoCapTime": "24",
 
@@ -342,62 +289,34 @@ curl https://sandbox.checkout.com/api2/v2/charges/card
 9
 
 "value": "50000",
-
-10
+0
 
 "currency": "BHD",
 
-11
-
 "trackId": "TRK12345",
-
-12
+2
 
 "cardId": "card_49E69E61-8E35-40E0-AA10-B0B15F198275"
-
-13
-
 }
 
-Import from Gist
-
-\--- ## <span class="method\_hl">Option 3:</span> The value divided by 100 For all other currencies, divide the value by 100 to calculate the charge amount; for example, \`value = 100\` is equivalent to 1 US Dollar.
+--- ## <span class="method\_hl">Option 3:</span> The value divided by 100 For all other currencies, divide the value by 100 to calculate the charge amount; for example, `value = 100` is equivalent to 1 US Dollar.
 
 the last two digits must be 00. For example, a value of 500100 would be processed successfully whereas 500095 will not.
 
 The following example is a payment request for 50.95 US Dollars.
 
 cURL
-
-rename · delete
-
-TextASPCCoffeeScriptClojureC++C#CSScURLCypherDDiffDockerfileErlangGoGroovyHandlebarsHAMLHaxeHTMLHTTPJavaJavaScriptJinja2JSONJuliaKotlinLESSLiquidLuaMarkdownMySQLObjective-COCamlPerlPHPPostgresPowerShellPythonRRubyRustSASSScalaSCSSShellSmartySQLStylusSwiftTOMLTwigTypeScriptXMLYAML
-
-xxxxxxxxxx
-
-13
-
-1
-
 curl https://sandbox.checkout.com/api2/v2/charges/card
 
 2
 
-\-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
+-H "Authorization: sk_test_55aedccc-7f53-4ccc-b0a6-d943decc3c31"
 
-3
+-H "Content-Type:application/json;charset=UTF-8"
 
-\-H "Content-Type:application/json;charset=UTF-8"
+-X POST
 
-4
-
-\-X POST
-
-5
-
-\-d {
-
-6
+-d {
 
 "autoCapTime": "24",
 
@@ -412,21 +331,12 @@ curl https://sandbox.checkout.com/api2/v2/charges/card
 9
 
 "value": "5095",
-
-10
+0
 
 "currency": "USD",
 
-11
-
 "trackId": "TRK12345",
-
-12
+2
 
 "cardId": "card_49E69E61-8E35-40E0-AA10-B0B15F198275"
-
-13
-
 }
-
-Import from Gist

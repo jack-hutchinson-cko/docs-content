@@ -5,10 +5,8 @@ account: NAS
 
 #### Basic information
 
-*   [**Local**](#tabs-2e5871a7-57c7-4ae0-9281-1acad6d33900-1)
-*   [**International**](#tabs-2e5871a7-57c7-4ae0-9281-1acad6d33900-2)
-
-  
+- [**Local**](#tabs-2e5871a7-57c7-4ae0-9281-1acad6d33900-1)
+- [**International**](#tabs-2e5871a7-57c7-4ae0-9281-1acad6d33900-2)
 
 Country code
 
@@ -22,18 +20,16 @@ Scheme
 
 Local:
 
-*   **Minimum amount (local currency):** 0.01
-*   **Maximum amount (local currency):** 500,000
-*   **Cut-off time:** 06:00 GMT
-*   **Settlement:** T+1 next day
+- **Minimum amount (local currency):** 0.01
+- **Maximum amount (local currency):** 500,000
+- **Cut-off time:** 06:00 GMT
+- **Settlement:** T+1 next day
 
 #### Payment information
 
- Individual
+Individual
 
 #### Beneficiary information
-
-  
 
 Beneficiary type
 
@@ -64,14 +60,6 @@ STRING
 Beneficiary address
 
 The account holder's address.
-
-  
-
-  
-
-  
-
-  
 
 `account_holder.billing_address.address_line1`
 
@@ -107,8 +95,6 @@ This must be a [two-letter ISO code](/display/DOCS/Country+codes).
 
 #### Bank details
 
-  
-
 SWIFT BIC
 
 The account holder's SWIFT BIC.
@@ -117,7 +103,7 @@ The account holder's SWIFT BIC.
 
 REQUIRED
 
-STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+STRING, ^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$
 
 Account number
 
@@ -127,13 +113,11 @@ The account holder's account number.
 
 REQUIRED
 
-STRING, ^\[0-9\]{5,16}$
+STRING, ^[0-9]{5,16}$
 
- Corporate
+Corporate
 
 #### Beneficiary information
-
-  
 
 Beneficiary type
 
@@ -193,17 +177,15 @@ This must be a [two-letter ISO code](/display/DOCS/Country+codes).
 
 #### Bank details
 
-  
-
 SWIFT BIC
 
 The account holder's SWIFT BIC.
 
-swift\_bic
+swift_bic
 
 REQUIRED
 
-STRING, ^\[A-Z\]{6}\[A-Z0-9\]{2}(\[A-Z0-9\]{3})?$
+STRING, ^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$
 
 Account number
 
@@ -213,74 +195,70 @@ The account holder's account number.
 
 REQUIRED
 
-STRING, ^\[0-9\]{5,16}$
+STRING, ^[0-9]{5,16}$
 
 #### Example
 
-*   [**Payment instrument request (THB)**](#tabs-6e5cc5cf-b28b-45c0-b6dd-c1175aaa4697-1)
-*   [**Payout request (THB)**](#tabs-6e5cc5cf-b28b-45c0-b6dd-c1175aaa4697-2)
+- [**Payment instrument request (THB)**](#tabs-6e5cc5cf-b28b-45c0-b6dd-c1175aaa4697-1)
+- [**Payout request (THB)**](#tabs-6e5cc5cf-b28b-45c0-b6dd-c1175aaa4697-2)
 
-    {
-      "type": "bank_account",
-      "swift_bic": "SICOTHBK",
-      "account_number": "4048227173",
-      "currency": "THB",
-      "country": "TH",
-      "account_holder": {
-        "first_name": "John",
-        "last_name": "Smith",
-        "address_line1": "5 Soi Nananua Klongtoeynua",
-        "country_code": "TH",
-        "date_of_birth": "1990-10-31",
-        "billing_address": {
-          "address_line1": "5 Soi Nananua Klongtoeynua",
-          "country": "TH",
-          "city": "Bangkok",
-          "zip": "10110"
-        },
-        "identification": {
-          "type": "national_id",
-          "number": "5101800046090",
-          "issuing_country": "TH"
-        }
-      }
-    }
-    
+  {
+  "type": "bank_account",
+  "swift_bic": "SICOTHBK",
+  "account_number": "4048227173",
+  "currency": "THB",
+  "country": "TH",
+  "account_holder": {
+  "first_name": "John",
+  "last_name": "Smith",
+  "address_line1": "5 Soi Nananua Klongtoeynua",
+  "country_code": "TH",
+  "date_of_birth": "1990-10-31",
+  "billing_address": {
+  "address_line1": "5 Soi Nananua Klongtoeynua",
+  "country": "TH",
+  "city": "Bangkok",
+  "zip": "10110"
+  },
+  "identification": {
+  "type": "national_id",
+  "number": "5101800046090",
+  "issuing_country": "TH"
+  }
+  }
+  }
 
-    {
-      "currency": "THB",
-      "source": {
-        "amount": 6300,
-         "type": "currency_account",
-         "id": "ca_7fnophe6pz5ulcgp4odujohjfy"
-      },
-      "reference": "CKO Test",
-      "destination": {
-        "type": "id",
-        "id": "src_py2fo5lmyk7edm4hnsnc3hvxia"
-      },
-      "billing_descriptor": {
-        "reference": "CKO Test"
-      },
-      "sender": {
-        "type": "instrument",
-        "reference": "123",
-        "first_name": "John",
-        "last_name": "Smith",
-        "address": {
-          "address_line1": "5 Soi Nananua Klongtoeynua",
-          "country": "TH",
-          "city": "Bangkok",
-          "zip": "10110"
-        }
-      },
-      "instruction": {
-        "purpose": "CKO Test THB"
-      },
-      "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
-    }
-    
+  {
+  "currency": "THB",
+  "source": {
+  "amount": 6300,
+  "type": "currency_account",
+  "id": "ca_7fnophe6pz5ulcgp4odujohjfy"
+  },
+  "reference": "CKO Test",
+  "destination": {
+  "type": "id",
+  "id": "src_py2fo5lmyk7edm4hnsnc3hvxia"
+  },
+  "billing_descriptor": {
+  "reference": "CKO Test"
+  },
+  "sender": {
+  "type": "instrument",
+  "reference": "123",
+  "first_name": "John",
+  "last_name": "Smith",
+  "address": {
+  "address_line1": "5 Soi Nananua Klongtoeynua",
+  "country": "TH",
+  "city": "Bangkok",
+  "zip": "10110"
+  }
+  },
+  "instruction": {
+  "purpose": "CKO Test THB"
+  },
+  "processing_channel_id": "pc_hpswyyx23geezflc2ocz3exn4y"
+  }
 
 Coming soon.
-
-  

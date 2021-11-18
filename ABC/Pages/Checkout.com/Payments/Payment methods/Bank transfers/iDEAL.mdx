@@ -9,16 +9,12 @@ iDEAL provides a method to make purchases online through quick and easy bank tra
 
 To start accepting iDEAL payments, please contact your Customer Success Manager.
 
-Overview
---------
+## Overview
 
 iDEAL payments follow a two-step process:
+. [Request a payment](#iDEAL-requestapayment) 2. [Redirect the customer](#iDEAL-redirectthecustomer)
 
-1.  [Request a payment](#iDEAL-requestapayment)
-2.  [Redirect the customer](#iDEAL-redirectthecustomer)
-
-Request a payment 
-------------------
+## Request a payment 
 
 ### The POST request
 
@@ -26,8 +22,8 @@ Use the details below to set up your request.
 
 #### Endpoints
 
-*   [**Live**](#tabs-6c68aa13-f064-4cfb-8045-37c4a6eb397f-1)
-*   [**Sandbox**](#tabs-6c68aa13-f064-4cfb-8045-37c4a6eb397f-2)
+- [**Live**](#tabs-6c68aa13-f064-4cfb-8045-37c4a6eb397f-1)
+- [**Sandbox**](#tabs-6c68aa13-f064-4cfb-8045-37c4a6eb397f-2)
 
 POST`https://api.checkout.com/payments`
 
@@ -160,17 +156,15 @@ If a payment id is returned, then your request was successful.
       }
     }
 
-Redirect the customer 
-----------------------
+## Redirect the customer 
 
 Redirect your customer to the `redirect` link’s href in the above response. The redirect transfers the customer to their bank's website where they are required to enter their authorization details; if successful, the payment can be approved.
 
 For security reasons, iDEAL forbids using custom-made in-app browsers for redirection. We recommend that you open the device’s default browser to display the redirect. If you do want to use an in-app web view, you must use [SFSafariViewController](https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller) for iOS or [Chrome Custom Tabs](https://developer.chrome.com/multidevice/android/customtabs) for Android.
 
-Once completed, the customer is transferred to your predefined success or failure URL. Confirmation of an iDEAL payment is **communicated only through webhooks**. When you receive a `payment_captured` webhook notification, the transaction has been completed successfully. Until the `payment_captured` webhook is received (response code `10000`), all payments are labeled as _Pending_.
+Once completed, the customer is transferred to your predefined success or failure URL. Confirmation of an iDEAL payment is **communicated only through webhooks**. When you receive a `payment_captured` webhook notification, the transaction has been completed successfully. Until the `payment_captured` webhook is received (response code `10000`), all payments are labeled as *Pending*.
 
-Get details about a payment
----------------------------
+## Get details about a payment
 
 You can use the `payment_id` found in the payment response, or the `cko-session-id` from the success/failure URL (e.g., `https://www.checkout.com/order/succeeded?cko-session-id=**sid_vii64oquze5u3h2x6hh4rurc4y**`) to retrieve details about the payment.
 
@@ -180,8 +174,8 @@ The `cko-session-id` expires 15 minutes after being created.
 
 #### Endpoints
 
-*   [**Live**](#tabs-a834bd6a-4011-49e2-b349-91e8aa022e06-1)
-*   [**Sandbox**](#tabs-a834bd6a-4011-49e2-b349-91e8aa022e06-2)
+- [**Live**](#tabs-a834bd6a-4011-49e2-b349-91e8aa022e06-1)
+- [**Sandbox**](#tabs-a834bd6a-4011-49e2-b349-91e8aa022e06-2)
 
 GET`https://api.checkout.com/payments/{payment_id}`
 
@@ -255,20 +249,17 @@ The payment ID found in the response of the initial response.
       }
     }
 
-Refund a payment
-----------------
+## Refund a payment
 
 iDEAL supports both partial and full refunds. You can refund a payment through the [Hub](https://hub.checkout.com/v2) or using the [refund API](/display/DOCS/Refund+a+payment).
 
-Cancel a payment
-----------------
+## Cancel a payment
 
 If the customer fails to complete their payment, we will automatically void the payment and send a `payment_expired` webhook.
 
 If the customer cancels their payment, we will send `payment_canceled` webhook.
 
-Get a list of supported issuers
--------------------------------
+## Get a list of supported issuers
 
 Use the following request to get an up-to-date list of all issuers supporting iDEAL payments.
 
@@ -276,8 +267,8 @@ Use the following request to get an up-to-date list of all issuers supporting iD
 
 #### Endpoints
 
-*   [**Live**](#tabs-26bca073-991f-4f0b-9c52-2fa34b18e41a-1)
-*   [**Sandbox**](#tabs-26bca073-991f-4f0b-9c52-2fa34b18e41a-2)
+- [**Live**](#tabs-26bca073-991f-4f0b-9c52-2fa34b18e41a-1)
+- [**Sandbox**](#tabs-26bca073-991f-4f0b-9c52-2fa34b18e41a-2)
 
 GET`https://api.checkout.com/ideal-external/issuers`
 
@@ -303,7 +294,7 @@ Use the valid public key of your Checkout.com account. You can find this in the�
 
     {
       "countries": [
-        {  
+        {
           "name": "Nederland",
           "issuers": [
             {
@@ -324,18 +315,16 @@ Use the valid public key of your Checkout.com account. You can find this in the�
         }
     }
 
-Testing iDEAL
--------------
+## Testing iDEAL
 
 To start testing, you'll need to:
 
-*   [create a test account](https://www.checkout.com/get-test-account), and
-*   contact your Customer Success Manager or Integrations engineer to activate iDEAL payments in the sandbox environment.
+- [create a test account](https://www.checkout.com/get-test-account), and
+- contact your Customer Success Manager or Integrations engineer to activate iDEAL payments in the sandbox environment.
 
 ### Test a payment request
 
-1.  Create an iDEAL transaction as above, following the redirect link in the response to the bank's website.
-2.  Click **Confirm transaction**. You should then be redirected to your predefined success URL.
+. Create an iDEAL transaction as above, following the redirect link in the response to the bank's website. 2. Click **Confirm transaction**. You should then be redirected to your predefined success URL.
 
 ### Simulate payment states
 
@@ -352,12 +341,10 @@ Canceled
 300
 
 Expired
-
-400
+00
 
 Pending
-
-500
+00
 
 Failure on the iDEAL test environment
 

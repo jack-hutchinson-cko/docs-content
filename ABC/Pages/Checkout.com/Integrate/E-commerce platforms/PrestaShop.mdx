@@ -7,8 +7,7 @@ From downloading the plugin to requesting your first test payment, learn how to 
 
 This guide assumes that you have already installed PrestaShop.
 
-Before you start
-----------------
+## Before you start
 
 ### Create a test account
 
@@ -17,81 +16,52 @@ If you haven't already, [create a test Checkout.com account](https://www.checko
 ### Get your API keys
 
 In order to set up the PrestaShop plugin, you'll need two API keys: one secret and another public, both of which are generated automatically when you create your account.
-
-1.  Log in to your test account on the [Hub sandbox](https://sandbox.checkout.com/).
-2.  In the left menu, go to _Settings > Channels_, and make a note of your secret and public API keys.  
-    ![](/download/attachments/8487181/channel_settings.png?version=1&modificationDate=1592390923646&api=v2)
+. Log in to your test account on the [Hub sandbox](https://sandbox.checkout.com/). 2. In the left menu, go to *Settings > Channels*, and make a note of your secret and public API keys.  
+ ![](/download/attachments/8487181/channel_settings.png?version=1&modificationDate=1592390923646&api=v2)
 
 ### Configure webhooks
 
 You also need to configure webhooks for PrestaShop. Correctly configuring them is important; if your webhooks are incorrectly formatted, the plugin will not work.
 
 Webhooks are notifications that we send when an event occurs on your account. For example, when a payment is captured. These are used by the PrestaShop plugin to update the status of an order. [Read more about webhooks](/display/DOCS/Webhooks).
+. While in the *Settings > Channels* section of your Hub account, scroll down to the *Webhooks* section and click **New webhook**. 2. Enter the following endpoint URL, replacing example.com with the URL of your shop:  
+ `example.com/index.php?fc=module&module=checkoutcom&controller=webhook` 3. Select **API - v2.0**. 4. Tick **Select all**, then click **Create webhook**.
 
-1.  While in the _Settings > Channels_ section of your Hub account, scroll down to the _Webhooks_ section and click **New webhook**.
-2.  Enter the following endpoint URL, replacing example.com with the URL of your shop:  
-    `example.com/index.php?fc=module&module=checkoutcom&controller=webhook`
-3.  Select **API - v2.0**.
-4.  Tick **Select all**, then click **Create webhook**.  
-      
-    ![](/download/attachments/5931114/configure_webhook.png?version=1&modificationDate=1587482960120&api=v2)  
-    
+    ![](/download/attachments/5931114/configure_webhook.png?version=1&modificationDate=1587482960120&api=v2)
 
-Installing the plugin
----------------------
+## Installing the plugin
 
 There are two ways to install the plugin:
 
-*   [Using PrestaShop Module Manager](#PrestaShop-modulemanager)
-*   [Using a Composer](#PrestaShop-composer)
+- [Using PrestaShop Module Manager](#PrestaShop-modulemanager)
+- [Using a Composer](#PrestaShop-composer)
 
 ### Using PrestaShop Module Manager 
 
 If you use this method, please contact our Support team at [support@checkout.com](mailto:support@checkout.com) so we can provide you with the proper .zip file.
+. Once you've received the `.zip` file from us, log in to your PrestaShop admin dashboard and go to *Modules > Module Manager*. 2. Click **Upload a module**, and drop your `.zip` file into the window that pops up. 3. If successful, you'll get a `Module installed!` message. 4. Click **Configure** to start setting up the plugin.
 
-1.  Once you've received the `.zip` file from us, log in to your PrestaShop admin dashboard and go to _Modules > Module Manager_.
-2.  Click **Upload a module**, and drop your `.zip` file into the window that pops up.
-3.  If successful, you'll get a `Module installed!` message.
-4.  Click **Configure** to start setting up the plugin.
+### Using composer
 
-### Using composer 
-
-1.  [Download the plugin from GitHub](https://github.com/checkout/checkout-prestashop1.7-plugin).
-2.  Unzip the folder.
-3.  Upload the contents to your PrestaShop root directory, specifically `[root directory]/modules/checkoutcom`.
-4.  Run the command `composer install --no-dev` inside the `[root directory]/modules/checkoutcom folder`.
-5.  Log in to your PrestaShop admin dashboard and go to _Modules > Module Manager_.
-6.  Search for `checkout` and the plugin should appear in the results. Click **Configure** to start setting up the plugin.
+. [Download the plugin from GitHub](https://github.com/checkout/checkout-prestashop1.7-plugin). 2. Unzip the folder. 3. Upload the contents to your PrestaShop root directory, specifically `[root directory]/modules/checkoutcom`. 4. Run the command `composer install --no-dev` inside the `[root directory]/modules/checkoutcom folder`. 5. Log in to your PrestaShop admin dashboard and go to *Modules > Module Manager*. 6. Search for `checkout` and the plugin should appear in the results. Click **Configure** to start setting up the plugin.
 
 You're now ready to configure the PrestaShop plugin.
 
-Configure the Checkout.com for PrestaShop plugin
-------------------------------------------------
+## Configure the Checkout.com for PrestaShop plugin
 
-1.  Log in to your PrestaShop admin dashboard, go to _Modules > Module Manager_ and find the Checkout.com plugin.
-2.  Click **Configure**.
-3.  Select the _Environment_ you want. Select **Sandbox** if you want to start testing payments.  
-      
+. Log in to your PrestaShop admin dashboard, go to *Modules > Module Manager* and find the Checkout.com plugin. 2. Click **Configure**. 3. Select the *Environment* you want. Select **Sandbox** if you want to start testing payments.
+
     ![](/download/attachments/5931114/configure_checkout_plugin.png?version=1&modificationDate=1587483320743&api=v2)
-4.  Next, select the _Payment Action_ you want. **Authorize + Capture** means that the charge is authorized and captured (i.e., the money due from the customer's account is moved into your account) at the same time. **Authorize** will only authorize the charge; you have to manually capture the payment yourself. We recommend you choose **Authorize + Capture**.
-5.  Then scroll down and enter your Secret Key and Public Key. If you're testing, make sure you use the API keys from your sandbox Hub account.
-6.  Click **Save**.
+
+. Next, select the *Payment Action* you want. **Authorize + Capture** means that the charge is authorized and captured (i.e., the money due from the customer's account is moved into your account) at the same time. **Authorize** will only authorize the charge; you have to manually capture the payment yourself. We recommend you choose **Authorize + Capture**. 5. Then scroll down and enter your Secret Key and Public Key. If you're testing, make sure you use the API keys from your sandbox Hub account. 6. Click **Save**.
 
 That's it! You're ready to start testing card payments.
 
-Test your integration
----------------------
+## Test your integration
 
-1.  Go to your storefront and add a product to your cart.
-2.  Go to your cart and proceed to the checkout.
-3.  Enter the required billing details. You can put anything here, though we recommend using a real email address so you can receive the order confirmation.
-4.  Select the **Pay by Card with Checkout.com** method.
-5.  Enter the following card details:  
-    *   Number: `4242 4242 4242 4242`
-    *   Expiry date: `12/25`
-    *   CVV: `100`
-6.  Agree to the terms of service and click **Order with an obligation to pay**. You'll be redirected to an order confirmation page, and, if you entered a real email address in the billing details, you'll also receive an order confirmation email.
-7.  Log in to your PrestaShop admin dashboard, and go to _Orders > Orders_. Your test order will be displayed there with a Payment accepted status. (The transaction will also appear in the _Payments_ section of your sandbox Hub account.) This indicates that the payment has been successfully captured.
+. Go to your storefront and add a product to your cart. 2. Go to your cart and proceed to the checkout. 3. Enter the required billing details. You can put anything here, though we recommend using a real email address so you can receive the order confirmation. 4. Select the **Pay by Card with Checkout.com** method. 5. Enter the following card details:  
+ _ Number: `4242 4242 4242 4242`
+_ Expiry date: `12/25` \* CVV: `100` 6. Agree to the terms of service and click **Order with an obligation to pay**. You'll be redirected to an order confirmation page, and, if you entered a real email address in the billing details, you'll also receive an order confirmation email. 7. Log in to your PrestaShop admin dashboard, and go to *Orders > Orders*. Your test order will be displayed there with a Payment accepted status. (The transaction will also appear in the *Payments* section of your sandbox Hub account.) This indicates that the payment has been successfully captured.
 
 You can now either [go live](#PrestaShop-golive) as-is or [extend your configuration](/display/DOCS/Go+further+with+PrestaShop).
 
@@ -99,24 +69,20 @@ Troubleshooting
 
 If this test does not work, first check you have configured your webhooks correctly. For the plugin to work, they must be formatted correctly. If you have configured them properly, check your server; if it's password-protected or it restricts unfamiliar IP addresses, it may be blocking webhook notifications. Contact our Integration team at [integration@checkout.com](mailto:integration@checkout.com) if you need help.
 
-  
-
 Further testing
 
 You'll find more test cards and a range of scenarios to trigger in our [testing guide](/display/DOCS/Testing).
 
-Go live 
---------
+## Go live 
 
 If you're happy with the outcome of your testing and want to start taking payments right away, please [contact our Sales team](https://checkout.com/contact-sales) in order to move to a live account.
 
 Before you go live, remember to:
 
-*   Switch the environment to **Live** in the plugin's settings.
-*   Update your secret and public API keys in the plugin's settings with the keys from your live Hub account.
-*   Configure the webhook URLs in your live Hub account.
+- Switch the environment to **Live** in the plugin's settings.
+- Update your secret and public API keys in the plugin's settings with the keys from your live Hub account.
+- Configure the webhook URLs in your live Hub account.
 
-Extend your configuration 
---------------------------
+## Extend your configuration
 
 You can extend your configuration to [add more payment methods](/display/DOCS/Go+further+with+PrestaShop#GofurtherwithPrestaShop-paymen), use [3D Secure payments](/display/DOCS/Go+further+with+PrestaShop#GofurtherwithPrestaShop-3d), and more.

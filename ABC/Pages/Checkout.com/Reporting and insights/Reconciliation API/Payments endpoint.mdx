@@ -11,8 +11,7 @@ If you're not familiar with creating API requests, you might want to take a look
 
 No payments from before February 7th, 2019 at 00.00.00 UTC will appear when using the payments endpoint. To view payments from before this time, please [contact our Support team](mailto:support@checkout.com).
 
-Request JSON
-------------
+## Request JSON
 
 ### The GET request
 
@@ -20,7 +19,7 @@ Use the details below to set up your request. To set the timeframe of your reque
 
 #### Endpoint
 
-*   [**Live**](#tabs-f893545b-29fa-4e53-abcb-c8ffa179eb94-1)
+- [**Live**](#tabs-f893545b-29fa-4e53-abcb-c8ffa179eb94-1)
 
 GET`https://api.checkout.com/reporting/payments`
 
@@ -138,7 +137,7 @@ By default, the payments endpoint returns up to 200 payments per page of results
               "response_description": "Approved",
               "breakdown": [
                 {
-                  "type": "Gateway Fee Tax ARE USD/GBP@0.7640412612",    
+                  "type": "Gateway Fee Tax ARE USD/GBP@0.7640412612",
                   "date": "2019-03-08T10:29:52.562",
                   "processing_currency_amount": -0.003,
                   "payout_currency_amount": -0.00229212
@@ -156,7 +155,7 @@ By default, the payments endpoint returns up to 200 payments per page of results
                   "payout_currency_amount": -0.00278372
                 },
                 {
-                  "type": "Scheme Variable Fee Tax ARE USD/GBP@0.7640412612",      
+                  "type": "Scheme Variable Fee Tax ARE USD/GBP@0.7640412612",
                   "date": "2019-03-08T10:29:52.562",
                   "processing_currency_amount": -0.00714,
                   "payout_currency_amount": -0.00545525
@@ -185,7 +184,7 @@ By default, the payments endpoint returns up to 200 payments per page of results
                   "processing_currency_amount": -0.07286825,
                   "payout_currency_amount": -0.05567435
                 },
-                {               
+                {
                   "type": "Scheme Variable Fee USD/GBP@0.7640412612",
                   "date": "2019-03-08T10:29:52.562",
                   "processing_currency_amount": -0.1428,
@@ -287,7 +286,7 @@ By default, the payments endpoint returns up to 200 payments per page of results
 
 The payments endpoint is designed to present your payments as clearly as possible. Depending on your parameters, you may receive a large response. If you’re looking for data even more quickly, try amending the parameters in the request. Regardless of the parameters in your request, the payments endpoint’s response can be split into four sections, each of which is outlined below.
 
-#### 1\. Payments
+#### 1. Payments
 
 This section displays all payment information in accordance with your chosen parameters. The table below shows the full list of parameters displayed, and how to decipher them.
 
@@ -345,7 +344,7 @@ The country of the merchant bank.
 
 An optional, user-defined ID that identifies the business.
 
-#### 2\. Actions
+#### 2. Actions
 
 This section outlines all the actions — authorization, void, capture, refund, retrieval, and chargeback — which have been administered to a payment. The table below outlines and explains the parameters of the report.
 
@@ -373,7 +372,7 @@ The response code of the action (payment request).
 
 Further information about the response code.
 
-#### 3\. Breakdown
+#### 3. Breakdown
 
 The amounts summary shows the amounts corresponding with a particular action. The table below shows the full list of these parameters and their explanations.
 
@@ -399,7 +398,7 @@ The associated amount in the payout currency. Numerical values up to 8 decimal p
 
 If you're looking for the outcome of a particular chargeback, please allow up to 60 days from the date the evidence was provided.
 
-#### 4\. Links
+#### 4. Links
 
 You might have noticed several links at the bottom of the response from the payments endpoint. Let’s take a look at each one.
 
@@ -433,8 +432,7 @@ This link provides the URL associated with the current request.
       }
     }
 
-Download a CSV
---------------
+## Download a CSV
 
 In addition to the JSON format described above, you can download a CSV report containing the data from the payments endpoint. To do this, follow the steps below.
 
@@ -444,7 +442,6 @@ In the URL for the payments endpoint, add `/download` after `/payments`. An exam
 
     https://api.checkout.com/reporting/payments/download?from={start-date-time}&to={end-date-time}
 
-  
 If you are using Postman or an equivalent application, rather than sending the GET request, use the **Send and Download** functionality for the GET request to download the CSV report.
 
 Using `/download` will return a CSV containing all your payments unlike a standard request, which is paginated.
@@ -453,30 +450,29 @@ You can also get a CSV report by amending the Headers section of the request t
 
 ### How to read the CSV file
 
-In your CSV file, a single payment is uniquely identified by an ID in the first column of the table and will be made of multiple rows, each of them reflecting a fee or an amount applied to a different action within the payment lifecycle. 
+In your CSV file, a single payment is uniquely identified by an ID in the first column of the table and will be made of multiple rows, each of them reflecting a fee or an amount applied to a different action within the payment lifecycle.
 
 Regardless of the parameters in your request, the payments endpoint’s CSV file will have the same overall structure and columns titles which can be split into three sections.
 
-#### 1\. Payment and card attributes
+#### 1. Payment and card attributes
 
 This section displays all payment and card attributes in accordance with your chosen parameters.
 
 ![](/download/attachments/2785479/payment_card_attributes.png?version=1&modificationDate=1586269227490&api=v2)
 
-#### 2\. Actions
+#### 2. Actions
 
 This section outlines all the actions — authorization, void, capture, refund and chargeback — which have been administered to a payment.
 
 ![](/download/attachments/2785479/actions.png?version=1&modificationDate=1586269257664&api=v2)
 
-#### 3\. Breakdown
+#### 3. Breakdown
 
 This section provides details of the associated amounts to an action in both the processing and the payout currencies.
 
 ![](/download/attachments/2785479/breakdown.png?version=1&modificationDate=1586269308205&api=v2)
 
-Limit results 
---------------
+## Limit results 
 
 Responses from the payments endpoint can be large, depending on the number of payments you process and the parameters you have chosen. By default, each page includes 200 results.
 
